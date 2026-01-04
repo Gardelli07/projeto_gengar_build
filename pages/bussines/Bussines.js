@@ -43,34 +43,65 @@ const sampleLessons = [
     id: "l1",
     title: "Apresentar-se",
     type: "Aula",
-    screen: "MeetingPhrasebook",
+    screen: "#",
     avatar: require("../../assets/Bussines/aula1.png"),
   },
   {
-    module: 2,
+    module: 0,
     id: "l2",
-    title: "Encerrando uma conversa",
+    title: "Escreva seu email",
     type: "Aula",
-    screen: "PracticeMeetingExpressions",
-    avatar: require("../../assets/Bussines/hi.png"),
+    screen: "#",
+    avatar: require("../../assets/Bussines/email.png"),
   },
   {
-    module: 6,
+    module: 0,
     id: "l3",
-    title: "Falando inglês",
+    title: "continuação: Escreva seu email",
     type: "Prática Oral",
-    screen: "MeetingsQuiz",
-    avatar: require("../../assets/Bussines/hi2.png"),
+    screen: "#",
+    avatar: require("../../assets/Bussines/email2.png"),
   },
   {
-    module: 9,
+    module: 0,
     id: "l4",
-    title: "Conversas com IA",
+    title: "Quem é?",
+    type: "IA",
+    screen: "#",
+    avatar: require("../../assets/Bussines/call.png"),
+  },
+  {
+    module: 0,
+    id: "l5",
+    title: "Marcando reuniões ",
+    type: "IA",
+    screen: "MeetingsQuiz",
+    avatar: require("../../assets/Bussines/agenda.png"),
+  },
+  {
+    module: 0,
+    id: "l6",
+    title: "Networking",
     type: "IA",
     screen: "NetworkingSmallTalk",
-    avatar: require("../../assets/Bussines/conversa.png"),
+    avatar: require("../../assets/Bussines/storm.png"),
   },
-  // Adicione mais aulas e módulos conforme necessário
+  {
+    module: 0,
+    id: "l7",
+    title: "Shall we start?",
+    type: "IA",
+    screen: "PracticeMeetingExpressions",
+    avatar: require("../../assets/Bussines/tradutor.png"),
+  },
+  {
+    module: 0,
+    id: "l8",
+    title: "Meetings",
+    type: "IA",
+    screen: "MeetingPhrasebook",
+    avatar: require("../../assets/Bussines/reuniao.png"),
+  },
 ];
 
 // Small helper to persist progress as an object { lessonId: true }
@@ -156,7 +187,7 @@ function CourseScreen({ navigation }) {
   const percent = (completedCount / sampleLessons.length) * 100;
 
   const goToLesson = (lesson) => {
-    navigation.navigate("Activity", { lesson });
+    navigation.navigate(lesson.screen, { lesson });
   };
 
   // Renderiza as aulas agrupadas por módulo, com barra de título
