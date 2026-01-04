@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, FlatList, Image, Alert, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Image,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
 import { Button, Card, FAB, Text } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import * as db from "../db";
 
 export default function Produtos({ navigation }) {
   const [produtos, setProdutos] = useState([]);
@@ -42,7 +48,9 @@ export default function Produtos({ navigation }) {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => navigation.navigate("ProdutoDetalhe", { produto: item })}
+            onPress={() =>
+              navigation.navigate("ProdutoDetalhe", { produto: item })
+            }
           >
             <Card style={styles.card}>
               <Image source={{ uri: item.imagem }} style={styles.imagem} />

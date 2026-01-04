@@ -1,42 +1,106 @@
 import * as React from "react";
 import { Provider as PaperProvider, Appbar } from "react-native-paper";
+import { Image, TouchableOpacity } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import Home from "./pages/Home";
-import Produtos from "./pages/Produtos";
-import AdicionarProduto from "./pages/AdicionarProduto";
-import Contato from "./pages/Contato";
+import Comunidade from "./pages/Comunidade";
+import Login from "./pages/Login";
 import SplashScreen from "./pages/SplashScreen";
-import ProdutoDetalhe from "./pages/ProdutoDetalhe";
-import Carrinho from "./pages/Carrinho";
+import MeetingsQuiz from "./pages/bussines/MeetingsQuiz";
+import MeetingPhrasebook from "./pages/bussines/MeetingPhrasebook";
+import PracticeMeetingExpressions from "./pages/bussines/PracticeMeetingExpressions";
+import NetworkingSmallTalk from "./pages/bussines/NetworkingSmallTalk";
+import Bussines from "./pages/bussines/Bussines";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
+import { View } from "react-native";
+function CustomTabBar(props) {
+  // Centraliza os botões do tab bar
+  const { state, descriptors, navigation } = props;
+  return (
+    <View
+      style={{
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#0e3174",
+        height: 60,
+      }}
+    >
+      {state.routes.map((route, index) => {
+        if (route.name === "Bussines") return null;
+        const { options } = descriptors[route.key];
+        const label =
+          options.tabBarLabel !== undefined
+            ? options.tabBarLabel
+            : options.title !== undefined
+            ? options.title
+            : route.name;
+        const isFocused = state.index === index;
+        let iconName;
+        if (route.name === "Home") iconName = "home";
+        else if (route.name === "Comunidade") iconName = "comment";
+        else if (route.name === "Login") iconName = "login";
+        return (
+          <TouchableOpacity
+            key={route.key}
+            accessibilityRole="button"
+            accessibilityState={isFocused ? { selected: true } : {}}
+            accessibilityLabel={options.tabBarAccessibilityLabel}
+            testID={options.tabBarTestID}
+            onPress={() => {
+              const event = navigation.emit({
+                type: "tabPress",
+                target: route.key,
+                canPreventDefault: true,
+              });
+              if (!isFocused && !event.defaultPrevented) {
+                navigation.navigate(route.name);
+              }
+            }}
+            style={{
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              marginHorizontal: 40, // espaçamento maior
+              flex: 0,
+            }}
+          >
+            <Icon
+              name={iconName}
+              size={36} // tamanho maior
+              color={isFocused ? "#f47c2c" : "gray"}
+            />
+            {/* <Text style={{ color: isFocused ? "#f47c2c" : "gray", fontSize: 12 }}>{label}</Text> */}
+          </TouchableOpacity>
+        );
+      })}
+    </View>
+  );
+}
+
 function Tabs() {
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
+      tabBar={(props) => <CustomTabBar {...props} />}
+      screenOptions={{
         headerShown: false,
-        tabBarStyle: { backgroundColor: "#3e3b3b" },
-        tabBarActiveTintColor: "#6A0DAD",
-        tabBarInactiveTintColor: "gray",
-        tabBarIcon: ({ color, size }) => {
-          let iconName;
-          if (route.name === "Home") iconName = "home";
-          else if (route.name === "Produtos") iconName = "food";
-          else if (route.name === "Contato") iconName = "phone";
-
-          return <Icon name={iconName} size={size} color={color} />;
-        },
-      })}
+      }}
     >
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Produtos" component={Produtos} />
-      <Tab.Screen name="Contato" component={Contato} />
+      <Tab.Screen name="Comunidade" component={Comunidade} />
+      <Tab.Screen name="Login" component={Login} />
+      <Tab.Screen
+        name="Bussines"
+        component={Bussines}
+        options={{ tabBarButton: () => null }}
+      />
     </Tab.Navigator>
   );
 }
@@ -47,50 +111,75 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Splash">
           <Stack.Screen
-            name="Splash"
-            component={SplashScreen}
-            options={{ headerShown: false }}
+            name="MeetingPhrasebook"
+            component={MeetingPhrasebook}
+            options={{
+              headerStyle: { backgroundColor: "#0e3174" },
+              headerTintColor: "#fff",
+              title: "Phrasebook: Expressões de Reunião",
+            }}
           />
           <Stack.Screen
             name="Tabs"
             component={Tabs}
-            options={{
+            options={({ navigation }) => ({
               header: () => (
-                <Appbar.Header style={{ backgroundColor: "#3e3b3b" }}>
+                <Appbar.Header style={{ backgroundColor: "#0e3174" }}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("Tabs", { screen: "Home" })
+                    }
+                    style={{ marginLeft: 10 }}
+                  >
+                    <Image
+                      source={require("./assets/logo.png")}
+                      style={{ width: 40, height: 40 }}
+                      resizeMode="contain"
+                    />
+                  </TouchableOpacity>
                   <Appbar.Content
-                    title="Loja do Gengar"
-                    titleStyle={{ color: "#6A0DAD", fontWeight: "bold" }}
+                    title="BEA"
+                    titleStyle={{
+                      color: "#f47c2c",
+                      fontWeight: "bold",
+                      textAlign: "center",
+                    }}
                   />
                 </Appbar.Header>
               ),
+            })}
+          />
+          <Stack.Screen
+            name="PracticeMeetingExpressions"
+            component={PracticeMeetingExpressions}
+            options={{
+              headerStyle: { backgroundColor: "#0e3174" },
+              headerTintColor: "#fff",
+              title: "Quiz: Prática de Expressões",
             }}
           />
           <Stack.Screen
-            name="AdicionarProduto"
-            component={AdicionarProduto}
+            name="MeetingsQuiz"
+            component={MeetingsQuiz}
             options={{
-              headerStyle: { backgroundColor: "#3e3b3b" },
-              headerTintColor: "#6A0DAD",
-              title: "Adicionar Produto",
+              headerStyle: { backgroundColor: "#0e3174" },
+              headerTintColor: "#fff",
+              title: "Agendas & Meetings Quiz",
             }}
           />
           <Stack.Screen
-            name="ProdutoDetalhe"
-            component={ProdutoDetalhe}
+            name="NetworkingSmallTalk"
+            component={NetworkingSmallTalk}
             options={{
-              headerStyle: { backgroundColor: "#3e3b3b" },
-              headerTintColor: "#6A0DAD",
-              title: "Detalhes do Produto",
+              headerStyle: { backgroundColor: "#0e3174" },
+              headerTintColor: "#fff",
+              title: "Quiz: Networking & Small Talk",
             }}
           />
           <Stack.Screen
-            name="Carrinho"
-            component={Carrinho}
-            options={{
-              headerStyle: { backgroundColor: "#3e3b3b" },
-              headerTintColor: "#6A0DAD",
-              title: "Carrinho",
-            }}
+            name="Splash"
+            component={SplashScreen}
+            options={{ headerShown: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>

@@ -11,8 +11,7 @@ export default function SplashScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Image source={require("../assets/logo.png")} style={styles.logo} />
-      <Text style={styles.title}>Loja do Gengar</Text>
+      <Image source={require("../assets/splash.png")} style={styles.logo} />
     </View>
   );
 }
@@ -20,19 +19,14 @@ export default function SplashScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#3e3b3b",
+    backgroundColor: "#e8e8e8",
     justifyContent: "center",
     alignItems: "center",
   },
   logo: {
-    width: 120,
-    height: 120,
+    width: 300,
+    height: 300,
     marginBottom: 20,
     resizeMode: "contain",
-  },
-  title: {
-    color: "#6A0DAD",
-    fontSize: 28,
-    fontWeight: "bold",
   },
 });
