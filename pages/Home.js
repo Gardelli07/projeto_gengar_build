@@ -31,7 +31,7 @@ export default function Home() {
           description="Melhore suas habilidades e fale com mais confiança"
           image={require("../assets/Cursos/pronuncia.jpg")}
           premium
-          onPress={() => navigation.navigate("MeetingPhrasebook")}
+          onPress={() => navigation.navigate("Teste1")}
         />
 
         <CourseCard
