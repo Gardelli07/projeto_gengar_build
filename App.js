@@ -115,7 +115,7 @@ export default function App() {
                   >
                     <Image
                       source={require("./assets/logo.png")}
-                      style={{ width: 40, height: 40 }}
+                      style={{ width: 90, height: 90 }}
                       resizeMode="contain"
                     />
                   </TouchableOpacity>
@@ -124,7 +124,7 @@ export default function App() {
                     titleStyle={{
                       color: "#f47c2c",
                       fontWeight: "bold",
-                      textAlign: "center",
+                      paddingHorizontal: 10,
                     }}
                   />
                 </Appbar.Header>
@@ -207,7 +207,7 @@ export default function App() {
             name="Teste1"
             component={Teste1}
             options={{
-              headerStyle: { backgroundColor: "#0e3174" },
+              headerStyle: { backgroundColor: "#j" },
               headerTintColor: "#fff",
               title: "Quiz: Networking & Small Talk",
             }}
