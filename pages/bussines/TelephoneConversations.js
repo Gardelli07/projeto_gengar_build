@@ -7,9 +7,12 @@ import {
   StyleSheet,
 } from "react-native";
 import * as Speech from "expo-speech";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const BEA_ORANGE = "#ec651d";
 const BEA_BLUE = "#022b62";
+
+const STORAGE_KEY = "@curso_progress_v1";
 
 const slides = [
   {
@@ -102,13 +105,40 @@ const audioTexts = {
   dialogue6: "Good afternoon, I need some information about your services.",
 };
 
-export default function SlideLessonComponent() {
+/* ---------- funções puras ---------- */
+async function loadProgress() {
+  try {
+    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch (e) {
+    console.warn("loadProgress error", e);
+    return {};
+  }
+}
+
+async function saveProgress(progress) {
+  try {
+    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+  } catch (e) {
+    console.warn("saveProgress error", e);
+  }
+}
+
+/* ---------- componente ---------- */
+export default function SlideLessonComponent({ route }) {
+  // page é 1-based no seu código original
   const [page, setPage] = useState(1);
   const [score, setScore] = useState(0);
   const [answered, setAnswered] = useState({});
   const currentSlide = slides[page - 1];
   const totalQuestions = 6;
   const percentage = Math.round((score / totalQuestions) * 100);
+
+  // se a navegação fornece lesson, pega aqui (opcional)
+  const lesson = route?.params?.lesson;
+
+  // flag local para evitar múltiplos saves
+  const [markedCompleteLocal, setMarkedCompleteLocal] = useState(false);
 
   function playAudio(audioId) {
     Speech.speak(audioTexts[audioId], { language: "en-US", rate: 0.9 });
@@ -117,9 +147,48 @@ export default function SlideLessonComponent() {
   function selectAnswer(option, index) {
     if (answered[page]) return;
     setAnswered({ ...answered, [page]: index });
-    if (option.correct) setScore(score + 1);
+    if (option.correct) setScore((s) => s + 1);
   }
 
+  /* ---------- função que salva progresso (usa setter local) ---------- */
+  async function markLessonComplete(lessonId) {
+    if (!lessonId) {
+      console.warn("markLessonComplete called without lessonId");
+      return;
+    }
+    try {
+      const p = await loadProgress();
+      if (p[lessonId]) {
+        setMarkedCompleteLocal(true);
+        return;
+      }
+      const newP = { ...p, [lessonId]: true };
+      await saveProgress(newP);
+      setMarkedCompleteLocal(true);
+    } catch (e) {
+      console.warn("markLessonComplete error", e);
+    }
+  }
+
+  /* ---------- effect que dispara quando chega no último slide ---------- */
+  useEffect(() => {
+    const totalSlides = slides.length; // 8 no seu array
+    const isLast = page === totalSlides;
+    if (isLast && !markedCompleteLocal) {
+      if (lesson && lesson.id) {
+        // salva progresso silenciosamente
+        markLessonComplete(lesson.id);
+      } else {
+        // se não tiver id, marca localmente (não salva)
+        console.warn(
+          "Nenhum lesson.id disponível — progresso não salvo no AsyncStorage."
+        );
+        setMarkedCompleteLocal(true);
+      }
+    }
+  }, [page, markedCompleteLocal, lesson]);
+
+  /* ---------- UI ---------- */
   return (
     <View
       style={[
@@ -213,6 +282,7 @@ export default function SlideLessonComponent() {
                 setPage(1);
                 setScore(0);
                 setAnswered({});
+                setMarkedCompleteLocal(false); // permite salvar novamente se refizer
               }}
             >
               <Text style={styles.startBtnText}>

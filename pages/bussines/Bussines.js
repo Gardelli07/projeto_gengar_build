@@ -11,12 +11,19 @@ import {
   Platform,
   StatusBar,
 } from "react-native";
+import { SvgXml } from "react-native-svg";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Svg, { Circle } from "react-native-svg";
-
+// Cadeado SVG como string
+const lockIcon = `
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="5" y="10" width="14" height="9" rx="2" stroke="#888" stroke-width="2" fill="#eee"/>
+  <path d="M8 10V7a4 4 0 1 1 8 0v3" stroke="#888" stroke-width="2" fill="none"/>
+  <circle cx="12" cy="15" r="1.5" fill="#888"/>
+</svg>
+`;
 const STORAGE_KEY = "@curso_progress_v1";
-
 // Lista de módulos
 const modules = [
   "Introdução ao inglês para negócios",
@@ -34,6 +41,7 @@ const modules = [
 ];
 
 const sampleLessons = [
+  //modulo 1
   {
     module: 0,
     id: "l1",
@@ -98,7 +106,7 @@ const sampleLessons = [
     screen: "MeetingPhrasebook",
     avatar: require("../../assets/Bussines/reuniao.png"),
   },
-  //modelo 2
+  //modulo 2
   {
     module: 1,
     id: "l9",
@@ -254,7 +262,6 @@ const sampleLessons = [
     screen: "",
     avatar: require("../../assets/Bussines/aula2.png"),
   },
-  //parte2
   {
     module: 4,
     id: "38",
@@ -303,7 +310,6 @@ const sampleLessons = [
     screen: "",
     avatar: require("../../assets/Bussines/menina2.png"),
   },
-  //parte 3
   {
     module: 4,
     id: "44",
@@ -647,6 +653,11 @@ function ProgressCircle({ percent, size = 70, strokeWidth = 8 }) {
 }
 
 function CourseScreen({ navigation }) {
+  // Função para resetar progresso
+  const resetProgress = async () => {
+    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify({}));
+    setProgressMap({});
+  };
   const [progressMap, setProgressMap] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -662,10 +673,17 @@ function CourseScreen({ navigation }) {
     return sub;
   }, [navigation]);
 
-  const completedCount = Object.keys(progressMap).filter(
-    (k) => progressMap[k]
+  // Considera apenas as lessons que têm uma tela associada (screen)
+  const lessonsWithScreen = sampleLessons.filter(
+    (l) => l.screen && l.screen.length > 0
+  );
+  const completedCount = lessonsWithScreen.filter(
+    (l) => progressMap[l.id]
   ).length;
-  const percent = (completedCount / sampleLessons.length) * 100;
+  const percent =
+    lessonsWithScreen.length > 0
+      ? (completedCount / lessonsWithScreen.length) * 100
+      : 0;
 
   const goToLesson = (lesson) => {
     navigation.navigate(lesson.screen, { lesson });
@@ -677,6 +695,8 @@ function CourseScreen({ navigation }) {
     const done = !!progressMap[item.id];
     const showModuleBar = item.module !== lastModule;
     lastModule = item.module;
+    // Desativa a partir do módulo 2 (module >= 2)
+    const locked = item.module >= 1;
     return (
       <>
         {showModuleBar && (
@@ -701,8 +721,9 @@ function CourseScreen({ navigation }) {
             )}
           </View>
           <TouchableOpacity
-            style={styles.lessonCard}
-            onPress={() => goToLesson(item)}
+            style={[styles.lessonCard, locked && { opacity: 0.5 }]}
+            onPress={() => !locked && goToLesson(item)}
+            disabled={locked}
           >
             <View
               style={{
@@ -717,7 +738,10 @@ function CourseScreen({ navigation }) {
                 </Text>
                 <Text style={styles.lessonSubtitle}>{item.type}</Text>
               </View>
-              <View style={{ alignItems: "flex-end" }}>
+              <View
+                style={{ alignItems: "flex-end", flexDirection: "row", gap: 8 }}
+              >
+                {locked && <SvgXml xml={lockIcon} width={24} height={24} />}
                 {done && <Text style={styles.lessonAction}>Concluído</Text>}
               </View>
             </View>
@@ -733,13 +757,31 @@ function CourseScreen({ navigation }) {
 
       <View style={styles.progressRow}>
         <ProgressCircle percent={percent} size={90} strokeWidth={8} />
-        <View style={{ marginLeft: 16 }}>
-          <Text style={{ fontSize: 18, fontWeight: "700" }}>
-            {Math.round(percent)}% concluído
-          </Text>
-          <Text style={{ color: "#666" }}>
-            {completedCount} de {sampleLessons.length} aulas
-          </Text>
+        <View
+          style={{ marginLeft: 16, flexDirection: "row", alignItems: "center" }}
+        >
+          <View>
+            <Text style={{ fontSize: 18, fontWeight: "700" }}>
+              {Math.round(percent)}% concluído
+            </Text>
+            <Text style={{ color: "#666" }}>
+              {completedCount} de {sampleLessons.length} aulas
+            </Text>
+          </View>
+          <TouchableOpacity
+            onPress={resetProgress}
+            style={{
+              marginLeft: 16,
+              backgroundColor: "#eee",
+              padding: 8,
+              borderRadius: 8,
+            }}
+            accessibilityLabel="Resetar progresso"
+          >
+            <Text style={{ color: "#ff6a00", fontWeight: "bold" }}>
+              Resetar
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
 

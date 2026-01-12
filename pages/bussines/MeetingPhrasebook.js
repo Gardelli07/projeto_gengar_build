@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,9 +7,11 @@ import {
   StyleSheet,
 } from "react-native";
 import * as Speech from "expo-speech";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const STORAGE_KEY = "@curso_progress_v1";
 
 const expressions = [
-  // Página 2 - Starting the Meeting
   {
     section: "Starting the Meeting",
     subtitle: "Essential phrases to open your meetings professionally",
@@ -21,7 +23,7 @@ const expressions = [
       },
       {
         text: "Thank you all for joining today's meeting.",
-        desc: ",Show appreciation for attendees' time",
+        desc: "Show appreciation for attendees' time",
         audio: "expr2",
       },
       {
@@ -31,7 +33,6 @@ const expressions = [
       },
     ],
   },
-  // Página 3 - Talking about the Agenda
   {
     section: "Talking about the Agenda",
     subtitle: "Navigate through meeting topics smoothly",
@@ -53,7 +54,6 @@ const expressions = [
       },
     ],
   },
-  // Página 4 - Asking for Clarification
   {
     section: "Asking for Clarification",
     subtitle: "Polite ways to ask for more information",
@@ -64,7 +64,7 @@ const expressions = [
         audio: "expr7",
       },
       {
-        text: ",Sorry, I didn't catch that. Could you repeat?",
+        text: "Sorry, I didn't catch that. Could you repeat?",
         desc: "Politely ask someone to repeat",
         audio: "expr8",
       },
@@ -75,7 +75,6 @@ const expressions = [
       },
     ],
   },
-  // Página 5 - Giving Opinions
   {
     section: "Giving Opinions",
     subtitle: "Express your thoughts professionally",
@@ -97,7 +96,6 @@ const expressions = [
       },
     ],
   },
-  // Página 6 - Closing the Meeting
   {
     section: "Closing the Meeting",
     subtitle: "End meetings professionally and effectively",
@@ -139,15 +137,66 @@ const audioTexts = {
   expr15: "Thank you for your time today.",
 };
 
-export default function MeetingPhrasebook({ navigation }) {
-  const [page, setPage] = useState(0); // 0 = intro, 1+ = expression sections
+async function loadProgress() {
+  try {
+    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch (e) {
+    console.warn("loadProgress error", e);
+    return {};
+  }
+}
+
+async function saveProgress(progress) {
+  try {
+    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+  } catch (e) {
+    console.warn("saveProgress error", e);
+  }
+}
+
+export default function MeetingPhrasebook({ navigation, route }) {
+  const [page, setPage] = useState(0);
+  const [markedCompleteLocal, setMarkedCompleteLocal] = useState(false);
+
+  const lesson = route?.params?.lesson;
 
   const handlePlayAudio = (audioId) => {
     const text = audioTexts[audioId] || "Audio not available";
-    Speech.speak(text, { language: "en-US", rate: 0.8, pitch: 1 });
+    Speech.speak(text, { language: "en-US", rate: 0.8 });
   };
 
-  // Intro page
+  async function markLessonComplete(lessonId) {
+    if (!lessonId) return;
+
+    try {
+      const progress = await loadProgress();
+      if (progress[lessonId]) {
+        setMarkedCompleteLocal(true);
+        return;
+      }
+
+      const newProgress = { ...progress, [lessonId]: true };
+      await saveProgress(newProgress);
+      setMarkedCompleteLocal(true);
+    } catch (e) {
+      console.warn("markLessonComplete error", e);
+    }
+  }
+
+  useEffect(() => {
+    const isLastPage = page === expressions.length;
+
+    if (isLastPage && !markedCompleteLocal) {
+      if (lesson?.id) {
+        markLessonComplete(lesson.id);
+      } else {
+        console.warn("lesson.id não encontrado — progresso não salvo.");
+        setMarkedCompleteLocal(true);
+      }
+    }
+  }, [page, markedCompleteLocal, lesson]);
+
   if (page === 0) {
     return (
       <View style={[styles.screen, styles.introBg]}>
@@ -165,12 +214,13 @@ export default function MeetingPhrasebook({ navigation }) {
     );
   }
 
-  // Expression pages
   const section = expressions[page - 1];
+
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.centered}>
       <Text style={styles.sectionTitle}>{section.section}</Text>
       <Text style={styles.sectionSubtitle}>{section.subtitle}</Text>
+
       {section.cards.map((card, idx) => (
         <View key={idx} style={styles.card}>
           <View style={styles.cardTextBlock}>
@@ -185,17 +235,17 @@ export default function MeetingPhrasebook({ navigation }) {
           </TouchableOpacity>
         </View>
       ))}
+
       <View style={styles.navRow}>
         {page > 1 && (
           <TouchableOpacity
             style={styles.navBtn}
             onPress={() => setPage(page - 1)}
           >
-            <Text style={styles.navBtnText}>
-              {page === 1 ? "🏠 Home" : "← Previous"}
-            </Text>
+            <Text style={styles.navBtnText}>← Previous</Text>
           </TouchableOpacity>
         )}
+
         {page < expressions.length && (
           <TouchableOpacity
             style={styles.navBtn}
@@ -204,6 +254,7 @@ export default function MeetingPhrasebook({ navigation }) {
             <Text style={styles.navBtnText}>Next →</Text>
           </TouchableOpacity>
         )}
+
         {page === expressions.length && (
           <TouchableOpacity style={styles.navBtn} onPress={() => setPage(0)}>
             <Text style={styles.navBtnText}>🏠 Home</Text>

@@ -9,10 +9,14 @@ import {
   Dimensions,
   TextInput,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 const { width } = Dimensions.get("window");
 const SlideNavContext = React.createContext(null);
 const SLIDE_COUNT = 10;
+const STORAGE_KEY = "@curso_progress_v1";
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
+
 function updateProgress(progressAnim, index, total) {
   if (!progressAnim) return;
   Animated.timing(progressAnim, {
@@ -23,6 +27,7 @@ function updateProgress(progressAnim, index, total) {
 }
 function useSlideNavigation({
   currentSlideIndex,
+  currentSlide,
   setCurrentSlideIndex,
   totalSlides,
   progressAnim,
@@ -70,8 +75,54 @@ function useSlideNavigation({
   }
   return { renderNextButton, renderPrevButton };
 }
-export default function ProfessionalEmailsMobile() {
+export default function ProfessionalEmailsMobile({ route, navigation }) {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const lesson = route?.params?.lesson;
+
+  // local flag to avoid multiple saves
+  const [markedCompleteLocal, setMarkedCompleteLocal] = useState(false);
+
+  // --- progress helpers ---
+  async function loadProgress() {
+    try {
+      const raw = await AsyncStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      console.warn("loadProgress error", e);
+      return {};
+    }
+  }
+
+  async function saveProgress(progress) {
+    try {
+      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+    } catch (e) {
+      console.warn("saveProgress error", e);
+    }
+  }
+
+  // marca lição como concluída (por id) — usa mesma chave que Bussines.js
+  async function markLessonComplete(lessonId) {
+    if (!lessonId) {
+      console.warn("markLessonComplete called without lessonId");
+      return;
+    }
+
+    try {
+      const p = await loadProgress();
+
+      if (p[lessonId]) {
+        // já marcado
+        return;
+      }
+
+      const newP = { ...p, [lessonId]: true };
+      await saveProgress(newP);
+      setMarkedCompleteLocal(true);
+    } catch (e) {
+      console.warn("markLessonComplete error", e);
+    }
+  }
 
   const progressAnim = useRef(
     new Animated.Value((currentSlide + 1) / SLIDE_COUNT)
@@ -79,6 +130,29 @@ export default function ProfessionalEmailsMobile() {
 
   useEffect(() => {
     updateProgress(progressAnim, currentSlide, SLIDE_COUNT);
+  }, [currentSlide]);
+
+  // marca automaticamente a lição ao chegar no último slide
+  useEffect(() => {
+    const isLast = currentSlide === SLIDE_COUNT - 1;
+    if (isLast && !markedCompleteLocal) {
+      if (lesson && lesson.id) {
+        // marca e volta para tela de curso para atualizar porcentagem
+        markLessonComplete(lesson.id).then(() => {
+          // pequeno delay para o usuário ver o alerta; depois volta para a tela do curso
+          setTimeout(() => {
+            // volta para a tela anterior (CourseScreen) que recarrega o progresso no focus
+          }, 800);
+        });
+      } else {
+        // se não tiver lesson.id, apenas marca flag local (não salva) e avisa dev
+        console.warn(
+          "Nenhum lesson.id disponível em route.params — não foi possível salvar progresso."
+        );
+        setMarkedCompleteLocal(true);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSlide]);
 
   const slideNav = useSlideNavigation({

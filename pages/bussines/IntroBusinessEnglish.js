@@ -10,11 +10,16 @@ import {
   Dimensions,
   Alert,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width } = Dimensions.get("window");
 const TOTAL_SLIDES = 7;
+const STORAGE_KEY = "@curso_progress_v1";
 
-export default function MobileLessonComponent() {
+export default function MobileLessonComponent({ route, navigation }) {
+  // try to get lesson from route params (CourseScreen envia { lesson })
+  const lesson = route?.params?.lesson;
+
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
 
@@ -40,7 +45,52 @@ export default function MobileLessonComponent() {
 
   const [roleplayResultVisible, setRoleplayResultVisible] = useState(false);
 
+  // local flag to avoid multiple saves
+  const [markedCompleteLocal, setMarkedCompleteLocal] = useState(false);
+
   const progressAnim = useRef(new Animated.Value(0)).current;
+
+  // --- progress helpers ---
+  async function loadProgress() {
+    try {
+      const raw = await AsyncStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      console.warn("loadProgress error", e);
+      return {};
+    }
+  }
+
+  async function saveProgress(progress) {
+    try {
+      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+    } catch (e) {
+      console.warn("saveProgress error", e);
+    }
+  }
+
+  // marca lição como concluída (por id) — usa mesma chave que Bussines.js
+  async function markLessonComplete(lessonId) {
+    if (!lessonId) {
+      console.warn("markLessonComplete called without lessonId");
+      return;
+    }
+
+    try {
+      const p = await loadProgress();
+
+      if (p[lessonId]) {
+        // já marcado
+        return;
+      }
+
+      const newP = { ...p, [lessonId]: true };
+      await saveProgress(newP);
+      setMarkedCompleteLocal(true);
+    } catch (e) {
+      console.warn("markLessonComplete error", e);
+    }
+  }
 
   // Gera apresentação formal baseada nos campos preenchidos
   function generateFormalIntro() {
@@ -205,6 +255,22 @@ export default function MobileLessonComponent() {
     setRoleplayResultVisible(false);
   }
 
+  function renderPhraseItem(title, phonetic, translation, formal) {
+    return (
+      <View
+        style={[
+          styles.phraseItem,
+          formal && styles.formalPhrase,
+          { width: width * 0.7 },
+        ]}
+      >
+        <Text style={styles.phraseTitle}>{title}</Text>
+        <Text style={styles.phrasePhonetic}>{phonetic}</Text>
+        <Text style={styles.phraseTranslation}>{translation}</Text>
+      </View>
+    );
+  }
+
   // ----- helper: render Next button for a given slide index
   function renderNextButton(index) {
     // show button when user is on the provided index
@@ -226,7 +292,30 @@ export default function MobileLessonComponent() {
     return null;
   }
 
-  // Render helpers for slides
+  // marca automaticamente a lição ao chegar no último slide
+  useEffect(() => {
+    const isLast = currentSlideIndex === TOTAL_SLIDES - 1;
+    if (isLast && !markedCompleteLocal) {
+      if (lesson && lesson.id) {
+        // marca e volta para tela de curso para atualizar porcentagem
+        markLessonComplete(lesson.id).then(() => {
+          // pequeno delay para o usuário ver o alerta; depois volta para a tela do curso
+          setTimeout(() => {
+            // volta para a tela anterior (CourseScreen) que recarrega o progresso no focus
+          }, 800);
+        });
+      } else {
+        // se não tiver lesson.id, apenas marca flag local (não salva) e avisa dev
+        console.warn(
+          "Nenhum lesson.id disponível em route.params — não foi possível salvar progresso."
+        );
+        setMarkedCompleteLocal(true);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentSlideIndex]);
+
+  // Render helpers para cada slide (mantive seu conteúdo original)
   function renderSlide1() {
     return (
       <ScrollView contentContainerStyle={styles.hero}>
@@ -281,22 +370,6 @@ export default function MobileLessonComponent() {
         </View>
         {renderNextButton(1)}
       </ScrollView>
-    );
-  }
-
-  function renderPhraseItem(title, phonetic, translation, formal) {
-    return (
-      <View
-        style={[
-          styles.phraseItem,
-          formal && styles.formalPhrase,
-          { width: width * 0.7 },
-        ]}
-      >
-        <Text style={styles.phraseTitle}>{title}</Text>
-        <Text style={styles.phrasePhonetic}>{phonetic}</Text>
-        <Text style={styles.phraseTranslation}>{translation}</Text>
-      </View>
     );
   }
 

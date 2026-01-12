@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// MeetingsQuiz.js
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,6 +8,27 @@ import {
   StyleSheet,
 } from "react-native";
 import * as Speech from "expo-speech";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const STORAGE_KEY = "@curso_progress_v1";
+
+async function loadProgress() {
+  try {
+    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch (e) {
+    console.warn("loadProgress error", e);
+    return {};
+  }
+}
+
+async function saveProgress(progress) {
+  try {
+    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+  } catch (e) {
+    console.warn("saveProgress error", e);
+  }
+}
 
 const audioTexts = {
   dialogue1:
@@ -125,7 +147,7 @@ const quiz = [
   },
 ];
 
-export default function MeetingsQuiz({ navigation }) {
+export default function MeetingsQuiz({ navigation, route }) {
   const [page, setPage] = useState(0); // 0 = intro, 1-6 = dialogues, 7 = quiz, 8 = results
   const [score, setScore] = useState(0);
   const [quizScore, setQuizScore] = useState(0);
@@ -133,6 +155,40 @@ export default function MeetingsQuiz({ navigation }) {
   const [quizAnswered, setQuizAnswered] = useState(
     Array(quiz.length).fill(false)
   );
+  const [markedCompleteLocal, setMarkedCompleteLocal] = useState(false);
+
+  const RESULTS_PAGE = dialogues.length + 2; // same calculation as in UI logic
+  const lesson = route?.params?.lesson;
+
+  useEffect(() => {
+    // Quando o usuário chega na página de resultados, marca progresso (se ainda não marcado)
+    if (page === RESULTS_PAGE && !markedCompleteLocal) {
+      if (lesson?.id) {
+        markLessonComplete(lesson.id);
+      } else {
+        console.warn("lesson.id não encontrado — progresso não salvo.");
+        setMarkedCompleteLocal(true);
+      }
+    }
+  }, [page, markedCompleteLocal, lesson]);
+
+  async function markLessonComplete(lessonId) {
+    if (!lessonId) return;
+
+    try {
+      const progress = await loadProgress();
+      if (progress[lessonId]) {
+        setMarkedCompleteLocal(true);
+        return;
+      }
+
+      const newProgress = { ...progress, [lessonId]: true };
+      await saveProgress(newProgress);
+      setMarkedCompleteLocal(true);
+    } catch (e) {
+      console.warn("markLessonComplete error", e);
+    }
+  }
 
   const handlePlayAudio = (audioId) => {
     const text = audioTexts[audioId] || "Audio not available";
@@ -169,6 +225,7 @@ export default function MeetingsQuiz({ navigation }) {
     setQuizScore(0);
     setAnswered(Array(dialogues.length).fill(false));
     setQuizAnswered(Array(quiz.length).fill(false));
+    setMarkedCompleteLocal(false);
   };
 
   // Intro page
