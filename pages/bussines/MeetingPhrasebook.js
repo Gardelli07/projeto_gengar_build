@@ -259,8 +259,15 @@ export default function MeetingPhrasebook({ navigation, route }) {
           <TouchableOpacity
             style={styles.navBtn}
             onPress={() => {
-              if (navigation && navigation.navigate)
-                navigation.navigate("Bussines");
+              // Preferir voltar para a tela anterior se possível
+              if (
+                navigation &&
+                navigation.canGoBack &&
+                navigation.canGoBack()
+              ) {
+                navigation.goBack();
+                return;
+              }
             }}
           >
             <Text style={styles.navBtnText}>🏠 Home</Text>
