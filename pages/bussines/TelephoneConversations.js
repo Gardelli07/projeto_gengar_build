@@ -233,13 +233,17 @@ export default function SlideLessonComponent({ route, navigation }) {
 
               {currentSlide.options.map((opt, idx) => {
                 const selected = answered[page] === idx;
+                const answeredThisPage = typeof answered[page] !== "undefined";
                 return (
                   <TouchableOpacity
                     key={idx}
                     style={[
                       styles.optionBtn,
-                      selected &&
-                        (opt.correct ? styles.correct : styles.incorrect),
+                      answeredThisPage
+                        ? opt.correct
+                          ? styles.correct
+                          : styles.incorrect
+                        : selected && styles.selected,
                     ]}
                     onPress={() => selectAnswer(opt, idx)}
                   >
@@ -392,6 +396,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 12,
     marginBottom: 8,
+  },
+
+  selected: {
+    borderColor: BEA_BLUE,
+    backgroundColor: "#eef2ff",
   },
 
   optionText: { fontSize: 16 },

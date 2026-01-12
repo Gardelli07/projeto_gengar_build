@@ -403,7 +403,9 @@ export default function NetworkingSmallTalk({ navigation, route }) {
             >
               <Text style={styles.audioBtnText}>🔊 Play Audio</Text>
             </TouchableOpacity>
-            <Text style={styles.question}>{q.question}</Text>
+            <Text style={[styles.question, styles.quizQuestion]}>
+              {q.question}
+            </Text>
             {q.options.map((opt, oidx) => {
               let btnStyle = [styles.quizBtn];
               if (quizAnswered[idx]) {
@@ -430,7 +432,7 @@ export default function NetworkingSmallTalk({ navigation, route }) {
                   disabled={quizAnswered[idx]}
                   onPress={() => handleSelectQuiz(idx, oidx)}
                 >
-                  <Text style={styles.answerBtnText}>{opt.text}</Text>
+                  <Text style={styles.quizBtnText}>{opt.text}</Text>
                 </TouchableOpacity>
               );
             })}
@@ -532,7 +534,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#022b62",
   },
   quizBg: {
-    backgroundColor: "#1e293b",
+    backgroundColor: "#022b62",
   },
   centered: {
     alignItems: "center",
@@ -671,14 +673,27 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   quizBtn: {
-    backgroundColor: "rgba(255,255,255,0.1)",
-    borderColor: "rgba(255,255,255,0.3)",
+    backgroundColor: "#B2BFCF",
+    borderColor: "rgb(255, 255, 255)",
     borderWidth: 2,
     borderRadius: 16,
     padding: 16,
     marginBottom: 8,
     width: 300,
     alignSelf: "center",
+  },
+  quizQuestion: {
+    fontSize: 22,
+    fontWeight: "700",
+    color: "#ffffff",
+    marginBottom: 10,
+    textAlign: "center",
+  },
+  quizBtnText: {
+    fontSize: 18,
+    color: "#022b62",
+    fontWeight: "700",
+    textAlign: "center",
   },
   scoreText: {
     fontSize: 20,
