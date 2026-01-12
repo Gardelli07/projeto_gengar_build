@@ -11,6 +11,7 @@ import {
   Alert,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Audio } from "expo-av";
 
 const { width } = Dimensions.get("window");
 const TOTAL_SLIDES = 7;
@@ -22,6 +23,10 @@ export default function MobileLessonComponent({ route, navigation }) {
 
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
+  const [currentRecordingType, setCurrentRecordingType] = useState(null);
+  const [recordingsMap, setRecordingsMap] = useState({});
+  const [recordedURIs, setRecordedURIs] = useState({});
+  const [soundsMap, setSoundsMap] = useState({});
 
   // Inputs / estados de atividades
   const [informalName, setInformalName] = useState("");
@@ -208,24 +213,124 @@ export default function MobileLessonComponent({ route, navigation }) {
   }
 
   function startRecording(type) {
-    // simulate recording toggle
-    if (!isRecording) {
-      setIsRecording(true);
-      // simulate recording for 5s
-      setTimeout(() => stopRecording(type), 5000);
-      Alert.alert("Gravando", "Simulação de gravação iniciada...");
-    } else {
-      stopRecording(type);
-    }
+    (async () => {
+      try {
+        if (isRecording) return;
+        const { status } = await Audio.requestPermissionsAsync();
+        if (status !== "granted") {
+          Alert.alert(
+            "Permissão negada",
+            "Permita o uso do microfone nas configurações."
+          );
+          return;
+        }
+
+        await Audio.setAudioModeAsync({
+          allowsRecordingIOS: true,
+          playsInSilentModeIOS: true,
+        });
+
+        const recording = new Audio.Recording();
+        await recording.prepareToRecordAsync(
+          Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
+        );
+        await recording.startAsync();
+
+        setRecordingsMap((p) => ({ ...p, [type]: recording }));
+        setIsRecording(true);
+        setCurrentRecordingType(type);
+      } catch (e) {
+        console.warn("startRecording error", e);
+        Alert.alert("Erro", "Não foi possível iniciar a gravação.");
+      }
+    })();
   }
 
   function stopRecording(type) {
-    setIsRecording(false);
-    Alert.alert(
-      "Gravação",
-      "Gravação salva! Continue praticando sua pronúncia."
-    );
+    (async () => {
+      try {
+        const rec = recordingsMap[type];
+        if (!rec) {
+          setIsRecording(false);
+          setCurrentRecordingType(null);
+          return;
+        }
+        await rec.stopAndUnloadAsync();
+        const uri = rec.getURI();
+        setRecordedURIs((p) => ({ ...p, [type]: uri }));
+        setRecordingsMap((p) => {
+          const copy = { ...p };
+          delete copy[type];
+          return copy;
+        });
+        setIsRecording(false);
+        setCurrentRecordingType(null);
+        Alert.alert(
+          "Gravação",
+          "Gravação salva! Você pode reproduzir ou regravar."
+        );
+      } catch (e) {
+        console.warn("stopRecording error", e);
+        Alert.alert("Erro", "Não foi possível salvar a gravação.");
+      }
+    })();
   }
+
+  async function playRecording(type) {
+    try {
+      const uri = recordedURIs[type];
+      if (!uri) return;
+      if (soundsMap[type]) {
+        try {
+          await soundsMap[type].unloadAsync();
+        } catch (e) {}
+      }
+      const { sound } = await Audio.Sound.createAsync(
+        { uri },
+        { shouldPlay: true }
+      );
+      setSoundsMap((p) => ({ ...p, [type]: sound }));
+    } catch (e) {
+      console.warn("playRecording error", e);
+      Alert.alert("Erro", "Não foi possível reproduzir o áudio.");
+    }
+  }
+
+  function reRecord(type) {
+    setRecordedURIs((p) => {
+      const copy = { ...p };
+      delete copy[type];
+      return copy;
+    });
+    if (soundsMap[type]) {
+      (async () => {
+        try {
+          await soundsMap[type].unloadAsync();
+        } catch (e) {}
+        setSoundsMap((p) => {
+          const copy = { ...p };
+          delete copy[type];
+          return copy;
+        });
+      })();
+    }
+  }
+
+  useEffect(() => {
+    return () => {
+      Object.values(recordingsMap).forEach((rec) => {
+        try {
+          rec.stopAndUnloadAsync();
+        } catch (e) {}
+      });
+      Object.values(soundsMap).forEach((s) => {
+        try {
+          s.unloadAsync();
+        } catch (e) {}
+      });
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Reinicia a lição e limpa estados visíveis/gerados
   function restartLesson() {
@@ -460,14 +565,47 @@ export default function MobileLessonComponent({ route, navigation }) {
           )}
 
           <TouchableOpacity
-            style={[styles.recordButton, isRecording && styles.recording]}
-            onPress={() => startRecording("informal")}
+            style={[
+              styles.recordButton,
+              isRecording &&
+                currentRecordingType === "informal" &&
+                styles.recording,
+            ]}
+            onPress={() => {
+              if (isRecording && currentRecordingType === "informal")
+                stopRecording("informal");
+              else startRecording("informal");
+            }}
           >
-            <Text style={styles.recordBtnText}>🎤 Pratique sua pronúncia</Text>
+            <Text style={styles.recordBtnText}>
+              {isRecording && currentRecordingType === "informal"
+                ? "⏹ Parar gravação"
+                : "🎤 Pratique sua pronúncia"}
+            </Text>
           </TouchableOpacity>
           <Text style={styles.smallText}>
             Grave-se falando sua apresentação informal
           </Text>
+
+          {recordedURIs["informal"] && (
+            <View style={{ alignItems: "center", marginTop: 8 }}>
+              <TouchableOpacity
+                style={styles.primaryBtn}
+                onPress={() => playRecording("informal")}
+              >
+                <Text style={styles.btnText}>▶ Reproduzir Gravação</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.primaryBtn,
+                  { marginTop: 8, backgroundColor: "#ef4444" },
+                ]}
+                onPress={() => reRecord("informal")}
+              >
+                <Text style={styles.btnText}>🔁 Regravar</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
 
         {renderNextButton(2)}
@@ -557,14 +695,47 @@ export default function MobileLessonComponent({ route, navigation }) {
           )}
 
           <TouchableOpacity
-            style={[styles.recordButton, isRecording && styles.recording]}
-            onPress={() => startRecording("formal")}
+            style={[
+              styles.recordButton,
+              isRecording &&
+                currentRecordingType === "formal" &&
+                styles.recording,
+            ]}
+            onPress={() => {
+              if (isRecording && currentRecordingType === "formal")
+                stopRecording("formal");
+              else startRecording("formal");
+            }}
           >
-            <Text style={styles.recordBtnText}>🎤 Pratique sua pronúncia</Text>
+            <Text style={styles.recordBtnText}>
+              {isRecording && currentRecordingType === "formal"
+                ? "⏹ Parar gravação"
+                : "🎤 Pratique sua pronúncia"}
+            </Text>
           </TouchableOpacity>
           <Text style={styles.smallText}>
             Grave-se falando sua apresentação formal
           </Text>
+
+          {recordedURIs["formal"] && (
+            <View style={{ alignItems: "center", marginTop: 8 }}>
+              <TouchableOpacity
+                style={styles.primaryBtn}
+                onPress={() => playRecording("formal")}
+              >
+                <Text style={styles.btnText}>▶ Reproduzir Gravação</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.primaryBtn,
+                  { marginTop: 8, backgroundColor: "#ef4444" },
+                ]}
+                onPress={() => reRecord("formal")}
+              >
+                <Text style={styles.btnText}>🔁 Regravar</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
 
         {renderNextButton(3)}
@@ -641,11 +812,45 @@ export default function MobileLessonComponent({ route, navigation }) {
 
           <View style={styles.rowFlex}>
             <TouchableOpacity
-              style={[styles.recordButton, styles.flex1]}
-              onPress={() => startRecording("roleplay")}
+              style={[
+                styles.recordButton,
+                styles.flex1,
+                isRecording &&
+                  currentRecordingType === "roleplay" &&
+                  styles.recording,
+              ]}
+              onPress={() => {
+                if (isRecording && currentRecordingType === "roleplay")
+                  stopRecording("roleplay");
+                else startRecording("roleplay");
+              }}
             >
-              <Text style={styles.recordBtnText}>🎤 Gravar Áudio</Text>
+              <Text style={styles.recordBtnText}>
+                {isRecording && currentRecordingType === "roleplay"
+                  ? "⏹ Parar gravação"
+                  : "🎤 Gravar Áudio"}
+              </Text>
             </TouchableOpacity>
+
+            {recordedURIs["roleplay"] && (
+              <View style={{ alignItems: "center", marginTop: 8 }}>
+                <TouchableOpacity
+                  style={styles.primaryBtn}
+                  onPress={() => playRecording("roleplay")}
+                >
+                  <Text style={styles.btnText}>▶ Reproduzir Gravação</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.primaryBtn,
+                    { marginTop: 8, backgroundColor: "#ef4444" },
+                  ]}
+                  onPress={() => reRecord("roleplay")}
+                >
+                  <Text style={styles.btnText}>🔁 Regravar</Text>
+                </TouchableOpacity>
+              </View>
+            )}
           </View>
 
           {roleplayResultVisible && (
@@ -1100,17 +1305,18 @@ const styles = StyleSheet.create({
   recordButton: {
     backgroundColor: "#2563eb",
     paddingVertical: 12,
-    paddingHorizontal: 14,
+    paddingHorizontal: 18,
     borderRadius: 999,
     alignItems: "center",
+    justifyContent: "center",
     marginTop: 12,
-    minHeight: 44,
   },
+
   recording: { backgroundColor: "#ef4444" },
   recordBtnText: {
     color: "#fff",
     fontWeight: "700",
-    length: 16,
+    fontSize: 16,
     textAlign: "center",
   },
   smallText: { fontSize: 12, color: "#64748b", marginTop: 6 },
@@ -1155,12 +1361,13 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
 
-  // Rows
   rowFlex: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 10,
+    flexDirection: "column",
+    maxHeight: 200,
+    width: "100%",
+    marginTop: 12,
   },
+
   flex1: { flex: 1, margin: 4 },
 
   // Models
