@@ -125,7 +125,7 @@ async function saveProgress(progress) {
 }
 
 /* ---------- componente ---------- */
-export default function SlideLessonComponent({ route }) {
+export default function SlideLessonComponent({ route, navigation }) {
   // page é 1-based no seu código original
   const [page, setPage] = useState(1);
   const [score, setScore] = useState(0);
@@ -289,6 +289,35 @@ export default function SlideLessonComponent({ route }) {
                 {percentage >= 70 ? "🔄 Practice Again" : "🔄 Try Again"}
               </Text>
             </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[
+                styles.startBtn,
+                { backgroundColor: BEA_BLUE, marginTop: 12 },
+              ]}
+              onPress={() => {
+                const nextScreen =
+                  route?.params?.nextScreen ||
+                  route?.params?.lesson?.nextScreen ||
+                  "MeetingsQuiz";
+                const lessonToPass = route?.params?.lesson || route?.params;
+                if (navigation && nextScreen) {
+                  navigation.reset({
+                    index: 1,
+                    routes: [
+                      { name: "Bussines" },
+                      {
+                        name: nextScreen,
+                        params: { lesson: lessonToPass },
+                      },
+                    ],
+                  });
+                }
+              }}
+              accessibilityLabel="Próxima atividade"
+            >
+              <Text style={styles.startBtnText}>Próxima Atividade →</Text>
+            </TouchableOpacity>
           </>
         )}
       </ScrollView>
@@ -381,7 +410,7 @@ const styles = StyleSheet.create({
   audioBtnText: { color: "#fff", fontWeight: "bold" },
 
   startBtn: {
-    backgroundColor: BEA_ORANGE,
+    backgroundColor: "#ec651d",
     paddingVertical: 18,
     paddingHorizontal: 48,
     borderRadius: 999,

@@ -378,6 +378,34 @@ export default function PracticeMeetingExpressions({ navigation, route }) {
           >
             <Text style={styles.nextBtnText}>Voltar</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.nextBtn,
+              { backgroundColor: "#2563eb", marginTop: 20 },
+            ]}
+            onPress={() => {
+              const nextScreen =
+                route?.params?.nextScreen ||
+                route?.params?.lesson?.nextScreen ||
+                "MeetingPhrasebook";
+              const lessonToPass = route?.params?.lesson || route?.params;
+              if (navigation && nextScreen) {
+                navigation.reset({
+                  index: 1,
+                  routes: [
+                    { name: "Bussines" },
+                    {
+                      name: nextScreen,
+                      params: { lesson: lessonToPass },
+                    },
+                  ],
+                });
+              }
+            }}
+            accessibilityLabel="Próxima atividade"
+          >
+            <Text style={styles.nextBtnText}>Próxima Atividade →</Text>
+          </TouchableOpacity>
         </ScrollView>
       </View>
     );

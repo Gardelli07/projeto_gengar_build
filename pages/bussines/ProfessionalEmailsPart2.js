@@ -178,7 +178,9 @@ export default function ProfessionalEmailsMobile({ route, navigation }) {
           {currentSlide === 6 && <Slide7 />}
           {currentSlide === 7 && <Slide8 />}
           {currentSlide === 8 && <Slide9 />}
-          {currentSlide === 9 && <Slide10 />}
+          {currentSlide === 9 && (
+            <Slide10 navigation={navigation} route={route} />
+          )}
         </ScrollView>
       </View>
     </SlideNavContext.Provider>
@@ -1464,7 +1466,7 @@ function Slide9() {
   );
 }
 
-function Slide10() {
+function Slide10({ navigation, route }) {
   const { renderPrevButton } = useNav();
   return (
     <View style={styles.slide}>
@@ -1528,7 +1530,34 @@ function Slide10() {
           </Text>
         </View>
       </View>
-      <View style={styles.buttonRow}>{renderPrevButton(9)}</View>
+      <View style={styles.buttonRow}>
+        {renderPrevButton(9)}
+        <TouchableOpacity
+          style={[styles.nextButton, { backgroundColor: "#2563eb" }]}
+          onPress={() => {
+            const nextScreen =
+              route?.params?.nextScreen ||
+              route?.params?.lesson?.nextScreen ||
+              "TelephoneConversations";
+            const lessonToPass = route?.params?.lesson || route?.params;
+            if (navigation && nextScreen) {
+              navigation.reset({
+                index: 1,
+                routes: [
+                  { name: "Bussines" },
+                  {
+                    name: nextScreen,
+                    params: { lesson: lessonToPass },
+                  },
+                ],
+              });
+            }
+          }}
+          accessibilityLabel="Próxima atividade"
+        >
+          <Text style={styles.nextButtonText}>Próxima Atividade →</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

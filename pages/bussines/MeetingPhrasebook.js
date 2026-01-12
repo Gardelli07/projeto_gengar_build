@@ -256,7 +256,13 @@ export default function MeetingPhrasebook({ navigation, route }) {
         )}
 
         {page === expressions.length && (
-          <TouchableOpacity style={styles.navBtn} onPress={() => setPage(0)}>
+          <TouchableOpacity
+            style={styles.navBtn}
+            onPress={() => {
+              if (navigation && navigation.navigate)
+                navigation.navigate("Bussines");
+            }}
+          >
             <Text style={styles.navBtnText}>🏠 Home</Text>
           </TouchableOpacity>
         )}

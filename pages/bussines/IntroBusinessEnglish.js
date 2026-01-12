@@ -809,6 +809,35 @@ export default function MobileLessonComponent({ route, navigation }) {
             >
               <Text style={styles.btnText}>🔄 Revisar Aula</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.primaryBtnLarge,
+                styles.blueBtn,
+                { marginTop: 12 },
+              ]}
+              onPress={() => {
+                const nextScreen =
+                  route?.params?.nextScreen ||
+                  route?.params?.lesson?.nextScreen ||
+                  "ProfessionalEmails";
+                const lessonToPass = route?.params?.lesson || route?.params;
+                if (navigation && nextScreen) {
+                  navigation.reset({
+                    index: 1,
+                    routes: [
+                      { name: "Bussines" },
+                      {
+                        name: nextScreen,
+                        params: { lesson: lessonToPass },
+                      },
+                    ],
+                  });
+                }
+              }}
+              accessibilityLabel="Próxima atividade"
+            >
+              <Text style={styles.btnText}>Próxima Atividade →</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>

@@ -673,17 +673,12 @@ function CourseScreen({ navigation }) {
     return sub;
   }, [navigation]);
 
-  // Considera apenas as lessons que têm uma tela associada (screen)
-  const lessonsWithScreen = sampleLessons.filter(
-    (l) => l.screen && l.screen.length > 0
-  );
-  const completedCount = lessonsWithScreen.filter(
-    (l) => progressMap[l.id]
-  ).length;
-  const percent =
-    lessonsWithScreen.length > 0
-      ? (completedCount / lessonsWithScreen.length) * 100
-      : 0;
+  // Considera TODAS as aulas, inclusive as trancadas
+  const totalLessons = sampleLessons.length;
+
+  const completedCount = sampleLessons.filter((l) => progressMap[l.id]).length;
+
+  const percent = totalLessons > 0 ? (completedCount / totalLessons) * 100 : 0;
 
   const goToLesson = (lesson) => {
     navigation.navigate(lesson.screen, { lesson });
