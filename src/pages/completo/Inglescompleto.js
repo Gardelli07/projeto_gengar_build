@@ -49,7 +49,7 @@ const sampleLessons = [
     title: "TESTE",
     type: "Aula",
     screen: "Teste2",
-    avatar: require("../../assets/Bussines/aula1.png"),
+    avatar: require("../../../assets/Bussines/aula1.png"),
   },
   {
     module: 0,
@@ -57,7 +57,7 @@ const sampleLessons = [
     title: "Apresentar-se",
     type: "Aula",
     screen: "IntroBusinessEnglish",
-    avatar: require("../../assets/Bussines/aula1.png"),
+    avatar: require("../../../assets/Bussines/aula1.png"),
   },
   {
     module: 0,
@@ -65,7 +65,7 @@ const sampleLessons = [
     title: "Apresentar-se",
     type: "Aula",
     screen: "IntroBusinessEnglish",
-    avatar: require("../../assets/Bussines/aula1.png"),
+    avatar: require("../../../assets/Bussines/aula1.png"),
   },
   {
     module: 0,
@@ -73,7 +73,7 @@ const sampleLessons = [
     title: "Apresentar-se",
     type: "Aula",
     screen: "IntroBusinessEnglish",
-    avatar: require("../../assets/Bussines/aula1.png"),
+    avatar: require("../../../assets/Bussines/aula1.png"),
   },
   {
     module: 0,
@@ -81,7 +81,7 @@ const sampleLessons = [
     title: "Apresentar-se",
     type: "Aula",
     screen: "IntroBusinessEnglish",
-    avatar: require("../../assets/Bussines/aula1.png"),
+    avatar: require("../../../assets/Bussines/aula1.png"),
   },
   {
     module: 0,
@@ -89,7 +89,7 @@ const sampleLessons = [
     title: "Apresentar-se",
     type: "Aula",
     screen: "IntroBusinessEnglish",
-    avatar: require("../../assets/Bussines/aula1.png"),
+    avatar: require("../../../assets/Bussines/aula1.png"),
   },
 ];
 

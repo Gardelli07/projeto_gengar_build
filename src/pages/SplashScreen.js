@@ -11,7 +11,7 @@ export default function SplashScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Image source={require("../assets/splash.png")} style={styles.logo} />
+      <Image source={require("../../assets/splash.png")} style={styles.logo} />
     </View>
   );
 }

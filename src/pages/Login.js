@@ -45,7 +45,7 @@ export default function LoginScreen({ navigation }) {
         >
           {/* Imagem do topo */}
           <Image
-            source={require("../assets/logo2.png")}
+            source={require("../../assets/logo2.png")}
             style={styles.logo}
             resizeMode="contain"
             accessible

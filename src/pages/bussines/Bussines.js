@@ -15,6 +15,7 @@ import { SvgXml } from "react-native-svg";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Svg, { Circle } from "react-native-svg";
+import { BussinesImages } from "../../util/images";
 // Cadeado SVG como string
 const lockIcon = `
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -48,7 +49,7 @@ const sampleLessons = [
     title: "Apresentar-se",
     type: "Aula",
     screen: "IntroBusinessEnglish",
-    avatar: require("../../assets/Bussines/aula1.png"),
+    avatar: BussinesImages.aula1,
   },
   {
     module: 0,
@@ -56,7 +57,7 @@ const sampleLessons = [
     title: "Escreva seu email",
     type: "Aula",
     screen: "ProfessionalEmails",
-    avatar: require("../../assets/Bussines/email.png"),
+    avatar: BussinesImages.email,
   },
   {
     module: 0,
@@ -64,7 +65,7 @@ const sampleLessons = [
     title: "Continuação: Escreva seu email",
     type: "Prática Oral",
     screen: "ProfessionalEmailsPart2",
-    avatar: require("../../assets/Bussines/email2.png"),
+    avatar: BussinesImages.email2,
   },
   {
     module: 0,
@@ -72,7 +73,7 @@ const sampleLessons = [
     title: "Quem é?",
     type: "IA",
     screen: "TelephoneConversations",
-    avatar: require("../../assets/Bussines/call.png"),
+    avatar: BussinesImages.call,
   },
   {
     module: 0,
@@ -80,7 +81,7 @@ const sampleLessons = [
     title: "Marcando reuniões ",
     type: "IA",
     screen: "MeetingsQuiz",
-    avatar: require("../../assets/Bussines/agenda.png"),
+    avatar: BussinesImages.agenda,
   },
   {
     module: 0,
@@ -88,7 +89,7 @@ const sampleLessons = [
     title: "Networking",
     type: "IA",
     screen: "NetworkingSmallTalk",
-    avatar: require("../../assets/Bussines/storm.png"),
+    avatar: BussinesImages.storm,
   },
   {
     module: 0,
@@ -96,7 +97,7 @@ const sampleLessons = [
     title: "Shall we start?",
     type: "IA",
     screen: "PracticeMeetingExpressions",
-    avatar: require("../../assets/Bussines/tradutor.png"),
+    avatar: BussinesImages.tradutor,
   },
   {
     module: 0,
@@ -104,7 +105,7 @@ const sampleLessons = [
     title: "Meetings",
     type: "IA",
     screen: "MeetingPhrasebook",
-    avatar: require("../../assets/Bussines/reuniao.png"),
+    avatar: BussinesImages.reuniao,
   },
   //modulo 2
   {
@@ -113,7 +114,7 @@ const sampleLessons = [
     title: "What’s up?",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/hi2.png"),
+    avatar: BussinesImages.hi2,
   },
   {
     module: 1,
@@ -121,7 +122,7 @@ const sampleLessons = [
     title: "Cumprimentos",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/hi.png"),
+    avatar: BussinesImages.hi,
   },
   {
     module: 1,
@@ -129,7 +130,7 @@ const sampleLessons = [
     title: "Q&A",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/conversa.png"),
+    avatar: BussinesImages.conversa,
   },
   {
     module: 1,
@@ -137,7 +138,7 @@ const sampleLessons = [
     title: "Diálogo no elevador",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/conversa2.png"),
+    avatar: BussinesImages.conversa2,
   },
   //modulo 3
   {
@@ -146,7 +147,7 @@ const sampleLessons = [
     title: "Trabalho na...",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/company.png"),
+    avatar: BussinesImages.company,
   },
   {
     module: 2,
@@ -154,7 +155,7 @@ const sampleLessons = [
     title: "Networking",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/storm.png"),
+    avatar: BussinesImages.storm,
   },
   {
     module: 2,
@@ -162,7 +163,7 @@ const sampleLessons = [
     title: "Quem sou eu?",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/who.png"),
+    avatar: BussinesImages.who,
   },
   {
     module: 2,
@@ -170,7 +171,7 @@ const sampleLessons = [
     title: "Small talk",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/conversa2.png"),
+    avatar: BussinesImages.conversa2,
   },
   {
     module: 2,
@@ -178,7 +179,7 @@ const sampleLessons = [
     title: "Contra o tempo",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/relogio.png"),
+    avatar: BussinesImages.relogio,
   },
   //modulo 4
   {
@@ -187,7 +188,7 @@ const sampleLessons = [
     title: "introdução office",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/trabalho.png"),
+    avatar: BussinesImages.trabalho,
   },
   {
     module: 3,
@@ -195,7 +196,7 @@ const sampleLessons = [
     title: "Objetos de escritório",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/material.png"),
+    avatar: BussinesImages.material,
   },
   {
     module: 3,
@@ -203,7 +204,7 @@ const sampleLessons = [
     title: "Complete a frase",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/celebro.png"),
+    avatar: BussinesImages.celebro,
   },
   {
     module: 3,
@@ -211,7 +212,7 @@ const sampleLessons = [
     title: "Situações de escritório",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/secretaria.png"),
+    avatar: BussinesImages.secretaria,
   },
   //modulo 5
   {
@@ -220,7 +221,7 @@ const sampleLessons = [
     title: "Formal email",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/envelope.png"),
+    avatar: BussinesImages.envelope,
   },
   {
     module: 4,
@@ -228,7 +229,7 @@ const sampleLessons = [
     title: "Como montar o email",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/celebro.png"),
+    avatar: BussinesImages.celebro,
   },
   {
     module: 4,
@@ -236,7 +237,7 @@ const sampleLessons = [
     title: "Saudação",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/hi.png"),
+    avatar: BussinesImages.hi,
   },
   {
     module: 4,
@@ -244,7 +245,7 @@ const sampleLessons = [
     title: "Complete o email",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/mensagem.png"),
+    avatar: BussinesImages.mensagem,
   },
   {
     module: 4,
@@ -252,7 +253,7 @@ const sampleLessons = [
     title: "Rescreva o email",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/secretario.png"),
+    avatar: BussinesImages.secretario,
   },
   {
     module: 4,
@@ -260,7 +261,7 @@ const sampleLessons = [
     title: "Situações",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/aula2.png"),
+    avatar: BussinesImages.aula2,
   },
   {
     module: 4,
@@ -268,7 +269,7 @@ const sampleLessons = [
     title: "Expressões chaves",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/menino.png"),
+    avatar: BussinesImages.menino,
   },
   {
     module: 4,
@@ -276,7 +277,7 @@ const sampleLessons = [
     title: "Pedido formal",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/lupa.png"),
+    avatar: BussinesImages.lupa,
   },
   {
     module: 4,
@@ -284,7 +285,7 @@ const sampleLessons = [
     title: "Escolha a resposta",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/menino2.png"),
+    avatar: BussinesImages.menino2,
   },
   {
     module: 4,
@@ -292,7 +293,7 @@ const sampleLessons = [
     title: "Agradecimento",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/obrigado.png"),
+    avatar: BussinesImages.obrigado,
   },
   {
     module: 4,
@@ -300,7 +301,7 @@ const sampleLessons = [
     title: "Escreva seu email",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/menina.png"),
+    avatar: BussinesImages.menina,
   },
   {
     module: 4,
@@ -308,7 +309,7 @@ const sampleLessons = [
     title: "Confirme info",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/menina2.png"),
+    avatar: BussinesImages.menina2,
   },
   {
     module: 4,
@@ -316,7 +317,7 @@ const sampleLessons = [
     title: "I’m sorry",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/sorry.png"),
+    avatar: BussinesImages.sorry,
   },
   {
     module: 4,
@@ -324,7 +325,7 @@ const sampleLessons = [
     title: "Soluções",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/ideia.png"),
+    avatar: BussinesImages.ideia,
   },
   {
     module: 4,
@@ -332,7 +333,7 @@ const sampleLessons = [
     title: "Escrita errada",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/confuso.png"),
+    avatar: BussinesImages.confuso,
   },
   {
     module: 4,
@@ -340,7 +341,7 @@ const sampleLessons = [
     title: "Responda",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/mensagem2.png"),
+    avatar: BussinesImages.mensagem2,
   },
   //modulo 6
   {
@@ -349,7 +350,7 @@ const sampleLessons = [
     title: "Vocabulário",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/livro.png"),
+    avatar: BussinesImages.livro,
   },
   {
     module: 5,
@@ -357,7 +358,7 @@ const sampleLessons = [
     title: "Marcando reunião",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/agenda2.png"),
+    avatar: BussinesImages.agenda2,
   },
   {
     module: 5,
@@ -365,7 +366,7 @@ const sampleLessons = [
     title: "Confirmando agenda",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/arquivo.png"),
+    avatar: BussinesImages.arquivo,
   },
   {
     module: 5,
@@ -373,7 +374,7 @@ const sampleLessons = [
     title: "Minuta",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/texto.png"),
+    avatar: BussinesImages.texto,
   },
   {
     module: 5,
@@ -381,7 +382,7 @@ const sampleLessons = [
     title: "Email de agenda",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/carta.png"),
+    avatar: BussinesImages.carta,
   },
   {
     module: 5,
@@ -389,7 +390,7 @@ const sampleLessons = [
     title: "Listen",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/fone.png"),
+    avatar: BussinesImages.fone,
   },
   {
     module: 5,
@@ -397,7 +398,7 @@ const sampleLessons = [
     title: "Expressões chaves",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/lupa2.png"),
+    avatar: BussinesImages.lupa2,
   },
   {
     module: 5,
@@ -405,7 +406,7 @@ const sampleLessons = [
     title: "listen and complete",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/fone.png"),
+    avatar: BussinesImages.fone,
   },
   //modulo 7
   {
@@ -414,7 +415,7 @@ const sampleLessons = [
     title: "Apresentando ideias",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/aula3.png"),
+    avatar: BussinesImages.aula3,
   },
   {
     module: 6,
@@ -422,7 +423,7 @@ const sampleLessons = [
     title: "Coloque em ordem",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/aula4.png"),
+    avatar: BussinesImages.aula4,
   },
   {
     module: 6,
@@ -430,7 +431,7 @@ const sampleLessons = [
     title: "Complete as transições",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/celebro.png"),
+    avatar: BussinesImages.celebro,
   },
   {
     module: 6,
@@ -438,7 +439,7 @@ const sampleLessons = [
     title: "informal/formal",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/secretaria.png"),
+    avatar: BussinesImages.secretaria,
   },
   {
     module: 6,
@@ -446,7 +447,7 @@ const sampleLessons = [
     title: "O que dizer?",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/what.png"),
+    avatar: BussinesImages.what,
   },
   //modulo 8
   {
@@ -455,7 +456,7 @@ const sampleLessons = [
     title: "Could you ....?",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/confuso2.png"),
+    avatar: BussinesImages.confuso2,
   },
   {
     module: 7,
@@ -463,7 +464,7 @@ const sampleLessons = [
     title: "Complete",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/arquivo.png"),
+    avatar: BussinesImages.arquivo,
   },
   {
     module: 7,
@@ -471,7 +472,7 @@ const sampleLessons = [
     title: "Review",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/recap.png"),
+    avatar: BussinesImages.recap,
   },
   //modulo 9
   {
@@ -480,7 +481,7 @@ const sampleLessons = [
     title: "Good, but...",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/estrela.png"),
+    avatar: BussinesImages.estrela,
   },
   {
     module: 8,
@@ -488,7 +489,7 @@ const sampleLessons = [
     title: "Complete",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/fone.png"),
+    avatar: BussinesImages.fone,
   },
   //modulo 10
   {
@@ -497,7 +498,7 @@ const sampleLessons = [
     title: "Phone conversation",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/ligacao.png"),
+    avatar: BussinesImages.ligacao,
   },
   {
     module: 9,
@@ -505,7 +506,7 @@ const sampleLessons = [
     title: "Listen",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/fone.png"),
+    avatar: BussinesImages.fone,
   },
   {
     module: 9,
@@ -513,7 +514,7 @@ const sampleLessons = [
     title: "Pronunciation",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/tradutor2.png"),
+    avatar: BussinesImages.tradutor2,
   },
   {
     module: 9,
@@ -521,7 +522,7 @@ const sampleLessons = [
     title: "Call practice",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/telefone.png"),
+    avatar: BussinesImages.telefone,
   },
   //modulo 11
   {
@@ -530,7 +531,7 @@ const sampleLessons = [
     title: "Listen",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/fone.png"),
+    avatar: BussinesImages.fone,
   },
   {
     module: 10,
@@ -538,7 +539,7 @@ const sampleLessons = [
     title: "Vocabulário",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/livro.png"),
+    avatar: BussinesImages.livro,
   },
   {
     module: 10,
@@ -546,7 +547,7 @@ const sampleLessons = [
     title: "Call practice",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/meninolivro.png"),
+    avatar: BussinesImages.meninolivro,
   },
   {
     module: 10,
@@ -554,7 +555,7 @@ const sampleLessons = [
     title: "Dialogue",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/conversa2.png"),
+    avatar: BussinesImages.conversa2,
   },
   //modulo 12
   {
@@ -563,7 +564,7 @@ const sampleLessons = [
     title: "Identificando problemas",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/config.png"),
+    avatar: BussinesImages.config,
   },
   {
     module: 11,
@@ -571,7 +572,7 @@ const sampleLessons = [
     title: "Explicando",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/aula5.png"),
+    avatar: BussinesImages.aula5,
   },
   {
     module: 11,
@@ -579,7 +580,7 @@ const sampleLessons = [
     title: "Sugerir soluções",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/ideia2.png"),
+    avatar: BussinesImages.ideia2,
   },
   {
     module: 11,
@@ -587,7 +588,7 @@ const sampleLessons = [
     title: "Tomando decisões",
     type: "",
     screen: "",
-    avatar: require("../../assets/Bussines/diresao.png"),
+    avatar: BussinesImages.diresao,
   },
 ];
 

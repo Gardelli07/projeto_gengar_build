@@ -10,6 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 import { Crown } from "lucide-react-native";
+import { CursosImages } from "../util/images";
 
 export default function Home() {
   const navigation = useNavigation();
@@ -19,14 +20,14 @@ export default function Home() {
         <CourseCard
           title="Inglês completo"
           description="Aprenda vocabulário e gramática do inglês neste curso"
-          image={require("../assets/Cursos/bussines.jpg")}
+          image={CursosImages.bussines}
           premium
           onPress={() => navigation.navigate("Inglescompleto")}
         />
         <CourseCard
           title="Inglês para negócios"
           description="Aprenda vocabulário e gramática do inglês neste curso"
-          image={require("../assets/Cursos/bussines.jpg")}
+          image={CursosImages.bussines}
           premium
           onPress={() => navigation.navigate("Bussines")}
         />
@@ -34,7 +35,7 @@ export default function Home() {
         <CourseCard
           title="Pronúncia do inglês"
           description="Melhore suas habilidades e fale com mais confiança"
-          image={require("../assets/Cursos/pronuncia.jpg")}
+          image={CursosImages.pronuncia}
           premium
           onPress={() => navigation.navigate("Teste1")}
         />
@@ -42,7 +43,7 @@ export default function Home() {
         <CourseCard
           title="O mundo em inglês"
           description="Aprenda inglês com vídeos do The New York Times"
-          image={require("../assets/Cursos/mundo.jpg")}
+          image={CursosImages.mundo}
           premium
           onPress={() => navigation.navigate("NetworkingSmallTalk")}
         />
@@ -50,7 +51,7 @@ export default function Home() {
         <CourseCard
           title="Inglês para viagens"
           description="Aprenda palavras e frases úteis para sua viagem"
-          image={require("../assets/Cursos/viagem.jpg")}
+          image={CursosImages.viagem}
           premium
           onPress={() => navigation.navigate("PracticeMeetingExpressions")}
         />
