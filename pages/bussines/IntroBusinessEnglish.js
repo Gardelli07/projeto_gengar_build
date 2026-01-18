@@ -11,7 +11,7 @@ import {
   Alert,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Audio } from "expo-av";
+import { Audio } from "expo-audio";
 
 const { width } = Dimensions.get("window");
 const TOTAL_SLIDES = 7;

@@ -9,8 +9,6 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
-
-// ✅ Lucide oficial para React Native
 import { Crown } from "lucide-react-native";
 
 export default function Home() {
@@ -18,6 +16,13 @@ export default function Home() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
+        <CourseCard
+          title="Inglês completo"
+          description="Aprenda vocabulário e gramática do inglês neste curso"
+          image={require("../assets/Cursos/bussines.jpg")}
+          premium
+          onPress={() => navigation.navigate("Inglescompleto")}
+        />
         <CourseCard
           title="Inglês para negócios"
           description="Aprenda vocabulário e gramática do inglês neste curso"

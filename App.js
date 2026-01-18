@@ -1,22 +1,16 @@
 import * as React from "react";
 import { Provider as PaperProvider, Appbar } from "react-native-paper";
-import { Image, TouchableOpacity } from "react-native";
+import { Image, TouchableOpacity, BackHandler } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Icon from "react-native-vector-icons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-
-try {
-  MaterialCommunityIcons &&
-    MaterialCommunityIcons.loadFont &&
-    MaterialCommunityIcons.loadFont();
-} catch (e) {}
-
+//padrão
 import Home from "./pages/Home";
 import Comunidade from "./pages/Comunidade";
 import Login from "./pages/Login";
 import SplashScreen from "./pages/SplashScreen";
+//Bussines
 import MeetingsQuiz from "./pages/bussines/MeetingsQuiz";
 import MeetingPhrasebook from "./pages/bussines/MeetingPhrasebook";
 import PracticeMeetingExpressions from "./pages/bussines/PracticeMeetingExpressions";
@@ -26,6 +20,10 @@ import IntroBusinessEnglish from "./pages/bussines/IntroBusinessEnglish";
 import ProfessionalEmails from "./pages/bussines/ProfessionalEmails";
 import ProfessionalEmailsPart2 from "./pages/bussines/ProfessionalEmailsPart2";
 import TelephoneConversations from "./pages/bussines/TelephoneConversations";
+//completo
+import Inglescompleto from "./pages/completo/Inglescompleto";
+import Teste2 from "./pages/completo/teste2";
+
 import Teste1 from "./pages/Teste1";
 
 const Tab = createBottomTabNavigator();
@@ -88,9 +86,28 @@ function Tabs() {
 }
 
 export default function App() {
+  const navigationRef = React.useRef();
+
+  React.useEffect(() => {
+    const onBackPress = () => {
+      try {
+        const current = navigationRef.current?.getCurrentRoute?.();
+        const name = current?.name;
+        if (name === "Bussines") {
+          navigationRef.current.navigate("Tabs", { screen: "Home" });
+          return true;
+        }
+      } catch (e) {}
+      return false;
+    };
+
+    const sub = BackHandler.addEventListener("hardwareBackPress", onBackPress);
+    return () => sub.remove();
+  }, []);
+
   return (
     <PaperProvider>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <Stack.Navigator initialRouteName="Splash">
           <Stack.Screen
             name="MeetingPhrasebook"
@@ -204,10 +221,19 @@ export default function App() {
             }}
           />
           <Stack.Screen
+            name="Inglescompleto"
+            component={Inglescompleto}
+            options={{
+              headerStyle: { backgroundColor: "#0e3174" },
+              headerTintColor: "#fff",
+              title: "Inglês Completo",
+            }}
+          />
+          <Stack.Screen
             name="Teste1"
             component={Teste1}
             options={{
-              headerStyle: { backgroundColor: "#j" },
+              headerStyle: { backgroundColor: "#0e3174" },
               headerTintColor: "#fff",
               title: "Quiz: Networking & Small Talk",
             }}
@@ -215,6 +241,11 @@ export default function App() {
           <Stack.Screen
             name="Splash"
             component={SplashScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Teste2"
+            component={Teste2}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
