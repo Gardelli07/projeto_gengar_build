@@ -27,6 +27,7 @@ import TelephoneConversations from "../pages/bussines/TelephoneConversations";
 // completo
 import Inglescompleto from "../pages/completo/Inglescompleto";
 import Teste2 from "../pages/completo/teste2";
+import Teste3 from "../pages/completo/teste3";
 import Teste1 from "../pages/Teste1";
 
 const Tab = createBottomTabNavigator();
@@ -245,6 +246,17 @@ export default function Routes() {
         <Stack.Screen
           name="Teste2"
           component={Teste2}
+          options={{
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: "#0e3174",
+            },
+            headerTintColor: "#fff",
+          }}
+        />
+        <Stack.Screen
+          name="Teste3"
+          component={Teste3}
           options={{
             headerShown: true,
             headerStyle: {
