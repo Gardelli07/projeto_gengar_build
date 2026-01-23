@@ -8,6 +8,38 @@ import {
   StyleSheet,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Speech from "expo-speech";
+
+export function useSpeech() {
+  const speak = ({
+    text,
+    language = "en-US",
+    rate = 0.9,
+    pitch = 1.0,
+    stopBefore = true,
+  }) => {
+    if (!text) return;
+
+    if (stopBefore) {
+      Speech.stop();
+    }
+
+    Speech.speak(text, {
+      language,
+      rate,
+      pitch,
+    });
+  };
+
+  const stop = () => {
+    Speech.stop();
+  };
+
+  return {
+    speak,
+    stop,
+  };
+}
 
 /* ================= CONTEXT ================= */
 
@@ -15,7 +47,7 @@ const SlideNavContext = React.createContext(null);
 
 /* ================= CONFIG ================= */
 
-const SLIDE_COUNT = 10;
+const SLIDE_COUNT = 8;
 const STORAGE_KEY = "@progesso_ingles_completo";
 
 /* ================= STORAGE ================= */
@@ -105,7 +137,7 @@ function useSlideNavigation({
 
 /* ================= SCREEN ================= */
 
-export default function Teste2({ route, navigation }) {
+export default function Base({ route, navigation }) {
   const lesson = route?.params?.lesson;
   const lessons = route?.params?.lessons;
 
@@ -202,8 +234,6 @@ export default function Teste2({ route, navigation }) {
           {currentSlide === 5 && <Slide6 />}
           {currentSlide === 6 && <Slide7 />}
           {currentSlide === 7 && <Slide8 />}
-          {currentSlide === 8 && <Slide9 />}
-          {currentSlide === 9 && <Slide10 />}
         </ScrollView>
       </View>
     </SlideNavContext.Provider>
@@ -220,14 +250,42 @@ function useNav() {
 
 function Slide1() {
   const { renderNextButton } = useNav();
-  return <View style={styles.hero}>{renderNextButton(0)}</View>;
+  return (
+    <View style={styles.hero}>
+      <Text style={styles.heroIcon}>👋</Text>
+      <Text style={styles.heroTitle}>How do you ask {"\n"}"tudo bem?"</Text>
+      <Text style={styles.heroSubtitle}>
+        Como perguntar "tudo bem?" em inglês
+      </Text>
+
+      {renderNextButton(0)}
+    </View>
+  );
 }
 
 function Slide2() {
   const { renderPrevButton, renderNextButton } = useNav();
+  const { speak } = useSpeech();
+
   return (
     <View style={styles.slide}>
-      <Text style={styles.slideObjectiveTitle}>Objetivo da Aula</Text>
+      <Text style={styles.slideObjectiveTitle}>How are you?</Text>
+      <Text style={styles.slideObjectiveSubtitle}>Como você está?</Text>
+
+      <TouchableOpacity
+        style={styles.listenButton}
+        onPress={() =>
+          speak({
+            text: "How are you?",
+            language: "en-US",
+            rate: 0.85,
+            pitch: 1.05,
+          })
+        }
+      >
+        <Text style={styles.listenButtonText}>🔊 Ouvir</Text>
+      </TouchableOpacity>
+
       <View style={styles.buttonRow}>
         {renderPrevButton(1)}
         {renderNextButton(1)}
@@ -238,11 +296,31 @@ function Slide2() {
 
 function Slide3() {
   const { renderPrevButton, renderNextButton } = useNav();
+  const { speak } = useSpeech();
+
   return (
     <View style={styles.slide}>
-      <Text style={styles.slideObjectiveTitle}>
-        Estrutura Padrão de E-mail Formal
-      </Text>
+      <Text style={styles.slideObjectiveTitle}>How's it going?</Text>
+      <Text style={styles.slideObjectiveSubtitle}>E aí, tudo bem?</Text>
+
+      <View style={styles.objectiveRow}>
+        <Text style={styles.objectiveRowText}>Mais Natural</Text>
+      </View>
+
+      <TouchableOpacity
+        style={styles.listenButton}
+        onPress={() =>
+          speak({
+            text: "How's it going?",
+            language: "en-US",
+            rate: 0.85,
+            pitch: 1.05,
+          })
+        }
+      >
+        <Text style={styles.listenButtonText}>🔊 Ouvir</Text>
+      </TouchableOpacity>
+
       <View style={styles.buttonRow}>
         {renderPrevButton(2)}
         {renderNextButton(2)}
@@ -253,9 +331,83 @@ function Slide3() {
 
 function Slide4() {
   const { renderPrevButton, renderNextButton } = useNav();
+  const [selected, setSelected] = useState(null);
+  const [isCorrect, setIsCorrect] = useState(false);
+  const [blinkWrong, setBlinkWrong] = useState(false);
+  const { speak } = useSpeech();
+
+  const options = ["Hello", "Hi", "How are you?"];
+  const correctAnswer = "How are you?";
+
+  const handlePress = (option) => {
+    if (option === correctAnswer) {
+      setSelected(option);
+      setIsCorrect(true);
+    } else {
+      setSelected(option);
+      setBlinkWrong(true);
+
+      // efeito de piscar
+      setTimeout(() => {
+        setBlinkWrong(false);
+        setSelected(null);
+      }, 500);
+    }
+  };
+
   return (
     <View style={styles.slide}>
-      <Text style={styles.slideObjectiveTitle}>Frases Comuns</Text>
+      <Text style={styles.questionTitle}>
+        🎧 Ouça e escolha a frase correta
+      </Text>
+
+      <TouchableOpacity
+        style={styles.btnOuvir}
+        onPress={() =>
+          speak({
+            text: "How are you?",
+            language: "en-US",
+            rate: 0.85,
+            pitch: 1.05,
+          })
+        }
+      >
+        <Text style={styles.btnOuvirText}>🔊 Ouvir</Text>
+      </TouchableOpacity>
+
+      {options.map((option) => {
+        const isSelected = selected === option;
+        const isRight = option === correctAnswer && isCorrect;
+        const isWrong = isSelected && blinkWrong;
+
+        return (
+          <TouchableOpacity
+            key={option}
+            style={[
+              styles.optionButton,
+              isRight && styles.correctOption,
+              isWrong && styles.wrongOption,
+            ]}
+            onPress={() => handlePress(option)}
+            disabled={isCorrect}
+          >
+            <Text style={[styles.optionText, isRight && styles.correctText]}>
+              {option}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
+
+      {isCorrect && (
+        <View style={styles.successBox}>
+          <Text style={styles.successTitle}>✓ Correto!</Text>
+          <Text style={styles.successText}>
+            Excelente! Você reconheceu "How are you?" - a forma mais comum de
+            perguntar "tudo bem?" em inglês!
+          </Text>
+        </View>
+      )}
+
       <View style={styles.buttonRow}>
         {renderPrevButton(3)}
         {renderNextButton(3)}
@@ -266,9 +418,87 @@ function Slide4() {
 
 function Slide5() {
   const { renderPrevButton, renderNextButton } = useNav();
+
+  const correctWord = "howareyou?";
+  const letters = ["are", "how", "you?"];
+
+  const [selectedLetters, setSelectedLetters] = useState([]);
+  const [availableLetters, setAvailableLetters] = useState(letters);
+  const [isCorrect, setIsCorrect] = useState(false);
+
+  const handleSelectLetter = (letter, index) => {
+    if (isCorrect) return;
+
+    const newSelected = [...selectedLetters, letter];
+    const newAvailable = [...availableLetters];
+    newAvailable.splice(index, 1);
+
+    setSelectedLetters(newSelected);
+    setAvailableLetters(newAvailable);
+
+    if (newSelected.join("") === correctWord) {
+      setIsCorrect(true);
+    }
+  };
+
+  const handleClear = () => {
+    setSelectedLetters([]);
+    setAvailableLetters(letters);
+    setIsCorrect(false);
+  };
+
   return (
     <View style={styles.slide}>
-      <Text style={styles.slideObjectiveTitle}>E-mail Modelo</Text>
+      <Text style={styles.questionTitle}>
+        ✍️ Selecione as palavras na ordem {"\n"} correta para formar a
+        frase{" "}
+      </Text>
+
+      <Text style={styles.wordHint}>Como você está?</Text>
+
+      {/* Área de resposta */}
+      <View
+        style={[
+          styles.dropArea,
+          selectedLetters.length > 0 && styles.dropAreaFilled,
+        ]}
+      >
+        {selectedLetters.map((letter, index) => (
+          <View key={index} style={styles.letterBoxActive}>
+            <Text style={styles.letterTextActive}>{letter}</Text>
+          </View>
+        ))}
+      </View>
+
+      {/* Letras disponíveis */}
+      <View style={styles.lettersRow}>
+        {availableLetters.map((letter, index) => (
+          <TouchableOpacity
+            key={index}
+            style={styles.letterBox}
+            onPress={() => handleSelectLetter(letter, index)}
+          >
+            <Text style={styles.letterText}>{letter}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      {/* Botão Limpar */}
+      <TouchableOpacity style={styles.clearButton} onPress={handleClear}>
+        <Text style={styles.clearButtonText}>🧹 Limpar</Text>
+      </TouchableOpacity>
+
+      {/* Feedback */}
+      {isCorrect && (
+        <View style={styles.successBox}>
+          <Text style={styles.successTitle}>✓ Perfeito!</Text>
+          <Text style={styles.successText}>
+            Você montou "How are you?" corretamente!
+          </Text>
+        </View>
+      )}
+
+      {/* Navegação */}
       <View style={styles.buttonRow}>
         {renderPrevButton(4)}
         {renderNextButton(4)}
@@ -279,9 +509,87 @@ function Slide5() {
 
 function Slide6() {
   const { renderPrevButton, renderNextButton } = useNav();
+
+  const correctWord = "how'sitgoing?";
+  const letters = ["it", "how's", "going?"];
+
+  const [selectedLetters, setSelectedLetters] = useState([]);
+  const [availableLetters, setAvailableLetters] = useState(letters);
+  const [isCorrect, setIsCorrect] = useState(false);
+
+  const handleSelectLetter = (letter, index) => {
+    if (isCorrect) return;
+
+    const newSelected = [...selectedLetters, letter];
+    const newAvailable = [...availableLetters];
+    newAvailable.splice(index, 1);
+
+    setSelectedLetters(newSelected);
+    setAvailableLetters(newAvailable);
+
+    if (newSelected.join("") === correctWord) {
+      setIsCorrect(true);
+    }
+  };
+
+  const handleClear = () => {
+    setSelectedLetters([]);
+    setAvailableLetters(letters);
+    setIsCorrect(false);
+  };
+
   return (
     <View style={styles.slide}>
-      <Text style={styles.slideObjectiveTitle}>Encontre o Erro</Text>
+      <Text style={styles.questionTitle}>
+        ✍️ Selecione as palavras na ordem {"\n"} correta para formar a
+        frase{" "}
+      </Text>
+
+      <Text style={styles.wordHint}>E aí, tudo bem?</Text>
+
+      {/* Área de resposta */}
+      <View
+        style={[
+          styles.dropArea,
+          selectedLetters.length > 0 && styles.dropAreaFilled,
+        ]}
+      >
+        {selectedLetters.map((letter, index) => (
+          <View key={index} style={styles.letterBoxActive}>
+            <Text style={styles.letterTextActive}>{letter}</Text>
+          </View>
+        ))}
+      </View>
+
+      {/* Letras disponíveis */}
+      <View style={styles.lettersRow}>
+        {availableLetters.map((letter, index) => (
+          <TouchableOpacity
+            key={index}
+            style={styles.letterBox}
+            onPress={() => handleSelectLetter(letter, index)}
+          >
+            <Text style={styles.letterText}>{letter}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      {/* Botão Limpar */}
+      <TouchableOpacity style={styles.clearButton} onPress={handleClear}>
+        <Text style={styles.clearButtonText}>🧹 Limpar</Text>
+      </TouchableOpacity>
+
+      {/* Feedback */}
+      {isCorrect && (
+        <View style={styles.successBox}>
+          <Text style={styles.successTitle}>✓ Perfeito!</Text>
+          <Text style={styles.successText}>
+            Você soletrou "HI" corretamente!
+          </Text>
+        </View>
+      )}
+
+      {/* Navegação */}
       <View style={styles.buttonRow}>
         {renderPrevButton(5)}
         {renderNextButton(5)}
@@ -291,61 +599,51 @@ function Slide6() {
 }
 
 function Slide7() {
-  const { renderPrevButton, renderNextButton } = useNav();
-  return (
-    <View style={styles.slide}>
-      <Text style={styles.slideObjectiveTitle}>Escolha Correta</Text>
-      <View style={styles.buttonRow}>
-        {renderPrevButton(6)}
-        {renderNextButton(6)}
-      </View>
-    </View>
-  );
-}
-
-function Slide8() {
-  const { renderPrevButton, renderNextButton } = useNav();
-  return (
-    <View style={styles.slide}>
-      <Text style={styles.slideObjectiveTitle}>Criando o Seu E-mail</Text>
-      <View style={styles.buttonRow}>
-        {renderPrevButton(7)}
-        {renderNextButton(7)}
-      </View>
-    </View>
-  );
-}
-
-function Slide9() {
-  const { renderPrevButton, renderNextButton } = useNav();
-  return (
-    <View style={styles.slide}>
-      <Text style={styles.slideObjectiveTitle}>Quiz Final</Text>
-      <View style={styles.buttonRow}>
-        {renderPrevButton(8)}
-        {renderNextButton(8)}
-      </View>
-    </View>
-  );
-}
-
-function Slide10() {
   const { renderPrevButton, goToNextLesson } = useNav();
 
+  const bounceAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(bounceAnim, {
+          toValue: -12,
+          duration: 600,
+          useNativeDriver: true,
+        }),
+        Animated.timing(bounceAnim, {
+          toValue: 0,
+          duration: 600,
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, []);
+
   return (
     <View style={styles.slide}>
-      <Text style={styles.slideTitle}>Resumo Final</Text>
+      <Animated.Text
+        style={[styles.emoji, { transform: [{ translateY: bounceAnim }] }]}
+      >
+        🎉
+      </Animated.Text>
 
+      <Text style={styles.congrats}>Parabéns!</Text>
+
+      <Text style={styles.description}>
+        Agora você sabe perguntar "tudo bem?" em inglês! Recomeçar
+      </Text>
       <View style={styles.buttonRow}>
-        {renderPrevButton(9)}
-
+        {renderPrevButton(6)}
         <TouchableOpacity
           style={styles.nextLessonButton}
           onPress={goToNextLesson}
+          accessible={false}
+          focusable={false}
         >
-          <Text style={styles.nextLessonButtonText}>
-            Ir para próxima lição →
-          </Text>
+          <Text style={styles.nextLessonButtonText}>Próxima lição →</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -360,13 +658,46 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#F5F5F5",
+    margin: 20,
   },
   slideObjectiveTitle: {
-    fontSize: 24,
-    fontWeight: "800",
-    color: "#022b62",
+    fontSize: 45,
+    fontWeight: "700",
+    color: "#0A3D91",
     marginBottom: 6,
-    textAlign: "center",
+  },
+  slideObjectiveSubtitle: {
+    fontSize: 20,
+    color: "#7A7A7A",
+    marginBottom: 14,
+  },
+  objectiveRow: {
+    backgroundColor: "#FF7A2F",
+    paddingHorizontal: 14,
+    paddingVertical: 6,
+    borderRadius: 20,
+    marginBottom: 24,
+  },
+  objectiveRowText: {
+    color: "#FFFFFF",
+    fontSize: 15,
+    fontWeight: "600",
+  },
+  listenButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#FF7A2F",
+    width: "40%",
+    paddingVertical: 12,
+    borderRadius: 14,
+    elevation: 8,
+  },
+  listenButtonText: {
+    color: "#FFFFFF",
+    fontSize: 20,
+    fontWeight: "600",
+    marginLeft: 6,
   },
   nextButton: {
     backgroundColor: "#ec651d",
@@ -376,6 +707,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 12,
+    marginHorizontal: 4,
   },
   nextButtonText: {
     color: "#fff",
@@ -384,7 +716,8 @@ const styles = StyleSheet.create({
   },
   nextLessonButton: {
     backgroundColor: "#0f73ff",
-    paddingHorizontal: 18,
+    paddingHorizontal: 5,
+    width: 180,
     height: 48,
     borderRadius: 12,
     alignItems: "center",
@@ -400,7 +733,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    gap: 12,
+    marginHorizontal: 6,
+    width: "95%",
   },
   progressBarContainer: {
     height: 4,
@@ -412,11 +746,217 @@ const styles = StyleSheet.create({
     backgroundColor: "#ec651d",
     borderRadius: 2,
   },
+  //capa
   hero: {
     backgroundColor: "#022b62",
     alignItems: "center",
     justifyContent: "center",
     flexGrow: 1,
     width: "100%",
+  },
+  heroIcon: { fontSize: 56, marginBottom: 18 },
+  heroTitle: {
+    color: "#fff",
+    fontSize: 36,
+    fontWeight: "800",
+    textAlign: "center",
+    marginBottom: 12,
+    width: "90%",
+  },
+  heroSubtitle: {
+    color: "#B8C5D3",
+    fontSize: 16,
+    textAlign: "center",
+    marginHorizontal: 16,
+    lineHeight: 22,
+  },
+  //quiz
+  questionTitle: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: "#0A3D91",
+    textAlign: "center",
+    marginBottom: 24,
+  },
+  optionButton: {
+    borderWidth: 1,
+    width: "80%",
+    borderColor: "#E0E0E0",
+    borderRadius: 12,
+    paddingVertical: 14,
+    marginBottom: 12,
+    alignItems: "center",
+    backgroundColor: "#FFF",
+  },
+  optionText: {
+    fontSize: 20,
+    fontWeight: "500",
+    color: "#333",
+  },
+  correctOption: {
+    backgroundColor: "#E9F7EE",
+    borderColor: "#2ECC71",
+  },
+  correctText: {
+    color: "#2ECC71",
+    fontWeight: "700",
+  },
+  wrongOption: {
+    backgroundColor: "#FDECEC",
+    borderColor: "#E74C3C",
+  },
+  successBox: {
+    backgroundColor: "#E9F7EE",
+    borderWidth: 1,
+    width: "90%",
+    borderColor: "#2ECC71",
+    borderRadius: 12,
+    padding: 14,
+    marginTop: 12,
+  },
+  successTitle: {
+    color: "#2ECC71",
+    fontWeight: "700",
+    marginBottom: 6,
+  },
+  successText: {
+    color: "#2ECC71",
+    fontSize: 14,
+  },
+  // jogo de soletrar
+  dropArea: {
+    width: "85%",
+    minHeight: 70,
+    borderWidth: 1,
+    borderStyle: "dashed",
+    borderColor: "#000000",
+    borderRadius: 14,
+    padding: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 20,
+  },
+  dropAreaFilled: {
+    borderColor: "#FF7A2F",
+  },
+  lettersRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    marginHorizontal: 6,
+    marginBottom: 16,
+  },
+
+  letterBox: {
+    minHeight: 44,
+    paddingHorizontal: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#E0E0E0",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#FFF",
+    marginHorizontal: 4,
+  },
+
+  letterText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#0A3D91",
+  },
+
+  letterBoxActive: {
+    minHeight: 44,
+    paddingHorizontal: 14,
+    borderRadius: 8,
+    backgroundColor: "#FF7A2F",
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 4,
+  },
+
+  letterTextActive: {
+    color: "#FFF",
+    fontWeight: "700",
+    fontSize: 16,
+  },
+
+  wordHint: {
+    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#0A3D91",
+    marginBottom: 20,
+  },
+  clearButton: {
+    alignSelf: "center",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#E0E0E0",
+    marginBottom: 16,
+  },
+  clearButtonText: {
+    fontSize: 14,
+    color: "#0A3D91",
+    fontWeight: "500",
+  },
+  //slide final
+  centerContent: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 24,
+  },
+  emoji: {
+    fontSize: 64,
+    marginBottom: 16,
+  },
+  congrats: {
+    fontSize: 18,
+    color: "#64748b",
+    marginBottom: 6,
+  },
+  description: {
+    fontSize: 16,
+    color: "#334155",
+    textAlign: "center",
+    lineHeight: 22,
+    marginBottom: 32,
+  },
+  bold: {
+    fontWeight: "700",
+  },
+  restartButton: {
+    backgroundColor: "#f97316",
+    paddingVertical: 14,
+    paddingHorizontal: 36,
+    borderRadius: 14,
+  },
+  restartButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "700",
+  },
+  backButton: {
+    position: "absolute",
+    bottom: 24,
+    left: 16,
+  },
+  //botão ouvir pergunta
+  btnOuvir: {
+    backgroundColor: "#4f8dfd",
+    borderRadius: 14,
+    paddingVertical: 16,
+    paddingHorizontal: 26,
+    alignSelf: "center",
+    marginBottom: 12,
+  },
+  btnOuvirText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "600",
   },
 });
