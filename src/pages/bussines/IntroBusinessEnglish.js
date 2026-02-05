@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Audio } from "expo-audio";
+import CORES from "../../util/cores";
 
 const { width } = Dimensions.get("window");
 const TOTAL_SLIDES = 7;
@@ -106,7 +107,7 @@ export default function MobileLessonComponent({ route, navigation }) {
     if (!name || !company || !dept) {
       Alert.alert(
         "Atenção",
-        "Preencha nome completo, empresa e departamento para gerar a apresentação."
+        "Preencha nome completo, empresa e departamento para gerar a apresentação.",
       );
       return;
     }
@@ -121,7 +122,7 @@ export default function MobileLessonComponent({ route, navigation }) {
     if (!writingInformal || writingInformal.length <= 10) {
       Alert.alert(
         "Atenção",
-        "Por favor, escreva uma apresentação informal mais completa!"
+        "Por favor, escreva uma apresentação informal mais completa!",
       );
       return;
     }
@@ -170,7 +171,7 @@ export default function MobileLessonComponent({ route, navigation }) {
     if (!writingFormal || writingFormal.length <= 10) {
       Alert.alert(
         "Atenção",
-        "Por favor, escreva uma apresentação mais completa!"
+        "Por favor, escreva uma apresentação mais completa!",
       );
       return;
     }
@@ -220,7 +221,7 @@ export default function MobileLessonComponent({ route, navigation }) {
         if (status !== "granted") {
           Alert.alert(
             "Permissão negada",
-            "Permita o uso do microfone nas configurações."
+            "Permita o uso do microfone nas configurações.",
           );
           return;
         }
@@ -232,7 +233,7 @@ export default function MobileLessonComponent({ route, navigation }) {
 
         const recording = new Audio.Recording();
         await recording.prepareToRecordAsync(
-          Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
+          Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY,
         );
         await recording.startAsync();
 
@@ -267,7 +268,7 @@ export default function MobileLessonComponent({ route, navigation }) {
         setCurrentRecordingType(null);
         Alert.alert(
           "Gravação",
-          "Gravação salva! Você pode reproduzir ou regravar."
+          "Gravação salva! Você pode reproduzir ou regravar.",
         );
       } catch (e) {
         console.warn("stopRecording error", e);
@@ -287,7 +288,7 @@ export default function MobileLessonComponent({ route, navigation }) {
       }
       const { sound } = await Audio.Sound.createAsync(
         { uri },
-        { shouldPlay: true }
+        { shouldPlay: true },
       );
       setSoundsMap((p) => ({ ...p, [type]: sound }));
     } catch (e) {
@@ -412,7 +413,7 @@ export default function MobileLessonComponent({ route, navigation }) {
       } else {
         // se não tiver lesson.id, apenas marca flag local (não salva) e avisa dev
         console.warn(
-          "Nenhum lesson.id disponível em route.params — não foi possível salvar progresso."
+          "Nenhum lesson.id disponível em route.params — não foi possível salvar progresso.",
         );
         setMarkedCompleteLocal(true);
       }
@@ -491,19 +492,19 @@ export default function MobileLessonComponent({ route, navigation }) {
           '"Hi, I\'m [nome]"',
           "🔊 /haɪ, aɪm [nome]/",
           "Oi, eu sou [nome]",
-          false
+          false,
         )}
         {renderPhraseItem(
           '"Hey, nice to meet you!"',
           "🔊 /heɪ, naɪs tu mit ju/",
           "Oi, prazer em conhecê-lo!",
-          false
+          false,
         )}
         {renderPhraseItem(
           '"How\'s it going?"',
           "🔊 /haʊz ɪt ˈɡoʊɪŋ/",
           "Como vai?",
-          false
+          false,
         )}
         <View style={styles.tipBox}>
           <Text style={styles.tipTitle}>💡Dica:</Text>
@@ -626,19 +627,19 @@ export default function MobileLessonComponent({ route, navigation }) {
           '"Hello, my name is [nome]"',
           "🔊 /həˈloʊ, maɪ neɪm ɪz [nome]/",
           "Olá, meu nome é [nome]",
-          true
+          true,
         )}
         {renderPhraseItem(
           '"I work at [empresa] in the [departamento] department"',
           "🔊 /aɪ wɜrk æt [empresa] ɪn ðə [departamento] dɪˈpɑrtmənt/",
           "Trabalho na [empresa] no departamento de [departamento]",
-          true
+          true,
         )}
         {renderPhraseItem(
           '"Pleased to meet you"',
           "🔊 /plizd tu mit ju/",
           "Prazer em conhecê-lo",
-          true
+          true,
         )}
         <View style={styles.tipBox}>
           <Text style={styles.tipTitle}>💼 Dica:</Text>
@@ -1111,7 +1112,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 36,
     fontWeight: "800",
-    color: "#022b62",
+    color: CORES.PRIMARY,
     textAlign: "center",
   },
   whiteBox: {
@@ -1129,7 +1130,7 @@ const styles = StyleSheet.create({
   bigHeading: {
     fontSize: 32,
     fontWeight: "800",
-    color: "#022b62",
+    color: CORES.PRIMARY,
     textAlign: "center",
     marginBottom: 14,
   },
@@ -1149,11 +1150,11 @@ const styles = StyleSheet.create({
   },
   paragraph: {
     fontSize: 16,
-    color: "#022b62",
+    color: CORES.PRIMARY,
     textAlign: "center",
     lineHeight: 22,
   },
-  gradientText: { color: "#ec651d", fontWeight: "700" },
+  gradientText: { color: CORES.SECONDARY, fontWeight: "700" },
 
   // Grid
   rowGrid: {
@@ -1164,14 +1165,14 @@ const styles = StyleSheet.create({
   },
   gridItem: { flex: 1, alignItems: "center", padding: 8 },
   gridEmoji: { fontSize: 40, marginBottom: 6 },
-  gridTitle: { fontSize: 18, fontWeight: "700", color: "#022b62" },
+  gridTitle: { fontSize: 18, fontWeight: "700", color: CORES.PRIMARY },
   gridText: { fontSize: 14, color: "#64748b", textAlign: "center" },
 
   // Sections & columns
   sectionTitle: {
     fontSize: 24,
     fontWeight: "800",
-    color: "#022b62",
+    color: CORES.PRIMARY,
     marginBottom: 6,
     marginTop: 12,
   },
@@ -1183,21 +1184,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "700",
     marginBottom: 8,
-    color: "#022b62",
+    color: CORES.PRIMARY,
   },
 
   // Phrase items
   phraseItem: {
     backgroundColor: "#fff7ed",
     borderLeftWidth: 4,
-    borderLeftColor: "#ec651d",
+    borderLeftColor: CORES.SECONDARY,
     padding: 16,
     borderRadius: 14,
     marginBottom: 12,
     maxWidth: 340,
   },
-  formalPhrase: { backgroundColor: "#f0f9ff", borderLeftColor: "#022b62" },
-  phraseTitle: { fontSize: 18, fontWeight: "700", color: "#022b62" },
+  formalPhrase: { backgroundColor: "#f0f9ff", borderLeftColor: CORES.PRIMARY },
+  phraseTitle: { fontSize: 18, fontWeight: "700", color: CORES.PRIMARY },
   phrasePhonetic: { fontSize: 14, color: "#64748b", marginTop: 6 },
   phraseTranslation: { fontSize: 14, color: "#0f172a", marginTop: 6 },
 
@@ -1234,7 +1235,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 14,
     padding: 16,
-    shadowColor: "#022b62",
+    shadowColor: CORES.PRIMARY,
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.06,
     shadowRadius: 12,
@@ -1246,13 +1247,13 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 18,
     fontWeight: "800",
-    color: "#022b62",
+    color: CORES.PRIMARY,
     marginBottom: 8,
     textAlign: "center",
   },
 
   // Inputs
-  label: { fontSize: 14, color: "#022b62", marginTop: 8 },
+  label: { fontSize: 14, color: CORES.PRIMARY, marginTop: 8 },
   input: {
     borderWidth: 1,
     borderColor: "#d1d5db",
@@ -1267,7 +1268,7 @@ const styles = StyleSheet.create({
 
   // Buttons (pill)
   primaryBtn: {
-    backgroundColor: "#ec651d",
+    backgroundColor: CORES.SECONDARY,
     paddingVertical: 12,
     paddingHorizontal: 18,
     borderRadius: 999,
@@ -1277,7 +1278,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   primaryBtnLarge: {
-    backgroundColor: "#ec651d",
+    backgroundColor: CORES.SECONDARY,
     paddingVertical: 14,
     paddingHorizontal: 20,
     borderRadius: 999,
@@ -1323,7 +1324,7 @@ const styles = StyleSheet.create({
 
   // Scenario boxes
   instructionBox: { backgroundColor: "#fff", padding: 12, borderRadius: 12 },
-  listItem: { marginTop: 6, fontSize: 14, color: "#022b62" },
+  listItem: { marginTop: 6, fontSize: 14, color: CORES.PRIMARY },
   scenarioBoxOrange: {
     backgroundColor: "#fff7ed",
     padding: 12,
@@ -1418,7 +1419,7 @@ const styles = StyleSheet.create({
   },
   summaryText: {
     marginTop: 8,
-    color: "#022b62",
+    color: CORES.PRIMARY,
     paddingHorizontal: 13,
     fontSize: width > 400 ? 14 : 13,
     lineHeight: 20,
@@ -1447,7 +1448,7 @@ const styles = StyleSheet.create({
 
   // Intro / Hero (Networking-style)
   hero: {
-    backgroundColor: "#022b62",
+    backgroundColor: CORES.PRIMARY,
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 36,

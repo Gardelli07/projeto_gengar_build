@@ -10,6 +10,7 @@ import {
   Dimensions,
   StatusBar,
 } from "react-native";
+import CORES from "../util/cores";
 
 const { width } = Dimensions.get("window");
 
@@ -233,7 +234,7 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: "#ff8a00",
+    backgroundColor: CORES.SECONDARY,
     justifyContent: "center",
     alignItems: "center",
     marginRight: 10,
@@ -251,7 +252,7 @@ const styles = StyleSheet.create({
   waveContainer: {
     flexDirection: "row",
     alignItems: "flex-end",
-    backgroundColor: "#0e3174",
+    backgroundColor: CORES.PRIMARY,
     borderRadius: 22,
     paddingVertical: 10,
     paddingHorizontal: 6,
@@ -260,7 +261,7 @@ const styles = StyleSheet.create({
   },
   waveBar: {
     width: 4,
-    backgroundColor: "#ff9a2a",
+    backgroundColor: CORES.SECONDARY,
     borderRadius: 2,
     alignSelf: "flex-end",
   },
@@ -272,7 +273,7 @@ const styles = StyleSheet.create({
   },
   outlineButton: {
     borderWidth: 3,
-    borderColor: "#0e3174",
+    borderColor: CORES.PRIMARY,
     paddingVertical: 8,
     paddingHorizontal: 18,
     borderRadius: 26,
@@ -282,7 +283,7 @@ const styles = StyleSheet.create({
     minWidth: 140,
   },
   outlineButtonText: {
-    color: "#0e3174",
+    color: CORES.PRIMARY,
     fontSize: 16,
   },
 });

@@ -627,7 +627,7 @@ function ProgressCircle({ percent, size = 70, strokeWidth = 8 }) {
         fill="none"
       />
       <Circle
-        stroke="#ff6a00"
+        stroke={CORES.SECONDARY}
         cx={size / 2}
         cy={size / 2}
         r={radius}
@@ -774,7 +774,7 @@ function CourseScreen({ navigation }) {
             }}
             accessibilityLabel="Resetar progresso"
           >
-            <Text style={{ color: "#ff6a00", fontWeight: "bold" }}>
+            <Text style={{ color: CORES.SECONDARY, fontWeight: "bold" }}>
               Resetar
             </Text>
           </TouchableOpacity>

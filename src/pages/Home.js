@@ -9,9 +9,9 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
-import { Crown } from "lucide-react-native";
+import { Crown, Import } from "lucide-react-native";
 import { CursosImages } from "../util/images";
-
+import CORES from "../util/cores";
 export default function Home() {
   const navigation = useNavigation();
   return (
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     alignSelf: "flex-start",
-    backgroundColor: "#f47c2c",
+    backgroundColor: CORES.SECONDARY,
     borderRadius: 12,
     paddingHorizontal: 8,
     paddingVertical: 4,

@@ -12,6 +12,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CORES from "../../util/cores";
 
 const { width } = Dimensions.get("window");
 const SlideNavContext = React.createContext(null);
@@ -80,7 +81,7 @@ export default function ProfessionalEmailsMobile({ route, navigation }) {
   const lesson = route?.params?.lesson;
 
   const progressAnim = useRef(
-    new Animated.Value((currentSlide + 1) / SLIDE_COUNT)
+    new Animated.Value((currentSlide + 1) / SLIDE_COUNT),
   ).current;
 
   // local flag to avoid multiple saves
@@ -147,7 +148,7 @@ export default function ProfessionalEmailsMobile({ route, navigation }) {
       } else {
         // se não tiver lesson.id, apenas marca flag local (não salva) e avisa dev
         console.warn(
-          "Nenhum lesson.id disponível em route.params — não foi possível salvar progresso."
+          "Nenhum lesson.id disponível em route.params — não foi possível salvar progresso.",
         );
         setMarkedCompleteLocal(true);
       }
@@ -790,7 +791,7 @@ function Slide5() {
         feedback.push(`✅ Lacuna ${i}: "${userAnswer}" — Correto`);
       } else {
         feedback.push(
-          `❌ Lacuna ${i}: "${userAnswer}" → Correto: "${correctAnswer}"`
+          `❌ Lacuna ${i}: "${userAnswer}" → Correto: "${correctAnswer}"`,
         );
       }
     }
@@ -803,8 +804,8 @@ function Slide5() {
         score === 6
           ? "🎉 Perfeito! Você completou o e-mail corretamente!"
           : score >= 4
-          ? `👍 Bom trabalho! Você acertou ${score} de 6 lacunas.`
-          : `💪 Continue praticando! Você acertou ${score} de 6 lacunas.`,
+            ? `👍 Bom trabalho! Você acertou ${score} de 6 lacunas.`
+            : `💪 Continue praticando! Você acertou ${score} de 6 lacunas.`,
       details: feedback,
     });
   }
@@ -1411,7 +1412,7 @@ function Slide7() {
 
 function Slide8() {
   const [userEmail, setUserEmail] = useState(
-    "Dear Sir/Madam,\n\nI am writing to inquire about...\n\n[Continue escrevendo seu e-mail aqui]\n\nBest regards,\n[Seu nome]"
+    "Dear Sir/Madam,\n\nI am writing to inquire about...\n\n[Continue escrevendo seu e-mail aqui]\n\nBest regards,\n[Seu nome]",
   );
   const [checklist, setChecklist] = useState([
     false,
@@ -1979,7 +1980,7 @@ const styles = StyleSheet.create({
   slideObjectiveTitle: {
     fontSize: 24,
     fontWeight: "800",
-    color: "#022b62",
+    color: CORES.PRIMARY,
     marginBottom: 6,
     textAlign: "center",
   },
@@ -2013,7 +2014,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   nextButton: {
-    backgroundColor: "#ec651d",
+    backgroundColor: CORES.SECONDARY,
     width: 180,
     height: 48,
     borderRadius: 12,
@@ -2035,7 +2036,7 @@ const styles = StyleSheet.create({
     maxWidth: width * 0.95,
   },
   hero: {
-    backgroundColor: "#022b62",
+    backgroundColor: CORES.PRIMARY,
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: windowWidth < 400 ? 24 : 36,
@@ -2269,7 +2270,7 @@ const styles = StyleSheet.create({
   blankSpace: {
     backgroundColor: "#fff",
     borderBottomWidth: 2,
-    borderBottomColor: "#ec651d",
+    borderBottomColor: CORES.SECONDARY,
     paddingHorizontal: 8,
     paddingVertical: 6,
     borderRadius: 6,
@@ -2280,7 +2281,7 @@ const styles = StyleSheet.create({
   blankSpaceInline: {
     backgroundColor: "#fff",
     borderBottomWidth: 2,
-    borderBottomColor: "#ec651d",
+    borderBottomColor: CORES.SECONDARY,
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 6,
@@ -2503,7 +2504,7 @@ const styles = StyleSheet.create({
   summaryHighlight: {
     backgroundColor: "#fff7ed",
     borderLeftWidth: 4,
-    borderLeftColor: "#ec651d",
+    borderLeftColor: CORES.SECONDARY,
     borderRadius: 10,
     padding: 12,
     marginBottom: 12,

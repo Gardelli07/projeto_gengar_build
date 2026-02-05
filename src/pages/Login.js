@@ -14,23 +14,75 @@ import {
   Alert,
 } from "react-native";
 
+import getDB from "../../bd";
+import { useAuth } from "../context/AuthContext";
+import CORES from "../util/cores";
+
 const { width } = Dimensions.get("window");
-const ORANGE = "#f47c2c"; // cor laranja similar ao design
+
+/* 🔁 função reutilizável e escalável */
+function getHomeRouteByEmpresa(empresa) {
+  if (!empresa) return "Home";
+
+  const formatted =
+    empresa.charAt(0).toUpperCase() + empresa.slice(1).toLowerCase();
+
+  return `Home${formatted}`;
+}
 
 export default function LoginScreen({ navigation }) {
+  const { signIn } = useAuth();
+
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
-  function handleSignIn() {
-    // validação simples (troque pela lógica do seu backend)
+  async function handleSignIn() {
     if (!email.trim() || !senha.trim()) {
       Alert.alert("Atenção", "Preencha email e senha.");
       return;
     }
-    // Exemplo: apenas log no console — substitua pela autenticação real
-    console.log("Entrando com:", { email, senha });
-    Alert.alert("Sucesso", `Entrando como ${email}`);
-    // navigation.navigate("Home"); // se tiver navegação
+
+    try {
+      const db = await getDB();
+
+      const result = await db.getFirstAsync(
+        "SELECT * FROM Usuario WHERE login = ? AND senha = ?",
+        [email, senha],
+      );
+
+      if (!result) {
+        Alert.alert("Erro", "Usuário ou senha inválidos");
+        return;
+      }
+
+      // 🔐 salva no contexto
+      signIn({
+        login: result.login,
+        tipo: result.tipo,
+        empresa: result.empresa,
+      });
+
+      // 🎯 rota dinâmica por empresa
+      const homeRoute = getHomeRouteByEmpresa(result.empresa);
+
+      Alert.alert("Sucesso", `Bem-vindo ${result.login}`);
+
+      // 🔁 reset (não volta pro login)
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name: "Tabs",
+            state: {
+              routes: [{ name: homeRoute }],
+            },
+          },
+        ],
+      });
+    } catch (error) {
+      console.error(error);
+      Alert.alert("Erro", "Erro ao realizar login");
+    }
   }
 
   return (
@@ -43,19 +95,14 @@ export default function LoginScreen({ navigation }) {
           contentContainerStyle={styles.container}
           keyboardShouldPersistTaps="handled"
         >
-          {/* Imagem do topo */}
           <Image
-            source={require("../../assets/logo2.png")}
+            source={require("../../assets/logo.png")}
             style={styles.logo}
             resizeMode="contain"
-            accessible
-            accessibilityLabel="Logo tigre"
           />
 
-          {/* Título grande */}
           <Text style={styles.title}>LOGIN</Text>
 
-          {/* Campo Email */}
           <View style={styles.fieldWrap}>
             <Text style={styles.label}>Email</Text>
             <TextInput
@@ -66,11 +113,9 @@ export default function LoginScreen({ navigation }) {
               style={styles.input}
               keyboardType="email-address"
               autoCapitalize="none"
-              textContentType="emailAddress"
             />
           </View>
 
-          {/* Campo Senha */}
           <View style={styles.fieldWrap}>
             <Text style={styles.label}>Senha</Text>
             <TextInput
@@ -80,26 +125,25 @@ export default function LoginScreen({ navigation }) {
               placeholderTextColor="#999"
               style={styles.input}
               secureTextEntry
-              textContentType="password"
             />
           </View>
 
-          {/* Botão */}
           <TouchableOpacity
             style={styles.button}
             onPress={handleSignIn}
             activeOpacity={0.8}
           >
-            <Text style={styles.buttonText}>Sign in</Text>
+            <Text style={styles.buttonText}>Entrar</Text>
           </TouchableOpacity>
 
-          {/* Texto cadastro */}
           <View style={styles.signUpWrap}>
             <Text style={styles.noAccount}>Não tem uma conta?</Text>
             <TouchableOpacity
-              onPress={() => Alert.alert("Cadastro", "Navegar para cadastro")}
+              onPress={() =>
+                Alert.alert("Cadastro", "Tela de cadastro em breve")
+              }
             >
-              <Text style={styles.signUpText}>cadastre-se</Text>
+              <Text style={styles.signUpText}>Cadastre-se</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -108,10 +152,12 @@ export default function LoginScreen({ navigation }) {
   );
 }
 
+/* ================= ESTILOS ================= */
+
 const styles = StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: "#e8e8e8", // fundo semelhante ao design
+    backgroundColor: "#e8e8e8",
   },
   container: {
     alignItems: "center",
@@ -119,7 +165,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   logo: {
-    width: width * 1,
+    width: width,
     height: 250,
   },
   title: {
@@ -144,22 +190,17 @@ const styles = StyleSheet.create({
     height: 70,
     backgroundColor: "#fff",
     borderWidth: 4,
-    borderColor: ORANGE,
+    borderColor: CORES.SECONDARY,
     paddingHorizontal: 12,
     fontSize: 18,
     borderRadius: 4,
-    paddingTop: 10,
-    paddingBottom: 10,
   },
   button: {
-    backgroundColor: "#f47c2c",
+    backgroundColor: CORES.SECONDARY,
     paddingVertical: 10,
-    paddingHorizontal: 16,
     marginTop: 10,
     borderRadius: 2,
     alignItems: "center",
-    justifyContent: "center",
-    alignSelf: "center",
     width: 200,
   },
   buttonText: {

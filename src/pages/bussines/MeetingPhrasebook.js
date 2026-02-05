@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import * as Speech from "expo-speech";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CORES from "../../util/cores";
 
 const STORAGE_KEY = "@curso_progress_v1";
 
@@ -284,7 +285,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   introBg: {
-    backgroundColor: "#022b62",
+    backgroundColor: CORES.PRIMARY,
   },
   centered: {
     alignItems: "center",
@@ -311,7 +312,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   startBtn: {
-    backgroundColor: "#ec651d",
+    backgroundColor: CORES.SECONDARY,
     paddingVertical: 18,
     paddingHorizontal: 48,
     borderRadius: 999,
@@ -330,7 +331,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 28,
     fontWeight: "bold",
-    color: "#022b62",
+    color: CORES.PRIMARY,
     marginBottom: 8,
     textAlign: "center",
   },
@@ -362,7 +363,7 @@ const styles = StyleSheet.create({
   cardText: {
     fontSize: 20,
     fontWeight: "600",
-    color: "#022b62",
+    color: CORES.PRIMARY,
     marginBottom: 4,
   },
   cardDesc: {
@@ -370,7 +371,7 @@ const styles = StyleSheet.create({
     color: "#64748b",
   },
   audioBtn: {
-    backgroundColor: "#ec651d",
+    backgroundColor: CORES.SECONDARY,
     width: 48,
     height: 48,
     borderRadius: 24,
@@ -391,7 +392,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   navBtn: {
-    backgroundColor: "#ec651d",
+    backgroundColor: CORES.SECONDARY,
     paddingVertical: 14,
     paddingHorizontal: 28,
     borderRadius: 999,

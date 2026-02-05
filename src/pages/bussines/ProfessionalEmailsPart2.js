@@ -10,6 +10,7 @@ import {
   TextInput,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CORES from "../../util/cores";
 
 const { width } = Dimensions.get("window");
 const SlideNavContext = React.createContext(null);
@@ -125,7 +126,7 @@ export default function ProfessionalEmailsMobile({ route, navigation }) {
   }
 
   const progressAnim = useRef(
-    new Animated.Value((currentSlide + 1) / SLIDE_COUNT)
+    new Animated.Value((currentSlide + 1) / SLIDE_COUNT),
   ).current;
 
   useEffect(() => {
@@ -147,7 +148,7 @@ export default function ProfessionalEmailsMobile({ route, navigation }) {
       } else {
         // se não tiver lesson.id, apenas marca flag local (não salva) e avisa dev
         console.warn(
-          "Nenhum lesson.id disponível em route.params — não foi possível salvar progresso."
+          "Nenhum lesson.id disponível em route.params — não foi possível salvar progresso.",
         );
         setMarkedCompleteLocal(true);
       }
@@ -209,7 +210,7 @@ function Slide1() {
           0,
           <View style={styles.heroButton}>
             <Text style={styles.heroButtonText}>Começar Aula</Text>
-          </View>
+          </View>,
         )}
       </View>
     </View>
@@ -349,13 +350,13 @@ function Slide3() {
           {renderPhraseItem(
             "💬As per our conversation",
             "Conforme conversamos",
-            false
+            false,
           )}
           {renderPhraseItem("📎Please find attached", "Segue anexo", false)}
           {renderPhraseItem(
             "⏰I look forward to your reply",
             "Aguardo sua resposta",
-            false
+            false,
           )}
           {renderPhraseItem("😔Unfortunately", "Infelizmente", false)}
           {renderPhraseItem("📋Regarding", "Referente a", false)}
@@ -390,8 +391,8 @@ function Slide3() {
                   matchedPairs.includes(expr.key)
                     ? styles.vocabCardMatched
                     : selectedExpression === expr.key
-                    ? styles.vocabCardSelected
-                    : null,
+                      ? styles.vocabCardSelected
+                      : null,
                 ]}
                 onPress={() => selectExpressionCard(expr.key)}
                 disabled={matchedPairs.includes(expr.key)}
@@ -414,8 +415,8 @@ function Slide3() {
                   matchedPairs.includes(expr.key)
                     ? styles.vocabCardMatched
                     : selectedMeaning === expr.key
-                    ? styles.vocabCardSelected
-                    : null,
+                      ? styles.vocabCardSelected
+                      : null,
                 ]}
                 onPress={() => selectMeaningCard(expr.key)}
                 disabled={matchedPairs.includes(expr.key)}
@@ -515,7 +516,7 @@ function Slide4() {
   ];
   const [answers, setAnswers] = useState(Array(questions.length).fill(null));
   const [selectedText, setSelectedText] = useState(
-    Array(questions.length).fill("_______")
+    Array(questions.length).fill("_______"),
   );
   const [openPopup, setOpenPopup] = useState(null);
   const [showResult, setShowResult] = useState(false);
@@ -752,8 +753,8 @@ function Slide5() {
               score === 5
                 ? { backgroundColor: "#f0fdf4", borderColor: "#22c55e" }
                 : score >= 3
-                ? { backgroundColor: "#f0fdf4", borderColor: "#22c55e" }
-                : { backgroundColor: "#fef2f2", borderColor: "#ef4444" },
+                  ? { backgroundColor: "#f0fdf4", borderColor: "#22c55e" }
+                  : { backgroundColor: "#fef2f2", borderColor: "#ef4444" },
             ]}
           >
             <Text
@@ -768,8 +769,8 @@ function Slide5() {
               {score === 5
                 ? "🎉 Excelente! Você sabe perfeitamente como transformar linguagem informal em formal!"
                 : score >= 3
-                ? `✨ Muito bem! Você acertou ${score} de 5 transformações. Você está no caminho certo!`
-                : `📚 Continue praticando! Você acertou ${score} de 5 transformações. Foque nas expressões formais!`}
+                  ? `✨ Muito bem! Você acertou ${score} de 5 transformações. Você está no caminho certo!`
+                  : `📚 Continue praticando! Você acertou ${score} de 5 transformações. Foque nas expressões formais!`}
             </Text>
           </View>
         )}
@@ -805,7 +806,7 @@ function Slide6() {
   const [usedExpressions, setUsedExpressions] = useState([]);
   const [showResult, setShowResult] = useState(false);
   const score = filledSlots.filter(
-    (val, idx) => val === slots[idx].correct
+    (val, idx) => val === slots[idx].correct,
   ).length;
   function selectExpression(slotIdx, expr) {
     if (usedExpressions.includes(expr)) return;
@@ -932,8 +933,8 @@ function Slide6() {
               {score === 4
                 ? "🏆 E-mail Perfeito!"
                 : score >= 2
-                ? `👍 Bom trabalho! ${score} de 4 corretas.`
-                : `💪 Continue praticando! ${score} de 4 corretas.`}
+                  ? `👍 Bom trabalho! ${score} de 4 corretas.`
+                  : `💪 Continue praticando! ${score} de 4 corretas.`}
             </Text>
             {slots.map((slot, idx) =>
               filledSlots[idx] ? (
@@ -951,7 +952,7 @@ function Slide6() {
                         slot.correct
                       }"`}
                 </Text>
-              ) : null
+              ) : null,
             )}
           </View>
         )}
@@ -966,7 +967,7 @@ function Slide6() {
 
 function Slide7() {
   const [emailText, setEmailText] = useState(
-    "Dear Sir/Madam,\n\nAs per our conversation...\n\n[Continue reescrevendo o e-mail de forma formal aqui]\n\nBest regards,\n[Seu nome]"
+    "Dear Sir/Madam,\n\nAs per our conversation...\n\n[Continue reescrevendo o e-mail de forma formal aqui]\n\nBest regards,\n[Seu nome]",
   );
   const [showResult, setShowResult] = useState(false);
   const [feedback, setFeedback] = useState("");
@@ -1191,10 +1192,10 @@ function Slide8() {
   const [selected, setSelected] = useState([]);
   const [showResult, setShowResult] = useState(false);
   const correctCount = selected.filter(
-    (idx) => expressions[idx]?.appropriate
+    (idx) => expressions[idx]?.appropriate,
   ).length;
   const incorrectCount = selected.filter(
-    (idx) => !expressions[idx]?.appropriate
+    (idx) => !expressions[idx]?.appropriate,
   ).length;
   function selectCard(idx) {
     if (selected.includes(idx)) return;
@@ -1279,16 +1280,16 @@ function Slide8() {
                   correctCount >= 9
                     ? "#22c55e"
                     : correctCount >= 7
-                    ? "#2563eb"
-                    : "#ef4444",
+                      ? "#2563eb"
+                      : "#ef4444",
                 marginBottom: 8,
               }}
             >
               {correctCount >= 9
                 ? "🏆 Excelente! Você domina perfeitamente as expressões formais!"
                 : correctCount >= 7
-                ? "👍 Muito bem! Você tem um bom conhecimento das expressões apropriadas!"
-                : "💪 Continue estudando! Revise as expressões formais."}
+                  ? "👍 Muito bem! Você tem um bom conhecimento das expressões apropriadas!"
+                  : "💪 Continue estudando! Revise as expressões formais."}
             </Text>
             <Text style={styles.feedbackSummary}>
               ✅ Corretas: {correctCount} | ❌ Incorretas: {incorrectCount} | 🎯
@@ -1307,7 +1308,7 @@ function Slide8() {
 
 function Slide9() {
   const [emailText, setEmailText] = useState(
-    "Dear Sir/Madam,\n\nAs per our conversation yesterday...\n\n[Continue escrevendo seu e-mail aqui usando as expressões formais]\n\nBest regards,\n[Seu nome]"
+    "Dear Sir/Madam,\n\nAs per our conversation yesterday...\n\n[Continue escrevendo seu e-mail aqui usando as expressões formais]\n\nBest regards,\n[Seu nome]",
   );
   const [showResult, setShowResult] = useState(false);
   const [feedback, setFeedback] = useState("");
@@ -1586,7 +1587,7 @@ const styles = StyleSheet.create({
   slideObjectiveTitle: {
     fontSize: 24,
     fontWeight: "800",
-    color: "#022b62",
+    color: CORES.PRIMARY,
     marginBottom: 6,
     textAlign: "center",
   },
@@ -1626,7 +1627,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   nextButton: {
-    backgroundColor: "#ec651d",
+    backgroundColor: CORES.SECONDARY,
     width: 180,
     height: 48,
     borderRadius: 12,
@@ -1647,7 +1648,7 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   hero: {
-    backgroundColor: "#022b62",
+    backgroundColor: CORES.PRIMARY,
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: windowWidth < 400 ? 24 : 36,
@@ -1723,7 +1724,7 @@ const styles = StyleSheet.create({
   phraseTitle: {
     fontSize: 18,
     fontWeight: "700",
-    color: "#022b62",
+    color: CORES.PRIMARY,
   },
   phrasePhonetic: {
     fontSize: 14,
@@ -1738,7 +1739,7 @@ const styles = StyleSheet.create({
   phraseItem: {
     backgroundColor: "#fff7ed",
     borderLeftWidth: 4,
-    borderLeftColor: "#ec651d",
+    borderLeftColor: CORES.SECONDARY,
     padding: 16,
     borderRadius: 14,
     marginBottom: 12,
@@ -2093,7 +2094,7 @@ const styles = StyleSheet.create({
   },
   summaryTitleOrange: {
     fontWeight: "800",
-    color: "#ec651d",
+    color: CORES.SECONDARY,
     fontSize: 16,
     marginBottom: 6,
   },
@@ -2135,7 +2136,7 @@ const styles = StyleSheet.create({
   summaryHighlight: {
     backgroundColor: "#fff7ed",
     borderLeftWidth: 4,
-    borderLeftColor: "#ec651d",
+    borderLeftColor: CORES.SECONDARY,
     borderRadius: 10,
     padding: 12,
     marginBottom: 12,

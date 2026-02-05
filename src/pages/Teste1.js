@@ -9,6 +9,7 @@ import {
   Animated,
   Dimensions,
 } from "react-native";
+import CORES from "../util/cores";
 // import * as Speech from 'expo-speech'; // Descomente se quiser usar áudio
 
 const SLIDES = [
@@ -564,13 +565,13 @@ const styles = StyleSheet.create({
     top: -12,
   },
   backBtnText: {
-    color: "#022b62",
+    color: CORES.PRIMARY,
     fontWeight: "bold",
     fontSize: 20,
   },
   progressBar: {
     height: "100%",
-    backgroundColor: "#ec651d",
+    backgroundColor: CORES.SECONDARY,
     borderRadius: 6,
   },
   slideWrapper: {
@@ -585,7 +586,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 28,
-    color: "#022b62",
+    color: CORES.PRIMARY,
     fontWeight: "800",
     marginBottom: 16,
     textAlign: "center",
@@ -601,7 +602,7 @@ const styles = StyleSheet.create({
   },
   instruction: {
     fontSize: 18,
-    color: "#022b62",
+    color: CORES.PRIMARY,
     fontWeight: "700",
     marginBottom: 16,
     textAlign: "center",
@@ -619,7 +620,7 @@ const styles = StyleSheet.create({
   },
   vocabWord: {
     fontSize: 32,
-    color: "#022b62",
+    color: CORES.PRIMARY,
     fontWeight: "800",
     marginBottom: 8,
     fontFamily: "Inter",
@@ -631,14 +632,14 @@ const styles = StyleSheet.create({
     fontFamily: "Inter",
   },
   phraseBox: {
-    backgroundColor: "#022b62",
+    backgroundColor: CORES.PRIMARY,
     borderRadius: 16,
     padding: 24,
     marginBottom: 24,
     width: "100%",
     maxWidth: 380,
     alignItems: "center",
-    shadowColor: "#022b62",
+    shadowColor: CORES.PRIMARY,
     shadowOpacity: 0.2,
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 4 },
@@ -748,7 +749,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     borderRadius: 8,
     fontSize: 18,
-    color: "#022b62",
+    color: CORES.PRIMARY,
     fontWeight: "700",
     textAlign: "left",
     fontFamily: "Inter",
@@ -761,13 +762,13 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   btnPrimary: {
-    backgroundColor: "#ec651d",
+    backgroundColor: CORES.SECONDARY,
     borderRadius: 12,
     paddingVertical: 14,
     paddingHorizontal: 32,
     marginHorizontal: 4,
     marginBottom: 8,
-    shadowColor: "#ec651d",
+    shadowColor: CORES.SECONDARY,
     shadowOpacity: 0.2,
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 4 },
@@ -783,7 +784,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   btnText: {
-    color: "#022b62",
+    color: CORES.PRIMARY,
     fontWeight: "700",
     fontSize: 16,
     textAlign: "center",
@@ -805,7 +806,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   navBtn: {
-    backgroundColor: "#ec651d",
+    backgroundColor: CORES.SECONDARY,
     borderRadius: 12,
     paddingVertical: 10,
     paddingHorizontal: 24,
@@ -821,7 +822,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   navProgressText: {
-    color: "#022b62",
+    color: CORES.PRIMARY,
     fontWeight: "700",
     fontSize: 16,
     fontFamily: "Inter",

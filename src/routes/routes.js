@@ -1,19 +1,18 @@
 import * as React from "react";
 import { Image, TouchableOpacity, BackHandler } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Appbar } from "react-native-paper";
+import CORES from "../util/cores";
+
+import TabsNavigator from "./TabsNavigator";
 
 /* ===== PÁGINAS ===== */
 // padrão
-import Home from "../pages/Home";
-import Comunidade from "../pages/Comunidade";
-import Login from "../pages/Login";
 import SplashScreen from "../pages/SplashScreen";
+import Teste1 from "../pages/Teste1";
 
-// Bussines
+// Business
 import MeetingsQuiz from "../pages/bussines/MeetingsQuiz";
 import MeetingPhrasebook from "../pages/bussines/MeetingPhrasebook";
 import PracticeMeetingExpressions from "../pages/bussines/PracticeMeetingExpressions";
@@ -24,58 +23,36 @@ import ProfessionalEmails from "../pages/bussines/ProfessionalEmails";
 import ProfessionalEmailsPart2 from "../pages/bussines/ProfessionalEmailsPart2";
 import TelephoneConversations from "../pages/bussines/TelephoneConversations";
 
-// completo
+// Completo
 import Inglescompleto from "../pages/completo/Inglescompleto";
-import Teste2 from "../pages/completo/teste2";
-import Teste3 from "../pages/completo/teste3";
-import Teste1 from "../pages/Teste1";
+import IC01 from "../pages/completo/IC01";
+import IC02 from "../pages/completo/IC02";
+import IC03 from "../pages/completo/IC03";
+import IC04 from "../pages/completo/IC04";
+import IC05 from "../pages/completo/IC05";
+import IC06 from "../pages/completo/IC06";
+import IC07 from "../pages/completo/IC07";
+import IC08 from "../pages/completo/IC08";
+import IC09 from "../pages/completo/IC09";
+import IC10 from "../pages/completo/IC10";
+import IC11 from "../pages/completo/IC11";
+import IC12 from "../pages/completo/IC12";
+import IC13 from "../pages/completo/IC13";
+import IC14 from "../pages/completo/IC14";
+import IC15 from "../pages/completo/IC15";
 
-const Tab = createBottomTabNavigator();
+// Santander
+import HomeSantander from "../pages/santander";
+import HomeCRM from "../pages/santander/crm/HomeCRM";
+import CRM1 from "../pages/santander/crm/CRM1";
+
 const Stack = createNativeStackNavigator();
 
-/* ================= TAB NAVIGATOR ================= */
-function Tabs() {
-  return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        headerShown: false,
-
-        tabBarStyle: {
-          backgroundColor: "#0e3174",
-          height: 70,
-        },
-
-        tabBarActiveTintColor: "#f47c2c",
-        tabBarInactiveTintColor: "#ffffffaa",
-
-        tabBarLabelStyle: {
-          fontWeight: "bold",
-          fontSize: 12,
-        },
-
-        tabBarIcon: ({ color, size }) => {
-          let iconName;
-
-          if (route.name === "Home") iconName = "home";
-          else if (route.name === "Comunidade") iconName = "comment";
-          else if (route.name === "Login") iconName = "login";
-
-          return (
-            <MaterialCommunityIcons
-              name={iconName}
-              size={size ?? 30}
-              color={color}
-            />
-          );
-        },
-      })}
-    >
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Comunidade" component={Comunidade} />
-      <Tab.Screen name="Login" component={Login} />
-    </Tab.Navigator>
-  );
-}
+/* ===== HEADER PADRÃO (EXTRA 💎) ===== */
+const defaultHeader = {
+  headerStyle: { backgroundColor: CORES.PRIMARY },
+  headerTintColor: "#fff",
+};
 
 /* ================= STACK NAVIGATOR ================= */
 export default function Routes() {
@@ -98,12 +75,13 @@ export default function Routes() {
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator initialRouteName="Splash">
+        {/* ===== TABS ===== */}
         <Stack.Screen
           name="Tabs"
-          component={Tabs}
+          component={TabsNavigator}
           options={({ navigation }) => ({
             header: () => (
-              <Appbar.Header style={{ backgroundColor: "#0e3174" }}>
+              <Appbar.Header style={{ backgroundColor: CORES.PRIMARY }}>
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate("Tabs", { screen: "Home" })
@@ -111,15 +89,15 @@ export default function Routes() {
                 >
                   <Image
                     source={require("../../assets/logo.png")}
-                    style={{ width: 90, height: 90 }}
+                    style={{ width: 60, height: 60 }}
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
 
                 <Appbar.Content
-                  title="BEA"
+                  title="Lingueto"
                   titleStyle={{
-                    color: "#f47c2c",
+                    color: "#000000",
                     fontWeight: "bold",
                   }}
                 />
@@ -134,138 +112,121 @@ export default function Routes() {
           component={MeetingPhrasebook}
           options={{
             title: "Phrasebook: Expressões de Reunião",
-            headerStyle: {
-              backgroundColor: "#0e3174",
-            },
-            headerTintColor: "#fff",
+            ...defaultHeader,
           }}
         />
         <Stack.Screen
           name="PracticeMeetingExpressions"
           component={PracticeMeetingExpressions}
-          options={{
-            title: "Quiz: Prática de Expressões",
-            headerStyle: {
-              backgroundColor: "#0e3174",
-            },
-            headerTintColor: "#fff",
-          }}
+          options={{ title: "Quiz: Prática de Expressões", ...defaultHeader }}
         />
         <Stack.Screen
           name="MeetingsQuiz"
           component={MeetingsQuiz}
-          options={{
-            title: "Agendas & Meetings Quiz",
-            headerStyle: {
-              backgroundColor: "#0e3174",
-            },
-            headerTintColor: "#fff",
-          }}
+          options={{ title: "Agendas & Meetings Quiz", ...defaultHeader }}
         />
         <Stack.Screen
           name="NetworkingSmallTalk"
           component={NetworkingSmallTalk}
-          options={{
-            title: "Networking & Small Talk",
-            headerStyle: {
-              backgroundColor: "#0e3174",
-            },
-            headerTintColor: "#fff",
-          }}
+          options={{ title: "Networking & Small Talk", ...defaultHeader }}
         />
         <Stack.Screen
           name="IntroBusinessEnglish"
           component={IntroBusinessEnglish}
-          options={{
-            title: "Intro Business English",
-            headerStyle: {
-              backgroundColor: "#0e3174",
-            },
-            headerTintColor: "#fff",
-          }}
+          options={{ title: "Intro Business English", ...defaultHeader }}
         />
         <Stack.Screen
           name="ProfessionalEmails"
           component={ProfessionalEmails}
-          options={{
-            title: "Professional Emails",
-            headerStyle: {
-              backgroundColor: "#0e3174",
-            },
-            headerTintColor: "#fff",
-          }}
+          options={{ title: "Professional Emails", ...defaultHeader }}
         />
         <Stack.Screen
           name="ProfessionalEmailsPart2"
           component={ProfessionalEmailsPart2}
-          options={{
-            title: "Professional Emails Part 2",
-            headerStyle: {
-              backgroundColor: "#0e3174",
-            },
-            headerTintColor: "#fff",
-          }}
+          options={{ title: "Professional Emails Part 2", ...defaultHeader }}
         />
         <Stack.Screen
           name="TelephoneConversations"
           component={TelephoneConversations}
-          options={{
-            title: "Telephone Conversations",
-            headerStyle: {
-              backgroundColor: "#0e3174",
-            },
-            headerTintColor: "#fff",
-          }}
+          options={{ title: "Telephone Conversations", ...defaultHeader }}
         />
         <Stack.Screen
           name="Bussines"
           component={Bussines}
-          options={{
-            title: "Business English",
-            headerStyle: {
-              backgroundColor: "#0e3174",
-            },
-            headerTintColor: "#fff", // cor do texto e ícones
-          }}
+          options={{ title: "Business English", ...defaultHeader }}
         />
 
         {/* ===== COMPLETO ===== */}
         <Stack.Screen
           name="Inglescompleto"
           component={Inglescompleto}
-          options={{
-            title: "Inglês Completo",
-            headerStyle: {
-              backgroundColor: "#0e3174",
-            },
-            headerTintColor: "#fff", // cor do texto e ícones
-          }}
+          options={{ title: "Inglês Completo", ...defaultHeader }}
         />
 
         <Stack.Screen name="Teste1" component={Teste1} />
+
         <Stack.Screen
-          name="Teste2"
-          component={Teste2}
-          options={{
-            headerShown: true,
-            headerStyle: {
-              backgroundColor: "#0e3174",
-            },
-            headerTintColor: "#fff",
-          }}
+          name="IC01"
+          component={IC01}
+          options={{ headerShown: false }}
         />
+
+        {[
+          IC02,
+          IC03,
+          IC04,
+          IC05,
+          IC06,
+          IC07,
+          IC08,
+          IC09,
+          IC10,
+          IC11,
+          IC12,
+          IC13,
+          IC14,
+          IC15,
+        ].map((Screen, index) => (
+          <Stack.Screen
+            key={index}
+            name={`IC${index + 2}`}
+            component={Screen}
+            options={defaultHeader}
+          />
+        ))}
+
+        {/* ===== SANTANDER ===== */}
         <Stack.Screen
-          name="Teste3"
-          component={Teste3}
+          name="HomeSantander"
+          component={HomeSantander}
           options={{
-            headerShown: true,
-            headerStyle: {
-              backgroundColor: "#0e3174",
-            },
-            headerTintColor: "#fff",
+            title: "Área Santander",
+            headerStyle: { backgroundColor: "#EC0000" },
+            headerTintColor: "#F3F4F6",
           }}
         />
 
+        <Stack.Screen
+          name="HomeCRM"
+          component={HomeCRM}
+          options={{
+            title: "CRM",
+            headerStyle: { backgroundColor: "#EC0000" },
+            headerTintColor: "#F3F4F6",
+          }}
+        />
+
+        <Stack.Screen
+          name="CRM1"
+          component={CRM1}
+          options={{
+            title: "CRM",
+            headerStyle: { backgroundColor: "#EC0000" },
+            headerTintColor: "#F3F4F6",
+          }}
+        />
+
+        {/* ===== SPLASH ===== */}
         <Stack.Screen
           name="Splash"
           component={SplashScreen}

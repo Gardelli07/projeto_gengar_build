@@ -63,3 +63,12 @@ export const CursosImages = {
   pronuncia: require("../../assets/Cursos/pronuncia.jpg"),
   viagem: require("../../assets/Cursos/viagem.jpg"),
 };
+
+export const Empresas = {
+  logoSantander: require("../../assets/Santander/santander.png"),
+};
+
+export const Santander = {
+  A1slide1: require("../../assets/Santander/CRM1.png"),
+  A1slide2: require("../../assets/Santander/CRM2.png"),
+};

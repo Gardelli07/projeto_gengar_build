@@ -8,9 +8,7 @@ import {
 } from "react-native";
 import * as Speech from "expo-speech";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const BEA_ORANGE = "#ec651d";
-const BEA_BLUE = "#022b62";
+import CORES from "../../util/cores";
 
 const STORAGE_KEY = "@curso_progress_v1";
 
@@ -181,7 +179,7 @@ export default function SlideLessonComponent({ route, navigation }) {
       } else {
         // se não tiver id, marca localmente (não salva)
         console.warn(
-          "Nenhum lesson.id disponível — progresso não salvo no AsyncStorage."
+          "Nenhum lesson.id disponível — progresso não salvo no AsyncStorage.",
         );
         setMarkedCompleteLocal(true);
       }
@@ -297,7 +295,7 @@ export default function SlideLessonComponent({ route, navigation }) {
             <TouchableOpacity
               style={[
                 styles.startBtn,
-                { backgroundColor: BEA_BLUE, marginTop: 12 },
+                { backgroundColor: CORES.PRIMARY, marginTop: 12 },
               ]}
               onPress={() => {
                 const nextScreen =
@@ -331,7 +329,7 @@ export default function SlideLessonComponent({ route, navigation }) {
 
 const styles = StyleSheet.create({
   screen: { flex: 1 },
-  introBg: { backgroundColor: BEA_BLUE },
+  introBg: { backgroundColor: CORES.PRIMARY },
   lightBg: { backgroundColor: "#fff" },
 
   centered: {
@@ -361,7 +359,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 26,
     fontWeight: "bold",
-    color: BEA_BLUE,
+    color: CORES.PRIMARY,
     marginBottom: 8,
     textAlign: "center",
   },
@@ -386,7 +384,7 @@ const styles = StyleSheet.create({
   questionTitle: {
     fontSize: 18,
     fontWeight: "600",
-    color: BEA_BLUE,
+    color: CORES.PRIMARY,
     marginBottom: 12,
   },
 
@@ -399,7 +397,7 @@ const styles = StyleSheet.create({
   },
 
   selected: {
-    borderColor: BEA_BLUE,
+    borderColor: CORES.PRIMARY,
     backgroundColor: "#eef2ff",
   },
 
@@ -409,7 +407,7 @@ const styles = StyleSheet.create({
   incorrect: { backgroundColor: "#fff1f2", borderColor: "#ef4444" },
 
   audioBtn: {
-    backgroundColor: BEA_ORANGE,
+    backgroundColor: CORES.PRIMARY,
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 999,
@@ -419,7 +417,7 @@ const styles = StyleSheet.create({
   audioBtnText: { color: "#fff", fontWeight: "bold" },
 
   startBtn: {
-    backgroundColor: "#ec651d",
+    backgroundColor: CORES.SECONDARY,
     paddingVertical: 18,
     paddingHorizontal: 48,
     borderRadius: 999,
@@ -432,7 +430,7 @@ const styles = StyleSheet.create({
   },
 
   navBtn: {
-    backgroundColor: BEA_ORANGE,
+    backgroundColor: CORES.SECONDARY,
     paddingVertical: 14,
     paddingHorizontal: 32,
     borderRadius: 999,

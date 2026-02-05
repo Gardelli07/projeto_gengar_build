@@ -8,6 +8,7 @@ import {
   TextInput,
 } from "react-native";
 import * as Speech from "expo-speech";
+import CORES from "../../util/cores";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -127,7 +128,7 @@ export default function NetworkingSmallTalk({ navigation, route }) {
   const [quizScore, setQuizScore] = useState(0);
   const [answered, setAnswered] = useState(Array(exercises.length).fill(false));
   const [quizAnswered, setQuizAnswered] = useState(
-    Array(quiz.length).fill(false)
+    Array(quiz.length).fill(false),
   );
   const [networkingText, setNetworkingText] = useState("");
   const [networkingFeedback, setNetworkingFeedback] = useState("");
@@ -235,7 +236,7 @@ export default function NetworkingSmallTalk({ navigation, route }) {
     const isCorrectStructure = hasGreeting && hasName && hasRole && hasQuestion;
     if (isCorrectStructure) {
       setNetworkingFeedback(
-        "✅ Perfect! That's a natural networking introduction."
+        "✅ Perfect! That's a natural networking introduction.",
       );
       if (!networkingDone) {
         setScore((s) => s + 1);
@@ -301,7 +302,7 @@ export default function NetworkingSmallTalk({ navigation, route }) {
               !opt.correct &&
               idx ===
                 d.options.findIndex(
-                  (o, i) => answered[page - 1] && i === idx && !o.correct
+                  (o, i) => answered[page - 1] && i === idx && !o.correct,
                 )
             )
               btnStyle.push(styles.incorrectBtn);
@@ -420,7 +421,7 @@ export default function NetworkingSmallTalk({ navigation, route }) {
                   !opt.correct &&
                   oidx ===
                     q.options.findIndex(
-                      (o, i) => quizAnswered[idx] && i === oidx && !o.correct
+                      (o, i) => quizAnswered[idx] && i === oidx && !o.correct,
                     )
                 )
                   btnStyle.push(styles.incorrectBtn);
@@ -531,10 +532,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   introBg: {
-    backgroundColor: "#022b62",
+    backgroundColor: CORES.PRIMARY,
   },
   quizBg: {
-    backgroundColor: "#022b62",
+    backgroundColor: CORES.PRIMARY,
   },
   centered: {
     alignItems: "center",
@@ -567,7 +568,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   startBtn: {
-    backgroundColor: "#ec651d",
+    backgroundColor: CORES.SECONDARY,
     paddingVertical: 18,
     paddingHorizontal: 48,
     borderRadius: 999,
@@ -586,7 +587,7 @@ const styles = StyleSheet.create({
   dialogueTitle: {
     fontSize: 28,
     fontWeight: "bold",
-    color: "#022b62",
+    color: CORES.PRIMARY,
     marginBottom: 8,
     textAlign: "center",
   },
@@ -597,7 +598,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   audioBtn: {
-    backgroundColor: "#ec651d",
+    backgroundColor: CORES.SECONDARY,
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 999,
@@ -612,7 +613,7 @@ const styles = StyleSheet.create({
   question: {
     fontSize: 20,
     fontWeight: "600",
-    color: "#022b62",
+    color: CORES.PRIMARY,
     marginBottom: 12,
     textAlign: "center",
   },
@@ -639,7 +640,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fee2e2",
   },
   nextBtn: {
-    backgroundColor: "#ec651d",
+    backgroundColor: CORES.SECONDARY,
     paddingVertical: 14,
     paddingHorizontal: 40,
     borderRadius: 999,
@@ -691,7 +692,7 @@ const styles = StyleSheet.create({
   },
   quizBtnText: {
     fontSize: 18,
-    color: "#022b62",
+    color: CORES.PRIMARY,
     fontWeight: "700",
     textAlign: "center",
   },
