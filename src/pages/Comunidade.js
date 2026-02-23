@@ -1,7 +1,6 @@
 // CommunityScreen.js
 import React from "react";
 import {
-  SafeAreaView,
   View,
   Text,
   StyleSheet,
@@ -10,6 +9,7 @@ import {
   Dimensions,
   StatusBar,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import CORES from "../util/cores";
 
 const { width } = Dimensions.get("window");

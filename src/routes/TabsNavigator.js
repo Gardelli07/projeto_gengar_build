@@ -2,6 +2,7 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+
 import CORES from "../util/cores";
 
 import Home from "../pages/Home";
@@ -25,13 +26,24 @@ export default function TabsNavigator() {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: CORES.PRIMARY,
-          height: 60,
+          height: 50,
+
+          // REMOVE SOMBRA
+          elevation: 0, // Android
+          shadowColor: "transparent", // iOS
+          shadowOffset: { width: 0, height: 0 },
+          shadowOpacity: 0,
+          shadowRadius: 0,
+
           borderTopWidth: 0,
         },
+
         tabBarBackground: () => <View style={styles.tabBarBackground} />,
-        tabBarActiveTintColor: CORES.SECONDARY,
+
+        tabBarActiveTintColor: "#f5f5f5e3",
         tabBarInactiveTintColor: "#000000aa",
         tabBarLabelStyle: { fontWeight: "bold", fontSize: 12 },
+
         tabBarIcon: ({ color, size }) => {
           const icons = {
             Home: "home",
@@ -51,12 +63,10 @@ export default function TabsNavigator() {
         },
       })}
     >
-      {/* Tabs visíveis */}
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Comunidade" component={Comunidade} />
       <Tab.Screen name="Login" component={Login} />
 
-      {/* Botão customizado Santander */}
       {isSantander && (
         <Tab.Screen
           name="HomeSantander"

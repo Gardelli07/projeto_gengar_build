@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  SafeAreaView,
   View,
   Text,
   Image,
@@ -13,6 +12,7 @@ import {
   Dimensions,
   Alert,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import getDB from "../../bd";
 import { useAuth } from "../context/AuthContext";

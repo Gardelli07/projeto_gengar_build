@@ -1,183 +1,117 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
-  SafeAreaView,
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Image,
-  Button,
+  ScrollView,
   StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Svg, { Circle } from "react-native-svg";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import CORES from "../../util/cores";
+import {
+  BUSSINES_STORAGE_KEY,
+  bussinesModules,
+  bussinesSampleLessons,
+} from "../bussines/Bussines";
 
-/* ================= ICON ================= */
+const INGLES_COMPLETO_STORAGE_KEY = "@progesso_ingles_completo";
 
-const lockIcon = `
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
- xmlns="http://www.w3.org/2000/svg">
-  <rect x="5" y="10" width="14" height="9" rx="2"
-   stroke="#888" stroke-width="2" fill="#eee"/>
-  <path d="M8 10V7a4 4 0 1 1 8 0v3"
-   stroke="#888" stroke-width="2" fill="none"/>
-  <circle cx="12" cy="15" r="1.5" fill="#888"/>
-</svg>
-`;
+const THEME = {
+  bg: "#F5F5F5",
+  white: "#FFFFFF",
+  textStrong: "#173B6E",
+  textSoft: "#7E8DA3",
+  green: "#26BA86",
+  lightBar: "#DFE5ED",
+  border: "#E6ECF3",
+};
 
-/* ================= CONFIG ================= */
-
-const STORAGE_KEY = "@progesso_ingles_completo";
-
-/* ================= DATA ================= */
-
-const modules = [
-  "Introdução ao inglês para negócios",
-  "Cumprimentos e Small Talk",
-  "Apresentando a empresa",
-  "Vocabulário de escritório",
-  "E-mails profissionais",
-  "Reuniões e agendas",
-];
-
-const sampleLessons = [
+const inglesModuleDefs = [
   {
-    module: 0,
-    id: "1",
-    title: "IC01",
-    type: "Aula",
-    screen: "IC01",
-    avatar: require("../../../assets/Bussines/aula1.png"),
+    id: 0,
+    name: "Foundations",
+    subtitle: "Basic grammar and vocabulary",
+    locked: false,
+    accent: THEME.green,
+    icon: "check",
   },
   {
-    module: 0,
-    id: "2",
-    title: "IC02",
-    type: "Aula",
-    screen: "IC02",
-    avatar: require("../../../assets/Bussines/aula1.png"),
+    id: 1,
+    name: "Greetings and Small Talk",
+    subtitle: "Introduce yourself naturally",
+    locked: false,
+    accent: "#B8C2CF",
+    icon: "lock-outline",
   },
   {
-    module: 0,
-    id: "3",
-    title: "IC03",
-    type: "Aula",
-    screen: "IC03",
-    avatar: require("../../../assets/Bussines/aula1.png"),
+    id: 2,
+    name: "Presenting Your Company",
+    subtitle: "Professional introductions",
+    locked: true,
+    accent: "#B8C2CF",
+    icon: "lock-outline",
   },
   {
-    module: 0,
-    id: "4",
-    title: "IC04",
-    type: "Aula",
-    screen: "IC04",
-    avatar: require("../../../assets/Bussines/aula1.png"),
+    id: 3,
+    name: "Office Vocabulary",
+    subtitle: "Common words and situations",
+    locked: true,
+    accent: "#B8C2CF",
+    icon: "lock-outline",
   },
   {
-    module: 0,
-    id: "5",
-    title: "IC05",
-    type: "Aula",
-    screen: "IC05",
-    avatar: require("../../../assets/Bussines/aula1.png"),
+    id: 4,
+    name: "Professional Emails",
+    subtitle: "Write clear messages",
+    locked: true,
+    accent: "#B8C2CF",
+    icon: "lock-outline",
   },
   {
-    module: 0,
-    id: "6",
-    title: "IC06",
-    type: "Aula",
-    screen: "IC06",
-    avatar: require("../../../assets/Bussines/aula1.png"),
-  },
-  {
-    module: 0,
-    id: "7",
-    title: "IC07",
-    type: "Aula",
-    screen: "IC07",
-    avatar: require("../../../assets/Bussines/aula1.png"),
-  },
-  {
-    module: 0,
-    id: "8",
-    title: "IC08",
-    type: "Aula",
-    screen: "IC08",
-    avatar: require("../../../assets/Bussines/aula1.png"),
-  },
-  {
-    module: 0,
-    id: "9",
-    title: "IC09",
-    type: "Aula",
-    screen: "IC09",
-    avatar: require("../../../assets/Bussines/aula1.png"),
-  },
-  {
-    module: 0,
-    id: "10",
-    title: "IC10",
-    type: "Aula",
-    screen: "IC10",
-    avatar: require("../../../assets/Bussines/aula1.png"),
-  },
-  {
-    module: 0,
-    id: "11",
-    title: "IC11",
-    type: "Aula",
-    screen: "IC11",
-    avatar: require("../../../assets/Bussines/aula1.png"),
-  },
-  {
-    module: 0,
-    id: "12",
-    title: "IC12",
-    type: "Aula",
-    screen: "IC12",
-    avatar: require("../../../assets/Bussines/aula1.png"),
-  },
-  {
-    module: 0,
-    id: "13",
-    title: "IC13",
-    type: "Aula",
-    screen: "IC13",
-    avatar: require("../../../assets/Bussines/aula1.png"),
-  },
-  {
-    module: 0,
-    id: "14",
-    title: "IC14",
-    type: "Aula",
-    screen: "IC14",
-    avatar: require("../../../assets/Bussines/aula1.png"),
-  },
-  {
-    module: 0,
-    id: "15",
-    title: "IC15",
-    type: "Aula",
-    screen: "IC15",
-    avatar: require("../../../assets/Bussines/aula1.png"),
+    id: 5,
+    name: "Meetings and Agenda",
+    subtitle: "Speak with confidence at work",
+    locked: true,
+    accent: "#B8C2CF",
+    icon: "lock-outline",
   },
 ];
 
-/* ================= STORAGE ================= */
+const inglesSampleLessons = [
+  { module: 0, id: "1", title: "IC01", type: "Aula", screen: "IC01" },
+  { module: 0, id: "2", title: "IC02", type: "Aula", screen: "IC02" },
+  { module: 0, id: "3", title: "IC03", type: "Aula", screen: "IC03" },
+  { module: 0, id: "4", title: "IC04", type: "Aula", screen: "IC04" },
+  { module: 0, id: "5", title: "IC05", type: "Aula", screen: "IC05" },
+  { module: 0, id: "6", title: "IC06", type: "Aula", screen: "IC06" },
+  { module: 0, id: "7", title: "IC07", type: "Aula", screen: "IC07" },
+  { module: 0, id: "8", title: "IC08", type: "Aula", screen: "IC08" },
+  { module: 0, id: "9", title: "IC09", type: "Aula", screen: "IC09" },
+  { module: 0, id: "10", title: "IC10", type: "Aula", screen: "IC10" },
+  { module: 0, id: "11", title: "IC11", type: "Aula", screen: "IC11" },
+  { module: 0, id: "12", title: "IC12", type: "Aula", screen: "IC12" },
+  { module: 0, id: "13", title: "IC13", type: "Aula", screen: "IC13" },
+  { module: 0, id: "14", title: "IC14", type: "Aula", screen: "IC14" },
+  { module: 0, id: "15", title: "IC15", type: "Aula", screen: "IC15" },
+];
 
-async function loadProgress() {
+const COURSE_OPTIONS = ["Ingles Completo", "Bussines English"];
+const LEVEL_OPTIONS = ["Facil", "Medio", "Avancado"];
+
+async function loadProgress(storageKey) {
   try {
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await AsyncStorage.getItem(storageKey);
     return raw ? JSON.parse(raw) : {};
   } catch {
     return {};
   }
 }
 
-/* ================= UI ================= */
-
-function ProgressCircle({ percent, size = 90, strokeWidth = 8 }) {
+function ProgressCircle({ percent, size = 62, strokeWidth = 4 }) {
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference * (1 - percent / 100);
@@ -185,7 +119,7 @@ function ProgressCircle({ percent, size = 90, strokeWidth = 8 }) {
   return (
     <Svg width={size} height={size}>
       <Circle
-        stroke="#e6e6e6"
+        stroke="#EAEFF5"
         cx={size / 2}
         cy={size / 2}
         r={radius}
@@ -193,7 +127,7 @@ function ProgressCircle({ percent, size = 90, strokeWidth = 8 }) {
         fill="none"
       />
       <Circle
-        stroke={CORES.SECONDARY}
+        stroke={CORES.PRIMARY}
         cx={size / 2}
         cy={size / 2}
         r={radius}
@@ -204,258 +138,820 @@ function ProgressCircle({ percent, size = 90, strokeWidth = 8 }) {
         transform={`rotate(-90 ${size / 2} ${size / 2})`}
         fill="none"
       />
-      <Text
-        style={{
-          position: "absolute",
-          width: size,
-          top: size / 2 - 10,
-          textAlign: "center",
-          fontWeight: "700",
-        }}
-      >
+      <Text style={[styles.circleText, { width: size, top: size / 2 - 10 }]}>
         {Math.round(percent)}%
       </Text>
     </Svg>
   );
 }
 
-/* ================= SCREEN ================= */
-
 export default function Inglescompleto({ navigation, route }) {
   const autoOpenLessonId = route?.params?.autoOpenLessonId;
-
-  const [progressMap, setProgressMap] = useState({});
   const openedRef = useRef(false);
 
-  /* ===== Reload progress when focused ===== */
+  const [progressMap, setProgressMap] = useState({});
+  const [openModuleId, setOpenModuleId] = useState(0);
+  const [isSectionMenuOpen, setIsSectionMenuOpen] = useState(false);
+  const [sectionMenuStep, setSectionMenuStep] = useState("course");
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [selectedLevel, setSelectedLevel] = useState(null);
+
+  const allLessons = useMemo(
+    () => [...inglesSampleLessons, ...bussinesSampleLessons],
+    [],
+  );
+  const activeCourseId =
+    selectedCourse === "Bussines English" && selectedLevel === "Facil"
+      ? "bussines"
+      : "ingles_completo";
+  const activeStorageKey =
+    activeCourseId === "bussines"
+      ? BUSSINES_STORAGE_KEY
+      : INGLES_COMPLETO_STORAGE_KEY;
+  const activeModuleDefs = useMemo(() => {
+    if (activeCourseId === "bussines") {
+      return bussinesModules.map((name, index) => ({
+        id: index,
+        name,
+        subtitle: "Business English - Facil",
+        locked: index > 0,
+        accent: index === 0 ? THEME.green : "#B8C2CF",
+        icon: index === 0 ? "check" : "lock-outline",
+      }));
+    }
+    return inglesModuleDefs;
+  }, [activeCourseId]);
+  const activeLessons = useMemo(
+    () =>
+      activeCourseId === "bussines"
+        ? bussinesSampleLessons
+        : inglesSampleLessons,
+    [activeCourseId],
+  );
+  const levelOptionsForCourse =
+    selectedCourse === "Bussines English" ? ["Facil"] : LEVEL_OPTIONS;
+
   useEffect(() => {
     const sub = navigation.addListener("focus", async () => {
-      const p = await loadProgress();
+      const p = await loadProgress(activeStorageKey);
       setProgressMap(p);
     });
     return sub;
-  }, [navigation]);
+  }, [navigation, activeStorageKey]);
 
-  /* ===== Auto-open next lesson ===== */
+  useEffect(() => {
+    loadProgress(activeStorageKey).then((p) => setProgressMap(p));
+    setOpenModuleId(0);
+  }, [activeStorageKey]);
+
   useEffect(() => {
     if (!autoOpenLessonId || openedRef.current) return;
 
-    const lesson = sampleLessons.find(
-      (l) => String(l.id) === String(autoOpenLessonId),
+    const lesson = allLessons.find(
+      (item) => String(item.id) === String(autoOpenLessonId),
     );
 
-    if (lesson) {
-      openedRef.current = true;
+    if (!lesson) return;
 
-      // limpa o param para não reabrir depois
-      navigation.setParams({ autoOpenLessonId: null });
+    openedRef.current = true;
+    navigation.setParams({ autoOpenLessonId: null });
 
-      // abre a próxima aula SEM empilhar
-      requestAnimationFrame(() => {
-        navigation.replace(lesson.screen, {
-          lesson,
-          lessons: sampleLessons,
-        });
+    requestAnimationFrame(() => {
+      const lessonList = bussinesSampleLessons.some(
+        (item) => String(item.id) === String(lesson.id),
+      )
+        ? bussinesSampleLessons
+        : inglesSampleLessons;
+      navigation.replace(lesson.screen, {
+        lesson,
+        lessons: lessonList,
       });
-    }
-  }, [autoOpenLessonId, navigation]);
+    });
+  }, [autoOpenLessonId, navigation, allLessons]);
 
-  /* ===== Progress ===== */
-  const totalLessons = sampleLessons.length;
-  const completedCount = sampleLessons.filter((l) => progressMap[l.id]).length;
-
+  const totalLessons = activeLessons.length;
+  const completedCount = activeLessons.filter(
+    (item) => progressMap[item.id],
+  ).length;
   const percent = totalLessons > 0 ? (completedCount / totalLessons) * 100 : 0;
 
-  /* ===== Navigation ===== */
+  const lessonsByModule = useMemo(() => {
+    return activeModuleDefs.reduce((acc, moduleItem) => {
+      acc[moduleItem.id] = activeLessons.filter(
+        (lesson) => lesson.module === moduleItem.id,
+      );
+      return acc;
+    }, {});
+  }, [activeModuleDefs, activeLessons]);
+
+  const firstPendingLesson =
+    activeLessons.find((item) => !progressMap[item.id]) || activeLessons[0];
+
   const goToLesson = (lesson) => {
+    if (!lesson?.screen) return;
     navigation.navigate(lesson.screen, {
       lesson,
-      lessons: sampleLessons,
+      lessons: activeLessons,
     });
   };
 
-  const handleReset = async () => {
-    try {
-      await AsyncStorage.removeItem(STORAGE_KEY);
-      setProgressMap({});
-    } catch (e) {
-      // erro ignorado
-    }
+  const toggleModule = (moduleItem) => {
+    if (moduleItem.locked) return;
+    setOpenModuleId((prev) => (prev === moduleItem.id ? null : moduleItem.id));
   };
 
-  /* ===== Render ===== */
-  let lastModule = -1;
-
-  const renderLesson = ({ item, index }) => {
-    const done = !!progressMap[item.id];
-    const showModule = item.module !== lastModule;
-    lastModule = item.module;
-
-    return (
-      <>
-        {showModule && (
-          <View style={styles.moduleBar}>
-            <Text style={styles.moduleBarText}>{modules[item.module]}</Text>
-          </View>
-        )}
-
-        <View style={styles.lessonRow}>
-          <View style={styles.timelineColumn}>
-            <View
-              style={[
-                styles.timelineCircleOuter,
-                done && styles.timelineCircleDone,
-              ]}
-            >
-              <Image source={item.avatar} style={styles.avatar} />
-            </View>
-            {index < sampleLessons.length - 1 && (
-              <View style={styles.timelineLine} />
-            )}
-          </View>
-
-          <TouchableOpacity
-            style={styles.lessonCard}
-            onPress={() => goToLesson(item)}
-          >
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <View>
-                <Text style={styles.lessonTitle}>{item.title}</Text>
-                <Text style={styles.lessonSubtitle}>{item.type}</Text>
-              </View>
-
-              <View style={{ flexDirection: "row", gap: 8 }}>
-                {done && <Text style={styles.lessonAction}>Concluído</Text>}
-              </View>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </>
-    );
-  };
+  const sectionButtonLabel =
+    selectedCourse && selectedLevel
+      ? `${selectedCourse} - ${selectedLevel}`
+      : "View all";
 
   return (
     <SafeAreaView style={styles.safe}>
       <StatusBar barStyle="dark-content" />
 
-      <View style={styles.progressRow}>
-        <ProgressCircle percent={percent} />
-        <View style={{ marginLeft: 16 }}>
-          <Text style={{ fontSize: 18, fontWeight: "700" }}>
-            {Math.round(percent)}% concluído
-          </Text>
-          <Text style={{ color: "#666" }}>
-            {completedCount} de {totalLessons} aulas
-          </Text>
-          <View style={{ marginTop: 8, width: 160 }}>
-            <Button
-              title="Resetar progresso"
-              onPress={handleReset}
-              color="#ff3b30"
+      <ScrollView
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.greetingRow}>
+          <View style={styles.avatar}>
+            <MaterialCommunityIcons
+              name="account-outline"
+              size={21}
+              color={THEME.textStrong}
             />
+            <View style={styles.onlineDot} />
+          </View>
+
+          <View>
+            <Text style={styles.hello}>Hello,</Text>
+            <Text style={styles.userName}>Ana</Text>
+          </View>
+
+          <View style={styles.statsArea}>
+            <View style={styles.statRow}>
+              <MaterialCommunityIcons
+                name="star"
+                size={14}
+                color={CORES.PRIMARY}
+              />
+              <Text style={styles.statText}>2,450</Text>
+              <Text style={styles.statLabel}>XP</Text>
+            </View>
           </View>
         </View>
-      </View>
 
-      <FlatList
-        data={sampleLessons}
-        renderItem={renderLesson}
-        keyExtractor={(i) => i.id}
-        contentContainerStyle={{ padding: 16, paddingBottom: 120 }}
-      />
+        <View style={styles.levelRow}>
+          <View style={styles.levelBadge}>
+            <Text style={styles.levelBadgeText}>7</Text>
+          </View>
+          <Text style={styles.levelText}>Level 7</Text>
+        </View>
+
+        <View style={styles.progressTrack}>
+          <View
+            style={[styles.progressFill, { width: `${Math.max(percent, 8)}%` }]}
+          />
+        </View>
+        <Text style={styles.xpText}>
+          {completedCount} / {totalLessons} aulas
+        </Text>
+
+        <View style={styles.continueCard}>
+          <ProgressCircle percent={percent} />
+          <View style={styles.continueTextArea}>
+            <Text style={styles.continueLabel}>Continue learning</Text>
+            <Text style={styles.continueTitle}>
+              {firstPendingLesson
+                ? firstPendingLesson.title
+                : "All lessons done"}
+            </Text>
+            <Text style={styles.continueMeta}>8 min +50 XP</Text>
+          </View>
+          <TouchableOpacity
+            style={styles.continueButton}
+            onPress={() => goToLesson(firstPendingLesson)}
+            activeOpacity={0.9}
+          >
+            <Text style={styles.continueButtonText}>Continue</Text>
+            <MaterialCommunityIcons name="arrow-right" size={16} color="#fff" />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.dailyGoal}>
+          <MaterialCommunityIcons
+            name="check-circle-outline"
+            size={16}
+            color={THEME.green}
+          />
+          <View style={styles.dailyGoalTextWrap}>
+            <Text style={styles.dailyGoalTitle}>Daily Goal</Text>
+            <Text style={styles.dailyGoalText}>2 of 3 lessons completed</Text>
+          </View>
+          <View style={styles.dailyDots}>
+            <View style={[styles.dot, styles.dotActive]} />
+            <View style={styles.dot} />
+          </View>
+        </View>
+
+        <View style={styles.sectionRow}>
+          <Text style={styles.sectionTitle}>Cursos</Text>
+          <View style={styles.sectionMenuWrap}>
+            <TouchableOpacity
+              style={styles.sectionMenuButton}
+              onPress={() => {
+                if (isSectionMenuOpen) {
+                  setIsSectionMenuOpen(false);
+                  return;
+                }
+                setSectionMenuStep("course");
+                setIsSectionMenuOpen(true);
+              }}
+              activeOpacity={0.85}
+            >
+              <Text style={styles.sectionAction}>{sectionButtonLabel}</Text>
+              <MaterialCommunityIcons
+                name={isSectionMenuOpen ? "chevron-up" : "chevron-down"}
+                size={16}
+                color={CORES.PRIMARY}
+              />
+            </TouchableOpacity>
+
+            {isSectionMenuOpen && (
+              <View style={styles.sectionMenuDropdown}>
+                {sectionMenuStep === "course" ? (
+                  <>
+                    <TouchableOpacity
+                      style={styles.sectionMenuItem}
+                      onPress={() => {
+                        setSelectedCourse(null);
+                        setSelectedLevel(null);
+                        setIsSectionMenuOpen(false);
+                      }}
+                      activeOpacity={0.85}
+                    >
+                      <Text
+                        style={[
+                          styles.sectionMenuText,
+                          !selectedCourse && !selectedLevel
+                            ? styles.sectionMenuTextActive
+                            : null,
+                        ]}
+                      >
+                        View all
+                      </Text>
+                    </TouchableOpacity>
+
+                    {COURSE_OPTIONS.map((courseName) => (
+                      <TouchableOpacity
+                        key={courseName}
+                        style={styles.sectionMenuItem}
+                        onPress={() => {
+                          setSelectedCourse(courseName);
+                          setSelectedLevel(null);
+                          setSectionMenuStep("level");
+                        }}
+                        activeOpacity={0.85}
+                      >
+                        <Text
+                          style={[
+                            styles.sectionMenuText,
+                            selectedCourse === courseName
+                              ? styles.sectionMenuTextActive
+                              : null,
+                          ]}
+                        >
+                          {courseName}
+                        </Text>
+                      </TouchableOpacity>
+                    ))}
+                  </>
+                ) : (
+                  <>
+                    <TouchableOpacity
+                      style={styles.sectionMenuItem}
+                      onPress={() => setSectionMenuStep("course")}
+                      activeOpacity={0.85}
+                    >
+                      <View style={styles.sectionMenuBackRow}>
+                        <MaterialCommunityIcons
+                          name="chevron-left"
+                          size={14}
+                          color={CORES.PRIMARY}
+                        />
+                        <Text style={styles.sectionMenuBackText}>Cursos</Text>
+                      </View>
+                    </TouchableOpacity>
+
+                    {levelOptionsForCourse.map((level) => (
+                      <TouchableOpacity
+                        key={level}
+                        style={styles.sectionMenuItem}
+                        onPress={() => {
+                          setSelectedLevel(level);
+                          setIsSectionMenuOpen(false);
+                        }}
+                        activeOpacity={0.85}
+                      >
+                        <Text
+                          style={[
+                            styles.sectionMenuText,
+                            selectedLevel === level
+                              ? styles.sectionMenuTextActive
+                              : null,
+                          ]}
+                        >
+                          {level}
+                        </Text>
+                      </TouchableOpacity>
+                    ))}
+                  </>
+                )}
+              </View>
+            )}
+          </View>
+        </View>
+
+        {activeModuleDefs.map((moduleItem) => {
+          const moduleLessons = lessonsByModule[moduleItem.id] || [];
+          const moduleCompleted = moduleLessons.filter(
+            (l) => progressMap[l.id],
+          ).length;
+          const modulePercent =
+            moduleLessons.length > 0
+              ? Math.round((moduleCompleted / moduleLessons.length) * 100)
+              : 0;
+          const isOpen = openModuleId === moduleItem.id;
+
+          return (
+            <View key={moduleItem.id}>
+              <TouchableOpacity
+                style={[
+                  styles.moduleButton,
+                  isOpen && {
+                    borderColor: moduleItem.locked
+                      ? THEME.border
+                      : CORES.PRIMARY,
+                  },
+                  moduleItem.locked && styles.lockedModule,
+                ]}
+                onPress={() => toggleModule(moduleItem)}
+                activeOpacity={0.9}
+              >
+                <View
+                  style={[
+                    styles.moduleIconWrap,
+                    {
+                      backgroundColor: moduleItem.locked
+                        ? "#C6CFDB"
+                        : moduleItem.accent,
+                    },
+                  ]}
+                >
+                  <MaterialCommunityIcons
+                    name={moduleItem.icon}
+                    size={16}
+                    color="#FFFFFF"
+                  />
+                </View>
+
+                <View style={styles.moduleTextArea}>
+                  <Text
+                    style={[
+                      styles.moduleTitle,
+                      moduleItem.locked && styles.lockedText,
+                    ]}
+                  >
+                    {moduleItem.name}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.moduleSubtitle,
+                      moduleItem.locked && styles.lockedText,
+                    ]}
+                  >
+                    {moduleItem.subtitle}
+                  </Text>
+                </View>
+
+                <View style={styles.moduleRight}>
+                  <Text
+                    style={[
+                      styles.modulePercent,
+                      moduleItem.locked && styles.lockedText,
+                    ]}
+                  >
+                    {moduleItem.locked ? "0%" : `${modulePercent}%`}
+                  </Text>
+                  <MaterialCommunityIcons
+                    name={isOpen ? "chevron-up" : "chevron-down"}
+                    size={20}
+                    color={moduleItem.locked ? "#B8C2CF" : "#8A97AA"}
+                  />
+                </View>
+              </TouchableOpacity>
+
+              {isOpen && !moduleItem.locked && (
+                <View style={styles.dropdown}>
+                  {moduleLessons.length === 0 && (
+                    <View style={styles.emptyLesson}>
+                      <Text style={styles.emptyLessonText}>
+                        No lessons available.
+                      </Text>
+                    </View>
+                  )}
+
+                  {moduleLessons.map((lesson) => {
+                    const done = !!progressMap[lesson.id];
+
+                    return (
+                      <TouchableOpacity
+                        key={lesson.id}
+                        style={styles.lessonButton}
+                        onPress={() => goToLesson(lesson)}
+                        activeOpacity={0.85}
+                      >
+                        <View style={styles.lessonLeft}>
+                          <MaterialCommunityIcons
+                            name={done ? "check-circle" : "play-circle-outline"}
+                            size={18}
+                            color={done ? THEME.green : CORES.PRIMARY}
+                          />
+                          <Text style={styles.lessonText}>{lesson.title}</Text>
+                        </View>
+                        <MaterialCommunityIcons
+                          name="chevron-right"
+                          size={18}
+                          color="#8A97AA"
+                        />
+                      </TouchableOpacity>
+                    );
+                  })}
+                </View>
+              )}
+            </View>
+          );
+        })}
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
-/* ================= STYLES ================= */
-
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: "#fff" },
-
-  progressRow: {
+  safe: {
+    flex: 1,
+    backgroundColor: THEME.bg,
+  },
+  content: {
+    paddingHorizontal: 16,
+    paddingTop: 8,
+    paddingBottom: 24,
+  },
+  greetingRow: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 16,
-    backgroundColor: "#fafafa",
   },
-
-  moduleBar: {
-    backgroundColor: "#e8e8e8",
-    padding: 10,
-    marginVertical: 10,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-
-  moduleBarText: {
-    fontWeight: "700",
-    fontSize: 16,
-    color: "#0f3b77",
-  },
-
-  lessonRow: {
-    flexDirection: "row",
-    marginBottom: 10,
-  },
-
-  timelineColumn: {
-    width: 80,
-    alignItems: "center",
-  },
-
-  timelineCircleOuter: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    borderWidth: 8,
-    borderColor: "#ddd",
+  avatar: {
+    width: 46,
+    height: 46,
+    borderRadius: 13,
+    borderWidth: 1.5,
+    borderColor: CORES.PRIMARY,
     alignItems: "center",
     justifyContent: "center",
+    marginRight: 12,
+    position: "relative",
+    backgroundColor: THEME.white,
   },
-
-  timelineCircleDone: {
-    borderColor: "#29cc74",
+  onlineDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 99,
+    backgroundColor: THEME.green,
+    borderWidth: 1.8,
+    borderColor: THEME.white,
+    position: "absolute",
+    right: -1,
+    bottom: -1,
   },
-
-  avatar: {
-    width: 66,
-    height: 66,
-    borderRadius: 33,
+  hello: {
+    fontSize: 12,
+    color: "#8FA0B7",
+    fontWeight: "600",
   },
-
-  timelineLine: {
-    width: 2,
-    height: 36,
-    backgroundColor: "#eee",
-    marginTop: 6,
+  userName: {
+    fontSize: 25,
+    color: THEME.textStrong,
+    fontWeight: "800",
+    marginTop: -2,
   },
-
-  lessonCard: {
+  statsArea: {
+    marginLeft: "auto",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 14,
+  },
+  statRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  statText: {
+    color: THEME.textStrong,
+    fontWeight: "800",
+    fontSize: 13,
+  },
+  statLabel: {
+    color: "#9AA5B6",
+    fontSize: 11,
+    fontWeight: "700",
+  },
+  levelRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 20,
+  },
+  levelBadge: {
+    width: 24,
+    height: 24,
+    borderRadius: 8,
+    backgroundColor: THEME.textStrong,
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 7,
+  },
+  levelBadgeText: {
+    color: "#FFFFFF",
+    fontSize: 12,
+    fontWeight: "800",
+  },
+  levelText: {
+    color: THEME.textStrong,
+    fontWeight: "700",
+    fontSize: 14,
+  },
+  progressTrack: {
+    width: "100%",
+    height: 5,
+    borderRadius: 8,
+    backgroundColor: THEME.lightBar,
+    overflow: "hidden",
+    marginTop: 10,
+  },
+  progressFill: {
+    height: "100%",
+    borderRadius: 8,
+    backgroundColor: CORES.PRIMARY,
+  },
+  xpText: {
+    alignSelf: "flex-end",
+    marginTop: 7,
+    color: "#8998AB",
+    fontSize: 12,
+    fontWeight: "600",
+  },
+  continueCard: {
+    marginTop: 18,
+    backgroundColor: THEME.white,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#F1E5DB",
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 15,
+  },
+  continueTextArea: {
     flex: 1,
-    backgroundColor: "#fff",
+    marginLeft: 12,
+  },
+  continueLabel: {
+    color: "#A0ABC0",
+    fontSize: 12,
+    fontWeight: "600",
+  },
+  continueTitle: {
+    color: THEME.textStrong,
+    fontSize: 19,
+    fontWeight: "800",
+    marginTop: -1,
+  },
+  continueMeta: {
+    color: "#8D9DB2",
+    fontSize: 12,
+    marginTop: 3,
+    fontWeight: "600",
+  },
+  continueButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 13,
+    backgroundColor: CORES.PRIMARY,
+  },
+  continueButtonText: {
+    color: "#FFFFFF",
+    fontSize: 13,
+    fontWeight: "800",
+  },
+  dailyGoal: {
+    marginTop: 14,
     borderRadius: 12,
-    padding: 14,
+    backgroundColor: "#E8EDF3",
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  dailyGoalTextWrap: {
+    marginLeft: 10,
+  },
+  dailyGoalTitle: {
+    color: THEME.textStrong,
+    fontSize: 13,
+    fontWeight: "700",
+  },
+  dailyGoalText: {
+    marginTop: 2,
+    color: "#8C99AE",
+    fontSize: 12,
+    fontWeight: "600",
+  },
+  dailyDots: {
+    marginLeft: "auto",
+    flexDirection: "row",
+    gap: 6,
+  },
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 10,
+    backgroundColor: "#BFC8D4",
+  },
+  dotActive: {
+    backgroundColor: CORES.PRIMARY,
+  },
+  sectionRow: {
+    marginTop: 16,
+    marginBottom: 6,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  sectionTitle: {
+    color: THEME.textStrong,
+    fontSize: 24,
+    fontWeight: "800",
+  },
+  sectionAction: {
+    color: CORES.PRIMARY,
+    fontSize: 13,
+    fontWeight: "700",
+  },
+  sectionMenuWrap: {
+    position: "relative",
+  },
+  sectionMenuButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    borderWidth: 1,
+    borderColor: CORES.PRIMARY,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    backgroundColor: "#EEF4FF",
+  },
+  sectionMenuDropdown: {
+    position: "absolute",
+    top: 40,
+    right: 0,
+    width: 220,
+    backgroundColor: THEME.white,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: THEME.border,
+    overflow: "hidden",
+    zIndex: 20,
+    elevation: 4,
+  },
+  sectionMenuItem: {
+    paddingHorizontal: 10,
+    paddingVertical: 9,
+  },
+  sectionMenuText: {
+    color: THEME.textStrong,
+    fontSize: 13,
+    fontWeight: "600",
+  },
+  sectionMenuTextActive: {
+    color: CORES.PRIMARY,
+    fontWeight: "700",
+  },
+  sectionMenuBackText: {
+    color: CORES.PRIMARY,
+    fontSize: 13,
+    fontWeight: "700",
+  },
+  sectionMenuBackRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  moduleButton: {
+    marginTop: 10,
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: THEME.border,
+    backgroundColor: THEME.white,
+    paddingHorizontal: 12,
+    paddingVertical: 11,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  lockedModule: {
+    backgroundColor: "#F6F8FA",
+    borderColor: "#EBEFF4",
+  },
+  moduleIconWrap: {
+    width: 31,
+    height: 31,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 10,
+  },
+  moduleTextArea: {
+    flex: 1,
+  },
+  moduleTitle: {
+    color: THEME.textStrong,
+    fontSize: 14,
+    fontWeight: "800",
+  },
+  moduleSubtitle: {
+    color: "#7D8CA1",
+    fontSize: 12,
+    marginTop: 2,
+    fontWeight: "600",
+  },
+  moduleRight: {
     marginLeft: 8,
-    elevation: 1,
+    alignItems: "flex-end",
+    justifyContent: "center",
   },
-
-  lessonTitle: {
+  modulePercent: {
+    fontSize: 13,
+    fontWeight: "800",
+    color: CORES.PRIMARY,
+    marginBottom: 2,
+  },
+  lockedText: {
+    color: "#B4BFCC",
+  },
+  dropdown: {
+    marginTop: 8,
+    backgroundColor: THEME.white,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "#E8EDF4",
+    overflow: "hidden",
+  },
+  emptyLesson: {
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+  },
+  emptyLessonText: {
+    color: "#8C99AE",
+    fontSize: 12,
+    fontWeight: "600",
+  },
+  lessonButton: {
+    paddingHorizontal: 12,
+    paddingVertical: 11,
+    borderBottomWidth: 1,
+    borderBottomColor: "#EEF2F6",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  lessonLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    flexShrink: 1,
+  },
+  lessonText: {
+    color: "#2E4769",
+    fontSize: 13,
+    fontWeight: "700",
+  },
+  circleText: {
+    position: "absolute",
+    textAlign: "center",
+    color: THEME.textStrong,
+    fontWeight: "800",
     fontSize: 18,
-    fontWeight: "700",
-  },
-
-  lessonSubtitle: {
-    color: "#888",
-    marginTop: 4,
-  },
-
-  lessonAction: {
-    color: "#0f3b77",
-    fontWeight: "700",
   },
 });

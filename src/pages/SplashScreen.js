@@ -13,9 +13,9 @@ export default function SplashScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Image source={require("../../assets/logo.png")} style={styles.logo} />
-      <Text style={{ color: "#000000", fontSize: 24, fontWeight: "bold" }}>
-        Lingueto
-      </Text>
+      <Text
+        style={{ color: "#000000", fontSize: 24, fontWeight: "bold" }}
+      ></Text>
     </View>
   );
 }

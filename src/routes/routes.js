@@ -81,7 +81,13 @@ export default function Routes() {
           component={TabsNavigator}
           options={({ navigation }) => ({
             header: () => (
-              <Appbar.Header style={{ backgroundColor: CORES.PRIMARY }}>
+              <Appbar.Header
+                style={{
+                  backgroundColor: CORES.PRIMARY,
+                  height: 55,
+                  paddingHorizontal: 10,
+                }}
+              >
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate("Tabs", { screen: "Home" })
@@ -89,7 +95,7 @@ export default function Routes() {
                 >
                   <Image
                     source={require("../../assets/logo.png")}
-                    style={{ width: 60, height: 60 }}
+                    style={{ width: 45, height: 45 }}
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
@@ -97,8 +103,9 @@ export default function Routes() {
                 <Appbar.Content
                   title="Lingueto"
                   titleStyle={{
-                    color: "#000000",
+                    color: "#000",
                     fontWeight: "bold",
+                    paddingHorizontal: 5,
                   }}
                 />
               </Appbar.Header>
@@ -160,7 +167,11 @@ export default function Routes() {
         <Stack.Screen
           name="Inglescompleto"
           component={Inglescompleto}
-          options={{ title: "Inglês Completo", ...defaultHeader }}
+          options={{
+            title: "Inglês Completo",
+            ...defaultHeader,
+            headerShown: false,
+          }}
         />
 
         <Stack.Screen name="Teste1" component={Teste1} />
@@ -186,14 +197,18 @@ export default function Routes() {
           IC13,
           IC14,
           IC15,
-        ].map((Screen, index) => (
-          <Stack.Screen
-            key={index}
-            name={`IC${index + 2}`}
-            component={Screen}
-            options={defaultHeader}
-          />
-        ))}
+        ].map((Screen, index) => {
+          const screenNumber = String(index + 2).padStart(2, "0");
+
+          return (
+            <Stack.Screen
+              key={index}
+              name={`IC${screenNumber}`}
+              component={Screen}
+              options={defaultHeader}
+            />
+          );
+        })}
 
         {/* ===== SANTANDER ===== */}
         <Stack.Screen

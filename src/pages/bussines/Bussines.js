@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {
-  SafeAreaView,
   View,
   Text,
   StyleSheet,
@@ -11,11 +10,13 @@ import {
   Platform,
   StatusBar,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { SvgXml } from "react-native-svg";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Svg, { Circle } from "react-native-svg";
 import { BussinesImages } from "../../util/images";
+import CORES from "../../util/cores";
 // Cadeado SVG como string
 const lockIcon = `
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,9 +25,9 @@ const lockIcon = `
   <circle cx="12" cy="15" r="1.5" fill="#888"/>
 </svg>
 `;
-const STORAGE_KEY = "@curso_progress_v1";
+export const BUSSINES_STORAGE_KEY = "@curso_progress_v1";
 // Lista de módulos
-const modules = [
+export const bussinesModules = [
   "Introdução ao inglês para negócios",
   "Cumprimentos e Small Talk",
   "Apresentando a empresa",
@@ -41,7 +42,7 @@ const modules = [
   "Problemas e soluções",
 ];
 
-const sampleLessons = [
+export const bussinesSampleLessons = [
   //modulo 1
   {
     module: 0,
@@ -591,6 +592,10 @@ const sampleLessons = [
     avatar: BussinesImages.diresao,
   },
 ];
+
+const STORAGE_KEY = BUSSINES_STORAGE_KEY;
+const modules = bussinesModules;
+const sampleLessons = bussinesSampleLessons;
 
 // Small helper to persist progress as an object { lessonId: true }
 async function saveProgress(progress) {

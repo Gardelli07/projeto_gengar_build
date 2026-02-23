@@ -72,3 +72,9 @@ export const Santander = {
   A1slide1: require("../../assets/Santander/CRM1.png"),
   A1slide2: require("../../assets/Santander/CRM2.png"),
 };
+
+export const Images = {
+  seta: require("../../assets/seta.png"),
+  x: require("../../assets/x.png"),
+  teacher: require("../../assets/teacher.png"),
+};

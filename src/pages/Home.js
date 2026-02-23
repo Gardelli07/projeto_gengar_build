@@ -6,57 +6,55 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  SafeAreaView,
   ScrollView,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Crown, Import } from "lucide-react-native";
 import { CursosImages } from "../util/images";
 import CORES from "../util/cores";
 export default function Home() {
   const navigation = useNavigation();
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <CourseCard
-          title="Inglês completo"
-          description="Aprenda vocabulário e gramática do inglês neste curso"
-          image={CursosImages.bussines}
-          premium
-          onPress={() => navigation.navigate("Inglescompleto")}
-        />
-        <CourseCard
-          title="Inglês para negócios"
-          description="Aprenda vocabulário e gramática do inglês neste curso"
-          image={CursosImages.bussines}
-          premium
-          onPress={() => navigation.navigate("Bussines")}
-        />
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <CourseCard
+        title="Inglês completo"
+        description="Aprenda vocabulário e gramática do inglês neste curso"
+        image={CursosImages.bussines}
+        premium
+        onPress={() => navigation.navigate("Inglescompleto")}
+      />
+      <CourseCard
+        title="Inglês para negócios"
+        description="Aprenda vocabulário e gramática do inglês neste curso"
+        image={CursosImages.bussines}
+        premium
+        onPress={() => navigation.navigate("Bussines")}
+      />
 
-        <CourseCard
-          title="Pronúncia do inglês"
-          description="Melhore suas habilidades e fale com mais confiança"
-          image={CursosImages.pronuncia}
-          premium
-          onPress={() => navigation.navigate("Teste1")}
-        />
+      <CourseCard
+        title="Pronúncia do inglês"
+        description="Melhore suas habilidades e fale com mais confiança"
+        image={CursosImages.pronuncia}
+        premium
+        onPress={() => navigation.navigate("Teste1")}
+      />
 
-        <CourseCard
-          title="O mundo em inglês"
-          description="Aprenda inglês com vídeos do The New York Times"
-          image={CursosImages.mundo}
-          premium
-          onPress={() => navigation.navigate("NetworkingSmallTalk")}
-        />
+      <CourseCard
+        title="O mundo em inglês"
+        description="Aprenda inglês com vídeos do The New York Times"
+        image={CursosImages.mundo}
+        premium
+        onPress={() => navigation.navigate("NetworkingSmallTalk")}
+      />
 
-        <CourseCard
-          title="Inglês para viagens"
-          description="Aprenda palavras e frases úteis para sua viagem"
-          image={CursosImages.viagem}
-          premium
-          onPress={() => navigation.navigate("PracticeMeetingExpressions")}
-        />
-      </ScrollView>
-    </SafeAreaView>
+      <CourseCard
+        title="Inglês para viagens"
+        description="Aprenda palavras e frases úteis para sua viagem"
+        image={CursosImages.viagem}
+        premium
+        onPress={() => navigation.navigate("PracticeMeetingExpressions")}
+      />
+    </ScrollView>
   );
 }
 
@@ -94,11 +92,6 @@ function CourseCard({ title, description, image, premium, onPress }) {
 /* ================= ESTILOS ================= */
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#e8e8e8",
-  },
-
   card: {
     flexDirection: "row",
     backgroundColor: "#f5f5f5",
