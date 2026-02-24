@@ -9,8 +9,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Speech from "expo-speech";
-import { Audio } from "expo-av";
-import CORES from "../../util/cores";
+import CORES from "../../../util/cores";
 
 export function useSpeech() {
   const speak = ({
@@ -49,7 +48,7 @@ const SlideNavContext = React.createContext(null);
 
 /* ================= CONFIG ================= */
 
-const SLIDE_COUNT = 10;
+const SLIDE_COUNT = 11;
 const STORAGE_KEY = "@progesso_ingles_completo";
 
 /* ================= STORAGE ================= */
@@ -256,10 +255,10 @@ function Slide1() {
   const { renderNextButton } = useNav();
   return (
     <View style={styles.hero}>
-      <Text style={styles.heroIcon}>🌍</Text>
-      <Text style={styles.heroTitle}>De onde você é?</Text>
+      <Text style={styles.heroIcon}>🤝</Text>
+      <Text style={styles.heroTitle}>Prazer em Conhecer</Text>
       <Text style={styles.heroSubtitle}>
-        Aprenda a perguntar sobre origem e nacionalidade
+        Aprenda a dizer "Nice to meet you" em inglês
       </Text>
 
       {renderNextButton(0)}
@@ -273,14 +272,16 @@ function Slide2() {
 
   return (
     <View style={styles.slide}>
-      <Text style={styles.slideObjectiveTitle}>Where are you from?</Text>
-      <Text style={styles.slideObjectiveSubtitle}>De onde você é?</Text>
+      <Text style={styles.slideObjectiveTitle}>Nice to meet you.</Text>
+      <Text style={styles.slideObjectiveSubtitle}>
+        Prazer em conhecer você.
+      </Text>
 
       <TouchableOpacity
         style={styles.listenButton}
         onPress={() =>
           speak({
-            text: "Where are you from?",
+            text: "Nice to meet you.",
             language: "en-US",
             rate: 0.85,
             pitch: 1.05,
@@ -290,7 +291,6 @@ function Slide2() {
         <Text style={styles.listenButtonText}>🔊 Ouvir</Text>
       </TouchableOpacity>
 
-      {/* Navegação */}
       <View style={styles.buttonRow}>
         {renderPrevButton(1)}
         {renderNextButton(1)}
@@ -301,15 +301,91 @@ function Slide2() {
 
 function Slide3() {
   const { renderPrevButton, renderNextButton } = useNav();
+  const { speak } = useSpeech();
+
+  return (
+    <View style={styles.slide}>
+      <Text style={styles.slideObjectiveTitle}>
+        Nice to meet{"\n"} you too.
+      </Text>
+      <Text style={styles.slideObjectiveSubtitle}>
+        Prazer em conhecer você também.
+      </Text>
+
+      <View style={styles.objectiveRow}>
+        <Text style={styles.objectiveRowText}>Resposta Natural</Text>
+      </View>
+
+      <TouchableOpacity
+        style={styles.listenButton}
+        onPress={() =>
+          speak({
+            text: "Nice to meet you too.",
+            language: "en-US",
+            rate: 0.85,
+            pitch: 1.05,
+          })
+        }
+      >
+        <Text style={styles.listenButtonText}>🔊 Ouvir</Text>
+      </TouchableOpacity>
+
+      <View style={styles.buttonRow}>
+        {renderPrevButton(2)}
+        {renderNextButton(2)}
+      </View>
+    </View>
+  );
+}
+
+function Slide4() {
+  const { renderPrevButton, renderNextButton } = useNav();
+  const { speak } = useSpeech();
+
+  return (
+    <View style={styles.slide}>
+      <Text>Ou a forma abreviada:</Text>
+      <Text style={styles.slideObjectiveTitle}>You too.</Text>
+      <Text style={styles.slideObjectiveSubtitle}>Você também.</Text>
+
+      <View style={styles.objectiveRow}>
+        <Text style={styles.objectiveRowText}>Abreviação</Text>
+      </View>
+
+      <TouchableOpacity
+        style={styles.listenButton}
+        onPress={() =>
+          speak({
+            text: "You too.",
+            language: "en-US",
+            rate: 0.85,
+            pitch: 1.05,
+          })
+        }
+      >
+        <Text style={styles.listenButtonText}>🔊 Ouvir</Text>
+      </TouchableOpacity>
+
+      <View style={styles.buttonRow}>
+        {renderPrevButton(3)}
+        {renderNextButton(3)}
+      </View>
+    </View>
+  );
+}
+
+function Slide5() {
+  const { renderPrevButton, renderNextButton } = useNav();
   const [selected, setSelected] = useState(null);
   const [isCorrect, setIsCorrect] = useState(false);
   const [blinkWrong, setBlinkWrong] = useState(false);
+  const { speak } = useSpeech();
 
-  const options = ["are", "is"];
-  const correctAnswer = ["are"];
+  const options = ["Good to see you", "Nice to meet you", "How are you?"];
+  const correctAnswer = "Nice to meet you";
 
   const handlePress = (option) => {
-    if (correctAnswer.includes(option)) {
+    if (option === correctAnswer) {
       setSelected(option);
       setIsCorrect(true);
     } else {
@@ -326,14 +402,27 @@ function Slide3() {
 
   return (
     <View style={styles.slide}>
-      <Text>✏️ Complete a Frase</Text>
-      <Text style={styles.questionTitle}>Where ___ you from?</Text>
+      <Text style={styles.questionTitle}>
+        🎧 Ouça e escolha a frase correta
+      </Text>
+
+      <TouchableOpacity
+        style={styles.btnOuvir}
+        onPress={() =>
+          speak({
+            text: "Nice to meet you",
+            language: "en-US",
+            rate: 0.85,
+            pitch: 1.05,
+          })
+        }
+      >
+        <Text style={styles.btnOuvirText}>🔊 Ouvir</Text>
+      </TouchableOpacity>
 
       {options.map((option) => {
         const isSelected = selected === option;
-        const isRight =
-          isCorrect && isSelected && correctAnswer.includes(option);
-
+        const isRight = option === correctAnswer && isCorrect;
         const isWrong = isSelected && blinkWrong;
 
         return (
@@ -358,181 +447,11 @@ function Slide3() {
         <View style={styles.successBox}>
           <Text style={styles.successTitle}>✓ Correto!</Text>
           <Text style={styles.successText}>
-            "Where ARE you from?" está perfeito! Usamos "are" com "you". "Is"
-            seria usado com he/she/it.
+            Perfeito! Você reconheceu "Nice to meet you" - a forma educada de
+            dizer "prazer em conhecer"!
           </Text>
         </View>
       )}
-
-      <View style={styles.buttonRow}>
-        {renderPrevButton(2)}
-        {renderNextButton(2)}
-      </View>
-    </View>
-  );
-}
-
-function Slide4() {
-  const { renderPrevButton, renderNextButton } = useNav();
-
-  const recordingRef = useRef(null);
-  const [audioUri, setAudioUri] = useState(null);
-  const [isRecording, setIsRecording] = useState(false);
-
-  /* 🔊 Frase modelo */
-  const speakModel = () => {
-    Speech.speak("Where are you from?", {
-      language: "en-US",
-      rate: 0.85,
-      pitch: 1.05,
-    });
-  };
-
-  /* 🎙️ Iniciar gravação */
-  const startRecording = async () => {
-    try {
-      await Audio.requestPermissionsAsync();
-      await Audio.setAudioModeAsync({
-        allowsRecordingIOS: true,
-        playsInSilentModeIOS: true,
-      });
-
-      const recording = new Audio.Recording();
-      await recording.prepareToRecordAsync(
-        Audio.RecordingOptionsPresets.HIGH_QUALITY,
-      );
-
-      await recording.startAsync();
-      recordingRef.current = recording;
-      setIsRecording(true);
-    } catch (err) {
-      console.log("Erro ao gravar:", err);
-    }
-  };
-
-  /* ⏹️ Parar gravação */
-  const stopRecording = async () => {
-    try {
-      await recordingRef.current.stopAndUnloadAsync();
-      const uri = recordingRef.current.getURI();
-      setAudioUri(uri);
-      setIsRecording(false);
-      recordingRef.current = null;
-    } catch (err) {
-      console.log("Erro ao parar gravação:", err);
-    }
-  };
-
-  /* ▶️ Ouvir meu áudio */
-  const playMyAudio = async () => {
-    if (!audioUri) return;
-
-    const { sound } = await Audio.Sound.createAsync({ uri: audioUri });
-    await sound.playAsync();
-  };
-
-  /* 🔁 Regravar */
-  const resetRecording = () => {
-    setAudioUri(null);
-    setIsRecording(false);
-  };
-
-  return (
-    <View style={styles.slide}>
-      <Text style={styles.questionTitle}>🗣️ Agora é sua vez! </Text>
-
-      {/* Card da frase */}
-      <View style={styles.speakCard}>
-        <Text style={styles.speakPhrase}>👉 Pergunte de onde a pessoa é</Text>
-        <Text style={styles.speakHint}>Use a frase que você aprendeu!</Text>
-      </View>
-
-      {/* Card de dica */}
-      <View style={styles.tipCard}>
-        <Text style={styles.tipText}>
-          💬 Modelo: {"\n"}"Where are you from?"
-        </Text>
-      </View>
-
-      {/* Frase modelo */}
-      <TouchableOpacity style={styles.modelButton} onPress={speakModel}>
-        <Text style={styles.modelButtonText}>🔊 Ouvir modelo</Text>
-      </TouchableOpacity>
-
-      {/* Gravação */}
-      {!isRecording ? (
-        <TouchableOpacity style={styles.recordButton} onPress={startRecording}>
-          <Text style={styles.recordButtonText}>🎙️ Gravar minha voz</Text>
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity style={styles.stopButton} onPress={stopRecording}>
-          <Text style={styles.stopButtonText}>⏹️ Parar gravação</Text>
-        </TouchableOpacity>
-      )}
-
-      {/* Playback */}
-      {audioUri && (
-        <View style={styles.audioActions}>
-          <TouchableOpacity style={styles.playButton} onPress={playMyAudio}>
-            <Text style={styles.playButtonText}>▶️ Ouvir meu áudio</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.reRecordButton}
-            onPress={resetRecording}
-          >
-            <Text style={styles.reRecordButtonText}>🔁 Regravar</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-
-      <View style={styles.buttonRow}>
-        {renderPrevButton(3)}
-        {renderNextButton(3)}
-      </View>
-    </View>
-  );
-}
-
-function Slide5() {
-  const { renderPrevButton, renderNextButton } = useNav();
-  const { speak } = useSpeech();
-
-  return (
-    <View style={styles.slide}>
-      <View style={styles.tipCard}>
-        <Text style={styles.tipText2}>where</Text>
-        <Text style={styles.tipText3}> /wer/</Text>
-        <Text>Som parecido com "uér" em português</Text>
-      </View>
-
-      <TouchableOpacity
-        style={styles.listenButton}
-        onPress={() =>
-          speak({
-            text: "where",
-            language: "en-US",
-            rate: 0.85,
-            pitch: 1.05,
-          })
-        }
-      >
-        <Text style={styles.listenButtonText}>🔊 Ouvir "where"</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.listenButton}
-        onPress={() =>
-          speak({
-            text: "where are you from?",
-            language: "en-US",
-            rate: 0.85,
-            pitch: 1.05,
-          })
-        }
-      >
-        <Text style={styles.listenButtonText}>🔊 Ouvir frase completa</Text>
-      </TouchableOpacity>
 
       {/* Navegação */}
       <View style={styles.buttonRow}>
@@ -546,8 +465,8 @@ function Slide5() {
 function Slide6() {
   const { renderPrevButton, renderNextButton } = useNav();
 
-  const correctWord = "whereareyoufrom?";
-  const letters = ["where", "from", "you", "?", "are"];
+  const correctWord = "nicetomeetyou";
+  const letters = ["to", "nice", "meet", "you"];
 
   const [selectedLetters, setSelectedLetters] = useState([]);
   const [availableLetters, setAvailableLetters] = useState(letters);
@@ -577,10 +496,11 @@ function Slide6() {
   return (
     <View style={styles.slide}>
       <Text style={styles.questionTitle}>
-        ✍️ Organize as palavras para {"\n"} formar a pergunta:
+        ✍️ Selecione as palavras na ordem {"\n"} correta para formar a
+        frase{" "}
       </Text>
 
-      <Text style={styles.wordHint}>"De onde você é?"</Text>
+      <Text style={styles.wordHint}>Prazer em conhecer você.</Text>
 
       {/* Área de resposta */}
       <View
@@ -619,8 +539,7 @@ function Slide6() {
         <View style={styles.successBox}>
           <Text style={styles.successTitle}>✓ Perfeito!</Text>
           <Text style={styles.successText}>
-            "Where are you from?" está correto! Você organizou as palavras
-            perfeitamente! 🎉
+            Você soletrou "Nice to meet you." corretamente!
           </Text>
         </View>
       )}
@@ -639,88 +558,10 @@ function Slide7() {
   const [selected, setSelected] = useState(null);
   const [isCorrect, setIsCorrect] = useState(false);
   const [blinkWrong, setBlinkWrong] = useState(false);
-
-  const options = [
-    "Where you from?",
-    "Where are you from?",
-    "Where is you from?",
-  ];
-  const correctAnswer = ["Where are you from?"];
-
-  const handlePress = (option) => {
-    if (correctAnswer.includes(option)) {
-      setSelected(option);
-      setIsCorrect(true);
-    } else {
-      setSelected(option);
-      setBlinkWrong(true);
-
-      // efeito de piscar
-      setTimeout(() => {
-        setBlinkWrong(false);
-        setSelected(null);
-      }, 500);
-    }
-  };
-
-  return (
-    <View style={styles.slide}>
-      <Text style={styles.questionTitle}>
-        Como se diz "De onde você é?" em inglês?
-      </Text>
-
-      {options.map((option) => {
-        const isSelected = selected === option;
-        const isRight =
-          isCorrect && isSelected && correctAnswer.includes(option);
-
-        const isWrong = isSelected && blinkWrong;
-
-        return (
-          <TouchableOpacity
-            key={option}
-            style={[
-              styles.optionButton,
-              isRight && styles.correctOption,
-              isWrong && styles.wrongOption,
-            ]}
-            onPress={() => handlePress(option)}
-            disabled={isCorrect}
-          >
-            <Text style={[styles.optionText, isRight && styles.correctText]}>
-              {option}
-            </Text>
-          </TouchableOpacity>
-        );
-      })}
-
-      {isCorrect && (
-        <View style={styles.successBox}>
-          <Text style={styles.successTitle}>✓ Correto!</Text>
-          <Text style={styles.successText}>
-            "Where are you from?" está perfeito! Não esqueça do "are"!
-          </Text>
-        </View>
-      )}
-
-      {/* Navegação */}
-      <View style={styles.buttonRow}>
-        {renderPrevButton(6)}
-        {renderNextButton(6)}
-      </View>
-    </View>
-  );
-}
-
-function Slide8() {
-  const { renderPrevButton, renderNextButton } = useNav();
-  const [selected, setSelected] = useState(null);
-  const [isCorrect, setIsCorrect] = useState(false);
-  const [blinkWrong, setBlinkWrong] = useState(false);
   const { speak } = useSpeech();
 
-  const options = ["Qual é seu nome?", "De onde você é?", "Como você está?"];
-  const correctAnswer = "De onde você é?";
+  const options = ["Nice to meet you too", "Nice to meet you", "Thank you"];
+  const correctAnswer = "Nice to meet you too";
 
   const handlePress = (option) => {
     if (option === correctAnswer) {
@@ -748,7 +589,7 @@ function Slide8() {
         style={styles.btnOuvir}
         onPress={() =>
           speak({
-            text: "Where are you from?",
+            text: "Nice to meet you too",
             language: "en-US",
             rate: 0.85,
             pitch: 1.05,
@@ -785,7 +626,99 @@ function Slide8() {
         <View style={styles.successBox}>
           <Text style={styles.successTitle}>✓ Correto!</Text>
           <Text style={styles.successText}>
-            Excelente! A pessoa está perguntando de onde você é!
+            Muito bem! "Nice to meet you too" é a resposta perfeita quando
+            alguém diz "Nice to meet you"!
+          </Text>
+        </View>
+      )}
+
+      {/* Navegação */}
+      <View style={styles.buttonRow}>
+        {renderPrevButton(6)}
+        {renderNextButton(6)}
+      </View>
+    </View>
+  );
+}
+
+function Slide8() {
+  const { renderPrevButton, renderNextButton } = useNav();
+
+  const correctWord = "nicetomeetyoutoo";
+  const letters = ["to", "nice", "too", "meet", "you"];
+
+  const [selectedLetters, setSelectedLetters] = useState([]);
+  const [availableLetters, setAvailableLetters] = useState(letters);
+  const [isCorrect, setIsCorrect] = useState(false);
+
+  const handleSelectLetter = (letter, index) => {
+    if (isCorrect) return;
+
+    const newSelected = [...selectedLetters, letter];
+    const newAvailable = [...availableLetters];
+    newAvailable.splice(index, 1);
+
+    setSelectedLetters(newSelected);
+    setAvailableLetters(newAvailable);
+
+    if (newSelected.join("") === correctWord) {
+      setIsCorrect(true);
+    }
+  };
+
+  const handleClear = () => {
+    setSelectedLetters([]);
+    setAvailableLetters(letters);
+    setIsCorrect(false);
+  };
+
+  return (
+    <View style={styles.slide}>
+      <Text style={styles.questionTitle}>
+        ✍️ Selecione as palavras na ordem {"\n"} correta para formar a
+        frase{" "}
+      </Text>
+
+      <Text style={styles.wordHint}>E aí, tudo bem?</Text>
+
+      {/* Área de resposta */}
+      <View
+        style={[
+          styles.dropArea,
+          selectedLetters.length > 0 && styles.dropAreaFilled,
+        ]}
+      >
+        {selectedLetters.map((letter, index) => (
+          <View key={index} style={styles.letterBoxActive}>
+            <Text style={styles.letterTextActive}>{letter}</Text>
+          </View>
+        ))}
+      </View>
+
+      {/* Letras disponíveis */}
+      <View style={styles.lettersRow}>
+        {availableLetters.map((letter, index) => (
+          <TouchableOpacity
+            key={index}
+            style={styles.letterBox}
+            onPress={() => handleSelectLetter(letter, index)}
+          >
+            <Text style={styles.letterText}>{letter}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      {/* Botão Limpar */}
+      <TouchableOpacity style={styles.clearButton} onPress={handleClear}>
+        <Text style={styles.clearButtonText}>🧹 Limpar</Text>
+      </TouchableOpacity>
+
+      {/* Feedback */}
+      {isCorrect && (
+        <View style={styles.successBox}>
+          <Text style={styles.successTitle}>✓ Perfeito!</Text>
+          <Text style={styles.successText}>
+            Você soletrou "Nice to meet you too." corretamente!
           </Text>
         </View>
       )}
@@ -805,8 +738,8 @@ function Slide9() {
   const [isCorrect, setIsCorrect] = useState(false);
   const [blinkWrong, setBlinkWrong] = useState(false);
 
-  const options = ["What", "When", "Where"];
-  const correctAnswer = ["Where"];
+  const options = ["Nice to meet you too", "You too", "Thank you"];
+  const correctAnswer = ["You too", "Nice to meet you too"];
 
   const handlePress = (option) => {
     if (correctAnswer.includes(option)) {
@@ -826,8 +759,13 @@ function Slide9() {
 
   return (
     <View style={styles.slide}>
-      <Text style={styles.questionTitle}>Qual palavra significa "onde"?</Text>
-
+      <Text style={styles.questionTitle}>
+        💬 Se alguém disser "Nice to meet you", o que você responde?
+      </Text>
+      <View style={styles.highlightBox}>
+        <Text style={styles.quiztitle}>Nice to meet you</Text>
+        <Text style={styles.quizsubtitle}>👤 Alguém diz para você</Text>
+      </View>
       {options.map((option) => {
         const isSelected = selected === option;
         const isRight =
@@ -857,7 +795,9 @@ function Slide9() {
         <View style={styles.successBox}>
           <Text style={styles.successTitle}>✓ Correto!</Text>
           <Text style={styles.successText}>
-            "Where" significa "onde"! "What" = "o que", "When" = "quando".
+            Perfeito! Você pode responder "Nice to meet you too" (forma
+            completa) ou apenas "You too" (forma abreviada). Ambas estão
+            corretas!
           </Text>
         </View>
       )}
@@ -913,37 +853,25 @@ function Slide10() {
 
         <View style={styles.successItem}>
           <Text>✅</Text>
-          <Text style={styles.successItemText}>Perguntar de onde alguém é</Text>
-        </View>
-
-        <View style={styles.successItem}>
-          <Text>✅</Text>
           <Text style={styles.successItemText}>
-            Pronunciar "where" corretamente
+            Cumprimentar alguém pela primeira vez
           </Text>
         </View>
 
         <View style={styles.successItem}>
           <Text>✅</Text>
-          <Text style={styles.successItemText}>Usar "are" com "you"</Text>
+          <Text style={styles.successItemText}>Responder educadamente</Text>
         </View>
 
         <View style={styles.successItem}>
           <Text>✅</Text>
-          <Text style={styles.successItemText}>
-            {" "}
-            Traduzir e entender a frase
-          </Text>
-        </View>
-
-        <View style={styles.successItem}>
-          <Text>✅</Text>
-          <Text style={styles.successItemText}>Usar em conversas reais</Text>
+          <Text style={styles.successItemText}>Usar a forma abreviada</Text>
         </View>
       </View>
 
       <Text style={styles.confidenceText}>
-        Continue praticando e você vai dominar! 💪
+        Continue praticando e logo você estará conversando em inglês com
+        confiança! 💪
       </Text>
 
       <View style={styles.buttonRow}>
@@ -1156,32 +1084,6 @@ const styles = StyleSheet.create({
     color: "#2ECC71",
     fontSize: 14,
   },
-  allBox: {
-    backgroundColor: "#c4c8d8",
-    borderWidth: 1,
-    width: "90%",
-    borderColor: "#355bd8",
-    borderRadius: 12,
-    padding: 14,
-    marginTop: 12,
-  },
-  allTitle: {
-    color: "#355bd8",
-    fontWeight: "700",
-    marginBottom: 6,
-  },
-  allText: {
-    color: "#355bd8",
-    fontSize: 14,
-  },
-  allOption: {
-    backgroundColor: "#c4c8d8",
-    borderColor: "#355bd8",
-  },
-  allText: {
-    color: "#355bd8",
-    fontWeight: "700",
-  },
   // jogo de soletrar
   dropArea: {
     width: "85%",
@@ -1196,23 +1098,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 20,
   },
-  dropAreaFrases: {
-    width: "90%",
-    minHeight: 150,
-    borderWidth: 1,
-    borderStyle: "dashed",
-    borderColor: "#000000",
-    borderRadius: 14,
-    padding: 10,
-
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-
-    marginBottom: 20,
-  },
-
   dropAreaFilled: {
     borderColor: "#FF7A2F",
   },
@@ -1250,17 +1135,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginHorizontal: 4,
-  },
-  letterBoxActiveFrases: {
-    minHeight: 44,
-    paddingHorizontal: 14,
-    borderRadius: 8,
-    backgroundColor: "#FF7A2F",
-
-    justifyContent: "center",
-
-    marginBottom: 8, // 👈 troca do horizontal
-    width: "100%", // 👈 ESSENCIAL
   },
 
   letterTextActive: {
@@ -1382,184 +1256,5 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 18,
     fontWeight: "600",
-  },
-
-  dialogHint: {
-    fontSize: 14,
-    color: "#2563eb",
-    marginBottom: 12,
-    textAlign: "center",
-  },
-
-  dialogBox: {
-    backgroundColor: "#ffffff",
-    borderRadius: 16,
-    padding: 16,
-    width: "100%",
-    maxWidth: 340,
-    borderWidth: 1,
-    borderColor: "#e5e7eb",
-    marginBottom: 20,
-  },
-
-  dialogLine: {
-    marginBottom: 14,
-  },
-
-  speaker: {
-    fontSize: 10,
-    color: "#64748b",
-    marginBottom: 2,
-    textTransform: "uppercase",
-  },
-
-  dialogText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#1e3a8a",
-  },
-
-  listenButton: {
-    backgroundColor: "#3b82f6",
-    paddingVertical: 14,
-    paddingHorizontal: 24,
-    borderRadius: 14,
-    alignItems: "center",
-    marginBottom: 24,
-  },
-
-  listenButtonText: {
-    color: "#fff",
-    fontSize: 15,
-    fontWeight: "700",
-  },
-  modelButton: {
-    backgroundColor: "#2563EB",
-    padding: 12,
-    paddingVertical: 14,
-    borderRadius: 12,
-    alignItems: "center",
-    marginBottom: 14,
-  },
-
-  modelButtonText: {
-    color: "#FFF",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-
-  recordButton: {
-    backgroundColor: "#EF4444",
-    paddingVertical: 14,
-    padding: 12,
-    borderRadius: 12,
-    alignItems: "center",
-    marginBottom: 14,
-  },
-
-  recordButtonText: {
-    color: "#FFF",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-
-  stopButton: {
-    backgroundColor: "#DC2626",
-    paddingVertical: 14,
-    borderRadius: 12,
-    padding: 12,
-    alignItems: "center",
-    marginBottom: 14,
-  },
-
-  stopButtonText: {
-    color: "#FFF",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-
-  audioActions: {
-    marginTop: 12,
-    alignItems: "center",
-  },
-
-  playButton: {
-    backgroundColor: "#22C55E",
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 12,
-    marginBottom: 10,
-  },
-
-  playButtonText: {
-    color: "#FFF",
-    fontWeight: "700",
-  },
-
-  reRecordButton: {
-    backgroundColor: "#F59E0B",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 10,
-  },
-
-  reRecordButtonText: {
-    color: "#FFF",
-    fontWeight: "700",
-  },
-  speakCard: {
-    width: "90%",
-    backgroundColor: "#EEF4FF",
-    borderRadius: 16,
-    paddingVertical: 20,
-    paddingHorizontal: 18,
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#2563EB",
-    marginBottom: 18,
-  },
-
-  speakPhrase: {
-    fontSize: 20,
-    fontWeight: "800",
-    color: "#2563EB",
-    marginBottom: 8,
-    textAlign: "center",
-  },
-
-  speakHint: {
-    fontSize: 14,
-    color: "#475569",
-    textAlign: "center",
-  },
-
-  tipCard: {
-    width: "90%",
-    backgroundColor: "#FFF7ED",
-    borderRadius: 16,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: "#FB923C",
-    marginBottom: 22,
-  },
-
-  tipText: {
-    color: "#C2410C",
-    fontSize: 14,
-    fontWeight: "600",
-    textAlign: "center",
-  },
-  tipText2: {
-    color: "#C2410C",
-    fontSize: 34,
-    fontWeight: "900",
-    textAlign: "center",
-  },
-  tipText3: {
-    color: "#2c2826",
-    fontSize: 24,
-    fontWeight: "600",
-    textAlign: "center",
-    marginBottom: 6,
   },
 });

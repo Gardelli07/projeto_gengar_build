@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import * as Speech from "expo-speech";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import CORES from "../../util/cores";
+import CORES from "../../../util/cores";
 
 const STORAGE_KEY = "@curso_progress_v1";
 

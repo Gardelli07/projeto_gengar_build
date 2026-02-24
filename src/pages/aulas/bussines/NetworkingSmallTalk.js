@@ -8,7 +8,7 @@ import {
   TextInput,
 } from "react-native";
 import * as Speech from "expo-speech";
-import CORES from "../../util/cores";
+import CORES from "../../../util/cores";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 

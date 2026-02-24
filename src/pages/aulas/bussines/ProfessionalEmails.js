@@ -12,7 +12,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import CORES from "../../util/cores";
+import CORES from "../../../util/cores";
 
 const { width } = Dimensions.get("window");
 const SlideNavContext = React.createContext(null);

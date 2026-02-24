@@ -11,8 +11,8 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Speech from "expo-speech";
-import CORES from "../../util/cores";
-import { Images } from "../../util/images";
+import CORES from "../../../util/cores";
+import { Images } from "../../../util/images";
 
 /* ================= SPEECH ================= */
 

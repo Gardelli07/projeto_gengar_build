@@ -1,4 +1,4 @@
-import { BussinesImages } from "../../util/images";
+import { BussinesImages } from "../../../util/images";
 
 export const BUSSINES_STORAGE_KEY = "@curso_progress_v1";
 // Lista de módulos
@@ -567,6 +567,3 @@ export const bussinesSampleLessons = [
     avatar: BussinesImages.diresao,
   },
 ];
-
-
-

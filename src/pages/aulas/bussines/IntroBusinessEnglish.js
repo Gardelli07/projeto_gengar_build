@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Audio } from "expo-audio";
-import CORES from "../../util/cores";
+import CORES from "../../../util/cores";
 
 const { width } = Dimensions.get("window");
 const TOTAL_SLIDES = 7;

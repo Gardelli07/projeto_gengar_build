@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from "react-native";
 import * as Speech from "expo-speech";
-import CORES from "../../util/cores";
+import CORES from "../../../util/cores";
 
 const audioTexts = {
   dialogue1:

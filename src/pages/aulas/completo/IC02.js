@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Speech from "expo-speech";
-import CORES from "../../util/cores";
+import CORES from "../../../util/cores";
 
 export function useSpeech() {
   const speak = ({

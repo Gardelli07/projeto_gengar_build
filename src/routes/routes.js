@@ -11,35 +11,34 @@ import TabsNavigator from "./TabsNavigator";
 // padrão
 import SplashScreen from "../pages/SplashScreen";
 import Teste1 from "../pages/Teste1";
+import Home from "../pages/Home";
 
 // Business
-import MeetingsQuiz from "../pages/bussines/MeetingsQuiz";
-import MeetingPhrasebook from "../pages/bussines/MeetingPhrasebook";
-import PracticeMeetingExpressions from "../pages/bussines/PracticeMeetingExpressions";
-import NetworkingSmallTalk from "../pages/bussines/NetworkingSmallTalk";
-import Bussines from "../pages/bussines/Bussines";
-import IntroBusinessEnglish from "../pages/bussines/IntroBusinessEnglish";
-import ProfessionalEmails from "../pages/bussines/ProfessionalEmails";
-import ProfessionalEmailsPart2 from "../pages/bussines/ProfessionalEmailsPart2";
-import TelephoneConversations from "../pages/bussines/TelephoneConversations";
+import MeetingsQuiz from "../pages/aulas/bussines/MeetingsQuiz";
+import MeetingPhrasebook from "../pages/aulas/bussines/MeetingPhrasebook";
+import PracticeMeetingExpressions from "../pages/aulas/bussines/PracticeMeetingExpressions";
+import NetworkingSmallTalk from "../pages/aulas/bussines/NetworkingSmallTalk";
+import IntroBusinessEnglish from "../pages/aulas/bussines/IntroBusinessEnglish";
+import ProfessionalEmails from "../pages/aulas/bussines/ProfessionalEmails";
+import ProfessionalEmailsPart2 from "../pages/aulas/bussines/ProfessionalEmailsPart2";
+import TelephoneConversations from "../pages/aulas/bussines/TelephoneConversations";
 
 // Completo
-import Inglescompleto from "../pages/completo/Inglescompleto";
-import IC01 from "../pages/completo/IC01";
-import IC02 from "../pages/completo/IC02";
-import IC03 from "../pages/completo/IC03";
-import IC04 from "../pages/completo/IC04";
-import IC05 from "../pages/completo/IC05";
-import IC06 from "../pages/completo/IC06";
-import IC07 from "../pages/completo/IC07";
-import IC08 from "../pages/completo/IC08";
-import IC09 from "../pages/completo/IC09";
-import IC10 from "../pages/completo/IC10";
-import IC11 from "../pages/completo/IC11";
-import IC12 from "../pages/completo/IC12";
-import IC13 from "../pages/completo/IC13";
-import IC14 from "../pages/completo/IC14";
-import IC15 from "../pages/completo/IC15";
+import IC01 from "../pages/aulas/completo/IC01";
+import IC02 from "../pages/aulas/completo/IC02";
+import IC03 from "../pages/aulas/completo/IC03";
+import IC04 from "../pages/aulas/completo/IC04";
+import IC05 from "../pages/aulas/completo/IC05";
+import IC06 from "../pages/aulas/completo/IC06";
+import IC07 from "../pages/aulas/completo/IC07";
+import IC08 from "../pages/aulas/completo/IC08";
+import IC09 from "../pages/aulas/completo/IC09";
+import IC10 from "../pages/aulas/completo/IC10";
+import IC11 from "../pages/aulas/completo/IC11";
+import IC12 from "../pages/aulas/completo/IC12";
+import IC13 from "../pages/aulas/completo/IC13";
+import IC14 from "../pages/aulas/completo/IC14";
+import IC15 from "../pages/aulas/completo/IC15";
 
 // Santander
 import HomeSantander from "../pages/santander";
@@ -159,14 +158,18 @@ export default function Routes() {
         />
         <Stack.Screen
           name="Bussines"
-          component={Bussines}
+          component={Home}
+          initialParams={{
+            initialCourse: "Bussines English",
+            initialLevel: "Facil",
+          }}
           options={{ title: "Business English", ...defaultHeader }}
         />
 
         {/* ===== COMPLETO ===== */}
         <Stack.Screen
           name="Inglescompleto"
-          component={Inglescompleto}
+          component={Home}
           options={{
             title: "Inglês Completo",
             ...defaultHeader,
