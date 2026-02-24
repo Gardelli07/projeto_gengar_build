@@ -29,7 +29,7 @@ export default function HomeSantander() {
   const isAdmin = user?.tipo === "admin";
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["left", "right"]}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* HEADER */}
         <View style={styles.header}>

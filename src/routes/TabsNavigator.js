@@ -2,6 +2,7 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import CORES from "../util/cores";
 
@@ -18,6 +19,8 @@ const Tab = createBottomTabNavigator();
 
 export default function TabsNavigator() {
   const { user } = useAuth();
+  const insets = useSafeAreaInsets();
+  const bottomInset = Math.max(insets.bottom, 8);
   const isSantander = user?.empresa?.toLowerCase() === "santander";
 
   return (
@@ -25,24 +28,41 @@ export default function TabsNavigator() {
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: CORES.PRIMARY,
-          height: 50,
-
-          // REMOVE SOMBRA
-          elevation: 0, // Android
-          shadowColor: "transparent", // iOS
-          shadowOffset: { width: 0, height: 0 },
-          shadowOpacity: 0,
-          shadowRadius: 0,
-
-          borderTopWidth: 0,
+          backgroundColor: "#F5F5F5",
+          height: 52 + bottomInset,
+          paddingTop: 2,
+          paddingBottom: bottomInset,
         },
 
-        tabBarBackground: () => <View style={styles.tabBarBackground} />,
+        tabBarBackground: () => (
+          <View style={styles.tabBarBackground}>
+            <View
+              style={[
+                styles.tabBarMainBackground,
+                { bottom: bottomInset > 0 ? bottomInset : 0 },
+              ]}
+            />
+            <View
+              style={[
+                styles.nativeButtonsBackground,
+                { height: bottomInset > 0 ? bottomInset : 0 },
+              ]}
+            />
+          </View>
+        ),
+        tabBarItemStyle: {
+          paddingVertical: 0,
+        },
 
         tabBarActiveTintColor: "#f5f5f5e3",
         tabBarInactiveTintColor: "#000000aa",
-        tabBarLabelStyle: { fontWeight: "bold", fontSize: 12 },
+        tabBarLabelStyle: {
+          fontWeight: "bold",
+          fontSize: 11,
+          lineHeight: 12,
+          marginTop: -1,
+          marginBottom: 0,
+        },
 
         tabBarIcon: ({ color, size }) => {
           const icons = {
@@ -73,9 +93,10 @@ export default function TabsNavigator() {
           component={HomeSantander}
           options={{
             tabBarLabel: "",
-            tabBarButton: ({ onPress }) => (
+            tabBarButton: (props) => (
               <ButtonSantander
-                onPress={onPress}
+                {...props}
+                bottomInset={bottomInset}
                 source={Empresas.logoSantander}
               />
             ),
@@ -91,9 +112,23 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 0,
     right: 0,
-    height: 30,
+    top: 0,
+    bottom: 0,
+  },
+  tabBarMainBackground: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
     backgroundColor: CORES.PRIMARY,
     borderTopWidth: 1.5,
     borderTopColor: "#ffffff",
+  },
+  nativeButtonsBackground: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "#F5F5F5",
   },
 });

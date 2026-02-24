@@ -2,12 +2,23 @@ import React from "react";
 import { View, Image, TouchableOpacity, StyleSheet } from "react-native";
 import CORES from "../../util/cores";
 
-export default function ButtonSantander({ onPress, source }) {
+export default function ButtonSantander({
+  onPress,
+  source,
+  style,
+  bottomInset = 0,
+  ...rest
+}) {
   return (
     <TouchableOpacity
       activeOpacity={0.9}
       onPress={onPress}
-      style={styles.wrapper}
+      style={[
+        styles.wrapper,
+        style,
+        { marginBottom: Math.max(bottomInset - 10, 0) },
+      ]}
+      {...rest}
     >
       <View style={styles.border}>
         <View style={styles.inner}>
@@ -20,11 +31,10 @@ export default function ButtonSantander({ onPress, source }) {
 
 const styles = StyleSheet.create({
   wrapper: {
-    position: "absolute",
-    top: -15,
     justifyContent: "center",
     alignItems: "center",
     zIndex: 20,
+    marginTop: -24,
   },
 
   border: {

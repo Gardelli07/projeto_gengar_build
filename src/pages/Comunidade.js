@@ -119,7 +119,7 @@ function Card({ item }) {
 
 export default function CommunityScreen() {
   return (
-    <SafeAreaView style={styles.safe}>
+    <SafeAreaView style={styles.safe} edges={["left", "right"]}>
       <StatusBar barStyle="dark-content" />
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.headerTitle}>
