@@ -18,11 +18,9 @@ import {
   bussinesSampleLessons,
 } from "./aulas/bussines/constants";
 import {
-  COURSE_OPTIONS,
   INGLES_COMPLETO_STORAGE_KEY,
   inglesModuleDefs,
   inglesSampleLessons,
-  LEVEL_OPTIONS,
 } from "./aulas/completo/constants";
 
 const THEME = {
@@ -34,6 +32,9 @@ const THEME = {
   lightBar: "#DFE5ED",
   border: "#E6ECF3",
 };
+
+export const COURSE_OPTIONS = ["Ingles Completo", "Bussines English"];
+export const LEVEL_OPTIONS = ["Facil", "Medio", "Avancado"];
 
 async function loadProgress(storageKey) {
   try {
@@ -77,7 +78,7 @@ function ProgressCircle({ percent, size = 62, strokeWidth = 4 }) {
         textAnchor="middle"
         fill={THEME.textStrong}
         fontWeight="800"
-        fontSize={18}
+        fontSize={17}
       >
         {Math.round(percent)}%
       </SvgText>

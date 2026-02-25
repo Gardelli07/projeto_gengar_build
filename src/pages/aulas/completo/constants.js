@@ -68,6 +68,3 @@ export const inglesSampleLessons = [
   { module: 0, id: "14", title: "IC14", type: "Aula", screen: "IC14" },
   { module: 0, id: "15", title: "IC15", type: "Aula", screen: "IC15" },
 ];
-
-export const COURSE_OPTIONS = ["Ingles Completo", "Bussines English"];
-export const LEVEL_OPTIONS = ["Facil", "Medio", "Avancado"];

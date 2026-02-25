@@ -1,7 +1,7 @@
 import { BussinesImages } from "../../../util/images";
 
 export const BUSSINES_STORAGE_KEY = "@curso_progress_v1";
-// Lista de módulos
+
 export const bussinesModules = [
   "Introdução ao inglês para negócios",
   "Cumprimentos e Small Talk",
