@@ -36,6 +36,54 @@ const THEME = {
 export const COURSE_OPTIONS = ["Ingles Completo", "Bussines English"];
 export const LEVEL_OPTIONS = ["Facil", "Medio", "Avancado"];
 
+const XP_PER_LESSON = 50;
+const LEVEL_XP_CURVE = [
+  { level: 1, totalXp: 0 },
+  { level: 2, totalXp: 50 }, // 1 aula
+  { level: 3, totalXp: 100 }, // 2 aulas
+  { level: 4, totalXp: 200 },
+  { level: 5, totalXp: 320 },
+  { level: 6, totalXp: 480 },
+  { level: 7, totalXp: 700 },
+  { level: 8, totalXp: 980 },
+  { level: 9, totalXp: 1350 },
+  { level: 10, totalXp: 1850 },
+  { level: 11, totalXp: 2850 }, // salto maior apos o nivel 10
+];
+
+function getLevelProgress(totalXp) {
+  let currentLevelIndex = 0;
+
+  for (let i = 0; i < LEVEL_XP_CURVE.length; i += 1) {
+    if (totalXp >= LEVEL_XP_CURVE[i].totalXp) {
+      currentLevelIndex = i;
+    } else {
+      break;
+    }
+  }
+
+  const currentLevelData = LEVEL_XP_CURVE[currentLevelIndex];
+  const nextLevelData =
+    LEVEL_XP_CURVE[currentLevelIndex + 1] ?? LEVEL_XP_CURVE[currentLevelIndex];
+
+  const xpAtCurrentLevel = currentLevelData.totalXp;
+  const xpAtNextLevel = nextLevelData.totalXp;
+  const levelRange = Math.max(1, xpAtNextLevel - xpAtCurrentLevel);
+  const xpInsideLevel = Math.max(0, totalXp - xpAtCurrentLevel);
+  const levelPercent = Math.min(100, (xpInsideLevel / levelRange) * 100);
+
+  return {
+    currentLevel: currentLevelData.level,
+    nextLevel: nextLevelData.level,
+    xpAtCurrentLevel,
+    xpAtNextLevel,
+    xpInsideLevel,
+    levelRange,
+    levelPercent,
+    xpMissingForNextLevel: Math.max(0, xpAtNextLevel - totalXp),
+  };
+}
+
 async function loadProgress(storageKey) {
   try {
     const raw = await AsyncStorage.getItem(storageKey);
@@ -98,6 +146,7 @@ export default function Inglescompleto({ navigation, route }) {
   const [sectionMenuStep, setSectionMenuStep] = useState("course");
   const [selectedCourse, setSelectedCourse] = useState(initialCourse);
   const [selectedLevel, setSelectedLevel] = useState(initialLevel);
+  const isViewAll = !selectedCourse && !selectedLevel;
 
   const allLessons = useMemo(
     () => [...inglesSampleLessons, ...bussinesSampleLessons],
@@ -186,6 +235,8 @@ export default function Inglescompleto({ navigation, route }) {
     (item) => progressMap[item.id],
   ).length;
   const percent = totalLessons > 0 ? (completedCount / totalLessons) * 100 : 0;
+  const totalXp = completedCount * XP_PER_LESSON;
+  const levelProgress = useMemo(() => getLevelProgress(totalXp), [totalXp]);
 
   const lessonsByModule = useMemo(() => {
     return activeModuleDefs.reduce((acc, moduleItem) => {
@@ -217,6 +268,13 @@ export default function Inglescompleto({ navigation, route }) {
       ? `${selectedCourse} - ${selectedLevel}`
       : "View all";
 
+  const openCourseFromViewAll = (courseName) => {
+    const defaultLevel = "Facil";
+    setSelectedCourse(courseName);
+    setSelectedLevel(defaultLevel);
+    setIsSectionMenuOpen(false);
+  };
+
   return (
     <SafeAreaView style={styles.safe} edges={["left", "right"]}>
       <StatusBar barStyle="dark-content" />
@@ -247,7 +305,7 @@ export default function Inglescompleto({ navigation, route }) {
                 size={14}
                 color={CORES.PRIMARY}
               />
-              <Text style={styles.statText}>2,450</Text>
+              <Text style={styles.statText}>{totalXp.toLocaleString()}</Text>
               <Text style={styles.statLabel}>XP</Text>
             </View>
           </View>
@@ -255,18 +313,26 @@ export default function Inglescompleto({ navigation, route }) {
 
         <View style={styles.levelRow}>
           <View style={styles.levelBadge}>
-            <Text style={styles.levelBadgeText}>7</Text>
+            <Text style={styles.levelBadgeText}>
+              {levelProgress.currentLevel}
+            </Text>
           </View>
-          <Text style={styles.levelText}>Level 7</Text>
+          <Text style={styles.levelText}>
+            Level {levelProgress.currentLevel}
+          </Text>
         </View>
 
         <View style={styles.progressTrack}>
           <View
-            style={[styles.progressFill, { width: `${Math.max(percent, 8)}%` }]}
+            style={[
+              styles.progressFill,
+              { width: `${Math.max(levelProgress.levelPercent, 8)}%` },
+            ]}
           />
         </View>
         <Text style={styles.xpText}>
-          {completedCount} / {totalLessons} aulas
+          {levelProgress.xpInsideLevel} / {levelProgress.levelRange} XP para o
+          Nivel {levelProgress.nextLevel}
         </Text>
 
         <View style={styles.continueCard}>
@@ -278,7 +344,7 @@ export default function Inglescompleto({ navigation, route }) {
                 ? firstPendingLesson.title
                 : "All lessons done"}
             </Text>
-            <Text style={styles.continueMeta}>8 min +50 XP</Text>
+            <Text style={styles.continueMeta}>8 min + {XP_PER_LESSON} XP</Text>
           </View>
           <TouchableOpacity
             style={styles.continueButton}
@@ -312,6 +378,10 @@ export default function Inglescompleto({ navigation, route }) {
             <TouchableOpacity
               style={styles.sectionMenuButton}
               onPress={() => {
+                if (isViewAll) {
+                  setIsSectionMenuOpen(false);
+                  return;
+                }
                 if (isSectionMenuOpen) {
                   setIsSectionMenuOpen(false);
                   return;
@@ -322,11 +392,13 @@ export default function Inglescompleto({ navigation, route }) {
               activeOpacity={0.85}
             >
               <Text style={styles.sectionAction}>{sectionButtonLabel}</Text>
-              <MaterialCommunityIcons
-                name={isSectionMenuOpen ? "chevron-up" : "chevron-down"}
-                size={16}
-                color={CORES.PRIMARY}
-              />
+              {!isViewAll && (
+                <MaterialCommunityIcons
+                  name={isSectionMenuOpen ? "chevron-up" : "chevron-down"}
+                  size={16}
+                  color={CORES.PRIMARY}
+                />
+              )}
             </TouchableOpacity>
 
             {isSectionMenuOpen && (
@@ -424,7 +496,34 @@ export default function Inglescompleto({ navigation, route }) {
           </View>
         </View>
 
-        {activeModuleDefs.map((moduleItem) => {
+        {isViewAll
+          ? COURSE_OPTIONS.map((courseName) => (
+              <TouchableOpacity
+                key={courseName}
+                style={styles.moduleButton}
+                onPress={() => openCourseFromViewAll(courseName)}
+                activeOpacity={0.9}
+              >
+                <View
+                  style={[
+                    styles.moduleIconWrap,
+                    { backgroundColor: courseName === "Bussines English" ? "#4A9CFF" : THEME.green },
+                  ]}
+                >
+                  <MaterialCommunityIcons name="book-open-variant" size={16} color="#FFFFFF" />
+                </View>
+
+                <View style={styles.moduleTextArea}>
+                  <Text style={styles.moduleTitle}>{courseName}</Text>
+                  <Text style={styles.moduleSubtitle}>Toque para abrir</Text>
+                </View>
+
+                <View style={styles.moduleRight}>
+                  <MaterialCommunityIcons name="chevron-right" size={20} color="#8A97AA" />
+                </View>
+              </TouchableOpacity>
+            ))
+          : activeModuleDefs.map((moduleItem) => {
           const moduleLessons = lessonsByModule[moduleItem.id] || [];
           const moduleCompleted = moduleLessons.filter(
             (l) => progressMap[l.id],
@@ -543,7 +642,8 @@ export default function Inglescompleto({ navigation, route }) {
               )}
             </View>
           );
-        })}
+            })
+          }
       </ScrollView>
     </SafeAreaView>
   );
