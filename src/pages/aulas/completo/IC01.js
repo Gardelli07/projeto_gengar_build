@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+﻿import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Animated,
   Easing,
@@ -9,10 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Speech from "expo-speech";
 import CORES from "../../../util/cores";
@@ -138,7 +135,7 @@ function SlideHeader() {
 function Slide1() {
   const { next } = useNav();
   const { speak } = useSpeech();
-  const insets = useSafeAreaInsets();
+  const bottomSafeSpace = 3;
   const options = ["Hello", "Hélo"];
   const correctAnswer = "Hello";
   const activityImage = Images.teacher;
@@ -151,6 +148,8 @@ function Slide1() {
 
   const [selected, setSelected] = useState(null);
   const [result, setResult] = useState(null);
+  const alertTranslateY = useRef(new Animated.Value(64)).current;
+  const alertOpacity = useRef(new Animated.Value(0)).current;
 
   const playAudio = () => {
     audioProgressAnim.stopAnimation();
@@ -179,6 +178,30 @@ function Slide1() {
 
   const isCorrect = result === "correct";
   const isWrong = result === "wrong";
+
+  useEffect(() => {
+    if (isCorrect) {
+      alertTranslateY.setValue(64);
+      alertOpacity.setValue(0);
+      Animated.parallel([
+        Animated.timing(alertTranslateY, {
+          toValue: 0,
+          duration: 260,
+          easing: Easing.out(Easing.cubic),
+          useNativeDriver: true,
+        }),
+        Animated.timing(alertOpacity, {
+          toValue: 1,
+          duration: 220,
+          useNativeDriver: true,
+        }),
+      ]).start();
+      return;
+    }
+
+    alertTranslateY.setValue(64);
+    alertOpacity.setValue(0);
+  }, [isCorrect, alertOpacity, alertTranslateY]);
 
   return (
     <View style={styles.slide}>
@@ -271,15 +294,19 @@ function Slide1() {
 
       {isCorrect && (
         <View style={styles.successAlertOverlay}>
-          <View
+          <Animated.View
             style={[
               styles.successAlertCard,
-              { paddingBottom: Math.max(16, insets.bottom + 10) },
+              { paddingBottom: bottomSafeSpace + 1 },
+              {
+                opacity: alertOpacity,
+                transform: [{ translateY: alertTranslateY }],
+              },
             ]}
           >
             <View style={styles.successHeaderRow}>
               <View style={styles.successIconWrap}>
-                <Text style={styles.successIcon}>v</Text>
+                <Text style={styles.successIcon}>✓</Text>
               </View>
               <Text style={styles.successAlertTitle}>Correto</Text>
             </View>
@@ -292,7 +319,7 @@ function Slide1() {
               ]}
             >
               <Text style={[styles.feedbackTitle, styles.feedbackTitleCorrect]}>
-                v Correto!
+                ✓ Correto!
               </Text>
               <Text style={styles.feedbackTextBlack}>
                 {`Usamos "${correctAnswer}" para dizer "oi".`}
@@ -302,7 +329,7 @@ function Slide1() {
             <TouchableOpacity style={styles.alertContinueButton} onPress={next}>
               <Text style={styles.alertContinueButtonText}>Proximo -&gt;</Text>
             </TouchableOpacity>
-          </View>
+          </Animated.View>
         </View>
       )}
     </View>
@@ -310,13 +337,270 @@ function Slide1() {
 }
 
 function Slide2() {
-  const { renderNextButton } = useNav();
+  const { next } = useNav();
+  const bottomSafeSpace = 3;
+
+  const pairs = [
+    { en: "Hello", pt: "oi" },
+    { en: "fine", pt: "bem/legal" },
+    { en: "bye", pt: "tchau" },
+  ];
+
+  const shuffleArray = (items) => {
+    const shuffled = [...items];
+    for (let i = shuffled.length - 1; i > 0; i -= 1) {
+      const randomIndex = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[randomIndex]] = [
+        shuffled[randomIndex],
+        shuffled[i],
+      ];
+    }
+    return shuffled;
+  };
+
+  const englishOptions = useMemo(
+    () => shuffleArray(pairs.map((item) => item.en)),
+    [],
+  );
+  const translationOptions = useMemo(
+    () => shuffleArray(pairs.map((item) => item.pt)),
+    [],
+  );
+
+  const [selectedEnglish, setSelectedEnglish] = useState(null);
+  const [selectedTranslation, setSelectedTranslation] = useState(null);
+  const [matchedEnglish, setMatchedEnglish] = useState([]);
+  const [matchedTranslations, setMatchedTranslations] = useState([]);
+  const [wrongPair, setWrongPair] = useState(null);
+
+  const shakeAnim = useRef(new Animated.Value(0)).current;
+  const blinkAnim = useRef(new Animated.Value(0)).current;
+  const alertTranslateY = useRef(new Animated.Value(64)).current;
+  const alertOpacity = useRef(new Animated.Value(0)).current;
+
+  const allMatched = matchedEnglish.length === pairs.length;
+
+  const shakeTranslateX = shakeAnim.interpolate({
+    inputRange: [0, 0.25, 0.5, 0.75, 1],
+    outputRange: [0, -8, 8, -8, 0],
+  });
+
+  const wrongBackground = blinkAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["#FEE2E2", "#FCA5A5"],
+  });
+
+  const isCorrectPair = (en, pt) => {
+    return pairs.some((pair) => pair.en === en && pair.pt === pt);
+  };
+
+  const triggerWrongFeedback = (en, pt) => {
+    setWrongPair({ en, pt });
+    shakeAnim.setValue(0);
+    blinkAnim.setValue(0);
+
+    Animated.parallel([
+      Animated.timing(shakeAnim, {
+        toValue: 1,
+        duration: 520,
+        easing: Easing.linear,
+        useNativeDriver: false,
+      }),
+      Animated.sequence([
+        Animated.timing(blinkAnim, {
+          toValue: 1,
+          duration: 120,
+          useNativeDriver: false,
+        }),
+        Animated.timing(blinkAnim, {
+          toValue: 0,
+          duration: 120,
+          useNativeDriver: false,
+        }),
+        Animated.timing(blinkAnim, {
+          toValue: 1,
+          duration: 120,
+          useNativeDriver: false,
+        }),
+      ]),
+    ]).start(() => {
+      setWrongPair(null);
+      blinkAnim.setValue(0);
+    });
+  };
+
+  useEffect(() => {
+    if (!selectedEnglish || !selectedTranslation) return;
+
+    if (isCorrectPair(selectedEnglish, selectedTranslation)) {
+      setMatchedEnglish((prev) => [...prev, selectedEnglish]);
+      setMatchedTranslations((prev) => [...prev, selectedTranslation]);
+      setSelectedEnglish(null);
+      setSelectedTranslation(null);
+      setWrongPair(null);
+      return;
+    }
+
+    triggerWrongFeedback(selectedEnglish, selectedTranslation);
+    setSelectedEnglish(null);
+    setSelectedTranslation(null);
+  }, [selectedEnglish, selectedTranslation]);
+
+  useEffect(() => {
+    if (allMatched) {
+      alertTranslateY.setValue(64);
+      alertOpacity.setValue(0);
+      Animated.parallel([
+        Animated.timing(alertTranslateY, {
+          toValue: 0,
+          duration: 260,
+          easing: Easing.out(Easing.cubic),
+          useNativeDriver: true,
+        }),
+        Animated.timing(alertOpacity, {
+          toValue: 1,
+          duration: 220,
+          useNativeDriver: true,
+        }),
+      ]).start();
+      return;
+    }
+
+    alertTranslateY.setValue(64);
+    alertOpacity.setValue(0);
+  }, [allMatched, alertOpacity, alertTranslateY]);
+
+  const getEnglishCardStyle = (word) => {
+    const matched = matchedEnglish.includes(word);
+    const selected = selectedEnglish === word;
+    const wrong = wrongPair?.en === word;
+
+    return [
+      styles.matchCard,
+      styles.matchCardEnglish,
+      selected && styles.matchCardSelected,
+      matched && styles.matchCardCorrect,
+      wrong && styles.matchCardWrong,
+      wrong && { backgroundColor: wrongBackground },
+      wrong && { transform: [{ translateX: shakeTranslateX }] },
+    ];
+  };
+
+  const getTranslationCardStyle = (word) => {
+    const matched = matchedTranslations.includes(word);
+    const selected = selectedTranslation === word;
+    const wrong = wrongPair?.pt === word;
+
+    return [
+      styles.matchCard,
+      styles.matchCardTranslation,
+      selected && styles.matchCardTranslationSelected,
+      matched && styles.matchCardCorrect,
+      wrong && styles.matchCardWrong,
+      wrong && { backgroundColor: wrongBackground },
+      wrong && { transform: [{ translateX: shakeTranslateX }] },
+    ];
+  };
 
   return (
     <View style={styles.slide}>
       <SlideHeader />
 
-      {renderNextButton(1)}
+      <View style={styles.matchBlock}>
+        <Text style={styles.exerciseTitle}>Encontre a tradução</Text>
+
+        <View style={styles.matchList}>
+          {englishOptions.map((word) => {
+            const matched = matchedEnglish.includes(word);
+
+            return (
+              <Animated.View key={word} style={getEnglishCardStyle(word)}>
+                <TouchableOpacity
+                  style={styles.matchCardButton}
+                  onPress={() => setSelectedEnglish(word)}
+                  disabled={matched || allMatched}
+                >
+                  <Text
+                    style={[
+                      styles.matchCardText,
+                      matched && styles.matchCardTextCorrect,
+                    ]}
+                  >
+                    {word}
+                  </Text>
+                </TouchableOpacity>
+              </Animated.View>
+            );
+          })}
+        </View>
+
+        <View style={styles.matchList}>
+          {translationOptions.map((word) => {
+            const matched = matchedTranslations.includes(word);
+
+            return (
+              <Animated.View key={word} style={getTranslationCardStyle(word)}>
+                <TouchableOpacity
+                  style={styles.matchCardButton}
+                  onPress={() => setSelectedTranslation(word)}
+                  disabled={matched || allMatched}
+                >
+                  <Text
+                    style={[
+                      styles.matchCardText,
+                      styles.matchCardTextTranslation,
+                      matched && styles.matchCardTextCorrect,
+                    ]}
+                  >
+                    {word}
+                  </Text>
+                </TouchableOpacity>
+              </Animated.View>
+            );
+          })}
+        </View>
+      </View>
+
+      {allMatched && (
+        <View style={styles.successAlertOverlay}>
+          <Animated.View
+            style={[
+              styles.successAlertCard,
+              { paddingBottom: bottomSafeSpace + 1 },
+              {
+                opacity: alertOpacity,
+                transform: [{ translateY: alertTranslateY }],
+              },
+            ]}
+          >
+            <View style={styles.successHeaderRow}>
+              <View style={styles.successIconWrap}>
+                <Text style={styles.successIcon}>✓</Text>
+              </View>
+              <Text style={styles.successAlertTitle}>Excelente</Text>
+            </View>
+
+            <View
+              style={[
+                styles.feedbackBox,
+                styles.feedbackBoxCorrect,
+                styles.alertFeedbackBox,
+              ]}
+            >
+              <Text style={[styles.feedbackTitle, styles.feedbackTitleCorrect]}>
+                ✓ Muito bem!
+              </Text>
+              <Text style={styles.feedbackTextBlack}>
+                Você acertou todas as traduções.
+              </Text>
+            </View>
+
+            <TouchableOpacity style={styles.alertContinueButton} onPress={next}>
+              <Text style={styles.alertContinueButtonText}>Próximo -&gt;</Text>
+            </TouchableOpacity>
+          </Animated.View>
+        </View>
+      )}
     </View>
   );
 }
@@ -393,7 +677,7 @@ function Slide8() {
           style={styles.nextLessonButton}
           onPress={goToNextLesson}
         >
-          <Text style={styles.nextLessonButtonText}>Proxima licao -&gt;</Text>
+          <Text style={styles.nextLessonButtonText}>Próxima lição -&gt;</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -436,7 +720,7 @@ export default function Base({ route, navigation }) {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
+    <SafeAreaView style={{ flex: 1 }} edges={["top", "bottom"]}>
       <SlideNavContext.Provider
         value={{
           ...slideNav,
@@ -466,7 +750,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#F5F5F5",
-    margin: 20,
+    marginTop: 20,
+    marginHorizontal: 20,
+    marginBottom: 0,
   },
   headerContainer: {
     position: "absolute",
@@ -549,6 +835,67 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: CORES.PRIMARY,
     marginBottom: 12,
+    fontWeight: "700",
+  },
+  matchBlock: {
+    width: "88%",
+    marginTop: 24,
+    alignItems: "center",
+  },
+  matchList: {
+    width: "100%",
+    gap: 10,
+    marginTop: 4,
+  },
+  matchCard: {
+    width: "100%",
+    borderWidth: 1,
+    borderRadius: 20,
+    overflow: "hidden",
+  },
+  matchCardEnglish: {
+    backgroundColor: "#FFFFFF",
+    borderColor: "#60A5FA",
+  },
+  matchCardTranslation: {
+    backgroundColor: "#5FA1D6",
+    borderColor: "#5FA1D6",
+  },
+  matchCardSelected: {
+    borderColor: "#2563EB",
+    borderWidth: 2,
+  },
+  matchCardTranslationSelected: {
+    backgroundColor: "#4A8FC8",
+    borderColor: "#2563EB",
+    borderWidth: 2,
+  },
+  matchCardCorrect: {
+    backgroundColor: "#DCFCE7",
+    borderColor: "#22C55E",
+    borderWidth: 2,
+  },
+  matchCardWrong: {
+    borderColor: "#EF4444",
+    borderWidth: 2,
+  },
+  matchCardButton: {
+    width: "100%",
+    minHeight: 44,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 12,
+  },
+  matchCardText: {
+    fontSize: 19,
+    color: "#397BB2",
+    fontFamily: "serif",
+  },
+  matchCardTextTranslation: {
+    color: "#FFFFFF",
+  },
+  matchCardTextCorrect: {
+    color: "#166534",
     fontWeight: "700",
   },
   mediaWrapper: {
@@ -735,8 +1082,8 @@ const styles = StyleSheet.create({
   },
   alertFeedbackBox: {
     width: "100%",
-    marginTop: 0,
-    marginBottom: 12,
+    marginTop: 12,
+    marginBottom: 8,
   },
   alertContinueButton: {
     width: "100%",
@@ -745,6 +1092,7 @@ const styles = StyleSheet.create({
     backgroundColor: CORES.SECONDARY,
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 0,
   },
   alertContinueButtonText: {
     color: "#FFF",
