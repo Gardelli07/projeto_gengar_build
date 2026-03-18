@@ -4,7 +4,6 @@ import {
   Easing,
   Image,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   Vibration,
@@ -14,6 +13,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Speech from "expo-speech";
 import CORES from "../../../util/cores";
+import ex1 from "../../../css/ex1";
+import ex14 from "../../../css/ex14";
+import ex2 from "../../../css/ex2";
+import ex3 from "../../../css/ex3";
+import ex4 from "../../../css/ex4";
+import ex5 from "../../../css/ex5";
+import ex6 from "../../../css/ex6";
+import geral from "../../../css/geral";
 import { Images } from "../../../util/images";
 
 const SlideNavContext = React.createContext(null);
@@ -155,7 +162,7 @@ function Slide1() {
 
   const wrongBackground = blinkAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: ["#FEE2E2", "#FCA5A5"],
+    outputRange: [CORES.DANGER_BG, CORES.DANGER_LIGHT],
   });
 
   const playAudio = () => {
@@ -370,7 +377,7 @@ function Slide1() {
             </View>
 
             <TouchableOpacity style={styles.alertContinueButton} onPress={next}>
-              <Text style={styles.alertContinueButtonText}>Proximo -&gt;</Text>
+              <Text style={styles.alertContinueButtonText}>Próximo -&gt;</Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -430,7 +437,7 @@ function Slide2() {
 
   const wrongBackground = blinkAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: ["#FEE2E2", "#FCA5A5"],
+    outputRange: [CORES.DANGER_BG, CORES.DANGER_LIGHT],
   });
 
   const isCorrectPair = (en, pt) => {
@@ -733,7 +740,7 @@ function Slide3() {
 
   const wrongBackground = blinkAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: ["#FFFFFF", "#FCA5A5"],
+    outputRange: [CORES.WHITE, CORES.DANGER_LIGHT],
   });
 
   const allCorrect =
@@ -943,7 +950,7 @@ function Slide3() {
             </View>
 
             <TouchableOpacity style={styles.alertContinueButton} onPress={next}>
-              <Text style={styles.alertContinueButtonText}>Proximo -&gt;</Text>
+              <Text style={styles.alertContinueButtonText}>Próximo -&gt;</Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -990,7 +997,7 @@ function Slide4() {
 
   const wrongBackground = blinkAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: ["#FFFFFF", "#FCA5A5"],
+    outputRange: [CORES.WHITE, CORES.DANGER_LIGHT],
   });
 
   useEffect(() => {
@@ -1215,7 +1222,7 @@ function Slide4() {
             </View>
 
             <TouchableOpacity style={styles.alertContinueButton} onPress={next}>
-              <Text style={styles.alertContinueButtonText}>Proximo -&gt;</Text>
+              <Text style={styles.alertContinueButtonText}>Próximo -&gt;</Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -1254,7 +1261,7 @@ function Slide5() {
 
   const wrongBackground = blinkAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: ["#FFFFFF", "#FCA5A5"],
+    outputRange: [CORES.WHITE, CORES.DANGER_LIGHT],
   });
 
   useEffect(() => {
@@ -1442,7 +1449,7 @@ function Slide5() {
             </View>
 
             <TouchableOpacity style={styles.alertContinueButton} onPress={next}>
-              <Text style={styles.alertContinueButtonText}>Proximo -&gt;</Text>
+              <Text style={styles.alertContinueButtonText}>Próximo -&gt;</Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -1482,7 +1489,7 @@ function Slide6() {
 
   const wrongBackground = blinkAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: ["#FFFFFF", "#FCA5A5"],
+    outputRange: [CORES.WHITE, CORES.DANGER_LIGHT],
   });
 
   useEffect(() => {
@@ -1695,7 +1702,7 @@ function Slide6() {
             </View>
 
             <TouchableOpacity style={styles.alertContinueButton} onPress={next}>
-              <Text style={styles.alertContinueButtonText}>Proximo -&gt;</Text>
+              <Text style={styles.alertContinueButtonText}>Próximo -&gt;</Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -1754,7 +1761,7 @@ function Slide7() {
 
   const wrongBackground = blinkAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: ["#FFFFFF", "#FCA5A5"],
+    outputRange: [CORES.WHITE, CORES.DANGER_LIGHT],
   });
 
   useEffect(() => {
@@ -1886,7 +1893,7 @@ function Slide7() {
             style={styles.listenAnswerAudioButton}
             onPress={playAudio}
           >
-            <Text style={styles.audioIcon}>▶</Text>
+            <Text style={styles.audioIcon}>?</Text>
             <View style={styles.audioBar}>
               <Animated.View
                 style={[
@@ -1909,7 +1916,9 @@ function Slide7() {
             isCorrect && styles.orderSentenceAnswerBoxCorrect,
             result === "wrong" && styles.orderSentenceAnswerBoxWrong,
             result === "wrong" && { backgroundColor: wrongBackground },
-            result === "wrong" && { transform: [{ translateX: shakeTranslateX }] },
+            result === "wrong" && {
+              transform: [{ translateX: shakeTranslateX }],
+            },
           ]}
         >
           {selectedWords.length === 0 ? (
@@ -2004,7 +2013,7 @@ function Slide7() {
             </View>
 
             <TouchableOpacity style={styles.alertContinueButton} onPress={next}>
-              <Text style={styles.alertContinueButtonText}>Proximo -&gt;</Text>
+              <Text style={styles.alertContinueButtonText}>Próximo -&gt;</Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -2092,860 +2101,13 @@ export default function Base({ route, navigation }) {
   );
 }
 
-const styles = StyleSheet.create({
-  slide: {
-    flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "center",
-    backgroundColor: "#F5F5F5",
-    paddingTop: 150,
-    marginHorizontal: 20,
-    marginBottom: 0,
-  },
-  headerContainer: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
-    backgroundColor: "#F5F5F5",
-    zIndex: 10,
-  },
-  headerButton: {
-    width: 32,
-    alignItems: "center",
-  },
-  headerProgress: {
-    flex: 1,
-    height: 4,
-    backgroundColor: "#E5E7EB",
-    borderRadius: 2,
-    marginHorizontal: 8,
-    overflow: "hidden",
-  },
-  progressBarFill: {
-    height: "100%",
-    backgroundColor: CORES.PRIMARY,
-    borderRadius: 2,
-  },
-  headerCircleButton: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: CORES.PRIMARY,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  headerCircleImage: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "contain",
-  },
-
-  nextButton: {
-    backgroundColor: CORES.SECONDARY,
-    width: 180,
-    height: 48,
-    borderRadius: 12,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 12,
-    marginHorizontal: 4,
-  },
-  nextButtonText: {
-    color: "#FFF",
-    fontWeight: "700",
-  },
-  nextLessonButton: {
-    backgroundColor: "#0F73FF",
-    width: 180,
-    height: 48,
-    borderRadius: 12,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  nextLessonButtonText: {
-    color: "#FFF",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  buttonRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-  },
-
-  exerciseTitle: {
-    width: "88%",
-    textAlign: "left",
-    fontSize: 18,
-    color: CORES.PRIMARY,
-    marginBottom: 12,
-    fontWeight: "700",
-  },
-  completeActivityBlock: {
-    width: "100%",
-    alignItems: "center",
-  },
-  completeCard: {
-    width: "88%",
-    minHeight: 360,
-    backgroundColor: "#FFFFFF",
-    borderWidth: 2,
-    borderColor: CORES.PRIMARY,
-    borderRadius: 14,
-    paddingHorizontal: 14,
-    paddingVertical: 16,
-    overflow: "visible",
-  },
-  completeLine: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "center",
-    marginBottom: 12,
-    overflow: "visible",
-  },
-  completeWord: {
-    fontSize: 16,
-    lineHeight: 30,
-    color: "#1F2937",
-  },
-  blankWrapper: {
-    position: "relative",
-    marginHorizontal: 3,
-    marginVertical: 2,
-    alignItems: "flex-start",
-    zIndex: 1,
-    overflow: "visible",
-  },
-  blankWrapperOpen: {
-    zIndex: 50,
-    elevation: 20,
-  },
-  blankButton: {
-    minWidth: 50,
-    height: 34,
-    borderRadius: 8,
-    borderWidth: 1.5,
-    borderColor: CORES.PRIMARY,
-    backgroundColor: "#FFFFFF",
-  },
-  blankButtonTouchArea: {
-    flex: 1,
-    minWidth: 50,
-    paddingHorizontal: 10,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  blankButtonCorrect: {
-    backgroundColor: "#DCFCE7",
-    borderColor: "#22C55E",
-  },
-  blankButtonWrong: {
-    borderColor: "#EF4444",
-  },
-  blankButtonText: {
-    fontSize: 15,
-    color: "#6B7280",
-  },
-  blankButtonTextCorrect: {
-    color: "#15803D",
-    fontWeight: "700",
-  },
-  blankOptionsMenu: {
-    position: "absolute",
-    top: 38,
-    left: 0,
-    minWidth: 78,
-    backgroundColor: "#FFFFFF",
-    borderWidth: 1.5,
-    borderColor: CORES.PRIMARY,
-    borderRadius: 8,
-    overflow: "hidden",
-    zIndex: 60,
-    elevation: 24,
-    shadowColor: "#000000",
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-  },
-  blankOptionItem: {
-    minHeight: 34,
-    justifyContent: "center",
-    paddingHorizontal: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#DBEAFE",
-  },
-  blankOptionItemLast: {
-    borderBottomWidth: 0,
-  },
-  blankOptionText: {
-    fontSize: 15,
-    color: "#111827",
-  },
-  slide3SuccessAlertCard: {
-    marginHorizontal: 12,
-    marginBottom: 0,
-    zIndex: 200,
-    elevation: 30,
-  },
-  listenAnswerBlock: {
-    width: "100%",
-    alignItems: "center",
-  },
-  listenAnswerTitle: {
-    width: "88%",
-    textAlign: "left",
-    fontSize: 15,
-    color: CORES.PRIMARY,
-    marginBottom: 10,
-    fontWeight: "700",
-  },
-  listenAnswerMediaWrapper: {
-    width: "88%",
-    marginBottom: 12,
-  },
-  listenAnswerMediaCard: {
-    width: "100%",
-    height: 190,
-    backgroundColor: "#DDE7F5",
-    borderTopLeftRadius: 18,
-    borderTopRightRadius: 18,
-    overflow: "hidden",
-  },
-  listenAnswerImage: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
-  },
-  listenAnswerAudioButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: CORES.PRIMARY,
-    width: "100%",
-    height: 48,
-    borderBottomLeftRadius: 18,
-    borderBottomRightRadius: 18,
-    paddingHorizontal: 16,
-    gap: 12,
-  },
-  listenAnswerPrompt: {
-    width: "88%",
-    textAlign: "center",
-    fontSize: 16,
-    lineHeight: 22,
-    color: CORES.PRIMARY,
-    fontWeight: "700",
-    marginBottom: 16,
-  },
-  listenAnswerOptionsRow: {
-    flexDirection: "row",
-    gap: 12,
-  },
-  listenAnswerOptionWrap: {
-    minWidth: 86,
-  },
-  listenAnswerOption: {
-    height: 40,
-    minWidth: 86,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: "#D8E1EC",
-    backgroundColor: "#FFFFFF",
-  },
-  listenAnswerOptionTouch: {
-    flex: 1,
-    paddingHorizontal: 20,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  listenAnswerOptionText: {
-    fontSize: 16,
-    color: "#64748B",
-    fontWeight: "600",
-  },
-  listenAnswerOptionCorrect: {
-    backgroundColor: "#DCFCE7",
-    borderColor: "#22C55E",
-  },
-  listenAnswerOptionWrong: {
-    borderColor: "#EF4444",
-  },
-  listenAnswerOptionTextCorrect: {
-    color: "#15803D",
-  },
-  slide4SuccessAlertCard: {
-    marginHorizontal: 12,
-    marginBottom: 0,
-    zIndex: 200,
-    elevation: 30,
-  },
-  correctSentenceBlock: {
-    width: "100%",
-    alignItems: "center",
-  },
-  correctSentenceTitle: {
-    width: "88%",
-    textAlign: "left",
-    fontSize: 15,
-    color: CORES.PRIMARY,
-    marginBottom: 10,
-    fontWeight: "700",
-  },
-  correctSentenceMediaCard: {
-    width: "88%",
-    height: 150,
-    borderRadius: 18,
-    overflow: "hidden",
-    marginBottom: 12,
-    backgroundColor: "#DDE7F5",
-  },
-  correctSentenceImage: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
-  },
-  correctSentencePromptPill: {
-    width: "88%",
-    minHeight: 36,
-    borderRadius: 18,
-    backgroundColor: CORES.PRIMARY,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 16,
-    marginBottom: 12,
-  },
-  correctSentencePromptText: {
-    color: "#FFFFFF",
-    fontSize: 15,
-    fontWeight: "700",
-    textAlign: "center",
-  },
-  correctSentenceOptionsList: {
-    width: "88%",
-    gap: 8,
-  },
-  correctSentenceOptionWrap: {
-    width: "100%",
-  },
-  correctSentenceOption: {
-    width: "100%",
-    minHeight: 34,
-    borderRadius: 18,
-    borderWidth: 1,
-    borderColor: CORES.PRIMARY,
-    backgroundColor: "#FFFFFF",
-  },
-  correctSentenceOptionTouch: {
-    flex: 1,
-    minHeight: 34,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 16,
-  },
-  correctSentenceOptionText: {
-    fontSize: 14,
-    color: CORES.PRIMARY,
-    textAlign: "center",
-    textDecorationLine: "underline",
-  },
-  correctSentenceOptionCorrect: {
-    backgroundColor: "#DCFCE7",
-    borderColor: "#22C55E",
-  },
-  correctSentenceOptionWrong: {
-    borderColor: "#EF4444",
-  },
-  correctSentenceOptionTextCorrect: {
-    color: "#15803D",
-    fontWeight: "700",
-    textDecorationLine: "none",
-  },
-  slide5SuccessAlertCard: {
-    marginHorizontal: 12,
-    marginBottom: 0,
-    zIndex: 200,
-    elevation: 30,
-  },
-  completePhraseBlock: {
-    width: "100%",
-    alignItems: "center",
-  },
-  completePhraseTitle: {
-    width: "88%",
-    textAlign: "left",
-    fontSize: 15,
-    color: CORES.PRIMARY,
-    marginBottom: 10,
-    fontWeight: "700",
-  },
-  completePhraseMediaCard: {
-    width: "88%",
-    height: 150,
-    borderRadius: 18,
-    overflow: "hidden",
-    marginBottom: 12,
-    backgroundColor: "#DDE7F5",
-  },
-  completePhraseImage: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
-  },
-  completePhraseSentencePill: {
-    width: "88%",
-    minHeight: 38,
-    borderRadius: 19,
-    backgroundColor: CORES.PRIMARY,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-    paddingHorizontal: 16,
-    marginBottom: 14,
-  },
-  completePhraseSentenceText: {
-    color: "#FFFFFF",
-    fontSize: 15,
-    fontWeight: "700",
-  },
-  completePhraseBlank: {
-    minWidth: 68,
-    minHeight: 26,
-    borderRadius: 13,
-    backgroundColor: "#FFFFFF",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 12,
-  },
-  completePhraseBlankCorrect: {
-    backgroundColor: "#DCFCE7",
-    borderWidth: 1,
-    borderColor: "#22C55E",
-  },
-  completePhraseBlankWrong: {
-    borderWidth: 1,
-    borderColor: "#EF4444",
-  },
-  completePhraseBlankText: {
-    color: CORES.PRIMARY,
-    fontSize: 14,
-    fontWeight: "700",
-  },
-  completePhraseBlankTextCorrect: {
-    color: "#15803D",
-  },
-  completePhraseOptionsRow: {
-    flexDirection: "row",
-    gap: 16,
-  },
-  completePhraseOptionWrap: {
-    minWidth: 70,
-  },
-  completePhraseOption: {
-    minWidth: 70,
-    minHeight: 32,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: CORES.PRIMARY,
-    backgroundColor: "#FFFFFF",
-  },
-  completePhraseOptionTouch: {
-    flex: 1,
-    minHeight: 32,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 14,
-  },
-  completePhraseOptionText: {
-    fontSize: 14,
-    color: CORES.PRIMARY,
-    textAlign: "center",
-  },
-  completePhraseOptionCorrect: {
-    backgroundColor: "#DCFCE7",
-    borderColor: "#22C55E",
-  },
-  completePhraseOptionWrong: {
-    borderColor: "#EF4444",
-  },
-  completePhraseOptionTextCorrect: {
-    color: "#15803D",
-    fontWeight: "700",
-  },
-  slide6SuccessAlertCard: {
-    marginHorizontal: 12,
-    marginBottom: 0,
-    zIndex: 200,
-    elevation: 30,
-  },
-  orderSentenceBlock: {
-    width: "100%",
-    alignItems: "center",
-  },
-  orderSentenceTitle: {
-    width: "88%",
-    textAlign: "left",
-    fontSize: 15,
-    color: CORES.PRIMARY,
-    marginBottom: 10,
-    fontWeight: "700",
-  },
-  orderSentenceAnswerBox: {
-    width: "88%",
-    minHeight: 54,
-    borderRadius: 8,
-    borderWidth: 1.5,
-    borderColor: CORES.PRIMARY,
-    backgroundColor: "#FFFFFF",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "center",
-    paddingHorizontal: 8,
-    paddingVertical: 8,
-    gap: 6,
-    marginBottom: 14,
-  },
-  orderSentenceAnswerBoxCorrect: {
-    backgroundColor: "#DCFCE7",
-    borderColor: "#22C55E",
-  },
-  orderSentenceAnswerBoxWrong: {
-    borderColor: "#EF4444",
-  },
-  orderSentencePlaceholder: {
-    color: CORES.PRIMARY,
-    fontSize: 14,
-  },
-  orderSentenceSelectedWord: {
-    minHeight: 26,
-    borderRadius: 13,
-    borderWidth: 1,
-    borderColor: CORES.PRIMARY,
-    backgroundColor: "#FFFFFF",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 10,
-    paddingVertical: 3,
-  },
-  orderSentenceSelectedWordCorrect: {
-    backgroundColor: "#DCFCE7",
-    borderColor: "#22C55E",
-  },
-  orderSentenceSelectedWordText: {
-    color: CORES.PRIMARY,
-    fontSize: 13,
-  },
-  orderSentenceSelectedWordTextCorrect: {
-    color: "#15803D",
-    fontWeight: "700",
-  },
-  orderSentenceOptionsRow: {
-    width: "88%",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 8,
-  },
-  orderSentenceOption: {
-    minHeight: 28,
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: CORES.PRIMARY,
-    backgroundColor: "#FFFFFF",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-  },
-  orderSentenceOptionUsed: {
-    backgroundColor: "#EFF6FF",
-    borderColor: "#BFDBFE",
-  },
-  orderSentenceOptionText: {
-    color: CORES.PRIMARY,
-    fontSize: 13,
-    textDecorationLine: "underline",
-  },
-  orderSentenceOptionTextUsed: {
-    color: "#93C5FD",
-    textDecorationLine: "none",
-  },
-  slide7SuccessAlertCard: {
-    marginHorizontal: 12,
-    marginBottom: 0,
-    zIndex: 200,
-    elevation: 30,
-  },
-  matchBlock: {
-    width: "88%",
-    alignItems: "center",
-  },
-  matchList: {
-    width: "100%",
-    gap: 10,
-    marginTop: 4,
-  },
-  matchCard: {
-    width: "100%",
-    borderWidth: 1,
-    borderRadius: 20,
-    overflow: "hidden",
-  },
-  matchCardEnglish: {
-    backgroundColor: "#FFFFFF",
-    borderColor: "#60A5FA",
-  },
-  matchCardTranslation: {
-    backgroundColor: "#5FA1D6",
-    borderColor: "#5FA1D6",
-  },
-  matchCardSelected: {
-    borderColor: "#2563EB",
-    borderWidth: 2,
-  },
-  matchCardTranslationSelected: {
-    backgroundColor: "#4A8FC8",
-    borderColor: "#2563EB",
-    borderWidth: 2,
-  },
-  matchCardCorrect: {
-    backgroundColor: "#DCFCE7",
-    borderColor: "#22C55E",
-    borderWidth: 2,
-  },
-  matchCardWrong: {
-    borderColor: "#EF4444",
-    borderWidth: 2,
-  },
-  matchCardButton: {
-    width: "100%",
-    minHeight: 44,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 12,
-  },
-  matchCardText: {
-    fontSize: 19,
-    color: "#397BB2",
-    fontFamily: "serif",
-  },
-  matchCardTextTranslation: {
-    color: "#FFFFFF",
-  },
-  matchCardTextCorrect: {
-    color: "#166534",
-    fontWeight: "700",
-  },
-  mediaWrapper: {
-    width: "88%",
-    marginBottom: 14,
-  },
-  mediaCard: {
-    width: "100%",
-    height: 190,
-    backgroundColor: "#38BDF8",
-    borderTopLeftRadius: 18,
-    borderTopRightRadius: 18,
-    overflow: "hidden",
-  },
-  mediaImage: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
-  },
-  audioButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: CORES.PRIMARY,
-    width: "100%",
-    height: 48,
-    borderBottomLeftRadius: 18,
-    borderBottomRightRadius: 18,
-    paddingHorizontal: 16,
-    gap: 12,
-  },
-  audioIcon: {
-    color: "#FFF",
-    fontSize: 18,
-  },
-  audioBar: {
-    flex: 1,
-    height: 6,
-    backgroundColor: "rgba(255,255,255,0.3)",
-    borderRadius: 3,
-    overflow: "hidden",
-  },
-  audioProgress: {
-    height: "100%",
-    backgroundColor: "#FFF",
-    borderRadius: 3,
-  },
-
-  resultBar: {
-    width: "56%",
-    minHeight: 46,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 14,
-  },
-  resultBarText: {
-    fontSize: 28,
-    fontFamily: "serif",
-    fontWeight: "500",
-    color: "#111827",
-  },
-  resultBarTextCorrect: {
-    color: "#16A34A",
-  },
-  resultBarTextWrong: {
-    color: "#DC2626",
-  },
-  resultUnderline: {
-    width: "55%",
-    height: 2,
-    marginTop: 2,
-    borderRadius: 2,
-    backgroundColor: "#D1D5DB",
-  },
-  resultUnderlineCorrect: {
-    backgroundColor: "#22C55E",
-  },
-  resultUnderlineWrong: {
-    backgroundColor: "#EF4444",
-  },
-
-  optionsRow: {
-    flexDirection: "row",
-    gap: 12,
-    marginTop: 10,
-  },
-  optionPill: {
-    borderWidth: 1,
-    borderColor: "#CBD5E1",
-    borderRadius: 20,
-    backgroundColor: "#FFF",
-  },
-  optionPillTouch: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  optionText: {
-    fontSize: 16,
-    fontWeight: "500",
-    color: "#333",
-  },
-  optionCorrect: {
-    backgroundColor: "#DCFCE7",
-    borderColor: "#22C55E",
-  },
-  optionCorrectText: {
-    color: "#16A34A",
-    fontWeight: "700",
-  },
-  optionBlinkWrong: {
-    backgroundColor: "#FEE2E2",
-    borderColor: "#EF4444",
-  },
-
-  feedbackBox: {
-    width: "85%",
-    borderWidth: 1,
-    borderColor: "#22C55E",
-    backgroundColor: "#ECFDF5",
-    borderRadius: 12,
-    padding: 14,
-    marginTop: 14,
-  },
-  feedbackBoxCorrect: {
-    borderColor: "#22C55E",
-    backgroundColor: "#ECFDF5",
-  },
-  feedbackBoxWrong: {
-    borderColor: "#EF4444",
-    backgroundColor: "#FEF2F2",
-  },
-  feedbackTitle: {
-    color: "#16A34A",
-    fontWeight: "700",
-    marginBottom: 4,
-  },
-  feedbackTitleCorrect: {
-    color: "#16A34A",
-  },
-  feedbackTitleWrong: {
-    color: "#DC2626",
-  },
-  feedbackTextBlack: {
-    color: "#000",
-    fontSize: 14,
-  },
-  successAlertOverlay: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: "flex-end",
-    zIndex: 200,
-    elevation: 30,
-  },
-  successAlertCard: {
-    backgroundColor: "#FFFFFF",
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
-    paddingHorizontal: 16,
-    paddingTop: 12,
-    paddingBottom: 22,
-    borderWidth: 1,
-    borderColor: "#E5E7EB",
-  },
-  successHeaderRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    marginBottom: 10,
-  },
-  successIconWrap: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
-    backgroundColor: "#DCFCE7",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  successIcon: {
-    color: "#16A34A",
-    fontSize: 16,
-    fontWeight: "700",
-  },
-  successAlertTitle: {
-    color: "#15803D",
-    fontSize: 18,
-    fontWeight: "800",
-  },
-  alertFeedbackBox: {
-    width: "100%",
-    marginTop: 12,
-    marginBottom: 8,
-  },
-  alertContinueButton: {
-    width: "100%",
-    height: 50,
-    borderRadius: 14,
-    backgroundColor: CORES.SECONDARY,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 0,
-  },
-  alertContinueButtonText: {
-    color: "#FFF",
-    fontSize: 18,
-    fontWeight: "700",
-  },
-});
+const styles = {
+  ...geral,
+  ...ex14,
+  ...ex1,
+  ...ex2,
+  ...ex3,
+  ...ex4,
+  ...ex5,
+  ...ex6,
+};
