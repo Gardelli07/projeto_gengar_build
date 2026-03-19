@@ -1,0 +1,389 @@
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import {
+  Animated,
+  Easing,
+  Text,
+  TouchableOpacity,
+  Vibration,
+  View,
+  StyleSheet,
+} from "react-native";
+import CORES from "../util/cores";
+
+export function Exercise2({ activity, styles, HeaderComponent, next }) {
+  const bottomSafeSpace = 3;
+
+  const tokenizeTextFragment = (text, keyPrefix) =>
+    text
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((word, index, array) => (
+        <Text key={`${keyPrefix}-${word}-${index}`} style={styles.completeWord}>
+          {index === array.length - 1 ? word : `${word} `}
+        </Text>
+      ));
+
+  const blankMap = useMemo(() => {
+    const entries = activity.paragraphs.flatMap((paragraph) =>
+      paragraph
+        .filter((item) => typeof item !== "string")
+        .map((blank) => [blank.id, blank]),
+    );
+
+    return Object.fromEntries(entries);
+  }, [activity.paragraphs]);
+
+  const blankIds = useMemo(() => Object.keys(blankMap), [blankMap]);
+  const [answers, setAnswers] = useState({});
+  const [activeBlankId, setActiveBlankId] = useState(null);
+  const [wrongBlankId, setWrongBlankId] = useState(null);
+
+  const shakeAnim = useRef(new Animated.Value(0)).current;
+  const blinkAnim = useRef(new Animated.Value(0)).current;
+  const alertTranslateY = useRef(new Animated.Value(64)).current;
+  const alertOpacity = useRef(new Animated.Value(0)).current;
+
+  const shakeTranslateX = shakeAnim.interpolate({
+    inputRange: [0, 0.2, 0.4, 0.6, 0.8, 1],
+    outputRange: [0, -7, 7, -6, 6, 0],
+  });
+
+  const wrongBackground = blinkAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [CORES.WHITE, CORES.DANGER_LIGHT],
+  });
+
+  const allCorrect =
+    blankIds.length > 0 &&
+    blankIds.every((blankId) => answers[blankId] === blankMap[blankId].answer);
+
+  useEffect(() => {
+    if (allCorrect) {
+      alertTranslateY.setValue(64);
+      alertOpacity.setValue(0);
+      Animated.parallel([
+        Animated.timing(alertTranslateY, {
+          toValue: 0,
+          duration: 260,
+          easing: Easing.out(Easing.cubic),
+          useNativeDriver: true,
+        }),
+        Animated.timing(alertOpacity, {
+          toValue: 1,
+          duration: 220,
+          useNativeDriver: true,
+        }),
+      ]).start();
+      return;
+    }
+
+    alertTranslateY.setValue(64);
+    alertOpacity.setValue(0);
+  }, [allCorrect, alertOpacity, alertTranslateY]);
+
+  const triggerWrongFeedback = (blankId) => {
+    setWrongBlankId(blankId);
+    shakeAnim.setValue(0);
+    blinkAnim.setValue(0);
+    Vibration.vibrate(140);
+
+    Animated.parallel([
+      Animated.timing(shakeAnim, {
+        toValue: 1,
+        duration: 420,
+        easing: Easing.linear,
+        useNativeDriver: false,
+      }),
+      Animated.sequence([
+        Animated.timing(blinkAnim, {
+          toValue: 1,
+          duration: 110,
+          useNativeDriver: false,
+        }),
+        Animated.timing(blinkAnim, {
+          toValue: 0,
+          duration: 110,
+          useNativeDriver: false,
+        }),
+        Animated.timing(blinkAnim, {
+          toValue: 1,
+          duration: 110,
+          useNativeDriver: false,
+        }),
+        Animated.timing(blinkAnim, {
+          toValue: 0,
+          duration: 110,
+          useNativeDriver: false,
+        }),
+      ]),
+    ]).start(() => {
+      setWrongBlankId(null);
+      blinkAnim.setValue(0);
+    });
+  };
+
+  const handleOptionPress = (blank, option) => {
+    if (option === blank.answer) {
+      setAnswers((prev) => ({ ...prev, [blank.id]: option }));
+      setWrongBlankId(null);
+      setActiveBlankId(null);
+      return;
+    }
+
+    setActiveBlankId(null);
+    triggerWrongFeedback(blank.id);
+  };
+
+  const renderBlank = (blank) => {
+    const selectedValue = answers[blank.id];
+    const isCorrect = selectedValue === blank.answer;
+    const isWrong = wrongBlankId === blank.id;
+    const isOpen = activeBlankId === blank.id;
+
+    return (
+      <Animated.View
+        key={blank.id}
+        style={[
+          styles.blankWrapper,
+          isOpen && styles.blankWrapperOpen,
+          isWrong && { transform: [{ translateX: shakeTranslateX }] },
+        ]}
+      >
+        <Animated.View
+          style={[
+            styles.blankButton,
+            isCorrect && styles.blankButtonCorrect,
+            isWrong && styles.blankButtonWrong,
+            isWrong && { backgroundColor: wrongBackground },
+          ]}
+        >
+          <TouchableOpacity
+            style={styles.blankButtonTouchArea}
+            activeOpacity={0.9}
+            disabled={isCorrect || allCorrect}
+            onPress={() =>
+              setActiveBlankId((current) =>
+                current === blank.id ? null : blank.id,
+              )
+            }
+          >
+            <Text
+              style={[
+                styles.blankButtonText,
+                isCorrect && styles.blankButtonTextCorrect,
+              ]}
+            >
+              {selectedValue || "..."}
+            </Text>
+          </TouchableOpacity>
+        </Animated.View>
+
+        {isOpen && !isCorrect && (
+          <View style={styles.blankOptionsMenu}>
+            {blank.options.map((option) => (
+              <TouchableOpacity
+                key={`${blank.id}-${option}`}
+                style={[
+                  styles.blankOptionItem,
+                  option === blank.options[blank.options.length - 1] &&
+                    styles.blankOptionItemLast,
+                ]}
+                activeOpacity={0.85}
+                onPress={() => handleOptionPress(blank, option)}
+              >
+                <Text style={styles.blankOptionText}>{option}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+      </Animated.View>
+    );
+  };
+
+  return (
+    <View style={styles.slide}>
+      <HeaderComponent />
+
+      <View style={styles.completeActivityBlock}>
+        <Text style={styles.exerciseTitle}>{activity.title}</Text>
+
+        <View style={styles.completeCard}>
+          {activity.paragraphs.map((paragraph, paragraphIndex) => (
+            <View
+              key={`paragraph-${paragraphIndex}`}
+              style={styles.completeLine}
+            >
+              {paragraph.map((item, itemIndex) =>
+                typeof item === "string"
+                  ? tokenizeTextFragment(
+                      item,
+                      `paragraph-${paragraphIndex}-${itemIndex}`,
+                    )
+                  : renderBlank(item),
+              )}
+            </View>
+          ))}
+        </View>
+      </View>
+
+      {allCorrect && (
+        <View style={styles.successAlertOverlay}>
+          <Animated.View
+            style={[
+              styles.successAlertCard,
+              styles.slide3SuccessAlertCard,
+              { paddingBottom: bottomSafeSpace + 1 },
+              {
+                opacity: alertOpacity,
+                transform: [{ translateY: alertTranslateY }],
+              },
+            ]}
+          >
+            <View style={styles.successHeaderRow}>
+              <View style={styles.successIconWrap}>
+                <Text style={styles.successIcon}>✓</Text>
+              </View>
+              <Text style={styles.successAlertTitle}>
+                {activity.successTitle}
+              </Text>
+            </View>
+
+            <View
+              style={[
+                styles.feedbackBox,
+                styles.feedbackBoxCorrect,
+                styles.alertFeedbackBox,
+              ]}
+            >
+              <Text style={[styles.feedbackTitle, styles.feedbackTitleCorrect]}>
+                ✓ Muito bem!
+              </Text>
+              <Text style={styles.feedbackTextBlack}>
+                {activity.successMessage}
+              </Text>
+            </View>
+
+            <TouchableOpacity style={styles.alertContinueButton} onPress={next}>
+              <Text style={styles.alertContinueButtonText}>Próximo -&gt;</Text>
+            </TouchableOpacity>
+          </Animated.View>
+        </View>
+      )}
+    </View>
+  );
+}
+
+const ex2 = StyleSheet.create({
+  completeActivityBlock: {
+    width: "100%",
+    alignItems: "center",
+  },
+  completeCard: {
+    width: "88%",
+    minHeight: 360,
+    backgroundColor: CORES.WHITE,
+    borderWidth: 2,
+    borderColor: CORES.PRIMARY,
+    borderRadius: 14,
+    paddingHorizontal: 14,
+    paddingVertical: 16,
+    overflow: "visible",
+  },
+  completeLine: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    marginBottom: 12,
+    overflow: "visible",
+  },
+  completeWord: {
+    fontSize: 16,
+    lineHeight: 30,
+    color: "#1F2937",
+  },
+  blankWrapper: {
+    position: "relative",
+    marginHorizontal: 3,
+    marginVertical: 2,
+    alignItems: "flex-start",
+    zIndex: 1,
+    overflow: "visible",
+  },
+  blankWrapperOpen: {
+    zIndex: 50,
+    elevation: 20,
+  },
+  blankButton: {
+    minWidth: 50,
+    height: 34,
+    borderRadius: 8,
+    borderWidth: 1.5,
+    borderColor: CORES.PRIMARY,
+    backgroundColor: CORES.WHITE,
+  },
+  blankButtonTouchArea: {
+    flex: 1,
+    minWidth: 50,
+    paddingHorizontal: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  blankButtonCorrect: {
+    backgroundColor: CORES.SUCCESS_BG,
+    borderColor: CORES.SUCCESS,
+  },
+  blankButtonWrong: {
+    borderColor: CORES.DANGER,
+  },
+  blankButtonText: {
+    fontSize: 15,
+    color: "#6B7280",
+  },
+  blankButtonTextCorrect: {
+    color: CORES.SUCCESS_DARK,
+    fontWeight: "700",
+  },
+  blankOptionsMenu: {
+    position: "absolute",
+    top: 38,
+    left: 0,
+    minWidth: 78,
+    backgroundColor: CORES.WHITE,
+    borderWidth: 1.5,
+    borderColor: CORES.PRIMARY,
+    borderRadius: 8,
+    overflow: "hidden",
+    zIndex: 60,
+    elevation: 24,
+    shadowColor: "#000000",
+    shadowOpacity: 0.08,
+    shadowRadius: 6,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+  },
+  blankOptionItem: {
+    minHeight: 34,
+    justifyContent: "center",
+    paddingHorizontal: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#DBEAFE",
+  },
+  blankOptionItemLast: {
+    borderBottomWidth: 0,
+  },
+  blankOptionText: {
+    fontSize: 15,
+    color: CORES.TEXT_DARK,
+  },
+  slide3SuccessAlertCard: {
+    marginHorizontal: 12,
+    marginBottom: 0,
+    zIndex: 200,
+    elevation: 30,
+  },
+});
+
+export default ex2;
