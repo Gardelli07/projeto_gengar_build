@@ -120,7 +120,7 @@ export function Exercise14({ activity, styles, HeaderComponent, next, speak }) {
     <View style={styles.slide}>
       <HeaderComponent />
 
-      <Text style={styles.exerciseTitle}>{activity.title}</Text>
+      <Text style={styles.fastTypePrompt}>{activity.prompt}</Text>
 
       <View style={styles.mediaWrapper}>
         <View style={styles.mediaCard}>

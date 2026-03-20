@@ -75,6 +75,9 @@ export const Santander = {
 
 export const Images = {
   seta: require("../../assets/seta.png"),
+  setaD: require("../../assets/seta D.png"),
   x: require("../../assets/x.png"),
   teacher: require("../../assets/teacher.png"),
+  microfone: require("../../assets/microfone.png"),
+  tip: require("../../assets/tip.png"),
 };

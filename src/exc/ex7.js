@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Animated,
   Easing,
-  Image,
   Text,
   TouchableOpacity,
   Vibration,
@@ -11,7 +10,7 @@ import {
 } from "react-native";
 import CORES from "../util/cores";
 
-export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
+export function Exercise7({ activity, styles, HeaderComponent, next }) {
   const bottomSafeSpace = 3;
 
   const shuffleArray = (items) => {
@@ -27,24 +26,17 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
   };
 
   const shuffledOptions = useMemo(
-    () => shuffleArray(activity.words),
-    [activity.words],
+    () => shuffleArray(activity.options),
+    [activity.options],
   );
-  const audioProgressAnim = useRef(new Animated.Value(0)).current;
-  const alertTranslateY = useRef(new Animated.Value(64)).current;
-  const alertOpacity = useRef(new Animated.Value(0)).current;
-  const shakeAnim = useRef(new Animated.Value(0)).current;
-  const blinkAnim = useRef(new Animated.Value(0)).current;
 
-  const [selectedWords, setSelectedWords] = useState([]);
+  const [selectedPhrases, setSelectedPhrases] = useState([]);
   const [result, setResult] = useState(null);
 
-  const estimatedDurationMs = Math.max(
-    1200,
-    Math.round(
-      ((activity.audioText.length / 5) * 60000) / 140 / activity.audioRate,
-    ),
-  );
+  const shakeAnim = useRef(new Animated.Value(0)).current;
+  const blinkAnim = useRef(new Animated.Value(0)).current;
+  const alertTranslateY = useRef(new Animated.Value(64)).current;
+  const alertOpacity = useRef(new Animated.Value(0)).current;
 
   const isCorrect = result === "correct";
 
@@ -82,26 +74,6 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
     alertOpacity.setValue(0);
   }, [isCorrect, alertOpacity, alertTranslateY]);
 
-  const playAudio = () => {
-    audioProgressAnim.stopAnimation();
-    audioProgressAnim.setValue(0);
-    Animated.timing(audioProgressAnim, {
-      toValue: 1,
-      duration: estimatedDurationMs,
-      easing: Easing.linear,
-      useNativeDriver: false,
-    }).start();
-
-    speak({
-      text: activity.audioText,
-      language: "en-US",
-      rate: activity.audioRate,
-      onDone: () => audioProgressAnim.setValue(1),
-      onStopped: () => audioProgressAnim.stopAnimation(),
-      onError: () => audioProgressAnim.stopAnimation(),
-    });
-  };
-
   const triggerWrongFeedback = () => {
     setResult("wrong");
     Vibration.vibrate(140);
@@ -138,20 +110,21 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
         }),
       ]),
     ]).start(() => {
+      setSelectedPhrases([]);
       setResult(null);
-      setSelectedWords([]);
       blinkAnim.setValue(0);
     });
   };
 
-  const handleWordPress = (word) => {
-    if (isCorrect || selectedWords.includes(word)) return;
+  const handleOptionPress = (phrase) => {
+    if (isCorrect || selectedPhrases.includes(phrase)) return;
 
-    const nextWords = [...selectedWords, word];
-    setSelectedWords(nextWords);
+    const nextPhrases = [...selectedPhrases, phrase];
+    setSelectedPhrases(nextPhrases);
 
-    const isPrefixCorrect = nextWords.every(
-      (selectedWord, index) => selectedWord === activity.correctOrder[index],
+    const isPrefixCorrect = nextPhrases.every(
+      (selectedPhrase, index) =>
+        selectedPhrase === activity.correctOrder[index],
     );
 
     if (!isPrefixCorrect) {
@@ -159,109 +132,83 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
       return;
     }
 
-    if (nextWords.length === activity.correctOrder.length) {
+    if (nextPhrases.length === activity.correctOrder.length) {
       setResult("correct");
     }
   };
 
-  const handleSelectedWordPress = (word) => {
+  const handleSelectedPhrasePress = (phrase) => {
     if (isCorrect) return;
-    setSelectedWords((current) => current.filter((item) => item !== word));
+    setSelectedPhrases((current) =>
+      current.filter((currentPhrase) => currentPhrase !== phrase),
+    );
   };
-
-  const usedWords = selectedWords;
 
   return (
     <View style={styles.slide}>
       <HeaderComponent />
 
-      <View style={styles.orderSentenceBlock}>
+      <View style={styles.dialogOrderBlock}>
         <Text style={styles.fastTypePrompt}>{activity.prompt}</Text>
-
-        <View style={styles.listenAnswerMediaWrapper}>
-          <View style={styles.listenAnswerMediaCard}>
-            <Image source={activity.image} style={styles.listenAnswerImage} />
-          </View>
-
-          <TouchableOpacity
-            style={styles.listenAnswerAudioButton}
-            onPress={playAudio}
-          >
-            <Text style={styles.audioIcon}>▶</Text>
-            <View style={styles.audioBar}>
-              <Animated.View
-                style={[
-                  styles.audioProgress,
-                  {
-                    width: audioProgressAnim.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: ["0%", "100%"],
-                    }),
-                  },
-                ]}
-              />
-            </View>
-          </TouchableOpacity>
-        </View>
 
         <Animated.View
           style={[
-            styles.orderSentenceAnswerBox,
-            isCorrect && styles.orderSentenceAnswerBoxCorrect,
-            result === "wrong" && styles.orderSentenceAnswerBoxWrong,
+            styles.dialogOrderAnswerBox,
+            isCorrect && styles.dialogOrderAnswerBoxCorrect,
+            result === "wrong" && styles.dialogOrderAnswerBoxWrong,
             result === "wrong" && { backgroundColor: wrongBackground },
             result === "wrong" && {
               transform: [{ translateX: shakeTranslateX }],
             },
           ]}
         >
-          {selectedWords.length === 0 ? (
-            <Text style={styles.orderSentencePlaceholder}>_____</Text>
+          {selectedPhrases.length === 0 ? (
+            <Text style={styles.dialogOrderPlaceholder}>_____</Text>
           ) : (
-            selectedWords.map((word) => (
+            selectedPhrases.map((phrase, index) => (
               <TouchableOpacity
-                key={`selected-${word}`}
+                key={`${phrase}-${index}`}
                 style={[
-                  styles.orderSentenceSelectedWord,
-                  isCorrect && styles.orderSentenceSelectedWordCorrect,
+                  styles.dialogOrderSelectedPhrase,
+                  isCorrect && styles.dialogOrderSelectedPhraseCorrect,
                 ]}
-                onPress={() => handleSelectedWordPress(word)}
+                onPress={() => handleSelectedPhrasePress(phrase)}
                 disabled={isCorrect}
               >
                 <Text
                   style={[
-                    styles.orderSentenceSelectedWordText,
-                    isCorrect && styles.orderSentenceSelectedWordTextCorrect,
+                    styles.dialogOrderSelectedPhraseText,
+                    isCorrect && styles.dialogOrderSelectedPhraseTextCorrect,
                   ]}
                 >
-                  {word}
+                  {phrase}
                 </Text>
               </TouchableOpacity>
             ))
           )}
         </Animated.View>
 
-        <View style={styles.orderSentenceOptionsRow}>
-          {shuffledOptions.map((word) => {
-            const used = usedWords.includes(word);
+        <View style={styles.dialogOrderOptionsList}>
+          {shuffledOptions.map((phrase) => {
+            const used = selectedPhrases.includes(phrase);
 
             return (
               <TouchableOpacity
-                key={word}
+                key={phrase}
                 style={[
-                  styles.orderSentenceOption,
-                  used && styles.orderSentenceOptionUsed,
+                  styles.dialogOrderOption,
+                  used && styles.dialogOrderOptionUsed,
                 ]}
-                onPress={() => handleWordPress(word)}
+                onPress={() => handleOptionPress(phrase)}
                 disabled={used || isCorrect}
               >
                 <Text
                   style={[
-                    styles.orderSentenceOptionText,
-                    used && styles.orderSentenceOptionTextUsed,
+                    styles.dialogOrderOptionText,
+                    used && styles.dialogOrderOptionTextUsed,
                   ]}
                 >
-                  {word}
+                  {phrase}
                 </Text>
               </TouchableOpacity>
             );
@@ -274,7 +221,7 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
           <Animated.View
             style={[
               styles.successAlertCard,
-              styles.slide7SuccessAlertCard,
+              styles.slide8SuccessAlertCard,
               { paddingBottom: bottomSafeSpace + 1 },
               {
                 opacity: alertOpacity,
@@ -316,93 +263,87 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
   );
 }
 
-const ex6 = StyleSheet.create({
-  orderSentenceBlock: {
+const ex7 = StyleSheet.create({
+  dialogOrderBlock: {
     width: "100%",
     alignItems: "center",
   },
-
-  orderSentenceAnswerBox: {
+  dialogOrderAnswerBox: {
     width: "88%",
-    minHeight: 54,
-    borderRadius: 8,
+    minHeight: 140,
+    borderRadius: 10,
     borderWidth: 1.5,
-    borderColor: CORES.PRIMARY,
+    borderColor: "#7BA9D6",
     backgroundColor: CORES.WHITE,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "center",
-    paddingHorizontal: 8,
-    paddingVertical: 8,
-    gap: 6,
-    marginBottom: 14,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    gap: 8,
+    marginBottom: 10,
   },
-  orderSentenceAnswerBoxCorrect: {
+  dialogOrderAnswerBoxCorrect: {
     backgroundColor: CORES.SUCCESS_BG,
     borderColor: CORES.SUCCESS,
   },
-  orderSentenceAnswerBoxWrong: {
+  dialogOrderAnswerBoxWrong: {
     borderColor: CORES.DANGER,
   },
-  orderSentencePlaceholder: {
+  dialogOrderPlaceholder: {
     color: CORES.PRIMARY,
     fontSize: 14,
   },
-  orderSentenceSelectedWord: {
-    minHeight: 26,
-    borderRadius: 13,
+  dialogOrderSelectedPhrase: {
+    minHeight: 30,
+    alignSelf: "flex-start",
+    borderRadius: 15,
     borderWidth: 1,
-    borderColor: CORES.PRIMARY,
-    backgroundColor: CORES.WHITE,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 10,
-    paddingVertical: 3,
-  },
-  orderSentenceSelectedWordCorrect: {
-    backgroundColor: CORES.SUCCESS_BG,
-    borderColor: CORES.SUCCESS,
-  },
-  orderSentenceSelectedWordText: {
-    color: CORES.PRIMARY,
-    fontSize: 13,
-  },
-  orderSentenceSelectedWordTextCorrect: {
-    color: CORES.SUCCESS_DARK,
-    fontWeight: "700",
-  },
-  orderSentenceOptionsRow: {
-    width: "88%",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    gap: 8,
-  },
-  orderSentenceOption: {
-    minHeight: 28,
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: CORES.PRIMARY,
-    backgroundColor: CORES.BACKGROUND,
+    borderColor: "#7BA9D6",
+    backgroundColor: "#7BA9D6",
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 12,
-    paddingVertical: 4,
+    paddingVertical: 5,
   },
-  orderSentenceOptionUsed: {
+  dialogOrderSelectedPhraseCorrect: {
+    backgroundColor: CORES.SUCCESS_BG,
+    borderColor: CORES.SUCCESS,
+  },
+  dialogOrderSelectedPhraseText: {
+    color: CORES.WHITE,
+    fontSize: 13,
+  },
+  dialogOrderSelectedPhraseTextCorrect: {
+    color: CORES.SUCCESS_DARK,
+    fontWeight: "700",
+  },
+  dialogOrderOptionsList: {
+    width: "88%",
+    gap: 8,
+  },
+  dialogOrderOption: {
+    width: "100%",
+    minHeight: 32,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: "#7BA9D6",
+    backgroundColor: "#7BA9D6",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 14,
+    paddingVertical: 6,
+  },
+  dialogOrderOptionUsed: {
     backgroundColor: CORES.SURFACE_MUTED,
     borderColor: CORES.BORDER_LIGHT,
   },
-  orderSentenceOptionText: {
-    color: CORES.PRIMARY,
+  dialogOrderOptionText: {
+    color: CORES.WHITE,
     fontSize: 13,
-    textDecorationLine: "underline",
+    textAlign: "center",
   },
-  orderSentenceOptionTextUsed: {
+  dialogOrderOptionTextUsed: {
     color: "#93C5FD",
-    textDecorationLine: "none",
   },
-  slide7SuccessAlertCard: {
+  slide8SuccessAlertCard: {
     marginHorizontal: 12,
     marginBottom: 0,
     zIndex: 200,
@@ -410,4 +351,4 @@ const ex6 = StyleSheet.create({
   },
 });
 
-export default ex6;
+export default ex7;

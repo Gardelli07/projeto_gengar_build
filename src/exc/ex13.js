@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Animated,
   Easing,
-  Image,
   Text,
   TouchableOpacity,
   Vibration,
@@ -11,7 +10,7 @@ import {
 } from "react-native";
 import CORES from "../util/cores";
 
-export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
+export function Exercise13({ activity, styles, HeaderComponent, next, speak }) {
   const bottomSafeSpace = 3;
 
   const shuffleArray = (items) => {
@@ -26,9 +25,9 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
     return shuffled;
   };
 
-  const shuffledOptions = useMemo(
-    () => shuffleArray(activity.words),
-    [activity.words],
+  const shuffledLetters = useMemo(
+    () => shuffleArray(activity.letters),
+    [activity.letters],
   );
   const audioProgressAnim = useRef(new Animated.Value(0)).current;
   const alertTranslateY = useRef(new Animated.Value(64)).current;
@@ -36,7 +35,7 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
   const shakeAnim = useRef(new Animated.Value(0)).current;
   const blinkAnim = useRef(new Animated.Value(0)).current;
 
-  const [selectedWords, setSelectedWords] = useState([]);
+  const [selectedLetters, setSelectedLetters] = useState([]);
   const [result, setResult] = useState(null);
 
   const estimatedDurationMs = Math.max(
@@ -139,52 +138,48 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
       ]),
     ]).start(() => {
       setResult(null);
-      setSelectedWords([]);
+      setSelectedLetters([]);
       blinkAnim.setValue(0);
     });
   };
 
-  const handleWordPress = (word) => {
-    if (isCorrect || selectedWords.includes(word)) return;
+  const handleLetterPress = (letter, indexKey) => {
+    if (isCorrect || selectedLetters.some((item) => item.key === indexKey))
+      return;
 
-    const nextWords = [...selectedWords, word];
-    setSelectedWords(nextWords);
+    const nextLetters = [...selectedLetters, { key: indexKey, value: letter }];
+    setSelectedLetters(nextLetters);
 
-    const isPrefixCorrect = nextWords.every(
-      (selectedWord, index) => selectedWord === activity.correctOrder[index],
-    );
+    const nextWord = nextLetters.map((item) => item.value).join("");
+    const correctWord = activity.correctWord;
 
-    if (!isPrefixCorrect) {
+    if (!correctWord.startsWith(nextWord)) {
       triggerWrongFeedback();
       return;
     }
 
-    if (nextWords.length === activity.correctOrder.length) {
+    if (nextWord === correctWord) {
       setResult("correct");
     }
   };
 
-  const handleSelectedWordPress = (word) => {
+  const handleSelectedLetterPress = (indexKey) => {
     if (isCorrect) return;
-    setSelectedWords((current) => current.filter((item) => item !== word));
+    setSelectedLetters((current) =>
+      current.filter((item) => item.key !== indexKey),
+    );
   };
-
-  const usedWords = selectedWords;
 
   return (
     <View style={styles.slide}>
       <HeaderComponent />
 
-      <View style={styles.orderSentenceBlock}>
+      <View style={styles.spellWordBlock}>
         <Text style={styles.fastTypePrompt}>{activity.prompt}</Text>
 
-        <View style={styles.listenAnswerMediaWrapper}>
-          <View style={styles.listenAnswerMediaCard}>
-            <Image source={activity.image} style={styles.listenAnswerImage} />
-          </View>
-
+        <View style={styles.spellWordAudioCard}>
           <TouchableOpacity
-            style={styles.listenAnswerAudioButton}
+            style={styles.spellWordAudioButton}
             onPress={playAudio}
           >
             <Text style={styles.audioIcon}>▶</Text>
@@ -206,62 +201,63 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
 
         <Animated.View
           style={[
-            styles.orderSentenceAnswerBox,
-            isCorrect && styles.orderSentenceAnswerBoxCorrect,
-            result === "wrong" && styles.orderSentenceAnswerBoxWrong,
+            styles.spellWordAnswerBox,
+            isCorrect && styles.spellWordAnswerBoxCorrect,
+            result === "wrong" && styles.spellWordAnswerBoxWrong,
             result === "wrong" && { backgroundColor: wrongBackground },
             result === "wrong" && {
               transform: [{ translateX: shakeTranslateX }],
             },
           ]}
         >
-          {selectedWords.length === 0 ? (
-            <Text style={styles.orderSentencePlaceholder}>_____</Text>
+          {selectedLetters.length === 0 ? (
+            <Text style={styles.spellWordPlaceholder}>_____</Text>
           ) : (
-            selectedWords.map((word) => (
+            selectedLetters.map((item) => (
               <TouchableOpacity
-                key={`selected-${word}`}
+                key={item.key}
                 style={[
-                  styles.orderSentenceSelectedWord,
-                  isCorrect && styles.orderSentenceSelectedWordCorrect,
+                  styles.spellWordSelectedLetter,
+                  isCorrect && styles.spellWordSelectedLetterCorrect,
                 ]}
-                onPress={() => handleSelectedWordPress(word)}
+                onPress={() => handleSelectedLetterPress(item.key)}
                 disabled={isCorrect}
               >
                 <Text
                   style={[
-                    styles.orderSentenceSelectedWordText,
-                    isCorrect && styles.orderSentenceSelectedWordTextCorrect,
+                    styles.spellWordSelectedLetterText,
+                    isCorrect && styles.spellWordSelectedLetterTextCorrect,
                   ]}
                 >
-                  {word}
+                  {item.value}
                 </Text>
               </TouchableOpacity>
             ))
           )}
         </Animated.View>
 
-        <View style={styles.orderSentenceOptionsRow}>
-          {shuffledOptions.map((word) => {
-            const used = usedWords.includes(word);
+        <View style={styles.spellWordOptionsRow}>
+          {shuffledLetters.map((letter, index) => {
+            const key = `${letter}-${index}`;
+            const used = selectedLetters.some((item) => item.key === key);
 
             return (
               <TouchableOpacity
-                key={word}
+                key={key}
                 style={[
-                  styles.orderSentenceOption,
-                  used && styles.orderSentenceOptionUsed,
+                  styles.spellWordOption,
+                  used && styles.spellWordOptionUsed,
                 ]}
-                onPress={() => handleWordPress(word)}
+                onPress={() => handleLetterPress(letter, key)}
                 disabled={used || isCorrect}
               >
                 <Text
                   style={[
-                    styles.orderSentenceOptionText,
-                    used && styles.orderSentenceOptionTextUsed,
+                    styles.spellWordOptionText,
+                    used && styles.spellWordOptionTextUsed,
                   ]}
                 >
-                  {word}
+                  {letter}
                 </Text>
               </TouchableOpacity>
             );
@@ -274,7 +270,7 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
           <Animated.View
             style={[
               styles.successAlertCard,
-              styles.slide7SuccessAlertCard,
+              styles.slide13SuccessAlertCard,
               { paddingBottom: bottomSafeSpace + 1 },
               {
                 opacity: alertOpacity,
@@ -316,15 +312,28 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
   );
 }
 
-const ex6 = StyleSheet.create({
-  orderSentenceBlock: {
+const ex13 = StyleSheet.create({
+  spellWordBlock: {
     width: "100%",
     alignItems: "center",
   },
-
-  orderSentenceAnswerBox: {
+  spellWordAudioCard: {
     width: "88%",
-    minHeight: 54,
+    marginBottom: 12,
+  },
+  spellWordAudioButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#7BA9D6",
+    width: "100%",
+    height: 40,
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    gap: 12,
+  },
+  spellWordAnswerBox: {
+    width: "88%",
+    minHeight: 58,
     borderRadius: 8,
     borderWidth: 1.5,
     borderColor: CORES.PRIMARY,
@@ -332,77 +341,75 @@ const ex6 = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "center",
+    justifyContent: "center",
     paddingHorizontal: 8,
     paddingVertical: 8,
     gap: 6,
-    marginBottom: 14,
+    marginBottom: 18,
   },
-  orderSentenceAnswerBoxCorrect: {
+  spellWordAnswerBoxCorrect: {
     backgroundColor: CORES.SUCCESS_BG,
     borderColor: CORES.SUCCESS,
   },
-  orderSentenceAnswerBoxWrong: {
+  spellWordAnswerBoxWrong: {
     borderColor: CORES.DANGER,
   },
-  orderSentencePlaceholder: {
+  spellWordPlaceholder: {
     color: CORES.PRIMARY,
     fontSize: 14,
   },
-  orderSentenceSelectedWord: {
-    minHeight: 26,
-    borderRadius: 13,
+  spellWordSelectedLetter: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
     borderWidth: 1,
-    borderColor: CORES.PRIMARY,
-    backgroundColor: CORES.WHITE,
+    borderColor: "#7BA9D6",
+    backgroundColor: "#7BA9D6",
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 10,
-    paddingVertical: 3,
   },
-  orderSentenceSelectedWordCorrect: {
+  spellWordSelectedLetterCorrect: {
     backgroundColor: CORES.SUCCESS_BG,
     borderColor: CORES.SUCCESS,
   },
-  orderSentenceSelectedWordText: {
-    color: CORES.PRIMARY,
+  spellWordSelectedLetterText: {
+    color: CORES.WHITE,
     fontSize: 13,
-  },
-  orderSentenceSelectedWordTextCorrect: {
-    color: CORES.SUCCESS_DARK,
     fontWeight: "700",
   },
-  orderSentenceOptionsRow: {
+  spellWordSelectedLetterTextCorrect: {
+    color: CORES.SUCCESS_DARK,
+  },
+  spellWordOptionsRow: {
     width: "88%",
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    gap: 8,
+    gap: 10,
   },
-  orderSentenceOption: {
-    minHeight: 28,
+  spellWordOption: {
+    width: 28,
+    height: 28,
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: CORES.PRIMARY,
-    backgroundColor: CORES.BACKGROUND,
+    borderColor: "#7BA9D6",
+    backgroundColor: CORES.WHITE,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 12,
-    paddingVertical: 4,
   },
-  orderSentenceOptionUsed: {
+  spellWordOptionUsed: {
     backgroundColor: CORES.SURFACE_MUTED,
     borderColor: CORES.BORDER_LIGHT,
   },
-  orderSentenceOptionText: {
+  spellWordOptionText: {
     color: CORES.PRIMARY,
     fontSize: 13,
-    textDecorationLine: "underline",
+    fontWeight: "700",
   },
-  orderSentenceOptionTextUsed: {
+  spellWordOptionTextUsed: {
     color: "#93C5FD",
-    textDecorationLine: "none",
   },
-  slide7SuccessAlertCard: {
+  slide13SuccessAlertCard: {
     marginHorizontal: 12,
     marginBottom: 0,
     zIndex: 200,
@@ -410,4 +417,4 @@ const ex6 = StyleSheet.create({
   },
 });
 
-export default ex6;
+export default ex13;

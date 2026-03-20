@@ -206,7 +206,7 @@ export function Exercise2({ activity, styles, HeaderComponent, next }) {
       <HeaderComponent />
 
       <View style={styles.completeActivityBlock}>
-        <Text style={styles.exerciseTitle}>{activity.title}</Text>
+        <Text style={styles.fastTypePrompt}>{activity.prompt}</Text>
 
         <View style={styles.completeCard}>
           {activity.paragraphs.map((paragraph, paragraphIndex) => (

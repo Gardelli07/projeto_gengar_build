@@ -11,16 +11,20 @@ import {
 } from "react-native";
 import CORES from "../util/cores";
 
-export function Exercise5({ activity, styles, HeaderComponent, next }) {
+export function Exercise15({ activity, styles, HeaderComponent, next }) {
   const bottomSafeSpace = 3;
   const alertTranslateY = useRef(new Animated.Value(64)).current;
   const alertOpacity = useRef(new Animated.Value(0)).current;
   const shakeAnim = useRef(new Animated.Value(0)).current;
   const blinkAnim = useRef(new Animated.Value(0)).current;
 
-  const [selected, setSelected] = useState(null);
+  const [selectedImageId, setSelectedImageId] = useState(null);
+  const [selectedWordId, setSelectedWordId] = useState(null);
+  const [matchedImageIds, setMatchedImageIds] = useState([]);
+  const [matchedWordIds, setMatchedWordIds] = useState([]);
   const [result, setResult] = useState(null);
 
+  const allMatched = matchedImageIds.length === activity.pairs.length;
   const isCorrect = result === "correct";
 
   const shakeTranslateX = shakeAnim.interpolate({
@@ -32,6 +36,32 @@ export function Exercise5({ activity, styles, HeaderComponent, next }) {
     inputRange: [0, 1],
     outputRange: [CORES.WHITE, CORES.DANGER_LIGHT],
   });
+
+  useEffect(() => {
+    if (!selectedImageId || !selectedWordId || allMatched) return;
+
+    const matchedPair = activity.pairs.find(
+      (pair) =>
+        pair.imageId === selectedImageId && pair.wordId === selectedWordId,
+    );
+
+    if (matchedPair) {
+      setMatchedImageIds((current) => [...current, matchedPair.imageId]);
+      setMatchedWordIds((current) => [...current, matchedPair.wordId]);
+      setSelectedImageId(null);
+      setSelectedWordId(null);
+      setResult(null);
+      return;
+    }
+
+    triggerWrongFeedback();
+  }, [selectedImageId, selectedWordId]);
+
+  useEffect(() => {
+    if (allMatched) {
+      setResult("correct");
+    }
+  }, [allMatched]);
 
   useEffect(() => {
     if (isCorrect) {
@@ -93,109 +123,95 @@ export function Exercise5({ activity, styles, HeaderComponent, next }) {
         }),
       ]),
     ]).start(() => {
+      setSelectedImageId(null);
+      setSelectedWordId(null);
       setResult(null);
       blinkAnim.setValue(0);
     });
-  };
-
-  const handleSelect = (option) => {
-    if (isCorrect) return;
-
-    setSelected(option);
-
-    if (option === activity.correctAnswer) {
-      setResult("correct");
-      return;
-    }
-
-    triggerWrongFeedback();
   };
 
   return (
     <View style={styles.slide}>
       <HeaderComponent />
 
-      <View style={styles.completePhraseBlock}>
+      <Animated.View
+        style={[
+          styles.matchMediaWordBlock,
+          result === "wrong" && {
+            transform: [{ translateX: shakeTranslateX }],
+          },
+        ]}
+      >
         <Text style={styles.fastTypePrompt}>{activity.prompt}</Text>
 
-        <View style={styles.completePhraseMediaCard}>
-          <Image source={activity.image} style={styles.completePhraseImage} />
-        </View>
-
-        <View style={styles.completePhraseSentencePill}>
-          <Text style={styles.completePhraseSentenceText}>
-            {activity.sentenceStart}
-          </Text>
-
-          <Animated.View
-            style={[
-              styles.completePhraseBlank,
-              isCorrect && styles.completePhraseBlankCorrect,
-              result === "wrong" && styles.completePhraseBlankWrong,
-              result === "wrong" && { backgroundColor: wrongBackground },
-              result === "wrong" && {
-                transform: [{ translateX: shakeTranslateX }],
-              },
-            ]}
-          >
-            <Text
-              style={[
-                styles.completePhraseBlankText,
-                isCorrect && styles.completePhraseBlankTextCorrect,
-              ]}
-            >
-              {selected || "_____"}
-            </Text>
-          </Animated.View>
-
-          <Text style={styles.completePhraseSentenceText}>
-            {activity.sentenceEnd}
-          </Text>
-        </View>
-
-        <View style={styles.completePhraseOptionsRow}>
-          {activity.options.map((option) => {
-            const optionIsCorrect =
-              selected === option &&
-              option === activity.correctAnswer &&
-              isCorrect;
-            const optionIsWrong =
-              selected === option &&
-              option !== activity.correctAnswer &&
-              result === "wrong";
+        <View style={styles.matchMediaWordImagesRow}>
+          {activity.images.map((imageOption) => {
+            const isSelected = selectedImageId === imageOption.id;
+            const isMatched = matchedImageIds.includes(imageOption.id);
+            const showWrong = result === "wrong" && isSelected;
 
             return (
               <Animated.View
-                key={option}
+                key={imageOption.id}
                 style={[
-                  styles.completePhraseOptionWrap,
-                  optionIsWrong && {
-                    transform: [{ translateX: shakeTranslateX }],
-                  },
+                  styles.matchMediaWordImageCard,
+                  isSelected && styles.matchMediaWordImageCardSelected,
+                  isMatched && styles.matchMediaWordImageCardCorrect,
+                  showWrong && styles.matchMediaWordImageCardWrong,
+                  showWrong && { backgroundColor: wrongBackground },
+                ]}
+              >
+                <TouchableOpacity
+                  style={styles.matchMediaWordImageTouch}
+                  onPress={() => setSelectedImageId(imageOption.id)}
+                  disabled={isMatched || isCorrect}
+                  activeOpacity={0.9}
+                >
+                  <Image
+                    source={imageOption.image}
+                    style={styles.matchMediaWordImage}
+                  />
+                </TouchableOpacity>
+              </Animated.View>
+            );
+          })}
+        </View>
+
+        <View style={styles.matchMediaWordOptionsRow}>
+          {activity.words.map((wordOption) => {
+            const isSelected = selectedWordId === wordOption.id;
+            const isMatched = matchedWordIds.includes(wordOption.id);
+            const showWrong = result === "wrong" && isSelected;
+
+            return (
+              <Animated.View
+                key={wordOption.id}
+                style={[
+                  styles.matchMediaWordOptionWrap,
+                  showWrong && { backgroundColor: wrongBackground },
                 ]}
               >
                 <Animated.View
                   style={[
-                    styles.completePhraseOption,
-                    optionIsCorrect && styles.completePhraseOptionCorrect,
-                    optionIsWrong && styles.completePhraseOptionWrong,
-                    optionIsWrong && { backgroundColor: wrongBackground },
+                    styles.matchMediaWordOption,
+                    isSelected && styles.matchMediaWordOptionSelected,
+                    isMatched && styles.matchMediaWordOptionCorrect,
+                    showWrong && styles.matchMediaWordOptionWrong,
                   ]}
                 >
                   <TouchableOpacity
-                    style={styles.completePhraseOptionTouch}
-                    onPress={() => handleSelect(option)}
+                    style={styles.matchMediaWordOptionTouch}
+                    onPress={() => setSelectedWordId(wordOption.id)}
+                    disabled={isMatched || isCorrect}
                     activeOpacity={0.9}
-                    disabled={isCorrect}
                   >
                     <Text
                       style={[
-                        styles.completePhraseOptionText,
-                        optionIsCorrect &&
-                          styles.completePhraseOptionTextCorrect,
+                        styles.matchMediaWordOptionText,
+                        isMatched && styles.matchMediaWordOptionTextCorrect,
                       ]}
                     >
-                      {option}
+                      {wordOption.label}
                     </Text>
                   </TouchableOpacity>
                 </Animated.View>
@@ -203,14 +219,14 @@ export function Exercise5({ activity, styles, HeaderComponent, next }) {
             );
           })}
         </View>
-      </View>
+      </Animated.View>
 
       {isCorrect && (
         <View style={styles.successAlertOverlay}>
           <Animated.View
             style={[
               styles.successAlertCard,
-              styles.slide6SuccessAlertCard,
+              styles.slide15SuccessAlertCard,
               { paddingBottom: bottomSafeSpace + 1 },
               {
                 opacity: alertOpacity,
@@ -252,107 +268,96 @@ export function Exercise5({ activity, styles, HeaderComponent, next }) {
   );
 }
 
-const ex5 = StyleSheet.create({
-  completePhraseBlock: {
+const ex15 = StyleSheet.create({
+  matchMediaWordBlock: {
     width: "100%",
     alignItems: "center",
   },
-
-  completePhraseMediaCard: {
+  matchMediaWordSubtitle: {
     width: "88%",
-    height: 150,
-    borderRadius: 18,
-    overflow: "hidden",
-    marginBottom: 12,
-    backgroundColor: CORES.SURFACE_MUTED,
+    textAlign: "center",
+    fontSize: 13,
+    color: "#7BA9D6",
+    marginBottom: 16,
+    fontWeight: "700",
   },
-  completePhraseImage: {
+  matchMediaWordImagesRow: {
+    width: "88%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 20,
+  },
+  matchMediaWordImageCard: {
+    width: "48%",
+    height: 100,
+    borderRadius: 12,
+    borderWidth: 1.5,
+    borderColor: "#D6E6F7",
+    backgroundColor: CORES.WHITE,
+    overflow: "hidden",
+  },
+  matchMediaWordImageCardSelected: {
+    borderColor: "#7BA9D6",
+  },
+  matchMediaWordImageCardCorrect: {
+    borderColor: CORES.SUCCESS,
+    backgroundColor: CORES.SUCCESS_BG,
+  },
+  matchMediaWordImageCardWrong: {
+    borderColor: CORES.DANGER,
+  },
+  matchMediaWordImageTouch: {
+    flex: 1,
+  },
+  matchMediaWordImage: {
     width: "100%",
     height: "100%",
     resizeMode: "cover",
   },
-  completePhraseSentencePill: {
+  matchMediaWordOptionsRow: {
     width: "88%",
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 12,
+  },
+  matchMediaWordOptionWrap: {
+    borderRadius: 18,
+  },
+  matchMediaWordOption: {
+    minWidth: 92,
     minHeight: 38,
     borderRadius: 19,
-    backgroundColor: CORES.PRIMARY,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-    paddingHorizontal: 16,
-    marginBottom: 14,
-  },
-  completePhraseSentenceText: {
-    color: CORES.WHITE,
-    fontSize: 15,
-    fontWeight: "700",
-  },
-  completePhraseBlank: {
-    minWidth: 68,
-    minHeight: 26,
-    borderRadius: 13,
-    backgroundColor: CORES.WHITE,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 12,
-  },
-  completePhraseBlankCorrect: {
-    backgroundColor: CORES.SUCCESS_BG,
     borderWidth: 1,
+    borderColor: "#D6E6F7",
+    backgroundColor: CORES.WHITE,
+  },
+  matchMediaWordOptionSelected: {
+    borderColor: "#7BA9D6",
+  },
+  matchMediaWordOptionCorrect: {
+    backgroundColor: CORES.SUCCESS_BG,
     borderColor: CORES.SUCCESS,
   },
-  completePhraseBlankWrong: {
-    borderWidth: 1,
+  matchMediaWordOptionWrong: {
     borderColor: CORES.DANGER,
   },
-  completePhraseBlankText: {
-    color: CORES.PRIMARY,
-    fontSize: 14,
-    fontWeight: "700",
-  },
-  completePhraseBlankTextCorrect: {
-    color: CORES.SUCCESS_DARK,
-  },
-  completePhraseOptionsRow: {
-    flexDirection: "row",
-    gap: 16,
-  },
-  completePhraseOptionWrap: {
-    minWidth: 70,
-  },
-  completePhraseOption: {
-    minWidth: 70,
-    minHeight: 32,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: CORES.PRIMARY,
-    backgroundColor: CORES.WHITE,
-  },
-  completePhraseOptionTouch: {
+  matchMediaWordOptionTouch: {
     flex: 1,
-    minHeight: 32,
+    minHeight: 38,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 14,
+    paddingHorizontal: 20,
   },
-  completePhraseOptionText: {
+  matchMediaWordOptionText: {
+    color: CORES.TEXT_DARK,
     fontSize: 14,
-    color: CORES.PRIMARY,
     textAlign: "center",
   },
-  completePhraseOptionCorrect: {
-    backgroundColor: CORES.SUCCESS_BG,
-    borderColor: CORES.SUCCESS,
-  },
-  completePhraseOptionWrong: {
-    borderColor: CORES.DANGER,
-  },
-  completePhraseOptionTextCorrect: {
+  matchMediaWordOptionTextCorrect: {
     color: CORES.SUCCESS_DARK,
     fontWeight: "700",
   },
-  slide6SuccessAlertCard: {
+  slide15SuccessAlertCard: {
     marginHorizontal: 12,
     marginBottom: 0,
     zIndex: 200,
@@ -360,4 +365,4 @@ const ex5 = StyleSheet.create({
   },
 });
 
-export default ex5;
+export default ex15;

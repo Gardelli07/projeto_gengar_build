@@ -116,7 +116,7 @@ export function Exercise4({ activity, styles, HeaderComponent, next }) {
       <HeaderComponent />
 
       <View style={styles.correctSentenceBlock}>
-        <Text style={styles.correctSentenceTitle}>{activity.title}</Text>
+        <Text style={styles.fastTypePrompt}>{activity.prompt}</Text>
 
         <View style={styles.correctSentenceMediaCard}>
           <Image source={activity.image} style={styles.correctSentenceImage} />
@@ -232,14 +232,7 @@ const ex4 = StyleSheet.create({
     width: "100%",
     alignItems: "center",
   },
-  correctSentenceTitle: {
-    width: "88%",
-    textAlign: "left",
-    fontSize: 15,
-    color: CORES.PRIMARY,
-    marginBottom: 10,
-    fontWeight: "700",
-  },
+
   correctSentenceMediaCard: {
     width: "88%",
     height: 150,

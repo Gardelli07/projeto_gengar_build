@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import CORES from "../util/cores";
 
-export function Exercise5({ activity, styles, HeaderComponent, next }) {
+export function Exercise8({ activity, styles, HeaderComponent, next }) {
   const bottomSafeSpace = 3;
   const alertTranslateY = useRef(new Animated.Value(64)).current;
   const alertOpacity = useRef(new Animated.Value(0)).current;
@@ -115,45 +115,22 @@ export function Exercise5({ activity, styles, HeaderComponent, next }) {
     <View style={styles.slide}>
       <HeaderComponent />
 
-      <View style={styles.completePhraseBlock}>
+      <View style={styles.imageChoiceBlock}>
         <Text style={styles.fastTypePrompt}>{activity.prompt}</Text>
 
-        <View style={styles.completePhraseMediaCard}>
-          <Image source={activity.image} style={styles.completePhraseImage} />
+        <View style={styles.imageChoiceMediaCard}>
+          {activity.image ? (
+            <Image source={activity.image} style={styles.imageChoiceMedia} />
+          ) : (
+            <View style={styles.imageChoiceEmojiWrap}>
+              <Text style={styles.imageChoiceEmoji}>
+                {activity.emoji || "?"}
+              </Text>
+            </View>
+          )}
         </View>
 
-        <View style={styles.completePhraseSentencePill}>
-          <Text style={styles.completePhraseSentenceText}>
-            {activity.sentenceStart}
-          </Text>
-
-          <Animated.View
-            style={[
-              styles.completePhraseBlank,
-              isCorrect && styles.completePhraseBlankCorrect,
-              result === "wrong" && styles.completePhraseBlankWrong,
-              result === "wrong" && { backgroundColor: wrongBackground },
-              result === "wrong" && {
-                transform: [{ translateX: shakeTranslateX }],
-              },
-            ]}
-          >
-            <Text
-              style={[
-                styles.completePhraseBlankText,
-                isCorrect && styles.completePhraseBlankTextCorrect,
-              ]}
-            >
-              {selected || "_____"}
-            </Text>
-          </Animated.View>
-
-          <Text style={styles.completePhraseSentenceText}>
-            {activity.sentenceEnd}
-          </Text>
-        </View>
-
-        <View style={styles.completePhraseOptionsRow}>
+        <View style={styles.imageChoiceOptionsList}>
           {activity.options.map((option) => {
             const optionIsCorrect =
               selected === option &&
@@ -168,7 +145,7 @@ export function Exercise5({ activity, styles, HeaderComponent, next }) {
               <Animated.View
                 key={option}
                 style={[
-                  styles.completePhraseOptionWrap,
+                  styles.imageChoiceOptionWrap,
                   optionIsWrong && {
                     transform: [{ translateX: shakeTranslateX }],
                   },
@@ -176,23 +153,22 @@ export function Exercise5({ activity, styles, HeaderComponent, next }) {
               >
                 <Animated.View
                   style={[
-                    styles.completePhraseOption,
-                    optionIsCorrect && styles.completePhraseOptionCorrect,
-                    optionIsWrong && styles.completePhraseOptionWrong,
+                    styles.imageChoiceOption,
+                    optionIsCorrect && styles.imageChoiceOptionCorrect,
+                    optionIsWrong && styles.imageChoiceOptionWrong,
                     optionIsWrong && { backgroundColor: wrongBackground },
                   ]}
                 >
                   <TouchableOpacity
-                    style={styles.completePhraseOptionTouch}
+                    style={styles.imageChoiceOptionTouch}
                     onPress={() => handleSelect(option)}
                     activeOpacity={0.9}
                     disabled={isCorrect}
                   >
                     <Text
                       style={[
-                        styles.completePhraseOptionText,
-                        optionIsCorrect &&
-                          styles.completePhraseOptionTextCorrect,
+                        styles.imageChoiceOptionText,
+                        optionIsCorrect && styles.imageChoiceOptionTextCorrect,
                       ]}
                     >
                       {option}
@@ -210,7 +186,7 @@ export function Exercise5({ activity, styles, HeaderComponent, next }) {
           <Animated.View
             style={[
               styles.successAlertCard,
-              styles.slide6SuccessAlertCard,
+              styles.slide9SuccessAlertCard,
               { paddingBottom: bottomSafeSpace + 1 },
               {
                 opacity: alertOpacity,
@@ -252,107 +228,74 @@ export function Exercise5({ activity, styles, HeaderComponent, next }) {
   );
 }
 
-const ex5 = StyleSheet.create({
-  completePhraseBlock: {
+const ex8 = StyleSheet.create({
+  imageChoiceBlock: {
     width: "100%",
     alignItems: "center",
   },
-
-  completePhraseMediaCard: {
-    width: "88%",
-    height: 150,
-    borderRadius: 18,
+  imageChoiceMediaCard: {
+    width: "70%",
+    height: 158,
+    borderRadius: 16,
     overflow: "hidden",
-    marginBottom: 12,
-    backgroundColor: CORES.SURFACE_MUTED,
+    marginBottom: 16,
+    backgroundColor: "#77C4E6",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  completePhraseImage: {
+  imageChoiceMedia: {
     width: "100%",
     height: "100%",
     resizeMode: "cover",
   },
-  completePhraseSentencePill: {
+  imageChoiceEmojiWrap: {
+    flex: 1,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  imageChoiceEmoji: {
+    fontSize: 72,
+  },
+  imageChoiceOptionsList: {
     width: "88%",
-    minHeight: 38,
-    borderRadius: 19,
-    backgroundColor: CORES.PRIMARY,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
     gap: 8,
-    paddingHorizontal: 16,
-    marginBottom: 14,
   },
-  completePhraseSentenceText: {
-    color: CORES.WHITE,
-    fontSize: 15,
-    fontWeight: "700",
+  imageChoiceOptionWrap: {
+    width: "100%",
   },
-  completePhraseBlank: {
-    minWidth: 68,
-    minHeight: 26,
-    borderRadius: 13,
-    backgroundColor: CORES.WHITE,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 12,
-  },
-  completePhraseBlankCorrect: {
-    backgroundColor: CORES.SUCCESS_BG,
-    borderWidth: 1,
-    borderColor: CORES.SUCCESS,
-  },
-  completePhraseBlankWrong: {
-    borderWidth: 1,
-    borderColor: CORES.DANGER,
-  },
-  completePhraseBlankText: {
-    color: CORES.PRIMARY,
-    fontSize: 14,
-    fontWeight: "700",
-  },
-  completePhraseBlankTextCorrect: {
-    color: CORES.SUCCESS_DARK,
-  },
-  completePhraseOptionsRow: {
-    flexDirection: "row",
-    gap: 16,
-  },
-  completePhraseOptionWrap: {
-    minWidth: 70,
-  },
-  completePhraseOption: {
-    minWidth: 70,
+  imageChoiceOption: {
+    width: "100%",
     minHeight: 32,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: CORES.PRIMARY,
+    borderColor: "#7BA9D6",
     backgroundColor: CORES.WHITE,
   },
-  completePhraseOptionTouch: {
+  imageChoiceOptionTouch: {
     flex: 1,
     minHeight: 32,
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 14,
   },
-  completePhraseOptionText: {
-    fontSize: 14,
+  imageChoiceOptionText: {
     color: CORES.PRIMARY,
+    fontSize: 13,
     textAlign: "center",
   },
-  completePhraseOptionCorrect: {
+  imageChoiceOptionCorrect: {
     backgroundColor: CORES.SUCCESS_BG,
     borderColor: CORES.SUCCESS,
   },
-  completePhraseOptionWrong: {
+  imageChoiceOptionWrong: {
     borderColor: CORES.DANGER,
   },
-  completePhraseOptionTextCorrect: {
+  imageChoiceOptionTextCorrect: {
     color: CORES.SUCCESS_DARK,
     fontWeight: "700",
   },
-  slide6SuccessAlertCard: {
+  slide9SuccessAlertCard: {
     marginHorizontal: 12,
     marginBottom: 0,
     zIndex: 200,
@@ -360,4 +303,4 @@ const ex5 = StyleSheet.create({
   },
 });
 
-export default ex5;
+export default ex8;

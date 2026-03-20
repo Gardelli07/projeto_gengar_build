@@ -84,12 +84,12 @@ const geral = StyleSheet.create({
     alignItems: "center",
     gap: 12,
   },
-  exerciseTitle: {
+  fastTypePrompt: {
     width: "88%",
     textAlign: "left",
-    fontSize: 18,
-    color: CORES.PRIMARY,
-    marginBottom: 12,
+    fontSize: 20,
+    color: "#7BA9D6",
+    marginBottom: 18,
     fontWeight: "700",
   },
   listenAnswerMediaWrapper: {

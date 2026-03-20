@@ -172,7 +172,7 @@ export function Exercise1({ activity, styles, HeaderComponent, next }) {
       <HeaderComponent />
 
       <View style={styles.matchBlock}>
-        <Text style={styles.exerciseTitle}>{activity.title}</Text>
+        <Text style={styles.fastTypePrompt}>{activity.prompt}</Text>
 
         <View style={styles.matchList}>
           {englishOptions.map((word) => {

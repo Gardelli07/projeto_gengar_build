@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+﻿import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
   Image,
@@ -18,12 +18,20 @@ import ex3, { Exercise3 } from "../../../exc/ex3";
 import ex4, { Exercise4 } from "../../../exc/ex4";
 import ex5, { Exercise5 } from "../../../exc/ex5";
 import ex6, { Exercise6 } from "../../../exc/ex6";
-import { Images } from "../../../util/images";
+import ex7, { Exercise7 } from "../../../exc/ex7";
+import ex8, { Exercise8 } from "../../../exc/ex8";
+import ex9, { Exercise9 } from "../../../exc/ex9";
+import ex11, { Exercise11 } from "../../../exc/ex11";
+import ex12, { Exercise12 } from "../../../exc/ex12";
+import ex13, { Exercise13 } from "../../../exc/ex13";
+import ex15, { Exercise15 } from "../../../exc/ex15";
+import ex16, { Exercise16 } from "../../../exc/ex16";
+import { BussinesImages, Images } from "../../../util/images";
 
 const SlideNavContext = React.createContext(null);
 
-const SLIDE_COUNT = 8;
 const STORAGE_KEY = "@progesso_ingles_completo";
+
 const styles = {
   ...geral,
   ...ex14,
@@ -33,7 +41,270 @@ const styles = {
   ...ex4,
   ...ex5,
   ...ex6,
+  ...ex7,
+  ...ex8,
+  ...ex9,
+  ...ex11,
+  ...ex12,
+  ...ex13,
+  ...ex15,
+  ...ex16,
 };
+
+const LESSON_SLIDES = [
+  {
+    component: Exercise1,
+    activity: {
+      prompt: "Encontre a tradução",
+      pairs: [
+        { en: "Hello", pt: "oi" },
+        { en: "fine", pt: "bem/legal" },
+        { en: "bye", pt: "tchau" },
+      ],
+      successTitle: "Excelente",
+      successMessage: "Você acertou todas as traduções.",
+    },
+  },
+  {
+    component: Exercise2,
+    activity: {
+      prompt: "Completar o Texto",
+      paragraphs: [
+        [
+          "This is my friend Peter. He",
+          { id: "blank-1", answer: "is", options: ["is", "are", "am"] },
+          "25 years old.",
+        ],
+        [
+          "Peter",
+          {
+            id: "blank-2",
+            answer: "lives",
+            options: ["live", "lives", "living"],
+          },
+          "in New York with his family.",
+        ],
+        [
+          "He",
+          {
+            id: "blank-3",
+            answer: "works",
+            options: ["works", "work", "working"],
+          },
+          "in a big bank. He likes his job.",
+        ],
+        [
+          "On weekends, he",
+          {
+            id: "blank-4",
+            answer: "plays",
+            options: ["play", "plays", "playing"],
+          },
+          "soccer in the park.",
+        ],
+      ],
+      successTitle: "Excelente",
+      successMessage: "Você completou o texto corretamente.",
+    },
+  },
+  {
+    component: Exercise3,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e responda",
+      image: require("../../../../assets/Bussines/relogio.png"),
+      audioText: "He wakes up at 6am every day.",
+      dialogue: "He wakes up at 6am every day.",
+      options: ["true", "false"],
+      correctAnswer: "true",
+      audioRate: 0.85,
+      successTitle: "Correto",
+      successMessage: 'A frase "He wakes up at 6am every day." esta correta.',
+    },
+  },
+  {
+    component: Exercise4,
+    activity: {
+      prompt: "Corrija",
+      image: require("../../../../assets/Cursos/bussines.jpg"),
+      wrongSentence: "She take the bus.",
+      options: ["She takes the bus.", "She take the bus."],
+      correctAnswer: "She takes the bus.",
+      successTitle: "Correto",
+      successMessage: 'A forma correta e "She takes the bus."',
+    },
+  },
+  {
+    component: Exercise5,
+    activity: {
+      prompt: "Complete a frase",
+      image: require("../../../../assets/Cursos/bussines.jpg"),
+      sentenceStart: "She",
+      sentenceEnd: "the bus.",
+      options: ["take", "takes"],
+      correctAnswer: "takes",
+      successTitle: "Correto",
+      successMessage: 'A forma correta e "She takes the bus."',
+    },
+  },
+  {
+    component: Exercise6,
+    needsSpeech: true,
+    activity: {
+      prompt: "Coloque a frase em ordem.",
+      image: Images.teacher,
+      audioText: "Hello, my name is Laura.",
+      words: ["Hello", "name's", "my", "Laura"],
+      correctOrder: ["Hello", "my", "name's", "Laura"],
+      audioRate: 0.85,
+      successTitle: "Correto",
+      successMessage: `A frase correta e "Hello my name's Laura."`,
+    },
+  },
+  {
+    component: Exercise7,
+    activity: {
+      prompt: "Monte o diálogo na ordem certa",
+      options: [
+        "I wake up at 6am.",
+        "then I have breakfast.",
+        "I go to work.",
+        "I have lunch at 12pm.",
+      ],
+      correctOrder: [
+        "I wake up at 6am.",
+        "then I have breakfast.",
+        "I go to work.",
+        "I have lunch at 12pm.",
+      ],
+      successTitle: "Correto",
+      successMessage: "Você colocou o diálogo na ordem certa.",
+    },
+  },
+  {
+    component: Exercise8,
+    activity: {
+      prompt: "Oque é essa imagen?",
+      image: require("../../../../assets/Bussines/agenda2.png"),
+      options: ["Banana", "Apple", "Grape"],
+      correctAnswer: "Apple",
+      successTitle: "Correto",
+      successMessage: 'A resposta correta é "Apple".',
+    },
+  },
+  {
+    component: Exercise9,
+    activity: {
+      prompt: "O que é a palavra?",
+      question: "Phone",
+      correctOptionId: "phone",
+      options: [
+        { id: "phone", image: BussinesImages.telefone },
+        { id: "book", image: BussinesImages.livro },
+        { id: "email", image: BussinesImages.email },
+        { id: "clock", image: BussinesImages.relogio },
+      ],
+      successTitle: "Correto",
+      successMessage: 'A imagem correta representa "phone".',
+    },
+  },
+  {
+    component: Exercise11,
+    activity: {
+      prompt: "Escreva rápido",
+      title: "Escreva a palavra abaixo",
+      placeholder: "Digite aqui",
+      secondsPerWord: 5,
+      words: ["Hello", "Bye", "Fine", "Thanks", "Sorry"],
+      successTitle: "Correto",
+      successMessage: "Você digitou todas as palavras no tempo certo.",
+    },
+  },
+  {
+    component: Exercise12,
+    activity: {
+      prompt: "Write your introduction",
+      instruction: "Escreva brevemente sobre você em inglês.",
+      helperText: "Use as frases estudadas anteriormente",
+      placeholder: "Hello...",
+      tipText: "Hello, my name is Ana. I am from Brazil. I am fine.",
+      minLength: 3,
+      successTitle: "Correto",
+      successMessage: "Seu texto foi preenchido com sucesso.",
+    },
+  },
+  {
+    component: Exercise13,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escreva a palavra",
+      audioText: "hello",
+      audioRate: 0.85,
+      letters: ["H", "E", "L", "L", "O"],
+      correctWord: "HELLO",
+      successTitle: "Correto",
+      successMessage: 'A palavra correta é "HELLO".',
+    },
+  },
+  {
+    component: Exercise14,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e complete",
+      image: Images.teacher,
+      options: ["Hello", "Hélo"],
+      correctAnswer: "Hello",
+      audioRate: 0.85,
+      successTitle: "Correto",
+      feedbackMessage: 'Usamos "Hello" para dizer "oi".',
+    },
+  },
+  {
+    component: Exercise15,
+    activity: {
+      prompt: "Clique na imagem e na palavra",
+      images: [
+        { id: "meeting", image: BussinesImages.reuniao },
+        { id: "phone", image: BussinesImages.telefone },
+      ],
+      words: [
+        { id: "meeting-word", label: "Hey" },
+        { id: "phone-word", label: "Hello" },
+      ],
+      pairs: [
+        { imageId: "meeting", wordId: "meeting-word" },
+        { imageId: "phone", wordId: "phone-word" },
+      ],
+      successTitle: "Correto",
+      successMessage: "Você formou os dois pares corretamente.",
+    },
+  },
+  {
+    component: Exercise16,
+    activity: {
+      prompt: "Speaking",
+      instruction: "Fale brevemente sobre você em inglês.",
+      helperText: "(Use as frases estudadas anteriormente)",
+      image: BussinesImages.menina2,
+      tipButtonLabel: "Tip",
+      tipText: "Hello, my name is Ana. I am from Brazil. I am fine.",
+      recordLabel: "Speak",
+      stopLabel: "Parar",
+      playLabel: "Ouvir",
+      pauseLabel: "Pausar",
+      rerecordLabel: "Regravar",
+      submitLabel: "Enviar áudio",
+      successTitle: "Correto",
+      successMessage: "Seu áudio foi gravado com sucesso.",
+    },
+  },
+  {
+    key: "lesson-finish",
+    type: "finish",
+  },
+];
+
+const SLIDE_COUNT = LESSON_SLIDES.length;
 
 function useSpeech() {
   const speak = ({ text, stopBefore = true, ...speechOptions }) => {
@@ -77,9 +348,9 @@ function useSlideNavigation({
       lockRef.current = false;
     }, 300);
 
-    const idx = currentSlideIndex + 1;
-    setCurrentSlideIndex(idx);
-    updateProgress(progressAnim, idx, totalSlides);
+    const nextIndex = currentSlideIndex + 1;
+    setCurrentSlideIndex(nextIndex);
+    updateProgress(progressAnim, nextIndex, totalSlides);
   };
 
   const prev = () => {
@@ -89,13 +360,14 @@ function useSlideNavigation({
       lockRef.current = false;
     }, 300);
 
-    const idx = currentSlideIndex - 1;
-    setCurrentSlideIndex(idx);
-    updateProgress(progressAnim, idx, totalSlides);
+    const previousIndex = currentSlideIndex - 1;
+    setCurrentSlideIndex(previousIndex);
+    updateProgress(progressAnim, previousIndex, totalSlides);
   };
 
   function renderPrevButton() {
     if (currentSlideIndex === 0) return null;
+
     return (
       <TouchableOpacity onPress={prev} style={styles.headerCircleButton}>
         <Image source={Images.seta} style={styles.headerCircleImage} />
@@ -103,7 +375,7 @@ function useSlideNavigation({
     );
   }
 
-  return { renderPrevButton, next };
+  return { next, renderPrevButton };
 }
 
 function useNav() {
@@ -138,9 +410,7 @@ function SlideHeader() {
   );
 }
 
-function Slide8() {
-  const { goToNextLesson } = useNav();
-
+function LessonFinishSlide({ onPressNextLesson }) {
   return (
     <View style={styles.slide}>
       <SlideHeader />
@@ -148,7 +418,7 @@ function Slide8() {
       <View style={styles.buttonRow}>
         <TouchableOpacity
           style={styles.nextLessonButton}
-          onPress={goToNextLesson}
+          onPress={onPressNextLesson}
         >
           <Text style={styles.nextLessonButtonText}>Próxima lição -&gt;</Text>
         </TouchableOpacity>
@@ -157,134 +427,51 @@ function Slide8() {
   );
 }
 
-export default function Base({ route, navigation }) {
+function LessonSlideRenderer({ slide, next, speak, onPressNextLesson }) {
+  if (slide.type === "finish") {
+    return <LessonFinishSlide onPressNextLesson={onPressNextLesson} />;
+  }
+
+  const ExerciseComponent = slide.component;
+
+  return (
+    <ExerciseComponent
+      activity={slide.activity}
+      styles={styles}
+      HeaderComponent={SlideHeader}
+      next={next}
+      {...(slide.needsSpeech ? { speak } : {})}
+    />
+  );
+}
+
+export default function IC01({ route, navigation }) {
   const lesson = route?.params?.lesson;
   const lessons = route?.params?.lessons;
   const { speak } = useSpeech();
 
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const progressAnim = useRef(new Animated.Value(1 / SLIDE_COUNT)).current;
 
   useEffect(() => {
-    updateProgress(progressAnim, currentSlide, SLIDE_COUNT);
-  }, [currentSlide, progressAnim]);
+    updateProgress(progressAnim, currentSlideIndex, SLIDE_COUNT);
+  }, [currentSlideIndex, progressAnim]);
 
   const slideNav = useSlideNavigation({
-    currentSlideIndex: currentSlide,
-    setCurrentSlideIndex: setCurrentSlide,
+    currentSlideIndex,
+    setCurrentSlideIndex,
     totalSlides: SLIDE_COUNT,
     progressAnim,
   });
 
-  const slide1Activity = {
-    title: "Escute e complete",
-    image: Images.teacher,
-    options: ["Hello", "Hélo"],
-    correctAnswer: "Hello",
-    audioRate: 0.85,
-    successTitle: "Correto",
-    feedbackMessage: 'Usamos "Hello" para dizer "oi".',
-  };
-
-  const slide2Activity = {
-    title: "Encontre a tradução",
-    pairs: [
-      { en: "Hello", pt: "oi" },
-      { en: "fine", pt: "bem/legal" },
-      { en: "bye", pt: "tchau" },
-    ],
-    successTitle: "Excelente",
-    successMessage: "Você acertou todas as traduções.",
-  };
-
-  const slide3Activity = {
-    title: "Completar o Texto",
-    paragraphs: [
-      [
-        "This is my friend Peter. He",
-        { id: "blank-1", answer: "is", options: ["is", "are", "am"] },
-        "25 years old.",
-      ],
-      [
-        "Peter",
-        {
-          id: "blank-2",
-          answer: "lives",
-          options: ["live", "lives", "living"],
-        },
-        "in New York with his family.",
-      ],
-      [
-        "He",
-        {
-          id: "blank-3",
-          answer: "works",
-          options: ["works", "work", "working"],
-        },
-        "in a big bank. He likes his job.",
-      ],
-      [
-        "On weekends, he",
-        {
-          id: "blank-4",
-          answer: "plays",
-          options: ["play", "plays", "playing"],
-        },
-        "soccer in the park.",
-      ],
-    ],
-    successTitle: "Excelente",
-    successMessage: "Você completou o texto corretamente.",
-  };
-
-  const slide4Activity = {
-    title: "Escute e responda",
-    image: require("../../../../assets/Bussines/relogio.png"),
-    audioText: "He wakes up at 6am every day.",
-    prompt: "He wakes up at 6am every day.",
-    options: ["true", "false"],
-    correctAnswer: "true",
-    audioRate: 0.85,
-    successTitle: "Correto",
-    successMessage: 'A frase "He wakes up at 6am every day." esta correta.',
-  };
-
-  const slide5Activity = {
-    title: "Corrija",
-    image: require("../../../../assets/Cursos/bussines.jpg"),
-    wrongSentence: "She take the bus.",
-    options: ["She takes the bus.", "She take the bus."],
-    correctAnswer: "She takes the bus.",
-    successTitle: "Correto",
-    successMessage: 'A forma correta e "She takes the bus."',
-  };
-
-  const slide6Activity = {
-    title: "Complete a frase",
-    image: require("../../../../assets/Cursos/bussines.jpg"),
-    sentenceStart: "She",
-    sentenceEnd: "the bus.",
-    options: ["take", "takes"],
-    correctAnswer: "takes",
-    successTitle: "Correto",
-    successMessage: 'A forma correta e "She takes the bus."',
-  };
-
-  const slide7Activity = {
-    title: "Coloque a frase em ordem.",
-    image: Images.teacher,
-    audioText: "Hello, my name is Laura.",
-    words: ["Hello", "name's", "my", "Laura"],
-    correctOrder: ["Hello", "my", "name's", "Laura"],
-    audioRate: 0.85,
-    successTitle: "Correto",
-    successMessage: `A frase correta e "Hello my name's Laura."`,
-  };
+  const currentSlide = LESSON_SLIDES[currentSlideIndex];
 
   const findNextLesson = () => {
     if (!lessons || !lesson) return null;
-    const idx = lessons.findIndex((l) => String(l.id) === String(lesson.id));
-    return lessons[idx + 1] || null;
+    const lessonIndex = lessons.findIndex(
+      (lessonItem) => String(lessonItem.id) === String(lesson.id),
+    );
+    return lessons[lessonIndex + 1] || null;
   };
 
   const goToNextLesson = async () => {
@@ -305,70 +492,15 @@ export default function Base({ route, navigation }) {
           ...slideNav,
           progressAnim,
           goBack: () => navigation.goBack(),
-          goToNextLesson,
         }}
       >
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-          {currentSlide === 0 && (
-            <Exercise14
-              activity={slide1Activity}
-              styles={styles}
-              HeaderComponent={SlideHeader}
-              next={slideNav.next}
-              speak={speak}
-            />
-          )}
-          {currentSlide === 1 && (
-            <Exercise1
-              activity={slide2Activity}
-              styles={styles}
-              HeaderComponent={SlideHeader}
-              next={slideNav.next}
-            />
-          )}
-          {currentSlide === 2 && (
-            <Exercise2
-              activity={slide3Activity}
-              styles={styles}
-              HeaderComponent={SlideHeader}
-              next={slideNav.next}
-            />
-          )}
-          {currentSlide === 3 && (
-            <Exercise3
-              activity={slide4Activity}
-              styles={styles}
-              HeaderComponent={SlideHeader}
-              next={slideNav.next}
-              speak={speak}
-            />
-          )}
-          {currentSlide === 4 && (
-            <Exercise4
-              activity={slide5Activity}
-              styles={styles}
-              HeaderComponent={SlideHeader}
-              next={slideNav.next}
-            />
-          )}
-          {currentSlide === 5 && (
-            <Exercise5
-              activity={slide6Activity}
-              styles={styles}
-              HeaderComponent={SlideHeader}
-              next={slideNav.next}
-            />
-          )}
-          {currentSlide === 6 && (
-            <Exercise6
-              activity={slide7Activity}
-              styles={styles}
-              HeaderComponent={SlideHeader}
-              next={slideNav.next}
-              speak={speak}
-            />
-          )}
-          {currentSlide === 7 && <Slide8 />}
+          <LessonSlideRenderer
+            slide={currentSlide}
+            next={slideNav.next}
+            speak={speak}
+            onPressNextLesson={goToNextLesson}
+          />
         </ScrollView>
       </SlideNavContext.Provider>
     </SafeAreaView>

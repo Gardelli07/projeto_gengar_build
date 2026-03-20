@@ -144,7 +144,7 @@ export function Exercise3({ activity, styles, HeaderComponent, next, speak }) {
       <HeaderComponent />
 
       <View style={styles.listenAnswerBlock}>
-        <Text style={styles.listenAnswerTitle}>{activity.title}</Text>
+        <Text style={styles.fastTypePrompt}>{activity.prompt}</Text>
 
         <View style={styles.listenAnswerMediaWrapper}>
           <View style={styles.listenAnswerMediaCard}>
@@ -172,7 +172,7 @@ export function Exercise3({ activity, styles, HeaderComponent, next, speak }) {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.listenAnswerPrompt}>{activity.prompt}</Text>
+        <Text style={styles.listenAnswerDialogue}>{activity.dialogue}</Text>
 
         <View style={styles.listenAnswerOptionsRow}>
           {activity.options.map((option) => {
@@ -277,15 +277,7 @@ const ex3 = StyleSheet.create({
     width: "100%",
     alignItems: "center",
   },
-  listenAnswerTitle: {
-    width: "88%",
-    textAlign: "left",
-    fontSize: 15,
-    color: CORES.PRIMARY,
-    marginBottom: 10,
-    fontWeight: "700",
-  },
-  listenAnswerPrompt: {
+  listenAnswerDialogue: {
     width: "88%",
     textAlign: "center",
     fontSize: 16,
