@@ -12,6 +12,17 @@ import CORES from "../util/cores";
 
 export function Exercise2({ activity, styles, HeaderComponent, next }) {
   const bottomSafeSpace = 3;
+  const getBlankWidth = (blank) => {
+    const longestLabel = [blank.answer, ...(blank.options || [])].reduce(
+      (longest, option) =>
+        String(option).length > String(longest).length ? option : longest,
+      "...",
+    );
+
+    const estimatedWidth = String(longestLabel).length * 9 + 28;
+
+    return Math.min(Math.max(estimatedWidth, 58), 150);
+  };
 
   const tokenizeTextFragment = (text, keyPrefix) =>
     text
@@ -140,6 +151,7 @@ export function Exercise2({ activity, styles, HeaderComponent, next }) {
     const isCorrect = selectedValue === blank.answer;
     const isWrong = wrongBlankId === blank.id;
     const isOpen = activeBlankId === blank.id;
+    const blankWidth = getBlankWidth(blank);
 
     return (
       <Animated.View
@@ -153,13 +165,14 @@ export function Exercise2({ activity, styles, HeaderComponent, next }) {
         <Animated.View
           style={[
             styles.blankButton,
+            { minWidth: blankWidth },
             isCorrect && styles.blankButtonCorrect,
             isWrong && styles.blankButtonWrong,
             isWrong && { backgroundColor: wrongBackground },
           ]}
         >
           <TouchableOpacity
-            style={styles.blankButtonTouchArea}
+            style={[styles.blankButtonTouchArea, { minWidth: blankWidth }]}
             activeOpacity={0.9}
             disabled={isCorrect || allCorrect}
             onPress={() =>
@@ -180,7 +193,7 @@ export function Exercise2({ activity, styles, HeaderComponent, next }) {
         </Animated.View>
 
         {isOpen && !isCorrect && (
-          <View style={styles.blankOptionsMenu}>
+          <View style={[styles.blankOptionsMenu, { minWidth: blankWidth }]}>
             {blank.options.map((option) => (
               <TouchableOpacity
                 key={`${blank.id}-${option}`}
@@ -192,7 +205,9 @@ export function Exercise2({ activity, styles, HeaderComponent, next }) {
                 activeOpacity={0.85}
                 onPress={() => handleOptionPress(blank, option)}
               >
-                <Text style={styles.blankOptionText}>{option}</Text>
+                <Text style={styles.blankOptionText} numberOfLines={1}>
+                  {option}
+                </Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -315,7 +330,6 @@ const ex2 = StyleSheet.create({
     elevation: 20,
   },
   blankButton: {
-    minWidth: 50,
     height: 34,
     borderRadius: 8,
     borderWidth: 1.5,
@@ -324,7 +338,6 @@ const ex2 = StyleSheet.create({
   },
   blankButtonTouchArea: {
     flex: 1,
-    minWidth: 50,
     paddingHorizontal: 10,
     alignItems: "center",
     justifyContent: "center",
@@ -348,7 +361,6 @@ const ex2 = StyleSheet.create({
     position: "absolute",
     top: 38,
     left: 0,
-    minWidth: 78,
     backgroundColor: CORES.WHITE,
     borderWidth: 1.5,
     borderColor: CORES.PRIMARY,

@@ -7,7 +7,7 @@ const geral = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     backgroundColor: CORES.BACKGROUND,
-    paddingTop: 150,
+    paddingTop: 118,
     marginHorizontal: 20,
     marginBottom: 0,
   },

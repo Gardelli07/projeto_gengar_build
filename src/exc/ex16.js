@@ -10,25 +10,43 @@ import {
   View,
   StyleSheet,
 } from "react-native";
-import { Audio } from "expo-audio";
+import {
+  createAudioPlayer,
+  RecordingPresets,
+  requestRecordingPermissionsAsync,
+  setAudioModeAsync,
+  useAudioRecorder,
+} from "expo-audio";
 import CORES from "../util/cores";
 import { Images } from "../util/images";
 
+function formatDuration(totalSeconds) {
+  const minutes = Math.floor(totalSeconds / 60).toString();
+  const seconds = (totalSeconds % 60).toString().padStart(2, "0");
+
+  return `${minutes}:${seconds}`;
+}
+
 export function Exercise16({ activity, styles, HeaderComponent, next }) {
   const bottomSafeSpace = 3;
-  const recordingRef = useRef(null);
-  const soundRef = useRef(null);
+  const recorder = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
+  const playerRef = useRef(null);
+  const playbackSubscriptionRef = useRef(null);
   const alertTranslateY = useRef(new Animated.Value(64)).current;
   const alertOpacity = useRef(new Animated.Value(0)).current;
   const blinkAnim = useRef(new Animated.Value(0)).current;
 
   const [audioUri, setAudioUri] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
+  const [isRecordingPaused, setIsRecordingPaused] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [recordingSeconds, setRecordingSeconds] = useState(0);
+  const [playbackProgress, setPlaybackProgress] = useState(0);
   const [showTip, setShowTip] = useState(false);
   const [result, setResult] = useState(null);
 
   const isCorrect = result === "correct";
+  const hasRecordedAudio = Boolean(audioUri) && !isRecording;
 
   const wrongBackground = blinkAnim.interpolate({
     inputRange: [0, 1],
@@ -37,8 +55,12 @@ export function Exercise16({ activity, styles, HeaderComponent, next }) {
 
   useEffect(() => {
     return () => {
-      if (soundRef.current) {
-        soundRef.current.unloadAsync().catch(() => {});
+      if (playbackSubscriptionRef.current) {
+        playbackSubscriptionRef.current.remove();
+      }
+
+      if (playerRef.current) {
+        playerRef.current.remove();
       }
     };
   }, []);
@@ -67,6 +89,16 @@ export function Exercise16({ activity, styles, HeaderComponent, next }) {
     alertOpacity.setValue(0);
   }, [isCorrect, alertOpacity, alertTranslateY]);
 
+  useEffect(() => {
+    if (!isRecording || isRecordingPaused) return undefined;
+
+    const interval = setInterval(() => {
+      setRecordingSeconds((current) => current + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isRecording, isRecordingPaused]);
+
   const triggerWrongFeedback = () => {
     Vibration.vibrate(140);
     blinkAnim.setValue(0);
@@ -94,53 +126,95 @@ export function Exercise16({ activity, styles, HeaderComponent, next }) {
     ]).start();
   };
 
+  const clearPlayback = () => {
+    if (playbackSubscriptionRef.current) {
+      playbackSubscriptionRef.current.remove();
+      playbackSubscriptionRef.current = null;
+    }
+
+    if (playerRef.current) {
+      playerRef.current.remove();
+      playerRef.current = null;
+    }
+
+    setIsPlaying(false);
+  };
+
   const startRecording = async () => {
     try {
-      const { status } = await Audio.requestPermissionsAsync();
-      if (status !== "granted") {
-        Alert.alert("Permissão negada", "Permita o uso do microfone.");
+      const { granted } = await requestRecordingPermissionsAsync();
+      if (!granted) {
+        Alert.alert("PermissÃ£o negada", "Permita o uso do microfone.");
         return;
       }
 
-      if (soundRef.current) {
-        await soundRef.current.unloadAsync();
-        soundRef.current = null;
-      }
+      clearPlayback();
 
-      await Audio.setAudioModeAsync({
-        allowsRecordingIOS: true,
-        playsInSilentModeIOS: true,
+      await setAudioModeAsync({
+        allowsRecording: true,
+        playsInSilentMode: true,
       });
 
-      const recording = new Audio.Recording();
-      await recording.prepareToRecordAsync(
-        Audio.RecordingOptionsPresets.HIGH_QUALITY,
-      );
-      await recording.startAsync();
-
-      recordingRef.current = recording;
+      await recorder.prepareToRecordAsync();
+      recorder.record();
+      setAudioUri(null);
       setIsRecording(true);
-      setIsPlaying(false);
+      setIsRecordingPaused(false);
+      setRecordingSeconds(0);
+      setPlaybackProgress(0);
       setResult(null);
     } catch (error) {
       console.warn("startRecording error", error);
-      Alert.alert("Erro", "Não foi possível iniciar a gravação.");
+      Alert.alert("Erro", "NÃ£o foi possÃ­vel iniciar a gravaÃ§Ã£o.");
+    }
+  };
+
+  const pauseActiveRecording = async () => {
+    try {
+      if (!isRecording || isRecordingPaused) return;
+
+      recorder.pause();
+      setIsRecordingPaused(true);
+    } catch (error) {
+      console.warn("pauseActiveRecording error", error);
+      Alert.alert("Erro", "NÃ£o foi possÃ­vel pausar a gravaÃ§Ã£o.");
+    }
+  };
+
+  const resumeRecording = async () => {
+    try {
+      if (!isRecording || !isRecordingPaused) return;
+
+      recorder.record();
+      setIsRecordingPaused(false);
+    } catch (error) {
+      console.warn("resumeRecording error", error);
+      Alert.alert("Erro", "NÃ£o foi possÃ­vel retomar a gravaÃ§Ã£o.");
     }
   };
 
   const stopRecording = async () => {
     try {
-      if (!recordingRef.current) return;
+      if (!isRecording) return;
 
-      await recordingRef.current.stopAndUnloadAsync();
-      const uri = recordingRef.current.getURI();
+      await recorder.stop();
+      await setAudioModeAsync({
+        allowsRecording: false,
+        playsInSilentMode: true,
+      });
+
+      const uri = recorder.uri ?? recorder.getStatus().url;
+
+      if (!uri) {
+        throw new Error("Recording URI not available");
+      }
 
       setAudioUri(uri);
       setIsRecording(false);
-      recordingRef.current = null;
+      setIsRecordingPaused(false);
     } catch (error) {
       console.warn("stopRecording error", error);
-      Alert.alert("Erro", "Não foi possível salvar a gravação.");
+      Alert.alert("Erro", "NÃ£o foi possÃ­vel salvar a gravaÃ§Ã£o.");
     }
   };
 
@@ -148,50 +222,62 @@ export function Exercise16({ activity, styles, HeaderComponent, next }) {
     try {
       if (!audioUri) return;
 
-      if (soundRef.current) {
-        await soundRef.current.unloadAsync();
-        soundRef.current = null;
-      }
+      clearPlayback();
+      setPlaybackProgress(0);
 
-      const { sound } = await Audio.Sound.createAsync(
-        { uri: audioUri },
-        { shouldPlay: true },
+      const player = createAudioPlayer({ uri: audioUri });
+      playbackSubscriptionRef.current = player.addListener(
+        "playbackStatusUpdate",
         (status) => {
           if (status.didJustFinish || !status.isLoaded) {
             setIsPlaying(false);
+            setPlaybackProgress(status.didJustFinish ? 1 : 0);
           } else {
-            setIsPlaying(Boolean(status.isPlaying));
+            setIsPlaying(Boolean(status.playing));
+            const duration =
+              typeof status.duration === "number" && status.duration > 0
+                ? status.duration
+                : recordingSeconds;
+            const progress = duration > 0 ? status.currentTime / duration : 0;
+            setPlaybackProgress(Math.max(0, Math.min(progress, 1)));
           }
         },
       );
 
-      soundRef.current = sound;
+      playerRef.current = player;
+      player.play();
       setIsPlaying(true);
     } catch (error) {
       console.warn("playRecording error", error);
-      Alert.alert("Erro", "Não foi possível reproduzir o áudio.");
+      Alert.alert("Erro", "NÃ£o foi possÃ­vel reproduzir o Ã¡udio.");
     }
   };
 
-  const pauseRecording = async () => {
+  const pausePlayback = async () => {
     try {
-      if (!soundRef.current) return;
-      await soundRef.current.pauseAsync();
+      if (!playerRef.current) return;
+      playerRef.current.pause();
       setIsPlaying(false);
     } catch (error) {
-      console.warn("pauseRecording error", error);
+      console.warn("pausePlayback error", error);
     }
   };
 
   const resetRecording = async () => {
-    if (soundRef.current) {
-      await soundRef.current.unloadAsync().catch(() => {});
-      soundRef.current = null;
+    if (isRecording) {
+      await recorder.stop().catch(() => {});
+      await setAudioModeAsync({
+        allowsRecording: false,
+        playsInSilentMode: true,
+      }).catch(() => {});
     }
 
+    clearPlayback();
     setAudioUri(null);
-    setIsPlaying(false);
     setIsRecording(false);
+    setIsRecordingPaused(false);
+    setRecordingSeconds(0);
+    setPlaybackProgress(0);
     setResult(null);
   };
 
@@ -240,63 +326,125 @@ export function Exercise16({ activity, styles, HeaderComponent, next }) {
           )}
 
           <View style={styles.sendAudioControls}>
-            {!isRecording ? (
+            <View style={styles.sendAudioControlsRow}>
               <TouchableOpacity
-                style={styles.sendAudioRecordButton}
-                onPress={startRecording}
-              >
-                <Image
-                  source={Images.microfone}
-                  style={styles.sendAudioRecordImage}
-                />
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                style={styles.sendAudioStopButton}
-                onPress={stopRecording}
-              >
-                <Text style={styles.sendAudioRecordIcon}>■</Text>
-              </TouchableOpacity>
-            )}
-
-            <Text style={styles.sendAudioRecordLabel}>
-              {isRecording ? activity.stopLabel : activity.recordLabel}
-            </Text>
-          </View>
-
-          {audioUri && (
-            <View style={styles.sendAudioActionsRow}>
-              <TouchableOpacity
-                style={styles.sendAudioActionButton}
-                onPress={isPlaying ? pauseRecording : playRecording}
-              >
-                <Text style={styles.sendAudioActionButtonText}>
-                  {isPlaying ? activity.pauseLabel : activity.playLabel}
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.sendAudioActionButton}
+                style={[
+                  styles.sendAudioMiniActionButton,
+                  styles.sendAudioMiniActionButtonDanger,
+                  !hasRecordedAudio && styles.sendAudioMiniActionButtonDisabled,
+                ]}
                 onPress={resetRecording}
+                disabled={!hasRecordedAudio}
               >
-                <Text style={styles.sendAudioActionButtonText}>
-                  {activity.rerecordLabel}
+                <Text style={styles.sendAudioMiniActionButtonText}>X</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[
+                  styles.sendAudioRecordButton,
+                  isRecording && styles.sendAudioStopButton,
+                ]}
+                onPress={isRecording ? stopRecording : startRecording}
+              >
+                {isRecording ? (
+                  <Text style={styles.sendAudioRecordIcon}>■</Text>
+                ) : (
+                  <Image
+                    source={Images.microfone}
+                    style={styles.sendAudioRecordImage}
+                  />
+                )}
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[
+                  styles.sendAudioMiniActionButton,
+                  styles.sendAudioMiniActionButtonPause,
+                  !isRecording && styles.sendAudioMiniActionButtonDisabled,
+                ]}
+                onPress={
+                  isRecording
+                    ? isRecordingPaused
+                      ? resumeRecording
+                      : pauseActiveRecording
+                    : undefined
+                }
+                disabled={!isRecording}
+              >
+                <Text style={styles.sendAudioMiniActionButtonText}>
+                  {isRecordingPaused ? "REC" : "||"}
                 </Text>
               </TouchableOpacity>
             </View>
-          )}
 
-          <TouchableOpacity
-            style={[
-              styles.sendAudioSubmitButton,
-              !audioUri && styles.sendAudioSubmitButtonDisabled,
-            ]}
-            onPress={handleSubmit}
-          >
-            <Text style={styles.sendAudioSubmitButtonText}>
-              {activity.submitLabel}
+            <Text style={styles.sendAudioRecordLabel}>
+              {isRecording
+                ? isRecordingPaused
+                  ? "Pausado"
+                  : activity.stopLabel
+                : activity.recordLabel}
             </Text>
-          </TouchableOpacity>
+          </View>
+
+          <View style={styles.sendAudioToolbar}>
+            <TouchableOpacity
+              style={[
+                styles.sendAudioPlaybackChip,
+                styles.sendAudioPlaybackChipAccent,
+                !hasRecordedAudio && styles.sendAudioPlaybackChipDisabled,
+              ]}
+              onPress={
+                hasRecordedAudio
+                  ? isPlaying
+                    ? pausePlayback
+                    : playRecording
+                  : undefined
+              }
+              disabled={!hasRecordedAudio}
+            >
+              <Text style={styles.sendAudioPlaybackChipText}>
+                {isPlaying ? "||" : "▶"}
+              </Text>
+            </TouchableOpacity>
+
+            <View style={styles.sendAudioToolbarMain}>
+              <View style={styles.sendAudioToolbarTopRow}>
+                <View
+                  style={[
+                    styles.sendAudioRecordingDot,
+                    isRecordingPaused && styles.sendAudioRecordingDotPaused,
+                    !isRecording &&
+                      !hasRecordedAudio &&
+                      styles.sendAudioRecordingDotIdle,
+                  ]}
+                />
+                <Text style={styles.sendAudioToolbarTime}>
+                  {formatDuration(recordingSeconds)}
+                </Text>
+              </View>
+
+              <View style={styles.sendAudioProgressTrack}>
+                <View
+                  style={[
+                    styles.sendAudioProgressFill,
+                    { width: `${playbackProgress * 100}%` },
+                  ]}
+                />
+              </View>
+            </View>
+
+            <TouchableOpacity
+              style={[
+                styles.sendAudioToolbarPrimaryButton,
+                !hasRecordedAudio &&
+                  styles.sendAudioToolbarPrimaryButtonDisabled,
+              ]}
+              onPress={hasRecordedAudio ? handleSubmit : undefined}
+              disabled={!hasRecordedAudio}
+            >
+              <Text style={styles.sendAudioToolbarPrimaryButtonText}>▶</Text>
+            </TouchableOpacity>
+          </View>
         </Animated.View>
       </Animated.View>
 
@@ -330,7 +478,7 @@ export function Exercise16({ activity, styles, HeaderComponent, next }) {
               ]}
             >
               <Text style={[styles.feedbackTitle, styles.feedbackTitleCorrect]}>
-                ✓ Muito bem!
+                Muito bem!
               </Text>
               <Text style={styles.feedbackTextBlack}>
                 {activity.successMessage}
@@ -428,9 +576,155 @@ const ex16 = StyleSheet.create({
     fontSize: 14,
     textAlign: "left",
   },
+  sendAudioToolbar: {
+    width: "100%",
+    minHeight: 68,
+    borderRadius: 24,
+    backgroundColor: CORES.PRIMARY,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: 10,
+    paddingRight: 8,
+    paddingVertical: 8,
+    gap: 8,
+    marginTop: 8,
+  },
+  sendAudioToolbarSideButton: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(255,255,255,0.08)",
+  },
+  sendAudioToolbarSideButtonText: {
+    color: "#D7DADD",
+    fontSize: 15,
+    fontWeight: "800",
+  },
+  sendAudioToolbarMain: {
+    flex: 1,
+    paddingHorizontal: 4,
+  },
+  sendAudioToolbarTopRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    marginBottom: 8,
+  },
+  sendAudioRecordingDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: "#FF6A7C",
+  },
+  sendAudioRecordingDotPaused: {
+    backgroundColor: "#FFB84D",
+  },
+  sendAudioRecordingDotIdle: {
+    backgroundColor: "rgba(255,255,255,0.4)",
+  },
+  sendAudioToolbarMicImage: {
+    width: 18,
+    height: 18,
+    resizeMode: "contain",
+    tintColor: "#D7DADD",
+  },
+  sendAudioPlaybackChip: {
+    minWidth: 26,
+    height: 26,
+    borderRadius: 13,
+    backgroundColor: "rgba(255,255,255,0.08)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  sendAudioPlaybackChipAccent: {
+    backgroundColor: CORES.SECONDARY,
+  },
+  sendAudioPlaybackChipDisabled: {
+    backgroundColor: "rgba(255,255,255,0.14)",
+  },
+  sendAudioPlaybackChipText: {
+    color: CORES.WHITE,
+    fontSize: 12,
+    fontWeight: "800",
+  },
+  sendAudioToolbarTime: {
+    color: "#FFFFFF",
+    fontSize: 20,
+    fontWeight: "700",
+    letterSpacing: 0.4,
+  },
+  sendAudioProgressTrack: {
+    width: "100%",
+    height: 6,
+    borderRadius: 999,
+    backgroundColor: "rgba(255,255,255,0.3)",
+    overflow: "hidden",
+  },
+  sendAudioProgressFill: {
+    height: "100%",
+    borderRadius: 999,
+    backgroundColor: CORES.WHITE,
+  },
+  sendAudioToolbarPauseButton: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    backgroundColor: "rgba(255,255,255,0.08)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  sendAudioToolbarPauseButtonText: {
+    color: "#FF8DA0",
+    fontSize: 11,
+    fontWeight: "800",
+  },
+  sendAudioToolbarPrimaryButton: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: CORES.SECONDARY,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: CORES.SECONDARY,
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    elevation: 4,
+  },
+  sendAudioToolbarPrimaryButtonStop: {
+    backgroundColor: "#2ABF71",
+  },
+  sendAudioToolbarPrimaryButtonIdle: {
+    backgroundColor: "#7BA9D6",
+  },
+  sendAudioToolbarPrimaryButtonText: {
+    color: CORES.WHITE,
+    fontSize: 16,
+    fontWeight: "900",
+  },
+  sendAudioToolbarPrimaryButtonDisabled: {
+    backgroundColor: "#A7B3BF",
+    shadowColor: "#A7B3BF",
+  },
+  sendAudioToolbarPrimaryImage: {
+    width: 28,
+    height: 28,
+    resizeMode: "contain",
+  },
   sendAudioControls: {
     alignItems: "center",
     marginBottom: 14,
+  },
+  sendAudioControlsRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 14,
   },
   sendAudioRecordButton: {
     width: 64,
@@ -439,18 +733,22 @@ const ex16 = StyleSheet.create({
     backgroundColor: "#7BA9D6",
     alignItems: "center",
     justifyContent: "center",
+    shadowColor: "#7BA9D6",
+    shadowOpacity: 0.18,
+    shadowRadius: 8,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    elevation: 4,
   },
   sendAudioStopButton: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
     backgroundColor: CORES.DANGER,
-    alignItems: "center",
-    justifyContent: "center",
+    shadowColor: CORES.DANGER,
   },
   sendAudioRecordIcon: {
     color: CORES.WHITE,
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "700",
   },
   sendAudioRecordImage: {
@@ -467,6 +765,28 @@ const ex16 = StyleSheet.create({
     flexDirection: "row",
     gap: 12,
     marginBottom: 14,
+    alignItems: "center",
+  },
+  sendAudioMiniActionButton: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  sendAudioMiniActionButtonDanger: {
+    backgroundColor: CORES.DANGER,
+  },
+  sendAudioMiniActionButtonPause: {
+    backgroundColor: "#F59E0B",
+  },
+  sendAudioMiniActionButtonDisabled: {
+    backgroundColor: "#A7B3BF",
+  },
+  sendAudioMiniActionButtonText: {
+    color: CORES.WHITE,
+    fontSize: 13,
+    fontWeight: "800",
   },
   sendAudioActionButton: {
     minWidth: 96,

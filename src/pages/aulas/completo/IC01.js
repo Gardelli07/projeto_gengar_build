@@ -21,6 +21,7 @@ import ex6, { Exercise6 } from "../../../exc/ex6";
 import ex7, { Exercise7 } from "../../../exc/ex7";
 import ex8, { Exercise8 } from "../../../exc/ex8";
 import ex9, { Exercise9 } from "../../../exc/ex9";
+import ex10, { Exercise10 } from "../../../exc/ex10";
 import ex11, { Exercise11 } from "../../../exc/ex11";
 import ex12, { Exercise12 } from "../../../exc/ex12";
 import ex13, { Exercise13 } from "../../../exc/ex13";
@@ -44,6 +45,7 @@ const styles = {
   ...ex7,
   ...ex8,
   ...ex9,
+  ...ex10,
   ...ex11,
   ...ex12,
   ...ex13,
@@ -206,6 +208,79 @@ const LESSON_SLIDES = [
       ],
       successTitle: "Correto",
       successMessage: 'A imagem correta representa "phone".',
+    },
+  },
+  {
+    component: Exercise10,
+    activity: {
+      prompt: "Responda as questões",
+      title: "Conversa",
+      userImage: BussinesImages.menina2,
+      lockStorageKey: "@ic01_exercise10_lock_until",
+      questions: [
+        {
+          image: BussinesImages.secretaria,
+          question: "Hello! How are you?",
+          options: ["I'm fine, and you?", "Good night!", "See you tomorrow!"],
+          correctAnswer: "I'm fine, and you?",
+        },
+        {
+          image: BussinesImages.menino,
+          question: "What's your name?",
+          options: ["My name is Ana.", "I am from Brazil.", "I am 25 years old."],
+          correctAnswer: "My name is Ana.",
+        },
+        {
+          image: BussinesImages.menina,
+          question: "Where are you from?",
+          options: ["I am from Brazil.", "I am a teacher.", "I am fine."],
+          correctAnswer: "I am from Brazil.",
+        },
+        {
+          image: BussinesImages.secretario,
+          question: "Nice to meet you.",
+          options: ["Nice to meet you too.", "How old are you?", "See you at home."],
+          correctAnswer: "Nice to meet you too.",
+        },
+        {
+          image: BussinesImages.menino2,
+          question: "How old are you?",
+          options: ["I am 25 years old.", "I am from Mexico.", "My name is Leo."],
+          correctAnswer: "I am 25 years old.",
+        },
+        {
+          image: BussinesImages.menina,
+          question: "Are you a student?",
+          options: ["Yes, I am.", "No, she isn't.", "Good afternoon."],
+          correctAnswer: "Yes, I am.",
+        },
+        {
+          image: BussinesImages.secretaria,
+          question: "What do you do?",
+          options: ["I work in a bank.", "I live in Canada.", "I am 20."],
+          correctAnswer: "I work in a bank.",
+        },
+        {
+          image: BussinesImages.menino,
+          question: "Do you speak English?",
+          options: ["Yes, a little.", "I am in class.", "My name is Bob."],
+          correctAnswer: "Yes, a little.",
+        },
+        {
+          image: BussinesImages.menina2,
+          question: "See you later!",
+          options: ["See you!", "How are you?", "I am from Spain."],
+          correctAnswer: "See you!",
+        },
+        {
+          image: BussinesImages.secretario,
+          question: "Have a nice day!",
+          options: ["Thanks, you too!", "My name is Carol.", "I am 18 years old."],
+          correctAnswer: "Thanks, you too!",
+        },
+      ],
+      successTitle: "Correto",
+      successMessage: "Você acertou todas as 10 respostas da conversa.",
     },
   },
   {
