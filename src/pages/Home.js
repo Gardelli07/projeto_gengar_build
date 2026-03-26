@@ -16,12 +16,12 @@ import {
   BUSSINES_STORAGE_KEY,
   bussinesModules,
   bussinesSampleLessons,
-} from "./aulas/bussines/constants";
+} from "./aulas/bussines";
 import {
   INGLES_COMPLETO_STORAGE_KEY,
   inglesModuleDefs,
   inglesSampleLessons,
-} from "./aulas/completo/constants";
+} from "./aulas/completo";
 
 const THEME = {
   bg: "#F5F5F5",
@@ -35,6 +35,19 @@ const THEME = {
 
 export const COURSE_OPTIONS = ["Ingles Completo", "Bussines English"];
 export const LEVEL_OPTIONS = ["Facil", "Medio", "Avancado"];
+
+const COURSE_CONFIG = {
+  "Ingles Completo": {
+    courseId: "ingles_completo",
+    defaultLevel: "Facil",
+    routeName: "Inglescompleto",
+  },
+  "Bussines English": {
+    courseId: "bussines",
+    defaultLevel: "Facil",
+    routeName: "Bussines",
+  },
+};
 
 const XP_PER_LESSON = 50;
 const LEVEL_XP_CURVE = [
@@ -153,9 +166,7 @@ export default function Inglescompleto({ navigation, route }) {
     [],
   );
   const activeCourseId =
-    selectedCourse === "Bussines English" && selectedLevel === "Facil"
-      ? "bussines"
-      : "ingles_completo";
+    COURSE_CONFIG[selectedCourse]?.courseId ?? "ingles_completo";
   const activeStorageKey =
     activeCourseId === "bussines"
       ? BUSSINES_STORAGE_KEY
@@ -269,9 +280,18 @@ export default function Inglescompleto({ navigation, route }) {
       : "View all";
 
   const openCourseFromViewAll = (courseName) => {
-    const defaultLevel = "Facil";
+    const routeName = COURSE_CONFIG[courseName]?.routeName;
+
+    if (routeName) {
+      navigation.navigate(routeName, {
+        initialCourse: courseName,
+        initialLevel: COURSE_CONFIG[courseName]?.defaultLevel ?? "Facil",
+      });
+      return;
+    }
+
     setSelectedCourse(courseName);
-    setSelectedLevel(defaultLevel);
+    setSelectedLevel(COURSE_CONFIG[courseName]?.defaultLevel ?? "Facil");
     setIsSectionMenuOpen(false);
   };
 
@@ -430,11 +450,7 @@ export default function Inglescompleto({ navigation, route }) {
                       <TouchableOpacity
                         key={courseName}
                         style={styles.sectionMenuItem}
-                        onPress={() => {
-                          setSelectedCourse(courseName);
-                          setSelectedLevel(null);
-                          setSectionMenuStep("level");
-                        }}
+                        onPress={() => openCourseFromViewAll(courseName)}
                         activeOpacity={0.85}
                       >
                         <Text
@@ -507,10 +523,19 @@ export default function Inglescompleto({ navigation, route }) {
                 <View
                   style={[
                     styles.moduleIconWrap,
-                    { backgroundColor: courseName === "Bussines English" ? "#4A9CFF" : THEME.green },
+                    {
+                      backgroundColor:
+                        courseName === "Bussines English"
+                          ? "#4A9CFF"
+                          : THEME.green,
+                    },
                   ]}
                 >
-                  <MaterialCommunityIcons name="book-open-variant" size={16} color="#FFFFFF" />
+                  <MaterialCommunityIcons
+                    name="book-open-variant"
+                    size={16}
+                    color="#FFFFFF"
+                  />
                 </View>
 
                 <View style={styles.moduleTextArea}>
@@ -519,131 +544,138 @@ export default function Inglescompleto({ navigation, route }) {
                 </View>
 
                 <View style={styles.moduleRight}>
-                  <MaterialCommunityIcons name="chevron-right" size={20} color="#8A97AA" />
+                  <MaterialCommunityIcons
+                    name="chevron-right"
+                    size={20}
+                    color="#8A97AA"
+                  />
                 </View>
               </TouchableOpacity>
             ))
           : activeModuleDefs.map((moduleItem) => {
-          const moduleLessons = lessonsByModule[moduleItem.id] || [];
-          const moduleCompleted = moduleLessons.filter(
-            (l) => progressMap[l.id],
-          ).length;
-          const modulePercent =
-            moduleLessons.length > 0
-              ? Math.round((moduleCompleted / moduleLessons.length) * 100)
-              : 0;
-          const isOpen = openModuleId === moduleItem.id;
+              const moduleLessons = lessonsByModule[moduleItem.id] || [];
+              const moduleCompleted = moduleLessons.filter(
+                (l) => progressMap[l.id],
+              ).length;
+              const modulePercent =
+                moduleLessons.length > 0
+                  ? Math.round((moduleCompleted / moduleLessons.length) * 100)
+                  : 0;
+              const isOpen = openModuleId === moduleItem.id;
 
-          return (
-            <View key={moduleItem.id}>
-              <TouchableOpacity
-                style={[
-                  styles.moduleButton,
-                  isOpen && {
-                    borderColor: moduleItem.locked
-                      ? THEME.border
-                      : CORES.PRIMARY,
-                  },
-                  moduleItem.locked && styles.lockedModule,
-                ]}
-                onPress={() => toggleModule(moduleItem)}
-                activeOpacity={0.9}
-              >
-                <View
-                  style={[
-                    styles.moduleIconWrap,
-                    {
-                      backgroundColor: moduleItem.locked
-                        ? "#C6CFDB"
-                        : moduleItem.accent,
-                    },
-                  ]}
-                >
-                  <MaterialCommunityIcons
-                    name={moduleItem.icon}
-                    size={16}
-                    color="#FFFFFF"
-                  />
-                </View>
-
-                <View style={styles.moduleTextArea}>
-                  <Text
+              return (
+                <View key={moduleItem.id}>
+                  <TouchableOpacity
                     style={[
-                      styles.moduleTitle,
-                      moduleItem.locked && styles.lockedText,
+                      styles.moduleButton,
+                      isOpen && {
+                        borderColor: moduleItem.locked
+                          ? THEME.border
+                          : CORES.PRIMARY,
+                      },
+                      moduleItem.locked && styles.lockedModule,
                     ]}
+                    onPress={() => toggleModule(moduleItem)}
+                    activeOpacity={0.9}
                   >
-                    {moduleItem.name}
-                  </Text>
-                  <Text
-                    style={[
-                      styles.moduleSubtitle,
-                      moduleItem.locked && styles.lockedText,
-                    ]}
-                  >
-                    {moduleItem.subtitle}
-                  </Text>
-                </View>
+                    <View
+                      style={[
+                        styles.moduleIconWrap,
+                        {
+                          backgroundColor: moduleItem.locked
+                            ? "#C6CFDB"
+                            : moduleItem.accent,
+                        },
+                      ]}
+                    >
+                      <MaterialCommunityIcons
+                        name={moduleItem.icon}
+                        size={16}
+                        color="#FFFFFF"
+                      />
+                    </View>
 
-                <View style={styles.moduleRight}>
-                  <Text
-                    style={[
-                      styles.modulePercent,
-                      moduleItem.locked && styles.lockedText,
-                    ]}
-                  >
-                    {moduleItem.locked ? "0%" : `${modulePercent}%`}
-                  </Text>
-                  <MaterialCommunityIcons
-                    name={isOpen ? "chevron-up" : "chevron-down"}
-                    size={20}
-                    color={moduleItem.locked ? "#B8C2CF" : "#8A97AA"}
-                  />
-                </View>
-              </TouchableOpacity>
-
-              {isOpen && !moduleItem.locked && (
-                <View style={styles.dropdown}>
-                  {moduleLessons.length === 0 && (
-                    <View style={styles.emptyLesson}>
-                      <Text style={styles.emptyLessonText}>
-                        No lessons available.
+                    <View style={styles.moduleTextArea}>
+                      <Text
+                        style={[
+                          styles.moduleTitle,
+                          moduleItem.locked && styles.lockedText,
+                        ]}
+                      >
+                        {moduleItem.name}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.moduleSubtitle,
+                          moduleItem.locked && styles.lockedText,
+                        ]}
+                      >
+                        {moduleItem.subtitle}
                       </Text>
                     </View>
-                  )}
 
-                  {moduleLessons.map((lesson) => {
-                    const done = !!progressMap[lesson.id];
-
-                    return (
-                      <TouchableOpacity
-                        key={lesson.id}
-                        style={styles.lessonButton}
-                        onPress={() => goToLesson(lesson)}
-                        activeOpacity={0.85}
+                    <View style={styles.moduleRight}>
+                      <Text
+                        style={[
+                          styles.modulePercent,
+                          moduleItem.locked && styles.lockedText,
+                        ]}
                       >
-                        <View style={styles.lessonLeft}>
-                          <MaterialCommunityIcons
-                            name={done ? "check-circle" : "play-circle-outline"}
-                            size={18}
-                            color={done ? THEME.green : CORES.PRIMARY}
-                          />
-                          <Text style={styles.lessonText}>{lesson.title}</Text>
+                        {moduleItem.locked ? "0%" : `${modulePercent}%`}
+                      </Text>
+                      <MaterialCommunityIcons
+                        name={isOpen ? "chevron-up" : "chevron-down"}
+                        size={20}
+                        color={moduleItem.locked ? "#B8C2CF" : "#8A97AA"}
+                      />
+                    </View>
+                  </TouchableOpacity>
+
+                  {isOpen && !moduleItem.locked && (
+                    <View style={styles.dropdown}>
+                      {moduleLessons.length === 0 && (
+                        <View style={styles.emptyLesson}>
+                          <Text style={styles.emptyLessonText}>
+                            No lessons available.
+                          </Text>
                         </View>
-                        <MaterialCommunityIcons
-                          name="chevron-right"
-                          size={18}
-                          color="#8A97AA"
-                        />
-                      </TouchableOpacity>
-                    );
-                  })}
+                      )}
+
+                      {moduleLessons.map((lesson) => {
+                        const done = !!progressMap[lesson.id];
+
+                        return (
+                          <TouchableOpacity
+                            key={lesson.id}
+                            style={styles.lessonButton}
+                            onPress={() => goToLesson(lesson)}
+                            activeOpacity={0.85}
+                          >
+                            <View style={styles.lessonLeft}>
+                              <MaterialCommunityIcons
+                                name={
+                                  done ? "check-circle" : "play-circle-outline"
+                                }
+                                size={18}
+                                color={done ? THEME.green : CORES.PRIMARY}
+                              />
+                              <Text style={styles.lessonText}>
+                                {lesson.title}
+                              </Text>
+                            </View>
+                            <MaterialCommunityIcons
+                              name="chevron-right"
+                              size={18}
+                              color="#8A97AA"
+                            />
+                          </TouchableOpacity>
+                        );
+                      })}
+                    </View>
+                  )}
                 </View>
-              )}
-            </View>
-          );
-            })
-          }
+              );
+            })}
       </ScrollView>
     </SafeAreaView>
   );

@@ -1,6 +1,9 @@
+import React from "react";
 import { BussinesImages } from "../../../util/images";
+import CourseOverviewScreen from "../CourseOverviewScreen";
 
 export const BUSSINES_STORAGE_KEY = "@curso_progress_v1";
+export const BUSSINES_COURSE_NAME = "Bussines English";
 
 export const bussinesModules = [
   "Introdução ao inglês para negócios",
@@ -16,6 +19,27 @@ export const bussinesModules = [
   "Apresentações curtas",
   "Problemas e soluções",
 ];
+
+export default function BussinesScreen(props) {
+  return (
+    <CourseOverviewScreen
+      {...props}
+      courseName={BUSSINES_COURSE_NAME}
+      storageKey={BUSSINES_STORAGE_KEY}
+      moduleDefs={bussinesModuleDefs}
+      lessons={bussinesSampleLessons}
+    />
+  );
+}
+
+export const bussinesModuleDefs = bussinesModules.map((name, index) => ({
+  id: index,
+  name,
+  subtitle: index === 0 ? "Primeiras aulas do curso" : "Modulo bloqueado",
+  locked: index > 0,
+  accent: "#6C63FF",
+  icon: index === 0 ? "check" : "lock-outline",
+}));
 
 export const bussinesSampleLessons = [
   //modulo 1

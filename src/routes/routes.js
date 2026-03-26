@@ -12,6 +12,8 @@ import TabsNavigator from "./TabsNavigator";
 import SplashScreen from "../pages/SplashScreen";
 import Teste1 from "../pages/Teste1";
 import Home from "../pages/Home";
+import InglesCompletoHome from "../pages/aulas/completo";
+import BussinesHome from "../pages/aulas/bussines";
 
 // Business
 import MeetingsQuiz from "../pages/aulas/bussines/MeetingsQuiz";
@@ -158,18 +160,18 @@ export default function Routes() {
         />
         <Stack.Screen
           name="Bussines"
-          component={Home}
-          initialParams={{
-            initialCourse: "Bussines English",
-            initialLevel: "Facil",
+          component={BussinesHome}
+          options={{
+            title: "Business English",
+            ...defaultHeader,
+            headerShown: false,
           }}
-          options={{ title: "Business English", ...defaultHeader }}
         />
 
         {/* ===== COMPLETO ===== */}
         <Stack.Screen
           name="Inglescompleto"
-          component={Home}
+          component={InglesCompletoHome}
           options={{
             title: "Inglês Completo",
             ...defaultHeader,
