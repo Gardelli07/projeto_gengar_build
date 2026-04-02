@@ -362,3 +362,21 @@ const ex14 = StyleSheet.create({
 });
 
 export default ex14;
+
+/*
+
+   {
+     component: Exercise14,
+     needsSpeech: true,
+     activity: {
+       prompt: "Escute e complete",
+       image: Images.teacher,
+       options: ["Hello", "Hélo"],
+       correctAnswer: "Hello",
+       audioRate: 0.85,
+       successTitle: "Correto",
+       feedbackMessage: 'Usamos "Hello" para dizer "oi".',
+     },
+   },
+
+*/

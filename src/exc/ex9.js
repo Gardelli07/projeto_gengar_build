@@ -269,3 +269,24 @@ const ex9 = StyleSheet.create({
 });
 
 export default ex9;
+
+/*
+
+ {
+    component: Exercise9,
+    activity: {
+      prompt: "O que é a palavra?",
+      question: "Phone",
+      correctOptionId: "phone",
+      options: [
+        { id: "phone", image: BussinesImages.telefone },
+        { id: "book", image: BussinesImages.livro },
+        { id: "email", image: BussinesImages.email },
+        { id: "clock", image: BussinesImages.relogio },
+      ],
+      successTitle: "Correto",
+      successMessage: 'A imagem correta representa "phone".',
+    },
+  },
+
+*/

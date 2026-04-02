@@ -399,3 +399,50 @@ const ex2 = StyleSheet.create({
 });
 
 export default ex2;
+
+/*
+
+  {
+      component: Exercise2,
+      activity: {
+        prompt: "Completar o Texto",
+        paragraphs: [
+          [
+            "This is my friend Peter. He",
+            { id: "blank-1", answer: "is", options: ["is", "are", "am"] },
+            "25 years old.",
+          ],
+          [
+            "Peter",
+            {
+              id: "blank-2",
+              answer: "lives",
+              options: ["live", "lives", "living"],
+            },
+            "in New York with his family.",
+          ],
+          [
+            "He",
+            {
+              id: "blank-3",
+              answer: "works",
+              options: ["works", "work", "working"],
+            },
+            "in a big bank. He likes his job.",
+          ],
+          [
+            "On weekends, he",
+            {
+              id: "blank-4",
+              answer: "plays",
+              options: ["play", "plays", "playing"],
+            },
+            "soccer in the park.",
+          ],
+        ],
+        successTitle: "Excelente",
+        successMessage: "Você completou o texto corretamente.",
+      },
+    },
+
+*/

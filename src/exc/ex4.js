@@ -311,3 +311,20 @@ const ex4 = StyleSheet.create({
 });
 
 export default ex4;
+
+/*
+
+{
+    component: Exercise4,
+    activity: {
+      prompt: "Corrija",
+      image: require("../../../../assets/Cursos/bussines.jpg"),
+      wrongSentence: "She take the bus.",
+      options: ["She takes the bus.", "She take the bus."],
+      correctAnswer: "She takes the bus.",
+      successTitle: "Correto",
+      successMessage: 'A forma correta e "She takes the bus."',
+    },
+  },
+
+*/

@@ -361,3 +361,21 @@ const ex5 = StyleSheet.create({
 });
 
 export default ex5;
+
+/*
+
+ {
+    component: Exercise5,
+    activity: {
+      prompt: "Complete a frase",
+      image: require("../../../../assets/Cursos/bussines.jpg"),
+      sentenceStart: "She",
+      sentenceEnd: "the bus.",
+      options: ["take", "takes"],
+      correctAnswer: "takes",
+      successTitle: "Correto",
+      successMessage: 'A forma correta e "She takes the bus."',
+    },
+  },
+
+*/

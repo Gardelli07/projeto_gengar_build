@@ -234,7 +234,7 @@ const ex8 = StyleSheet.create({
     alignItems: "center",
   },
   imageChoiceMediaCard: {
-    width: "70%",
+    width: "88%",
     height: 158,
     borderRadius: 16,
     overflow: "hidden",
@@ -304,3 +304,19 @@ const ex8 = StyleSheet.create({
 });
 
 export default ex8;
+
+/*
+
+  {
+    component: Exercise8,
+    activity: {
+      prompt: "Oque é essa imagen?",
+      image: require("../../../../assets/Bussines/agenda2.png"),
+      options: ["Banana", "Apple", "Grape"],
+      correctAnswer: "Apple",
+      successTitle: "Correto",
+      successMessage: 'A resposta correta é "Apple".',
+    },
+  },
+
+*/

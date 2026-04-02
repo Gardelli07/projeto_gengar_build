@@ -248,3 +248,21 @@ const ex12 = StyleSheet.create({
 });
 
 export default ex12;
+
+/*
+
+{
+    component: Exercise12,
+    activity: {
+      prompt: "Write your introduction",
+      instruction: "Escreva brevemente sobre você em inglês.",
+      helperText: "Use as frases estudadas anteriormente",
+      placeholder: "Hello...",
+      tipText: "Hello, my name is Ana. I am from Brazil. I am fine.",
+      minLength: 3,
+      successTitle: "Correto",
+      successMessage: "Seu texto foi preenchido com sucesso.",
+    },
+  },
+
+  */

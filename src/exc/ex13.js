@@ -418,3 +418,21 @@ const ex13 = StyleSheet.create({
 });
 
 export default ex13;
+
+/*
+
+  {
+    component: Exercise13,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escreva a palavra",
+      audioText: "hello",
+      audioRate: 0.85,
+      letters: ["H", "E", "L", "L", "O"],
+      correctWord: "HELLO",
+      successTitle: "Correto",
+      successMessage: 'A palavra correta é "HELLO".',
+    },
+  },
+
+*/

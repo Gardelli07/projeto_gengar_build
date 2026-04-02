@@ -352,3 +352,28 @@ const ex7 = StyleSheet.create({
 });
 
 export default ex7;
+
+/*
+
+  {
+    component: Exercise7,
+    activity: {
+      prompt: "Monte o diálogo na ordem certa",
+      options: [
+        "I wake up at 6am.",
+        "then I have breakfast.",
+        "I go to work.",
+        "I have lunch at 12pm.",
+      ],
+      correctOrder: [
+        "I wake up at 6am.",
+        "then I have breakfast.",
+        "I go to work.",
+        "I have lunch at 12pm.",
+      ],
+      successTitle: "Correto",
+      successMessage: "Você colocou o diálogo na ordem certa.",
+    },
+  },
+
+*/

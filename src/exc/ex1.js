@@ -336,3 +336,21 @@ const ex1 = StyleSheet.create({
 });
 
 export default ex1;
+
+/*
+
+  {
+    component: Exercise1,
+    activity: {
+      prompt: "Encontre a tradução",
+      pairs: [
+        { en: "Hello", pt: "oie" },
+        { en: "fine", pt: "bem/legal" },
+        { en: "bye", pt: "tchau" },
+      ],
+      successTitle: "Excelente",
+      successMessage: "Você acertou todas as traduções.",
+    },
+  },
+
+*/

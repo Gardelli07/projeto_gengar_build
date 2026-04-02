@@ -331,3 +331,23 @@ const ex3 = StyleSheet.create({
 });
 
 export default ex3;
+
+/*
+
+ {
+    component: Exercise3,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e responda",
+      image: require("../../../../assets/Bussines/relogio.png"),
+      audioText: "He wakes up at 6am every day.",
+      dialogue: "He wakes up at 6am every day.",
+      options: ["true", "false"],
+      correctAnswer: "true",
+      audioRate: 0.85,
+      successTitle: "Correto",
+      successMessage: 'A frase "He wakes up at 6am every day." esta correta.',
+    },
+  },
+
+*/

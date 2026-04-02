@@ -567,3 +567,20 @@ const ex11 = StyleSheet.create({
 });
 
 export default ex11;
+
+/*
+
+  {
+    component: Exercise11,
+    activity: {
+      prompt: "Escreva rápido",
+      title: "Escreva a palavra abaixo",
+      placeholder: "Digite aqui",
+      secondsPerWord: 5,
+      words: ["Hello", "Bye", "Fine", "Thanks", "Sorry"],
+      successTitle: "Correto",
+      successMessage: "Você digitou todas as palavras no tempo certo.",
+    },
+  },
+
+*/

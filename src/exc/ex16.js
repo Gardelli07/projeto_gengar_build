@@ -828,3 +828,27 @@ const ex16 = StyleSheet.create({
 });
 
 export default ex16;
+
+/* 
+
+  {
+    component: Exercise16,
+    activity: {
+      prompt: "Speaking",
+      instruction: "Fale brevemente sobre você em inglês.",
+      helperText: "(Use as frases estudadas anteriormente)",
+      image: BussinesImages.menina2,
+      tipButtonLabel: "Tip",
+      tipText: "Hello, my name is Ana. I am from Brazil. I am fine.",
+      recordLabel: "Speak",
+      stopLabel: "Parar",
+      playLabel: "Ouvir",
+      pauseLabel: "Pausar",
+      rerecordLabel: "Regravar",
+      submitLabel: "Enviar áudio",
+      successTitle: "Correto",
+      successMessage: "Seu áudio foi gravado com sucesso.",
+    },
+  },
+
+*/

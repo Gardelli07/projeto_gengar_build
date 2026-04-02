@@ -411,3 +411,22 @@ const ex6 = StyleSheet.create({
 });
 
 export default ex6;
+
+/*
+
+  {
+    component: Exercise6,
+    needsSpeech: true,
+    activity: {
+      prompt: "Coloque a frase em ordem.",
+      image: Images.teacher,
+      audioText: "Hello, my name is Laura.",
+      words: ["Hello", "name's", "my", "Laura"],
+      correctOrder: ["Hello", "my", "name's", "Laura"],
+      audioRate: 0.85,
+      successTitle: "Correto",
+      successMessage: `A frase correta e "Hello my name's Laura."`,
+    },
+  },
+
+*/

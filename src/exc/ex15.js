@@ -366,3 +366,28 @@ const ex15 = StyleSheet.create({
 });
 
 export default ex15;
+
+/*
+
+ {
+    component: Exercise15,
+    activity: {
+      prompt: "Clique na imagem e na palavra",
+      images: [
+        { id: "meeting", image: BussinesImages.reuniao },
+        { id: "phone", image: BussinesImages.telefone },
+      ],
+      words: [
+        { id: "meeting-word", label: "Hey" },
+        { id: "phone-word", label: "Hello" },
+      ],
+      pairs: [
+        { imageId: "meeting", wordId: "meeting-word" },
+        { imageId: "phone", wordId: "phone-word" },
+      ],
+      successTitle: "Correto",
+      successMessage: "Você formou os dois pares corretamente.",
+    },
+  },
+
+*/
