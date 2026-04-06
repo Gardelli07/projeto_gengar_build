@@ -10,8 +10,6 @@ import TabsNavigator from "./TabsNavigator";
 /* ===== PÁGINAS ===== */
 // padrão
 import SplashScreen from "../pages/SplashScreen";
-import Teste1 from "../pages/Teste1";
-import Home from "../pages/Home";
 import InglesCompletoHome from "../pages/aulas/completo";
 import BussinesHome from "../pages/aulas/bussines";
 
@@ -49,7 +47,7 @@ import CRM1 from "../pages/santander/crm/CRM1";
 
 const Stack = createNativeStackNavigator();
 
-/* ===== HEADER PADRÃO (EXTRA 💎) ===== */
+/* ===== HEADER PADRÃO ===== */
 const defaultHeader = {
   headerStyle: { backgroundColor: CORES.PRIMARY },
   headerTintColor: "#fff",
@@ -179,15 +177,8 @@ export default function Routes() {
           }}
         />
 
-        <Stack.Screen name="Teste1" component={Teste1} />
-
-        <Stack.Screen
-          name="IC01"
-          component={IC01}
-          options={{ headerShown: false }}
-        />
-
         {[
+          IC01,
           IC02,
           IC03,
           IC04,
@@ -210,7 +201,7 @@ export default function Routes() {
               key={index}
               name={`IC${screenNumber}`}
               component={Screen}
-              options={defaultHeader}
+              options={{ headerShown: false }}
             />
           );
         })}
