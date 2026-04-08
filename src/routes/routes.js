@@ -102,7 +102,7 @@ export default function Routes() {
                 <Appbar.Content
                   title="Lingueto"
                   titleStyle={{
-                    color: "#000",
+                    color: "#ffffff",
                     fontWeight: "bold",
                     paddingHorizontal: 5,
                   }}

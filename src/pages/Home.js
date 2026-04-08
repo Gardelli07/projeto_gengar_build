@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
+  Image,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -22,6 +23,8 @@ import {
   inglesModuleDefs,
   inglesSampleLessons,
 } from "./aulas/completo";
+
+const KAIQUE_PHOTO = require("../../assets/Foto kaique.jpeg");
 
 const THEME = {
   bg: "#F5F5F5",
@@ -305,17 +308,13 @@ export default function Inglescompleto({ navigation, route }) {
       >
         <View style={styles.greetingRow}>
           <View style={styles.avatar}>
-            <MaterialCommunityIcons
-              name="account-outline"
-              size={21}
-              color={THEME.textStrong}
-            />
+            <Image source={KAIQUE_PHOTO} style={styles.avatarImage} />
             <View style={styles.onlineDot} />
           </View>
 
           <View>
             <Text style={styles.hello}>Hello,</Text>
-            <Text style={styles.userName}>Ana</Text>
+            <Text style={styles.userName}>Kaique</Text>
           </View>
 
           <View style={styles.statsArea}>
@@ -706,6 +705,12 @@ const styles = StyleSheet.create({
     marginRight: 12,
     position: "relative",
     backgroundColor: THEME.white,
+    overflow: "hidden",
+  },
+  avatarImage: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
   },
   onlineDot: {
     width: 10,
