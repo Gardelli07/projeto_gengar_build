@@ -30,6 +30,7 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
     () => shuffleArray(activity.words),
     [activity.words],
   );
+
   const audioProgressAnim = useRef(new Animated.Value(0)).current;
   const alertTranslateY = useRef(new Animated.Value(64)).current;
   const alertOpacity = useRef(new Animated.Value(0)).current;
@@ -47,6 +48,8 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
   );
 
   const isCorrect = result === "correct";
+  const isWrong = result === "wrong";
+  const wrongMessage = activity.feedbackMessage || activity.successMessage;
 
   const shakeTranslateX = shakeAnim.interpolate({
     inputRange: [0, 0.25, 0.5, 0.75, 1],
@@ -59,7 +62,7 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
   });
 
   useEffect(() => {
-    if (isCorrect) {
+    if (isCorrect || isWrong) {
       alertTranslateY.setValue(64);
       alertOpacity.setValue(0);
       Animated.parallel([
@@ -80,7 +83,7 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
 
     alertTranslateY.setValue(64);
     alertOpacity.setValue(0);
-  }, [isCorrect, alertOpacity, alertTranslateY]);
+  }, [isCorrect, isWrong, alertOpacity, alertTranslateY]);
 
   const playAudio = () => {
     audioProgressAnim.stopAnimation();
@@ -137,39 +140,33 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
           useNativeDriver: false,
         }),
       ]),
-    ]).start(() => {
-      setResult(null);
-      setSelectedWords([]);
-      blinkAnim.setValue(0);
-    });
+    ]).start();
   };
 
   const handleWordPress = (word) => {
-    if (isCorrect || selectedWords.includes(word)) return;
+    if (isCorrect || isWrong || selectedWords.includes(word)) return;
 
     const nextWords = [...selectedWords, word];
     setSelectedWords(nextWords);
 
-    const isPrefixCorrect = nextWords.every(
-      (selectedWord, index) => selectedWord === activity.correctOrder[index],
-    );
-
-    if (!isPrefixCorrect) {
-      triggerWrongFeedback();
-      return;
-    }
-
     if (nextWords.length === activity.correctOrder.length) {
-      setResult("correct");
+      const isAnswerCorrect = nextWords.every(
+        (selectedWord, index) => selectedWord === activity.correctOrder[index],
+      );
+
+      if (isAnswerCorrect) {
+        setResult("correct");
+        return;
+      }
+
+      triggerWrongFeedback();
     }
   };
 
   const handleSelectedWordPress = (word) => {
-    if (isCorrect) return;
+    if (isCorrect || isWrong) return;
     setSelectedWords((current) => current.filter((item) => item !== word));
   };
-
-  const usedWords = selectedWords;
 
   return (
     <View style={styles.slide}>
@@ -208,11 +205,9 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
           style={[
             styles.orderSentenceAnswerBox,
             isCorrect && styles.orderSentenceAnswerBoxCorrect,
-            result === "wrong" && styles.orderSentenceAnswerBoxWrong,
-            result === "wrong" && { backgroundColor: wrongBackground },
-            result === "wrong" && {
-              transform: [{ translateX: shakeTranslateX }],
-            },
+            isWrong && styles.orderSentenceAnswerBoxWrong,
+            isWrong && { backgroundColor: wrongBackground },
+            isWrong && { transform: [{ translateX: shakeTranslateX }] },
           ]}
         >
           {selectedWords.length === 0 ? (
@@ -226,7 +221,7 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
                   isCorrect && styles.orderSentenceSelectedWordCorrect,
                 ]}
                 onPress={() => handleSelectedWordPress(word)}
-                disabled={isCorrect}
+                disabled={isCorrect || isWrong}
               >
                 <Text
                   style={[
@@ -243,7 +238,7 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
 
         <View style={styles.orderSentenceOptionsRow}>
           {shuffledOptions.map((word) => {
-            const used = usedWords.includes(word);
+            const used = selectedWords.includes(word);
 
             return (
               <TouchableOpacity
@@ -253,7 +248,7 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
                   used && styles.orderSentenceOptionUsed,
                 ]}
                 onPress={() => handleWordPress(word)}
-                disabled={used || isCorrect}
+                disabled={used || isCorrect || isWrong}
               >
                 <Text
                   style={[
@@ -269,11 +264,15 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
         </View>
       </View>
 
-      {isCorrect && (
+      {(isCorrect || isWrong) && (
         <View style={styles.successAlertOverlay}>
           <Animated.View
             style={[
               styles.successAlertCard,
+              styles.resultAlertCard,
+              isCorrect
+                ? styles.resultAlertCardCorrect
+                : styles.resultAlertCardWrong,
               styles.slide7SuccessAlertCard,
               { paddingBottom: bottomSafeSpace + 1 },
               {
@@ -283,31 +282,59 @@ export function Exercise6({ activity, styles, HeaderComponent, next, speak }) {
             ]}
           >
             <View style={styles.successHeaderRow}>
-              <View style={styles.successIconWrap}>
-                <Text style={styles.successIcon}>✓</Text>
+              <View
+                style={[
+                  styles.successIconWrap,
+                  isWrong && styles.resultAlertIconWrapWrong,
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.successIcon,
+                    isWrong && styles.resultAlertIconWrong,
+                  ]}
+                >
+                  {isWrong ? "X" : "✓"}
+                </Text>
               </View>
-              <Text style={styles.successAlertTitle}>
-                {activity.successTitle}
+              <Text
+                style={[
+                  styles.successAlertTitle,
+                  isWrong && styles.resultAlertTitleWrong,
+                ]}
+              >
+                {isWrong ? activity.errorTitle || "Incorreto" : activity.successTitle}
               </Text>
             </View>
 
             <View
               style={[
                 styles.feedbackBox,
-                styles.feedbackBoxCorrect,
+                isWrong ? styles.feedbackBoxWrong : styles.feedbackBoxCorrect,
                 styles.alertFeedbackBox,
               ]}
             >
-              <Text style={[styles.feedbackTitle, styles.feedbackTitleCorrect]}>
-                ✓ Muito bem!
+              <Text
+                style={[
+                  styles.feedbackTitle,
+                  isWrong ? styles.feedbackTitleWrong : styles.feedbackTitleCorrect,
+                ]}
+              >
+                {isWrong ? "X Tente novamente" : "✓ Muito bem!"}
               </Text>
               <Text style={styles.feedbackTextBlack}>
-                {activity.successMessage}
+                {isWrong ? wrongMessage : activity.successMessage}
               </Text>
             </View>
 
-            <TouchableOpacity style={styles.alertContinueButton} onPress={next}>
-              <Text style={styles.alertContinueButtonText}>Próximo -&gt;</Text>
+            <TouchableOpacity
+              style={[
+                styles.alertContinueButton,
+                isWrong && styles.resultAlertButtonWrong,
+              ]}
+              onPress={next}
+            >
+              <Text style={styles.alertContinueButtonText}>Próxima atividade</Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -321,7 +348,6 @@ const ex6 = StyleSheet.create({
     width: "100%",
     alignItems: "center",
   },
-
   orderSentenceAnswerBox: {
     width: "88%",
     minHeight: 54,
@@ -411,22 +437,3 @@ const ex6 = StyleSheet.create({
 });
 
 export default ex6;
-
-/*
-
-  {
-    component: Exercise6,
-    needsSpeech: true,
-    activity: {
-      prompt: "Coloque a frase em ordem.",
-      image: Images.teacher,
-      audioText: "Hello, my name is Laura.",
-      words: ["Hello", "name's", "my", "Laura"],
-      correctOrder: ["Hello", "my", "name's", "Laura"],
-      audioRate: 0.85,
-      successTitle: "Correto",
-      successMessage: `A frase correta e "Hello my name's Laura."`,
-    },
-  },
-
-*/

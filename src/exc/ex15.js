@@ -26,6 +26,8 @@ export function Exercise15({ activity, styles, HeaderComponent, next }) {
 
   const allMatched = matchedImageIds.length === activity.pairs.length;
   const isCorrect = result === "correct";
+  const isWrong = result === "wrong";
+  const wrongMessage = activity.feedbackMessage || activity.successMessage;
 
   const shakeTranslateX = shakeAnim.interpolate({
     inputRange: [0, 0.25, 0.5, 0.75, 1],
@@ -38,7 +40,7 @@ export function Exercise15({ activity, styles, HeaderComponent, next }) {
   });
 
   useEffect(() => {
-    if (!selectedImageId || !selectedWordId || allMatched) return;
+    if (!selectedImageId || !selectedWordId || allMatched || isWrong) return;
 
     const matchedPair = activity.pairs.find(
       (pair) =>
@@ -54,45 +56,10 @@ export function Exercise15({ activity, styles, HeaderComponent, next }) {
       return;
     }
 
-    triggerWrongFeedback();
-  }, [selectedImageId, selectedWordId]);
-
-  useEffect(() => {
-    if (allMatched) {
-      setResult("correct");
-    }
-  }, [allMatched]);
-
-  useEffect(() => {
-    if (isCorrect) {
-      alertTranslateY.setValue(64);
-      alertOpacity.setValue(0);
-      Animated.parallel([
-        Animated.timing(alertTranslateY, {
-          toValue: 0,
-          duration: 260,
-          easing: Easing.out(Easing.cubic),
-          useNativeDriver: true,
-        }),
-        Animated.timing(alertOpacity, {
-          toValue: 1,
-          duration: 220,
-          useNativeDriver: true,
-        }),
-      ]).start();
-      return;
-    }
-
-    alertTranslateY.setValue(64);
-    alertOpacity.setValue(0);
-  }, [isCorrect, alertOpacity, alertTranslateY]);
-
-  const triggerWrongFeedback = () => {
     setResult("wrong");
     Vibration.vibrate(140);
     shakeAnim.setValue(0);
     blinkAnim.setValue(0);
-
     Animated.parallel([
       Animated.timing(shakeAnim, {
         toValue: 1,
@@ -122,13 +89,38 @@ export function Exercise15({ activity, styles, HeaderComponent, next }) {
           useNativeDriver: false,
         }),
       ]),
-    ]).start(() => {
-      setSelectedImageId(null);
-      setSelectedWordId(null);
-      setResult(null);
-      blinkAnim.setValue(0);
-    });
-  };
+    ]).start();
+  }, [selectedImageId, selectedWordId, allMatched, isWrong, activity.pairs]);
+
+  useEffect(() => {
+    if (allMatched) {
+      setResult("correct");
+    }
+  }, [allMatched]);
+
+  useEffect(() => {
+    if (isCorrect || isWrong) {
+      alertTranslateY.setValue(64);
+      alertOpacity.setValue(0);
+      Animated.parallel([
+        Animated.timing(alertTranslateY, {
+          toValue: 0,
+          duration: 260,
+          easing: Easing.out(Easing.cubic),
+          useNativeDriver: true,
+        }),
+        Animated.timing(alertOpacity, {
+          toValue: 1,
+          duration: 220,
+          useNativeDriver: true,
+        }),
+      ]).start();
+      return;
+    }
+
+    alertTranslateY.setValue(64);
+    alertOpacity.setValue(0);
+  }, [isCorrect, isWrong, alertOpacity, alertTranslateY]);
 
   return (
     <View style={styles.slide}>
@@ -137,9 +129,7 @@ export function Exercise15({ activity, styles, HeaderComponent, next }) {
       <Animated.View
         style={[
           styles.matchMediaWordBlock,
-          result === "wrong" && {
-            transform: [{ translateX: shakeTranslateX }],
-          },
+          isWrong && { transform: [{ translateX: shakeTranslateX }] },
         ]}
       >
         <Text style={styles.fastTypePrompt}>{activity.prompt}</Text>
@@ -148,7 +138,7 @@ export function Exercise15({ activity, styles, HeaderComponent, next }) {
           {activity.images.map((imageOption) => {
             const isSelected = selectedImageId === imageOption.id;
             const isMatched = matchedImageIds.includes(imageOption.id);
-            const showWrong = result === "wrong" && isSelected;
+            const showWrong = isWrong && isSelected;
 
             return (
               <Animated.View
@@ -164,7 +154,7 @@ export function Exercise15({ activity, styles, HeaderComponent, next }) {
                 <TouchableOpacity
                   style={styles.matchMediaWordImageTouch}
                   onPress={() => setSelectedImageId(imageOption.id)}
-                  disabled={isMatched || isCorrect}
+                  disabled={isMatched || isCorrect || isWrong}
                   activeOpacity={0.9}
                 >
                   <Image
@@ -181,7 +171,7 @@ export function Exercise15({ activity, styles, HeaderComponent, next }) {
           {activity.words.map((wordOption) => {
             const isSelected = selectedWordId === wordOption.id;
             const isMatched = matchedWordIds.includes(wordOption.id);
-            const showWrong = result === "wrong" && isSelected;
+            const showWrong = isWrong && isSelected;
 
             return (
               <Animated.View
@@ -202,7 +192,7 @@ export function Exercise15({ activity, styles, HeaderComponent, next }) {
                   <TouchableOpacity
                     style={styles.matchMediaWordOptionTouch}
                     onPress={() => setSelectedWordId(wordOption.id)}
-                    disabled={isMatched || isCorrect}
+                    disabled={isMatched || isCorrect || isWrong}
                     activeOpacity={0.9}
                   >
                     <Text
@@ -221,11 +211,15 @@ export function Exercise15({ activity, styles, HeaderComponent, next }) {
         </View>
       </Animated.View>
 
-      {isCorrect && (
+      {(isCorrect || isWrong) && (
         <View style={styles.successAlertOverlay}>
           <Animated.View
             style={[
               styles.successAlertCard,
+              styles.resultAlertCard,
+              isCorrect
+                ? styles.resultAlertCardCorrect
+                : styles.resultAlertCardWrong,
               styles.slide15SuccessAlertCard,
               { paddingBottom: bottomSafeSpace + 1 },
               {
@@ -235,31 +229,59 @@ export function Exercise15({ activity, styles, HeaderComponent, next }) {
             ]}
           >
             <View style={styles.successHeaderRow}>
-              <View style={styles.successIconWrap}>
-                <Text style={styles.successIcon}>✓</Text>
+              <View
+                style={[
+                  styles.successIconWrap,
+                  isWrong && styles.resultAlertIconWrapWrong,
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.successIcon,
+                    isWrong && styles.resultAlertIconWrong,
+                  ]}
+                >
+                  {isWrong ? "X" : "✓"}
+                </Text>
               </View>
-              <Text style={styles.successAlertTitle}>
-                {activity.successTitle}
+              <Text
+                style={[
+                  styles.successAlertTitle,
+                  isWrong && styles.resultAlertTitleWrong,
+                ]}
+              >
+                {isWrong ? activity.errorTitle || "Incorreto" : activity.successTitle}
               </Text>
             </View>
 
             <View
               style={[
                 styles.feedbackBox,
-                styles.feedbackBoxCorrect,
+                isWrong ? styles.feedbackBoxWrong : styles.feedbackBoxCorrect,
                 styles.alertFeedbackBox,
               ]}
             >
-              <Text style={[styles.feedbackTitle, styles.feedbackTitleCorrect]}>
-                ✓ Muito bem!
+              <Text
+                style={[
+                  styles.feedbackTitle,
+                  isWrong ? styles.feedbackTitleWrong : styles.feedbackTitleCorrect,
+                ]}
+              >
+                {isWrong ? "X Tente novamente" : "✓ Muito bem!"}
               </Text>
               <Text style={styles.feedbackTextBlack}>
-                {activity.successMessage}
+                {isWrong ? wrongMessage : activity.successMessage}
               </Text>
             </View>
 
-            <TouchableOpacity style={styles.alertContinueButton} onPress={next}>
-              <Text style={styles.alertContinueButtonText}>Próximo -&gt;</Text>
+            <TouchableOpacity
+              style={[
+                styles.alertContinueButton,
+                isWrong && styles.resultAlertButtonWrong,
+              ]}
+              onPress={next}
+            >
+              <Text style={styles.alertContinueButtonText}>Próxima atividade</Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -366,28 +388,3 @@ const ex15 = StyleSheet.create({
 });
 
 export default ex15;
-
-/*
-
- {
-    component: Exercise15,
-    activity: {
-      prompt: "Clique na imagem e na palavra",
-      images: [
-        { id: "meeting", image: BussinesImages.reuniao },
-        { id: "phone", image: BussinesImages.telefone },
-      ],
-      words: [
-        { id: "meeting-word", label: "Hey" },
-        { id: "phone-word", label: "Hello" },
-      ],
-      pairs: [
-        { imageId: "meeting", wordId: "meeting-word" },
-        { imageId: "phone", wordId: "phone-word" },
-      ],
-      successTitle: "Correto",
-      successMessage: "Você formou os dois pares corretamente.",
-    },
-  },
-
-*/

@@ -17,11 +17,12 @@ export function Exercise5({ activity, styles, HeaderComponent, next }) {
   const alertOpacity = useRef(new Animated.Value(0)).current;
   const shakeAnim = useRef(new Animated.Value(0)).current;
   const blinkAnim = useRef(new Animated.Value(0)).current;
-
   const [selected, setSelected] = useState(null);
   const [result, setResult] = useState(null);
 
   const isCorrect = result === "correct";
+  const isWrong = result === "wrong";
+  const wrongMessage = activity.feedbackMessage || activity.successMessage;
 
   const shakeTranslateX = shakeAnim.interpolate({
     inputRange: [0, 0.25, 0.5, 0.75, 1],
@@ -34,7 +35,7 @@ export function Exercise5({ activity, styles, HeaderComponent, next }) {
   });
 
   useEffect(() => {
-    if (isCorrect) {
+    if (isCorrect || isWrong) {
       alertTranslateY.setValue(64);
       alertOpacity.setValue(0);
       Animated.parallel([
@@ -55,7 +56,7 @@ export function Exercise5({ activity, styles, HeaderComponent, next }) {
 
     alertTranslateY.setValue(64);
     alertOpacity.setValue(0);
-  }, [isCorrect, alertOpacity, alertTranslateY]);
+  }, [isCorrect, isWrong, alertOpacity, alertTranslateY]);
 
   const triggerWrongFeedback = () => {
     setResult("wrong");
@@ -92,15 +93,17 @@ export function Exercise5({ activity, styles, HeaderComponent, next }) {
           useNativeDriver: false,
         }),
       ]),
-    ]).start(() => {
-      setResult(null);
-      blinkAnim.setValue(0);
-    });
+    ]).start();
+  };
+
+  const resetWrongState = () => {
+    setSelected(null);
+    setResult(null);
+    blinkAnim.setValue(0);
   };
 
   const handleSelect = (option) => {
-    if (isCorrect) return;
-
+    if (isCorrect || isWrong) return;
     setSelected(option);
 
     if (option === activity.correctAnswer) {
@@ -131,11 +134,9 @@ export function Exercise5({ activity, styles, HeaderComponent, next }) {
             style={[
               styles.completePhraseBlank,
               isCorrect && styles.completePhraseBlankCorrect,
-              result === "wrong" && styles.completePhraseBlankWrong,
-              result === "wrong" && { backgroundColor: wrongBackground },
-              result === "wrong" && {
-                transform: [{ translateX: shakeTranslateX }],
-              },
+              isWrong && styles.completePhraseBlankWrong,
+              isWrong && { backgroundColor: wrongBackground },
+              isWrong && { transform: [{ translateX: shakeTranslateX }] },
             ]}
           >
             <Text
@@ -162,16 +163,14 @@ export function Exercise5({ activity, styles, HeaderComponent, next }) {
             const optionIsWrong =
               selected === option &&
               option !== activity.correctAnswer &&
-              result === "wrong";
+              isWrong;
 
             return (
               <Animated.View
                 key={option}
                 style={[
                   styles.completePhraseOptionWrap,
-                  optionIsWrong && {
-                    transform: [{ translateX: shakeTranslateX }],
-                  },
+                  optionIsWrong && { transform: [{ translateX: shakeTranslateX }] },
                 ]}
               >
                 <Animated.View
@@ -186,7 +185,7 @@ export function Exercise5({ activity, styles, HeaderComponent, next }) {
                     style={styles.completePhraseOptionTouch}
                     onPress={() => handleSelect(option)}
                     activeOpacity={0.9}
-                    disabled={isCorrect}
+                    disabled={isCorrect || isWrong}
                   >
                     <Text
                       style={[
@@ -205,11 +204,15 @@ export function Exercise5({ activity, styles, HeaderComponent, next }) {
         </View>
       </View>
 
-      {isCorrect && (
+      {(isCorrect || isWrong) && (
         <View style={styles.successAlertOverlay}>
           <Animated.View
             style={[
               styles.successAlertCard,
+              styles.resultAlertCard,
+              isCorrect
+                ? styles.resultAlertCardCorrect
+                : styles.resultAlertCardWrong,
               styles.slide6SuccessAlertCard,
               { paddingBottom: bottomSafeSpace + 1 },
               {
@@ -219,31 +222,59 @@ export function Exercise5({ activity, styles, HeaderComponent, next }) {
             ]}
           >
             <View style={styles.successHeaderRow}>
-              <View style={styles.successIconWrap}>
-                <Text style={styles.successIcon}>✓</Text>
+              <View
+                style={[
+                  styles.successIconWrap,
+                  isWrong && styles.resultAlertIconWrapWrong,
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.successIcon,
+                    isWrong && styles.resultAlertIconWrong,
+                  ]}
+                >
+                  {isWrong ? "X" : "✓"}
+                </Text>
               </View>
-              <Text style={styles.successAlertTitle}>
-                {activity.successTitle}
+              <Text
+                style={[
+                  styles.successAlertTitle,
+                  isWrong && styles.resultAlertTitleWrong,
+                ]}
+              >
+                {isWrong ? activity.errorTitle || "Incorreto" : activity.successTitle}
               </Text>
             </View>
 
             <View
               style={[
                 styles.feedbackBox,
-                styles.feedbackBoxCorrect,
+                isWrong ? styles.feedbackBoxWrong : styles.feedbackBoxCorrect,
                 styles.alertFeedbackBox,
               ]}
             >
-              <Text style={[styles.feedbackTitle, styles.feedbackTitleCorrect]}>
-                ✓ Muito bem!
+              <Text
+                style={[
+                  styles.feedbackTitle,
+                  isWrong ? styles.feedbackTitleWrong : styles.feedbackTitleCorrect,
+                ]}
+              >
+                {isWrong ? "X Tente novamente" : "✓ Muito bem!"}
               </Text>
               <Text style={styles.feedbackTextBlack}>
-                {activity.successMessage}
+                {isWrong ? wrongMessage : activity.successMessage}
               </Text>
             </View>
 
-            <TouchableOpacity style={styles.alertContinueButton} onPress={next}>
-              <Text style={styles.alertContinueButtonText}>Próximo -&gt;</Text>
+            <TouchableOpacity
+              style={[
+                styles.alertContinueButton,
+                isWrong && styles.resultAlertButtonWrong,
+              ]}
+              onPress={next}
+            >
+              <Text style={styles.alertContinueButtonText}>Próxima atividade</Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -257,7 +288,6 @@ const ex5 = StyleSheet.create({
     width: "100%",
     alignItems: "center",
   },
-
   completePhraseMediaCard: {
     width: "88%",
     height: 150,
@@ -361,21 +391,3 @@ const ex5 = StyleSheet.create({
 });
 
 export default ex5;
-
-/*
-
- {
-    component: Exercise5,
-    activity: {
-      prompt: "Complete a frase",
-      image: require("../../../../assets/Cursos/bussines.jpg"),
-      sentenceStart: "She",
-      sentenceEnd: "the bus.",
-      options: ["take", "takes"],
-      correctAnswer: "takes",
-      successTitle: "Correto",
-      successMessage: 'A forma correta e "She takes the bus."',
-    },
-  },
-
-*/

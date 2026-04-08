@@ -194,11 +194,11 @@ export default function Routes() {
           IC14,
           IC15,
         ].map((Screen, index) => {
-          const screenNumber = String(index + 2).padStart(2, "0");
+          const screenNumber = String(index + 1).padStart(2, "0");
 
           return (
             <Stack.Screen
-              key={index}
+              key={`IC${screenNumber}`}
               name={`IC${screenNumber}`}
               component={Screen}
               options={{ headerShown: false }}

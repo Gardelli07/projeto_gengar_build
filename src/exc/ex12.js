@@ -108,6 +108,8 @@ export function Exercise12({ activity, styles, HeaderComponent, next }) {
           <Animated.View
             style={[
               styles.successAlertCard,
+              styles.resultAlertCard,
+              styles.resultAlertCardCorrect,
               styles.slide12SuccessAlertCard,
               { paddingBottom: bottomSafeSpace + 1 },
               {
@@ -141,7 +143,9 @@ export function Exercise12({ activity, styles, HeaderComponent, next }) {
             </View>
 
             <TouchableOpacity style={styles.alertContinueButton} onPress={next}>
-              <Text style={styles.alertContinueButtonText}>Próximo -&gt;</Text>
+              <Text style={styles.alertContinueButtonText}>
+                Próxima Atividade
+              </Text>
             </TouchableOpacity>
           </Animated.View>
         </View>

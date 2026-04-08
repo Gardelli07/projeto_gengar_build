@@ -15,6 +15,7 @@ export function Exercise11({ activity, styles, HeaderComponent, next }) {
   const shakeAnim = useRef(new Animated.Value(0)).current;
   const wrongBlinkAnim = useRef(new Animated.Value(0)).current;
   const correctBlinkAnim = useRef(new Animated.Value(0)).current;
+  const inputRef = useRef(null);
 
   const words = activity.words || [];
   const secondsPerWord = activity.secondsPerWord || 5;
@@ -69,7 +70,7 @@ export function Exercise11({ activity, styles, HeaderComponent, next }) {
     if (result !== null) return;
 
     if (timeLeft <= 0) {
-      triggerWrongFeedback(true);
+      handleSubmitCurrentWord({ byTimeout: true });
       return;
     }
 
@@ -179,6 +180,32 @@ export function Exercise11({ activity, styles, HeaderComponent, next }) {
     }
   };
 
+  const handleSubmitCurrentWord = ({ byTimeout = false } = {}) => {
+    if (screen !== "exercise" || isFinished || result !== null || !currentWord) {
+      return;
+    }
+
+    const typedValue = typedText.trim();
+    const expectedValue = currentWord.trim().toLowerCase();
+
+    if (typedValue.toLowerCase() === expectedValue) {
+      triggerCorrectFeedback(typedText);
+      return;
+    }
+
+    triggerWrongFeedback(byTimeout);
+  };
+
+  useEffect(() => {
+    if (screen !== "exercise" || isFinished || result !== null) return;
+
+    const focusTimer = setTimeout(() => {
+      inputRef.current?.focus();
+    }, 50);
+
+    return () => clearTimeout(focusTimer);
+  }, [currentIndex, isFinished, result, screen]);
+
   const renderStatementScreen = () => (
     <View style={styles.fastTypeIntroCard}>
       <Text style={styles.fastTypeIntroTitle}>Desafio de Escrita!</Text>
@@ -245,15 +272,27 @@ export function Exercise11({ activity, styles, HeaderComponent, next }) {
             ]}
           >
             <TextInput
+              ref={inputRef}
               value={typedText}
               onChangeText={handleChangeText}
+              onSubmitEditing={() => handleSubmitCurrentWord()}
               style={styles.fastTypeInput}
               autoCapitalize="none"
               autoCorrect={false}
+              blurOnSubmit={false}
+              returnKeyType="send"
               placeholder=""
               placeholderTextColor="#8BB7E0"
             />
           </Animated.View>
+
+          <TouchableOpacity
+            style={styles.fastTypeSubmitButton}
+            onPress={handleSubmitCurrentWord}
+            activeOpacity={0.9}
+          >
+            <Text style={styles.fastTypeSubmitButtonText}>Enviar</Text>
+          </TouchableOpacity>
 
           <Text style={styles.fastTypeTimer}>{timeLeft}s</Text>
         </>
@@ -393,6 +432,21 @@ const ex11 = StyleSheet.create({
     textAlign: "center",
     fontSize: 12,
     color: "#78A2CC",
+    fontWeight: "700",
+  },
+  fastTypeSubmitButton: {
+    marginTop: 8,
+    minWidth: 112,
+    height: 40,
+    paddingHorizontal: 16,
+    borderRadius: 12,
+    backgroundColor: CORES.SECONDARY,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  fastTypeSubmitButtonText: {
+    color: CORES.WHITE_SHORT,
+    fontSize: 14,
     fontWeight: "700",
   },
   fastTypeIntroCard: {

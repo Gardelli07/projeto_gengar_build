@@ -22,6 +22,8 @@ export function Exercise9({ activity, styles, HeaderComponent, next }) {
   const [result, setResult] = useState(null);
 
   const isCorrect = result === "correct";
+  const isWrong = result === "wrong";
+  const wrongMessage = activity.feedbackMessage || activity.successMessage;
 
   const shakeTranslateX = shakeAnim.interpolate({
     inputRange: [0, 0.25, 0.5, 0.75, 1],
@@ -34,7 +36,7 @@ export function Exercise9({ activity, styles, HeaderComponent, next }) {
   });
 
   useEffect(() => {
-    if (isCorrect) {
+    if (isCorrect || isWrong) {
       alertTranslateY.setValue(64);
       alertOpacity.setValue(0);
       Animated.parallel([
@@ -55,7 +57,7 @@ export function Exercise9({ activity, styles, HeaderComponent, next }) {
 
     alertTranslateY.setValue(64);
     alertOpacity.setValue(0);
-  }, [isCorrect, alertOpacity, alertTranslateY]);
+  }, [isCorrect, isWrong, alertOpacity, alertTranslateY]);
 
   const triggerWrongFeedback = () => {
     setResult("wrong");
@@ -92,14 +94,11 @@ export function Exercise9({ activity, styles, HeaderComponent, next }) {
           useNativeDriver: false,
         }),
       ]),
-    ]).start(() => {
-      setResult(null);
-      blinkAnim.setValue(0);
-    });
+    ]).start();
   };
 
   const handleSelect = (option) => {
-    if (isCorrect) return;
+    if (isCorrect || isWrong) return;
 
     setSelected(option.id);
 
@@ -128,16 +127,14 @@ export function Exercise9({ activity, styles, HeaderComponent, next }) {
             const optionIsWrong =
               selected === option.id &&
               option.id !== activity.correctOptionId &&
-              result === "wrong";
+              isWrong;
 
             return (
               <Animated.View
                 key={option.id}
                 style={[
                   styles.imageGridOptionWrap,
-                  optionIsWrong && {
-                    transform: [{ translateX: shakeTranslateX }],
-                  },
+                  optionIsWrong && { transform: [{ translateX: shakeTranslateX }] },
                 ]}
               >
                 <Animated.View
@@ -152,7 +149,7 @@ export function Exercise9({ activity, styles, HeaderComponent, next }) {
                     style={styles.imageGridOptionTouch}
                     onPress={() => handleSelect(option)}
                     activeOpacity={0.9}
-                    disabled={isCorrect}
+                    disabled={isCorrect || isWrong}
                   >
                     <Image
                       source={option.image}
@@ -166,11 +163,15 @@ export function Exercise9({ activity, styles, HeaderComponent, next }) {
         </View>
       </View>
 
-      {isCorrect && (
+      {(isCorrect || isWrong) && (
         <View style={styles.successAlertOverlay}>
           <Animated.View
             style={[
               styles.successAlertCard,
+              styles.resultAlertCard,
+              isCorrect
+                ? styles.resultAlertCardCorrect
+                : styles.resultAlertCardWrong,
               styles.slide10SuccessAlertCard,
               { paddingBottom: bottomSafeSpace + 1 },
               {
@@ -180,31 +181,59 @@ export function Exercise9({ activity, styles, HeaderComponent, next }) {
             ]}
           >
             <View style={styles.successHeaderRow}>
-              <View style={styles.successIconWrap}>
-                <Text style={styles.successIcon}>✓</Text>
+              <View
+                style={[
+                  styles.successIconWrap,
+                  isWrong && styles.resultAlertIconWrapWrong,
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.successIcon,
+                    isWrong && styles.resultAlertIconWrong,
+                  ]}
+                >
+                  {isWrong ? "X" : "✓"}
+                </Text>
               </View>
-              <Text style={styles.successAlertTitle}>
-                {activity.successTitle}
+              <Text
+                style={[
+                  styles.successAlertTitle,
+                  isWrong && styles.resultAlertTitleWrong,
+                ]}
+              >
+                {isWrong ? activity.errorTitle || "Incorreto" : activity.successTitle}
               </Text>
             </View>
 
             <View
               style={[
                 styles.feedbackBox,
-                styles.feedbackBoxCorrect,
+                isWrong ? styles.feedbackBoxWrong : styles.feedbackBoxCorrect,
                 styles.alertFeedbackBox,
               ]}
             >
-              <Text style={[styles.feedbackTitle, styles.feedbackTitleCorrect]}>
-                ✓ Muito bem!
+              <Text
+                style={[
+                  styles.feedbackTitle,
+                  isWrong ? styles.feedbackTitleWrong : styles.feedbackTitleCorrect,
+                ]}
+              >
+                {isWrong ? "X Tente novamente" : "✓ Muito bem!"}
               </Text>
               <Text style={styles.feedbackTextBlack}>
-                {activity.successMessage}
+                {isWrong ? wrongMessage : activity.successMessage}
               </Text>
             </View>
 
-            <TouchableOpacity style={styles.alertContinueButton} onPress={next}>
-              <Text style={styles.alertContinueButtonText}>Próximo -&gt;</Text>
+            <TouchableOpacity
+              style={[
+                styles.alertContinueButton,
+                isWrong && styles.resultAlertButtonWrong,
+              ]}
+              onPress={next}
+            >
+              <Text style={styles.alertContinueButtonText}>Próxima atividade</Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -269,24 +298,3 @@ const ex9 = StyleSheet.create({
 });
 
 export default ex9;
-
-/*
-
- {
-    component: Exercise9,
-    activity: {
-      prompt: "O que é a palavra?",
-      question: "Phone",
-      correctOptionId: "phone",
-      options: [
-        { id: "phone", image: BussinesImages.telefone },
-        { id: "book", image: BussinesImages.livro },
-        { id: "email", image: BussinesImages.email },
-        { id: "clock", image: BussinesImages.relogio },
-      ],
-      successTitle: "Correto",
-      successMessage: 'A imagem correta representa "phone".',
-    },
-  },
-
-*/

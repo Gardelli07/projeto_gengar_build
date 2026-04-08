@@ -29,6 +29,7 @@ export function Exercise13({ activity, styles, HeaderComponent, next, speak }) {
     () => shuffleArray(activity.letters),
     [activity.letters],
   );
+
   const audioProgressAnim = useRef(new Animated.Value(0)).current;
   const alertTranslateY = useRef(new Animated.Value(64)).current;
   const alertOpacity = useRef(new Animated.Value(0)).current;
@@ -46,6 +47,8 @@ export function Exercise13({ activity, styles, HeaderComponent, next, speak }) {
   );
 
   const isCorrect = result === "correct";
+  const isWrong = result === "wrong";
+  const wrongMessage = activity.feedbackMessage || activity.successMessage;
 
   const shakeTranslateX = shakeAnim.interpolate({
     inputRange: [0, 0.25, 0.5, 0.75, 1],
@@ -58,7 +61,7 @@ export function Exercise13({ activity, styles, HeaderComponent, next, speak }) {
   });
 
   useEffect(() => {
-    if (isCorrect) {
+    if (isCorrect || isWrong) {
       alertTranslateY.setValue(64);
       alertOpacity.setValue(0);
       Animated.parallel([
@@ -79,7 +82,7 @@ export function Exercise13({ activity, styles, HeaderComponent, next, speak }) {
 
     alertTranslateY.setValue(64);
     alertOpacity.setValue(0);
-  }, [isCorrect, alertOpacity, alertTranslateY]);
+  }, [isCorrect, isWrong, alertOpacity, alertTranslateY]);
 
   const playAudio = () => {
     audioProgressAnim.stopAnimation();
@@ -136,35 +139,35 @@ export function Exercise13({ activity, styles, HeaderComponent, next, speak }) {
           useNativeDriver: false,
         }),
       ]),
-    ]).start(() => {
-      setResult(null);
-      setSelectedLetters([]);
-      blinkAnim.setValue(0);
-    });
+    ]).start();
   };
 
   const handleLetterPress = (letter, indexKey) => {
-    if (isCorrect || selectedLetters.some((item) => item.key === indexKey))
+    if (
+      isCorrect ||
+      isWrong ||
+      selectedLetters.some((item) => item.key === indexKey)
+    ) {
       return;
+    }
 
     const nextLetters = [...selectedLetters, { key: indexKey, value: letter }];
     setSelectedLetters(nextLetters);
 
-    const nextWord = nextLetters.map((item) => item.value).join("");
-    const correctWord = activity.correctWord;
+    if (nextLetters.length === activity.correctWord.length) {
+      const nextWord = nextLetters.map((item) => item.value).join("");
 
-    if (!correctWord.startsWith(nextWord)) {
+      if (nextWord === activity.correctWord) {
+        setResult("correct");
+        return;
+      }
+
       triggerWrongFeedback();
-      return;
-    }
-
-    if (nextWord === correctWord) {
-      setResult("correct");
     }
   };
 
   const handleSelectedLetterPress = (indexKey) => {
-    if (isCorrect) return;
+    if (isCorrect || isWrong) return;
     setSelectedLetters((current) =>
       current.filter((item) => item.key !== indexKey),
     );
@@ -203,11 +206,9 @@ export function Exercise13({ activity, styles, HeaderComponent, next, speak }) {
           style={[
             styles.spellWordAnswerBox,
             isCorrect && styles.spellWordAnswerBoxCorrect,
-            result === "wrong" && styles.spellWordAnswerBoxWrong,
-            result === "wrong" && { backgroundColor: wrongBackground },
-            result === "wrong" && {
-              transform: [{ translateX: shakeTranslateX }],
-            },
+            isWrong && styles.spellWordAnswerBoxWrong,
+            isWrong && { backgroundColor: wrongBackground },
+            isWrong && { transform: [{ translateX: shakeTranslateX }] },
           ]}
         >
           {selectedLetters.length === 0 ? (
@@ -221,7 +222,7 @@ export function Exercise13({ activity, styles, HeaderComponent, next, speak }) {
                   isCorrect && styles.spellWordSelectedLetterCorrect,
                 ]}
                 onPress={() => handleSelectedLetterPress(item.key)}
-                disabled={isCorrect}
+                disabled={isCorrect || isWrong}
               >
                 <Text
                   style={[
@@ -249,7 +250,7 @@ export function Exercise13({ activity, styles, HeaderComponent, next, speak }) {
                   used && styles.spellWordOptionUsed,
                 ]}
                 onPress={() => handleLetterPress(letter, key)}
-                disabled={used || isCorrect}
+                disabled={used || isCorrect || isWrong}
               >
                 <Text
                   style={[
@@ -265,11 +266,15 @@ export function Exercise13({ activity, styles, HeaderComponent, next, speak }) {
         </View>
       </View>
 
-      {isCorrect && (
+      {(isCorrect || isWrong) && (
         <View style={styles.successAlertOverlay}>
           <Animated.View
             style={[
               styles.successAlertCard,
+              styles.resultAlertCard,
+              isCorrect
+                ? styles.resultAlertCardCorrect
+                : styles.resultAlertCardWrong,
               styles.slide13SuccessAlertCard,
               { paddingBottom: bottomSafeSpace + 1 },
               {
@@ -279,31 +284,59 @@ export function Exercise13({ activity, styles, HeaderComponent, next, speak }) {
             ]}
           >
             <View style={styles.successHeaderRow}>
-              <View style={styles.successIconWrap}>
-                <Text style={styles.successIcon}>✓</Text>
+              <View
+                style={[
+                  styles.successIconWrap,
+                  isWrong && styles.resultAlertIconWrapWrong,
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.successIcon,
+                    isWrong && styles.resultAlertIconWrong,
+                  ]}
+                >
+                  {isWrong ? "X" : "✓"}
+                </Text>
               </View>
-              <Text style={styles.successAlertTitle}>
-                {activity.successTitle}
+              <Text
+                style={[
+                  styles.successAlertTitle,
+                  isWrong && styles.resultAlertTitleWrong,
+                ]}
+              >
+                {isWrong ? activity.errorTitle || "Incorreto" : activity.successTitle}
               </Text>
             </View>
 
             <View
               style={[
                 styles.feedbackBox,
-                styles.feedbackBoxCorrect,
+                isWrong ? styles.feedbackBoxWrong : styles.feedbackBoxCorrect,
                 styles.alertFeedbackBox,
               ]}
             >
-              <Text style={[styles.feedbackTitle, styles.feedbackTitleCorrect]}>
-                ✓ Muito bem!
+              <Text
+                style={[
+                  styles.feedbackTitle,
+                  isWrong ? styles.feedbackTitleWrong : styles.feedbackTitleCorrect,
+                ]}
+              >
+                {isWrong ? "X Tente novamente" : "✓ Muito bem!"}
               </Text>
               <Text style={styles.feedbackTextBlack}>
-                {activity.successMessage}
+                {isWrong ? wrongMessage : activity.successMessage}
               </Text>
             </View>
 
-            <TouchableOpacity style={styles.alertContinueButton} onPress={next}>
-              <Text style={styles.alertContinueButtonText}>Próximo -&gt;</Text>
+            <TouchableOpacity
+              style={[
+                styles.alertContinueButton,
+                isWrong && styles.resultAlertButtonWrong,
+              ]}
+              onPress={next}
+            >
+              <Text style={styles.alertContinueButtonText}>Próxima atividade</Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -418,21 +451,3 @@ const ex13 = StyleSheet.create({
 });
 
 export default ex13;
-
-/*
-
-  {
-    component: Exercise13,
-    needsSpeech: true,
-    activity: {
-      prompt: "Escreva a palavra",
-      audioText: "hello",
-      audioRate: 0.85,
-      letters: ["H", "E", "L", "L", "O"],
-      correctWord: "HELLO",
-      successTitle: "Correto",
-      successMessage: 'A palavra correta é "HELLO".',
-    },
-  },
-
-*/

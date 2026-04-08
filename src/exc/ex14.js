@@ -35,9 +35,10 @@ export function Exercise14({ activity, styles, HeaderComponent, next, speak }) {
 
   const isCorrect = result === "correct";
   const isWrong = result === "wrong";
+  const wrongMessage = activity.feedbackMessage || activity.successMessage;
 
   useEffect(() => {
-    if (isCorrect) {
+    if (isCorrect || isWrong) {
       alertTranslateY.setValue(64);
       alertOpacity.setValue(0);
       Animated.parallel([
@@ -58,7 +59,7 @@ export function Exercise14({ activity, styles, HeaderComponent, next, speak }) {
 
     alertTranslateY.setValue(64);
     alertOpacity.setValue(0);
-  }, [isCorrect, alertOpacity, alertTranslateY]);
+  }, [isCorrect, isWrong, alertOpacity, alertTranslateY]);
 
   const playAudio = () => {
     audioProgressAnim.stopAnimation();
@@ -80,14 +81,7 @@ export function Exercise14({ activity, styles, HeaderComponent, next, speak }) {
     });
   };
 
-  const handleSelect = (option) => {
-    setSelected(option);
-
-    if (option === activity.correctAnswer) {
-      setResult("correct");
-      return;
-    }
-
+  const triggerWrongFeedback = () => {
     setResult("wrong");
     Vibration.vibrate(140);
     blinkAnim.setValue(0);
@@ -114,6 +108,18 @@ export function Exercise14({ activity, styles, HeaderComponent, next, speak }) {
         useNativeDriver: false,
       }),
     ]).start();
+  };
+
+  const handleSelect = (option) => {
+    if (isCorrect || isWrong) return;
+    setSelected(option);
+
+    if (option === activity.correctAnswer) {
+      setResult("correct");
+      return;
+    }
+
+    triggerWrongFeedback();
   };
 
   return (
@@ -177,14 +183,14 @@ export function Exercise14({ activity, styles, HeaderComponent, next, speak }) {
               style={[
                 styles.optionPill,
                 optionIsCorrect && styles.optionCorrect,
-                optionIsWrong && styles.optionBlinkWrong,
-                optionIsWrong && { backgroundColor: wrongBackground },
+                optionIsWrong && isWrong && styles.optionBlinkWrong,
+                optionIsWrong && isWrong && { backgroundColor: wrongBackground },
               ]}
             >
               <TouchableOpacity
                 style={styles.optionPillTouch}
                 onPress={() => handleSelect(option)}
-                disabled={isCorrect}
+                disabled={isCorrect || isWrong}
               >
                 <Text
                   style={[
@@ -200,22 +206,15 @@ export function Exercise14({ activity, styles, HeaderComponent, next, speak }) {
         })}
       </View>
 
-      {isWrong && (
-        <View style={[styles.feedbackBox, styles.feedbackBoxWrong]}>
-          <Text style={[styles.feedbackTitle, styles.feedbackTitleWrong]}>
-            x Sorry!
-          </Text>
-          <Text style={styles.feedbackTextBlack}>
-            {activity.feedbackMessage}
-          </Text>
-        </View>
-      )}
-
-      {isCorrect && (
+      {(isCorrect || isWrong) && (
         <View style={styles.successAlertOverlay}>
           <Animated.View
             style={[
               styles.successAlertCard,
+              styles.resultAlertCard,
+              isCorrect
+                ? styles.resultAlertCardCorrect
+                : styles.resultAlertCardWrong,
               { paddingBottom: bottomSafeSpace + 1 },
               {
                 opacity: alertOpacity,
@@ -224,31 +223,59 @@ export function Exercise14({ activity, styles, HeaderComponent, next, speak }) {
             ]}
           >
             <View style={styles.successHeaderRow}>
-              <View style={styles.successIconWrap}>
-                <Text style={styles.successIcon}>✓</Text>
+              <View
+                style={[
+                  styles.successIconWrap,
+                  isWrong && styles.resultAlertIconWrapWrong,
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.successIcon,
+                    isWrong && styles.resultAlertIconWrong,
+                  ]}
+                >
+                  {isWrong ? "X" : "✓"}
+                </Text>
               </View>
-              <Text style={styles.successAlertTitle}>
-                {activity.successTitle}
+              <Text
+                style={[
+                  styles.successAlertTitle,
+                  isWrong && styles.resultAlertTitleWrong,
+                ]}
+              >
+                {isWrong ? activity.errorTitle || "Incorreto" : activity.successTitle}
               </Text>
             </View>
 
             <View
               style={[
                 styles.feedbackBox,
-                styles.feedbackBoxCorrect,
+                isWrong ? styles.feedbackBoxWrong : styles.feedbackBoxCorrect,
                 styles.alertFeedbackBox,
               ]}
             >
-              <Text style={[styles.feedbackTitle, styles.feedbackTitleCorrect]}>
-                ✓ Correto!
+              <Text
+                style={[
+                  styles.feedbackTitle,
+                  isWrong ? styles.feedbackTitleWrong : styles.feedbackTitleCorrect,
+                ]}
+              >
+                {isWrong ? "X Tente novamente" : "✓ Correto!"}
               </Text>
               <Text style={styles.feedbackTextBlack}>
-                {activity.feedbackMessage}
+                {isWrong ? wrongMessage : activity.feedbackMessage}
               </Text>
             </View>
 
-            <TouchableOpacity style={styles.alertContinueButton} onPress={next}>
-              <Text style={styles.alertContinueButtonText}>Próximo -&gt;</Text>
+            <TouchableOpacity
+              style={[
+                styles.alertContinueButton,
+                isWrong && styles.resultAlertButtonWrong,
+              ]}
+              onPress={next}
+            >
+              <Text style={styles.alertContinueButtonText}>Próxima atividade</Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -352,31 +379,6 @@ const ex14 = StyleSheet.create({
     backgroundColor: CORES.DANGER_BG,
     borderColor: CORES.DANGER,
   },
-  feedbackBoxWrong: {
-    borderColor: CORES.DANGER,
-    backgroundColor: "#FEF2F2",
-  },
-  feedbackTitleWrong: {
-    color: CORES.DANGER_TEXT,
-  },
 });
 
 export default ex14;
-
-/*
-
-   {
-     component: Exercise14,
-     needsSpeech: true,
-     activity: {
-       prompt: "Escute e complete",
-       image: Images.teacher,
-       options: ["Hello", "Hélo"],
-       correctAnswer: "Hello",
-       audioRate: 0.85,
-       successTitle: "Correto",
-       feedbackMessage: 'Usamos "Hello" para dizer "oi".',
-     },
-   },
-
-*/

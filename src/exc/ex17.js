@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
   Easing,
-  Image,
   Text,
+  TextInput,
   TouchableOpacity,
   Vibration,
   View,
@@ -11,18 +11,23 @@ import {
 } from "react-native";
 import CORES from "../util/cores";
 
-export function Exercise4({ activity, styles, HeaderComponent, next }) {
+const normalizeText = (value) =>
+  String(value || "")
+    .trim()
+    .replace(/\s+/g, " ")
+    .toLowerCase();
+
+export function Exercise17({ activity, styles, HeaderComponent, next }) {
   const bottomSafeSpace = 3;
   const alertTranslateY = useRef(new Animated.Value(64)).current;
   const alertOpacity = useRef(new Animated.Value(0)).current;
   const shakeAnim = useRef(new Animated.Value(0)).current;
   const blinkAnim = useRef(new Animated.Value(0)).current;
-  const [selected, setSelected] = useState(null);
+  const [typedText, setTypedText] = useState("");
   const [result, setResult] = useState(null);
 
   const isCorrect = result === "correct";
   const isWrong = result === "wrong";
-  const wrongMessage = activity.feedbackMessage || activity.successMessage;
 
   const shakeTranslateX = shakeAnim.interpolate({
     inputRange: [0, 0.25, 0.5, 0.75, 1],
@@ -63,7 +68,6 @@ export function Exercise4({ activity, styles, HeaderComponent, next }) {
     Vibration.vibrate(140);
     shakeAnim.setValue(0);
     blinkAnim.setValue(0);
-
     Animated.parallel([
       Animated.timing(shakeAnim, {
         toValue: 1,
@@ -96,91 +100,77 @@ export function Exercise4({ activity, styles, HeaderComponent, next }) {
     ]).start();
   };
 
-  const resetWrongState = () => {
-    setSelected(null);
-    setResult(null);
-    blinkAnim.setValue(0);
-  };
+  const handleSubmit = () => {
+    const typed = normalizeText(typedText);
+    const expected = normalizeText(activity.correctAnswer);
 
-  const handleSelect = (option) => {
-    if (isCorrect || isWrong) return;
-    setSelected(option);
-
-    if (option === activity.correctAnswer) {
-      setResult("correct");
+    if (!typed || typed !== expected) {
+      triggerWrongFeedback();
       return;
     }
 
-    triggerWrongFeedback();
+    setResult("correct");
   };
 
   return (
     <View style={styles.slide}>
       <HeaderComponent />
 
-      <View style={styles.correctSentenceBlock}>
+      <View style={styles.orderSentenceBlock}>
         <Text style={styles.fastTypePrompt}>{activity.prompt}</Text>
 
-        <View style={styles.correctSentenceMediaCard}>
-          <Image source={activity.image} style={styles.correctSentenceImage} />
-        </View>
-
-        <View style={styles.correctSentencePromptPill}>
-          <Text style={styles.correctSentencePromptText}>
-            {activity.wrongSentence}
+        {activity.instruction ? (
+          <Text style={styles.orderSentenceInstruction}>
+            {activity.instruction}
           </Text>
-        </View>
+        ) : null}
 
-        <View style={styles.correctSentenceOptionsList}>
-          {activity.options.map((option) => {
-            const optionIsCorrect =
-              selected === option &&
-              option === activity.correctAnswer &&
-              isCorrect;
-            const optionIsWrong =
-              selected === option &&
-              option !== activity.correctAnswer &&
-              isWrong;
+        <Animated.View
+          style={[
+            styles.orderSentenceWordsCard,
+            isWrong && styles.orderSentenceWordsCardWrong,
+            isWrong && { backgroundColor: wrongBackground },
+            isWrong && { transform: [{ translateX: shakeTranslateX }] },
+          ]}
+        >
+          <Text style={styles.orderSentenceWordsText}>
+            {activity.scrambledSentence}
+          </Text>
+        </Animated.View>
 
-            return (
-              <Animated.View
-                key={option}
-                style={[
-                  styles.correctSentenceOptionWrap,
-                  optionIsWrong && {
-                    transform: [{ translateX: shakeTranslateX }],
-                  },
-                ]}
-              >
-                <Animated.View
-                  style={[
-                    styles.correctSentenceOption,
-                    optionIsCorrect && styles.correctSentenceOptionCorrect,
-                    optionIsWrong && styles.correctSentenceOptionWrong,
-                    optionIsWrong && { backgroundColor: wrongBackground },
-                  ]}
-                >
-                  <TouchableOpacity
-                    style={styles.correctSentenceOptionTouch}
-                    onPress={() => handleSelect(option)}
-                    activeOpacity={0.9}
-                    disabled={isCorrect || isWrong}
-                  >
-                    <Text
-                      style={[
-                        styles.correctSentenceOptionText,
-                        optionIsCorrect &&
-                          styles.correctSentenceOptionTextCorrect,
-                      ]}
-                    >
-                      {option}
-                    </Text>
-                  </TouchableOpacity>
-                </Animated.View>
-              </Animated.View>
-            );
-          })}
-        </View>
+        <Animated.View
+          style={[
+            styles.orderSentenceInputWrap,
+            isWrong && styles.orderSentenceInputWrapWrong,
+            isCorrect && styles.orderSentenceInputWrapCorrect,
+          ]}
+        >
+          <TextInput
+            value={typedText}
+            onChangeText={(value) => {
+              setTypedText(value);
+              if (result) setResult(null);
+            }}
+            style={styles.orderSentenceInput}
+            placeholder={activity.placeholder}
+            placeholderTextColor="#8BB7E0"
+            autoCapitalize="sentences"
+            autoCorrect={false}
+          />
+        </Animated.View>
+
+        <TouchableOpacity
+          style={[
+            styles.orderSentenceSubmitButton,
+            !typedText.trim() && styles.orderSentenceSubmitButtonDisabled,
+          ]}
+          onPress={handleSubmit}
+          disabled={!typedText.trim() || isCorrect || isWrong}
+        >
+          <Text style={styles.orderSentenceSubmitButtonText}>
+            {activity.submitLabel}
+          </Text>
+        </TouchableOpacity>
       </View>
 
       {(isCorrect || isWrong) && (
@@ -192,7 +182,6 @@ export function Exercise4({ activity, styles, HeaderComponent, next }) {
               isCorrect
                 ? styles.resultAlertCardCorrect
                 : styles.resultAlertCardWrong,
-              styles.slide5SuccessAlertCard,
               { paddingBottom: bottomSafeSpace + 1 },
               {
                 opacity: alertOpacity,
@@ -222,7 +211,9 @@ export function Exercise4({ activity, styles, HeaderComponent, next }) {
                   isWrong && styles.resultAlertTitleWrong,
                 ]}
               >
-                {isWrong ? activity.errorTitle || "Incorreto" : activity.successTitle}
+                {isWrong
+                  ? activity.errorTitle || "Incorreto"
+                  : activity.successTitle}
               </Text>
             </View>
 
@@ -236,25 +227,38 @@ export function Exercise4({ activity, styles, HeaderComponent, next }) {
               <Text
                 style={[
                   styles.feedbackTitle,
-                  isWrong ? styles.feedbackTitleWrong : styles.feedbackTitleCorrect,
+                  isWrong
+                    ? styles.feedbackTitleWrong
+                    : styles.feedbackTitleCorrect,
                 ]}
               >
                 {isWrong ? "X Tente novamente" : "✓ Muito bem!"}
               </Text>
               <Text style={styles.feedbackTextBlack}>
-                {isWrong ? wrongMessage : activity.successMessage}
+                {activity.successMessage}
               </Text>
             </View>
 
-            <TouchableOpacity
-              style={[
-                styles.alertContinueButton,
-                isWrong && styles.resultAlertButtonWrong,
-              ]}
-              onPress={next}
-            >
-              <Text style={styles.alertContinueButtonText}>Próxima atividade</Text>
-            </TouchableOpacity>
+            {isCorrect ? (
+              <TouchableOpacity
+                style={styles.alertContinueButton}
+                onPress={next}
+              >
+                <Text style={styles.alertContinueButtonText}>Próximo</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={[
+                  styles.alertContinueButton,
+                  styles.resultAlertButtonWrong,
+                ]}
+                onPress={next}
+              >
+                <Text style={styles.alertContinueButtonText}>
+                  {activity.wrongButtonLabel || "Próxima atividade"}
+                </Text>
+              </TouchableOpacity>
+            )}
           </Animated.View>
         </View>
       )}
@@ -262,86 +266,78 @@ export function Exercise4({ activity, styles, HeaderComponent, next }) {
   );
 }
 
-const ex4 = StyleSheet.create({
-  correctSentenceBlock: {
+const ex17 = StyleSheet.create({
+  orderSentenceBlock: {
     width: "100%",
     alignItems: "center",
   },
-  correctSentenceMediaCard: {
+  orderSentenceInstruction: {
     width: "88%",
-    height: 150,
-    borderRadius: 18,
-    overflow: "hidden",
-    marginBottom: 12,
-    backgroundColor: CORES.SURFACE_MUTED,
+    textAlign: "left",
+    fontSize: 16,
+    color: "#7BA9D6",
+    marginBottom: 18,
+    fontWeight: "600",
   },
-  correctSentenceImage: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
-  },
-  correctSentencePromptPill: {
+  orderSentenceWordsCard: {
     width: "88%",
-    minHeight: 36,
-    borderRadius: 18,
-    backgroundColor: CORES.PRIMARY,
+    minHeight: 72,
+    borderRadius: 12,
+    backgroundColor: "#76A8D7",
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 16,
-    marginBottom: 12,
+    paddingHorizontal: 18,
+    paddingVertical: 16,
+    marginBottom: 24,
   },
-  correctSentencePromptText: {
-    color: CORES.WHITE,
-    fontSize: 15,
-    fontWeight: "700",
-    textAlign: "center",
-  },
-  correctSentenceOptionsList: {
-    width: "88%",
-    gap: 8,
-  },
-  correctSentenceOptionWrap: {
-    width: "100%",
-  },
-  correctSentenceOption: {
-    width: "100%",
-    minHeight: 34,
-    borderRadius: 18,
-    borderWidth: 1,
-    borderColor: CORES.PRIMARY,
-    backgroundColor: CORES.WHITE,
-  },
-  correctSentenceOptionTouch: {
-    flex: 1,
-    minHeight: 34,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 16,
-  },
-  correctSentenceOptionText: {
-    fontSize: 14,
-    color: CORES.PRIMARY,
-    textAlign: "center",
-    textDecorationLine: "underline",
-  },
-  correctSentenceOptionCorrect: {
-    backgroundColor: CORES.SUCCESS_BG,
-    borderColor: CORES.SUCCESS,
-  },
-  correctSentenceOptionWrong: {
+  orderSentenceWordsCardWrong: {
+    borderWidth: 1.5,
     borderColor: CORES.DANGER,
   },
-  correctSentenceOptionTextCorrect: {
-    color: CORES.SUCCESS_DARK,
-    fontWeight: "700",
-    textDecorationLine: "none",
+  orderSentenceWordsText: {
+    color: CORES.WHITE,
+    fontSize: 19,
+    textAlign: "center",
+    textDecorationLine: "underline",
+    fontFamily: "serif",
   },
-  slide5SuccessAlertCard: {
-    marginHorizontal: 12,
-    marginBottom: 0,
-    zIndex: 200,
-    elevation: 30,
+  orderSentenceInputWrap: {
+    width: "72%",
+    borderBottomWidth: 2,
+    borderBottomColor: "#8EB8E0",
+    marginBottom: 20,
+  },
+  orderSentenceInputWrapWrong: {
+    borderBottomColor: CORES.DANGER,
+  },
+  orderSentenceInputWrapCorrect: {
+    borderBottomColor: CORES.SUCCESS,
+  },
+  orderSentenceInput: {
+    minHeight: 36,
+    color: CORES.PRIMARY,
+    fontSize: 19,
+    textAlign: "center",
+    paddingVertical: 4,
+    fontFamily: "serif",
+  },
+  orderSentenceSubmitButton: {
+    minWidth: 152,
+    height: 44,
+    borderRadius: 14,
+    backgroundColor: CORES.SECONDARY,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 18,
+  },
+  orderSentenceSubmitButtonDisabled: {
+    backgroundColor: "#B6C8DB",
+  },
+  orderSentenceSubmitButtonText: {
+    color: CORES.WHITE_SHORT,
+    fontSize: 15,
+    fontWeight: "700",
   },
 });
 
-export default ex4;
+export default ex17;

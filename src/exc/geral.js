@@ -149,6 +149,10 @@ const geral = StyleSheet.create({
     borderColor: CORES.SUCCESS,
     backgroundColor: CORES.PANEL_SUCCESS,
   },
+  feedbackBoxWrong: {
+    borderColor: CORES.DANGER,
+    backgroundColor: "#FEF2F2",
+  },
   feedbackTitle: {
     color: CORES.SUCCESS_TEXT,
     fontWeight: "700",
@@ -156,6 +160,9 @@ const geral = StyleSheet.create({
   },
   feedbackTitleCorrect: {
     color: CORES.SUCCESS_TEXT,
+  },
+  feedbackTitleWrong: {
+    color: CORES.DANGER_TEXT,
   },
   feedbackTextBlack: {
     color: "#000",
@@ -180,6 +187,16 @@ const geral = StyleSheet.create({
     borderWidth: 1,
     borderColor: CORES.BORDER_LIGHT,
   },
+  resultAlertCard: {
+    minHeight: 230,
+    borderWidth: 3,
+  },
+  resultAlertCardCorrect: {
+    borderColor: CORES.SUCCESS,
+  },
+  resultAlertCardWrong: {
+    borderColor: "#F87171",
+  },
   successHeaderRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -194,15 +211,26 @@ const geral = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  resultAlertIconWrapWrong: {
+    backgroundColor: "#FEE2E2",
+  },
   successIcon: {
     color: CORES.SUCCESS_TEXT,
     fontSize: 16,
     fontWeight: "700",
   },
+  resultAlertIconWrong: {
+    color: CORES.DANGER_TEXT,
+    fontSize: 20,
+    fontWeight: "900",
+  },
   successAlertTitle: {
     color: CORES.SUCCESS_DARK,
     fontSize: 18,
     fontWeight: "800",
+  },
+  resultAlertTitleWrong: {
+    color: CORES.DANGER_TEXT,
   },
   alertFeedbackBox: {
     width: "100%",
@@ -217,6 +245,9 @@ const geral = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 0,
+  },
+  resultAlertButtonWrong: {
+    backgroundColor: CORES.DANGER,
   },
   alertContinueButtonText: {
     color: CORES.WHITE_SHORT,
