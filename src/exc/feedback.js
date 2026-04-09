@@ -1,19 +1,9 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function Feedback({
-  onContinue,
-  onReviewErrors,
-  continueLabel = "Continuar",
-  reviewLabel = "Revisar erros ->",
-}) {
+export default function Feedback({ onContinue, continueLabel = "Continuar" }) {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -27,7 +17,7 @@ export default function Feedback({
 
         <Text style={styles.title}>Lição Completa!</Text>
         <Text style={styles.subtitle}>
-          Você está arrasando! Continue assim {"\uD83D\uDD25"}
+          Você está arrasando! Continue assim.
         </Text>
 
         <View style={styles.metricsRow}>
@@ -88,35 +78,12 @@ export default function Feedback({
           </View>
         </View>
 
-        <View style={styles.ratingSection}>
-          <Text style={styles.ratingTitle}>COMO FOI ESSA LIÇÃO?</Text>
-          <View style={styles.starsRow}>
-            {[1, 2, 3, 4, 5].map((star) => (
-              <Ionicons
-                key={star}
-                name="star-outline"
-                size={28}
-                color="#D2D7E2"
-                style={styles.star}
-              />
-            ))}
-          </View>
-        </View>
-
         <TouchableOpacity
           activeOpacity={0.9}
           style={styles.primaryButton}
           onPress={onContinue}
         >
           <Text style={styles.primaryButtonText}>{continueLabel}</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          activeOpacity={0.8}
-          style={styles.secondaryButton}
-          onPress={onReviewErrors}
-        >
-          <Text style={styles.secondaryButtonText}>{reviewLabel}</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
