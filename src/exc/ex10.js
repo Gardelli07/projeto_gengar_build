@@ -40,7 +40,13 @@ function formatRemainingTime(ms) {
   )}:${String(seconds).padStart(2, "0")}`;
 }
 
-export function Exercise10({ activity, styles, HeaderComponent, next }) {
+export function Exercise10({
+  activity,
+  styles,
+  HeaderComponent,
+  next,
+  onAttempt,
+}) {
   const bottomSafeSpace = 3;
   const alertTranslateY = useRef(new Animated.Value(64)).current;
   const alertOpacity = useRef(new Animated.Value(0)).current;
@@ -163,6 +169,7 @@ export function Exercise10({ activity, styles, HeaderComponent, next }) {
   }, [alertOpacity, alertTranslateY, isFinished]);
 
   const triggerWrongFeedback = async () => {
+    onAttempt?.({ isCorrect: false });
     const nextLockUntil = Date.now() + ONE_DAY_MS;
 
     setResult("wrong");
@@ -248,6 +255,7 @@ export function Exercise10({ activity, styles, HeaderComponent, next }) {
     setSelectedAnswer(option);
 
     if (option === currentQuestion.correctAnswer) {
+      onAttempt?.({ isCorrect: true });
       setResult("correct");
       Vibration.vibrate(40);
       advanceQuestion();

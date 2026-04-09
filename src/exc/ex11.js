@@ -11,7 +11,13 @@ import {
 } from "react-native";
 import CORES from "../util/cores";
 
-export function Exercise11({ activity, styles, HeaderComponent, next }) {
+export function Exercise11({
+  activity,
+  styles,
+  HeaderComponent,
+  next,
+  onAttempt,
+}) {
   const shakeAnim = useRef(new Animated.Value(0)).current;
   const wrongBlinkAnim = useRef(new Animated.Value(0)).current;
   const correctBlinkAnim = useRef(new Animated.Value(0)).current;
@@ -83,6 +89,7 @@ export function Exercise11({ activity, styles, HeaderComponent, next }) {
 
   const triggerWrongFeedback = (byTimeout = false) => {
     if (!currentWord) return;
+    onAttempt?.({ isCorrect: false });
 
     setResult("wrong");
     Vibration.vibrate(140);
@@ -131,6 +138,7 @@ export function Exercise11({ activity, styles, HeaderComponent, next }) {
 
   const triggerCorrectFeedback = (value) => {
     if (!currentWord) return;
+    onAttempt?.({ isCorrect: true });
 
     setResult("correct");
     Vibration.vibrate(40);

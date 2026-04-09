@@ -10,7 +10,14 @@ import {
 } from "react-native";
 import CORES from "../util/cores";
 
-export function Exercise13({ activity, styles, HeaderComponent, next, speak }) {
+export function Exercise13({
+  activity,
+  styles,
+  HeaderComponent,
+  next,
+  speak,
+  onAttempt,
+}) {
   const bottomSafeSpace = 3;
 
   const shuffleArray = (items) => {
@@ -158,10 +165,12 @@ export function Exercise13({ activity, styles, HeaderComponent, next, speak }) {
       const nextWord = nextLetters.map((item) => item.value).join("");
 
       if (nextWord === activity.correctWord) {
+        onAttempt?.({ isCorrect: true });
         setResult("correct");
         return;
       }
 
+      onAttempt?.({ isCorrect: false });
       triggerWrongFeedback();
     }
   };

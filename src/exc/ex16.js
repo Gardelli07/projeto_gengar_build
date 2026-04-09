@@ -27,7 +27,13 @@ function formatDuration(totalSeconds) {
   return `${minutes}:${seconds}`;
 }
 
-export function Exercise16({ activity, styles, HeaderComponent, next }) {
+export function Exercise16({
+  activity,
+  styles,
+  HeaderComponent,
+  next,
+  onAttempt,
+}) {
   const bottomSafeSpace = 3;
   const recorder = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
   const playerRef = useRef(null);
@@ -283,10 +289,12 @@ export function Exercise16({ activity, styles, HeaderComponent, next }) {
 
   const handleSubmit = () => {
     if (!audioUri) {
+      onAttempt?.({ isCorrect: false });
       triggerWrongFeedback();
       return;
     }
 
+    onAttempt?.({ isCorrect: true });
     setResult("correct");
   };
 

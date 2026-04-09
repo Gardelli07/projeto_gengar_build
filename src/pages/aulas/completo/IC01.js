@@ -3,7 +3,6 @@ import {
   Animated,
   Image,
   ScrollView,
-  Text,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -12,7 +11,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Speech from "expo-speech";
 import geral from "../../../exc/geral";
 import ex1, { Exercise1 } from "../../../exc/ex1";
-import ex14, { Exercise14 } from "../../../exc/ex14";
 import ex2, { Exercise2 } from "../../../exc/ex2";
 import ex3, { Exercise3 } from "../../../exc/ex3";
 import ex4, { Exercise4 } from "../../../exc/ex4";
@@ -26,10 +24,17 @@ import ex11, { Exercise11 } from "../../../exc/ex11";
 import ex12, { Exercise12 } from "../../../exc/ex12";
 import ex13, { Exercise13 } from "../../../exc/ex13";
 import ex15, { Exercise15 } from "../../../exc/ex15";
+import ex14, { Exercise14 } from "../../../exc/ex14";
 import ex16, { Exercise16 } from "../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../exc/ex17";
 import Feedback from "../../../exc/feedback";
 import { BussinesImages, Images } from "../../../util/images";
+import {
+  calculateLessonAccuracy,
+  LESSON_STREAK_MIN_ACCURACY,
+  LESSON_STREAK_STORAGE_KEY,
+} from "../../../util/lessonPerformance";
+import { getLevelProgress, XP_PER_LESSON } from "../../../util/xp";
 
 const SlideNavContext = React.createContext(null);
 
@@ -37,7 +42,6 @@ const STORAGE_KEY = "@progesso_ingles_completo";
 
 const styles = {
   ...geral,
-  ...ex14,
   ...ex1,
   ...ex2,
   ...ex3,
@@ -51,6 +55,7 @@ const styles = {
   ...ex11,
   ...ex12,
   ...ex13,
+  ...ex14,
   ...ex15,
   ...ex16,
   ...ex17,
@@ -58,363 +63,18 @@ const styles = {
 
 const LESSON_SLIDES = [
   {
-    component: Exercise1,
-    activity: {
-      prompt: "Encontre a tradução",
-      pairs: [
-        { en: "Hello", pt: "oie" },
-        { en: "fine", pt: "bem/legal" },
-        { en: "bye", pt: "tchau" },
-      ],
-      successTitle: "Excelente",
-      successMessage: "Você acertou todas as traduções.",
-    },
-  },
-  {
-    component: Exercise2,
-    activity: {
-      prompt: "Completar o Texto",
-      paragraphs: [
-        [
-          "This is my friend Peter. He",
-          { id: "blank-1", answer: "is", options: ["is", "are", "am"] },
-          "25 years old.",
-        ],
-        [
-          "Peter",
-          {
-            id: "blank-2",
-            answer: "lives",
-            options: ["live", "lives", "living"],
-          },
-          "in New York with his family.",
-        ],
-        [
-          "He",
-          {
-            id: "blank-3",
-            answer: "works",
-            options: ["works", "work", "working"],
-          },
-          "in a big bank. He likes his job.",
-        ],
-        [
-          "On weekends, he",
-          {
-            id: "blank-4",
-            answer: "plays",
-            options: ["play", "plays", "playing"],
-          },
-          "soccer in the park.",
-        ],
-      ],
-      successTitle: "Excelente",
-      successMessage: "Você completou o texto corretamente.",
-    },
-  },
-  {
-    component: Exercise3,
-    needsSpeech: true,
-    activity: {
-      prompt: "Escute e responda",
-      image: BussinesImages.relogio,
-      audioText: "He wakes up at 6am every day.",
-      dialogue: "He wakes up at 6am every day.",
-      options: ["true", "false"],
-      correctAnswer: "true",
-      audioRate: 0.85,
-      successTitle: "Correto",
-      successMessage: 'A frase "He wakes up at 6am every day." está correta.',
-      feedbackMessage: 'A frase "He wakes up at 6am every day." está correta.',
-    },
-  },
-  {
-    component: Exercise4,
-    activity: {
-      prompt: "Corrija",
-      image: BussinesImages.texto,
-      wrongSentence: "She take the bus.",
-      options: ["She takes the bus.", "She take the bus."],
-      correctAnswer: "She takes the bus.",
-      successTitle: "Correto",
-      successMessage: 'A forma correta é "She takes the bus."',
-      feedbackMessage: 'A forma correta é "She takes the bus."',
-    },
-  },
-  {
-    component: Exercise5,
-    activity: {
-      prompt: "Complete a frase",
-      image: BussinesImages.trabalho,
-      sentenceStart: "She",
-      sentenceEnd: "the bus.",
-      options: ["take", "takes"],
-      correctAnswer: "takes",
-      successTitle: "Correto",
-      successMessage: 'A forma correta é "She takes the bus."',
-      feedbackMessage: 'A forma correta é "She takes the bus."',
-    },
-  },
-  {
-    component: Exercise6,
-    needsSpeech: true,
-    activity: {
-      prompt: "Coloque a frase em ordem.",
-      image: Images.teacher,
-      audioText: "Hello my name is Laura.",
-      words: ["Hello", "name", "my", "Laura", "is"],
-      correctOrder: ["Hello", "my", "name", "is", "Laura"],
-      audioRate: 0.85,
-      successTitle: "Correto",
-      successMessage: 'A frase correta é "Hello my name is Laura."',
-      feedbackMessage: 'A frase correta é "Hello my name is Laura."',
-    },
-  },
-  {
-    component: Exercise7,
-    activity: {
-      prompt: "Monte o diálogo na ordem certa",
-      options: [
-        "I wake up at 6am.",
-        "Then I have breakfast.",
-        "I go to work.",
-        "I have lunch at 12pm.",
-      ],
-      correctOrder: [
-        "I wake up at 6am.",
-        "Then I have breakfast.",
-        "I go to work.",
-        "I have lunch at 12pm.",
-      ],
-      successTitle: "Correto",
-      successMessage: "Você colocou o diálogo na ordem certa.",
-      feedbackMessage: "Você colocou o diálogo na ordem certa.",
-    },
-  },
-  {
-    component: Exercise8,
-    activity: {
-      prompt: "O que é esta imagem?",
-      image: BussinesImages.agenda2,
-      options: ["Agenda", "Phone", "Book"],
-      correctAnswer: "Agenda",
-      successTitle: "Correto",
-      successMessage: 'A resposta correta é "Agenda".',
-      feedbackMessage: 'A resposta correta é "Agenda".',
-    },
-  },
-  {
-    component: Exercise9,
-    activity: {
-      prompt: "O que é a palavra?",
-      question: "Phone",
-      correctOptionId: "phone",
-      options: [
-        { id: "phone", image: BussinesImages.telefone },
-        { id: "book", image: BussinesImages.livro },
-        { id: "email", image: BussinesImages.email },
-        { id: "clock", image: BussinesImages.relogio },
-      ],
-      successTitle: "Correto",
-      successMessage: 'A imagem correta representa "Phone".',
-      feedbackMessage: 'A imagem correta representa "Phone".',
-    },
-  },
-  {
     component: Exercise11,
     activity: {
       prompt: "Escreva rápido",
       title: "Escreva a palavra abaixo",
       placeholder: "Digite aqui",
-      secondsPerWord: 500,
+      secondsPerWord: 5,
       words: ["Hello", "Bye", "Fine", "Thanks", "Sorry"],
       successTitle: "Correto",
       successMessage: "Você digitou todas as palavras no tempo certo.",
     },
   },
-  {
-    component: Exercise12,
-    activity: {
-      prompt: "Write your introduction",
-      instruction: "Escreva brevemente sobre você em inglês.",
-      helperText: "Use as frases estudadas anteriormente",
-      placeholder: "Hello...",
-      tipText: "Hello, my name is Ana. I am from Brazil. I am fine.",
-      minLength: 3,
-      successTitle: "Correto",
-      successMessage: "Seu texto foi preenchido com sucesso.",
-    },
-  },
-  {
-    component: Exercise13,
-    needsSpeech: true,
-    activity: {
-      prompt: "Escreva a palavra",
-      audioText: "hello",
-      audioRate: 0.85,
-      letters: ["H", "E", "L", "L", "O"],
-      correctWord: "HELLO",
-      successTitle: "Correto",
-      successMessage: 'A palavra correta é "HELLO".',
-      feedbackMessage: 'A palavra correta é "HELLO".',
-    },
-  },
-  {
-    component: Exercise14,
-    needsSpeech: true,
-    activity: {
-      prompt: "Escute e complete",
-      image: Images.teacher,
-      options: ["Hello", "Helo"],
-      correctAnswer: "Hello",
-      audioRate: 0.85,
-      successTitle: "Correto",
-      successMessage: 'Usamos "Hello" para dizer "oi".',
-      feedbackMessage: 'Usamos "Hello" para dizer "oi".',
-    },
-  },
-  {
-    component: Exercise15,
-    activity: {
-      prompt: "Clique na imagem e na palavra",
-      images: [
-        { id: "meeting", image: BussinesImages.reuniao },
-        { id: "phone", image: BussinesImages.telefone },
-      ],
-      words: [
-        { id: "meeting-word", label: "Meeting" },
-        { id: "phone-word", label: "Phone" },
-      ],
-      pairs: [
-        { imageId: "meeting", wordId: "meeting-word" },
-        { imageId: "phone", wordId: "phone-word" },
-      ],
-      successTitle: "Correto",
-      successMessage: "Você formou os dois pares corretamente.",
-      feedbackMessage: "Você formou os dois pares corretamente.",
-    },
-  },
-  {
-    component: Exercise16,
-    activity: {
-      prompt: "Speaking",
-      instruction: "Fale brevemente sobre você em inglês.",
-      helperText: "(Use as frases estudadas anteriormente)",
-      image: BussinesImages.menina2,
-      tipButtonLabel: "Tip",
-      tipText: "Hello, my name is Ana. I am from Brazil. I am fine.",
-      recordLabel: "Speak",
-      stopLabel: "Parar",
-      playLabel: "Ouvir",
-      pauseLabel: "Pausar",
-      rerecordLabel: "Regravar",
-      submitLabel: "Enviar áudio",
-      successTitle: "Correto",
-      successMessage: "Seu áudio foi gravado com sucesso.",
-    },
-  },
-  {
-    component: Exercise17,
-    activity: {
-      prompt: "Escreva a frase correta",
-      scrambledSentence: "[I] [working] [am] [now]",
-      correctAnswer: "I am working now",
-      placeholder: "Digite a frase correta",
-      submitLabel: "Verificar",
-      successTitle: "Correto",
-      successMessage: 'A frase correta é "I am working now".',
-      feedbackMessage: 'A frase correta é "I am working now".',
-    },
-  },
-  {
-    component: Exercise10,
-    activity: {
-      prompt: "Responda as questões",
-      title: "Conversa",
-      userImage: BussinesImages.menina2,
-      lockStorageKey: "@ic01_exercise10_lock_until",
-      questions: [
-        {
-          image: BussinesImages.secretaria,
-          question: "Hello! How are you?",
-          options: ["I'm fine, and you?", "Good night!", "See you tomorrow!"],
-          correctAnswer: "I'm fine, and you?",
-        },
-        {
-          image: BussinesImages.menino,
-          question: "What's your name?",
-          options: [
-            "My name is Ana.",
-            "I am from Brazil.",
-            "I am 25 years old.",
-          ],
-          correctAnswer: "My name is Ana.",
-        },
-        {
-          image: BussinesImages.menina,
-          question: "Where are you from?",
-          options: ["I am from Brazil.", "I am a teacher.", "I am fine."],
-          correctAnswer: "I am from Brazil.",
-        },
-        {
-          image: BussinesImages.secretario,
-          question: "Nice to meet you.",
-          options: [
-            "Nice to meet you too.",
-            "How old are you?",
-            "See you at home.",
-          ],
-          correctAnswer: "Nice to meet you too.",
-        },
-        {
-          image: BussinesImages.menino2,
-          question: "How old are you?",
-          options: [
-            "I am 25 years old.",
-            "I am from Mexico.",
-            "My name is Leo.",
-          ],
-          correctAnswer: "I am 25 years old.",
-        },
-        {
-          image: BussinesImages.menina,
-          question: "Are you a student?",
-          options: ["Yes, I am.", "No, she isn't.", "Good afternoon."],
-          correctAnswer: "Yes, I am.",
-        },
-        {
-          image: BussinesImages.secretaria,
-          question: "What do you do?",
-          options: ["I work in a bank.", "I live in Canada.", "I am 20."],
-          correctAnswer: "I work in a bank.",
-        },
-        {
-          image: BussinesImages.menino,
-          question: "Do you speak English?",
-          options: ["Yes, a little.", "I am in class.", "My name is Bob."],
-          correctAnswer: "Yes, a little.",
-        },
-        {
-          image: BussinesImages.menina2,
-          question: "See you later!",
-          options: ["See you!", "How are you?", "I am from Spain."],
-          correctAnswer: "See you!",
-        },
-        {
-          image: BussinesImages.secretario,
-          question: "Have a nice day!",
-          options: [
-            "Thanks, you too!",
-            "My name is Carol.",
-            "I am 18 years old.",
-          ],
-          correctAnswer: "Thanks, you too!",
-        },
-      ],
-      successTitle: "Correto",
-      successMessage: "Você acertou todas as 10 respostas da conversa.",
-    },
-  },
+
   {
     key: "lesson-finish",
     type: "finish",
@@ -527,15 +187,31 @@ function SlideHeader() {
   );
 }
 
-function LessonFinishSlide({ onPressNextLesson }) {
+function LessonFinishSlide({ onPressNextLesson, feedbackProps }) {
   return (
-    <Feedback onContinue={onPressNextLesson} reviewLabel="Revisar erros ->" />
+    <Feedback
+      onContinue={onPressNextLesson}
+      reviewLabel="Revisar erros ->"
+      {...feedbackProps}
+    />
   );
 }
 
-function LessonSlideRenderer({ slide, next, speak, onPressNextLesson }) {
+function LessonSlideRenderer({
+  slide,
+  next,
+  speak,
+  onPressNextLesson,
+  onAttempt,
+  feedbackProps,
+}) {
   if (slide.type === "finish") {
-    return <LessonFinishSlide onPressNextLesson={onPressNextLesson} />;
+    return (
+      <LessonFinishSlide
+        onPressNextLesson={onPressNextLesson}
+        feedbackProps={feedbackProps}
+      />
+    );
   }
 
   const ExerciseComponent = slide.component;
@@ -546,6 +222,7 @@ function LessonSlideRenderer({ slide, next, speak, onPressNextLesson }) {
       styles={styles}
       HeaderComponent={SlideHeader}
       next={next}
+      onAttempt={onAttempt}
       {...(slide.needsSpeech ? { speak } : {})}
     />
   );
@@ -558,6 +235,12 @@ export default function IC01({ route, navigation }) {
 
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const progressAnim = useRef(new Animated.Value(1 / SLIDE_COUNT)).current;
+  const [lessonStats, setLessonStats] = useState({ correct: 0, total: 0 });
+  const [completedLessonsCount, setCompletedLessonsCount] = useState(0);
+  const [currentStreak, setCurrentStreak] = useState(0);
+  const [lessonAlreadyCompleted, setLessonAlreadyCompleted] = useState(false);
+  const [lessonMetaLoaded, setLessonMetaLoaded] = useState(false);
+  const lessonCommitRef = useRef(false);
 
   useEffect(() => {
     updateProgress(progressAnim, currentSlideIndex, SLIDE_COUNT);
@@ -571,6 +254,82 @@ export default function IC01({ route, navigation }) {
   });
 
   const currentSlide = LESSON_SLIDES[currentSlideIndex];
+  const lessonAccuracy = calculateLessonAccuracy(
+    lessonStats.correct,
+    lessonStats.total,
+  );
+  const earnedXp = lessonAlreadyCompleted ? 0 : XP_PER_LESSON;
+  const nextStreak = lessonAlreadyCompleted
+    ? currentStreak
+    : lessonAccuracy >= LESSON_STREAK_MIN_ACCURACY
+      ? currentStreak + 1
+      : 0;
+  const totalXpAfterLesson = completedLessonsCount * XP_PER_LESSON + earnedXp;
+  const levelProgress = getLevelProgress(totalXpAfterLesson);
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadLessonMeta() {
+      const [progress, streakRaw] = await Promise.all([
+        loadProgress(),
+        AsyncStorage.getItem(LESSON_STREAK_STORAGE_KEY),
+      ]);
+
+      if (!active) return;
+
+      const completedCount = Object.values(progress || {}).filter(
+        Boolean,
+      ).length;
+      const alreadyCompleted = Boolean(
+        lesson?.id != null && progress?.[lesson.id],
+      );
+      const streak = streakRaw ? Number(streakRaw) || 0 : 0;
+
+      setCompletedLessonsCount(completedCount);
+      setLessonAlreadyCompleted(alreadyCompleted);
+      setCurrentStreak(streak);
+      setLessonMetaLoaded(true);
+    }
+
+    loadLessonMeta();
+
+    return () => {
+      active = false;
+    };
+  }, [lesson?.id]);
+
+  const handleAttempt = ({ isCorrect }) => {
+    setLessonStats((current) => ({
+      correct: current.correct + (isCorrect ? 1 : 0),
+      total: current.total + 1,
+    }));
+  };
+
+  useEffect(() => {
+    if (!lessonMetaLoaded || currentSlide?.type !== "finish") return;
+    if (lessonAlreadyCompleted || lessonCommitRef.current) return;
+
+    lessonCommitRef.current = true;
+
+    async function commitLessonCompletion() {
+      if (lesson?.id != null) {
+        const progress = await loadProgress();
+        await Promise.all([
+          saveProgress({ ...progress, [lesson.id]: true }),
+          AsyncStorage.setItem(LESSON_STREAK_STORAGE_KEY, String(nextStreak)),
+        ]);
+      }
+    }
+
+    commitLessonCompletion();
+  }, [
+    currentSlide?.type,
+    lesson?.id,
+    lessonAlreadyCompleted,
+    lessonMetaLoaded,
+    nextStreak,
+  ]);
 
   const findNextLesson = () => {
     if (!lessons || !lesson) return null;
@@ -581,11 +340,6 @@ export default function IC01({ route, navigation }) {
   };
 
   const goToNextLesson = async () => {
-    if (lesson?.id != null) {
-      const progress = await loadProgress();
-      await saveProgress({ ...progress, [lesson.id]: true });
-    }
-
     navigation.replace("Inglescompleto", {
       autoOpenLessonId: findNextLesson()?.id || null,
     });
@@ -609,6 +363,15 @@ export default function IC01({ route, navigation }) {
             next={slideNav.next}
             speak={speak}
             onPressNextLesson={goToNextLesson}
+            onAttempt={handleAttempt}
+            feedbackProps={{
+              earnedXp,
+              accuracy: lessonAccuracy,
+              streak: nextStreak,
+              totalXp: totalXpAfterLesson,
+              lessonAlreadyCompleted,
+              ...levelProgress,
+            }}
           />
         </ScrollView>
       </SlideNavContext.Provider>

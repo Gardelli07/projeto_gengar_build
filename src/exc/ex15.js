@@ -11,7 +11,13 @@ import {
 } from "react-native";
 import CORES from "../util/cores";
 
-export function Exercise15({ activity, styles, HeaderComponent, next }) {
+export function Exercise15({
+  activity,
+  styles,
+  HeaderComponent,
+  next,
+  onAttempt,
+}) {
   const bottomSafeSpace = 3;
   const alertTranslateY = useRef(new Animated.Value(64)).current;
   const alertOpacity = useRef(new Animated.Value(0)).current;
@@ -48,6 +54,7 @@ export function Exercise15({ activity, styles, HeaderComponent, next }) {
     );
 
     if (matchedPair) {
+      onAttempt?.({ isCorrect: true });
       setMatchedImageIds((current) => [...current, matchedPair.imageId]);
       setMatchedWordIds((current) => [...current, matchedPair.wordId]);
       setSelectedImageId(null);
@@ -56,6 +63,7 @@ export function Exercise15({ activity, styles, HeaderComponent, next }) {
       return;
     }
 
+    onAttempt?.({ isCorrect: false });
     setResult("wrong");
     Vibration.vibrate(140);
     shakeAnim.setValue(0);

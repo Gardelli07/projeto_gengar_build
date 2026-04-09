@@ -11,7 +11,14 @@ import {
 } from "react-native";
 import CORES from "../util/cores";
 
-export function Exercise3({ activity, styles, HeaderComponent, next, speak }) {
+export function Exercise3({
+  activity,
+  styles,
+  HeaderComponent,
+  next,
+  speak,
+  onAttempt,
+}) {
   const bottomSafeSpace = 3;
   const audioProgressAnim = useRef(new Animated.Value(0)).current;
   const alertTranslateY = useRef(new Animated.Value(64)).current;
@@ -87,6 +94,7 @@ export function Exercise3({ activity, styles, HeaderComponent, next, speak }) {
   };
 
   const triggerWrongFeedback = () => {
+    onAttempt?.({ isCorrect: false });
     setResult("wrong");
     Vibration.vibrate(140);
     shakeAnim.setValue(0);
@@ -136,6 +144,7 @@ export function Exercise3({ activity, styles, HeaderComponent, next, speak }) {
     setSelected(option);
 
     if (option === activity.correctAnswer) {
+      onAttempt?.({ isCorrect: true });
       setResult("correct");
       return;
     }

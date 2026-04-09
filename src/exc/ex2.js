@@ -10,7 +10,13 @@ import {
 } from "react-native";
 import CORES from "../util/cores";
 
-export function Exercise2({ activity, styles, HeaderComponent, next }) {
+export function Exercise2({
+  activity,
+  styles,
+  HeaderComponent,
+  next,
+  onAttempt,
+}) {
   const bottomSafeSpace = 3;
   const getBlankWidth = (blank) => {
     const longestLabel = [blank.answer, ...(blank.options || [])].reduce(
@@ -136,12 +142,14 @@ export function Exercise2({ activity, styles, HeaderComponent, next }) {
 
   const handleOptionPress = (blank, option) => {
     if (option === blank.answer) {
+      onAttempt?.({ isCorrect: true });
       setAnswers((prev) => ({ ...prev, [blank.id]: option }));
       setWrongBlankId(null);
       setActiveBlankId(null);
       return;
     }
 
+    onAttempt?.({ isCorrect: false });
     setActiveBlankId(null);
     triggerWrongFeedback(blank.id);
   };

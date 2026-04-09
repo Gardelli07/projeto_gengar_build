@@ -10,7 +10,13 @@ import {
 } from "react-native";
 import CORES from "../util/cores";
 
-export function Exercise7({ activity, styles, HeaderComponent, next }) {
+export function Exercise7({
+  activity,
+  styles,
+  HeaderComponent,
+  next,
+  onAttempt,
+}) {
   const bottomSafeSpace = 3;
 
   const shuffleArray = (items) => {
@@ -128,11 +134,13 @@ export function Exercise7({ activity, styles, HeaderComponent, next }) {
     );
 
     if (!isPrefixCorrect) {
+      onAttempt?.({ isCorrect: false });
       triggerWrongFeedback();
       return;
     }
 
     if (nextPhrases.length === activity.correctOrder.length) {
+      onAttempt?.({ isCorrect: true });
       setResult("correct");
     }
   };

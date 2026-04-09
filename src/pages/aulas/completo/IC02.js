@@ -3,7 +3,6 @@ import {
   Animated,
   Image,
   ScrollView,
-  Text,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -12,7 +11,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Speech from "expo-speech";
 import geral from "../../../exc/geral";
 import ex1, { Exercise1 } from "../../../exc/ex1";
-import ex14, { Exercise14 } from "../../../exc/ex14";
 import ex2, { Exercise2 } from "../../../exc/ex2";
 import ex3, { Exercise3 } from "../../../exc/ex3";
 import ex4, { Exercise4 } from "../../../exc/ex4";
@@ -26,9 +24,17 @@ import ex11, { Exercise11 } from "../../../exc/ex11";
 import ex12, { Exercise12 } from "../../../exc/ex12";
 import ex13, { Exercise13 } from "../../../exc/ex13";
 import ex15, { Exercise15 } from "../../../exc/ex15";
+import ex14, { Exercise14 } from "../../../exc/ex14";
 import ex16, { Exercise16 } from "../../../exc/ex16";
+import ex17, { Exercise17 } from "../../../exc/ex17";
 import Feedback from "../../../exc/feedback";
 import { BussinesImages, Images } from "../../../util/images";
+import {
+  calculateLessonAccuracy,
+  LESSON_STREAK_MIN_ACCURACY,
+  LESSON_STREAK_STORAGE_KEY,
+} from "../../../util/lessonPerformance";
+import { getLevelProgress, XP_PER_LESSON } from "../../../util/xp";
 
 const SlideNavContext = React.createContext(null);
 
@@ -180,15 +186,31 @@ function SlideHeader() {
   );
 }
 
-function LessonFinishSlide({ onPressNextLesson }) {
+function LessonFinishSlide({ onPressNextLesson, feedbackProps }) {
   return (
-    <Feedback onContinue={onPressNextLesson} reviewLabel="Revisar erros ->" />
+    <Feedback
+      onContinue={onPressNextLesson}
+      reviewLabel="Revisar erros ->"
+      {...feedbackProps}
+    />
   );
 }
 
-function LessonSlideRenderer({ slide, next, speak, onPressNextLesson }) {
+function LessonSlideRenderer({
+  slide,
+  next,
+  speak,
+  onPressNextLesson,
+  onAttempt,
+  feedbackProps,
+}) {
   if (slide.type === "finish") {
-    return <LessonFinishSlide onPressNextLesson={onPressNextLesson} />;
+    return (
+      <LessonFinishSlide
+        onPressNextLesson={onPressNextLesson}
+        feedbackProps={feedbackProps}
+      />
+    );
   }
 
   const ExerciseComponent = slide.component;
@@ -199,18 +221,25 @@ function LessonSlideRenderer({ slide, next, speak, onPressNextLesson }) {
       styles={styles}
       HeaderComponent={SlideHeader}
       next={next}
+      onAttempt={onAttempt}
       {...(slide.needsSpeech ? { speak } : {})}
     />
   );
 }
 
-export default function IC01({ route, navigation }) {
+export default function IC02({ route, navigation }) {
   const lesson = route?.params?.lesson;
   const lessons = route?.params?.lessons;
   const { speak } = useSpeech();
 
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const progressAnim = useRef(new Animated.Value(1 / SLIDE_COUNT)).current;
+  const [lessonStats, setLessonStats] = useState({ correct: 0, total: 0 });
+  const [completedLessonsCount, setCompletedLessonsCount] = useState(0);
+  const [currentStreak, setCurrentStreak] = useState(0);
+  const [lessonAlreadyCompleted, setLessonAlreadyCompleted] = useState(false);
+  const [lessonMetaLoaded, setLessonMetaLoaded] = useState(false);
+  const lessonCommitRef = useRef(false);
 
   useEffect(() => {
     updateProgress(progressAnim, currentSlideIndex, SLIDE_COUNT);
@@ -224,6 +253,82 @@ export default function IC01({ route, navigation }) {
   });
 
   const currentSlide = LESSON_SLIDES[currentSlideIndex];
+  const lessonAccuracy = calculateLessonAccuracy(
+    lessonStats.correct,
+    lessonStats.total,
+  );
+  const earnedXp = lessonAlreadyCompleted ? 0 : XP_PER_LESSON;
+  const nextStreak = lessonAlreadyCompleted
+    ? currentStreak
+    : lessonAccuracy >= LESSON_STREAK_MIN_ACCURACY
+      ? currentStreak + 1
+      : 0;
+  const totalXpAfterLesson = completedLessonsCount * XP_PER_LESSON + earnedXp;
+  const levelProgress = getLevelProgress(totalXpAfterLesson);
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadLessonMeta() {
+      const [progress, streakRaw] = await Promise.all([
+        loadProgress(),
+        AsyncStorage.getItem(LESSON_STREAK_STORAGE_KEY),
+      ]);
+
+      if (!active) return;
+
+      const completedCount = Object.values(progress || {}).filter(
+        Boolean,
+      ).length;
+      const alreadyCompleted = Boolean(
+        lesson?.id != null && progress?.[lesson.id],
+      );
+      const streak = streakRaw ? Number(streakRaw) || 0 : 0;
+
+      setCompletedLessonsCount(completedCount);
+      setLessonAlreadyCompleted(alreadyCompleted);
+      setCurrentStreak(streak);
+      setLessonMetaLoaded(true);
+    }
+
+    loadLessonMeta();
+
+    return () => {
+      active = false;
+    };
+  }, [lesson?.id]);
+
+  const handleAttempt = ({ isCorrect }) => {
+    setLessonStats((current) => ({
+      correct: current.correct + (isCorrect ? 1 : 0),
+      total: current.total + 1,
+    }));
+  };
+
+  useEffect(() => {
+    if (!lessonMetaLoaded || currentSlide?.type !== "finish") return;
+    if (lessonAlreadyCompleted || lessonCommitRef.current) return;
+
+    lessonCommitRef.current = true;
+
+    async function commitLessonCompletion() {
+      if (lesson?.id != null) {
+        const progress = await loadProgress();
+        await Promise.all([
+          saveProgress({ ...progress, [lesson.id]: true }),
+          AsyncStorage.setItem(LESSON_STREAK_STORAGE_KEY, String(nextStreak)),
+        ]);
+      }
+    }
+
+    commitLessonCompletion();
+  }, [
+    currentSlide?.type,
+    lesson?.id,
+    lessonAlreadyCompleted,
+    lessonMetaLoaded,
+    nextStreak,
+  ]);
 
   const findNextLesson = () => {
     if (!lessons || !lesson) return null;
@@ -234,11 +339,6 @@ export default function IC01({ route, navigation }) {
   };
 
   const goToNextLesson = async () => {
-    if (lesson?.id != null) {
-      const progress = await loadProgress();
-      await saveProgress({ ...progress, [lesson.id]: true });
-    }
-
     navigation.replace("Inglescompleto", {
       autoOpenLessonId: findNextLesson()?.id || null,
     });
@@ -262,6 +362,15 @@ export default function IC01({ route, navigation }) {
             next={slideNav.next}
             speak={speak}
             onPressNextLesson={goToNextLesson}
+            onAttempt={handleAttempt}
+            feedbackProps={{
+              earnedXp,
+              accuracy: lessonAccuracy,
+              streak: nextStreak,
+              totalXp: totalXpAfterLesson,
+              lessonAlreadyCompleted,
+              ...levelProgress,
+            }}
           />
         </ScrollView>
       </SlideNavContext.Provider>

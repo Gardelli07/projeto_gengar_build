@@ -17,7 +17,13 @@ const normalizeText = (value) =>
     .replace(/\s+/g, " ")
     .toLowerCase();
 
-export function Exercise17({ activity, styles, HeaderComponent, next }) {
+export function Exercise17({
+  activity,
+  styles,
+  HeaderComponent,
+  next,
+  onAttempt,
+}) {
   const bottomSafeSpace = 3;
   const alertTranslateY = useRef(new Animated.Value(64)).current;
   const alertOpacity = useRef(new Animated.Value(0)).current;
@@ -105,10 +111,12 @@ export function Exercise17({ activity, styles, HeaderComponent, next }) {
     const expected = normalizeText(activity.correctAnswer);
 
     if (!typed || typed !== expected) {
+      onAttempt?.({ isCorrect: false });
       triggerWrongFeedback();
       return;
     }
 
+    onAttempt?.({ isCorrect: true });
     setResult("correct");
   };
 

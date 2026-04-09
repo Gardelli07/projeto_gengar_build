@@ -2,8 +2,37 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { LESSON_STREAK_MIN_ACCURACY } from "../util/lessonPerformance";
+import { formatXp } from "../util/xp";
 
-export default function Feedback({ onContinue, continueLabel = "Continuar" }) {
+export default function Feedback({
+  onContinue,
+  continueLabel = "Continuar",
+  earnedXp = 0,
+  accuracy = 0,
+  streak = 0,
+  totalXp = 0,
+  currentLevel = 1,
+  levelPercent = 0,
+  xpAtCurrentLevel = 0,
+  xpAtNextLevel = 0,
+  lessonAlreadyCompleted = false,
+}) {
+  const streakMaintained =
+    !lessonAlreadyCompleted && accuracy >= LESSON_STREAK_MIN_ACCURACY;
+
+  const infoTitle = lessonAlreadyCompleted
+    ? "Aula já concluída"
+    : streakMaintained
+      ? "Sequência aumentou!"
+      : "Sequência reiniciada";
+
+  const infoText = lessonAlreadyCompleted
+    ? "O XP e a sequência desta aula já tinham sido contabilizados."
+    : streakMaintained
+      ? `Você fechou a aula com ${accuracy}% e chegou a ${streak} de sequência.`
+      : `Para manter a sequência, finalize com pelo menos ${LESSON_STREAK_MIN_ACCURACY}% de precisão.`;
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -17,25 +46,27 @@ export default function Feedback({ onContinue, continueLabel = "Continuar" }) {
 
         <Text style={styles.title}>Lição Completa!</Text>
         <Text style={styles.subtitle}>
-          Você está arrasando! Continue assim.
+          Você terminou a aula. Vamos acompanhar seu desempenho final.
         </Text>
 
         <View style={styles.metricsRow}>
           <View style={[styles.metricCard, styles.metricCardBlue]}>
-            <Text style={[styles.metricValue, styles.metricValueBlue]}>85</Text>
+            <Text style={[styles.metricValue, styles.metricValueBlue]}>
+              +{earnedXp}
+            </Text>
             <Text style={styles.metricLabel}>XP</Text>
           </View>
 
           <View style={[styles.metricCard, styles.metricCardOrange]}>
             <Text style={[styles.metricValue, styles.metricValueOrange]}>
-              92%
+              {accuracy}%
             </Text>
             <Text style={styles.metricLabel}>PRECISÃO</Text>
           </View>
 
           <View style={[styles.metricCard, styles.metricCardPurple]}>
             <Text style={[styles.metricValue, styles.metricValuePurple]}>
-              7 {"\uD83D\uDD25"}
+              {streak} {"\uD83D\uDD25"}
             </Text>
             <Text style={styles.metricLabel}>SEQUÊNCIA</Text>
           </View>
@@ -44,16 +75,25 @@ export default function Feedback({ onContinue, continueLabel = "Continuar" }) {
         <View style={styles.progressSection}>
           <View style={styles.progressHeader}>
             <Text style={styles.progressTitle}>Progresso do Nível</Text>
-            <Text style={styles.progressLevel}>Nível 7</Text>
+            <Text style={styles.progressLevel}>Nível {currentLevel}</Text>
           </View>
 
           <View style={styles.progressTrack}>
-            <View style={styles.progressFill} />
+            <View
+              style={[
+                styles.progressFill,
+                { width: `${Math.max(0, Math.min(levelPercent, 100))}%` },
+              ]}
+            />
           </View>
 
           <View style={styles.progressFooter}>
-            <Text style={styles.progressFootText}>1240 XP</Text>
-            <Text style={styles.progressFootText}>1,750 XP</Text>
+            <Text style={styles.progressFootText}>
+              {formatXp(Math.max(totalXp, xpAtCurrentLevel))} XP
+            </Text>
+            <Text style={styles.progressFootText}>
+              {formatXp(xpAtNextLevel)} XP
+            </Text>
           </View>
         </View>
 
@@ -67,14 +107,14 @@ export default function Feedback({ onContinue, continueLabel = "Continuar" }) {
           </View>
 
           <View style={styles.bonusContent}>
-            <Text style={styles.bonusTitle}>Resposta Rápida!</Text>
-            <Text style={styles.bonusText}>
-              3 respostas corretas em menos de 5s
-            </Text>
+            <Text style={styles.bonusTitle}>{infoTitle}</Text>
+            <Text style={styles.bonusText}>{infoText}</Text>
           </View>
 
           <View style={styles.bonusPill}>
-            <Text style={styles.bonusPillText}>+15 XP</Text>
+            <Text style={styles.bonusPillText}>
+              {lessonAlreadyCompleted ? "0 XP" : `${LESSON_STREAK_MIN_ACCURACY}%+`}
+            </Text>
           </View>
         </View>
 
@@ -216,7 +256,6 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   progressFill: {
-    width: "73%",
     height: "100%",
     backgroundColor: "#346EF1",
     borderRadius: 999,
@@ -278,25 +317,6 @@ const styles = StyleSheet.create({
     color: "#FF8A34",
     fontWeight: "800",
   },
-  ratingSection: {
-    width: "100%",
-    alignItems: "center",
-    marginBottom: 30,
-  },
-  ratingTitle: {
-    fontSize: 11,
-    color: "#C1C7D4",
-    fontWeight: "700",
-    marginBottom: 12,
-  },
-  starsRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  star: {
-    marginHorizontal: 2,
-  },
   primaryButton: {
     width: "100%",
     height: 54,
@@ -316,13 +336,5 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 16,
     fontWeight: "800",
-  },
-  secondaryButton: {
-    paddingVertical: 6,
-  },
-  secondaryButtonText: {
-    fontSize: 12,
-    color: "#A6ADBB",
-    fontWeight: "600",
   },
 });

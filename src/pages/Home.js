@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
+  Alert,
   Image,
   ScrollView,
   StatusBar,
@@ -13,6 +14,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Svg, { Circle, Text as SvgText } from "react-native-svg";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import CORES from "../util/cores";
+import { LESSON_STREAK_STORAGE_KEY } from "../util/lessonPerformance";
+import { getLevelProgress, XP_PER_LESSON } from "../util/xp";
 import {
   BUSSINES_STORAGE_KEY,
   bussinesModules,
@@ -51,54 +54,6 @@ const COURSE_CONFIG = {
     routeName: "Bussines",
   },
 };
-
-const XP_PER_LESSON = 50;
-const LEVEL_XP_CURVE = [
-  { level: 1, totalXp: 0 },
-  { level: 2, totalXp: 50 }, // 1 aula
-  { level: 3, totalXp: 100 }, // 2 aulas
-  { level: 4, totalXp: 200 },
-  { level: 5, totalXp: 320 },
-  { level: 6, totalXp: 480 },
-  { level: 7, totalXp: 700 },
-  { level: 8, totalXp: 980 },
-  { level: 9, totalXp: 1350 },
-  { level: 10, totalXp: 1850 },
-  { level: 11, totalXp: 2850 }, // salto maior apos o nivel 10
-];
-
-function getLevelProgress(totalXp) {
-  let currentLevelIndex = 0;
-
-  for (let i = 0; i < LEVEL_XP_CURVE.length; i += 1) {
-    if (totalXp >= LEVEL_XP_CURVE[i].totalXp) {
-      currentLevelIndex = i;
-    } else {
-      break;
-    }
-  }
-
-  const currentLevelData = LEVEL_XP_CURVE[currentLevelIndex];
-  const nextLevelData =
-    LEVEL_XP_CURVE[currentLevelIndex + 1] ?? LEVEL_XP_CURVE[currentLevelIndex];
-
-  const xpAtCurrentLevel = currentLevelData.totalXp;
-  const xpAtNextLevel = nextLevelData.totalXp;
-  const levelRange = Math.max(1, xpAtNextLevel - xpAtCurrentLevel);
-  const xpInsideLevel = Math.max(0, totalXp - xpAtCurrentLevel);
-  const levelPercent = Math.min(100, (xpInsideLevel / levelRange) * 100);
-
-  return {
-    currentLevel: currentLevelData.level,
-    nextLevel: nextLevelData.level,
-    xpAtCurrentLevel,
-    xpAtNextLevel,
-    xpInsideLevel,
-    levelRange,
-    levelPercent,
-    xpMissingForNextLevel: Math.max(0, xpAtNextLevel - totalXp),
-  };
-}
 
 async function loadProgress(storageKey) {
   try {
@@ -277,6 +232,29 @@ export default function Inglescompleto({ navigation, route }) {
     setOpenModuleId((prev) => (prev === moduleItem.id ? null : moduleItem.id));
   };
 
+  const resetAllCompletedLessons = () => {
+    Alert.alert(
+      "Resetar progresso",
+      "Isso vai limpar as aulas concluídas e zerar a sequência. Continuar?",
+      [
+        { text: "Cancelar", style: "cancel" },
+        {
+          text: "Resetar",
+          style: "destructive",
+          onPress: async () => {
+            await Promise.all([
+              AsyncStorage.removeItem(INGLES_COMPLETO_STORAGE_KEY),
+              AsyncStorage.removeItem(BUSSINES_STORAGE_KEY),
+              AsyncStorage.removeItem(LESSON_STREAK_STORAGE_KEY),
+            ]);
+
+            setProgressMap({});
+          },
+        },
+      ],
+    );
+  };
+
   const sectionButtonLabel =
     selectedCourse && selectedLevel
       ? `${selectedCourse} - ${selectedLevel}`
@@ -353,6 +331,21 @@ export default function Inglescompleto({ navigation, route }) {
           {levelProgress.xpInsideLevel} / {levelProgress.levelRange} XP para o
           Nivel {levelProgress.nextLevel}
         </Text>
+
+        <TouchableOpacity
+          style={styles.resetProgressButton}
+          onPress={resetAllCompletedLessons}
+          activeOpacity={0.85}
+        >
+          <MaterialCommunityIcons
+            name="restore"
+            size={15}
+            color="#C25757"
+          />
+          <Text style={styles.resetProgressButtonText}>
+            Resetar aulas concluídas
+          </Text>
+        </TouchableOpacity>
 
         <View style={styles.continueCard}>
           <ProgressCircle percent={percent} />
@@ -798,6 +791,24 @@ const styles = StyleSheet.create({
     color: "#8998AB",
     fontSize: 12,
     fontWeight: "600",
+  },
+  resetProgressButton: {
+    marginTop: 14,
+    alignSelf: "flex-start",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: "#F1CACA",
+    backgroundColor: "#FFF5F5",
+  },
+  resetProgressButtonText: {
+    fontSize: 12,
+    fontWeight: "700",
+    color: "#C25757",
   },
   continueCard: {
     marginTop: 18,

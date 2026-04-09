@@ -9,7 +9,13 @@ import {
 } from "react-native";
 import CORES from "../util/cores";
 
-export function Exercise1({ activity, styles, HeaderComponent, next }) {
+export function Exercise1({
+  activity,
+  styles,
+  HeaderComponent,
+  next,
+  onAttempt,
+}) {
   const bottomSafeSpace = 3;
 
   const shuffleArray = (items) => {
@@ -60,6 +66,7 @@ export function Exercise1({ activity, styles, HeaderComponent, next }) {
     activity.pairs.some((pair) => pair.en === en && pair.pt === pt);
 
   const triggerWrongFeedback = (en, pt) => {
+    onAttempt?.({ isCorrect: false });
     setWrongPair({ en, pt });
     shakeAnim.setValue(0);
     blinkAnim.setValue(0);
@@ -98,6 +105,7 @@ export function Exercise1({ activity, styles, HeaderComponent, next }) {
     if (!selectedEnglish || !selectedTranslation) return;
 
     if (isCorrectPair(selectedEnglish, selectedTranslation)) {
+      onAttempt?.({ isCorrect: true });
       setMatchedEnglish((prev) => [...prev, selectedEnglish]);
       setMatchedTranslations((prev) => [...prev, selectedTranslation]);
       setSelectedEnglish(null);

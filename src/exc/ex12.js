@@ -12,7 +12,13 @@ import {
 import CORES from "../util/cores";
 import { Images } from "../util/images";
 
-export function Exercise12({ activity, styles, HeaderComponent, next }) {
+export function Exercise12({
+  activity,
+  styles,
+  HeaderComponent,
+  next,
+  onAttempt,
+}) {
   const bottomSafeSpace = 3;
   const alertTranslateY = useRef(new Animated.Value(64)).current;
   const alertOpacity = useRef(new Animated.Value(0)).current;
@@ -50,6 +56,7 @@ export function Exercise12({ activity, styles, HeaderComponent, next }) {
 
   const handleSubmit = () => {
     if (!canSubmit) return;
+    onAttempt?.({ isCorrect: true });
     setResult("correct");
   };
 

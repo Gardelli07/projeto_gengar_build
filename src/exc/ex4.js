@@ -11,7 +11,13 @@ import {
 } from "react-native";
 import CORES from "../util/cores";
 
-export function Exercise4({ activity, styles, HeaderComponent, next }) {
+export function Exercise4({
+  activity,
+  styles,
+  HeaderComponent,
+  next,
+  onAttempt,
+}) {
   const bottomSafeSpace = 3;
   const alertTranslateY = useRef(new Animated.Value(64)).current;
   const alertOpacity = useRef(new Animated.Value(0)).current;
@@ -107,10 +113,12 @@ export function Exercise4({ activity, styles, HeaderComponent, next }) {
     setSelected(option);
 
     if (option === activity.correctAnswer) {
+      onAttempt?.({ isCorrect: true });
       setResult("correct");
       return;
     }
 
+    onAttempt?.({ isCorrect: false });
     triggerWrongFeedback();
   };
 
