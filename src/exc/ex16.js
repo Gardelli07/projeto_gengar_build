@@ -18,7 +18,7 @@ import {
   useAudioRecorder,
 } from "expo-audio";
 import CORES from "../util/cores";
-import { Images } from "../util/images";
+import { BussinesImages, Images } from "../util/images";
 
 function formatDuration(totalSeconds) {
   const minutes = Math.floor(totalSeconds / 60).toString();

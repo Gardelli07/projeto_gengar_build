@@ -1,21 +1,49 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import {
-  Animated,
-  Easing,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Vibration,
-  View,
   StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import CORES from "../util/cores";
 
-const normalizeText = (value) =>
-  String(value || "")
-    .trim()
-    .replace(/\s+/g, " ")
-    .toLowerCase();
+function renderMarkedText(text, styles) {
+  const parts = [];
+  const pattern = /\/blue\{([^}]+)\}|\/blue(\S+)/g;
+  let lastIndex = 0;
+  let match;
+
+  while ((match = pattern.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push({
+        text: text.slice(lastIndex, match.index),
+        isBlue: false,
+      });
+    }
+
+    parts.push({
+      text: match[1] || match[2],
+      isBlue: true,
+    });
+    lastIndex = pattern.lastIndex;
+  }
+
+  if (lastIndex < text.length) {
+    parts.push({
+      text: text.slice(lastIndex),
+      isBlue: false,
+    });
+  }
+
+  return parts.map((part, index) => (
+    <Text
+      key={`${part.text}-${index}`}
+      style={part.isBlue ? styles.tipVisualBlueText : null}
+    >
+      {part.text}
+    </Text>
+  ));
+}
 
 export function Exercise17({
   activity,
@@ -24,324 +52,101 @@ export function Exercise17({
   next,
   onAttempt,
 }) {
-  const bottomSafeSpace = 3;
-  const alertTranslateY = useRef(new Animated.Value(64)).current;
-  const alertOpacity = useRef(new Animated.Value(0)).current;
-  const shakeAnim = useRef(new Animated.Value(0)).current;
-  const blinkAnim = useRef(new Animated.Value(0)).current;
-  const [typedText, setTypedText] = useState("");
-  const [result, setResult] = useState(null);
+  const hasCompletedRef = useRef(false);
+  const contentLines = String(activity.content || "").split("\n");
 
-  const isCorrect = result === "correct";
-  const isWrong = result === "wrong";
-
-  const shakeTranslateX = shakeAnim.interpolate({
-    inputRange: [0, 0.25, 0.5, 0.75, 1],
-    outputRange: [0, -8, 8, -8, 0],
-  });
-
-  const wrongBackground = blinkAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [CORES.WHITE, CORES.DANGER_LIGHT],
-  });
-
-  useEffect(() => {
-    if (isCorrect || isWrong) {
-      alertTranslateY.setValue(64);
-      alertOpacity.setValue(0);
-      Animated.parallel([
-        Animated.timing(alertTranslateY, {
-          toValue: 0,
-          duration: 260,
-          easing: Easing.out(Easing.cubic),
-          useNativeDriver: true,
-        }),
-        Animated.timing(alertOpacity, {
-          toValue: 1,
-          duration: 220,
-          useNativeDriver: true,
-        }),
-      ]).start();
-      return;
+  const handleContinue = () => {
+    if (!hasCompletedRef.current) {
+      hasCompletedRef.current = true;
+      onAttempt?.({
+        isCorrect: true,
+        correctDelta: 0,
+        totalDelta: 0,
+        exerciseAccuracy: 100,
+      });
     }
 
-    alertTranslateY.setValue(64);
-    alertOpacity.setValue(0);
-  }, [isCorrect, isWrong, alertOpacity, alertTranslateY]);
-
-  const triggerWrongFeedback = () => {
-    setResult("wrong");
-    Vibration.vibrate(140);
-    shakeAnim.setValue(0);
-    blinkAnim.setValue(0);
-    Animated.parallel([
-      Animated.timing(shakeAnim, {
-        toValue: 1,
-        duration: 480,
-        easing: Easing.linear,
-        useNativeDriver: false,
-      }),
-      Animated.sequence([
-        Animated.timing(blinkAnim, {
-          toValue: 1,
-          duration: 120,
-          useNativeDriver: false,
-        }),
-        Animated.timing(blinkAnim, {
-          toValue: 0,
-          duration: 120,
-          useNativeDriver: false,
-        }),
-        Animated.timing(blinkAnim, {
-          toValue: 1,
-          duration: 120,
-          useNativeDriver: false,
-        }),
-        Animated.timing(blinkAnim, {
-          toValue: 0,
-          duration: 120,
-          useNativeDriver: false,
-        }),
-      ]),
-    ]).start();
-  };
-
-  const handleSubmit = () => {
-    const typed = normalizeText(typedText);
-    const expected = normalizeText(activity.correctAnswer);
-
-    if (!typed || typed !== expected) {
-      onAttempt?.({ isCorrect: false });
-      triggerWrongFeedback();
-      return;
-    }
-
-    onAttempt?.({ isCorrect: true });
-    setResult("correct");
+    next();
   };
 
   return (
     <View style={styles.slide}>
       <HeaderComponent />
 
-      <View style={styles.orderSentenceBlock}>
-        <Text style={styles.fastTypePrompt}>{activity.prompt}</Text>
+      <View style={styles.tipVisualBlock}>
+        <Text style={styles.tipVisualLabel}>{activity.label}</Text>
 
-        {activity.instruction ? (
-          <Text style={styles.orderSentenceInstruction}>
-            {activity.instruction}
-          </Text>
-        ) : null}
-
-        <Animated.View
-          style={[
-            styles.orderSentenceWordsCard,
-            isWrong && styles.orderSentenceWordsCardWrong,
-            isWrong && { backgroundColor: wrongBackground },
-            isWrong && { transform: [{ translateX: shakeTranslateX }] },
-          ]}
-        >
-          <Text style={styles.orderSentenceWordsText}>
-            {activity.scrambledSentence}
-          </Text>
-        </Animated.View>
-
-        <Animated.View
-          style={[
-            styles.orderSentenceInputWrap,
-            isWrong && styles.orderSentenceInputWrapWrong,
-            isCorrect && styles.orderSentenceInputWrapCorrect,
-          ]}
-        >
-          <TextInput
-            value={typedText}
-            onChangeText={(value) => {
-              setTypedText(value);
-              if (result) setResult(null);
-            }}
-            style={styles.orderSentenceInput}
-            placeholder={activity.placeholder}
-            placeholderTextColor="#8BB7E0"
-            autoCapitalize="sentences"
-            autoCorrect={false}
-          />
-        </Animated.View>
+        <View style={styles.tipVisualCard}>
+          {contentLines.map((line, index) => (
+            <Text
+              key={`${line}-${index}`}
+              style={[
+                styles.tipVisualContentLine,
+                line.trim() === "" && styles.tipVisualBlankLine,
+              ]}
+            >
+              {renderMarkedText(line, styles)}
+            </Text>
+          ))}
+        </View>
 
         <TouchableOpacity
-          style={[
-            styles.orderSentenceSubmitButton,
-            !typedText.trim() && styles.orderSentenceSubmitButtonDisabled,
-          ]}
-          onPress={handleSubmit}
-          disabled={!typedText.trim() || isCorrect || isWrong}
+          style={styles.tipVisualContinueButton}
+          onPress={handleContinue}
         >
-          <Text style={styles.orderSentenceSubmitButtonText}>
-            {activity.submitLabel}
+          <Text style={styles.tipVisualContinueButtonText}>
+            {activity.continueLabel}
           </Text>
         </TouchableOpacity>
       </View>
-
-      {(isCorrect || isWrong) && (
-        <View style={styles.successAlertOverlay}>
-          <Animated.View
-            style={[
-              styles.successAlertCard,
-              styles.resultAlertCard,
-              isCorrect
-                ? styles.resultAlertCardCorrect
-                : styles.resultAlertCardWrong,
-              { paddingBottom: bottomSafeSpace + 1 },
-              {
-                opacity: alertOpacity,
-                transform: [{ translateY: alertTranslateY }],
-              },
-            ]}
-          >
-            <View style={styles.successHeaderRow}>
-              <View
-                style={[
-                  styles.successIconWrap,
-                  isWrong && styles.resultAlertIconWrapWrong,
-                ]}
-              >
-                <Text
-                  style={[
-                    styles.successIcon,
-                    isWrong && styles.resultAlertIconWrong,
-                  ]}
-                >
-                  {isWrong ? "X" : "✓"}
-                </Text>
-              </View>
-              <Text
-                style={[
-                  styles.successAlertTitle,
-                  isWrong && styles.resultAlertTitleWrong,
-                ]}
-              >
-                {isWrong
-                  ? activity.errorTitle || "Incorreto"
-                  : activity.successTitle}
-              </Text>
-            </View>
-
-            <View
-              style={[
-                styles.feedbackBox,
-                isWrong ? styles.feedbackBoxWrong : styles.feedbackBoxCorrect,
-                styles.alertFeedbackBox,
-              ]}
-            >
-              <Text
-                style={[
-                  styles.feedbackTitle,
-                  isWrong
-                    ? styles.feedbackTitleWrong
-                    : styles.feedbackTitleCorrect,
-                ]}
-              >
-                {isWrong ? "X Tente novamente" : "✓ Muito bem!"}
-              </Text>
-              <Text style={styles.feedbackTextBlack}>
-                {activity.successMessage}
-              </Text>
-            </View>
-
-            {isCorrect ? (
-              <TouchableOpacity
-                style={styles.alertContinueButton}
-                onPress={next}
-              >
-                <Text style={styles.alertContinueButtonText}>Próximo</Text>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                style={[
-                  styles.alertContinueButton,
-                  styles.resultAlertButtonWrong,
-                ]}
-                onPress={next}
-              >
-                <Text style={styles.alertContinueButtonText}>
-                  {activity.wrongButtonLabel || "Próxima atividade"}
-                </Text>
-              </TouchableOpacity>
-            )}
-          </Animated.View>
-        </View>
-      )}
     </View>
   );
 }
 
 const ex17 = StyleSheet.create({
-  orderSentenceBlock: {
+  tipVisualBlock: {
     width: "100%",
     alignItems: "center",
   },
-  orderSentenceInstruction: {
+  tipVisualLabel: {
     width: "88%",
-    textAlign: "left",
-    fontSize: 16,
-    color: "#7BA9D6",
+    color: "#78A2CC",
+    fontSize: 20,
+    fontWeight: "700",
     marginBottom: 18,
-    fontWeight: "600",
+    textTransform: "uppercase",
   },
-  orderSentenceWordsCard: {
+  tipVisualCard: {
     width: "88%",
-    minHeight: 72,
-    borderRadius: 12,
-    backgroundColor: "#76A8D7",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 18,
-    paddingVertical: 16,
-    marginBottom: 24,
+    borderWidth: 1,
+    borderColor: "#8DBCE8",
+    backgroundColor: CORES.WHITE,
+    borderRadius: 2,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
   },
-  orderSentenceWordsCardWrong: {
-    borderWidth: 1.5,
-    borderColor: CORES.DANGER,
+  tipVisualContentLine: {
+    color: "#333333",
+    fontSize: 16,
+    lineHeight: 24,
   },
-  orderSentenceWordsText: {
-    color: CORES.WHITE,
-    fontSize: 19,
-    textAlign: "center",
-    textDecorationLine: "underline",
-    fontFamily: "serif",
+  tipVisualBlueText: {
+    color: "#78A2CC",
+    fontWeight: "800",
   },
-  orderSentenceInputWrap: {
-    width: "72%",
-    borderBottomWidth: 2,
-    borderBottomColor: "#8EB8E0",
-    marginBottom: 20,
+  tipVisualBlankLine: {
+    lineHeight: 14,
   },
-  orderSentenceInputWrapWrong: {
-    borderBottomColor: CORES.DANGER,
-  },
-  orderSentenceInputWrapCorrect: {
-    borderBottomColor: CORES.SUCCESS,
-  },
-  orderSentenceInput: {
-    minHeight: 36,
-    color: CORES.PRIMARY,
-    fontSize: 19,
-    textAlign: "center",
-    paddingVertical: 4,
-    fontFamily: "serif",
-  },
-  orderSentenceSubmitButton: {
-    minWidth: 152,
-    height: 44,
-    borderRadius: 14,
+  tipVisualContinueButton: {
+    width: 180,
+    height: 46,
+    borderRadius: 8,
     backgroundColor: CORES.SECONDARY,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 18,
+    marginTop: 18,
   },
-  orderSentenceSubmitButtonDisabled: {
-    backgroundColor: "#B6C8DB",
-  },
-  orderSentenceSubmitButtonText: {
+  tipVisualContinueButtonText: {
     color: CORES.WHITE_SHORT,
     fontSize: 15,
     fontWeight: "700",

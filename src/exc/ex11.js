@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  Animated,
-  Easing,
   Text,
   TextInput,
   TouchableOpacity,
@@ -18,9 +16,6 @@ export function Exercise11({
   next,
   onAttempt,
 }) {
-  const shakeAnim = useRef(new Animated.Value(0)).current;
-  const wrongBlinkAnim = useRef(new Animated.Value(0)).current;
-  const correctBlinkAnim = useRef(new Animated.Value(0)).current;
   const inputRef = useRef(null);
 
   const words = activity.words || [];
@@ -40,21 +35,6 @@ export function Exercise11({
 
   const summaryTone =
     correctCount <= 1 ? "danger" : correctCount <= 3 ? "warning" : "success";
-
-  const shakeTranslateX = shakeAnim.interpolate({
-    inputRange: [0, 0.25, 0.5, 0.75, 1],
-    outputRange: [0, -8, 8, -8, 0],
-  });
-
-  const wrongBackground = wrongBlinkAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [CORES.WHITE, CORES.DANGER_LIGHT],
-  });
-
-  const correctBackground = correctBlinkAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [CORES.WHITE, CORES.SUCCESS_BG],
-  });
 
   const goToNextWord = (answer) => {
     const updatedAnswers = [...answers, answer];
@@ -93,46 +73,12 @@ export function Exercise11({
 
     setResult("wrong");
     Vibration.vibrate(140);
-    shakeAnim.setValue(0);
-    wrongBlinkAnim.setValue(0);
 
-    Animated.parallel([
-      Animated.timing(shakeAnim, {
-        toValue: 1,
-        duration: 480,
-        easing: Easing.linear,
-        useNativeDriver: false,
-      }),
-      Animated.sequence([
-        Animated.timing(wrongBlinkAnim, {
-          toValue: 1,
-          duration: 120,
-          useNativeDriver: false,
-        }),
-        Animated.timing(wrongBlinkAnim, {
-          toValue: 0,
-          duration: 120,
-          useNativeDriver: false,
-        }),
-        Animated.timing(wrongBlinkAnim, {
-          toValue: 1,
-          duration: 120,
-          useNativeDriver: false,
-        }),
-        Animated.timing(wrongBlinkAnim, {
-          toValue: 0,
-          duration: 120,
-          useNativeDriver: false,
-        }),
-      ]),
-    ]).start(() => {
-      wrongBlinkAnim.setValue(0);
-      goToNextWord({
-        expected: currentWord,
-        typed: typedText.trim(),
-        isCorrect: false,
-        reason: byTimeout ? "timeout" : "wrong",
-      });
+    goToNextWord({
+      expected: currentWord,
+      typed: typedText.trim(),
+      isCorrect: false,
+      reason: byTimeout ? "timeout" : "wrong",
     });
   };
 
@@ -142,37 +88,12 @@ export function Exercise11({
 
     setResult("correct");
     Vibration.vibrate(40);
-    correctBlinkAnim.setValue(0);
 
-    Animated.sequence([
-      Animated.timing(correctBlinkAnim, {
-        toValue: 1,
-        duration: 110,
-        useNativeDriver: false,
-      }),
-      Animated.timing(correctBlinkAnim, {
-        toValue: 0,
-        duration: 110,
-        useNativeDriver: false,
-      }),
-      Animated.timing(correctBlinkAnim, {
-        toValue: 1,
-        duration: 110,
-        useNativeDriver: false,
-      }),
-      Animated.timing(correctBlinkAnim, {
-        toValue: 0,
-        duration: 110,
-        useNativeDriver: false,
-      }),
-    ]).start(() => {
-      correctBlinkAnim.setValue(0);
-      goToNextWord({
-        expected: currentWord,
-        typed: value.trim(),
-        isCorrect: true,
-        reason: "correct",
-      });
+    goToNextWord({
+      expected: currentWord,
+      typed: value.trim(),
+      isCorrect: true,
+      reason: "correct",
     });
   };
 
@@ -180,16 +101,15 @@ export function Exercise11({
     if (screen !== "exercise" || isFinished || result !== null) return;
 
     setTypedText(value);
-
-    if (!currentWord) return;
-
-    if (value.trim().toLowerCase() === currentWord.toLowerCase()) {
-      triggerCorrectFeedback(value);
-    }
   };
 
   const handleSubmitCurrentWord = ({ byTimeout = false } = {}) => {
-    if (screen !== "exercise" || isFinished || result !== null || !currentWord) {
+    if (
+      screen !== "exercise" ||
+      isFinished ||
+      result !== null ||
+      !currentWord
+    ) {
       return;
     }
 
@@ -263,22 +183,11 @@ export function Exercise11({
 
       {currentWord ? (
         <>
-          <Animated.View style={[styles.fastTypeWordPill]}>
+          <View style={styles.fastTypeWordPill}>
             <Text style={styles.fastTypeWordPillText}>{currentWord}</Text>
-          </Animated.View>
+          </View>
 
-          <Animated.View
-            style={[
-              styles.fastTypeInputWrap,
-              result === "wrong" && styles.fastTypeInputWrapWrong,
-              result === "correct" && styles.fastTypeInputWrapCorrect,
-              result === "wrong" && { backgroundColor: wrongBackground },
-              result === "correct" && { backgroundColor: correctBackground },
-              result === "wrong" && {
-                transform: [{ translateX: shakeTranslateX }],
-              },
-            ]}
-          >
+          <View style={styles.fastTypeInputWrap}>
             <TextInput
               ref={inputRef}
               value={typedText}
@@ -292,7 +201,7 @@ export function Exercise11({
               placeholder=""
               placeholderTextColor="#8BB7E0"
             />
-          </Animated.View>
+          </View>
 
           <TouchableOpacity
             style={styles.fastTypeSubmitButton}
@@ -377,7 +286,7 @@ export function Exercise11({
       </View>
 
       <TouchableOpacity style={styles.fastTypeNextButton} onPress={next}>
-        <Text style={styles.fastTypeNextButtonText}>Proxima atividade</Text>
+        <Text style={styles.fastTypeNextButtonText}>Próxima atividade</Text>
       </TouchableOpacity>
     </View>
   );
@@ -420,12 +329,6 @@ const ex11 = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: "#8EB8E0",
     marginBottom: 12,
-  },
-  fastTypeInputWrapWrong: {
-    borderBottomColor: CORES.DANGER,
-  },
-  fastTypeInputWrapCorrect: {
-    borderBottomColor: CORES.SUCCESS,
   },
   fastTypeInput: {
     minHeight: 34,

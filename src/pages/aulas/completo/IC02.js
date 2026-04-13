@@ -27,6 +27,8 @@ import ex15, { Exercise15 } from "../../../exc/ex15";
 import ex14, { Exercise14 } from "../../../exc/ex14";
 import ex16, { Exercise16 } from "../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../exc/ex17";
+import ex18, { Exercise18 } from "../../../exc/ex18";
+import ex19, { Exercise19 } from "../../../exc/ex19";
 import Feedback from "../../../exc/feedback";
 import { BussinesImages, Images } from "../../../util/images";
 import {
@@ -58,22 +60,136 @@ const styles = {
   ...ex13,
   ...ex15,
   ...ex16,
+  ...ex17,
+  ...ex18,
+  ...ex19,
 };
 
 const LESSON_SLIDES = [
   {
-    component: Exercise1,
+    component: Exercise17,
     activity: {
-      prompt: "Encontre a tradução",
-      pairs: [
-        { en: "Hello", pt: "oie" },
-        { en: "fine", pt: "bem/legal" },
-        { en: "bye", pt: "tchau" },
-      ],
-      successTitle: "Excelente",
-      successMessage: "Você acertou todas as traduções.",
+      label: "Tip",
+      content: `/blueHello Mais neutro e educado.
+Pode usar com qualquer pessoa.
+
+  • primeira vez falando com alguém
+  • trabalho
+  • cliente
+  • situação formal
+  • telefone
+
+/blueEx:
+  • Hello, how are you?
+  • Hello, nice to meet you.
+/blue{É o mais seguro de todos.}`,
+      continueLabel: "Continuar",
     },
   },
+  {
+    component: Exercise19,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escreva a frase do áudio.",
+      audioText: "I am working now.",
+      correctAnswer: "I am working now.",
+      placeholder: "I am working now.",
+      submitLabel: "Responder",
+      successTitle: "Correto",
+      successMessage: "Você escreveu a frase do áudio corretamente.",
+      errorMessage: "Ouça o áudio novamente e confira a frase.",
+    },
+  },
+  {
+    component: Exercise10,
+    activity: {
+      prompt: "Responda as questões",
+      title: "Conversa",
+      userImage: BussinesImages.menina2,
+      lockStorageKey: "@ic01_exercise10_lock_until",
+      questions: [
+        {
+          image: BussinesImages.secretaria,
+          question: "Hello! How are you?",
+          options: ["I'm fine, and you?", "Good night!", "See you tomorrow!"],
+          correctAnswer: "I'm fine, and you?",
+        },
+        {
+          image: BussinesImages.menino,
+          question: "What's your name?",
+          options: [
+            "My name is Ana.",
+            "I am from Brazil.",
+            "I am 25 years old.",
+          ],
+          correctAnswer: "My name is Ana.",
+        },
+        {
+          image: BussinesImages.menina,
+          question: "Where are you from?",
+          options: ["I am from Brazil.", "I am a teacher.", "I am fine."],
+          correctAnswer: "I am from Brazil.",
+        },
+        {
+          image: BussinesImages.secretario,
+          question: "Nice to meet you.",
+          options: [
+            "Nice to meet you too.",
+            "How old are you?",
+            "See you at home.",
+          ],
+          correctAnswer: "Nice to meet you too.",
+        },
+        {
+          image: BussinesImages.menino2,
+          question: "How old are you?",
+          options: [
+            "I am 25 years old.",
+            "I am from Mexico.",
+            "My name is Leo.",
+          ],
+          correctAnswer: "I am 25 years old.",
+        },
+        {
+          image: BussinesImages.menina,
+          question: "Are you a student?",
+          options: ["Yes, I am.", "No, she isn't.", "Good afternoon."],
+          correctAnswer: "Yes, I am.",
+        },
+        {
+          image: BussinesImages.secretaria,
+          question: "What do you do?",
+          options: ["I work in a bank.", "I live in Canada.", "I am 20."],
+          correctAnswer: "I work in a bank.",
+        },
+        {
+          image: BussinesImages.menino,
+          question: "Do you speak English?",
+          options: ["Yes, a little.", "I am in class.", "My name is Bob."],
+          correctAnswer: "Yes, a little.",
+        },
+        {
+          image: BussinesImages.menina2,
+          question: "See you later!",
+          options: ["See you!", "How are you?", "I am from Spain."],
+          correctAnswer: "See you!",
+        },
+        {
+          image: BussinesImages.secretario,
+          question: "Have a nice day!",
+          options: [
+            "Thanks, you too!",
+            "My name is Carol.",
+            "I am 18 years old.",
+          ],
+          correctAnswer: "Thanks, you too!",
+        },
+      ],
+      successTitle: "Correto",
+      successMessage: "Você acertou todas as 10 respostas da conversa.",
+    },
+  },
+
   {
     key: "lesson-finish",
     type: "finish",
@@ -81,6 +197,9 @@ const LESSON_SLIDES = [
 ];
 
 const SLIDE_COUNT = LESSON_SLIDES.length;
+const EXERCISE_SLIDE_COUNT = LESSON_SLIDES.filter(
+  (slide) => slide.type !== "finish",
+).length;
 
 function useSpeech() {
   const speak = ({ text, stopBefore = true, ...speechOptions }) => {
@@ -201,6 +320,7 @@ function LessonSlideRenderer({
   next,
   speak,
   onPressNextLesson,
+  onSkipActivity,
   onAttempt,
   feedbackProps,
 }) {
@@ -221,6 +341,7 @@ function LessonSlideRenderer({
       styles={styles}
       HeaderComponent={SlideHeader}
       next={next}
+      onSkipActivity={onSkipActivity}
       onAttempt={onAttempt}
       {...(slide.needsSpeech ? { speak } : {})}
     />
@@ -234,7 +355,12 @@ export default function IC02({ route, navigation }) {
 
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const progressAnim = useRef(new Animated.Value(1 / SLIDE_COUNT)).current;
-  const [lessonStats, setLessonStats] = useState({ correct: 0, total: 0 });
+  const [lessonStats, setLessonStats] = useState({
+    correct: 0,
+    total: 0,
+    exerciseScores: {},
+    slideAttempts: {},
+  });
   const [completedLessonsCount, setCompletedLessonsCount] = useState(0);
   const [currentStreak, setCurrentStreak] = useState(0);
   const [lessonAlreadyCompleted, setLessonAlreadyCompleted] = useState(false);
@@ -253,10 +379,13 @@ export default function IC02({ route, navigation }) {
   });
 
   const currentSlide = LESSON_SLIDES[currentSlideIndex];
-  const lessonAccuracy = calculateLessonAccuracy(
-    lessonStats.correct,
-    lessonStats.total,
-  );
+  const completedExerciseScores = Object.values(lessonStats.exerciseScores);
+  const lessonAccuracy = completedExerciseScores.length
+    ? Math.round(
+        completedExerciseScores.reduce((sum, score) => sum + score, 0) /
+          EXERCISE_SLIDE_COUNT,
+      )
+    : calculateLessonAccuracy(lessonStats.correct, lessonStats.total);
   const earnedXp = lessonAlreadyCompleted ? 0 : XP_PER_LESSON;
   const nextStreak = lessonAlreadyCompleted
     ? currentStreak
@@ -298,11 +427,55 @@ export default function IC02({ route, navigation }) {
     };
   }, [lesson?.id]);
 
-  const handleAttempt = ({ isCorrect }) => {
-    setLessonStats((current) => ({
-      correct: current.correct + (isCorrect ? 1 : 0),
-      total: current.total + 1,
-    }));
+  const handleAttempt = ({
+    isCorrect,
+    correctDelta,
+    totalDelta,
+    exerciseAccuracy,
+  } = {}) => {
+    setLessonStats((current) => {
+      const nextCorrect =
+        current.correct +
+        (typeof correctDelta === "number" ? correctDelta : isCorrect ? 1 : 0);
+      const nextTotal =
+        current.total + (typeof totalDelta === "number" ? totalDelta : 1);
+
+      const previousSlideAttempts = current.slideAttempts[
+        currentSlideIndex
+      ] || {
+        correct: 0,
+        total: 0,
+      };
+      const nextSlideAttempts = {
+        correct:
+          previousSlideAttempts.correct +
+          (typeof correctDelta === "number" ? correctDelta : isCorrect ? 1 : 0),
+        total:
+          previousSlideAttempts.total +
+          (typeof totalDelta === "number" ? totalDelta : 1),
+      };
+
+      const derivedExerciseAccuracy =
+        typeof exerciseAccuracy === "number"
+          ? exerciseAccuracy
+          : calculateLessonAccuracy(
+              nextSlideAttempts.correct,
+              nextSlideAttempts.total,
+            );
+
+      return {
+        correct: nextCorrect,
+        total: nextTotal,
+        slideAttempts: {
+          ...current.slideAttempts,
+          [currentSlideIndex]: nextSlideAttempts,
+        },
+        exerciseScores: {
+          ...current.exerciseScores,
+          [currentSlideIndex]: derivedExerciseAccuracy,
+        },
+      };
+    });
   };
 
   useEffect(() => {
@@ -362,6 +535,7 @@ export default function IC02({ route, navigation }) {
             next={slideNav.next}
             speak={speak}
             onPressNextLesson={goToNextLesson}
+            onSkipActivity={goToNextLesson}
             onAttempt={handleAttempt}
             feedbackProps={{
               earnedXp,

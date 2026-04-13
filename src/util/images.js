@@ -57,11 +57,10 @@ export const BussinesImages = {
   who: require("../../assets/Bussines/who.png"),
 };
 
-export const CursosImages = {
-  bussines: require("../../assets/Cursos/bussines.jpg"),
-  mundo: require("../../assets/Cursos/mundo.jpg"),
-  pronuncia: require("../../assets/Cursos/pronuncia.jpg"),
-  viagem: require("../../assets/Cursos/viagem.jpg"),
+export const IC = {
+  slide1: require("../../assets/IC/IC01 slide1.png"),
+  slide6: require("../../assets/IC/IC01 slide6.png"),
+  slide6p2: require("../../assets/IC/IC01 slide6p2.png"),
 };
 
 export const Empresas = {

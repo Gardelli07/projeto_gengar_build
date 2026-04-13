@@ -9,6 +9,7 @@ import {
   View,
   StyleSheet,
 } from "react-native";
+import { createAudioPlayer } from "expo-audio";
 import CORES from "../util/cores";
 
 export function Exercise3({
@@ -25,15 +26,20 @@ export function Exercise3({
   const alertOpacity = useRef(new Animated.Value(0)).current;
   const shakeAnim = useRef(new Animated.Value(0)).current;
   const blinkAnim = useRef(new Animated.Value(0)).current;
+  const playerRef = useRef(null);
+  const playbackSubscriptionRef = useRef(null);
   const [selected, setSelected] = useState(null);
   const [result, setResult] = useState(null);
+  const audioPromptText =
+    activity.audioText || activity.spokenText || activity.correctAnswer || "";
+  const audioRate = activity.audioRate || 0.85;
 
-  const estimatedDurationMs = Math.max(
-    1200,
-    Math.round(
-      ((activity.audioText.length / 5) * 60000) / 140 / activity.audioRate,
-    ),
-  );
+  const estimatedDurationMs =
+    activity.audioDurationMs ||
+    Math.max(
+      1200,
+      Math.round(((audioPromptText.length / 5) * 60000) / 140 / audioRate),
+    );
 
   const isCorrect = result === "correct";
   const isWrong = result === "wrong";
@@ -48,6 +54,25 @@ export function Exercise3({
     inputRange: [0, 1],
     outputRange: [CORES.WHITE, CORES.DANGER_LIGHT],
   });
+
+  const clearPlayback = () => {
+    if (playbackSubscriptionRef.current) {
+      playbackSubscriptionRef.current.remove();
+      playbackSubscriptionRef.current = null;
+    }
+
+    if (playerRef.current) {
+      playerRef.current.remove();
+      playerRef.current = null;
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      clearPlayback();
+      audioProgressAnim.stopAnimation();
+    };
+  }, [audioProgressAnim]);
 
   useEffect(() => {
     if (isCorrect || isWrong) {
@@ -73,7 +98,7 @@ export function Exercise3({
     alertOpacity.setValue(0);
   }, [isCorrect, isWrong, alertOpacity, alertTranslateY]);
 
-  const playAudio = () => {
+  const playAudio = async () => {
     audioProgressAnim.stopAnimation();
     audioProgressAnim.setValue(0);
     Animated.timing(audioProgressAnim, {
@@ -83,10 +108,46 @@ export function Exercise3({
       useNativeDriver: false,
     }).start();
 
-    speak({
-      text: activity.audioText,
-      language: "en-US",
-      rate: activity.audioRate,
+    if (activity.audioSource) {
+      try {
+        clearPlayback();
+
+        const player = createAudioPlayer(activity.audioSource);
+        playbackSubscriptionRef.current = player.addListener(
+          "playbackStatusUpdate",
+          (status) => {
+            if (status.didJustFinish) {
+              audioProgressAnim.stopAnimation();
+              audioProgressAnim.setValue(1);
+              clearPlayback();
+            }
+          },
+        );
+
+        playerRef.current = player;
+        player.play();
+        return;
+      } catch (error) {
+        console.warn("Exercise3 playAudio error", error);
+        audioProgressAnim.stopAnimation();
+        audioProgressAnim.setValue(0);
+      }
+    }
+
+    clearPlayback();
+    audioProgressAnim.stopAnimation();
+    audioProgressAnim.setValue(0);
+    Animated.timing(audioProgressAnim, {
+      toValue: 1,
+      duration: estimatedDurationMs,
+      easing: Easing.linear,
+      useNativeDriver: false,
+    }).start();
+
+    speak?.({
+      text: audioPromptText,
+      language: activity.audioLanguage || "en-US",
+      rate: audioRate,
       onDone: () => audioProgressAnim.setValue(1),
       onStopped: () => audioProgressAnim.stopAnimation(),
       onError: () => audioProgressAnim.stopAnimation(),

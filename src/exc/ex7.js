@@ -18,6 +18,7 @@ export function Exercise7({
   onAttempt,
 }) {
   const bottomSafeSpace = 3;
+  const idealMoveCount = activity.correctOrder?.length || 0;
 
   const shuffleArray = (items) => {
     const shuffled = [...items];
@@ -38,6 +39,7 @@ export function Exercise7({
 
   const [selectedPhrases, setSelectedPhrases] = useState([]);
   const [result, setResult] = useState(null);
+  const [wrongAttempts, setWrongAttempts] = useState(0);
 
   const shakeAnim = useRef(new Animated.Value(0)).current;
   const blinkAnim = useRef(new Animated.Value(0)).current;
@@ -80,7 +82,7 @@ export function Exercise7({
     alertOpacity.setValue(0);
   }, [isCorrect, alertOpacity, alertTranslateY]);
 
-  const triggerWrongFeedback = () => {
+  const triggerWrongFeedback = (lastValidPhrases = []) => {
     setResult("wrong");
     Vibration.vibrate(140);
     shakeAnim.setValue(0);
@@ -116,7 +118,9 @@ export function Exercise7({
         }),
       ]),
     ]).start(() => {
-      setSelectedPhrases([]);
+      // Preserve the phrases that were already correct and only discard
+      // the invalid choice that caused the mismatch.
+      setSelectedPhrases(lastValidPhrases);
       setResult(null);
       blinkAnim.setValue(0);
     });
@@ -134,13 +138,24 @@ export function Exercise7({
     );
 
     if (!isPrefixCorrect) {
-      onAttempt?.({ isCorrect: false });
-      triggerWrongFeedback();
+      setWrongAttempts((current) => current + 1);
+      onAttempt?.({ isCorrect: false, totalDelta: 1 });
+      triggerWrongFeedback(selectedPhrases);
       return;
     }
 
     if (nextPhrases.length === activity.correctOrder.length) {
-      onAttempt?.({ isCorrect: true });
+      const totalMoves = idealMoveCount + wrongAttempts;
+      const exerciseAccuracy = totalMoves
+        ? Math.round((idealMoveCount / totalMoves) * 100)
+        : 100;
+
+      onAttempt?.({
+        isCorrect: true,
+        correctDelta: idealMoveCount,
+        totalDelta: idealMoveCount,
+        exerciseAccuracy,
+      });
       setResult("correct");
     }
   };
@@ -265,7 +280,7 @@ export function Exercise7({
 
             <TouchableOpacity style={styles.alertContinueButton} onPress={next}>
               <Text style={styles.alertContinueButtonText}>
-                Próximo Atividade
+                Próxima Atividade
               </Text>
             </TouchableOpacity>
           </Animated.View>

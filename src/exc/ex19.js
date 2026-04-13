@@ -2,41 +2,45 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
   Easing,
-  Image,
+  StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   Vibration,
   View,
-  StyleSheet,
 } from "react-native";
 import { createAudioPlayer } from "expo-audio";
 import CORES from "../util/cores";
 
-export function Exercise14({
+const normalizeText = (value) =>
+  String(value || "")
+    .trim()
+    .replace(/\s+/g, " ")
+    .toLowerCase();
+
+export function Exercise19({
   activity,
   styles,
   HeaderComponent,
   next,
-  speak,
   onAttempt,
+  speak,
 }) {
   const bottomSafeSpace = 3;
   const audioProgressAnim = useRef(new Animated.Value(0)).current;
   const alertTranslateY = useRef(new Animated.Value(64)).current;
   const alertOpacity = useRef(new Animated.Value(0)).current;
+  const shakeAnim = useRef(new Animated.Value(0)).current;
   const blinkAnim = useRef(new Animated.Value(0)).current;
   const playerRef = useRef(null);
   const playbackSubscriptionRef = useRef(null);
 
-  const [selected, setSelected] = useState(null);
+  const [typedText, setTypedText] = useState("");
   const [result, setResult] = useState(null);
 
-  const audioRate = activity.audioRate || 0.85;
-  const answerOptions = activity.answerOptions || activity.options || [];
-  const correctOption = activity.correctOption || activity.correctAnswer;
   const audioPromptText =
-    activity.audioText || activity.spokenText || correctOption || "";
-
+    activity.audioText || activity.spokenText || activity.correctAnswer || "";
+  const audioRate = activity.audioRate || 0.85;
   const estimatedDurationMs =
     activity.audioDurationMs ||
     Math.max(
@@ -44,20 +48,29 @@ export function Exercise14({
       Math.round(((audioPromptText.length / 5) * 60000) / 140 / audioRate),
     );
 
-  const wrongBackground = blinkAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [CORES.DANGER_BG, CORES.DANGER_LIGHT],
-  });
-
   const isCorrect = result === "correct";
   const isWrong = result === "wrong";
-  const wrongMessage = activity.feedbackMessage || activity.successMessage;
+
+  const shakeTranslateX = shakeAnim.interpolate({
+    inputRange: [0, 0.25, 0.5, 0.75, 1],
+    outputRange: [0, -8, 8, -8, 0],
+  });
+
+  const wrongBackground = blinkAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [CORES.WHITE, CORES.DANGER_LIGHT],
+  });
 
   const clearPlayback = () => {
-    playbackSubscriptionRef.current?.remove?.();
-    playbackSubscriptionRef.current = null;
-    playerRef.current?.remove?.();
-    playerRef.current = null;
+    if (playbackSubscriptionRef.current) {
+      playbackSubscriptionRef.current.remove();
+      playbackSubscriptionRef.current = null;
+    }
+
+    if (playerRef.current) {
+      playerRef.current.remove();
+      playerRef.current = null;
+    }
   };
 
   useEffect(() => {
@@ -66,15 +79,6 @@ export function Exercise14({
       audioProgressAnim.stopAnimation();
     };
   }, [audioProgressAnim]);
-
-  useEffect(() => {
-    clearPlayback();
-    audioProgressAnim.stopAnimation();
-    audioProgressAnim.setValue(0);
-    blinkAnim.setValue(0);
-    setSelected(null);
-    setResult(null);
-  }, [activity, audioProgressAnim, blinkAnim]);
 
   useEffect(() => {
     if (isCorrect || isWrong) {
@@ -130,7 +134,7 @@ export function Exercise14({
         player.play();
         return;
       } catch (error) {
-        console.warn("Exercise14 playAudio error", error);
+        console.warn("Exercise19 playAudio error", error);
         audioProgressAnim.stopAnimation();
         audioProgressAnim.setValue(0);
       }
@@ -159,63 +163,67 @@ export function Exercise14({
   const triggerWrongFeedback = () => {
     setResult("wrong");
     Vibration.vibrate(140);
+    shakeAnim.setValue(0);
     blinkAnim.setValue(0);
-
-    Animated.sequence([
-      Animated.timing(blinkAnim, {
+    Animated.parallel([
+      Animated.timing(shakeAnim, {
         toValue: 1,
-        duration: 120,
+        duration: 480,
+        easing: Easing.linear,
         useNativeDriver: false,
       }),
-      Animated.timing(blinkAnim, {
-        toValue: 0,
-        duration: 120,
-        useNativeDriver: false,
-      }),
-      Animated.timing(blinkAnim, {
-        toValue: 1,
-        duration: 120,
-        useNativeDriver: false,
-      }),
-      Animated.timing(blinkAnim, {
-        toValue: 0,
-        duration: 120,
-        useNativeDriver: false,
-      }),
+      Animated.sequence([
+        Animated.timing(blinkAnim, {
+          toValue: 1,
+          duration: 120,
+          useNativeDriver: false,
+        }),
+        Animated.timing(blinkAnim, {
+          toValue: 0,
+          duration: 120,
+          useNativeDriver: false,
+        }),
+        Animated.timing(blinkAnim, {
+          toValue: 1,
+          duration: 120,
+          useNativeDriver: false,
+        }),
+        Animated.timing(blinkAnim, {
+          toValue: 0,
+          duration: 120,
+          useNativeDriver: false,
+        }),
+      ]),
     ]).start();
   };
 
-  const handleSelect = (option) => {
-    if (isCorrect || isWrong) return;
-    setSelected(option);
+  const handleSubmit = () => {
+    const typed = normalizeText(typedText);
+    const expected = normalizeText(activity.correctAnswer || audioPromptText);
 
-    if (option === correctOption) {
-      onAttempt?.({ isCorrect: true });
-      setResult("correct");
+    if (!typed || typed !== expected) {
+      onAttempt?.({ isCorrect: false });
+      triggerWrongFeedback();
       return;
     }
 
-    onAttempt?.({ isCorrect: false });
-    triggerWrongFeedback();
+    onAttempt?.({ isCorrect: true });
+    setResult("correct");
   };
 
   return (
     <View style={styles.slide}>
       <HeaderComponent />
 
-      <Text style={styles.fastTypePrompt}>{activity.prompt}</Text>
+      <View style={styles.writeAudioBlock}>
+        <Text style={styles.writeAudioPrompt}>{activity.prompt}</Text>
 
-      <View style={styles.mediaWrapper}>
-        <View style={styles.mediaCard}>
-          <Image source={activity.image} style={styles.mediaImage} />
-        </View>
-
-        <TouchableOpacity style={styles.audioButton} onPress={playAudio}>
-          <Text style={styles.audioIcon}>▶</Text>
-          <View style={styles.audioBar}>
+        <TouchableOpacity style={styles.writeAudioPlayer} onPress={playAudio}>
+          <Text style={styles.writeAudioPlayIcon}>▶</Text>
+          <View style={styles.writeAudioBar}>
             <Animated.View
               style={[
-                styles.audioProgress,
+                styles.writeAudioProgress,
                 {
                   width: audioProgressAnim.interpolate({
                     inputRange: [0, 1],
@@ -226,61 +234,42 @@ export function Exercise14({
             />
           </View>
         </TouchableOpacity>
-      </View>
 
-      <View style={styles.resultBar}>
-        <Text
+        <Animated.View
           style={[
-            styles.resultBarText,
-            isCorrect && styles.resultBarTextCorrect,
-            isWrong && styles.resultBarTextWrong,
+            styles.writeAudioInputWrap,
+            isWrong && styles.writeAudioInputWrapWrong,
+            isCorrect && styles.writeAudioInputWrapCorrect,
+            isWrong && { backgroundColor: wrongBackground },
+            isWrong && { transform: [{ translateX: shakeTranslateX }] },
           ]}
         >
-          {selected || " "}
-        </Text>
-        <View
+          <TextInput
+            value={typedText}
+            onChangeText={(value) => {
+              setTypedText(value);
+              if (result) setResult(null);
+            }}
+            style={styles.writeAudioInput}
+            placeholder={activity.placeholder}
+            placeholderTextColor="#8BB7E0"
+            autoCapitalize="sentences"
+            autoCorrect={false}
+          />
+        </Animated.View>
+
+        <TouchableOpacity
           style={[
-            styles.resultUnderline,
-            isCorrect && styles.resultUnderlineCorrect,
-            isWrong && styles.resultUnderlineWrong,
+            styles.writeAudioSubmitButton,
+            !typedText.trim() && styles.writeAudioSubmitButtonDisabled,
           ]}
-        />
-      </View>
-
-      <View style={styles.optionsRow}>
-        {answerOptions.map((option) => {
-          const optionIsCorrect =
-            selected === option && option === correctOption;
-          const optionIsWrong = selected === option && option !== correctOption;
-
-          return (
-            <Animated.View
-              key={option}
-              style={[
-                styles.optionPill,
-                optionIsCorrect && styles.optionCorrect,
-                optionIsWrong && isWrong && styles.optionBlinkWrong,
-                optionIsWrong &&
-                  isWrong && { backgroundColor: wrongBackground },
-              ]}
-            >
-              <TouchableOpacity
-                style={styles.optionPillTouch}
-                onPress={() => handleSelect(option)}
-                disabled={isCorrect || isWrong}
-              >
-                <Text
-                  style={[
-                    styles.optionText,
-                    optionIsCorrect && styles.optionCorrectText,
-                  ]}
-                >
-                  {option}
-                </Text>
-              </TouchableOpacity>
-            </Animated.View>
-          );
-        })}
+          onPress={handleSubmit}
+          disabled={!typedText.trim() || isCorrect || isWrong}
+        >
+          <Text style={styles.writeAudioSubmitButtonText}>
+            {activity.submitLabel}
+          </Text>
+        </TouchableOpacity>
       </View>
 
       {(isCorrect || isWrong) && (
@@ -342,10 +331,12 @@ export function Exercise14({
                     : styles.feedbackTitleCorrect,
                 ]}
               >
-                {isWrong ? "X Tente novamente" : "✓ Correto!"}
+                {isWrong ? "X Tente novamente" : "✓ Muito bem!"}
               </Text>
               <Text style={styles.feedbackTextBlack}>
-                {isWrong ? wrongMessage : activity.feedbackMessage}
+                {isWrong
+                  ? activity.errorMessage || activity.successMessage
+                  : activity.successMessage}
               </Text>
             </View>
 
@@ -357,7 +348,9 @@ export function Exercise14({
               onPress={next}
             >
               <Text style={styles.alertContinueButtonText}>
-                Próxima atividade
+                {isWrong
+                  ? activity.wrongButtonLabel || "Próxima Atividade"
+                  : activity.nextButtonLabel || "Próxima Atividade"}
               </Text>
             </TouchableOpacity>
           </Animated.View>
@@ -367,101 +360,84 @@ export function Exercise14({
   );
 }
 
-const ex14 = StyleSheet.create({
-  mediaWrapper: {
+const ex19 = StyleSheet.create({
+  writeAudioBlock: {
+    width: "100%",
+    alignItems: "center",
+  },
+  writeAudioPrompt: {
     width: "88%",
-    marginBottom: 14,
+    color: "#78A2CC",
+    fontSize: 20,
+    fontWeight: "700",
+    marginBottom: 18,
   },
-  mediaCard: {
-    width: "100%",
-    height: 190,
-    backgroundColor: "#38BDF8",
-    borderTopLeftRadius: 18,
-    borderTopRightRadius: 18,
-    overflow: "hidden",
-  },
-  mediaImage: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
-  },
-  audioButton: {
+  writeAudioPlayer: {
+    width: "88%",
+    height: 40,
+    backgroundColor: "#78A2CC",
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: CORES.PRIMARY,
-    width: "100%",
-    height: 48,
-    borderBottomLeftRadius: 18,
-    borderBottomRightRadius: 18,
+    borderRadius: 8,
     paddingHorizontal: 16,
     gap: 12,
+    marginBottom: 28,
   },
-  resultBar: {
-    width: "56%",
-    minHeight: 46,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 14,
-  },
-  resultBarText: {
-    fontSize: 28,
-    fontFamily: "serif",
-    fontWeight: "500",
-    color: CORES.TEXT_DARK,
-  },
-  resultBarTextCorrect: {
-    color: CORES.SUCCESS_TEXT,
-  },
-  resultBarTextWrong: {
-    color: CORES.DANGER_TEXT,
-  },
-  resultUnderline: {
-    width: "55%",
-    height: 2,
-    marginTop: 2,
-    borderRadius: 2,
-    backgroundColor: "#D1D5DB",
-  },
-  resultUnderlineCorrect: {
-    backgroundColor: CORES.SUCCESS,
-  },
-  resultUnderlineWrong: {
-    backgroundColor: CORES.DANGER,
-  },
-  optionsRow: {
-    flexDirection: "row",
-    gap: 12,
-    marginTop: 10,
-  },
-  optionPill: {
-    borderWidth: 1,
-    borderColor: "#CBD5E1",
-    borderRadius: 20,
-    backgroundColor: CORES.WHITE_SHORT,
-  },
-  optionPillTouch: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  optionText: {
-    fontSize: 16,
-    fontWeight: "500",
-    color: "#333",
-  },
-  optionCorrect: {
-    backgroundColor: CORES.SUCCESS_BG,
-    borderColor: CORES.SUCCESS,
-  },
-  optionCorrectText: {
-    color: CORES.SUCCESS_TEXT,
+  writeAudioPlayIcon: {
+    color: CORES.WHITE_SHORT,
+    fontSize: 18,
     fontWeight: "700",
   },
-  optionBlinkWrong: {
-    backgroundColor: CORES.DANGER_BG,
-    borderColor: CORES.DANGER,
+  writeAudioBar: {
+    flex: 1,
+    height: 6,
+    backgroundColor: "rgba(255,255,255,0.3)",
+    borderRadius: 3,
+    overflow: "hidden",
+  },
+  writeAudioProgress: {
+    height: "100%",
+    backgroundColor: CORES.WHITE_SHORT,
+    borderRadius: 3,
+  },
+  writeAudioInputWrap: {
+    width: "58%",
+    borderBottomWidth: 1,
+    borderBottomColor: "#78A2CC",
+    marginBottom: 20,
+  },
+  writeAudioInputWrapWrong: {
+    borderBottomColor: CORES.DANGER,
+  },
+  writeAudioInputWrapCorrect: {
+    borderBottomColor: CORES.SUCCESS,
+  },
+  writeAudioInput: {
+    minHeight: 34,
+    color: CORES.PRIMARY,
+    fontSize: 13,
+    textAlign: "center",
+    paddingVertical: 3,
+    textDecorationLine: "underline",
+    fontFamily: "serif",
+  },
+  writeAudioSubmitButton: {
+    minWidth: 152,
+    height: 44,
+    borderRadius: 8,
+    backgroundColor: CORES.SECONDARY,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 18,
+  },
+  writeAudioSubmitButtonDisabled: {
+    backgroundColor: "#B6C8DB",
+  },
+  writeAudioSubmitButtonText: {
+    color: CORES.WHITE_SHORT,
+    fontSize: 15,
+    fontWeight: "700",
   },
 });
 
-export default ex14;
+export default ex19;

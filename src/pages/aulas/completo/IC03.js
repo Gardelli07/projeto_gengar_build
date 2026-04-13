@@ -1,77 +1,227 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
-  View,
-  Text,
+  Animated,
+  Image,
   ScrollView,
   TouchableOpacity,
-  Animated,
-  StyleSheet,
+  View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Speech from "expo-speech";
-import CORES from "../../../util/cores";
-
-export function useSpeech() {
-  const speak = ({
-    text,
-    language = "en-US",
-    rate = 0.9,
-    pitch = 1.0,
-    stopBefore = true,
-  }) => {
-    if (!text) return;
-
-    if (stopBefore) {
-      Speech.stop();
-    }
-
-    Speech.speak(text, {
-      language,
-      rate,
-      pitch,
-    });
-  };
-
-  const stop = () => {
-    Speech.stop();
-  };
-
-  return {
-    speak,
-    stop,
-  };
-}
-
-/* ================= CONTEXT ================= */
+import geral from "../../../exc/geral";
+import ex1, { Exercise1 } from "../../../exc/ex1";
+import ex2, { Exercise2 } from "../../../exc/ex2";
+import ex3, { Exercise3 } from "../../../exc/ex3";
+import ex4, { Exercise4 } from "../../../exc/ex4";
+import ex5, { Exercise5 } from "../../../exc/ex5";
+import ex6, { Exercise6 } from "../../../exc/ex6";
+import ex7, { Exercise7 } from "../../../exc/ex7";
+import ex8, { Exercise8 } from "../../../exc/ex8";
+import ex9, { Exercise9 } from "../../../exc/ex9";
+import ex10, { Exercise10 } from "../../../exc/ex10";
+import ex11, { Exercise11 } from "../../../exc/ex11";
+import ex12, { Exercise12 } from "../../../exc/ex12";
+import ex13, { Exercise13 } from "../../../exc/ex13";
+import ex15, { Exercise15 } from "../../../exc/ex15";
+import ex14, { Exercise14 } from "../../../exc/ex14";
+import ex16, { Exercise16 } from "../../../exc/ex16";
+import ex17, { Exercise17 } from "../../../exc/ex17";
+import ex18, { Exercise18 } from "../../../exc/ex18";
+import Feedback from "../../../exc/feedback";
+import { BussinesImages, IC, Images } from "../../../util/images";
+import {
+  calculateLessonAccuracy,
+  LESSON_STREAK_MIN_ACCURACY,
+  LESSON_STREAK_STORAGE_KEY,
+} from "../../../util/lessonPerformance";
+import { getLevelProgress, XP_PER_LESSON } from "../../../util/xp";
 
 const SlideNavContext = React.createContext(null);
 
-/* ================= CONFIG ================= */
-
-const SLIDE_COUNT = 11;
 const STORAGE_KEY = "@progesso_ingles_completo";
 
-/* ================= STORAGE ================= */
+const styles = {
+  ...geral,
+  ...ex1,
+  ...ex2,
+  ...ex3,
+  ...ex4,
+  ...ex5,
+  ...ex6,
+  ...ex7,
+  ...ex8,
+  ...ex9,
+  ...ex10,
+  ...ex11,
+  ...ex12,
+  ...ex13,
+  ...ex14,
+  ...ex15,
+  ...ex16,
+  ...ex17,
+  ...ex18,
+};
+
+const LESSON_SLIDES = [
+  {
+    component: Exercise14,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e complete",
+      image: IC.slide1,
+      audioSource: require("../../../../mp3/IC/hello.mp3"),
+      audioDurationMs: 824,
+      answerOptions: ["Hello", "Hélo"],
+      correctOption: "Hello",
+      audioRate: 0.85,
+      successTitle: "Correto",
+      feedbackMessage: 'Usamos "Hello" para dizer "oi".',
+    },
+  },
+  {
+    component: Exercise14,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e complete",
+      image: Images.teacher,
+      audioSource: require("../../../../mp3/IC/Hi.mp3"),
+      audioDurationMs: 782,
+      answerOptions: ["Hello", "Hi"],
+      correctOption: "Hi",
+      audioRate: 0.85,
+      successTitle: "Correto",
+      feedbackMessage: 'Usamos "Hi" para dizer "oi".',
+    },
+  },
+  {
+    component: Exercise1,
+    activity: {
+      prompt: "Encontre a tradução",
+      pairs: [
+        { en: "Hello", pt: "olá" },
+        { en: "Hi", pt: "oi" },
+      ],
+      successTitle: "Excelente",
+      successMessage: "Você acertou todas as traduções.",
+    },
+  },
+  {
+    component: Exercise15,
+    activity: {
+      prompt: "Clique na imagem e na palavra",
+      images: [
+        { id: "meeting", image: IC.slide6 },
+        { id: "phone", image: IC.slide6p2 },
+      ],
+      words: [
+        { id: "meeting-word", label: "Hello" },
+        { id: "phone-word", label: "Hi" },
+      ],
+      pairs: [
+        { imageId: "meeting", wordId: "meeting-word" },
+        { imageId: "phone", wordId: "phone-word" },
+      ],
+      successTitle: "Correto",
+      successMessage: "Você formou os dois pares corretamente.",
+    },
+  },
+  {
+    component: Exercise13,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escreva a palavra",
+      audioSource: require("../../../../mp3/IC/hello.mp3"),
+      audioDurationMs: 824,
+      audioRate: 0.85,
+      letters: ["H", "E", "L", "L", "O"],
+      correctWord: "HELLO",
+      successTitle: "Correto",
+      successMessage: 'A palavra correta é "HELLO".',
+    },
+  },
+  {
+    component: Exercise4,
+    activity: {
+      prompt: "Corrija",
+      image: IC.slide6,
+      wrongSentence: "x! I need help.",
+      options: ["Hey! I need help.", "Hello! I need help."],
+      correctAnswer: "Hello! I need help.",
+      successTitle: "Correto",
+      successMessage: 'A forma correta e "Hello! I need help."',
+    },
+  },
+  {
+    component: Exercise5,
+    activity: {
+      prompt: "Complete a frase",
+      image: IC.slide6p2,
+      sentenceStart: "",
+      sentenceEnd: ", my name is Jake.",
+      options: ["Hello", "Hi"],
+      correctAnswer: "Hi",
+      successTitle: "Correto",
+      successMessage: 'A forma correta e "Hello, my name is Jake."',
+    },
+  },
+  {
+    component: Exercise6,
+    needsSpeech: true,
+    activity: {
+      prompt: "Coloque a frase em ordem.",
+      image: Images.teacher,
+      audioText: "Hello, my name's Jake.",
+      words: ["Hello", "name's", "my", "Jake"],
+      correctOrder: ["Hello", "my", "name's", "Jake"],
+      audioRate: 0.85,
+      successTitle: "Correto",
+      successMessage: `A frase correta e "Hello my name's Jake."`,
+    },
+  },
+  {
+    component: Exercise12,
+    activity: {
+      prompt: "Write your introduction",
+      instruction: "Escreva brevemente sobre você em inglês.",
+      helperText:
+        "Imagine que você está enviando um convite no LinkedIn para um recrutador. Escreva a primeira palavra da sua mensagem.",
+      placeholder: "Hello...",
+      tipText: "Hello, my name is Ana. I am from Brazil. I am fine.",
+      minLength: 3,
+      successTitle: "Correto",
+      successMessage: "Seu texto foi preenchido com sucesso.",
+    },
+  },
+  {
+    key: "lesson-finish",
+    type: "finish",
+  },
+];
+
+const SLIDE_COUNT = LESSON_SLIDES.length;
+const EXERCISE_SLIDE_COUNT = LESSON_SLIDES.filter(
+  (slide) => slide.type !== "finish",
+).length;
+
+function useSpeech() {
+  const speak = ({ text, stopBefore = true, ...speechOptions }) => {
+    if (!text) return;
+    if (stopBefore) Speech.stop();
+    Speech.speak(text, speechOptions);
+  };
+
+  return { speak };
+}
 
 async function loadProgress() {
-  try {
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : {};
-  } catch (e) {
-    console.warn("loadProgress error", e);
-    return {};
-  }
+  const raw = await AsyncStorage.getItem(STORAGE_KEY);
+  return raw ? JSON.parse(raw) : {};
 }
 
 async function saveProgress(progress) {
-  try {
-    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
-  } catch (e) {
-    console.warn("saveProgress error", e);
-  }
+  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
 }
-
-/* ================= PROGRESS BAR ================= */
 
 function updateProgress(progressAnim, index, total) {
   Animated.timing(progressAnim, {
@@ -80,8 +230,6 @@ function updateProgress(progressAnim, index, total) {
     useNativeDriver: false,
   }).start();
 }
-
-/* ================= NAV HOOK ================= */
 
 function useSlideNavigation({
   currentSlideIndex,
@@ -92,1169 +240,314 @@ function useSlideNavigation({
   const lockRef = useRef(false);
 
   const next = () => {
-    if (lockRef.current) return;
+    if (lockRef.current || currentSlideIndex >= totalSlides - 1) return;
     lockRef.current = true;
-    setTimeout(() => (lockRef.current = false), 300);
+    setTimeout(() => {
+      lockRef.current = false;
+    }, 300);
 
-    if (currentSlideIndex < totalSlides - 1) {
-      const nextIndex = currentSlideIndex + 1;
-      setCurrentSlideIndex(nextIndex);
-      updateProgress(progressAnim, nextIndex, totalSlides);
-    }
+    const nextIndex = currentSlideIndex + 1;
+    setCurrentSlideIndex(nextIndex);
+    updateProgress(progressAnim, nextIndex, totalSlides);
   };
 
   const prev = () => {
-    if (lockRef.current) return;
+    if (lockRef.current || currentSlideIndex === 0) return;
     lockRef.current = true;
-    setTimeout(() => (lockRef.current = false), 300);
+    setTimeout(() => {
+      lockRef.current = false;
+    }, 300);
 
-    if (currentSlideIndex > 0) {
-      const prevIndex = currentSlideIndex - 1;
-      setCurrentSlideIndex(prevIndex);
-      updateProgress(progressAnim, prevIndex, totalSlides);
-    }
+    const previousIndex = currentSlideIndex - 1;
+    setCurrentSlideIndex(previousIndex);
+    updateProgress(progressAnim, previousIndex, totalSlides);
   };
 
-  function renderNextButton(index) {
-    if (index !== currentSlideIndex) return null;
+  function renderPrevButton() {
+    if (currentSlideIndex === 0) return null;
+
     return (
-      <TouchableOpacity style={styles.nextButton} onPress={next}>
-        <Text style={styles.nextButtonText}>Próximo →</Text>
+      <TouchableOpacity onPress={prev} style={styles.headerCircleButton}>
+        <Image source={Images.seta} style={styles.headerCircleImage} />
       </TouchableOpacity>
     );
   }
 
-  function renderPrevButton(index) {
-    if (index !== currentSlideIndex || index === 0) return null;
-    return (
-      <TouchableOpacity style={styles.nextButton} onPress={prev}>
-        <Text style={styles.nextButtonText}>← Voltar</Text>
-      </TouchableOpacity>
-    );
-  }
-
-  return { renderNextButton, renderPrevButton };
+  return { next, renderPrevButton };
 }
-
-/* ================= SCREEN ================= */
-
-export default function Base({ route, navigation }) {
-  const lesson = route?.params?.lesson;
-  const lessons = route?.params?.lessons;
-
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [done, setDone] = useState(false);
-
-  const progressAnim = useRef(
-    new Animated.Value((currentSlide + 1) / SLIDE_COUNT),
-  ).current;
-
-  useEffect(() => {
-    let mounted = true;
-
-    (async () => {
-      if (!lesson?.id) return;
-      const progress = await loadProgress();
-      if (mounted) setDone(!!progress[lesson.id]);
-    })();
-
-    return () => (mounted = false);
-  }, [lesson?.id]);
-
-  useEffect(() => {
-    updateProgress(progressAnim, currentSlide, SLIDE_COUNT);
-
-    if (currentSlide === SLIDE_COUNT - 1 && lesson?.id && !done) {
-      (async () => {
-        const progress = await loadProgress();
-        await saveProgress({ ...progress, [lesson.id]: true });
-        setDone(true);
-      })();
-    }
-  }, [currentSlide, lesson?.id, done]);
-
-  const slideNav = useSlideNavigation({
-    currentSlideIndex: currentSlide,
-    setCurrentSlideIndex: setCurrentSlide,
-    totalSlides: SLIDE_COUNT,
-    progressAnim,
-  });
-
-  const findNextLessonFromArray = () => {
-    if (!lessons || !lesson) return null;
-    const idx = lessons.findIndex((l) => String(l.id) === String(lesson.id));
-    if (idx === -1 || idx === lessons.length - 1) return null;
-    return lessons[idx + 1];
-  };
-
-  /* ========= FUNÇÃO FINAL (SEM EMPILHAR) ========= */
-
-  const goToNextLessonAndReturn = async () => {
-    if (lesson?.id && !done) {
-      const progress = await loadProgress();
-      await saveProgress({ ...progress, [lesson.id]: true });
-      setDone(true);
-    }
-
-    const nextLesson = findNextLessonFromArray();
-
-    navigation.replace("Inglescompleto", {
-      autoOpenLessonId: nextLesson?.id || null,
-    });
-  };
-
-  return (
-    <SlideNavContext.Provider
-      value={{
-        ...slideNav,
-        goToNextLesson: goToNextLessonAndReturn,
-        goBack: () => navigation.goBack(),
-      }}
-    >
-      <View style={{ flex: 1 }}>
-        <View style={styles.progressBarContainer}>
-          <Animated.View
-            style={[
-              styles.progressBarFill,
-              {
-                width: progressAnim.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: ["0%", "100%"],
-                }),
-              },
-            ]}
-          />
-        </View>
-
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-          {currentSlide === 0 && <Slide1 />}
-          {currentSlide === 1 && <Slide2 />}
-          {currentSlide === 2 && <Slide3 />}
-          {currentSlide === 3 && <Slide4 />}
-          {currentSlide === 4 && <Slide5 />}
-          {currentSlide === 5 && <Slide6 />}
-          {currentSlide === 6 && <Slide7 />}
-          {currentSlide === 7 && <Slide8 />}
-          {currentSlide === 8 && <Slide9 />}
-          {currentSlide === 9 && <Slide10 />}
-        </ScrollView>
-      </View>
-    </SlideNavContext.Provider>
-  );
-}
-
-/* ================= CONTEXT HOOK ================= */
 
 function useNav() {
   return React.useContext(SlideNavContext);
 }
 
-/* ================= SLIDES ================= */
+function SlideHeader() {
+  const { progressAnim, goBack, renderPrevButton } = useNav();
 
-function Slide1() {
-  const { renderNextButton } = useNav();
   return (
-    <View style={styles.hero}>
-      <Text style={styles.heroIcon}>🤝</Text>
-      <Text style={styles.heroTitle}>Prazer em Conhecer</Text>
-      <Text style={styles.heroSubtitle}>
-        Aprenda a dizer "Nice to meet you" em inglês
-      </Text>
+    <View style={styles.headerContainer}>
+      <TouchableOpacity onPress={goBack} style={styles.headerCircleButton}>
+        <Image source={Images.x} style={styles.headerCircleImage} />
+      </TouchableOpacity>
 
-      {renderNextButton(0)}
+      <View style={styles.headerProgress}>
+        <Animated.View
+          style={[
+            styles.progressBarFill,
+            {
+              width: progressAnim.interpolate({
+                inputRange: [0, 1],
+                outputRange: ["0%", "100%"],
+              }),
+            },
+          ]}
+        />
+      </View>
+
+      <View style={styles.headerButton}>{renderPrevButton()}</View>
     </View>
   );
 }
 
-function Slide2() {
-  const { renderPrevButton, renderNextButton } = useNav();
+function LessonFinishSlide({ onPressNextLesson, feedbackProps }) {
+  return (
+    <Feedback
+      onContinue={onPressNextLesson}
+      reviewLabel="Revisar erros ->"
+      {...feedbackProps}
+    />
+  );
+}
+
+function LessonSlideRenderer({
+  slide,
+  next,
+  speak,
+  onPressNextLesson,
+  onAttempt,
+  feedbackProps,
+}) {
+  if (slide.type === "finish") {
+    return (
+      <LessonFinishSlide
+        onPressNextLesson={onPressNextLesson}
+        feedbackProps={feedbackProps}
+      />
+    );
+  }
+
+  const ExerciseComponent = slide.component;
+
+  return (
+    <ExerciseComponent
+      activity={slide.activity}
+      styles={styles}
+      HeaderComponent={SlideHeader}
+      next={next}
+      onAttempt={onAttempt}
+      {...(slide.needsSpeech ? { speak } : {})}
+    />
+  );
+}
+
+export default function IC01({ route, navigation }) {
+  const lesson = route?.params?.lesson;
+  const lessons = route?.params?.lessons;
   const { speak } = useSpeech();
 
-  return (
-    <View style={styles.slide}>
-      <Text style={styles.slideObjectiveTitle}>Nice to meet you.</Text>
-      <Text style={styles.slideObjectiveSubtitle}>
-        Prazer em conhecer você.
-      </Text>
-
-      <TouchableOpacity
-        style={styles.listenButton}
-        onPress={() =>
-          speak({
-            text: "Nice to meet you.",
-            language: "en-US",
-            rate: 0.85,
-            pitch: 1.05,
-          })
-        }
-      >
-        <Text style={styles.listenButtonText}>🔊 Ouvir</Text>
-      </TouchableOpacity>
-
-      <View style={styles.buttonRow}>
-        {renderPrevButton(1)}
-        {renderNextButton(1)}
-      </View>
-    </View>
-  );
-}
-
-function Slide3() {
-  const { renderPrevButton, renderNextButton } = useNav();
-  const { speak } = useSpeech();
-
-  return (
-    <View style={styles.slide}>
-      <Text style={styles.slideObjectiveTitle}>
-        Nice to meet{"\n"} you too.
-      </Text>
-      <Text style={styles.slideObjectiveSubtitle}>
-        Prazer em conhecer você também.
-      </Text>
-
-      <View style={styles.objectiveRow}>
-        <Text style={styles.objectiveRowText}>Resposta Natural</Text>
-      </View>
-
-      <TouchableOpacity
-        style={styles.listenButton}
-        onPress={() =>
-          speak({
-            text: "Nice to meet you too.",
-            language: "en-US",
-            rate: 0.85,
-            pitch: 1.05,
-          })
-        }
-      >
-        <Text style={styles.listenButtonText}>🔊 Ouvir</Text>
-      </TouchableOpacity>
-
-      <View style={styles.buttonRow}>
-        {renderPrevButton(2)}
-        {renderNextButton(2)}
-      </View>
-    </View>
-  );
-}
-
-function Slide4() {
-  const { renderPrevButton, renderNextButton } = useNav();
-  const { speak } = useSpeech();
-
-  return (
-    <View style={styles.slide}>
-      <Text>Ou a forma abreviada:</Text>
-      <Text style={styles.slideObjectiveTitle}>You too.</Text>
-      <Text style={styles.slideObjectiveSubtitle}>Você também.</Text>
-
-      <View style={styles.objectiveRow}>
-        <Text style={styles.objectiveRowText}>Abreviação</Text>
-      </View>
-
-      <TouchableOpacity
-        style={styles.listenButton}
-        onPress={() =>
-          speak({
-            text: "You too.",
-            language: "en-US",
-            rate: 0.85,
-            pitch: 1.05,
-          })
-        }
-      >
-        <Text style={styles.listenButtonText}>🔊 Ouvir</Text>
-      </TouchableOpacity>
-
-      <View style={styles.buttonRow}>
-        {renderPrevButton(3)}
-        {renderNextButton(3)}
-      </View>
-    </View>
-  );
-}
-
-function Slide5() {
-  const { renderPrevButton, renderNextButton } = useNav();
-  const [selected, setSelected] = useState(null);
-  const [isCorrect, setIsCorrect] = useState(false);
-  const [blinkWrong, setBlinkWrong] = useState(false);
-  const { speak } = useSpeech();
-
-  const options = ["Good to see you", "Nice to meet you", "How are you?"];
-  const correctAnswer = "Nice to meet you";
-
-  const handlePress = (option) => {
-    if (option === correctAnswer) {
-      setSelected(option);
-      setIsCorrect(true);
-    } else {
-      setSelected(option);
-      setBlinkWrong(true);
-
-      // efeito de piscar
-      setTimeout(() => {
-        setBlinkWrong(false);
-        setSelected(null);
-      }, 500);
-    }
-  };
-
-  return (
-    <View style={styles.slide}>
-      <Text style={styles.questionTitle}>
-        🎧 Ouça e escolha a frase correta
-      </Text>
-
-      <TouchableOpacity
-        style={styles.btnOuvir}
-        onPress={() =>
-          speak({
-            text: "Nice to meet you",
-            language: "en-US",
-            rate: 0.85,
-            pitch: 1.05,
-          })
-        }
-      >
-        <Text style={styles.btnOuvirText}>🔊 Ouvir</Text>
-      </TouchableOpacity>
-
-      {options.map((option) => {
-        const isSelected = selected === option;
-        const isRight = option === correctAnswer && isCorrect;
-        const isWrong = isSelected && blinkWrong;
-
-        return (
-          <TouchableOpacity
-            key={option}
-            style={[
-              styles.optionButton,
-              isRight && styles.correctOption,
-              isWrong && styles.wrongOption,
-            ]}
-            onPress={() => handlePress(option)}
-            disabled={isCorrect}
-          >
-            <Text style={[styles.optionText, isRight && styles.correctText]}>
-              {option}
-            </Text>
-          </TouchableOpacity>
-        );
-      })}
-
-      {isCorrect && (
-        <View style={styles.successBox}>
-          <Text style={styles.successTitle}>✓ Correto!</Text>
-          <Text style={styles.successText}>
-            Perfeito! Você reconheceu "Nice to meet you" - a forma educada de
-            dizer "prazer em conhecer"!
-          </Text>
-        </View>
-      )}
-
-      {/* Navegação */}
-      <View style={styles.buttonRow}>
-        {renderPrevButton(4)}
-        {renderNextButton(4)}
-      </View>
-    </View>
-  );
-}
-
-function Slide6() {
-  const { renderPrevButton, renderNextButton } = useNav();
-
-  const correctWord = "nicetomeetyou";
-  const letters = ["to", "nice", "meet", "you"];
-
-  const [selectedLetters, setSelectedLetters] = useState([]);
-  const [availableLetters, setAvailableLetters] = useState(letters);
-  const [isCorrect, setIsCorrect] = useState(false);
-
-  const handleSelectLetter = (letter, index) => {
-    if (isCorrect) return;
-
-    const newSelected = [...selectedLetters, letter];
-    const newAvailable = [...availableLetters];
-    newAvailable.splice(index, 1);
-
-    setSelectedLetters(newSelected);
-    setAvailableLetters(newAvailable);
-
-    if (newSelected.join("") === correctWord) {
-      setIsCorrect(true);
-    }
-  };
-
-  const handleClear = () => {
-    setSelectedLetters([]);
-    setAvailableLetters(letters);
-    setIsCorrect(false);
-  };
-
-  return (
-    <View style={styles.slide}>
-      <Text style={styles.questionTitle}>
-        ✍️ Selecione as palavras na ordem {"\n"} correta para formar a
-        frase{" "}
-      </Text>
-
-      <Text style={styles.wordHint}>Prazer em conhecer você.</Text>
-
-      {/* Área de resposta */}
-      <View
-        style={[
-          styles.dropArea,
-          selectedLetters.length > 0 && styles.dropAreaFilled,
-        ]}
-      >
-        {selectedLetters.map((letter, index) => (
-          <View key={index} style={styles.letterBoxActive}>
-            <Text style={styles.letterTextActive}>{letter}</Text>
-          </View>
-        ))}
-      </View>
-
-      {/* Letras disponíveis */}
-      <View style={styles.lettersRow}>
-        {availableLetters.map((letter, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.letterBox}
-            onPress={() => handleSelectLetter(letter, index)}
-          >
-            <Text style={styles.letterText}>{letter}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-
-      {/* Botão Limpar */}
-      <TouchableOpacity style={styles.clearButton} onPress={handleClear}>
-        <Text style={styles.clearButtonText}>🧹 Limpar</Text>
-      </TouchableOpacity>
-
-      {/* Feedback */}
-      {isCorrect && (
-        <View style={styles.successBox}>
-          <Text style={styles.successTitle}>✓ Perfeito!</Text>
-          <Text style={styles.successText}>
-            Você soletrou "Nice to meet you." corretamente!
-          </Text>
-        </View>
-      )}
-
-      {/* Navegação */}
-      <View style={styles.buttonRow}>
-        {renderPrevButton(5)}
-        {renderNextButton(5)}
-      </View>
-    </View>
-  );
-}
-
-function Slide7() {
-  const { renderPrevButton, renderNextButton } = useNav();
-  const [selected, setSelected] = useState(null);
-  const [isCorrect, setIsCorrect] = useState(false);
-  const [blinkWrong, setBlinkWrong] = useState(false);
-  const { speak } = useSpeech();
-
-  const options = ["Nice to meet you too", "Nice to meet you", "Thank you"];
-  const correctAnswer = "Nice to meet you too";
-
-  const handlePress = (option) => {
-    if (option === correctAnswer) {
-      setSelected(option);
-      setIsCorrect(true);
-    } else {
-      setSelected(option);
-      setBlinkWrong(true);
-
-      // efeito de piscar
-      setTimeout(() => {
-        setBlinkWrong(false);
-        setSelected(null);
-      }, 500);
-    }
-  };
-
-  return (
-    <View style={styles.slide}>
-      <Text style={styles.questionTitle}>
-        🎧 Ouça e escolha a frase correta
-      </Text>
-
-      <TouchableOpacity
-        style={styles.btnOuvir}
-        onPress={() =>
-          speak({
-            text: "Nice to meet you too",
-            language: "en-US",
-            rate: 0.85,
-            pitch: 1.05,
-          })
-        }
-      >
-        <Text style={styles.btnOuvirText}>🔊 Ouvir</Text>
-      </TouchableOpacity>
-
-      {options.map((option) => {
-        const isSelected = selected === option;
-        const isRight = option === correctAnswer && isCorrect;
-        const isWrong = isSelected && blinkWrong;
-
-        return (
-          <TouchableOpacity
-            key={option}
-            style={[
-              styles.optionButton,
-              isRight && styles.correctOption,
-              isWrong && styles.wrongOption,
-            ]}
-            onPress={() => handlePress(option)}
-            disabled={isCorrect}
-          >
-            <Text style={[styles.optionText, isRight && styles.correctText]}>
-              {option}
-            </Text>
-          </TouchableOpacity>
-        );
-      })}
-
-      {isCorrect && (
-        <View style={styles.successBox}>
-          <Text style={styles.successTitle}>✓ Correto!</Text>
-          <Text style={styles.successText}>
-            Muito bem! "Nice to meet you too" é a resposta perfeita quando
-            alguém diz "Nice to meet you"!
-          </Text>
-        </View>
-      )}
-
-      {/* Navegação */}
-      <View style={styles.buttonRow}>
-        {renderPrevButton(6)}
-        {renderNextButton(6)}
-      </View>
-    </View>
-  );
-}
-
-function Slide8() {
-  const { renderPrevButton, renderNextButton } = useNav();
-
-  const correctWord = "nicetomeetyoutoo";
-  const letters = ["to", "nice", "too", "meet", "you"];
-
-  const [selectedLetters, setSelectedLetters] = useState([]);
-  const [availableLetters, setAvailableLetters] = useState(letters);
-  const [isCorrect, setIsCorrect] = useState(false);
-
-  const handleSelectLetter = (letter, index) => {
-    if (isCorrect) return;
-
-    const newSelected = [...selectedLetters, letter];
-    const newAvailable = [...availableLetters];
-    newAvailable.splice(index, 1);
-
-    setSelectedLetters(newSelected);
-    setAvailableLetters(newAvailable);
-
-    if (newSelected.join("") === correctWord) {
-      setIsCorrect(true);
-    }
-  };
-
-  const handleClear = () => {
-    setSelectedLetters([]);
-    setAvailableLetters(letters);
-    setIsCorrect(false);
-  };
-
-  return (
-    <View style={styles.slide}>
-      <Text style={styles.questionTitle}>
-        ✍️ Selecione as palavras na ordem {"\n"} correta para formar a
-        frase{" "}
-      </Text>
-
-      <Text style={styles.wordHint}>E aí, tudo bem?</Text>
-
-      {/* Área de resposta */}
-      <View
-        style={[
-          styles.dropArea,
-          selectedLetters.length > 0 && styles.dropAreaFilled,
-        ]}
-      >
-        {selectedLetters.map((letter, index) => (
-          <View key={index} style={styles.letterBoxActive}>
-            <Text style={styles.letterTextActive}>{letter}</Text>
-          </View>
-        ))}
-      </View>
-
-      {/* Letras disponíveis */}
-      <View style={styles.lettersRow}>
-        {availableLetters.map((letter, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.letterBox}
-            onPress={() => handleSelectLetter(letter, index)}
-          >
-            <Text style={styles.letterText}>{letter}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-
-      {/* Botão Limpar */}
-      <TouchableOpacity style={styles.clearButton} onPress={handleClear}>
-        <Text style={styles.clearButtonText}>🧹 Limpar</Text>
-      </TouchableOpacity>
-
-      {/* Feedback */}
-      {isCorrect && (
-        <View style={styles.successBox}>
-          <Text style={styles.successTitle}>✓ Perfeito!</Text>
-          <Text style={styles.successText}>
-            Você soletrou "Nice to meet you too." corretamente!
-          </Text>
-        </View>
-      )}
-
-      {/* Navegação */}
-      <View style={styles.buttonRow}>
-        {renderPrevButton(7)}
-        {renderNextButton(7)}
-      </View>
-    </View>
-  );
-}
-
-function Slide9() {
-  const { renderPrevButton, renderNextButton } = useNav();
-  const [selected, setSelected] = useState(null);
-  const [isCorrect, setIsCorrect] = useState(false);
-  const [blinkWrong, setBlinkWrong] = useState(false);
-
-  const options = ["Nice to meet you too", "You too", "Thank you"];
-  const correctAnswer = ["You too", "Nice to meet you too"];
-
-  const handlePress = (option) => {
-    if (correctAnswer.includes(option)) {
-      setSelected(option);
-      setIsCorrect(true);
-    } else {
-      setSelected(option);
-      setBlinkWrong(true);
-
-      // efeito de piscar
-      setTimeout(() => {
-        setBlinkWrong(false);
-        setSelected(null);
-      }, 500);
-    }
-  };
-
-  return (
-    <View style={styles.slide}>
-      <Text style={styles.questionTitle}>
-        💬 Se alguém disser "Nice to meet you", o que você responde?
-      </Text>
-      <View style={styles.highlightBox}>
-        <Text style={styles.quiztitle}>Nice to meet you</Text>
-        <Text style={styles.quizsubtitle}>👤 Alguém diz para você</Text>
-      </View>
-      {options.map((option) => {
-        const isSelected = selected === option;
-        const isRight =
-          isCorrect && isSelected && correctAnswer.includes(option);
-
-        const isWrong = isSelected && blinkWrong;
-
-        return (
-          <TouchableOpacity
-            key={option}
-            style={[
-              styles.optionButton,
-              isRight && styles.correctOption,
-              isWrong && styles.wrongOption,
-            ]}
-            onPress={() => handlePress(option)}
-            disabled={isCorrect}
-          >
-            <Text style={[styles.optionText, isRight && styles.correctText]}>
-              {option}
-            </Text>
-          </TouchableOpacity>
-        );
-      })}
-
-      {isCorrect && (
-        <View style={styles.successBox}>
-          <Text style={styles.successTitle}>✓ Correto!</Text>
-          <Text style={styles.successText}>
-            Perfeito! Você pode responder "Nice to meet you too" (forma
-            completa) ou apenas "You too" (forma abreviada). Ambas estão
-            corretas!
-          </Text>
-        </View>
-      )}
-
-      {/* Navegação */}
-      <View style={styles.buttonRow}>
-        {renderPrevButton(8)}
-        {renderNextButton(8)}
-      </View>
-    </View>
-  );
-}
-
-function Slide10() {
-  const { renderPrevButton, goToNextLesson } = useNav();
-
-  const bounceAnim = useRef(new Animated.Value(0)).current;
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const progressAnim = useRef(new Animated.Value(1 / SLIDE_COUNT)).current;
+  const [lessonStats, setLessonStats] = useState({
+    correct: 0,
+    total: 0,
+    exerciseScores: {},
+    slideAttempts: {},
+  });
+  const [completedLessonsCount, setCompletedLessonsCount] = useState(0);
+  const [currentStreak, setCurrentStreak] = useState(0);
+  const [lessonAlreadyCompleted, setLessonAlreadyCompleted] = useState(false);
+  const [lessonMetaLoaded, setLessonMetaLoaded] = useState(false);
+  const lessonCommitRef = useRef(false);
 
   useEffect(() => {
-    const loop = Animated.loop(
-      Animated.sequence([
-        Animated.timing(bounceAnim, {
-          toValue: -12,
-          duration: 600,
-          useNativeDriver: true,
-        }),
-        Animated.timing(bounceAnim, {
-          toValue: 0,
-          duration: 600,
-          useNativeDriver: true,
-        }),
-      ]),
+    updateProgress(progressAnim, currentSlideIndex, SLIDE_COUNT);
+  }, [currentSlideIndex, progressAnim]);
+
+  const slideNav = useSlideNavigation({
+    currentSlideIndex,
+    setCurrentSlideIndex,
+    totalSlides: SLIDE_COUNT,
+    progressAnim,
+  });
+
+  const currentSlide = LESSON_SLIDES[currentSlideIndex];
+  const completedExerciseScores = Object.values(lessonStats.exerciseScores);
+  const lessonAccuracy = completedExerciseScores.length
+    ? Math.round(
+        completedExerciseScores.reduce((sum, score) => sum + score, 0) /
+          EXERCISE_SLIDE_COUNT,
+      )
+    : calculateLessonAccuracy(lessonStats.correct, lessonStats.total);
+  const earnedXp = lessonAlreadyCompleted ? 0 : XP_PER_LESSON;
+  const nextStreak = lessonAlreadyCompleted
+    ? currentStreak
+    : lessonAccuracy >= LESSON_STREAK_MIN_ACCURACY
+      ? currentStreak + 1
+      : 0;
+  const totalXpAfterLesson = completedLessonsCount * XP_PER_LESSON + earnedXp;
+  const levelProgress = getLevelProgress(totalXpAfterLesson);
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadLessonMeta() {
+      const [progress, streakRaw] = await Promise.all([
+        loadProgress(),
+        AsyncStorage.getItem(LESSON_STREAK_STORAGE_KEY),
+      ]);
+
+      if (!active) return;
+
+      const completedCount = Object.values(progress || {}).filter(
+        Boolean,
+      ).length;
+      const alreadyCompleted = Boolean(
+        lesson?.id != null && progress?.[lesson.id],
+      );
+      const streak = streakRaw ? Number(streakRaw) || 0 : 0;
+
+      setCompletedLessonsCount(completedCount);
+      setLessonAlreadyCompleted(alreadyCompleted);
+      setCurrentStreak(streak);
+      setLessonMetaLoaded(true);
+    }
+
+    loadLessonMeta();
+
+    return () => {
+      active = false;
+    };
+  }, [lesson?.id]);
+
+  const handleAttempt = ({
+    isCorrect,
+    correctDelta,
+    totalDelta,
+    exerciseAccuracy,
+  } = {}) => {
+    setLessonStats((current) => {
+      const nextCorrect =
+        current.correct +
+        (typeof correctDelta === "number" ? correctDelta : isCorrect ? 1 : 0);
+      const nextTotal =
+        current.total + (typeof totalDelta === "number" ? totalDelta : 1);
+
+      const previousSlideAttempts = current.slideAttempts[
+        currentSlideIndex
+      ] || {
+        correct: 0,
+        total: 0,
+      };
+      const nextSlideAttempts = {
+        correct:
+          previousSlideAttempts.correct +
+          (typeof correctDelta === "number" ? correctDelta : isCorrect ? 1 : 0),
+        total:
+          previousSlideAttempts.total +
+          (typeof totalDelta === "number" ? totalDelta : 1),
+      };
+
+      const derivedExerciseAccuracy =
+        typeof exerciseAccuracy === "number"
+          ? exerciseAccuracy
+          : calculateLessonAccuracy(
+              nextSlideAttempts.correct,
+              nextSlideAttempts.total,
+            );
+
+      return {
+        correct: nextCorrect,
+        total: nextTotal,
+        slideAttempts: {
+          ...current.slideAttempts,
+          [currentSlideIndex]: nextSlideAttempts,
+        },
+        exerciseScores: {
+          ...current.exerciseScores,
+          [currentSlideIndex]: derivedExerciseAccuracy,
+        },
+      };
+    });
+  };
+
+  useEffect(() => {
+    if (!lessonMetaLoaded || currentSlide?.type !== "finish") return;
+    if (lessonAlreadyCompleted || lessonCommitRef.current) return;
+
+    lessonCommitRef.current = true;
+
+    async function commitLessonCompletion() {
+      if (lesson?.id != null) {
+        const progress = await loadProgress();
+        await Promise.all([
+          saveProgress({ ...progress, [lesson.id]: true }),
+          AsyncStorage.setItem(LESSON_STREAK_STORAGE_KEY, String(nextStreak)),
+        ]);
+      }
+    }
+
+    commitLessonCompletion();
+  }, [
+    currentSlide?.type,
+    lesson?.id,
+    lessonAlreadyCompleted,
+    lessonMetaLoaded,
+    nextStreak,
+  ]);
+
+  const findNextLesson = () => {
+    if (!lessons || !lesson) return null;
+    const lessonIndex = lessons.findIndex(
+      (lessonItem) => String(lessonItem.id) === String(lesson.id),
     );
-    loop.start();
-    return () => loop.stop();
-  }, []);
+    return lessons[lessonIndex + 1] || null;
+  };
+
+  const goToNextLesson = async () => {
+    navigation.replace("Inglescompleto", {
+      autoOpenLessonId: findNextLesson()?.id || null,
+    });
+  };
 
   return (
-    <View style={styles.slide}>
-      <Animated.Text
-        style={[styles.emoji, { transform: [{ translateY: bounceAnim }] }]}
+    <SafeAreaView style={{ flex: 1 }} edges={["top", "bottom"]}>
+      <SlideNavContext.Provider
+        value={{
+          ...slideNav,
+          progressAnim,
+          goBack: () => navigation.goBack(),
+        }}
       >
-        🎉
-      </Animated.Text>
-
-      <Text style={styles.congrats}>Parabéns!</Text>
-
-      <Text style={styles.description}>
-        Você completou a lição com sucesso!
-      </Text>
-      <View style={styles.successCard}>
-        <Text style={styles.successCardTitle}>Você agora sabe:</Text>
-
-        <View style={styles.successItem}>
-          <Text>✅</Text>
-          <Text style={styles.successItemText}>
-            Cumprimentar alguém pela primeira vez
-          </Text>
-        </View>
-
-        <View style={styles.successItem}>
-          <Text>✅</Text>
-          <Text style={styles.successItemText}>Responder educadamente</Text>
-        </View>
-
-        <View style={styles.successItem}>
-          <Text>✅</Text>
-          <Text style={styles.successItemText}>Usar a forma abreviada</Text>
-        </View>
-      </View>
-
-      <Text style={styles.confidenceText}>
-        Continue praticando e logo você estará conversando em inglês com
-        confiança! 💪
-      </Text>
-
-      <View style={styles.buttonRow}>
-        {renderPrevButton(9)}
-        <TouchableOpacity
-          style={styles.nextLessonButton}
-          onPress={goToNextLesson}
-          accessible={false}
-          focusable={false}
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1 }}
+          keyboardShouldPersistTaps="handled"
         >
-          <Text style={styles.nextLessonButtonText}>Próxima lição →</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+          <LessonSlideRenderer
+            slide={currentSlide}
+            next={slideNav.next}
+            speak={speak}
+            onPressNextLesson={goToNextLesson}
+            onAttempt={handleAttempt}
+            feedbackProps={{
+              earnedXp,
+              accuracy: lessonAccuracy,
+              streak: nextStreak,
+              totalXp: totalXpAfterLesson,
+              lessonAlreadyCompleted,
+              ...levelProgress,
+            }}
+          />
+        </ScrollView>
+      </SlideNavContext.Provider>
+    </SafeAreaView>
   );
 }
-
-/* ================= STYLES ================= */
-
-const styles = StyleSheet.create({
-  slide: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5F5F5",
-    margin: 20,
-  },
-  slideObjectiveTitle: {
-    fontSize: 45,
-    fontWeight: "700",
-    color: "#0A3D91",
-    marginBottom: 6,
-    textAlign: "center",
-  },
-  slideObjectiveSubtitle: {
-    fontSize: 20,
-    color: "#7A7A7A",
-    marginBottom: 14,
-  },
-  objectiveRow: {
-    backgroundColor: "#FF7A2F",
-    paddingHorizontal: 14,
-    paddingVertical: 6,
-    borderRadius: 20,
-    marginBottom: 24,
-  },
-  objectiveRowText: {
-    color: "#FFFFFF",
-    fontSize: 15,
-    fontWeight: "600",
-  },
-  listenButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#FF7A2F",
-    width: "40%",
-    paddingVertical: 12,
-    borderRadius: 14,
-    elevation: 8,
-  },
-  listenButtonText: {
-    color: "#FFFFFF",
-    fontSize: 20,
-    fontWeight: "600",
-    marginLeft: 6,
-  },
-  nextButton: {
-    backgroundColor: CORES.SECONDARY,
-    width: 180,
-    height: 48,
-    borderRadius: 12,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 12,
-    marginHorizontal: 4,
-  },
-  nextButtonText: {
-    color: "#fff",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  nextLessonButton: {
-    backgroundColor: "#0f73ff",
-    paddingHorizontal: 5,
-    width: 180,
-    height: 48,
-    borderRadius: 12,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 12,
-  },
-  nextLessonButtonText: {
-    color: "#fff",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  buttonRow: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    marginHorizontal: 6,
-    width: "95%",
-  },
-  progressBarContainer: {
-    height: 4,
-    backgroundColor: "#e0e0e0ab",
-    width: "100%",
-  },
-  progressBarFill: {
-    height: "100%",
-    backgroundColor: CORES.SECONDARY,
-    borderRadius: 2,
-  },
-  //capa
-  hero: {
-    backgroundColor: CORES.PRIMARY,
-    alignItems: "center",
-    justifyContent: "center",
-    flexGrow: 1,
-    width: "100%",
-  },
-  heroIcon: { fontSize: 56, marginBottom: 18 },
-  heroTitle: {
-    color: "#fff",
-    fontSize: 36,
-    fontWeight: "800",
-    textAlign: "center",
-    marginBottom: 12,
-    width: "90%",
-  },
-  heroSubtitle: {
-    color: "#B8C5D3",
-    fontSize: 16,
-    textAlign: "center",
-    marginHorizontal: 16,
-    lineHeight: 22,
-  },
-  //quiz
-  quiztitle: {
-    fontSize: 26,
-    fontWeight: "700",
-    color: "#09234d",
-    textAlign: "center",
-  },
-  quizsubtitle: {
-    fontSize: 14,
-    color: "#3a4553",
-    textAlign: "center",
-  },
-  highlightBox: {
-    backgroundColor: "#e2e2e27a",
-    paddingVertical: 16,
-    paddingHorizontal: 24,
-    borderRadius: 16,
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 6,
-    marginBottom: 24,
-  },
-  questionTitle: {
-    fontSize: 20,
-    fontWeight: "600",
-    color: "#0A3D91",
-    textAlign: "center",
-    marginBottom: 24,
-  },
-  optionButton: {
-    borderWidth: 1,
-    width: "80%",
-    borderColor: "#E0E0E0",
-    borderRadius: 12,
-    paddingVertical: 14,
-    marginBottom: 12,
-    alignItems: "center",
-    backgroundColor: "#FFF",
-  },
-  optionText: {
-    fontSize: 20,
-    fontWeight: "500",
-    color: "#333",
-  },
-  correctOption: {
-    backgroundColor: "#E9F7EE",
-    borderColor: "#2ECC71",
-  },
-  correctText: {
-    color: "#2ECC71",
-    fontWeight: "700",
-  },
-  wrongOption: {
-    backgroundColor: "#FDECEC",
-    borderColor: "#E74C3C",
-  },
-  successBox: {
-    backgroundColor: "#E9F7EE",
-    borderWidth: 1,
-    width: "90%",
-    borderColor: "#2ECC71",
-    borderRadius: 12,
-    padding: 14,
-    marginTop: 12,
-  },
-  successTitle: {
-    color: "#2ECC71",
-    fontWeight: "700",
-    marginBottom: 6,
-  },
-  successText: {
-    color: "#2ECC71",
-    fontSize: 14,
-  },
-  // jogo de soletrar
-  dropArea: {
-    width: "85%",
-    minHeight: 70,
-    borderWidth: 1,
-    borderStyle: "dashed",
-    borderColor: "#000000",
-    borderRadius: 14,
-    padding: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 20,
-  },
-  dropAreaFilled: {
-    borderColor: "#FF7A2F",
-  },
-  lettersRow: {
-    flexDirection: "row",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    marginHorizontal: 6,
-    marginBottom: 16,
-  },
-
-  letterBox: {
-    minHeight: 44,
-    paddingHorizontal: 14,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: "#E0E0E0",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#FFF",
-    marginHorizontal: 4,
-  },
-
-  letterText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#0A3D91",
-  },
-
-  letterBoxActive: {
-    minHeight: 44,
-    paddingHorizontal: 14,
-    borderRadius: 8,
-    backgroundColor: "#FF7A2F",
-    justifyContent: "center",
-    alignItems: "center",
-    marginHorizontal: 4,
-  },
-
-  letterTextActive: {
-    color: "#FFF",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-
-  wordHint: {
-    textAlign: "center",
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#0A3D91",
-    marginBottom: 20,
-  },
-  clearButton: {
-    alignSelf: "center",
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#E0E0E0",
-    marginBottom: 16,
-  },
-  clearButtonText: {
-    fontSize: 14,
-    color: "#0A3D91",
-    fontWeight: "500",
-  },
-  //slide final
-  centerContent: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 24,
-  },
-  emoji: {
-    fontSize: 64,
-    marginBottom: 16,
-  },
-  congrats: {
-    fontSize: 18,
-    color: "#64748b",
-    marginBottom: 6,
-  },
-  description: {
-    fontSize: 16,
-    color: "#334155",
-    textAlign: "center",
-    lineHeight: 22,
-    marginBottom: 32,
-  },
-  bold: {
-    fontWeight: "700",
-  },
-  restartButton: {
-    backgroundColor: "#f97316",
-    paddingVertical: 14,
-    paddingHorizontal: 36,
-    borderRadius: 14,
-  },
-  restartButtonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "700",
-  },
-  backButton: {
-    position: "absolute",
-    bottom: 24,
-    left: 16,
-  },
-  successCard: {
-    backgroundColor: "#ecfdf3", // verde bem clarinho
-    borderColor: "#22c55e", // verde principal
-    borderWidth: 2,
-    borderRadius: 16,
-    paddingVertical: 18,
-    paddingHorizontal: 20,
-    width: "100%",
-    maxWidth: 340,
-    alignSelf: "center",
-  },
-  successCardTitle: {
-    color: "#15803d",
-    fontSize: 16,
-    fontWeight: "700",
-    marginBottom: 12,
-    textAlign: "center",
-  },
-  successItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 8,
-  },
-
-  successItemText: {
-    color: "#166534",
-    fontSize: 14,
-    marginLeft: 8,
-  },
-  confidenceText: {
-    marginTop: 20,
-    fontSize: 14,
-    color: "#475569", // cinza suave
-    textAlign: "center",
-    lineHeight: 20,
-    paddingHorizontal: 24,
-  },
-  //botão ouvir pergunta
-  btnOuvir: {
-    backgroundColor: "#4f8dfd",
-    borderRadius: 14,
-    paddingVertical: 16,
-    paddingHorizontal: 26,
-    alignSelf: "center",
-    marginBottom: 12,
-  },
-  btnOuvirText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "600",
-  },
-});

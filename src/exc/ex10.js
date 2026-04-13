@@ -45,6 +45,7 @@ export function Exercise10({
   styles,
   HeaderComponent,
   next,
+  onSkipActivity,
   onAttempt,
 }) {
   const bottomSafeSpace = 3;
@@ -366,15 +367,35 @@ export function Exercise10({
           <View style={[styles.feedbackBox, styles.chatQuizLockBox]}>
             <Text style={styles.chatQuizLockTitle}>Tentativa bloqueada</Text>
             <Text style={styles.feedbackTextBlack}>
-              Você errou uma resposta. Tente novamente em{" "}
-              {formatRemainingTime(remainingTime || 0)}.
+              Você errou uma resposta.{"\n"}
+              Aguarde {formatRemainingTime(remainingTime || 0)} para tentar
+              novamente ou clique no botão abaixo para continuar.
             </Text>
             <TouchableOpacity
               style={styles.chatQuizResetButton}
+              onPress={onSkipActivity || next}
+              activeOpacity={0.9}
+            >
+              <Text style={styles.chatQuizResetButtonText}>
+                Próxima Atividade
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.chatQuizResetButton,
+                styles.chatQuizTestResetButton,
+              ]}
               onPress={resetLockManually}
               activeOpacity={0.9}
             >
-              <Text style={styles.chatQuizResetButtonText}>Resetar timer</Text>
+              <Text
+                style={[
+                  styles.chatQuizResetButtonText,
+                  styles.chatQuizTestResetButtonText,
+                ]}
+              >
+                Resetar timer
+              </Text>
             </TouchableOpacity>
           </View>
         ) : null}
@@ -592,6 +613,13 @@ const ex10 = StyleSheet.create({
     color: CORES.DANGER,
     fontSize: 13,
     fontWeight: "800",
+  },
+  chatQuizTestResetButton: {
+    marginTop: 8,
+    borderColor: "#94A3B8",
+  },
+  chatQuizTestResetButtonText: {
+    color: "#475569",
   },
 });
 

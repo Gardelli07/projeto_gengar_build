@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
   Easing,
-  Image,
   Text,
+  TextInput,
   TouchableOpacity,
   Vibration,
   View,
@@ -11,7 +11,13 @@ import {
 } from "react-native";
 import CORES from "../util/cores";
 
-export function Exercise8({
+const normalizeText = (value) =>
+  String(value || "")
+    .trim()
+    .replace(/\s+/g, " ")
+    .toLowerCase();
+
+export function Exercise18({
   activity,
   styles,
   HeaderComponent,
@@ -23,13 +29,11 @@ export function Exercise8({
   const alertOpacity = useRef(new Animated.Value(0)).current;
   const shakeAnim = useRef(new Animated.Value(0)).current;
   const blinkAnim = useRef(new Animated.Value(0)).current;
-
-  const [selected, setSelected] = useState(null);
+  const [typedText, setTypedText] = useState("");
   const [result, setResult] = useState(null);
 
   const isCorrect = result === "correct";
   const isWrong = result === "wrong";
-  const wrongMessage = activity.feedbackMessage || activity.successMessage;
 
   const shakeTranslateX = shakeAnim.interpolate({
     inputRange: [0, 0.25, 0.5, 0.75, 1],
@@ -70,7 +74,6 @@ export function Exercise8({
     Vibration.vibrate(140);
     shakeAnim.setValue(0);
     blinkAnim.setValue(0);
-
     Animated.parallel([
       Animated.timing(shakeAnim, {
         toValue: 1,
@@ -103,88 +106,79 @@ export function Exercise8({
     ]).start();
   };
 
-  const handleSelect = (option) => {
-    if (isCorrect || isWrong) return;
-    setSelected(option);
+  const handleSubmit = () => {
+    const typed = normalizeText(typedText);
+    const expected = normalizeText(activity.correctAnswer);
 
-    if (option === activity.correctAnswer) {
-      onAttempt?.({ isCorrect: true, exerciseAccuracy: 100 });
-      setResult("correct");
+    if (!typed || typed !== expected) {
+      onAttempt?.({ isCorrect: false });
+      triggerWrongFeedback();
       return;
     }
 
-    onAttempt?.({ isCorrect: false, exerciseAccuracy: 0 });
-    triggerWrongFeedback();
+    onAttempt?.({ isCorrect: true });
+    setResult("correct");
   };
 
   return (
     <View style={styles.slide}>
       <HeaderComponent />
 
-      <View style={styles.imageChoiceBlock}>
+      <View style={styles.orderSentenceBlock}>
         <Text style={styles.fastTypePrompt}>{activity.prompt}</Text>
 
-        <View style={styles.imageChoiceMediaCard}>
-          {activity.image ? (
-            <Image source={activity.image} style={styles.imageChoiceMedia} />
-          ) : (
-            <View style={styles.imageChoiceEmojiWrap}>
-              <Text style={styles.imageChoiceEmoji}>
-                {activity.emoji || "?"}
-              </Text>
-            </View>
-          )}
-        </View>
+        {activity.instruction ? (
+          <Text style={styles.orderSentenceInstruction}>
+            {activity.instruction}
+          </Text>
+        ) : null}
 
-        <View style={styles.imageChoiceOptionsList}>
-          {activity.options.map((option) => {
-            const optionIsCorrect =
-              selected === option &&
-              option === activity.correctAnswer &&
-              isCorrect;
-            const optionIsWrong =
-              selected === option &&
-              option !== activity.correctAnswer &&
-              isWrong;
+        <Animated.View
+          style={[
+            styles.orderSentenceWordsCard,
+            isWrong && styles.orderSentenceWordsCardWrong,
+            isWrong && { backgroundColor: wrongBackground },
+            isWrong && { transform: [{ translateX: shakeTranslateX }] },
+          ]}
+        >
+          <Text style={styles.orderSentenceWordsText}>
+            {activity.scrambledSentence}
+          </Text>
+        </Animated.View>
 
-            return (
-              <Animated.View
-                key={option}
-                style={[
-                  styles.imageChoiceOptionWrap,
-                  optionIsWrong && {
-                    transform: [{ translateX: shakeTranslateX }],
-                  },
-                ]}
-              >
-                <Animated.View
-                  style={[
-                    styles.imageChoiceOption,
-                    optionIsCorrect && styles.imageChoiceOptionCorrect,
-                    optionIsWrong && styles.imageChoiceOptionWrong,
-                    optionIsWrong && { backgroundColor: wrongBackground },
-                  ]}
-                >
-                  <TouchableOpacity
-                    style={styles.imageChoiceOptionTouch}
-                    onPress={() => handleSelect(option)}
-                    activeOpacity={0.9}
-                    disabled={isCorrect || isWrong}
-                  >
-                    <Text
-                      style={[
-                        styles.imageChoiceOptionText,
-                        optionIsCorrect && styles.imageChoiceOptionTextCorrect,
-                      ]}
-                    >
-                      {option}
-                    </Text>
-                  </TouchableOpacity>
-                </Animated.View>
-              </Animated.View>
-            );
-          })}
-        </View>
+        <Animated.View
+          style={[
+            styles.orderSentenceInputWrap,
+            isWrong && styles.orderSentenceInputWrapWrong,
+            isCorrect && styles.orderSentenceInputWrapCorrect,
+          ]}
+        >
+          <TextInput
+            value={typedText}
+            onChangeText={(value) => {
+              setTypedText(value);
+              if (result) setResult(null);
+            }}
+            style={styles.orderSentenceInput}
+            placeholder={activity.placeholder}
+            placeholderTextColor="#8BB7E0"
+            autoCapitalize="sentences"
+            autoCorrect={false}
+          />
+        </Animated.View>
+
+        <TouchableOpacity
+          style={[
+            styles.orderSentenceSubmitButton,
+            !typedText.trim() && styles.orderSentenceSubmitButtonDisabled,
+          ]}
+          onPress={handleSubmit}
+          disabled={!typedText.trim() || isCorrect || isWrong}
+        >
+          <Text style={styles.orderSentenceSubmitButtonText}>
+            {activity.submitLabel}
+          </Text>
+        </TouchableOpacity>
       </View>
 
       {(isCorrect || isWrong) && (
@@ -196,7 +190,6 @@ export function Exercise8({
               isCorrect
                 ? styles.resultAlertCardCorrect
                 : styles.resultAlertCardWrong,
-              styles.slide9SuccessAlertCard,
               { paddingBottom: bottomSafeSpace + 1 },
               {
                 opacity: alertOpacity,
@@ -226,7 +219,9 @@ export function Exercise8({
                   isWrong && styles.resultAlertTitleWrong,
                 ]}
               >
-                {isWrong ? activity.errorTitle || "Incorreto" : activity.successTitle}
+                {isWrong
+                  ? activity.errorTitle || "Incorreto"
+                  : activity.successTitle}
               </Text>
             </View>
 
@@ -240,25 +235,40 @@ export function Exercise8({
               <Text
                 style={[
                   styles.feedbackTitle,
-                  isWrong ? styles.feedbackTitleWrong : styles.feedbackTitleCorrect,
+                  isWrong
+                    ? styles.feedbackTitleWrong
+                    : styles.feedbackTitleCorrect,
                 ]}
               >
                 {isWrong ? "X Tente novamente" : "✓ Muito bem!"}
               </Text>
               <Text style={styles.feedbackTextBlack}>
-                {isWrong ? wrongMessage : activity.successMessage}
+                {activity.successMessage}
               </Text>
             </View>
 
-            <TouchableOpacity
-              style={[
-                styles.alertContinueButton,
-                isWrong && styles.resultAlertButtonWrong,
-              ]}
-              onPress={next}
-            >
-              <Text style={styles.alertContinueButtonText}>Próxima atividade</Text>
-            </TouchableOpacity>
+            {isCorrect ? (
+              <TouchableOpacity
+                style={styles.alertContinueButton}
+                onPress={next}
+              >
+                <Text style={styles.alertContinueButtonText}>
+                  Próxima Atividade
+                </Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={[
+                  styles.alertContinueButton,
+                  styles.resultAlertButtonWrong,
+                ]}
+                onPress={next}
+              >
+                <Text style={styles.alertContinueButtonText}>
+                  {activity.wrongButtonLabel || "Próxima Atividade"}
+                </Text>
+              </TouchableOpacity>
+            )}
           </Animated.View>
         </View>
       )}
@@ -266,79 +276,78 @@ export function Exercise8({
   );
 }
 
-const ex8 = StyleSheet.create({
-  imageChoiceBlock: {
+const ex18 = StyleSheet.create({
+  orderSentenceBlock: {
     width: "100%",
     alignItems: "center",
   },
-  imageChoiceMediaCard: {
+  orderSentenceInstruction: {
     width: "88%",
-    height: 158,
-    borderRadius: 16,
-    overflow: "hidden",
-    marginBottom: 16,
-    backgroundColor: "#77C4E6",
-    alignItems: "center",
-    justifyContent: "center",
+    textAlign: "left",
+    fontSize: 16,
+    color: "#7BA9D6",
+    marginBottom: 18,
+    fontWeight: "600",
   },
-  imageChoiceMedia: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
-  },
-  imageChoiceEmojiWrap: {
-    flex: 1,
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  imageChoiceEmoji: {
-    fontSize: 72,
-  },
-  imageChoiceOptionsList: {
+  orderSentenceWordsCard: {
     width: "88%",
-    gap: 8,
-  },
-  imageChoiceOptionWrap: {
-    width: "100%",
-  },
-  imageChoiceOption: {
-    width: "100%",
-    minHeight: 32,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: "#7BA9D6",
-    backgroundColor: CORES.WHITE,
-  },
-  imageChoiceOptionTouch: {
-    flex: 1,
-    minHeight: 32,
+    minHeight: 72,
+    borderRadius: 12,
+    backgroundColor: "#76A8D7",
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 14,
+    paddingHorizontal: 18,
+    paddingVertical: 16,
+    marginBottom: 24,
   },
-  imageChoiceOptionText: {
-    color: CORES.PRIMARY,
-    fontSize: 13,
-    textAlign: "center",
-  },
-  imageChoiceOptionCorrect: {
-    backgroundColor: CORES.SUCCESS_BG,
-    borderColor: CORES.SUCCESS,
-  },
-  imageChoiceOptionWrong: {
+  orderSentenceWordsCardWrong: {
+    borderWidth: 1.5,
     borderColor: CORES.DANGER,
   },
-  imageChoiceOptionTextCorrect: {
-    color: CORES.SUCCESS_DARK,
-    fontWeight: "700",
+  orderSentenceWordsText: {
+    color: CORES.WHITE,
+    fontSize: 19,
+    textAlign: "center",
+    textDecorationLine: "underline",
+    fontFamily: "serif",
   },
-  slide9SuccessAlertCard: {
-    marginHorizontal: 12,
-    marginBottom: 0,
-    zIndex: 200,
-    elevation: 30,
+  orderSentenceInputWrap: {
+    width: "72%",
+    borderBottomWidth: 2,
+    borderBottomColor: "#8EB8E0",
+    marginBottom: 20,
+  },
+  orderSentenceInputWrapWrong: {
+    borderBottomColor: CORES.DANGER,
+  },
+  orderSentenceInputWrapCorrect: {
+    borderBottomColor: CORES.SUCCESS,
+  },
+  orderSentenceInput: {
+    minHeight: 36,
+    color: CORES.PRIMARY,
+    fontSize: 19,
+    textAlign: "center",
+    paddingVertical: 4,
+    fontFamily: "serif",
+  },
+  orderSentenceSubmitButton: {
+    minWidth: 152,
+    height: 44,
+    borderRadius: 14,
+    backgroundColor: CORES.SECONDARY,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 18,
+  },
+  orderSentenceSubmitButtonDisabled: {
+    backgroundColor: "#B6C8DB",
+  },
+  orderSentenceSubmitButtonText: {
+    color: CORES.WHITE_SHORT,
+    fontSize: 15,
+    fontWeight: "700",
   },
 });
 
-export default ex8;
+export default ex18;

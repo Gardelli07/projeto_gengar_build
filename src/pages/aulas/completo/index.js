@@ -56,9 +56,21 @@ export const inglesModuleDefs = [
 ];
 
 export const inglesSampleLessons = [
-  { module: 0, id: "1", title: "Aula 01", type: "Aula", screen: "IC01" },
-  { module: 0, id: "2", title: "Aula 02", type: "Aula", screen: "IC02" },
-  { module: 0, id: "3", title: "Aula 03", type: "Aula", screen: "IC03" },
+  {
+    module: 0,
+    id: "1",
+    title: "Teste das Atividades",
+    type: "Aula",
+    screen: "IC01",
+  },
+  {
+    module: 0,
+    id: "2",
+    title: "Teste seu aprendizado",
+    type: "Desafio",
+    screen: "IC02",
+  },
+  { module: 0, id: "3", title: "Hello/Hi", type: "Aula", screen: "IC03" },
   { module: 0, id: "4", title: "Aula 04", type: "Aula", screen: "IC04" },
   { module: 0, id: "5", title: "Aula 05", type: "Aula", screen: "IC05" },
   { module: 0, id: "6", title: "Aula 06", type: "Aula", screen: "IC06" },
