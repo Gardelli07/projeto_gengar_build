@@ -11,26 +11,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Speech from "expo-speech";
 import geral from "../../../exc/geral";
 import ex1, { Exercise1 } from "../../../exc/ex1";
-import ex2, { Exercise2 } from "../../../exc/ex2";
 import ex3, { Exercise3 } from "../../../exc/ex3";
-import ex4, { Exercise4 } from "../../../exc/ex4";
-import ex5, { Exercise5 } from "../../../exc/ex5";
 import ex6, { Exercise6 } from "../../../exc/ex6";
-import ex7, { Exercise7 } from "../../../exc/ex7";
-import ex8, { Exercise8 } from "../../../exc/ex8";
-import ex9, { Exercise9 } from "../../../exc/ex9";
-import ex10, { Exercise10 } from "../../../exc/ex10";
 import ex11, { Exercise11 } from "../../../exc/ex11";
-import ex12, { Exercise12 } from "../../../exc/ex12";
 import ex13, { Exercise13 } from "../../../exc/ex13";
 import ex15, { Exercise15 } from "../../../exc/ex15";
 import ex14, { Exercise14 } from "../../../exc/ex14";
 import ex16, { Exercise16 } from "../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../exc/ex17";
-import ex18, { Exercise18 } from "../../../exc/ex18";
-import ex19, { Exercise19 } from "../../../exc/ex19";
 import Feedback from "../../../exc/feedback";
-import { BussinesImages, Images } from "../../../util/images";
+import { BussinesImages, Images, IC } from "../../../util/images";
 import {
   calculateLessonAccuracy,
   LESSON_STREAK_MIN_ACCURACY,
@@ -46,23 +36,13 @@ const styles = {
   ...geral,
   ...ex14,
   ...ex1,
-  ...ex2,
   ...ex3,
-  ...ex4,
-  ...ex5,
   ...ex6,
-  ...ex7,
-  ...ex8,
-  ...ex9,
-  ...ex10,
   ...ex11,
-  ...ex12,
   ...ex13,
   ...ex15,
   ...ex16,
   ...ex17,
-  ...ex18,
-  ...ex19,
 };
 
 const LESSON_SLIDES = [
@@ -70,126 +50,173 @@ const LESSON_SLIDES = [
     component: Exercise17,
     activity: {
       label: "Tip",
-      content: `/blueHello Mais neutro e educado.
-Pode usar com qualquer pessoa.
-
-  • primeira vez falando com alguém
-  • trabalho
-  • cliente
-  • situação formal
-  • telefone
-
-/blueEx:
-  • Hello, how are you?
-  • Hello, nice to meet you.
-/blue{É o mais seguro de todos.}`,
+      content: [
+        "/blue{Observe a cena}",
+        IC.A2S1,
+        `Você usaria 'Hello' com seu melhor amigo em um momento de diversão? Ou existe algo mais natural?`,
+      ],
       continueLabel: "Continuar",
     },
   },
   {
-    component: Exercise19,
+    component: Exercise14,
     needsSpeech: true,
     activity: {
-      prompt: "Escreva a frase do áudio.",
-      audioText: "I am working now.",
-      correctAnswer: "I am working now.",
-      placeholder: "I am working now.",
-      submitLabel: "Responder",
+      prompt: "Escute e complete",
+      image: IC.A2S2,
+      audioSource: require("../../../../mp3/IC/A2S2.mp3"),
+      audioDurationMs: 624,
+      answerOptions: ["Hey", "Hay"],
+      correctOption: "Hey",
       successTitle: "Correto",
-      successMessage: "Você escreveu a frase do áudio corretamente.",
-      errorMessage: "Ouça o áudio novamente e confira a frase.",
+      feedbackMessage: 'Usamos "Hey" para dizer "oi" de forma mais informal.',
     },
   },
   {
-    component: Exercise10,
+    component: Exercise17,
     activity: {
-      prompt: "Responda as questões",
-      title: "Conversa",
-      userImage: BussinesImages.menina2,
-      lockStorageKey: "@ic01_exercise10_lock_until",
-      questions: [
-        {
-          image: BussinesImages.secretaria,
-          question: "Hello! How are you?",
-          options: ["I'm fine, and you?", "Good night!", "See you tomorrow!"],
-          correctAnswer: "I'm fine, and you?",
-        },
-        {
-          image: BussinesImages.menino,
-          question: "What's your name?",
-          options: [
-            "My name is Ana.",
-            "I am from Brazil.",
-            "I am 25 years old.",
-          ],
-          correctAnswer: "My name is Ana.",
-        },
-        {
-          image: BussinesImages.menina,
-          question: "Where are you from?",
-          options: ["I am from Brazil.", "I am a teacher.", "I am fine."],
-          correctAnswer: "I am from Brazil.",
-        },
-        {
-          image: BussinesImages.secretario,
-          question: "Nice to meet you.",
-          options: [
-            "Nice to meet you too.",
-            "How old are you?",
-            "See you at home.",
-          ],
-          correctAnswer: "Nice to meet you too.",
-        },
-        {
-          image: BussinesImages.menino2,
-          question: "How old are you?",
-          options: [
-            "I am 25 years old.",
-            "I am from Mexico.",
-            "My name is Leo.",
-          ],
-          correctAnswer: "I am 25 years old.",
-        },
-        {
-          image: BussinesImages.menina,
-          question: "Are you a student?",
-          options: ["Yes, I am.", "No, she isn't.", "Good afternoon."],
-          correctAnswer: "Yes, I am.",
-        },
-        {
-          image: BussinesImages.secretaria,
-          question: "What do you do?",
-          options: ["I work in a bank.", "I live in Canada.", "I am 20."],
-          correctAnswer: "I work in a bank.",
-        },
-        {
-          image: BussinesImages.menino,
-          question: "Do you speak English?",
-          options: ["Yes, a little.", "I am in class.", "My name is Bob."],
-          correctAnswer: "Yes, a little.",
-        },
-        {
-          image: BussinesImages.menina2,
-          question: "See you later!",
-          options: ["See you!", "How are you?", "I am from Spain."],
-          correctAnswer: "See you!",
-        },
-        {
-          image: BussinesImages.secretario,
-          question: "Have a nice day!",
-          options: [
-            "Thanks, you too!",
-            "My name is Carol.",
-            "I am 18 years old.",
-          ],
-          correctAnswer: "Thanks, you too!",
-        },
+      label: "Tip",
+      content: [
+        `Cuidado! /blueHey é ótimo para amigos, família e colegas próximos.
+Mas atenção: usar "Hey" com seu chefe em uma reunião séria pode parecer que você está sendo desleixado ou até desrespeitoso. 
+Na dúvida com estranhos? 
+Fique com o Hi ou Hello!`,
       ],
-      successTitle: "Correto",
-      successMessage: "Você acertou todas as 10 respostas da conversa.",
+      continueLabel: "Continuar",
     },
   },
-
+  {
+    component: Exercise15,
+    activity: {
+      prompt: "Clique na imagem e na palavra",
+      images: [
+        { id: "img1", image: IC.A2S4 },
+        { id: "img2", image: IC.A2S4p2 },
+      ],
+      words: [
+        { id: "test1", label: "Hey" },
+        { id: "test2", label: "Hello" },
+      ],
+      pairs: [
+        { imageId: "img1", wordId: "test1" },
+        { imageId: "img2", wordId: "test2" },
+      ],
+      successTitle: "Correto",
+      successMessage: "Você formou os dois pares corretamente.",
+    },
+  },
+  {
+    component: Exercise1,
+    activity: {
+      prompt: "Encontre a tradução",
+      pairs: [
+        { en: "Hey", pt: "Oi / Ei (muito informal)" },
+        {
+          en: "Hey there",
+          pt: "Olá / Oi (de um jeito mais carinhoso/amigável)",
+        },
+      ],
+      successTitle: "Excelente",
+      successMessage: "Você acertou todas as traduções.",
+    },
+  },
+  {
+    component: Exercise13,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escreva a palavra",
+      audioSource: require("../../../../mp3/IC/A2S6.mp3"),
+      audioDurationMs: 824,
+      letters: ["H", "E", "Y", "T", "H", "E", "R", "E"],
+      correctWord: "HEYTHERE",
+      successTitle: "Correto",
+      successMessage: 'A palavra correta é "Hey there".',
+    },
+  },
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip",
+      content: [
+        `Dica de Mestre: /blue{Hey there} é uma versão levemente mais 'cheia' do que o simples Hey. 
+É muito comum quando você quer ser extra amigável ao ver alguém que gosta. 
+É como um 'Oi, tudo bem?' resumido em duas palavras! `,
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise3,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e responda",
+      image: IC.A2S8,
+      audioSource: require("../../../../mp3/IC/A2S8.mp3"),
+      audioDurationMs: 1000,
+      dialogue:
+        " Nesse áudio, a pessoa está usando 'Hey' como uma saudação amigável?",
+      options: ["true", "false"],
+      correctAnswer: "false",
+      successTitle: "Correto",
+      successMessage: 'A resposta correta é "false".',
+    },
+  },
+  {
+    component: Exercise6,
+    activity: {
+      prompt: "Coloque a frase em ordem.",
+      words: ["hey", "there,", "Lucas!", "good", "morning"],
+      correctOrder: ["hey", "there,", "Lucas!", "good", "morning"],
+      successTitle: "Correto",
+      successMessage: `A frase correta e "Hey there, Lucas! Good morning."`,
+    },
+  },
+  {
+    component: Exercise16,
+    activity: {
+      prompt: "Speaking",
+      instruction: "Fale brevemente sobre você em inglês.",
+      helperText:
+        "Grave um áudio cumprimentando um colega de trabalho que você gosta muito e tem intimidade. Use 'Hey there!' com uma entonação bem positiva.",
+      image: BussinesImages.menina2,
+      tipButtonLabel: "Tip",
+      tipText: "Hey there!",
+      recordLabel: "Speak",
+      stopLabel: "Parar",
+      playLabel: "Ouvir",
+      pauseLabel: "Pausar",
+      rerecordLabel: "Regravar",
+      submitLabel: "Enviar áudio",
+      successTitle: "Correto",
+      successMessage: "Seu áudio foi gravado com sucesso.",
+    },
+  },
+  {
+    component: Exercise11,
+    activity: {
+      prompt: "Escreva rápido",
+      title: "Escreva a palavra abaixo",
+      placeholder: "Digite aqui",
+      secondsPerWord: 8,
+      words: ["Hey", "Hi", "There", "Hello"],
+      successTitle: "Correto",
+      successMessage: "Você digitou todas as palavras no tempo certo.",
+    },
+  },
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip",
+      content: [
+        `/blue{Você subiu de nível!}💎
+Sabia que no sul dos EUA, o 'Hey' é quase obrigatório? 
+Já em Londres, o 'Hi' ainda é o rei da vizinhança. 
+No Lingueto, você aprende a falar com o mundo todo! 
+Próxima aula: What's up? (A gíria que todo mundo quer saber). Até lá! `,
+      ],
+      continueLabel: "Continuar",
+    },
+  },
   {
     key: "lesson-finish",
     type: "finish",

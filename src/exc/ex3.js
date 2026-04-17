@@ -338,7 +338,9 @@ export function Exercise3({
                   isWrong && styles.resultAlertTitleWrong,
                 ]}
               >
-                {isWrong ? activity.errorTitle || "Incorreto" : activity.successTitle}
+                {isWrong
+                  ? activity.errorTitle || "Incorreto"
+                  : activity.successTitle}
               </Text>
             </View>
 
@@ -352,7 +354,9 @@ export function Exercise3({
               <Text
                 style={[
                   styles.feedbackTitle,
-                  isWrong ? styles.feedbackTitleWrong : styles.feedbackTitleCorrect,
+                  isWrong
+                    ? styles.feedbackTitleWrong
+                    : styles.feedbackTitleCorrect,
                 ]}
               >
                 {isWrong ? "X Tente novamente" : "✓ Muito bem!"}
@@ -369,7 +373,9 @@ export function Exercise3({
               ]}
               onPress={isCorrect ? next : next}
             >
-              <Text style={styles.alertContinueButtonText}>Próxima atividade</Text>
+              <Text style={styles.alertContinueButtonText}>
+                Próxima atividade
+              </Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -437,3 +443,20 @@ const ex3 = StyleSheet.create({
 });
 
 export default ex3;
+/*
+  {
+    component: Exercise3,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e responda",
+      image: IC.A4S8,
+      audioSource: require("../../../../mp3/IC/A4S9.mp3"),
+      audioDurationMs: 2000,
+      dialogue: "He wakes up at 6am every day.",
+      options: ["true", "false"],
+      correctAnswer: "true",
+      successTitle: "Correto",
+      successMessage: 'A frase "He wakes up at 6am every day." esta correta.',
+    },
+  },
+  */

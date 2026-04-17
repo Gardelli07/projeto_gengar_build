@@ -178,7 +178,9 @@ export function Exercise5({
                 key={option}
                 style={[
                   styles.completePhraseOptionWrap,
-                  optionIsWrong && { transform: [{ translateX: shakeTranslateX }] },
+                  optionIsWrong && {
+                    transform: [{ translateX: shakeTranslateX }],
+                  },
                 ]}
               >
                 <Animated.View
@@ -251,7 +253,9 @@ export function Exercise5({
                   isWrong && styles.resultAlertTitleWrong,
                 ]}
               >
-                {isWrong ? activity.errorTitle || "Incorreto" : activity.successTitle}
+                {isWrong
+                  ? activity.errorTitle || "Incorreto"
+                  : activity.successTitle}
               </Text>
             </View>
 
@@ -265,7 +269,9 @@ export function Exercise5({
               <Text
                 style={[
                   styles.feedbackTitle,
-                  isWrong ? styles.feedbackTitleWrong : styles.feedbackTitleCorrect,
+                  isWrong
+                    ? styles.feedbackTitleWrong
+                    : styles.feedbackTitleCorrect,
                 ]}
               >
                 {isWrong ? "X Tente novamente" : "✓ Muito bem!"}
@@ -282,7 +288,9 @@ export function Exercise5({
               ]}
               onPress={next}
             >
-              <Text style={styles.alertContinueButtonText}>Próxima atividade</Text>
+              <Text style={styles.alertContinueButtonText}>
+                Próxima atividade
+              </Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -315,19 +323,25 @@ const ex5 = StyleSheet.create({
     borderRadius: 19,
     backgroundColor: CORES.PRIMARY,
     flexDirection: "row",
+    flexWrap: "wrap",
     alignItems: "center",
     justifyContent: "center",
+    alignContent: "center",
     gap: 8,
     paddingHorizontal: 16,
+    paddingVertical: 8,
     marginBottom: 14,
   },
   completePhraseSentenceText: {
     color: CORES.WHITE,
     fontSize: 15,
     fontWeight: "700",
+    lineHeight: 20,
+    flexShrink: 1,
+    textAlign: "center",
   },
   completePhraseBlank: {
-    minWidth: 68,
+    width: 68,
     minHeight: 26,
     borderRadius: 13,
     backgroundColor: CORES.WHITE,
@@ -399,3 +413,18 @@ const ex5 = StyleSheet.create({
 });
 
 export default ex5;
+/*
+  {
+    component: Exercise5,
+    activity: {
+      prompt: "Complete a frase",
+      image: BussinesImages.company,
+      sentenceStart: "She",
+      sentenceEnd: "the bus.",
+      options: ["take", "takes"],
+      correctAnswer: "takes",
+      successTitle: "Correto",
+      successMessage: 'A forma correta e "She takes the bus."',
+    },
+  },
+*/

@@ -351,3 +351,21 @@ const ex18 = StyleSheet.create({
 });
 
 export default ex18;
+
+/*
+
+  {
+    component: Exercise18,
+    activity: {
+      prompt: "Organize e escreva a frase",
+      scrambledSentence: "working / am / I / now",
+      correctAnswer: "I am working now",
+      placeholder: "Escreva a frase correta",
+      submitLabel: "Enviar",
+      errorTitle: "Incorreto",
+      successTitle: "Correto",
+      successMessage: "A frase correta é: I am working now.",
+    },
+  },
+
+*/

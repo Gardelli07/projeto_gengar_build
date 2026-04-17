@@ -371,7 +371,9 @@ export function Exercise13({
                   isWrong && styles.resultAlertTitleWrong,
                 ]}
               >
-                {isWrong ? activity.errorTitle || "Incorreto" : activity.successTitle}
+                {isWrong
+                  ? activity.errorTitle || "Incorreto"
+                  : activity.successTitle}
               </Text>
             </View>
 
@@ -385,7 +387,9 @@ export function Exercise13({
               <Text
                 style={[
                   styles.feedbackTitle,
-                  isWrong ? styles.feedbackTitleWrong : styles.feedbackTitleCorrect,
+                  isWrong
+                    ? styles.feedbackTitleWrong
+                    : styles.feedbackTitleCorrect,
                 ]}
               >
                 {isWrong ? "X Tente novamente" : "✓ Muito bem!"}
@@ -402,7 +406,9 @@ export function Exercise13({
               ]}
               onPress={next}
             >
-              <Text style={styles.alertContinueButtonText}>Próxima atividade</Text>
+              <Text style={styles.alertContinueButtonText}>
+                Próxima atividade
+              </Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -517,3 +523,21 @@ const ex13 = StyleSheet.create({
 });
 
 export default ex13;
+
+/*
+
+ {
+    component: Exercise13,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escreva a palavra",
+      audioSource: require("../../../../mp3/IC/hello.mp3"),
+      audioDurationMs: 824,
+      letters: ["H", "E", "L", "L", "O"],
+      correctWord: "HELLO",
+      successTitle: "Correto",
+      successMessage: 'A palavra correta é "HELLO".',
+    },
+  },
+
+*/

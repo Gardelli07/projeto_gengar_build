@@ -465,3 +465,22 @@ const ex14 = StyleSheet.create({
 });
 
 export default ex14;
+
+/*
+
+  {
+      component: Exercise14,
+      needsSpeech: true,
+      activity: {
+        prompt: "Escute e complete",
+        image: IC.slide1,
+        audioSource: require("../../../../mp3/IC/hello.mp3"),
+        audioDurationMs: 824,
+        answerOptions: ["Hello", "Hélo"],
+        correctOption: "Hello",
+        successTitle: "Correto",
+        feedbackMessage: 'Usamos "Hello" para dizer "oi".',
+      },
+    },
+
+*/

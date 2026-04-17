@@ -58,9 +58,32 @@ export const BussinesImages = {
 };
 
 export const IC = {
+  semimg: require("../../assets/IC/semimg.jpg"),
   slide1: require("../../assets/IC/IC01 slide1.png"),
   slide6: require("../../assets/IC/IC01 slide6.png"),
   slide6p2: require("../../assets/IC/IC01 slide6p2.png"),
+  A1S2: require("../../assets/IC/A1S2.jpg"),
+  A1S3: require("../../assets/IC/A1S3.jpg"),
+  A1S10: require("../../assets/IC/A1S10.jpg"),
+  A2S1: require("../../assets/IC/A2S1.png"),
+  A2S2: require("../../assets/IC/A2S2.jpg"),
+  A2S4: require("../../assets/IC/A2S4.png"),
+  A2S4p2: require("../../assets/IC/A2S4p2.png"),
+  A2S8: require("../../assets/IC/A2S8.png"),
+  A3S1: require("../../assets/IC/A3S1.png"),
+  A3S2: require("../../assets/IC/A3S2.jpg"),
+  A3S5: require("../../assets/IC/A3S5.png"),
+  A3S8: require("../../assets/IC/A3S8.png"),
+  A3S9: require("../../assets/IC/A3S9.jpg"),
+  A3S10: require("../../assets/IC/A3S10.jpg"),
+  A4S1: require("../../assets/IC/A4S1.png"),
+  A4S2: require("../../assets/IC/A4S2.jpg"),
+  A4S6: require("../../assets/IC/A4S6.png"),
+  A4S6p2: require("../../assets/IC/A4S6p2.png"),
+  A4S8: require("../../assets/IC/A4S8.png"),
+  A5S1: require("../../assets/IC/A5S1.png"),
+  A5S2: require("../../assets/IC/A5S2.jpg"),
+  A5S5: require("../../assets/IC/A5S5.png"),
 };
 
 export const Empresas = {

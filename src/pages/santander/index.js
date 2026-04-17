@@ -18,7 +18,6 @@ import Svg, {
   Stop,
   G,
 } from "react-native-svg";
-import { Download } from "lucide-react-native";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 
@@ -40,7 +39,7 @@ export default function HomeSantander() {
         {/* BOTÃO — SOMENTE ADMIN */}
         {isAdmin && (
           <TouchableOpacity style={styles.exportButton} activeOpacity={0.85}>
-            <Download color="#fff" size={20} />
+            <DownloadIcon />
             <Text style={styles.exportText}>Exportar Relatório</Text>
           </TouchableOpacity>
         )}
@@ -120,6 +119,37 @@ function CourseItem({ title, subtitle, colors, icon, route }) {
 }
 
 /* ================= SVG ICONS ================= */
+
+function DownloadIcon() {
+  return (
+    <Svg width={20} height={20} viewBox="0 0 24 24">
+      <Path
+        d="M12 15V3"
+        stroke="#fff"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+      <Path
+        d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+        stroke="#fff"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+      <Path
+        d="m7 10 5 5 5-5"
+        stroke="#fff"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+    </Svg>
+  );
+}
 
 const CrmIcon = (
   <>

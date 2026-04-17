@@ -142,7 +142,9 @@ export function Exercise9({
                 key={option.id}
                 style={[
                   styles.imageGridOptionWrap,
-                  optionIsWrong && { transform: [{ translateX: shakeTranslateX }] },
+                  optionIsWrong && {
+                    transform: [{ translateX: shakeTranslateX }],
+                  },
                 ]}
               >
                 <Animated.View
@@ -210,7 +212,9 @@ export function Exercise9({
                   isWrong && styles.resultAlertTitleWrong,
                 ]}
               >
-                {isWrong ? activity.errorTitle || "Incorreto" : activity.successTitle}
+                {isWrong
+                  ? activity.errorTitle || "Incorreto"
+                  : activity.successTitle}
               </Text>
             </View>
 
@@ -224,7 +228,9 @@ export function Exercise9({
               <Text
                 style={[
                   styles.feedbackTitle,
-                  isWrong ? styles.feedbackTitleWrong : styles.feedbackTitleCorrect,
+                  isWrong
+                    ? styles.feedbackTitleWrong
+                    : styles.feedbackTitleCorrect,
                 ]}
               >
                 {isWrong ? "X Tente novamente" : "✓ Muito bem!"}
@@ -241,7 +247,9 @@ export function Exercise9({
               ]}
               onPress={next}
             >
-              <Text style={styles.alertContinueButtonText}>Próxima atividade</Text>
+              <Text style={styles.alertContinueButtonText}>
+                Próxima atividade
+              </Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -306,3 +314,24 @@ const ex9 = StyleSheet.create({
 });
 
 export default ex9;
+
+/*
+ 
+  {
+    component: Exercise9,
+    activity: {
+      prompt: "O que é a palavra?",
+      question: "Phone",
+      correctOptionId: "phone",
+      options: [
+        { id: "phone", image: BussinesImages.telefone },
+        { id: "book", image: BussinesImages.livro },
+        { id: "email", image: BussinesImages.email },
+        { id: "clock", image: BussinesImages.relogio },
+      ],
+      successTitle: "Correto",
+      successMessage: 'A imagem correta representa "phone".',
+    },
+  },
+
+ */

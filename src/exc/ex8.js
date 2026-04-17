@@ -226,7 +226,9 @@ export function Exercise8({
                   isWrong && styles.resultAlertTitleWrong,
                 ]}
               >
-                {isWrong ? activity.errorTitle || "Incorreto" : activity.successTitle}
+                {isWrong
+                  ? activity.errorTitle || "Incorreto"
+                  : activity.successTitle}
               </Text>
             </View>
 
@@ -240,7 +242,9 @@ export function Exercise8({
               <Text
                 style={[
                   styles.feedbackTitle,
-                  isWrong ? styles.feedbackTitleWrong : styles.feedbackTitleCorrect,
+                  isWrong
+                    ? styles.feedbackTitleWrong
+                    : styles.feedbackTitleCorrect,
                 ]}
               >
                 {isWrong ? "X Tente novamente" : "✓ Muito bem!"}
@@ -257,7 +261,9 @@ export function Exercise8({
               ]}
               onPress={next}
             >
-              <Text style={styles.alertContinueButtonText}>Próxima atividade</Text>
+              <Text style={styles.alertContinueButtonText}>
+                Próxima atividade
+              </Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -342,3 +348,19 @@ const ex8 = StyleSheet.create({
 });
 
 export default ex8;
+
+/**
+ 
+  {
+    component: Exercise8,
+    activity: {
+      prompt: "Oque é essa imagen?",
+      image: require("../../../../assets/Bussines/agenda2.png"),
+      options: ["Banana", "Agenda", "Grape"],
+      correctAnswer: "Agenda",
+      successTitle: "Correto",
+      successMessage: 'A resposta correta é "Agenda".',
+    },
+  },
+
+ */

@@ -11,15 +11,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Speech from "expo-speech";
 import geral from "../../../exc/geral";
 import ex1, { Exercise1 } from "../../../exc/ex1";
-import ex2, { Exercise2 } from "../../../exc/ex2";
 import ex3, { Exercise3 } from "../../../exc/ex3";
 import ex4, { Exercise4 } from "../../../exc/ex4";
 import ex5, { Exercise5 } from "../../../exc/ex5";
-import ex6, { Exercise6 } from "../../../exc/ex6";
-import ex7, { Exercise7 } from "../../../exc/ex7";
-import ex8, { Exercise8 } from "../../../exc/ex8";
-import ex9, { Exercise9 } from "../../../exc/ex9";
-import ex10, { Exercise10 } from "../../../exc/ex10";
 import ex11, { Exercise11 } from "../../../exc/ex11";
 import ex12, { Exercise12 } from "../../../exc/ex12";
 import ex13, { Exercise13 } from "../../../exc/ex13";
@@ -27,7 +21,6 @@ import ex15, { Exercise15 } from "../../../exc/ex15";
 import ex14, { Exercise14 } from "../../../exc/ex14";
 import ex16, { Exercise16 } from "../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../exc/ex17";
-import ex18, { Exercise18 } from "../../../exc/ex18";
 import Feedback from "../../../exc/feedback";
 import { BussinesImages, IC, Images } from "../../../util/images";
 import {
@@ -44,15 +37,9 @@ const STORAGE_KEY = "@progesso_ingles_completo";
 const styles = {
   ...geral,
   ...ex1,
-  ...ex2,
   ...ex3,
   ...ex4,
   ...ex5,
-  ...ex6,
-  ...ex7,
-  ...ex8,
-  ...ex9,
-  ...ex10,
   ...ex11,
   ...ex12,
   ...ex13,
@@ -60,23 +47,19 @@ const styles = {
   ...ex15,
   ...ex16,
   ...ex17,
-  ...ex18,
 };
 
 const LESSON_SLIDES = [
   {
-    component: Exercise14,
-    needsSpeech: true,
+    component: Exercise17,
     activity: {
-      prompt: "Escute e complete",
-      image: IC.slide1,
-      audioSource: require("../../../../mp3/IC/hello.mp3"),
-      audioDurationMs: 824,
-      answerOptions: ["Hello", "Hélo"],
-      correctOption: "Hello",
-      audioRate: 0.85,
-      successTitle: "Correto",
-      feedbackMessage: 'Usamos "Hello" para dizer "oi".',
+      label: "Tip",
+      content: [
+        `Imagine-se neste ambiente.`,
+        IC.A3S1,
+        " Qual dessas opções soaria mais natural aqui?",
+      ],
+      continueLabel: "Continuar",
     },
   },
   {
@@ -84,46 +67,25 @@ const LESSON_SLIDES = [
     needsSpeech: true,
     activity: {
       prompt: "Escute e complete",
-      image: Images.teacher,
-      audioSource: require("../../../../mp3/IC/Hi.mp3"),
-      audioDurationMs: 782,
-      answerOptions: ["Hello", "Hi"],
-      correctOption: "Hi",
-      audioRate: 0.85,
+      image: IC.A3S2,
+      audioSource: require("../../../../mp3/IC/A3S2.mp3"),
+      audioDurationMs: 1500,
+      answerOptions: ["What's up?", "Watch up?"],
+      correctOption: "What's up?",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "Hi" para dizer "oi".',
+      feedbackMessage: 'Usamos "What\'s up?".',
     },
   },
   {
-    component: Exercise1,
+    component: Exercise17,
     activity: {
-      prompt: "Encontre a tradução",
-      pairs: [
-        { en: "Hello", pt: "olá" },
-        { en: "Hi", pt: "oi" },
+      label: "Tip",
+      content: [
+        `/blue{What's up?} é o nosso famoso 'E aí?'. 
+Ele também pode ser abreviado como SUP. Mas atenção: na maioria das vezes, a pessoa não está perguntando como você está de verdade, é apenas um cumprimento. 
+A resposta clássica? 'Not much' (Nada de mais). `,
       ],
-      successTitle: "Excelente",
-      successMessage: "Você acertou todas as traduções.",
-    },
-  },
-  {
-    component: Exercise15,
-    activity: {
-      prompt: "Clique na imagem e na palavra",
-      images: [
-        { id: "meeting", image: IC.slide6 },
-        { id: "phone", image: IC.slide6p2 },
-      ],
-      words: [
-        { id: "meeting-word", label: "Hello" },
-        { id: "phone-word", label: "Hi" },
-      ],
-      pairs: [
-        { imageId: "meeting", wordId: "meeting-word" },
-        { imageId: "phone", wordId: "phone-word" },
-      ],
-      successTitle: "Correto",
-      successMessage: "Você formou os dois pares corretamente.",
+      continueLabel: "Continuar",
     },
   },
   {
@@ -131,52 +93,95 @@ const LESSON_SLIDES = [
     needsSpeech: true,
     activity: {
       prompt: "Escreva a palavra",
-      audioSource: require("../../../../mp3/IC/hello.mp3"),
-      audioDurationMs: 824,
-      audioRate: 0.85,
-      letters: ["H", "E", "L", "L", "O"],
-      correctWord: "HELLO",
+      audioSource: require("../../../../mp3/IC/A3S4.mp3"),
+      audioDurationMs: 1000,
+      letters: ["S", "U", "P"],
+      correctWord: "SUP",
       successTitle: "Correto",
-      successMessage: 'A palavra correta é "HELLO".',
+      successMessage: 'A palavra correta é "SUP".',
+    },
+  },
+  {
+    component: Exercise15,
+    activity: {
+      prompt: "Clique na imagem e na palavra",
+      images: [
+        { id: "img1", image: IC.A3S5 },
+        { id: "img2", image: IC.A3S1 },
+      ],
+      words: [
+        { id: "test1", label: "Howdy" },
+        { id: "test2", label: "Sup" },
+      ],
+      pairs: [
+        { imageId: "img1", wordId: "test1" },
+        { imageId: "img2", wordId: "test2" },
+      ],
+      successTitle: "Correto",
+      successMessage: "Você formou os dois pares corretamente.",
+    },
+  },
+  {
+    component: Exercise1,
+    activity: {
+      prompt: "Encontre a tradução",
+      pairs: [
+        { en: "What's up? ", pt: "E aí? (Padrão)" },
+        { en: "Howdy ", pt: "Olá/E aí? (Regional/Caubói)" },
+        { en: "Sup", pt: "E aí? (Gíria curta)" },
+      ],
+      successTitle: "Excelente",
+      successMessage: "Você acertou todas as traduções.",
+    },
+  },
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip",
+      content: [
+        `/blueHowdy é uma mistura de 'How do you do?'. É muito comum no sul dos Estados Unidos. Se você for ao Texas e disser 'Howdy', vai ganhar um sorriso na hora! É uma forma de mostrar que você conhece a cultura local. `,
+      ],
+      continueLabel: "Continuar",
     },
   },
   {
     component: Exercise4,
     activity: {
       prompt: "Corrija",
-      image: IC.slide6,
-      wrongSentence: "x! I need help.",
-      options: ["Hey! I need help.", "Hello! I need help."],
-      correctAnswer: "Hello! I need help.",
+      image: IC.A3S8,
+      wrongSentence: "X",
+      options: ["Howdy, Mr. President.", "What's up, guys!"],
+      correctAnswer: "What's up, guys!",
       successTitle: "Correto",
-      successMessage: 'A forma correta e "Hello! I need help."',
+      successMessage: "A forma correta é What's up, guys!",
+    },
+  },
+  {
+    component: Exercise3,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e responda",
+      image: IC.A3S9,
+      audioSource: require("../../../../mp3/IC/A3S9.mp3"),
+      audioDurationMs: 2500,
+      dialogue: "A pessoa B está contando uma história longa sobre o seu dia.",
+      options: ["true", "false"],
+      correctAnswer: "false",
+      successTitle: "Correto",
+      successMessage: "What's up é sempre usada como cumprimento.",
     },
   },
   {
     component: Exercise5,
     activity: {
       prompt: "Complete a frase",
-      image: IC.slide6p2,
-      sentenceStart: "",
-      sentenceEnd: ", my name is Jake.",
-      options: ["Hello", "Hi"],
-      correctAnswer: "Hi",
+      image: IC.A3S10,
+      sentenceStart: "A forma correta de abreviar what\'s up é :",
+      sentenceEnd: "",
+      options: ["sup ", "what’s"],
+      correctAnswer: "sup",
       successTitle: "Correto",
-      successMessage: 'A forma correta e "Hello, my name is Jake."',
-    },
-  },
-  {
-    component: Exercise6,
-    needsSpeech: true,
-    activity: {
-      prompt: "Coloque a frase em ordem.",
-      image: Images.teacher,
-      audioText: "Hello, my name's Jake.",
-      words: ["Hello", "name's", "my", "Jake"],
-      correctOrder: ["Hello", "my", "name's", "Jake"],
-      audioRate: 0.85,
-      successTitle: "Correto",
-      successMessage: `A frase correta e "Hello my name's Jake."`,
+      successMessage: 'A forma correta e de abreviar "What\'s up?" é "Sup".',
     },
   },
   {
@@ -185,12 +190,54 @@ const LESSON_SLIDES = [
       prompt: "Write your introduction",
       instruction: "Escreva brevemente sobre você em inglês.",
       helperText:
-        "Imagine que você está enviando um convite no LinkedIn para um recrutador. Escreva a primeira palavra da sua mensagem.",
+        "Seu amigo te mandou uma mensagem no WhatsApp: 'Sup, man!'. Responda usando a resposta padrão que aprendemos hoje.",
       placeholder: "Hello...",
-      tipText: "Hello, my name is Ana. I am from Brazil. I am fine.",
+      tipText: '"Not much" ou "Nothing much"',
       minLength: 3,
       successTitle: "Correto",
       successMessage: "Seu texto foi preenchido com sucesso.",
+    },
+  },
+  {
+    component: Exercise16,
+    activity: {
+      prompt: "Speaking",
+      instruction: "Fale brevemente sobre você em inglês.",
+      helperText:
+        "Grave um áudio cumprimentando alguém usando 'Howdy!' com uma entonação bem animada, como se estivesse usando um chapéu de caubói!",
+      image: BussinesImages.menina2,
+      tipButtonLabel: "Tip",
+      tipText: "Howdy!",
+      recordLabel: "Speak",
+      stopLabel: "Parar",
+      playLabel: "Ouvir",
+      pauseLabel: "Pausar",
+      rerecordLabel: "Regravar",
+      submitLabel: "Enviar áudio",
+      successTitle: "Correto",
+      successMessage: "Seu áudio foi gravado com sucesso.",
+    },
+  },
+  {
+    component: Exercise11,
+    activity: {
+      prompt: "Escreva rápido",
+      title: "Escreva a palavra abaixo",
+      placeholder: "Digite aqui",
+      secondsPerWord: 8,
+      words: ["Sup", "Howdy", "What’s up", "Much"],
+      successTitle: "Correto",
+      successMessage: "Você digitou todas as palavras no tempo certo.",
+    },
+  },
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip",
+      content: [
+        `Uau! Você agora fala como um nativo das ruas e do campo! Lembre-se: gírias são como tempero, use com moderação e apenas com quem você tem intimidade. Próxima parada: /blueGoodbye! (Como sair de fininho ou se despedir com estilo). See ya! `,
+      ],
+      continueLabel: "Continuar",
     },
   },
   {
@@ -349,7 +396,7 @@ function LessonSlideRenderer({
   );
 }
 
-export default function IC01({ route, navigation }) {
+export default function IC03({ route, navigation }) {
   const lesson = route?.params?.lesson;
   const lessons = route?.params?.lessons;
   const { speak } = useSpeech();

@@ -1,11 +1,66 @@
 import React, { useRef } from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import CORES from "../util/cores";
+
+function getImageSource(item) {
+  if (typeof item === "number") {
+    return item;
+  }
+
+  if (!item || typeof item !== "object") {
+    return null;
+  }
+
+  if (item.image) {
+    return item.image;
+  }
+
+  if (item.source) {
+    return item.source;
+  }
+
+  if (item.uri) {
+    return item;
+  }
+
+  return null;
+}
+
+function normalizeContentBlocks(content) {
+  const blocks = [];
+
+  const appendText = (value) => {
+    String(value || "")
+      .split("\n")
+      .forEach((line) => {
+        blocks.push({
+          type: "text",
+          text: line,
+        });
+      });
+  };
+
+  if (!Array.isArray(content)) {
+    appendText(content);
+    return blocks;
+  }
+
+  content.forEach((item) => {
+    const imageSource = getImageSource(item);
+
+    if (imageSource) {
+      blocks.push({
+        type: "image",
+        source: imageSource,
+      });
+      return;
+    }
+
+    appendText(item);
+  });
+
+  return blocks;
+}
 
 function renderMarkedText(text, styles) {
   const parts = [];
@@ -53,7 +108,7 @@ export function Exercise17({
   onAttempt,
 }) {
   const hasCompletedRef = useRef(false);
-  const contentLines = String(activity.content || "").split("\n");
+  const contentBlocks = normalizeContentBlocks(activity.content);
 
   const handleContinue = () => {
     if (!hasCompletedRef.current) {
@@ -77,17 +132,31 @@ export function Exercise17({
         <Text style={styles.tipVisualLabel}>{activity.label}</Text>
 
         <View style={styles.tipVisualCard}>
-          {contentLines.map((line, index) => (
-            <Text
-              key={`${line}-${index}`}
-              style={[
-                styles.tipVisualContentLine,
-                line.trim() === "" && styles.tipVisualBlankLine,
-              ]}
-            >
-              {renderMarkedText(line, styles)}
-            </Text>
-          ))}
+          {contentBlocks.map((block, index) => {
+            if (block.type === "image") {
+              return (
+                <View key={`image-${index}`} style={styles.tipVisualImageLine}>
+                  <Image
+                    source={block.source}
+                    style={styles.tipVisualImage}
+                    resizeMode="contain"
+                  />
+                </View>
+              );
+            }
+
+            return (
+              <Text
+                key={`${block.text}-${index}`}
+                style={[
+                  styles.tipVisualContentLine,
+                  block.text.trim() === "" && styles.tipVisualBlankLine,
+                ]}
+              >
+                {renderMarkedText(block.text, styles)}
+              </Text>
+            );
+          })}
         </View>
 
         <TouchableOpacity
@@ -134,6 +203,15 @@ const ex17 = StyleSheet.create({
     color: "#78A2CC",
     fontWeight: "800",
   },
+  tipVisualImageLine: {
+    width: "100%",
+    alignItems: "center",
+    marginVertical: 8,
+  },
+  tipVisualImage: {
+    width: "100%",
+    height: 180,
+  },
   tipVisualBlankLine: {
     lineHeight: 14,
   },
@@ -154,3 +232,34 @@ const ex17 = StyleSheet.create({
 });
 
 export default ex17;
+
+/*
+ {
+    component: Exercise17,
+    activity: {
+  label: "Tip",
+  content: [
+  `/blueHello Mais neutro e educado.
+Pode usar com qualquer pessoa.
+
+  • primeira vez falando com alguém
+  • trabalho`,
+
+  IC.slide1,
+  
+  `  • cliente
+  • situação formal
+  • telefone
+
+/blueEx:
+  • Hello, how are you?
+  • Hello, nice to meet you.
+/blue{É o mais seguro de todos.}`,
+],
+      continueLabel: "Continuar",
+
+},
+  },
+
+
+*/

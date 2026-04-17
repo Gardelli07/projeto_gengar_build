@@ -230,7 +230,9 @@ export function Exercise4({
                   isWrong && styles.resultAlertTitleWrong,
                 ]}
               >
-                {isWrong ? activity.errorTitle || "Incorreto" : activity.successTitle}
+                {isWrong
+                  ? activity.errorTitle || "Incorreto"
+                  : activity.successTitle}
               </Text>
             </View>
 
@@ -244,7 +246,9 @@ export function Exercise4({
               <Text
                 style={[
                   styles.feedbackTitle,
-                  isWrong ? styles.feedbackTitleWrong : styles.feedbackTitleCorrect,
+                  isWrong
+                    ? styles.feedbackTitleWrong
+                    : styles.feedbackTitleCorrect,
                 ]}
               >
                 {isWrong ? "X Tente novamente" : "✓ Muito bem!"}
@@ -261,7 +265,9 @@ export function Exercise4({
               ]}
               onPress={next}
             >
-              <Text style={styles.alertContinueButtonText}>Próxima atividade</Text>
+              <Text style={styles.alertContinueButtonText}>
+                Próxima atividade
+              </Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -353,3 +359,18 @@ const ex4 = StyleSheet.create({
 });
 
 export default ex4;
+
+/*
+  {
+    component: Exercise4,
+    activity: {
+      prompt: "Corrija",
+      image: require("../../../../assets/Bussines/agenda.png"),
+      wrongSentence: "She take the bus.",
+      options: ["She takes the bus.", "She take the bus."],
+      correctAnswer: "She takes the bus.",
+      successTitle: "Correto",
+      successMessage: 'A forma correta e "She takes the bus."',
+    },
+  },
+*/

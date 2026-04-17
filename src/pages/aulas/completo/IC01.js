@@ -11,25 +11,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Speech from "expo-speech";
 import geral from "../../../exc/geral";
 import ex1, { Exercise1 } from "../../../exc/ex1";
-import ex2, { Exercise2 } from "../../../exc/ex2";
-import ex3, { Exercise3 } from "../../../exc/ex3";
 import ex4, { Exercise4 } from "../../../exc/ex4";
 import ex5, { Exercise5 } from "../../../exc/ex5";
 import ex6, { Exercise6 } from "../../../exc/ex6";
-import ex7, { Exercise7 } from "../../../exc/ex7";
-import ex8, { Exercise8 } from "../../../exc/ex8";
-import ex9, { Exercise9 } from "../../../exc/ex9";
-import ex10, { Exercise10 } from "../../../exc/ex10";
-import ex11, { Exercise11 } from "../../../exc/ex11";
 import ex12, { Exercise12 } from "../../../exc/ex12";
 import ex13, { Exercise13 } from "../../../exc/ex13";
 import ex15, { Exercise15 } from "../../../exc/ex15";
 import ex14, { Exercise14 } from "../../../exc/ex14";
-import ex16, { Exercise16 } from "../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../exc/ex17";
-import ex18, { Exercise18 } from "../../../exc/ex18";
 import Feedback from "../../../exc/feedback";
-import { BussinesImages } from "../../../util/images";
+import { BussinesImages, IC, Images } from "../../../util/images";
 import {
   calculateLessonAccuracy,
   LESSON_STREAK_MIN_ACCURACY,
@@ -40,228 +31,33 @@ import { getLevelProgress, XP_PER_LESSON } from "../../../util/xp";
 const SlideNavContext = React.createContext(null);
 
 const STORAGE_KEY = "@progesso_ingles_completo";
-const TEACHER_IMAGE = require("../../../../assets/teacher.png");
 const BACK_IMAGE = require("../../../../assets/seta.png");
 const CLOSE_IMAGE = require("../../../../assets/x.png");
 
 const styles = {
   ...geral,
   ...ex1,
-  ...ex2,
-  ...ex3,
   ...ex4,
   ...ex5,
   ...ex6,
-  ...ex7,
-  ...ex8,
-  ...ex9,
-  ...ex10,
-  ...ex11,
   ...ex12,
   ...ex13,
   ...ex14,
   ...ex15,
-  ...ex16,
   ...ex17,
-  ...ex18,
 };
 
 const LESSON_SLIDES = [
   {
-    component: Exercise1,
+    component: Exercise17,
     activity: {
-      prompt: "Encontre a tradução",
-      pairs: [
-        { en: "Hello", pt: "oie" },
-        { en: "fine", pt: "bem/legal" },
-        { en: "bye", pt: "tchau" },
+      label: "Tip",
+      content: [
+        "/blue{Observe a cena}",
+        IC.slide1,
+        `Como você iniciaria uma conversa aqui?`,
       ],
-      successTitle: "Excelente",
-      successMessage: "Você acertou todas as traduções.",
-    },
-  },
-  {
-    component: Exercise2,
-    activity: {
-      prompt: "Completar o Texto",
-      paragraphs: [
-        [
-          "This is my friend Peter. He",
-          { id: "blank-1", answer: "is", options: ["is", "are", "am"] },
-          "25 years old.",
-        ],
-        [
-          "Peter",
-          {
-            id: "blank-2",
-            answer: "lives",
-            options: ["live", "lives", "living"],
-          },
-          "in New York with his family.",
-        ],
-        [
-          "He",
-          {
-            id: "blank-3",
-            answer: "works",
-            options: ["works", "work", "working"],
-          },
-          "in a big bank. He likes his job.",
-        ],
-        [
-          "On weekends, he",
-          {
-            id: "blank-4",
-            answer: "plays",
-            options: ["play", "plays", "playing"],
-          },
-          "soccer in the park.",
-        ],
-      ],
-      successTitle: "Excelente",
-      successMessage: "Você completou o texto corretamente.",
-    },
-  },
-  {
-    component: Exercise3,
-    needsSpeech: true,
-    activity: {
-      prompt: "Escute e responda",
-      image: require("../../../../assets/Bussines/relogio.png"),
-      audioText: "He wakes up at 6am every day.",
-      dialogue: "He wakes up at 6am every day.",
-      options: ["true", "false"],
-      correctAnswer: "true",
-      audioRate: 0.85,
-      successTitle: "Correto",
-      successMessage: 'A frase "He wakes up at 6am every day." esta correta.',
-    },
-  },
-  {
-    component: Exercise4,
-    activity: {
-      prompt: "Corrija",
-      image: require("../../../../assets/Bussines/agenda.png"),
-      wrongSentence: "She take the bus.",
-      options: ["She takes the bus.", "She take the bus."],
-      correctAnswer: "She takes the bus.",
-      successTitle: "Correto",
-      successMessage: 'A forma correta e "She takes the bus."',
-    },
-  },
-  {
-    component: Exercise5,
-    activity: {
-      prompt: "Complete a frase",
-      image: BussinesImages.company,
-      sentenceStart: "She",
-      sentenceEnd: "the bus.",
-      options: ["take", "takes"],
-      correctAnswer: "takes",
-      successTitle: "Correto",
-      successMessage: 'A forma correta e "She takes the bus."',
-    },
-  },
-  {
-    component: Exercise6,
-    needsSpeech: true,
-    activity: {
-      prompt: "Coloque a frase em ordem.",
-      image: TEACHER_IMAGE,
-      audioText: "Hello, my name is Laura.",
-      words: ["Hello", "name's", "my", "Laura"],
-      correctOrder: ["Hello", "my", "name's", "Laura"],
-      audioRate: 0.85,
-      successTitle: "Correto",
-      successMessage: `A frase correta e "Hello my name's Laura."`,
-    },
-  },
-  {
-    component: Exercise7,
-    activity: {
-      prompt: "Monte o diálogo na ordem certa",
-      options: [
-        "I wake up at 6am.",
-        "then I have breakfast.",
-        "I go to work.",
-        "I have lunch at 12pm.",
-      ],
-      correctOrder: [
-        "I wake up at 6am.",
-        "then I have breakfast.",
-        "I go to work.",
-        "I have lunch at 12pm.",
-      ],
-      successTitle: "Correto",
-      successMessage: "Você colocou o diálogo na ordem certa.",
-    },
-  },
-  {
-    component: Exercise8,
-    activity: {
-      prompt: "Oque é essa imagen?",
-      image: require("../../../../assets/Bussines/agenda2.png"),
-      options: ["Banana", "Agenda", "Grape"],
-      correctAnswer: "Agenda",
-      successTitle: "Correto",
-      successMessage: 'A resposta correta é "Agenda".',
-    },
-  },
-  {
-    component: Exercise9,
-    activity: {
-      prompt: "O que é a palavra?",
-      question: "Phone",
-      correctOptionId: "phone",
-      options: [
-        { id: "phone", image: BussinesImages.telefone },
-        { id: "book", image: BussinesImages.livro },
-        { id: "email", image: BussinesImages.email },
-        { id: "clock", image: BussinesImages.relogio },
-      ],
-      successTitle: "Correto",
-      successMessage: 'A imagem correta representa "phone".',
-    },
-  },
-
-  {
-    component: Exercise11,
-    activity: {
-      prompt: "Escreva rápido",
-      title: "Escreva a palavra abaixo",
-      placeholder: "Digite aqui",
-      secondsPerWord: 8,
-      words: ["Hello", "Bye", "Fine", "Thanks", "Sorry"],
-      successTitle: "Correto",
-      successMessage: "Você digitou todas as palavras no tempo certo.",
-    },
-  },
-  {
-    component: Exercise12,
-    activity: {
-      prompt: "Write your introduction",
-      instruction: "Escreva brevemente sobre você em inglês.",
-      helperText: "Use as frases estudadas anteriormente",
-      placeholder: "Hello...",
-      tipText: "Hello, my name is Ana. I am from Brazil. I am fine.",
-      minLength: 3,
-      successTitle: "Correto",
-      successMessage: "Seu texto foi preenchido com sucesso.",
-    },
-  },
-  {
-    component: Exercise13,
-    needsSpeech: true,
-    activity: {
-      prompt: "Escreva a palavra",
-      audioText: "hello",
-      // Quando tiver um arquivo mp3, substitua a linha acima por:
-      // audioSource: require("../../../../assets/audio/hello.mp3"),
-      audioRate: 0.85,
-      letters: ["H", "E", "L", "L", "O"],
-      correctWord: "HELLO",
-      successTitle: "Correto",
-      successMessage: 'A palavra correta é "HELLO".',
+      continueLabel: "Continuar",
     },
   },
   {
@@ -269,14 +65,49 @@ const LESSON_SLIDES = [
     needsSpeech: true,
     activity: {
       prompt: "Escute e complete",
-      image: TEACHER_IMAGE,
-      audioText: "Hello",
-      answerOptions: ["Hello", "Hélo"],
+      image: IC.A1S2,
+      audioSource: require("../../../../mp3/IC/hello.mp3"),
+      audioDurationMs: 824,
+      answerOptions: ["Hello", "High"],
       correctOption: "Hello",
-      correctAnswer: "ola",
+      successTitle: "Correto",
+      feedbackMessage: 'Usamos "Hello" para dizer "olá".',
+    },
+  },
+  {
+    component: Exercise14,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e complete",
+      image: IC.A1S3,
+      audioSource: require("../../../../mp3/IC/Hi.mp3"),
+      audioDurationMs: 782,
+      answerOptions: ["Hello", "Hi"],
+      correctOption: "Hi",
       audioRate: 0.85,
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "Hello" para dizer "oi".',
+      feedbackMessage: 'Usamos "Hi" para dizer "oi".',
+    },
+  },
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip",
+      content: `/blueHello é o seu curinga. Ele funciona com o seu chefe, com um médico ou com um desconhecido. 
+É seguro e educado. /blueHi é um degrau abaixo na formalidade, use com colegas e pessoas que você já viu antes.`,
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise1,
+    activity: {
+      prompt: "Encontre a tradução",
+      pairs: [
+        { en: "Hello", pt: "olá" },
+        { en: "Hi", pt: "oi" },
+      ],
+      successTitle: "Excelente",
+      successMessage: "Você acertou todas as traduções.",
     },
   },
   {
@@ -284,12 +115,12 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Clique na imagem e na palavra",
       images: [
-        { id: "meeting", image: BussinesImages.reuniao },
-        { id: "phone", image: BussinesImages.telefone },
+        { id: "meeting", image: IC.slide6 },
+        { id: "phone", image: IC.slide6p2 },
       ],
       words: [
-        { id: "meeting-word", label: "Hey" },
-        { id: "phone-word", label: "Hello" },
+        { id: "meeting-word", label: "Hello" },
+        { id: "phone-word", label: "Hi" },
       ],
       pairs: [
         { imageId: "meeting", wordId: "meeting-word" },
@@ -300,37 +131,94 @@ const LESSON_SLIDES = [
     },
   },
   {
-    component: Exercise16,
+    component: Exercise13,
+    needsSpeech: true,
     activity: {
-      prompt: "Speaking",
-      instruction: "Fale brevemente sobre você em inglês.",
-      helperText: "(Use as frases estudadas anteriormente)",
-      image: BussinesImages.menina2,
-      tipButtonLabel: "Tip",
-      tipText: "Hello, my name is Ana. I am from Brazil. I am fine.",
-      recordLabel: "Speak",
-      stopLabel: "Parar",
-      playLabel: "Ouvir",
-      pauseLabel: "Pausar",
-      rerecordLabel: "Regravar",
-      submitLabel: "Enviar áudio",
+      prompt: "Escreva a palavra",
+      audioSource: require("../../../../mp3/IC/hello.mp3"),
+      audioDurationMs: 824,
+      letters: ["H", "E", "L", "L", "O"],
+      correctWord: "HELLO",
       successTitle: "Correto",
-      successMessage: "Seu áudio foi gravado com sucesso.",
+      successMessage: 'A palavra correta é "HELLO".',
     },
   },
   {
-    component: Exercise18,
+    component: Exercise17,
     activity: {
-      prompt: "Organize e escreva a frase",
-      scrambledSentence: "working / am / I / now",
-      correctAnswer: "I am working now",
-      placeholder: "Escreva a frase correta",
-      submitLabel: "Enviar",
-      errorTitle: "Incorreto",
-      successTitle: "Correto",
-      successMessage: "A frase correta é: I am working now.",
+      label: "Tip",
+      content: `/blueAtenção: Em muitos países de língua inglesa, não dizer nada ao entrar em um elevador ou loja pode parecer rude. 
+Um simples /blueHello acompanhado de um sorriso é a chave para ser bem recebido em qualquer lugar!.`,
+      continueLabel: "Continuar",
     },
   },
+  {
+    component: Exercise4,
+    activity: {
+      prompt: "Corrija",
+      image: IC.slide6,
+      wrongSentence: "x! I need help.",
+      options: ["Hey! I need help.", "Hello! I need help."],
+      correctAnswer: "Hello! I need help.",
+      successTitle: "Correto",
+      successMessage: 'A forma correta é "Hello! I need help."',
+    },
+  },
+  {
+    component: Exercise5,
+    activity: {
+      prompt: "Complete a frase",
+      image: IC.A1S10,
+      sentenceStart: "",
+      sentenceEnd: ", my name is Jake.",
+      options: ["Hello", "Goodbye"],
+      correctAnswer: "Hello",
+      successTitle: "Correto",
+      successMessage: 'A forma correta é "Hello, my name is Jake."',
+    },
+  },
+  {
+    component: Exercise6,
+    needsSpeech: true,
+    activity: {
+      prompt: "Coloque a frase em ordem.",
+      image: Images.teacher,
+      audioText: "Hello, my name's Jake.",
+      words: ["Hello", "name's", "my", "Jake"],
+      correctOrder: ["Hello", "my", "name's", "Jake"],
+      audioRate: 0.85,
+      successTitle: "Correto",
+      successMessage: `A frase correta é "Hello, my name's Jake."`,
+    },
+  },
+  {
+    component: Exercise12,
+    activity: {
+      prompt: "Write your introduction",
+      instruction: "Escreva brevemente sobre você em inglês.",
+      helperText:
+        "Imagine que você está enviando um convite no LinkedIn para um recrutador. Escreva a primeira palavra da sua mensagem.",
+      placeholder: "...",
+      tipText: "Hello.",
+      minLength: 3,
+      successTitle: "Correto",
+      successMessage: "Seu texto foi preenchido com sucesso.",
+    },
+  },
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip",
+      content: `/blue{Mandou muito bem na estreia!}💎 
+      
+Dica final: O /blue{'H'} em inglês tem som de um suspiro, como se você estivesse embaçando um vidro. 
+Tente de novo: Hhh-ello. 
+
+Vejo você na aula 2 para descobrirmos o tom informal do Hey!.`,
+      continueLabel: "Continuar",
+    },
+  },
+
   {
     key: "lesson-finish",
     type: "finish",

@@ -258,7 +258,9 @@ export function Exercise15({
                   isWrong && styles.resultAlertTitleWrong,
                 ]}
               >
-                {isWrong ? activity.errorTitle || "Incorreto" : activity.successTitle}
+                {isWrong
+                  ? activity.errorTitle || "Incorreto"
+                  : activity.successTitle}
               </Text>
             </View>
 
@@ -272,7 +274,9 @@ export function Exercise15({
               <Text
                 style={[
                   styles.feedbackTitle,
-                  isWrong ? styles.feedbackTitleWrong : styles.feedbackTitleCorrect,
+                  isWrong
+                    ? styles.feedbackTitleWrong
+                    : styles.feedbackTitleCorrect,
                 ]}
               >
                 {isWrong ? "X Tente novamente" : "✓ Muito bem!"}
@@ -289,7 +293,9 @@ export function Exercise15({
               ]}
               onPress={next}
             >
-              <Text style={styles.alertContinueButtonText}>Próxima atividade</Text>
+              <Text style={styles.alertContinueButtonText}>
+                Próxima atividade
+              </Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -396,3 +402,28 @@ const ex15 = StyleSheet.create({
 });
 
 export default ex15;
+
+/*
+
+  {
+    component: Exercise15,
+    activity: {
+      prompt: "Clique na imagem e na palavra",
+      images: [
+        { id: "img1", image: IC.A2S4 },
+        { id: "img2", image: IC.A2S4p2 },
+      ],
+      words: [
+        { id: "test1", label: "Hey" },
+        { id: "test2", label: "Hello" },
+      ],
+      pairs: [
+        { imageId: "img1", wordId: "test1" },
+        { imageId: "img2", wordId: "test2" },
+      ],
+      successTitle: "Correto",
+      successMessage: "Você formou os dois pares corretamente.",
+    },
+  },
+
+*/

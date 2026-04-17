@@ -441,3 +441,22 @@ const ex19 = StyleSheet.create({
 });
 
 export default ex19;
+
+/*
+
+  {
+    component: Exercise19,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escreva a frase do áudio.",
+      audioText: "I am working now.",
+      correctAnswer: "I am working now.",
+      placeholder: "I am working now.",
+      submitLabel: "Responder",
+      successTitle: "Correto",
+      successMessage: "Você escreveu a frase do áudio corretamente.",
+      errorMessage: "Ouça o áudio novamente e confira a frase.",
+    },
+  },
+
+*/
