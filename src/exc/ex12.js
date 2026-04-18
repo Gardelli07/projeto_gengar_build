@@ -67,7 +67,20 @@ export function Exercise12({
       <View style={styles.writeIntroBlock}>
         <Text style={styles.writeIntroPrompt}>{activity.prompt}</Text>
         <Text style={styles.writeIntroInstruction}>{activity.instruction}</Text>
-        <Text style={styles.writeIntroHelperText}>{activity.helperText}</Text>
+        <Text
+          style={[
+            styles.writeIntroHelperText,
+            activity.image && styles.writeIntroHelperTextWithImage,
+          ]}
+        >
+          {activity.helperText}
+        </Text>
+
+        {activity.image ? (
+          <View style={styles.writeIntroImageFrame}>
+            <Image source={activity.image} style={styles.writeIntroImage} />
+          </View>
+        ) : null}
 
         <View style={styles.writeIntroBox}>
           <TextInput
@@ -188,6 +201,21 @@ const ex12 = StyleSheet.create({
     color: "#4F8A66",
     marginBottom: 18,
   },
+  writeIntroHelperTextWithImage: {
+    marginBottom: 8,
+  },
+  writeIntroImageFrame: {
+    width: "88%",
+    aspectRatio: 2.35,
+    borderRadius: 8,
+    overflow: "hidden",
+    marginBottom: 10,
+  },
+  writeIntroImage: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+  },
   writeIntroBox: {
     width: "88%",
     minHeight: 176,
@@ -262,14 +290,16 @@ export default ex12;
 
 /*
 
-{
+  {
     component: Exercise12,
     activity: {
       prompt: "Write your introduction",
       instruction: "Escreva brevemente sobre você em inglês.",
-      helperText: "Use as frases estudadas anteriormente",
+      helperText:
+        "Olhe para a foto de uma pizza deliciosa. Escreva uma frase dizendo que ela NÃO é ruim (bad).",
+      image: IC.A14S12,
       placeholder: "Hello...",
-      tipText: "Hello, my name is Ana. I am from Brazil. I am fine.",
+      tipText: '"It isn\'t bad" ou "It is not bad".',
       minLength: 3,
       successTitle: "Correto",
       successMessage: "Seu texto foi preenchido com sucesso.",

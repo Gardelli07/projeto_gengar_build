@@ -320,17 +320,20 @@ const ex15 = StyleSheet.create({
   matchMediaWordImagesRow: {
     width: "88%",
     flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 20,
+    flexWrap: "wrap",
+    justifyContent: "center",
+    marginBottom: 10,
   },
   matchMediaWordImageCard: {
-    width: "48%",
+    width: "47%",
     height: 100,
     borderRadius: 12,
     borderWidth: 1.5,
     borderColor: "#D6E6F7",
     backgroundColor: CORES.WHITE,
     overflow: "hidden",
+    marginHorizontal: "1.5%",
+    marginBottom: 10,
   },
   matchMediaWordImageCardSelected: {
     borderColor: "#7BA9D6",

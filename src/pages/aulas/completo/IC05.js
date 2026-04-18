@@ -129,16 +129,102 @@ const LESSON_SLIDES = [
     },
   },
   {
-    component: Exercise12,
+    component: Exercise13,
+    needsSpeech: true,
     activity: {
-      prompt: "Write your introduction",
-      instruction: "Escreva brevemente sobre você em inglês.",
-      helperText: "Use as frases estudadas anteriormente",
-      placeholder: "Hello...",
-      tipText: "Hello, my name is Ana. I am from Brazil. I am fine.",
-      minLength: 3,
+      prompt: "Escreva a palavra",
+      audioSource: require("../../../../mp3/IC/A5S6.mp3"),
+      audioDurationMs: 1000,
+      letters: ["W", "H", "A", "T", "S", "U", "P"],
+      correctWord: "WHATSUP",
       successTitle: "Correto",
-      successMessage: "Seu texto foi preenchido com sucesso.",
+      successMessage: 'A palavra correta é "WHAT\'S UP".',
+    },
+  },
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip",
+      content: [
+        `Lembre-se da regra de ouro: 
+  • Se você começou com 'Hello', feche com 'Goodbye' ou 'Bye'. 
+  • Se começou com 'What's up', feche com 'See ya'. 
+Mantenha o mesmo tom do início ao fim! `,
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise4,
+    activity: {
+      prompt: "Corrija",
+      image: IC.A5S8,
+      wrongSentence: "Você encontra um amigo e quer saber como ele está.",
+      options: ["What's up? Not much.", "A: What's up? B: Not much."],
+      correctAnswer: "A: What's up? B: Not much.",
+      successTitle: "Correto",
+      successMessage: 'A forma correta e "She takes the bus."',
+    },
+  },
+  {
+    component: Exercise7,
+    activity: {
+      prompt: "Monte o diálogo na ordem certa",
+      options: [
+        "Hi there, I'm Kaique!",
+        "Not much, and you?",
+        "Hey! What's up?",
+        "I'm good! Bye!",
+        "See ya!",
+      ],
+      correctOrder: [
+        "Hi there, I'm Kaique!",
+        "Hey! What's up?",
+        "Not much, and you?",
+        "I'm good! Bye!",
+        "See ya!",
+      ],
+      successTitle: "Correto",
+      successMessage: "Você colocou o diálogo na ordem certa.",
+    },
+  },
+  {
+    component: Exercise3,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e responda",
+      image: IC.semimg,
+      audioSource: require("../../../../mp3/IC/A4S9.mp3"),
+      audioDurationMs: 2000,
+      dialogue: "Este diálogo é entre dois melhores amigos em uma festa.",
+      options: ["true", "false"],
+      correctAnswer: "false",
+      successTitle: "Correto",
+      successMessage: 'Falso. O uso de "Sir" e "Hello" indica formalidade.',
+    },
+  },
+  {
+    component: Exercise11,
+    activity: {
+      prompt: "Escreva rápido",
+      title: "Escreva a palavra abaixo",
+      placeholder: "Digite aqui",
+      secondsPerWord: 8,
+      words: ["Hello", "Howdy", "Bye", "Sup"],
+      successTitle: "Correto",
+      successMessage: "Você digitou todas as palavras no tempo certo.",
+    },
+  },
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip",
+      content: [
+        `/blue{VOCÊ CONSEGUIU! 🏆}
+Agora você domina as entradas e saídas sociais. Você não é mais um turista, é um cidadão do mundo! 
+No próximo módulo, vamos dar um passo à frente: Identidade. Você vai aprender a dizer quem você é, de onde vem e o que faz. See you soon!`,
+      ],
+      continueLabel: "Continuar",
     },
   },
 

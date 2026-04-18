@@ -365,12 +365,12 @@ export default ex4;
     component: Exercise4,
     activity: {
       prompt: "Corrija",
-      image: require("../../../../assets/Bussines/agenda.png"),
+      image: IC.A8S12,
       wrongSentence: "She take the bus.",
-      options: ["She takes the bus.", "She take the bus."],
-      correctAnswer: "She takes the bus.",
+      options: ["He is a doctor.", "She is a doctor."],
+      correctAnswer: "She is a doctor.",
       successTitle: "Correto",
-      successMessage: 'A forma correta e "She takes the bus."',
+      successMessage: 'A forma correta e "She is a doctor."',
     },
   },
 */

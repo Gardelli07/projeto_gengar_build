@@ -18,7 +18,7 @@ import {
   useAudioRecorder,
 } from "expo-audio";
 import CORES from "../util/cores";
-import { BussinesImages, Images } from "../util/images";
+import { Images } from "../util/images";
 
 function formatDuration(totalSeconds) {
   const minutes = Math.floor(totalSeconds / 60).toString();
@@ -849,7 +849,7 @@ export default ex16;
       prompt: "Speaking",
       instruction: "Fale brevemente sobre você em inglês.",
       helperText: "(Use as frases estudadas anteriormente)",
-      image: BussinesImages.menina2,
+      image: Images.ex16,
       tipButtonLabel: "Tip",
       tipText: "Hello, my name is Ana. I am from Brazil. I am fine.",
       recordLabel: "Speak",

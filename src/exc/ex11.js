@@ -541,7 +541,7 @@ export default ex11;
       prompt: "Escreva rápido",
       title: "Escreva a palavra abaixo",
       placeholder: "Digite aqui",
-      secondsPerWord: 5,
+      secondsPerWord: 8,
       words: ["Hello", "Bye", "Fine", "Thanks", "Sorry"],
       successTitle: "Correto",
       successMessage: "Você digitou todas as palavras no tempo certo.",
