@@ -124,6 +124,12 @@ export const IC = {
   A14S2: require("../../assets/IC/A14S2.jpg"),
   A14S11: require("../../assets/IC/A14S11.jpg"),
   A14S12: require("../../assets/IC/A14S12.png"),
+  A15S1: require("../../assets/IC/A15S1.png"),
+  A15S2: require("../../assets/IC/A15S2.jpg"),
+  A15S3: require("../../assets/IC/A15S3.jpg"),
+  A15S4: require("../../assets/IC/A15S4.jpg"),
+  A15S10: require("../../assets/IC/A15S10.jpg"),
+  A15S11: require("../../assets/IC/A15S11.jpg"),
 };
 
 export const Empresas = {
