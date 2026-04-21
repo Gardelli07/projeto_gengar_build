@@ -29,7 +29,7 @@ import ex16, { Exercise16 } from "../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../exc/ex17";
 import ex18, { Exercise18 } from "../../../exc/ex18";
 import Feedback from "../../../exc/feedback";
-import { BussinesImages, IC, Images } from "../../../util/images";
+import { IC, Images } from "../../../util/images";
 import {
   calculateLessonAccuracy,
   LESSON_STREAK_MIN_ACCURACY,
@@ -66,6 +66,131 @@ const styles = {
 };
 
 const LESSON_SLIDES = [
+  {
+    component: Exercise17,
+    activity: {
+      label: "What's your name?",
+      content: [
+        IC.A27S1,
+        IC.A27S1p2,
+        "Nomes americanos e britânicos podem ser parecidos, mas a escrita muda. Você está pronto para ser um mestre da soletração?",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise14,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e escolha",
+      image: IC.A27S1,
+      audioSource: require("../../../../mp3/IC/A27S2.mp3"),
+      audioDurationMs: 1500,
+      answerOptions: ["how that?", "How do you spell that?"],
+      correctOption: "How do you spell that?",
+      successTitle: "Correto",
+      feedbackMessage: 'A pergunta correta é "How do you spell that?".',
+    },
+  },
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip",
+      content: [
+        "Não importa se você está nos EUA ou na Inglaterra, se o nome soar difícil, peça: 'How do you spell that?'.",
+        "Dica Cultural: Britânicos costumam ser muito formais e educados, então eles vão adorar te ajudar se você perguntar com um sorriso!",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise14,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e escolha",
+      image: IC.A27S1,
+      audioSource: require("../../../../mp3/IC/A27S4.mp3"),
+      audioDurationMs: 2200,
+      answerOptions: ["Jaxon", "Jackson"],
+      correctOption: "Jackson",
+      successTitle: "Correto",
+      feedbackMessage: 'A soletração correta forma "Jackson".',
+    },
+  },
+  {
+    component: Exercise14,
+    needsSpeech: true,
+    activity: {
+      prompt: "Qual foi a última letra dita pelo hóspede?",
+      image: IC.A27S1p2,
+      audioSource: require("../../../../mp3/IC/A27S5.mp3"),
+      audioDurationMs: 3200,
+      answerOptions: ["I", "E"],
+      correctOption: "E",
+      successTitle: "Correto",
+      feedbackMessage: 'A última letra dita foi "E".',
+    },
+  },
+  {
+    component: Exercise1,
+    activity: {
+      prompt: "Conecte nomes às soletrações",
+      pairs: [
+        { en: "Sarah (US)", pt: "És-êi-ár-êi-êitch" },
+        { en: "Oliver (UK)", pt: "Ôu-él-ái-ví-í-ár" },
+        { en: "Hermione (UK)", pt: "Éitch-í-ár-ém-ái-ôu-én-í" },
+      ],
+      successTitle: "Excelente",
+      successMessage:
+        "Sarah = És-êi-ár-êi-êitch, Oliver = Ôu-él-ái-ví-í-ár, Hermione = Éitch-í-ár-ém-ái-ôu-én-í.",
+    },
+  },
+  {
+    component: Exercise6,
+    activity: {
+      prompt:
+        "Você precisa perguntar o sobrenome (last name) de um americano chamado Mr. Smith.",
+      words: ["spell", "last", "do", "How", "your", "you", "name?"],
+      correctOrder: ["How", "do", "you", "spell", "your", "last", "name?"],
+      successTitle: "Correto",
+      successMessage: 'A frase correta é "How do you spell your last name?"',
+    },
+  },
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip",
+      content: [
+        "Cuidado com a letra Z!",
+        "Nos EUA, eles dizem: ZEE (rima com 'E').",
+        "No Reino Unido, eles dizem: ZED.",
+        "Se você ouvir 'Zed', já sabe que está falando com um britânico!",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise16,
+    activity: {
+      prompt: "Speaking",
+      instruction:
+        "Imagine que você é um barista no Starbucks em Nova York.",
+      helperText:
+        "Pergunte ao cliente: 'What's your name?' e depois peça para ele soletrar: 'How do you spell that?'.",
+      image: IC.A27S9,
+      tipButtonLabel: "Tip",
+      tipText: "What's your name? / How do you spell that?",
+      recordLabel: "Speak",
+      stopLabel: "Parar",
+      playLabel: "Ouvir",
+      pauseLabel: "Pausar",
+      rerecordLabel: "Regravar",
+      submitLabel: "Enviar áudio",
+      successTitle: "Correto",
+      successMessage:
+        "Resposta esperada: as duas perguntas com entonação natural.",
+    },
+  },
   {
     key: "lesson-finish",
     type: "finish",
@@ -193,6 +318,7 @@ function LessonFinishSlide({ onPressNextLesson, feedbackProps }) {
 
 function LessonSlideRenderer({
   slide,
+  slideIndex,
   next,
   speak,
   onPressNextLesson,
@@ -212,6 +338,7 @@ function LessonSlideRenderer({
 
   return (
     <ExerciseComponent
+      key={slide.key || slideIndex}
       activity={slide.activity}
       styles={styles}
       HeaderComponent={SlideHeader}
@@ -406,6 +533,7 @@ export default function IC27({ route, navigation }) {
         >
           <LessonSlideRenderer
             slide={currentSlide}
+            slideIndex={currentSlideIndex}
             next={slideNav.next}
             speak={speak}
             onPressNextLesson={goToNextLesson}

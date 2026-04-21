@@ -29,7 +29,7 @@ import ex16, { Exercise16 } from "../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../exc/ex17";
 import ex18, { Exercise18 } from "../../../exc/ex18";
 import Feedback from "../../../exc/feedback";
-import { BussinesImages, IC, Images } from "../../../util/images";
+import { IC, Images } from "../../../util/images";
 import {
   calculateLessonAccuracy,
   LESSON_STREAK_MIN_ACCURACY,
@@ -66,6 +66,129 @@ const styles = {
 };
 
 const LESSON_SLIDES = [
+  {
+    component: Exercise17,
+    activity: {
+      label: "O Mestre da Soletração",
+      content: [
+        IC.A30S1,
+        "Você desbloqueou todos os sons do alfabeto. Consegue identificar cada um no meio da confusão?",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise14,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e escolha",
+      image: IC.A30S2,
+      audioSource: require("../../../../mp3/IC/A30S2.mp3"),
+      audioDurationMs: 900,
+      answerOptions: ["A", "E", "I"],
+      correctOption: "I",
+      successTitle: "Correto",
+      feedbackMessage: 'O som ouvido foi da letra "I".',
+    },
+  },
+  {
+    component: Exercise14,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e escolha",
+      image: IC.A30S3,
+      audioSource: require("../../../../mp3/IC/A30S3.mp3"),
+      audioDurationMs: 900,
+      answerOptions: ["G", "J"],
+      correctOption: "J",
+      successTitle: "Correto",
+      feedbackMessage: 'O som ouvido foi da letra "J".',
+    },
+  },
+  {
+    component: Exercise14,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e escolha",
+      image: IC.A30S4,
+      audioSource: require("../../../../mp3/IC/A30S4.mp3"),
+      audioDurationMs: 1000,
+      answerOptions: ["V", "W"],
+      correctOption: "W",
+      successTitle: "Correto",
+      feedbackMessage: 'O som ouvido foi da letra "W".',
+    },
+  },
+  {
+    component: Exercise1,
+    activity: {
+      prompt: "Conecte Símbolos",
+      pairs: [
+        { en: "@", pt: "At" },
+        { en: ".", pt: "Dot" },
+        { en: "_", pt: "Underscore" },
+      ],
+      successTitle: "Excelente",
+      successMessage: "@ = At, . = Dot, _ = Underscore.",
+    },
+  },
+  {
+    component: Exercise13,
+    needsSpeech: true,
+    activity: {
+      prompt: "Letras bagunçadas",
+      audioSource: require("../../../../mp3/IC/A30S6.mp3"),
+      audioDurationMs: 1200,
+      letters: ["E", "L", "I", "A", "M"],
+      correctWord: "EMAIL",
+      successTitle: "Correto",
+      successMessage: 'A palavra correta é "EMAIL".',
+    },
+  },
+  {
+    component: Exercise6,
+    activity: {
+      prompt:
+        "Você não entendeu o nome de um americano. Peça para ele soletrar.",
+      words: ["do", "you", "spell", "How", "that?"],
+      correctOrder: ["How", "do", "you", "spell", "that?"],
+      successTitle: "Correto",
+      successMessage: 'A frase correta é "How do you spell that?"',
+    },
+  },
+  {
+    component: Exercise11,
+    activity: {
+      prompt: "O Camaleão vai ditar uma sigla técnica. Digite rápido!",
+      title: "Digite rápido",
+      placeholder: "Digite aqui",
+      secondsPerWord: 8,
+      words: ["BPV"],
+      successTitle: "Correto",
+      successMessage: "Você digitou BPV no tempo certo.",
+    },
+  },
+  {
+    component: Exercise16,
+    activity: {
+      prompt: "Speaking",
+      instruction:
+        "Prove que você é um mestre! Soletre o nome do nosso app para o Camaleão: L - I - N - G - U - E - T - O.",
+      helperText: "Diga cada letra com a pronúncia correta.",
+      image: Images.ex16,
+      tipButtonLabel: "Tip",
+      tipText: "Él-Ái-Én-Djii-Iú-Ii-Tii-Ôu",
+      recordLabel: "Speak",
+      stopLabel: "Parar",
+      playLabel: "Ouvir",
+      pauseLabel: "Pausar",
+      rerecordLabel: "Regravar",
+      submitLabel: "Enviar áudio",
+      successTitle: "Correto",
+      successMessage:
+        "Resposta esperada: cada letra de LINGUETO com a pronúncia correta.",
+    },
+  },
   {
     key: "lesson-finish",
     type: "finish",
@@ -193,6 +316,7 @@ function LessonFinishSlide({ onPressNextLesson, feedbackProps }) {
 
 function LessonSlideRenderer({
   slide,
+  slideIndex,
   next,
   speak,
   onPressNextLesson,
@@ -212,6 +336,7 @@ function LessonSlideRenderer({
 
   return (
     <ExerciseComponent
+      key={slide.key || slideIndex}
       activity={slide.activity}
       styles={styles}
       HeaderComponent={SlideHeader}
@@ -406,6 +531,7 @@ export default function IC30({ route, navigation }) {
         >
           <LessonSlideRenderer
             slide={currentSlide}
+            slideIndex={currentSlideIndex}
             next={slideNav.next}
             speak={speak}
             onPressNextLesson={goToNextLesson}

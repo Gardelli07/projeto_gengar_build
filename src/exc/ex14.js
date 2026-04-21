@@ -20,6 +20,34 @@ export function Exercise14({
   speak,
   onAttempt,
 }) {
+  const formatPrompt = (prompt) => {
+    if (!prompt || typeof prompt !== "string" || prompt.includes("\n")) {
+      return prompt;
+    }
+
+    const normalizedPrompt = prompt.trim();
+    if (normalizedPrompt.length <= 28) return normalizedPrompt;
+
+    const middleIndex = Math.floor(normalizedPrompt.length / 2);
+    const leftSpace = normalizedPrompt.lastIndexOf(" ", middleIndex);
+    const rightSpace = normalizedPrompt.indexOf(" ", middleIndex);
+
+    const breakIndex =
+      leftSpace === -1
+        ? rightSpace
+        : rightSpace === -1
+          ? leftSpace
+          : middleIndex - leftSpace <= rightSpace - middleIndex
+            ? leftSpace
+            : rightSpace;
+
+    if (breakIndex === -1) return normalizedPrompt;
+
+    return `${normalizedPrompt.slice(0, breakIndex)}\n${normalizedPrompt
+      .slice(breakIndex + 1)
+      .trimStart()}`;
+  };
+
   const bottomSafeSpace = 3;
   const audioProgressAnim = useRef(new Animated.Value(0)).current;
   const alertTranslateY = useRef(new Animated.Value(64)).current;
@@ -34,6 +62,10 @@ export function Exercise14({
   const audioRate = activity.audioRate || 0.85;
   const answerOptions = activity.answerOptions || activity.options || [];
   const correctOption = activity.correctOption || activity.correctAnswer;
+  const formattedPrompt = formatPrompt(activity.prompt);
+  const shouldStackOptions = answerOptions.some(
+    (option) => String(option).trim().length > 18,
+  );
   const audioPromptText =
     activity.audioText || activity.spokenText || correctOption || "";
 
@@ -203,7 +235,7 @@ export function Exercise14({
     <View style={styles.slide}>
       <HeaderComponent />
 
-      <Text style={styles.fastTypePrompt}>{activity.prompt}</Text>
+      <Text style={styles.fastTypePrompt}>{formattedPrompt}</Text>
 
       <View style={styles.mediaWrapper}>
         <View style={styles.mediaCard}>
@@ -247,7 +279,12 @@ export function Exercise14({
         />
       </View>
 
-      <View style={styles.optionsRow}>
+      <View
+        style={[
+          styles.optionsRow,
+          shouldStackOptions && styles.optionsRowStacked,
+        ]}
+      >
         {answerOptions.map((option) => {
           const optionIsCorrect =
             selected === option && option === correctOption;
@@ -258,6 +295,7 @@ export function Exercise14({
               key={option}
               style={[
                 styles.optionPill,
+                shouldStackOptions && styles.optionPillStacked,
                 optionIsCorrect && styles.optionCorrect,
                 optionIsWrong && isWrong && styles.optionBlinkWrong,
                 optionIsWrong &&
@@ -272,6 +310,7 @@ export function Exercise14({
                 <Text
                   style={[
                     styles.optionText,
+                    shouldStackOptions && styles.optionTextStacked,
                     optionIsCorrect && styles.optionCorrectText,
                   ]}
                 >
@@ -432,14 +471,25 @@ const ex14 = StyleSheet.create({
   },
   optionsRow: {
     flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
     gap: 12,
     marginTop: 10,
+    width: "88%",
+  },
+  optionsRowStacked: {
+    flexDirection: "column",
+    alignItems: "stretch",
   },
   optionPill: {
     borderWidth: 1,
     borderColor: "#CBD5E1",
     borderRadius: 20,
     backgroundColor: CORES.WHITE_SHORT,
+    maxWidth: "100%",
+  },
+  optionPillStacked: {
+    width: "100%",
   },
   optionPillTouch: {
     paddingHorizontal: 16,
@@ -451,6 +501,10 @@ const ex14 = StyleSheet.create({
     fontSize: 16,
     fontWeight: "500",
     color: "#333",
+  },
+  optionTextStacked: {
+    textAlign: "center",
+    width: "100%",
   },
   optionCorrect: {
     backgroundColor: CORES.SUCCESS_BG,

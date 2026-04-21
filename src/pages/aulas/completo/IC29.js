@@ -29,7 +29,7 @@ import ex16, { Exercise16 } from "../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../exc/ex17";
 import ex18, { Exercise18 } from "../../../exc/ex18";
 import Feedback from "../../../exc/feedback";
-import { BussinesImages, IC, Images } from "../../../util/images";
+import { IC, Images } from "../../../util/images";
 import {
   calculateLessonAccuracy,
   LESSON_STREAK_MIN_ACCURACY,
@@ -66,6 +66,117 @@ const styles = {
 };
 
 const LESSON_SLIDES = [
+  {
+    component: Exercise17,
+    activity: {
+      label: "Diferença B/P V/W",
+      content: [
+        IC.A29S1,
+        "Algumas letras soam parecidas, mas o segredo está na boca! Vamos aprender a diferenciar esses pares?",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip",
+      content: [
+        "Dica de Mestre: Coloque um papel na frente da boca.",
+        "Ao dizer P (pí), o papel deve se mexer com o sopro!",
+        "Ao dizer B (bí), o papel quase não se mexe, mas você sente sua garganta vibrar.",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise14,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e escolha",
+      image: IC.A29S3,
+      audioSource: require("../../../../mp3/IC/A29S3.mp3"),
+      audioDurationMs: 800,
+      answerOptions: ["B", "P"],
+      correctOption: "P",
+      successTitle: "Correto",
+      feedbackMessage: "P tem explosão de ar.",
+    },
+  },
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip",
+      content: [
+        "Para o V (ví), encoste os dentes de cima no lábio de baixo, como um motorzinho: vvvvv.",
+        "Já o W (dâbol-iú) não usa os dentes!",
+        "Você faz um biquinho de 'u' e diz o nome longo dele.",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise14,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e escolha",
+      image: IC.A29S5,
+      audioSource: require("../../../../mp3/IC/A29S5.mp3"),
+      audioDurationMs: 800,
+      answerOptions: ["V", "W"],
+      correctOption: "V",
+      successTitle: "Correto",
+      feedbackMessage: "V faz o motorzinho nos lábios.",
+    },
+  },
+  {
+    component: Exercise1,
+    activity: {
+      prompt: "Conecte a letra à sua característica",
+      pairs: [
+        { en: "P", pt: "Explosão de ar" },
+        { en: "B", pt: "Vibração na garganta" },
+        { en: "V", pt: "Motorzinho nos lábios" },
+        { en: "W", pt: "Nome mais longo" },
+      ],
+      successTitle: "Excelente",
+      successMessage:
+        "P = Explosão de ar, B = Vibração na garganta, V = Motorzinho nos lábios, W = Nome mais longo.",
+    },
+  },
+  {
+    component: Exercise13,
+    needsSpeech: true,
+    activity: {
+      prompt: "Letras bagunçadas",
+      audioSource: require("../../../../mp3/IC/A29S7.mp3"),
+      audioDurationMs: 1200,
+      letters: ["E", "B", "W"],
+      correctWord: "WEB",
+      successTitle: "Correto",
+      successMessage: 'A sequência correta é "WEB".',
+    },
+  },
+  {
+    component: Exercise16,
+    activity: {
+      prompt: "Speaking",
+      instruction: "Desafio final! Soletre para o Camaleão a sigla: B - V - P.",
+      helperText:
+        "Cheque se você diferenciou bem a explosão do P e o motorzinho do V!",
+      image: Images.ex16,
+      tipButtonLabel: "Tip",
+      tipText: "bí - ví - pí",
+      recordLabel: "Speak",
+      stopLabel: "Parar",
+      playLabel: "Ouvir",
+      pauseLabel: "Pausar",
+      rerecordLabel: "Regravar",
+      submitLabel: "Enviar áudio",
+      successTitle: "Correto",
+      successMessage: 'Resposta esperada: "bí - ví - pí".',
+    },
+  },
   {
     key: "lesson-finish",
     type: "finish",
@@ -193,6 +304,7 @@ function LessonFinishSlide({ onPressNextLesson, feedbackProps }) {
 
 function LessonSlideRenderer({
   slide,
+  slideIndex,
   next,
   speak,
   onPressNextLesson,
@@ -212,6 +324,7 @@ function LessonSlideRenderer({
 
   return (
     <ExerciseComponent
+      key={slide.key || slideIndex}
       activity={slide.activity}
       styles={styles}
       HeaderComponent={SlideHeader}
@@ -406,6 +519,7 @@ export default function IC29({ route, navigation }) {
         >
           <LessonSlideRenderer
             slide={currentSlide}
+            slideIndex={currentSlideIndex}
             next={slideNav.next}
             speak={speak}
             onPressNextLesson={goToNextLesson}
