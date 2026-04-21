@@ -1,187 +1,4 @@
-import React from "react";
-import CourseOverviewScreen from "../CourseOverviewScreen";
-
-export const INGLES_COMPLETO_STORAGE_KEY = "@progesso_ingles_completo";
-export const INGLES_COMPLETO_COURSE_NAME = "Inglês Completo";
-
-export const inglesModuleDefs = [
-  {
-    id: 0,
-    name: "BASICS",
-    subtitle: "Base de vocabulario, frases e escuta",
-    locked: false,
-    accent: "#6C63FF",
-    icon: "check",
-  },
-  {
-    id: 1,
-    name: "I’m a student!",
-    subtitle: "Aprenda a se apresentar com naturalidade",
-    locked: false,
-    accent: "#6C63FF",
-    icon: "check",
-  },
-  {
-    id: 2,
-    name: "Good morning!",
-    subtitle: "Use frases essenciais em situacoes reais",
-    locked: false,
-    accent: "#6C63FF",
-    icon: "check",
-  },
-  {
-    id: 3,
-    name: "Alphabet",
-    subtitle: "Expanda palavras e compreensao",
-    locked: false,
-    accent: "#B8C2CF",
-    icon: "lock-outline",
-  },
-  {
-    id: 4,
-    name: "Escrita e estrutura",
-    subtitle: "Monte respostas e frases com seguranca",
-    locked: true,
-    accent: "#B8C2CF",
-    icon: "lock-outline",
-  },
-  {
-    id: 5,
-    name: "Revisao e pratica",
-    subtitle: "Fixe o conteudo com exercicios guiados",
-    locked: true,
-    accent: "#B8C2CF",
-    icon: "lock-outline",
-  },
-];
-
-export const inglesSampleLessons = [
-  { module: 0, id: "1", title: "Hello/Hi", type: "Aula", screen: "IC01" },
-  { module: 0, id: "2", title: "Hey/Hey there!", type: "Aula", screen: "IC02" },
-  {
-    module: 0,
-    id: "3",
-    title: "What’s up/Howdy",
-    type: "Aula",
-    screen: "IC03",
-  },
-  { module: 0, id: "4", title: "Bye/See ya!", type: "Aula", screen: "IC04" },
-  {
-    module: 0,
-    id: "5",
-    title: "Review Module 1",
-    type: "Aula",
-    screen: "IC05",
-  },
-  { module: 0, id: "6", title: "CHALLENGE", type: "Aula", screen: "IC06" },
-  { module: 1, id: "7", title: "I am happy!", type: "Aula", screen: "IC07" },
-  {
-    module: 1,
-    id: "8",
-    title: "She’s a teacher!",
-    type: "Aula",
-    screen: "IC08",
-  },
-  { module: 1, id: "9", title: "Is he nice?", type: "Aula", screen: "IC09" },
-  {
-    module: 1,
-    id: "10",
-    title: "You’re my friend!",
-    type: "Aula",
-    screen: "IC10",
-  },
-  {
-    module: 1,
-    id: "11",
-    title: "We are family!",
-    type: "Aula",
-    screen: "IC11",
-  },
-  {
-    module: 1,
-    id: "12",
-    title: "Are you ready?",
-    type: "Aula",
-    screen: "IC12",
-  },
-  {
-    module: 1,
-    id: "13",
-    title: "Review – affirmative",
-    type: "Aula",
-    screen: "IC13",
-  },
-  {
-    module: 1,
-    id: "14",
-    title: "Review – Negative",
-    type: "Aula",
-    screen: "IC14",
-  },
-  {
-    module: 1,
-    id: "15",
-    title: "Review – Interrogative",
-    type: "Aula",
-    screen: "IC15",
-  },
-  {
-    module: 1,
-    id: "16",
-    title: "Review – Complete",
-    type: "Aula",
-    screen: "IC16",
-  },
-  { module: 1, id: "17", title: "Challenge", type: "Aula", screen: "IC17" },
-  { module: 2, id: "18", title: "Morning!", type: "Aula", screen: "IC18" },
-  { module: 2, id: "19", title: "Good evening!", type: "Aula", screen: "IC19" },
-  { module: 2, id: "20", title: "See you!", type: "Aula", screen: "IC20" },
-  { module: 2, id: "21", title: "Morning!", type: "Aula", screen: "IC21" },
-  {
-    module: 2,
-    id: "22",
-    title: "Regional Greetings",
-    type: "Aula",
-    screen: "IC22",
-  },
-  { module: 3, id: "23", title: "Vowels", type: "Aula", screen: "IC23" },
-  { module: 3, id: "24", title: "aula 24", type: "Aula", screen: "IC24" },
-  { module: 3, id: "25", title: "aula 25", type: "Aula", screen: "IC25" },
-  { module: 3, id: "26", title: "aula 26", type: "Aula", screen: "IC26" },
-  { module: 3, id: "27", title: "aula 27", type: "Aula", screen: "IC27" },
-  { module: 3, id: "28", title: "aula 28", type: "Aula", screen: "IC28" },
-  { module: 3, id: "29", title: "aula 29", type: "Aula", screen: "IC29" },
-  { module: 3, id: "30", title: "aula 30", type: "Aula", screen: "IC30" },
-  { module: 3, id: "31", title: "aula 31", type: "Aula", screen: "IC31" },
-  { module: 3, id: "32", title: "aula 32", type: "Aula", screen: "IC32" },
-  { module: 3, id: "33", title: "aula 33", type: "Aula", screen: "IC33" },
-  { module: 3, id: "34", title: "aula 34", type: "Aula", screen: "IC34" },
-  { module: 3, id: "35", title: "aula 35", type: "Aula", screen: "IC35" },
-  { module: 3, id: "36", title: "aula 36", type: "Aula", screen: "IC36" },
-  { module: 3, id: "37", title: "aula 37", type: "Aula", screen: "IC37" },
-  { module: 3, id: "38", title: "aula 38", type: "Aula", screen: "IC38" },
-  { module: 3, id: "39", title: "aula 39", type: "Aula", screen: "IC39" },
-  { module: 3, id: "40", title: "aula 40", type: "Aula", screen: "IC40" },
-  { module: 3, id: "41", title: "aula 41", type: "Aula", screen: "IC41" },
-  { module: 3, id: "42", title: "aula 42", type: "Aula", screen: "IC42" },
-  { module: 3, id: "43", title: "aula 43", type: "Aula", screen: "IC43" },
-];
-
-export default function InglesCompletoScreen(props) {
-  return (
-    <CourseOverviewScreen
-      {...props}
-      courseName={INGLES_COMPLETO_COURSE_NAME}
-      storageKey={INGLES_COMPLETO_STORAGE_KEY}
-      moduleDefs={inglesModuleDefs}
-      lessons={inglesSampleLessons}
-    />
-  );
-}
-
-/*
-
-import React, { useEffect, useRef, useState } from "react";
+﻿import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
   Image,
@@ -212,7 +29,7 @@ import ex16, { Exercise16 } from "../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../exc/ex17";
 import ex18, { Exercise18 } from "../../../exc/ex18";
 import Feedback from "../../../exc/feedback";
-import { BussinesImages, IC, Images } from "../../../util/images";
+import { Images } from "../../../util/images";
 import {
   calculateLessonAccuracy,
   LESSON_STREAK_MIN_ACCURACY,
@@ -249,6 +66,86 @@ const styles = {
 };
 
 const LESSON_SLIDES = [
+  {
+    component: Exercise10,
+    activity: {
+      prompt: "Responda as questões",
+      title: "Conversa Global",
+      userImage: Images.ex16,
+      lockStorageKey: "@ic22_exercise10_lock_until",
+      questions: [
+        {
+          image: Images.ex10,
+          question:
+            "Você está na Austrália às 10h. Qual é a saudação mais icônica?",
+          options: ["G'day!", "Top o' the mornin'!"],
+          correctAnswer: "G'day!",
+        },
+        {
+          image: Images.ex10,
+          question:
+            'Em Londres, alguém te vê à noite e pergunta: "Alright?". O que isso significa?',
+          options: ["Você está bem?", "Oi / Tudo certo?"],
+          correctAnswer: "Oi / Tudo certo?",
+        },
+        {
+          image: Images.ex10,
+          question: 'Qual é o "atalho" informal para Good Morning nos EUA?',
+          options: ["Morning!", "Good!"],
+          correctAnswer: "Morning!",
+        },
+        {
+          image: Images.ex10,
+          question:
+            "Você está na Irlanda e quer desejar uma ótima manhã. O que diz?",
+          options: ["G'day!", "Top o' the mornin'!"],
+          correctAnswer: "Top o' the mornin'!",
+        },
+        {
+          image: Images.ex10,
+          question:
+            "Saindo de uma loja em Nova York, qual é a despedida mais natural?",
+          options: ["Good afternoon!", "Have a good one!"],
+          correctAnswer: "Have a good one!",
+        },
+        {
+          image: Images.ex10,
+          question: 'Com um nativo diz "boa noite" de forma carinhosa (fofa)?',
+          options: ["Nighty-night!", "Evening-evening!"],
+          correctAnswer: "Nighty-night!",
+        },
+        {
+          image: Images.ex10,
+          question:
+            "Você chega a um jantar às 20h. Qual a saudação de entrada?",
+          options: ["Good night!", "Good evening!"],
+          correctAnswer: "Good evening!",
+        },
+        {
+          image: Images.ex10,
+          question:
+            'Qual dessas é uma gíria australiana para "Tenha um bom dia"?',
+          options: ["Have a good one!", "Have a g'day!"],
+          correctAnswer: "Have a g'day!",
+        },
+        {
+          image: Images.ex10,
+          question: 'Qual é o "atalho" para dizer Good Night de forma rápida?',
+          options: ["Nine!", "Night!"],
+          correctAnswer: "Night!",
+        },
+        {
+          image: Images.ex10,
+          question:
+            "Em Dublin, \"Top o' the mornin' to ya\" é um cumprimento de:",
+          options: ["Chegada (Manhã)", "Despedida (Noite)"],
+          correctAnswer: "Chegada (Manhã)",
+        },
+      ],
+      successTitle: "Correto",
+      successMessage: "Você acertou todas as 10 respostas da conversa global.",
+    },
+  },
   {
     key: "lesson-finish",
     type: "finish",
@@ -405,7 +302,7 @@ function LessonSlideRenderer({
   );
 }
 
-export default function IC04({ route, navigation }) {
+export default function IC22({ route, navigation }) {
   const lesson = route?.params?.lesson;
   const lessons = route?.params?.lessons;
   const { speak } = useSpeech();
@@ -607,5 +504,3 @@ export default function IC04({ route, navigation }) {
     </SafeAreaView>
   );
 }
-  
-*/

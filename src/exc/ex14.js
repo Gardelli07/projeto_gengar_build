@@ -408,6 +408,8 @@ const ex14 = StyleSheet.create({
     fontFamily: "serif",
     fontWeight: "500",
     color: CORES.TEXT_DARK,
+    textAlign: "center",
+    width: "100%",
   },
   resultBarTextCorrect: {
     color: CORES.SUCCESS_TEXT,

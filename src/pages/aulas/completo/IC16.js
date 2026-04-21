@@ -1,187 +1,4 @@
-import React from "react";
-import CourseOverviewScreen from "../CourseOverviewScreen";
-
-export const INGLES_COMPLETO_STORAGE_KEY = "@progesso_ingles_completo";
-export const INGLES_COMPLETO_COURSE_NAME = "Inglês Completo";
-
-export const inglesModuleDefs = [
-  {
-    id: 0,
-    name: "BASICS",
-    subtitle: "Base de vocabulario, frases e escuta",
-    locked: false,
-    accent: "#6C63FF",
-    icon: "check",
-  },
-  {
-    id: 1,
-    name: "I’m a student!",
-    subtitle: "Aprenda a se apresentar com naturalidade",
-    locked: false,
-    accent: "#6C63FF",
-    icon: "check",
-  },
-  {
-    id: 2,
-    name: "Good morning!",
-    subtitle: "Use frases essenciais em situacoes reais",
-    locked: false,
-    accent: "#6C63FF",
-    icon: "check",
-  },
-  {
-    id: 3,
-    name: "Alphabet",
-    subtitle: "Expanda palavras e compreensao",
-    locked: false,
-    accent: "#B8C2CF",
-    icon: "lock-outline",
-  },
-  {
-    id: 4,
-    name: "Escrita e estrutura",
-    subtitle: "Monte respostas e frases com seguranca",
-    locked: true,
-    accent: "#B8C2CF",
-    icon: "lock-outline",
-  },
-  {
-    id: 5,
-    name: "Revisao e pratica",
-    subtitle: "Fixe o conteudo com exercicios guiados",
-    locked: true,
-    accent: "#B8C2CF",
-    icon: "lock-outline",
-  },
-];
-
-export const inglesSampleLessons = [
-  { module: 0, id: "1", title: "Hello/Hi", type: "Aula", screen: "IC01" },
-  { module: 0, id: "2", title: "Hey/Hey there!", type: "Aula", screen: "IC02" },
-  {
-    module: 0,
-    id: "3",
-    title: "What’s up/Howdy",
-    type: "Aula",
-    screen: "IC03",
-  },
-  { module: 0, id: "4", title: "Bye/See ya!", type: "Aula", screen: "IC04" },
-  {
-    module: 0,
-    id: "5",
-    title: "Review Module 1",
-    type: "Aula",
-    screen: "IC05",
-  },
-  { module: 0, id: "6", title: "CHALLENGE", type: "Aula", screen: "IC06" },
-  { module: 1, id: "7", title: "I am happy!", type: "Aula", screen: "IC07" },
-  {
-    module: 1,
-    id: "8",
-    title: "She’s a teacher!",
-    type: "Aula",
-    screen: "IC08",
-  },
-  { module: 1, id: "9", title: "Is he nice?", type: "Aula", screen: "IC09" },
-  {
-    module: 1,
-    id: "10",
-    title: "You’re my friend!",
-    type: "Aula",
-    screen: "IC10",
-  },
-  {
-    module: 1,
-    id: "11",
-    title: "We are family!",
-    type: "Aula",
-    screen: "IC11",
-  },
-  {
-    module: 1,
-    id: "12",
-    title: "Are you ready?",
-    type: "Aula",
-    screen: "IC12",
-  },
-  {
-    module: 1,
-    id: "13",
-    title: "Review – affirmative",
-    type: "Aula",
-    screen: "IC13",
-  },
-  {
-    module: 1,
-    id: "14",
-    title: "Review – Negative",
-    type: "Aula",
-    screen: "IC14",
-  },
-  {
-    module: 1,
-    id: "15",
-    title: "Review – Interrogative",
-    type: "Aula",
-    screen: "IC15",
-  },
-  {
-    module: 1,
-    id: "16",
-    title: "Review – Complete",
-    type: "Aula",
-    screen: "IC16",
-  },
-  { module: 1, id: "17", title: "Challenge", type: "Aula", screen: "IC17" },
-  { module: 2, id: "18", title: "Morning!", type: "Aula", screen: "IC18" },
-  { module: 2, id: "19", title: "Good evening!", type: "Aula", screen: "IC19" },
-  { module: 2, id: "20", title: "See you!", type: "Aula", screen: "IC20" },
-  { module: 2, id: "21", title: "Morning!", type: "Aula", screen: "IC21" },
-  {
-    module: 2,
-    id: "22",
-    title: "Regional Greetings",
-    type: "Aula",
-    screen: "IC22",
-  },
-  { module: 3, id: "23", title: "Vowels", type: "Aula", screen: "IC23" },
-  { module: 3, id: "24", title: "aula 24", type: "Aula", screen: "IC24" },
-  { module: 3, id: "25", title: "aula 25", type: "Aula", screen: "IC25" },
-  { module: 3, id: "26", title: "aula 26", type: "Aula", screen: "IC26" },
-  { module: 3, id: "27", title: "aula 27", type: "Aula", screen: "IC27" },
-  { module: 3, id: "28", title: "aula 28", type: "Aula", screen: "IC28" },
-  { module: 3, id: "29", title: "aula 29", type: "Aula", screen: "IC29" },
-  { module: 3, id: "30", title: "aula 30", type: "Aula", screen: "IC30" },
-  { module: 3, id: "31", title: "aula 31", type: "Aula", screen: "IC31" },
-  { module: 3, id: "32", title: "aula 32", type: "Aula", screen: "IC32" },
-  { module: 3, id: "33", title: "aula 33", type: "Aula", screen: "IC33" },
-  { module: 3, id: "34", title: "aula 34", type: "Aula", screen: "IC34" },
-  { module: 3, id: "35", title: "aula 35", type: "Aula", screen: "IC35" },
-  { module: 3, id: "36", title: "aula 36", type: "Aula", screen: "IC36" },
-  { module: 3, id: "37", title: "aula 37", type: "Aula", screen: "IC37" },
-  { module: 3, id: "38", title: "aula 38", type: "Aula", screen: "IC38" },
-  { module: 3, id: "39", title: "aula 39", type: "Aula", screen: "IC39" },
-  { module: 3, id: "40", title: "aula 40", type: "Aula", screen: "IC40" },
-  { module: 3, id: "41", title: "aula 41", type: "Aula", screen: "IC41" },
-  { module: 3, id: "42", title: "aula 42", type: "Aula", screen: "IC42" },
-  { module: 3, id: "43", title: "aula 43", type: "Aula", screen: "IC43" },
-];
-
-export default function InglesCompletoScreen(props) {
-  return (
-    <CourseOverviewScreen
-      {...props}
-      courseName={INGLES_COMPLETO_COURSE_NAME}
-      storageKey={INGLES_COMPLETO_STORAGE_KEY}
-      moduleDefs={inglesModuleDefs}
-      lessons={inglesSampleLessons}
-    />
-  );
-}
-
-/*
-
-import React, { useEffect, useRef, useState } from "react";
+﻿import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
   Image,
@@ -212,7 +29,7 @@ import ex16, { Exercise16 } from "../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../exc/ex17";
 import ex18, { Exercise18 } from "../../../exc/ex18";
 import Feedback from "../../../exc/feedback";
-import { BussinesImages, IC, Images } from "../../../util/images";
+import { IC, Images } from "../../../util/images";
 import {
   calculateLessonAccuracy,
   LESSON_STREAK_MIN_ACCURACY,
@@ -249,6 +66,194 @@ const styles = {
 };
 
 const LESSON_SLIDES = [
+  {
+    component: Exercise17,
+    activity: {
+      label: "Atividade 17",
+      content: [
+        IC.A16S1,
+        "Voce desbloqueou todos os poderes da identidade. Consegue usar o motor certo para cada situacao?",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise14,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e escolha",
+      image: IC.A13S3,
+      audioSource: require("../../../../mp3/IC/A16S2.mp3"),
+      audioDurationMs: 850,
+      answerOptions: ["She isn't", "He is"],
+      correctOption: "She isn't",
+      successTitle: "Correto",
+      feedbackMessage: 'O audio diz "She isn\'t".',
+    },
+  },
+  {
+    component: Exercise14,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e escolha",
+      image: IC.A13S4,
+      audioSource: require("../../../../mp3/IC/A16S3.mp3"),
+      audioDurationMs: 1000,
+      answerOptions: ["Are they?", "They are?"],
+      correctOption: "Are they?",
+      successTitle: "Correto",
+      feedbackMessage: 'Em perguntas, usamos "Are they?".',
+    },
+  },
+  {
+    component: Exercise14,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e escolha",
+      image: IC.A14S2,
+      audioSource: require("../../../../mp3/IC/A16S4.mp3"),
+      audioDurationMs: 1000,
+      answerOptions: ["I'm not", "I am't"],
+      correctOption: "I'm not",
+      successTitle: "Correto",
+      feedbackMessage: 'A forma correta e "I\'m not".',
+    },
+  },
+  {
+    component: Exercise1,
+    activity: {
+      prompt: "Conecte tudo",
+      pairs: [
+        { en: "She", pt: "isn't a teacher." },
+        { en: "They", pt: "are students." },
+        { en: "I", pt: "am not hungry." },
+      ],
+      successTitle: "Excelente",
+      successMessage:
+        "She isn't a teacher. They are students. I am not hungry.",
+    },
+  },
+  {
+    component: Exercise6,
+    activity: {
+      prompt: "Perguntando se o cafe esta quente.",
+      words: ["hot?", "it", "Is"],
+      correctOrder: ["Is", "it", "hot?"],
+      successTitle: "Correto",
+      successMessage: 'A pergunta correta e "Is it hot?"',
+    },
+  },
+  {
+    component: Exercise6,
+    activity: {
+      prompt: "Dizendo que nos nao estamos cansados.",
+      words: ["tired.", "aren't", "We"],
+      correctOrder: ["We", "aren't", "tired."],
+      successTitle: "Correto",
+      successMessage: 'A frase correta e "We aren\'t tired."',
+    },
+  },
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip",
+      content: [
+        "Revisao Final:",
+        "Identidade: I am / He is.",
+        "Negacao: It isn't / You aren't.",
+        "Pergunta: Am I? / Are they?",
+        "O segredo e olhar para QUEM voce esta falando antes de escolher o motor!",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise4,
+    activity: {
+      prompt: "Escolha a resposta correta",
+      image: IC.A16S9,
+      wrongSentence: 'Alguem pergunta: "Is she Brazilian?"',
+      options: ["Yes, she's.", "Yes, she is."],
+      correctAnswer: "Yes, she is.",
+      successTitle: "Correto",
+      successMessage:
+        "Em respostas curtas positivas, nunca usamos contracao: Yes, she is.",
+    },
+  },
+  {
+    component: Exercise2,
+    activity: {
+      prompt: "Complete o dialogo",
+      paragraphs: [
+        [
+          "A:",
+          {
+            id: "blank-1",
+            answer: "Are",
+            options: ["Are", "Is", "Am"],
+          },
+          "you ready?",
+        ],
+        [
+          "B: No, I",
+          {
+            id: "blank-2",
+            answer: "am",
+            options: ["am", "are", "is"],
+          },
+          "not.",
+        ],
+      ],
+      successTitle: "Excelente",
+      successMessage: 'O dialogo correto e: "Are you ready? No, I am not."',
+    },
+  },
+  {
+    component: Exercise12,
+    activity: {
+      prompt: "Escrita",
+      instruction:
+        "Escreva uma pergunta para o Camaleao perguntando se ele esta feliz.",
+      helperText: "Use a palavra happy.",
+      placeholder: "Are you happy?",
+      tipText: "Are you happy?",
+      minLength: 5,
+      successTitle: "Correto",
+      successMessage: 'Resposta esperada: "Are you happy?"',
+    },
+  },
+  {
+    component: Exercise16,
+    activity: {
+      prompt: "Speaking",
+      instruction: "Apresente dois amigos em ingles.",
+      helperText: "Grave: Eles sao legais.",
+      image: Images.ex16,
+      tipButtonLabel: "Tip",
+      tipText: "They are cool.",
+      recordLabel: "Speak",
+      stopLabel: "Parar",
+      playLabel: "Ouvir",
+      pauseLabel: "Pausar",
+      rerecordLabel: "Regravar",
+      submitLabel: "Enviar audio",
+      successTitle: "Correto",
+      successMessage: 'Resposta esperada: "They are cool."',
+    },
+  },
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip Final",
+      content: [
+        "INCRIVEL! Voce concluiu todo o treinamento do Verbo To Be.",
+        "Voce agora fala sobre si mesmo, sobre os outros e sobre o mundo ao seu redor.",
+        "Voce esta pronto para o BOSS LEVEL: O Desafio Final.",
+        "Se falhar, o portal se fecha por 24 horas. Good luck!",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
   {
     key: "lesson-finish",
     type: "finish",
@@ -376,6 +381,7 @@ function LessonFinishSlide({ onPressNextLesson, feedbackProps }) {
 
 function LessonSlideRenderer({
   slide,
+  slideIndex,
   next,
   speak,
   onPressNextLesson,
@@ -395,6 +401,7 @@ function LessonSlideRenderer({
 
   return (
     <ExerciseComponent
+      key={slide.key || slideIndex}
       activity={slide.activity}
       styles={styles}
       HeaderComponent={SlideHeader}
@@ -405,7 +412,7 @@ function LessonSlideRenderer({
   );
 }
 
-export default function IC04({ route, navigation }) {
+export default function IC16({ route, navigation }) {
   const lesson = route?.params?.lesson;
   const lessons = route?.params?.lessons;
   const { speak } = useSpeech();
@@ -589,6 +596,7 @@ export default function IC04({ route, navigation }) {
         >
           <LessonSlideRenderer
             slide={currentSlide}
+            slideIndex={currentSlideIndex}
             next={slideNav.next}
             speak={speak}
             onPressNextLesson={goToNextLesson}
@@ -607,5 +615,3 @@ export default function IC04({ route, navigation }) {
     </SafeAreaView>
   );
 }
-  
-*/

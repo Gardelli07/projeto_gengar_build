@@ -39,6 +39,34 @@ import IC12 from "../pages/aulas/completo/IC12";
 import IC13 from "../pages/aulas/completo/IC13";
 import IC14 from "../pages/aulas/completo/IC14";
 import IC15 from "../pages/aulas/completo/IC15";
+import IC16 from "../pages/aulas/completo/IC16";
+import IC17 from "../pages/aulas/completo/IC17";
+import IC18 from "../pages/aulas/completo/IC18";
+import IC19 from "../pages/aulas/completo/IC19";
+import IC20 from "../pages/aulas/completo/IC20";
+import IC21 from "../pages/aulas/completo/IC21";
+import IC22 from "../pages/aulas/completo/IC22";
+import IC23 from "../pages/aulas/completo/IC23";
+import IC24 from "../pages/aulas/completo/IC24";
+import IC25 from "../pages/aulas/completo/IC25";
+import IC26 from "../pages/aulas/completo/IC26";
+import IC27 from "../pages/aulas/completo/IC27";
+import IC28 from "../pages/aulas/completo/IC28";
+import IC29 from "../pages/aulas/completo/IC29";
+import IC30 from "../pages/aulas/completo/IC30";
+import IC31 from "../pages/aulas/completo/IC31";
+import IC32 from "../pages/aulas/completo/IC32";
+import IC33 from "../pages/aulas/completo/IC33";
+import IC34 from "../pages/aulas/completo/IC34";
+import IC35 from "../pages/aulas/completo/IC35";
+import IC36 from "../pages/aulas/completo/IC36";
+import IC37 from "../pages/aulas/completo/IC37";
+import IC38 from "../pages/aulas/completo/IC38";
+import IC39 from "../pages/aulas/completo/IC39";
+import IC40 from "../pages/aulas/completo/IC40";
+import IC41 from "../pages/aulas/completo/IC41";
+import IC42 from "../pages/aulas/completo/IC42";
+import IC43 from "../pages/aulas/completo/IC43";
 
 // Santander
 import HomeSantander from "../pages/santander";
@@ -193,6 +221,34 @@ export default function Routes() {
           IC13,
           IC14,
           IC15,
+          IC16,
+          IC17,
+          IC18,
+          IC19,
+          IC20,
+          IC21,
+          IC22,
+          IC23,
+          IC24,
+          IC25,
+          IC26,
+          IC27,
+          IC28,
+          IC29,
+          IC30,
+          IC31,
+          IC32,
+          IC33,
+          IC34,
+          IC35,
+          IC36,
+          IC37,
+          IC38,
+          IC39,
+          IC40,
+          IC41,
+          IC42,
+          IC43,
         ].map((Screen, index) => {
           const screenNumber = String(index + 1).padStart(2, "0");
 
