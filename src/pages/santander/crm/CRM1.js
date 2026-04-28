@@ -50,7 +50,7 @@ const SlideNavContext = React.createContext(null);
 /* ================= CONFIG ================= */
 
 const SLIDE_COUNT = 8;
-const STORAGE_KEY = "@progesso_ingles_completo";
+const STORAGE_KEY = "@progesso_ingles_completo_A0-A1";
 
 /* ================= STORAGE ================= */
 

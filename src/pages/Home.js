@@ -25,7 +25,12 @@ import {
   INGLES_COMPLETO_STORAGE_KEY,
   inglesModuleDefs,
   inglesSampleLessons,
-} from "./aulas/completo";
+} from "./aulas/completo/A0-A1";
+import {
+  INGLES_COMPLETO_STORAGE_KEY as INGLES_COMPLETO_A2_STORAGE_KEY,
+  inglesModuleDefs as inglesA2ModuleDefs,
+  inglesSampleLessons as inglesA2SampleLessons,
+} from "./aulas/completo/A2";
 
 const KAIQUE_PHOTO = require("../../assets/Foto kaique.jpeg");
 
@@ -40,19 +45,58 @@ const THEME = {
 };
 
 export const COURSE_OPTIONS = ["Ingles Completo", "Bussines English"];
-export const LEVEL_OPTIONS = ["Facil", "Medio", "Avancado"];
+export const LEVEL_OPTIONS = ["Starter", "Elementary", "Intermediate", "Advanced"];
+
+const LEVEL_CONFIG = {
+  Starter: {
+    folder: "A0-A1",
+    routeName: "Inglescompleto",
+    storageKey: INGLES_COMPLETO_STORAGE_KEY,
+    moduleDefs: inglesModuleDefs,
+    lessons: inglesSampleLessons,
+    available: true,
+  },
+  Elementary: {
+    folder: "A2",
+    routeName: "InglescompletoA2",
+    storageKey: INGLES_COMPLETO_A2_STORAGE_KEY,
+    moduleDefs: inglesA2ModuleDefs,
+    lessons: inglesA2SampleLessons,
+    available: true,
+  },
+  Intermediate: {
+    folder: "B1-B2",
+    routeName: null,
+    storageKey: "@progesso_ingles_completo_B1-B2",
+    moduleDefs: [],
+    lessons: [],
+    available: false,
+  },
+  Advanced: {
+    folder: "C1-C2",
+    routeName: null,
+    storageKey: "@progesso_ingles_completo_C1-C2",
+    moduleDefs: [],
+    lessons: [],
+    available: false,
+  },
+};
 
 const COURSE_CONFIG = {
   "Ingles Completo": {
     courseId: "ingles_completo",
-    defaultLevel: "Facil",
-    routeName: "Inglescompleto",
+    defaultLevel: "Starter",
   },
   "Bussines English": {
     courseId: "bussines",
-    defaultLevel: "Facil",
+    defaultLevel: "Starter",
     routeName: "Bussines",
   },
+};
+
+const COURSE_LEVEL_AVAILABILITY = {
+  "Ingles Completo": ["Starter", "Elementary"],
+  "Bussines English": ["Starter"],
 };
 
 async function loadProgress(storageKey) {
@@ -108,19 +152,24 @@ function ProgressCircle({ percent, size = 62, strokeWidth = 4 }) {
 export default function Inglescompleto({ navigation, route }) {
   const autoOpenLessonId = route?.params?.autoOpenLessonId;
   const initialCourse = route?.params?.initialCourse ?? null;
-  const initialLevel = route?.params?.initialLevel ?? null;
+  const initialLevel = route?.params?.initialLevel ?? "Starter";
   const openedRef = useRef(false);
 
   const [progressMap, setProgressMap] = useState({});
   const [openModuleId, setOpenModuleId] = useState(0);
   const [isSectionMenuOpen, setIsSectionMenuOpen] = useState(false);
-  const [sectionMenuStep, setSectionMenuStep] = useState("course");
   const [selectedCourse, setSelectedCourse] = useState(initialCourse);
-  const [selectedLevel, setSelectedLevel] = useState(initialLevel);
-  const isViewAll = !selectedCourse && !selectedLevel;
+  const [selectedLevel, setSelectedLevel] = useState(initialLevel ?? "Starter");
+  const activeLevel = selectedLevel ?? "Starter";
+  const activeLevelConfig = LEVEL_CONFIG[activeLevel] ?? LEVEL_CONFIG.Starter;
+  const isCourseList = !selectedCourse;
 
   const allLessons = useMemo(
-    () => [...inglesSampleLessons, ...bussinesSampleLessons],
+    () => [
+      ...inglesSampleLessons,
+      ...inglesA2SampleLessons,
+      ...bussinesSampleLessons,
+    ],
     [],
   );
   const activeCourseId =
@@ -128,29 +177,34 @@ export default function Inglescompleto({ navigation, route }) {
   const activeStorageKey =
     activeCourseId === "bussines"
       ? BUSSINES_STORAGE_KEY
-      : INGLES_COMPLETO_STORAGE_KEY;
+      : activeLevelConfig.storageKey;
   const activeModuleDefs = useMemo(() => {
     if (activeCourseId === "bussines") {
       return bussinesModules.map((name, index) => ({
         id: index,
         name,
-        subtitle: "Business English - Facil",
+        subtitle: "Business English",
         locked: index > 0,
         accent: index === 0 ? THEME.green : "#B8C2CF",
         icon: index === 0 ? "check" : "lock-outline",
       }));
     }
-    return inglesModuleDefs;
-  }, [activeCourseId]);
+    return activeLevelConfig.moduleDefs;
+  }, [activeCourseId, activeLevelConfig]);
   const activeLessons = useMemo(
     () =>
       activeCourseId === "bussines"
         ? bussinesSampleLessons
-        : inglesSampleLessons,
-    [activeCourseId],
+        : activeLevelConfig.lessons,
+    [activeCourseId, activeLevelConfig],
   );
-  const levelOptionsForCourse =
-    selectedCourse === "Bussines English" ? ["Facil"] : LEVEL_OPTIONS;
+  const availableCourseOptions = useMemo(
+    () =>
+      COURSE_OPTIONS.filter((courseName) =>
+        COURSE_LEVEL_AVAILABILITY[courseName]?.includes(activeLevel),
+      ),
+    [activeLevel],
+  );
 
   useEffect(() => {
     const sub = navigation.addListener("focus", async () => {
@@ -170,7 +224,7 @@ export default function Inglescompleto({ navigation, route }) {
       setSelectedCourse(route.params.initialCourse);
     }
     if (route?.params?.initialLevel !== undefined) {
-      setSelectedLevel(route.params.initialLevel);
+      setSelectedLevel(route.params.initialLevel ?? "Starter");
     }
   }, [route?.params?.initialCourse, route?.params?.initialLevel]);
 
@@ -191,13 +245,13 @@ export default function Inglescompleto({ navigation, route }) {
         (item) => String(item.id) === String(lesson.id),
       )
         ? bussinesSampleLessons
-        : inglesSampleLessons;
+        : activeLessons;
       navigation.replace(lesson.screen, {
         lesson,
         lessons: lessonList,
       });
     });
-  }, [autoOpenLessonId, navigation, allLessons]);
+  }, [autoOpenLessonId, navigation, allLessons, activeLessons]);
 
   const totalLessons = activeLessons.length;
   const completedCount = activeLessons.filter(
@@ -244,6 +298,7 @@ export default function Inglescompleto({ navigation, route }) {
           onPress: async () => {
             await Promise.all([
               AsyncStorage.removeItem(INGLES_COMPLETO_STORAGE_KEY),
+              AsyncStorage.removeItem(INGLES_COMPLETO_A2_STORAGE_KEY),
               AsyncStorage.removeItem(BUSSINES_STORAGE_KEY),
               AsyncStorage.removeItem(LESSON_STREAK_STORAGE_KEY),
             ]);
@@ -256,23 +311,40 @@ export default function Inglescompleto({ navigation, route }) {
   };
 
   const sectionButtonLabel =
-    selectedCourse && selectedLevel
-      ? `${selectedCourse} - ${selectedLevel}`
-      : "View all";
+    selectedCourse ? `${selectedCourse} - ${activeLevel}` : activeLevel;
 
   const openCourseFromViewAll = (courseName) => {
-    const routeName = COURSE_CONFIG[courseName]?.routeName;
+    if (!COURSE_LEVEL_AVAILABILITY[courseName]?.includes(activeLevel)) {
+      Alert.alert(
+        "Curso em breve",
+        `${courseName} ainda nao esta disponivel em ${activeLevel}.`,
+      );
+      return;
+    }
+
+    const routeName =
+      courseName === "Ingles Completo"
+        ? activeLevelConfig.routeName
+        : COURSE_CONFIG[courseName]?.routeName;
+
+    if (courseName === "Ingles Completo" && !activeLevelConfig.available) {
+      Alert.alert(
+        "Nivel em breve",
+        `${activeLevel} (${activeLevelConfig.folder}) ainda nao tem aulas cadastradas.`,
+      );
+      return;
+    }
 
     if (routeName) {
       navigation.navigate(routeName, {
         initialCourse: courseName,
-        initialLevel: COURSE_CONFIG[courseName]?.defaultLevel ?? "Facil",
+        initialLevel: activeLevel,
       });
       return;
     }
 
     setSelectedCourse(courseName);
-    setSelectedLevel(COURSE_CONFIG[courseName]?.defaultLevel ?? "Facil");
+    setSelectedLevel(activeLevel);
     setIsSectionMenuOpen(false);
   };
 
@@ -390,160 +462,102 @@ export default function Inglescompleto({ navigation, route }) {
             <TouchableOpacity
               style={styles.sectionMenuButton}
               onPress={() => {
-                if (isViewAll) {
-                  setIsSectionMenuOpen(false);
-                  return;
-                }
                 if (isSectionMenuOpen) {
                   setIsSectionMenuOpen(false);
                   return;
                 }
-                setSectionMenuStep("course");
                 setIsSectionMenuOpen(true);
               }}
               activeOpacity={0.85}
             >
               <Text style={styles.sectionAction}>{sectionButtonLabel}</Text>
-              {!isViewAll && (
-                <MaterialCommunityIcons
-                  name={isSectionMenuOpen ? "chevron-up" : "chevron-down"}
-                  size={16}
-                  color={CORES.PRIMARY}
-                />
-              )}
+              <MaterialCommunityIcons
+                name={isSectionMenuOpen ? "chevron-up" : "chevron-down"}
+                size={16}
+                color={CORES.PRIMARY}
+              />
             </TouchableOpacity>
 
             {isSectionMenuOpen && (
               <View style={styles.sectionMenuDropdown}>
-                {sectionMenuStep === "course" ? (
-                  <>
-                    <TouchableOpacity
-                      style={styles.sectionMenuItem}
-                      onPress={() => {
-                        setSelectedCourse(null);
-                        setSelectedLevel(null);
-                        setIsSectionMenuOpen(false);
-                      }}
-                      activeOpacity={0.85}
+                {LEVEL_OPTIONS.map((level) => (
+                  <TouchableOpacity
+                    key={level}
+                    style={styles.sectionMenuItem}
+                    onPress={() => {
+                      setSelectedLevel(level);
+                      setSelectedCourse(null);
+                      setIsSectionMenuOpen(false);
+                    }}
+                    activeOpacity={0.85}
+                  >
+                    <Text
+                      style={[
+                        styles.sectionMenuText,
+                        activeLevel === level ? styles.sectionMenuTextActive : null,
+                      ]}
                     >
-                      <Text
-                        style={[
-                          styles.sectionMenuText,
-                          !selectedCourse && !selectedLevel
-                            ? styles.sectionMenuTextActive
-                            : null,
-                        ]}
-                      >
-                        View all
-                      </Text>
-                    </TouchableOpacity>
-
-                    {COURSE_OPTIONS.map((courseName) => (
-                      <TouchableOpacity
-                        key={courseName}
-                        style={styles.sectionMenuItem}
-                        onPress={() => openCourseFromViewAll(courseName)}
-                        activeOpacity={0.85}
-                      >
-                        <Text
-                          style={[
-                            styles.sectionMenuText,
-                            selectedCourse === courseName
-                              ? styles.sectionMenuTextActive
-                              : null,
-                          ]}
-                        >
-                          {courseName}
-                        </Text>
-                      </TouchableOpacity>
-                    ))}
-                  </>
-                ) : (
-                  <>
-                    <TouchableOpacity
-                      style={styles.sectionMenuItem}
-                      onPress={() => setSectionMenuStep("course")}
-                      activeOpacity={0.85}
-                    >
-                      <View style={styles.sectionMenuBackRow}>
-                        <MaterialCommunityIcons
-                          name="chevron-left"
-                          size={14}
-                          color={CORES.PRIMARY}
-                        />
-                        <Text style={styles.sectionMenuBackText}>Cursos</Text>
-                      </View>
-                    </TouchableOpacity>
-
-                    {levelOptionsForCourse.map((level) => (
-                      <TouchableOpacity
-                        key={level}
-                        style={styles.sectionMenuItem}
-                        onPress={() => {
-                          setSelectedLevel(level);
-                          setIsSectionMenuOpen(false);
-                        }}
-                        activeOpacity={0.85}
-                      >
-                        <Text
-                          style={[
-                            styles.sectionMenuText,
-                            selectedLevel === level
-                              ? styles.sectionMenuTextActive
-                              : null,
-                          ]}
-                        >
-                          {level}
-                        </Text>
-                      </TouchableOpacity>
-                    ))}
-                  </>
-                )}
+                      {level}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
               </View>
             )}
           </View>
         </View>
 
-        {isViewAll
-          ? COURSE_OPTIONS.map((courseName) => (
-              <TouchableOpacity
-                key={courseName}
-                style={styles.moduleButton}
-                onPress={() => openCourseFromViewAll(courseName)}
-                activeOpacity={0.9}
-              >
-                <View
-                  style={[
-                    styles.moduleIconWrap,
-                    {
-                      backgroundColor:
-                        courseName === "Bussines English"
-                          ? "#4A9CFF"
-                          : THEME.green,
-                    },
-                  ]}
+        {isCourseList
+          ? availableCourseOptions.length > 0
+            ? availableCourseOptions.map((courseName) => (
+                <TouchableOpacity
+                  key={courseName}
+                  style={styles.moduleButton}
+                  onPress={() => openCourseFromViewAll(courseName)}
+                  activeOpacity={0.9}
                 >
-                  <MaterialCommunityIcons
-                    name="book-open-variant"
-                    size={16}
-                    color="#FFFFFF"
-                  />
-                </View>
+                  <View
+                    style={[
+                      styles.moduleIconWrap,
+                      {
+                        backgroundColor:
+                          courseName === "Bussines English"
+                            ? "#4A9CFF"
+                            : THEME.green,
+                      },
+                    ]}
+                  >
+                    <MaterialCommunityIcons
+                      name="book-open-variant"
+                      size={16}
+                      color="#FFFFFF"
+                    />
+                  </View>
 
-                <View style={styles.moduleTextArea}>
-                  <Text style={styles.moduleTitle}>{courseName}</Text>
-                  <Text style={styles.moduleSubtitle}>Toque para abrir</Text>
-                </View>
+                  <View style={styles.moduleTextArea}>
+                    <Text style={styles.moduleTitle}>{courseName}</Text>
+                    <Text style={styles.moduleSubtitle}>
+                      {courseName === "Ingles Completo"
+                        ? `${activeLevel} - ${activeLevelConfig.folder}`
+                        : "Business English"}
+                    </Text>
+                  </View>
 
-                <View style={styles.moduleRight}>
-                  <MaterialCommunityIcons
-                    name="chevron-right"
-                    size={20}
-                    color="#8A97AA"
-                  />
+                  <View style={styles.moduleRight}>
+                    <MaterialCommunityIcons
+                      name="chevron-right"
+                      size={20}
+                      color="#8A97AA"
+                    />
+                  </View>
+                </TouchableOpacity>
+              ))
+            : (
+                <View style={styles.emptyCourses}>
+                  <Text style={styles.emptyLessonText}>
+                    Nenhum curso disponivel em {activeLevel}.
+                  </Text>
                 </View>
-              </TouchableOpacity>
-            ))
+              )
           : activeModuleDefs.map((moduleItem) => {
               const moduleLessons = lessonsByModule[moduleItem.id] || [];
               const moduleCompleted = moduleLessons.filter(
@@ -1021,6 +1035,15 @@ const styles = StyleSheet.create({
   emptyLesson: {
     paddingHorizontal: 12,
     paddingVertical: 10,
+  },
+  emptyCourses: {
+    marginTop: 10,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: THEME.border,
+    backgroundColor: THEME.white,
+    paddingHorizontal: 12,
+    paddingVertical: 14,
   },
   emptyLessonText: {
     color: "#8C99AE",
