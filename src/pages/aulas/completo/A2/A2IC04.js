@@ -29,7 +29,7 @@ import ex16, { Exercise16 } from "../../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../../exc/ex17";
 import ex18, { Exercise18 } from "../../../../exc/ex18";
 import Feedback from "../../../../exc/feedback";
-import { BussinesImages, IC, Images } from "../../../../util/images";
+import { Images } from "../../../../util/images";
 import {
   calculateLessonAccuracy,
   LESSON_STREAK_MIN_ACCURACY,
@@ -65,7 +65,93 @@ const styles = {
   ...ex18,
 };
 
+const A2IC04_QUESTIONS = [
+  {
+    image: Images.ex10,
+    question: 'Friend: "What are you doing?" Você: "I..."',
+    options: ["am studying", "studying", "am study"],
+    correctAnswer: "am studying",
+  },
+  {
+    image: Images.ex10,
+    question:
+      'Friend: "And your brother? Is he here?" Você: "Yes, he..."',
+    options: ["are playing", "is playing", "playing"],
+    correctAnswer: "is playing",
+  },
+  {
+    image: Images.ex10,
+    question:
+      'Friend: "I hear music! Is your sister there?" Você: "Yes, she..."',
+    options: ["is danceing", "is dancing", "are dancing"],
+    correctAnswer: "is dancing",
+  },
+  {
+    image: Images.ex10,
+    question:
+      'Friend: "I smell coffee! Is your father busy?" Você: "Yes, he..."',
+    options: [
+      "is makeing coffee",
+      "is making coffee",
+      "are making coffee",
+    ],
+    correctAnswer: "is making coffee",
+  },
+  {
+    image: Images.ex10,
+    question: 'Friend: "And your mother?" Você: "She..."',
+    options: ["is working", "are working", "working"],
+    correctAnswer: "is working",
+  },
+  {
+    image: Images.ex10,
+    question:
+      'Friend: "Look at the dog in the garden!" Você: "Oh! It..."',
+    options: ["is runing", "is running", "runs"],
+    correctAnswer: "is running",
+  },
+  {
+    image: Images.ex10,
+    question: 'Friend: "What about your friends?" Você: "They..."',
+    options: ["is waiting", "are waiting", "wait"],
+    correctAnswer: "are waiting",
+  },
+  {
+    image: Images.ex10,
+    question:
+      'Friend: "Are we ready for the lesson?" Você: "Yes, we..."',
+    options: ["are starting now", "is starting now", "starting"],
+    correctAnswer: "are starting now",
+  },
+  {
+    image: Images.ex10,
+    question:
+      'Friend: "Is your neighbor outside?" Você: "Yes, he..."',
+    options: ["is washing the car", "washing the car", "are washing"],
+    correctAnswer: "is washing the car",
+  },
+  {
+    image: Images.ex10,
+    question:
+      'Friend: "Wow, everyone is busy!" Você: "Yes, we..."',
+    options: ["is learning a lot", "are learning a lot", "learning"],
+    correctAnswer: "are learning a lot",
+  },
+];
+
 const LESSON_SLIDES = [
+  {
+    component: Exercise10,
+    activity: {
+      prompt: "Responda as questões",
+      title: "Conversa",
+      userImage: Images.ex16,
+      lockStorageKey: "@a2ic04_exercise10_lock_until",
+      questions: A2IC04_QUESTIONS,
+      successTitle: "Correto",
+      successMessage: "Você acertou todas as 10 respostas da conversa.",
+    },
+  },
   {
     key: "lesson-finish",
     type: "finish",

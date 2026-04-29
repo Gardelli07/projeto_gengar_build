@@ -29,7 +29,7 @@ import ex16, { Exercise16 } from "../../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../../exc/ex17";
 import ex18, { Exercise18 } from "../../../../exc/ex18";
 import Feedback from "../../../../exc/feedback";
-import { BussinesImages, IC, Images } from "../../../../util/images";
+import { A2 } from "../../../../util/images";
 import {
   calculateLessonAccuracy,
   LESSON_STREAK_MIN_ACCURACY,
@@ -66,6 +66,160 @@ const styles = {
 };
 
 const LESSON_SLIDES = [
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip - O Poder do Sufixo",
+      content: [
+        "O /blue{-ING} é o motor da ação. Mas lembre-se: ele interage de forma diferente com cada verbo.",
+        "",
+        "Regra Geral: Apenas adicione. (Play -> /blue{Playing})",
+        'CVC (Dobradinha): Verbos curtos e "explosivos". (Stop -> /blue{Stopping})',
+        'Silent E: O "E" final desaparece. (Write -> /blue{Writing})',
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise17,
+    activity: {
+      label: "TIP: O Desafio dos 5 Segundos",
+      content: [
+        '/blue{A Regra do "E" Invisível}',
+        "",
+        "No nível avançado, a velocidade é essencial, mas a precisão é o que te diferencia. Para transformar verbos em ações (gerúndio), você precisa ficar atento ao final da palavra.",
+        "",
+        'A Regra: Se o verbo termina em "E" (e esse "e" não é pronunciado), você deve jogá-lo fora antes de adicionar o -ING.',
+        "",
+        'Dance -> /blue{Dancing} (O "e" sumiu!)',
+        "",
+        "Prepare-se para o Speed Challenge! Você tem pouco tempo para decidir.",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise11,
+    activity: {
+      prompt: "Escreva rápido",
+      words: ["Dancing", "Coding", "Scaling", "Practicing", "Creating"],
+      secondsPerWord: 8,
+    },
+  },
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip - Formal vs. Informal",
+      content: [
+        "A contração é sua melhor amiga na fala.",
+        "",
+        "Formal: /blue{We are traveling.} (Enfático/Sério)",
+        "Informal: /blue{We're traveling.} (Natural/Fluido)",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise6,
+    activity: {
+      prompt: "Arraste os blocos para descrever o que a Maria está fazendo:",
+      words: ["is", "Maria", "working", "from home", "today."],
+      correctOrder: ["Maria", "is", "working", "from home", "today."],
+      successTitle: "Correto",
+      successMessage: "Maria is working from home today.",
+      feedbackMessage: 'A ordem correta é: "Maria is working from home today."',
+    },
+  },
+  {
+    component: Exercise14,
+    needsSpeech: true,
+    activity: {
+      prompt:
+        "Ouça a frase e escolha a alternativa com o verbo em -ing correto:",
+      image: A2.A2S6,
+      audioText: "They are making dinner.",
+      answerOptions: [
+        "A: They are making dinner.",
+        "B: They are makeng dinner.",
+      ],
+      correctOption: "A: They are making dinner.",
+      successTitle: "Correto",
+      successMessage: 'A forma correta é "making".',
+      feedbackMessage: 'Depois de make, o "e" sai: making.',
+    },
+  },
+  {
+    component: Exercise5,
+    activity: {
+      prompt: "True or False - Lógica",
+      image: A2.A2S7,
+      sentenceStart: 'Na frase "I\'m swiming in the pool",',
+      sentenceEnd: "a escrita do verbo está correta.",
+      options: ["True", "False"],
+      correctAnswer: "False",
+      successTitle: "Correto",
+      successMessage:
+        'False. O correto é "swimming" com dois "m"s, pela regra CVC.',
+      feedbackMessage:
+        'O correto é "swimming" com dois "m"s: swim -> swimming.',
+    },
+  },
+  {
+    component: Exercise2,
+    activity: {
+      prompt: "Fill in the Blanks",
+      paragraphs: [
+        [
+          "Look at the dog! It",
+          {
+            id: "be",
+            answer: "is",
+            options: ["am", "is", "are"],
+          },
+          "chasing a ball. (chase = perseguir)",
+        ],
+      ],
+      successTitle: "Correto",
+      successMessage: 'Com "it", usamos "is": It is chasing a ball.',
+    },
+  },
+  {
+    component: Exercise4,
+    activity: {
+      prompt:
+        'Traduza corretamente para o inglês a frase: "Meus pais estão viajando."',
+      image: A2.A2S9,
+      wrongSentence: 'Dica: lembre-se que "parents" é plural!',
+      options: [
+        "My parents is traveling.",
+        "My parents are traveling.",
+        "My parents am traveling.",
+      ],
+      correctAnswer: "My parents are traveling.",
+      successTitle: "Correto",
+      successMessage: 'Parents é plural, então usamos "are".',
+      feedbackMessage: 'Com plural, use "are": My parents are traveling.',
+    },
+  },
+  {
+    component: Exercise4,
+    activity: {
+      prompt:
+        'Alguém pergunta para você: "Onde está o João?". Escolha a frase que descreve a ação dele neste exato momento:',
+      image: A2.A2S10,
+      wrongSentence: "Onde está o João?",
+      options: [
+        "He works at the office.",
+        "He's working at the office right now.",
+      ],
+      correctAnswer: "He's working at the office right now.",
+      successTitle: "Correto",
+      successMessage:
+        'Para o presente imediato, use Present Continuous: "He\'s working..."',
+      feedbackMessage:
+        'A pergunta pede o agora: "He\'s working at the office right now."',
+    },
+  },
   {
     key: "lesson-finish",
     type: "finish",
@@ -212,6 +366,7 @@ function LessonSlideRenderer({
 
   return (
     <ExerciseComponent
+      key={slide.key || slide.activity?.prompt}
       activity={slide.activity}
       styles={styles}
       HeaderComponent={SlideHeader}

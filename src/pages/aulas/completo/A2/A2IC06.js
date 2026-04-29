@@ -29,7 +29,7 @@ import ex16, { Exercise16 } from "../../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../../exc/ex17";
 import ex18, { Exercise18 } from "../../../../exc/ex18";
 import Feedback from "../../../../exc/feedback";
-import { BussinesImages, IC, Images } from "../../../../util/images";
+import { A2, Images } from "../../../../util/images";
 import {
   calculateLessonAccuracy,
   LESSON_STREAK_MIN_ACCURACY,
@@ -65,7 +65,150 @@ const styles = {
   ...ex18,
 };
 
+const SABRINA_PICNIC_AUDIO =
+  "Hi! I'm Sabrina. I'm sitting in the park right now. It's a beautiful day! My brother, Leo, is running near the lake. My parents are eating sandwiches on the grass. Oh, look! A small dog is chasing a ball. It's so cute! My sister is taking photos of everyone. I'm wearing my green hat and I'm drinking cold juice. My friends are arriving now. We're starting a big picnic!";
+
+const SABRINA_PICNIC_QUESTIONS = [
+  {
+    image: Images.ex10,
+    question: "Onde a Sabrina está agora?",
+    options: ["At home", "In the park", "At the office"],
+    correctAnswer: "In the park",
+  },
+  {
+    image: Images.ex10,
+    question: "O que a Sabrina está fazendo no início?",
+    options: ["She's running", "She's sitting", "She's eating"],
+    correctAnswer: "She's sitting",
+  },
+  {
+    image: Images.ex10,
+    question: "O que o Leo (irmão) está fazendo?",
+    options: ["He's running", "He's swimming", "He's sleeping"],
+    correctAnswer: "He's running",
+  },
+  {
+    image: Images.ex10,
+    question: "Onde o Leo está correndo?",
+    options: ["On the street", "In the kitchen", "Near the lake"],
+    correctAnswer: "Near the lake",
+  },
+  {
+    image: Images.ex10,
+    question: "O que os pais da Sabrina estão fazendo?",
+    options: ["They're eating", "They're dancing", "They're working"],
+    correctAnswer: "They're eating",
+  },
+  {
+    image: Images.ex10,
+    question: "O que o cachorro está fazendo?",
+    options: ["It's sleeping", "It's chasing a ball", "It's eating a sandwich"],
+    correctAnswer: "It's chasing a ball",
+  },
+  {
+    image: Images.ex10,
+    question: "Qual é a ação da irmã da Sabrina?",
+    options: ["She's drinking juice", "She's running", "She's taking photos"],
+    correctAnswer: "She's taking photos",
+  },
+  {
+    image: Images.ex10,
+    question: "O que a Sabrina está vestindo?",
+    options: ["A red shirt", "A green hat", "Blue jeans"],
+    correctAnswer: "A green hat",
+  },
+  {
+    image: Images.ex10,
+    question: "O que a Sabrina está bebendo?",
+    options: ["Hot coffee", "Water", "Cold juice"],
+    correctAnswer: "Cold juice",
+  },
+  {
+    image: Images.ex10,
+    question: "O que vai acontecer agora com os amigos?",
+    options: ["They're leaving", "They're starting a picnic", "They're studying"],
+    correctAnswer: "They're starting a picnic",
+  },
+];
+
 const LESSON_SLIDES = [
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip - O Som da Cena",
+      content: [
+        "Em diálogos reais, as pessoas usam muitas contrações (/blue{I'm}, /blue{He's}, /blue{They're}).",
+        "",
+        "Dica de Ouro: Preste atenção no verbo auxiliar (/blue{am/is/are}) logo após o nome da pessoa. Ele indica quem está agindo.",
+        "",
+        "O Alvo: Foque nas palavras terminadas em /blue{-ING}, elas são as estrelas da ação!",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise14,
+    needsSpeech: true,
+    activity: {
+      prompt: "Áudio Principal: O Piquenique da Sabrina",
+      image: A2.A6S2,
+      audioText: SABRINA_PICNIC_AUDIO,
+      answerOptions: ["Continuar"],
+      correctOption: "Continuar",
+      successTitle: "Áudio ouvido",
+      successMessage: "Agora responda sobre os detalhes do piquenique.",
+      audioRate: 0.82,
+    },
+  },
+  {
+    component: Exercise10,
+    activity: {
+      prompt:
+        "Com base no áudio da Sabrina, escolha a resposta correta para cada detalhe da cena:",
+      title: "Sabrina's Picnic",
+      userImage: Images.ex16,
+      lockStorageKey: "@a2ic06_exercise10_lock_until",
+      questions: SABRINA_PICNIC_QUESTIONS,
+      successTitle: "Correto",
+      successMessage: "Você acertou todas as 10 respostas do áudio.",
+    },
+  },
+  {
+    component: Exercise5,
+    activity: {
+      prompt: "True or False",
+      image: A2.A6S4,
+      sentenceStart: "De acordo com o áudio,",
+      sentenceEnd: "os pais da Sabrina estão comendo pizza.",
+      options: ["True", "False"],
+      correctAnswer: "False",
+      successTitle: "Correto",
+      successMessage:
+        'False. O áudio diz que eles estão comendo "sandwiches".',
+      feedbackMessage:
+        'A comida mencionada foi "sandwiches", não pizza.',
+    },
+  },
+  {
+    component: Exercise6,
+    activity: {
+      prompt: "Monte a frase que descreve a Sabrina no final do áudio:",
+      words: ["juice.", "Sabrina", "drinking", "is", "cold"],
+      correctOrder: ["Sabrina", "is", "drinking", "cold", "juice."],
+      successTitle: "Correto",
+      successMessage: "Sabrina is drinking cold juice.",
+      feedbackMessage: 'A ordem correta é: "Sabrina is drinking cold juice."',
+    },
+  },
+  {
+    component: Exercise11,
+    activity: {
+      prompt:
+        "O áudio usou estes 5 verbos. Digite-os corretamente com o final -ING!",
+      words: ["Sitting", "Running", "Eating", "Taking", "Arriving"],
+      secondsPerWord: 5,
+    },
+  },
   {
     key: "lesson-finish",
     type: "finish",

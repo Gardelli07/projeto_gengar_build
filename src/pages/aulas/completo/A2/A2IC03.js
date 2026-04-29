@@ -29,7 +29,7 @@ import ex16, { Exercise16 } from "../../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../../exc/ex17";
 import ex18, { Exercise18 } from "../../../../exc/ex18";
 import Feedback from "../../../../exc/feedback";
-import { BussinesImages, IC, Images } from "../../../../util/images";
+import { A2 } from "../../../../util/images";
 import {
   calculateLessonAccuracy,
   LESSON_STREAK_MIN_ACCURACY,
@@ -66,6 +66,72 @@ const styles = {
 };
 
 const LESSON_SLIDES = [
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip - O Segredo da Ortografia",
+      content: [
+        "No nível A2, a precisão é tudo. Para o /blue{-ING} funcionar, olhe para o final do verbo:",
+        "",
+        "Regra 1: Termina em E? Ele desaparece! (Make -> /blue{Making})",
+        "Regra 2: Verbo curto CVC (Consoante-Vogal-Consoante)? Dobra a última letra! (Run -> /blue{Running})",
+        "Regra 3: O resto? Só adiciona o -ing.",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise5,
+    activity: {
+      prompt: "True or False",
+      image: A2.A3S2,
+      sentenceStart: 'Na frase "We are swiming in the pool",',
+      sentenceEnd: "o verbo está escrito corretamente.",
+      options: ["True", "False"],
+      correctAnswer: "False",
+      successTitle: "Correto",
+      successMessage: 'False. O correto é "swimming", com dois "m"s.',
+      feedbackMessage:
+        'O correto é "swimming", com dois "m"s: swim -> swimming.',
+    },
+  },
+  {
+    component: Exercise6,
+    activity: {
+      prompt: "Arraste os blocos para formar a frase correta:",
+      words: ["is", "working", "John", "at", "the office", "today."],
+      correctOrder: ["John", "is", "working", "at", "the office", "today."],
+      successTitle: "Correto",
+      successMessage: "John is working at the office today.",
+      feedbackMessage:
+        'A ordem correta é: "John is working at the office today."',
+    },
+  },
+  {
+    component: Exercise4,
+    activity: {
+      prompt:
+        'Alguém te pergunta: "Can you help me now?" Escolha a resposta mais natural para o que está acontecendo neste exato momento:',
+      image: A2.A3S4,
+      wrongSentence: "Can you help me now?",
+      options: ["I study English.", "I'm studying English right now, sorry!"],
+      correctAnswer: "I'm studying English right now, sorry!",
+      successTitle: "Correto",
+      successMessage:
+        'Para falar do agora, use: "I\'m studying English right now, sorry!"',
+      feedbackMessage:
+        'A pergunta pede o presente imediato: "I\'m studying English right now, sorry!"',
+    },
+  },
+  {
+    component: Exercise11,
+    activity: {
+      prompt:
+        "Transforme os 5 verbos abaixo para o Present Continuous (ING). Cuidado com a escrita!",
+      words: ["Stopping", "Writing", "Listening", "Getting", "Baking"],
+      secondsPerWord: 8,
+    },
+  },
   {
     key: "lesson-finish",
     type: "finish",

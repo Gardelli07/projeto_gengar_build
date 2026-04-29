@@ -40,12 +40,36 @@ export const inglesModuleDefs = [
 ];
 
 export const inglesSampleLessons = [
-  { module: 0, id: "1", title: "A2IC01", type: "Aula", screen: "A2IC01" },
-  { module: 0, id: "2", title: "A2IC02", type: "Aula", screen: "A2IC02" },
-  { module: 0, id: "3", title: "A2IC03", type: "Aula", screen: "A2IC03" },
-  { module: 0, id: "4", title: "A2IC04", type: "Aula", screen: "A2IC04" },
-  { module: 0, id: "5", title: "A2IC05", type: "Aula", screen: "A2IC05" },
-  { module: 0, id: "6", title: "A2IC06", type: "Aula", screen: "A2IC06" },
+  { module: 0, id: "1", title: "I am working", type: "Aula", screen: "A2IC01" },
+  {
+    module: 0,
+    id: "2",
+    title: "Part 2",
+    type: "Aula",
+    screen: "A2IC02",
+  },
+  {
+    module: 0,
+    id: "3",
+    title: "Making phrases",
+    type: "Aula",
+    screen: "A2IC03",
+  },
+  { module: 0, id: "4", title: "Challenge", type: "Aula", screen: "A2IC04" },
+  {
+    module: 0,
+    id: "5",
+    title: "Sabrina's Blog",
+    type: "Aula",
+    screen: "A2IC05",
+  },
+  {
+    module: 0,
+    id: "6",
+    title: "Sabrina's Picnic",
+    type: "Aula",
+    screen: "A2IC06",
+  },
   { module: 0, id: "7", title: "A2IC07", type: "Aula", screen: "A2IC07" },
   { module: 0, id: "8", title: "A2IC08", type: "Aula", screen: "A2IC08" },
   { module: 0, id: "9", title: "A2IC09", type: "Aula", screen: "A2IC09" },

@@ -29,7 +29,7 @@ import ex16, { Exercise16 } from "../../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../../exc/ex17";
 import ex18, { Exercise18 } from "../../../../exc/ex18";
 import Feedback from "../../../../exc/feedback";
-import { BussinesImages, IC, Images } from "../../../../util/images";
+import { A2, Images } from "../../../../util/images";
 import {
   calculateLessonAccuracy,
   LESSON_STREAK_MIN_ACCURACY,
@@ -66,6 +66,150 @@ const styles = {
 };
 
 const LESSON_SLIDES = [
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip - O Sufixo do Movimento",
+      content: [
+        'Para transformar um verbo estático em uma ação viva, usamos o /blue{-ING}. É o nosso "ando", "endo", "indo".',
+        "",
+        "Work (trabalhar) -> /blue{Working} (trabalhando)",
+        "Study (estudar) -> /blue{Studying} (estudando)",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip - A Dança do 'E'",
+      content: [
+        'Verbos que terminam em /blue{E} são charmosos, mas o "E" precisa sair para o /blue{-ING} entrar.',
+        "",
+        "Dance -> /blue{Dancing}",
+        "Write -> /blue{Writing}",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip - O Peso da Consoante",
+      content: [
+        "Verbos curtos que terminam em /blue{CVC} (Consoante + Vogal + Consoante) ganham um reforço: dobramos a última letra.",
+        "",
+        "Vogais: A, E, I, O, U",
+        "Run -> /blue{Running}",
+        "Swim -> /blue{Swimming}",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip - A Bateria da Frase",
+      content: [
+        "Uma ação não anda sozinha. Você precisa do verbo /blue{BE} (am, is, are) para ligar o motor.",
+        "",
+        "Informal (dia a dia): /blue{I'm working.}",
+        "Formal (escrita): /blue{I am working.}",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise14,
+    needsSpeech: true,
+    activity: {
+      prompt: "Ouça a frase e preencha o que falta:\nThey ____ swimming.",
+      image: A2.A1S5,
+      audioText: "They are swimming.",
+      answerOptions: ["are", "is", "am"],
+      correctOption: "are",
+      successTitle: "Correto",
+      successMessage: 'A estrutura correta é "They are swimming."',
+      feedbackMessage: 'Use "are" com "they": "They are swimming."',
+    },
+  },
+  {
+    component: Exercise6,
+    activity: {
+      prompt: "Coloque as peças no lugar para formar a ação:",
+      words: ["is", "My", "writing", "father", "a book."],
+      correctOrder: ["My", "father", "is", "writing", "a book."],
+      successTitle: "Correto",
+      successMessage: 'A frase correta é "My father is writing a book."',
+      feedbackMessage:
+        'A ordem é sujeito + verbo BE + verbo com -ING: "My father is writing a book."',
+    },
+  },
+  {
+    component: Exercise5,
+    activity: {
+      prompt: "Verdadeiro ou falso?",
+      image: A2.A1S7,
+      sentenceStart: "I am eating",
+      sentenceEnd: "significa que a pessoa sempre come nesse horário.",
+      options: ["True", "False"],
+      correctAnswer: "False",
+      successTitle: "Correto",
+      successMessage:
+        'False. "I am eating" significa que a ação está acontecendo agora.',
+      feedbackMessage:
+        'Present Continuous fala do presente imediato: "I am eating" é agora.',
+    },
+  },
+  {
+    component: Exercise3,
+    needsSpeech: true,
+    activity: {
+      prompt: "Onde a ação está acontecendo?",
+      image: A2.A1S8,
+      audioText: "She is dancing in the kitchen.",
+      dialogue: "She is dancing in the ______.",
+      options: ["Bedroom", "Kitchen"],
+      correctAnswer: "Kitchen",
+      successTitle: "Correto",
+      successMessage: 'Kitchen quer dizer "cozinha".',
+      feedbackMessage: 'A frase diz "in the kitchen": na cozinha.',
+    },
+  },
+  {
+    component: Exercise14,
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e complete",
+      image: A2.A1S9,
+      audioText: "Hey! What are you doing?",
+      answerOptions: [
+        "I study with Lingueto.",
+        "I'm studying with Lingueto right now!",
+      ],
+      correctOption: "I'm studying with Lingueto right now!",
+      successTitle: "Conexão perfeita",
+      successMessage:
+        'Quando alguém pergunta "What are you doing?", responda sobre o presente imediato com -ING.',
+      feedbackMessage:
+        'Use Present Continuous para o agora: "I\'m studying with Lingueto right now!"',
+    },
+  },
+  {
+    component: Exercise16,
+    activity: {
+      prompt: "Não deixe a ação parar!",
+      instruction: "Grave sua voz descrevendo o seu momento para o Lingueto.",
+      helperText: "I am studying English.",
+      image: Images.ex16,
+      tipButtonLabel: "Tip",
+      tipText: 'Sinta a vibração do "-ing" no final de "studying".',
+      recordLabel: "Gravar",
+      stopLabel: "Parar",
+      successTitle: "Muito bem",
+      successMessage: 'Você praticou: "I am studying English."',
+    },
+  },
   {
     key: "lesson-finish",
     type: "finish",

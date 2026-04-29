@@ -29,7 +29,7 @@ import ex16, { Exercise16 } from "../../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../../exc/ex17";
 import ex18, { Exercise18 } from "../../../../exc/ex18";
 import Feedback from "../../../../exc/feedback";
-import { BussinesImages, IC, Images } from "../../../../util/images";
+import { A2, Images } from "../../../../util/images";
 import {
   calculateLessonAccuracy,
   LESSON_STREAK_MIN_ACCURACY,
@@ -65,7 +65,147 @@ const styles = {
   ...ex18,
 };
 
+const SABRINA_BLOG_TEXT =
+  "Hello, everyone! This is my life right now. I'm sitting in my home office. I'm drinking a delicious hot coffee in my favorite mug. Outside, the sun is shining, but I'm working hard on my new project. My cat, Luna, is sleeping on the rug near my feet. Leo is in the kitchen; he's making a chocolate cake for us! My parents are staying at a hotel near the beach this week. They're relaxing and walking on the sand. I'm wearing my comfortable blue sweater because the AC is on. I'm feeling very happy and productive today!";
+
+const SABRINA_BLOG_QUESTIONS = [
+  {
+    image: Images.ex10,
+    question: "Onde a Sabrina está trabalhando?",
+    options: ["In the kitchen", "In her home office", "At a hotel"],
+    correctAnswer: "In her home office",
+  },
+  {
+    image: Images.ex10,
+    question: "O que ela está bebendo?",
+    options: ["Cold juice", "Water", "Hot coffee"],
+    correctAnswer: "Hot coffee",
+  },
+  {
+    image: Images.ex10,
+    question: "O que o sol está fazendo lá fora?",
+    options: ["It's shining", "It's raining", "It's hiding"],
+    correctAnswer: "It's shining",
+  },
+  {
+    image: Images.ex10,
+    question: "Onde a gata Luna está dormindo?",
+    options: ["On the sofa", "On the rug", "On the table"],
+    correctAnswer: "On the rug",
+  },
+  {
+    image: Images.ex10,
+    question: "O que o Leo está fazendo na cozinha?",
+    options: ["He's making coffee", "He's making a cake", "He's washing dishes"],
+    correctAnswer: "He's making a cake",
+  },
+  {
+    image: Images.ex10,
+    question: "Onde os pais da Sabrina estão passando a semana?",
+    options: ["In her house", "In the park", "At a hotel"],
+    correctAnswer: "At a hotel",
+  },
+  {
+    image: Images.ex10,
+    question: "O que os pais dela estão fazendo na praia?",
+    options: ["Relaxing and walking", "Swimming and running", "Working"],
+    correctAnswer: "Relaxing and walking",
+  },
+  {
+    image: Images.ex10,
+    question: "Por que a Sabrina está usando um casaco (sweater)?",
+    options: ["Because it's raining", "Because the AC is on", "Because she's outside"],
+    correctAnswer: "Because the AC is on",
+  },
+  {
+    image: Images.ex10,
+    question: "Qual é a cor do casaco da Sabrina?",
+    options: ["Green", "Red", "Blue"],
+    correctAnswer: "Blue",
+  },
+  {
+    image: Images.ex10,
+    question: "Como a Sabrina está se sentindo hoje?",
+    options: ["Tired", "Happy and productive", "Sad"],
+    correctAnswer: "Happy and productive",
+  },
+];
+
 const LESSON_SLIDES = [
+  {
+    component: Exercise17,
+    activity: {
+      label: "Tip - Escaneando a Ação",
+      content: [
+        'Ao ler um texto no Present Continuous, procure primeiro pelos "verbos de ajuda" (/blue{am, is, are}). Eles são os faróis que apontam para a ação!',
+        "",
+        'Dica A2: Palavras como /blue{"Right now"}, /blue{"At the moment"} e /blue{"Look!"} confirmam que a cena está acontecendo no exato segundo da leitura.',
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    component: Exercise14,
+    needsSpeech: true,
+    activity: {
+      prompt: SABRINA_BLOG_TEXT,
+      image: A2.A5S2,
+      audioText: SABRINA_BLOG_TEXT,
+      answerOptions: ["Continuar"],
+      correctOption: "Continuar",
+      successTitle: "Texto lido",
+      successMessage: "Agora responda sobre os detalhes do blog da Sabrina.",
+      audioRate: 0.82,
+    },
+  },
+  {
+    component: Exercise10,
+    activity: {
+      prompt: "Com base no texto da Sabrina, escolha a opção correta:",
+      title: "Sabrina's Blog",
+      userImage: Images.ex16,
+      lockStorageKey: "@a2ic05_exercise10_lock_until",
+      questions: SABRINA_BLOG_QUESTIONS,
+      successTitle: "Correto",
+      successMessage: "Você acertou todas as 10 respostas do texto.",
+    },
+  },
+  {
+    component: Exercise5,
+    activity: {
+      prompt: "True or False",
+      image: A2.A5S4,
+      sentenceStart: "Segundo o texto, a Sabrina",
+      sentenceEnd: "está de férias na praia com os pais dela.",
+      options: ["True", "False"],
+      correctAnswer: "False",
+      successTitle: "Correto",
+      successMessage:
+        "False. Ela está trabalhando no escritório; os pais estão na praia.",
+      feedbackMessage:
+        "Ela está no home office. Os pais dela estão perto da praia.",
+    },
+  },
+  {
+    component: Exercise6,
+    activity: {
+      prompt: "Monte a frase que descreve o que o Leo está fazendo:",
+      words: ["is", "making", "Leo", "cake.", "a", "chocolate"],
+      correctOrder: ["Leo", "is", "making", "a", "chocolate", "cake."],
+      successTitle: "Correto",
+      successMessage: "Leo is making a chocolate cake.",
+      feedbackMessage: 'A ordem correta é: "Leo is making a chocolate cake."',
+    },
+  },
+  {
+    component: Exercise11,
+    activity: {
+      prompt:
+        "O texto usou estes 5 verbos de ação. Digite-os corretamente com o final -ING!",
+      words: ["Shining", "Sitting", "Making", "Feeling", "Staying"],
+      secondsPerWord: 5,
+    },
+  },
   {
     key: "lesson-finish",
     type: "finish",
