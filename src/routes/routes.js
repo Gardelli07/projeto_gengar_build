@@ -12,6 +12,7 @@ import TabsNavigator from "./TabsNavigator";
 import SplashScreen from "../pages/SplashScreen";
 import InglesCompletoHome from "../pages/aulas/completo/A0-A1";
 import InglesCompletoA2Home from "../pages/aulas/completo/A2";
+import InglesCompletoB1Home from "../pages/aulas/completo/B1";
 import BussinesHome from "../pages/aulas/bussines";
 
 // Business
@@ -108,6 +109,46 @@ import A2IC37 from "../pages/aulas/completo/A2/A2IC37";
 import A2IC38 from "../pages/aulas/completo/A2/A2IC38";
 import A2IC39 from "../pages/aulas/completo/A2/A2IC39";
 import A2IC40 from "../pages/aulas/completo/A2/A2IC40";
+import B1IC01 from "../pages/aulas/completo/B1/B1IC01";
+import B1IC02 from "../pages/aulas/completo/B1/B1IC02";
+import B1IC03 from "../pages/aulas/completo/B1/B1IC03";
+import B1IC04 from "../pages/aulas/completo/B1/B1IC04";
+import B1IC05 from "../pages/aulas/completo/B1/B1IC05";
+import B1IC06 from "../pages/aulas/completo/B1/B1IC06";
+import B1IC07 from "../pages/aulas/completo/B1/B1IC07";
+import B1IC08 from "../pages/aulas/completo/B1/B1IC08";
+import B1IC09 from "../pages/aulas/completo/B1/B1IC09";
+import B1IC10 from "../pages/aulas/completo/B1/B1IC10";
+import B1IC11 from "../pages/aulas/completo/B1/B1IC11";
+import B1IC12 from "../pages/aulas/completo/B1/B1IC12";
+import B1IC13 from "../pages/aulas/completo/B1/B1IC13";
+import B1IC14 from "../pages/aulas/completo/B1/B1IC14";
+import B1IC15 from "../pages/aulas/completo/B1/B1IC15";
+import B1IC16 from "../pages/aulas/completo/B1/B1IC16";
+import B1IC17 from "../pages/aulas/completo/B1/B1IC17";
+import B1IC18 from "../pages/aulas/completo/B1/B1IC18";
+import B1IC19 from "../pages/aulas/completo/B1/B1IC19";
+import B1IC20 from "../pages/aulas/completo/B1/B1IC20";
+import B1IC21 from "../pages/aulas/completo/B1/B1IC21";
+import B1IC22 from "../pages/aulas/completo/B1/B1IC22";
+import B1IC23 from "../pages/aulas/completo/B1/B1IC23";
+import B1IC24 from "../pages/aulas/completo/B1/B1IC24";
+import B1IC25 from "../pages/aulas/completo/B1/B1IC25";
+import B1IC26 from "../pages/aulas/completo/B1/B1IC26";
+import B1IC27 from "../pages/aulas/completo/B1/B1IC27";
+import B1IC28 from "../pages/aulas/completo/B1/B1IC28";
+import B1IC29 from "../pages/aulas/completo/B1/B1IC29";
+import B1IC30 from "../pages/aulas/completo/B1/B1IC30";
+import B1IC31 from "../pages/aulas/completo/B1/B1IC31";
+import B1IC32 from "../pages/aulas/completo/B1/B1IC32";
+import B1IC33 from "../pages/aulas/completo/B1/B1IC33";
+import B1IC34 from "../pages/aulas/completo/B1/B1IC34";
+import B1IC35 from "../pages/aulas/completo/B1/B1IC35";
+import B1IC36 from "../pages/aulas/completo/B1/B1IC36";
+import B1IC37 from "../pages/aulas/completo/B1/B1IC37";
+import B1IC38 from "../pages/aulas/completo/B1/B1IC38";
+import B1IC39 from "../pages/aulas/completo/B1/B1IC39";
+import B1IC40 from "../pages/aulas/completo/B1/B1IC40";
 
 // Santander
 import HomeSantander from "../pages/santander";
@@ -254,6 +295,68 @@ export default function Routes() {
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="InglescompletoB1"
+          component={InglesCompletoB1Home}
+          options={{
+            title: "Inglês Completo B1",
+            ...defaultHeader,
+            headerShown: false,
+          }}
+        />
+        {[
+          B1IC01,
+          B1IC02,
+          B1IC03,
+          B1IC04,
+          B1IC05,
+          B1IC06,
+          B1IC07,
+          B1IC08,
+          B1IC09,
+          B1IC10,
+          B1IC11,
+          B1IC12,
+          B1IC13,
+          B1IC14,
+          B1IC15,
+          B1IC16,
+          B1IC17,
+          B1IC18,
+          B1IC19,
+          B1IC20,
+          B1IC21,
+          B1IC22,
+          B1IC23,
+          B1IC24,
+          B1IC25,
+          B1IC26,
+          B1IC27,
+          B1IC28,
+          B1IC29,
+          B1IC30,
+          B1IC31,
+          B1IC32,
+          B1IC33,
+          B1IC34,
+          B1IC35,
+          B1IC36,
+          B1IC37,
+          B1IC38,
+          B1IC39,
+          B1IC40,
+        ].map((Screen, index) => {
+          const screenNumber = String(index + 1).padStart(2, "0");
+
+          return (
+            <Stack.Screen
+              key={`B1IC${screenNumber}`}
+              name={`B1IC${screenNumber}`}
+              component={Screen}
+              options={{ headerShown: false }}
+            />
+          );
+        })}
         {[
           A2IC01,
           A2IC02,

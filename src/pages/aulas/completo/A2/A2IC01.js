@@ -29,7 +29,7 @@ import ex16, { Exercise16 } from "../../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../../exc/ex17";
 import ex18, { Exercise18 } from "../../../../exc/ex18";
 import Feedback from "../../../../exc/feedback";
-import { A2, Images } from "../../../../util/images";
+import { ICA2, Images } from "../../../../util/images";
 import {
   calculateLessonAccuracy,
   LESSON_STREAK_MIN_ACCURACY,
@@ -124,7 +124,7 @@ const LESSON_SLIDES = [
     needsSpeech: true,
     activity: {
       prompt: "Ouça a frase e preencha o que falta:\nThey ____ swimming.",
-      image: A2.A1S5,
+      image: ICA2.A1S5,
       audioText: "They are swimming.",
       answerOptions: ["are", "is", "am"],
       correctOption: "are",
@@ -149,7 +149,7 @@ const LESSON_SLIDES = [
     component: Exercise5,
     activity: {
       prompt: "Verdadeiro ou falso?",
-      image: A2.A1S7,
+      image: ICA2.A1S7,
       sentenceStart: "I am eating",
       sentenceEnd: "significa que a pessoa sempre come nesse horário.",
       options: ["True", "False"],
@@ -166,7 +166,7 @@ const LESSON_SLIDES = [
     needsSpeech: true,
     activity: {
       prompt: "Onde a ação está acontecendo?",
-      image: A2.A1S8,
+      image: ICA2.A1S8,
       audioText: "She is dancing in the kitchen.",
       dialogue: "She is dancing in the ______.",
       options: ["Bedroom", "Kitchen"],
@@ -181,7 +181,7 @@ const LESSON_SLIDES = [
     needsSpeech: true,
     activity: {
       prompt: "Escute e complete",
-      image: A2.A1S9,
+      image: ICA2.A1S9,
       audioText: "Hey! What are you doing?",
       answerOptions: [
         "I study with Lingueto.",

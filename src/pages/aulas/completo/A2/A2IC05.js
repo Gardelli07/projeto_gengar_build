@@ -29,7 +29,7 @@ import ex16, { Exercise16 } from "../../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../../exc/ex17";
 import ex18, { Exercise18 } from "../../../../exc/ex18";
 import Feedback from "../../../../exc/feedback";
-import { A2, Images } from "../../../../util/images";
+import { ICA2, Images } from "../../../../util/images";
 import {
   calculateLessonAccuracy,
   LESSON_STREAK_MIN_ACCURACY,
@@ -96,7 +96,11 @@ const SABRINA_BLOG_QUESTIONS = [
   {
     image: Images.ex10,
     question: "O que o Leo está fazendo na cozinha?",
-    options: ["He's making coffee", "He's making a cake", "He's washing dishes"],
+    options: [
+      "He's making coffee",
+      "He's making a cake",
+      "He's washing dishes",
+    ],
     correctAnswer: "He's making a cake",
   },
   {
@@ -114,7 +118,11 @@ const SABRINA_BLOG_QUESTIONS = [
   {
     image: Images.ex10,
     question: "Por que a Sabrina está usando um casaco (sweater)?",
-    options: ["Because it's raining", "Because the AC is on", "Because she's outside"],
+    options: [
+      "Because it's raining",
+      "Because the AC is on",
+      "Because she's outside",
+    ],
     correctAnswer: "Because the AC is on",
   },
   {
@@ -149,7 +157,7 @@ const LESSON_SLIDES = [
     needsSpeech: true,
     activity: {
       prompt: SABRINA_BLOG_TEXT,
-      image: A2.A5S2,
+      image: ICA2.A5S2,
       audioText: SABRINA_BLOG_TEXT,
       answerOptions: ["Continuar"],
       correctOption: "Continuar",
@@ -174,7 +182,7 @@ const LESSON_SLIDES = [
     component: Exercise5,
     activity: {
       prompt: "True or False",
-      image: A2.A5S4,
+      image: ICA2.A5S4,
       sentenceStart: "Segundo o texto, a Sabrina",
       sentenceEnd: "está de férias na praia com os pais dela.",
       options: ["True", "False"],

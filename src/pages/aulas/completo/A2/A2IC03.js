@@ -29,7 +29,7 @@ import ex16, { Exercise16 } from "../../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../../exc/ex17";
 import ex18, { Exercise18 } from "../../../../exc/ex18";
 import Feedback from "../../../../exc/feedback";
-import { A2 } from "../../../../util/images";
+import { ICA2 } from "../../../../util/images";
 import {
   calculateLessonAccuracy,
   LESSON_STREAK_MIN_ACCURACY,
@@ -84,7 +84,7 @@ const LESSON_SLIDES = [
     component: Exercise5,
     activity: {
       prompt: "True or False",
-      image: A2.A3S2,
+      image: ICA2.A3S2,
       sentenceStart: 'Na frase "We are swiming in the pool",',
       sentenceEnd: "o verbo está escrito corretamente.",
       options: ["True", "False"],
@@ -112,7 +112,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         'Alguém te pergunta: "Can you help me now?" Escolha a resposta mais natural para o que está acontecendo neste exato momento:',
-      image: A2.A3S4,
+      image: ICA2.A3S4,
       wrongSentence: "Can you help me now?",
       options: ["I study English.", "I'm studying English right now, sorry!"],
       correctAnswer: "I'm studying English right now, sorry!",

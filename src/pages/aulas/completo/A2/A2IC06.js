@@ -29,7 +29,7 @@ import ex16, { Exercise16 } from "../../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../../exc/ex17";
 import ex18, { Exercise18 } from "../../../../exc/ex18";
 import Feedback from "../../../../exc/feedback";
-import { A2, Images } from "../../../../util/images";
+import { ICA2, Images } from "../../../../util/images";
 import {
   calculateLessonAccuracy,
   LESSON_STREAK_MIN_ACCURACY,
@@ -126,7 +126,11 @@ const SABRINA_PICNIC_QUESTIONS = [
   {
     image: Images.ex10,
     question: "O que vai acontecer agora com os amigos?",
-    options: ["They're leaving", "They're starting a picnic", "They're studying"],
+    options: [
+      "They're leaving",
+      "They're starting a picnic",
+      "They're studying",
+    ],
     correctAnswer: "They're starting a picnic",
   },
 ];
@@ -151,7 +155,7 @@ const LESSON_SLIDES = [
     needsSpeech: true,
     activity: {
       prompt: "Áudio Principal: O Piquenique da Sabrina",
-      image: A2.A6S2,
+      image: ICA2.A6S2,
       audioText: SABRINA_PICNIC_AUDIO,
       answerOptions: ["Continuar"],
       correctOption: "Continuar",
@@ -177,16 +181,14 @@ const LESSON_SLIDES = [
     component: Exercise5,
     activity: {
       prompt: "True or False",
-      image: A2.A6S4,
+      image: ICA2.A6S4,
       sentenceStart: "De acordo com o áudio,",
       sentenceEnd: "os pais da Sabrina estão comendo pizza.",
       options: ["True", "False"],
       correctAnswer: "False",
       successTitle: "Correto",
-      successMessage:
-        'False. O áudio diz que eles estão comendo "sandwiches".',
-      feedbackMessage:
-        'A comida mencionada foi "sandwiches", não pizza.',
+      successMessage: 'False. O áudio diz que eles estão comendo "sandwiches".',
+      feedbackMessage: 'A comida mencionada foi "sandwiches", não pizza.',
     },
   },
   {

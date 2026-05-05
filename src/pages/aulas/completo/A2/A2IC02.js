@@ -29,7 +29,7 @@ import ex16, { Exercise16 } from "../../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../../exc/ex17";
 import ex18, { Exercise18 } from "../../../../exc/ex18";
 import Feedback from "../../../../exc/feedback";
-import { A2 } from "../../../../util/images";
+import { ICA2 } from "../../../../util/images";
 import {
   calculateLessonAccuracy,
   LESSON_STREAK_MIN_ACCURACY,
@@ -136,7 +136,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "Ouça a frase e escolha a alternativa com o verbo em -ing correto:",
-      image: A2.A2S6,
+      image: ICA2.A2S6,
       audioText: "They are making dinner.",
       answerOptions: [
         "A: They are making dinner.",
@@ -152,7 +152,7 @@ const LESSON_SLIDES = [
     component: Exercise5,
     activity: {
       prompt: "True or False - Lógica",
-      image: A2.A2S7,
+      image: ICA2.A2S7,
       sentenceStart: 'Na frase "I\'m swiming in the pool",',
       sentenceEnd: "a escrita do verbo está correta.",
       options: ["True", "False"],
@@ -188,7 +188,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         'Traduza corretamente para o inglês a frase: "Meus pais estão viajando."',
-      image: A2.A2S9,
+      image: ICA2.A2S9,
       wrongSentence: 'Dica: lembre-se que "parents" é plural!',
       options: [
         "My parents is traveling.",
@@ -206,7 +206,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         'Alguém pergunta para você: "Onde está o João?". Escolha a frase que descreve a ação dele neste exato momento:',
-      image: A2.A2S10,
+      image: ICA2.A2S10,
       wrongSentence: "Onde está o João?",
       options: [
         "He works at the office.",

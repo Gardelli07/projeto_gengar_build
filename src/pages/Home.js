@@ -31,6 +31,11 @@ import {
   inglesModuleDefs as inglesA2ModuleDefs,
   inglesSampleLessons as inglesA2SampleLessons,
 } from "./aulas/completo/A2";
+import {
+  INGLES_COMPLETO_STORAGE_KEY as INGLES_COMPLETO_B1_STORAGE_KEY,
+  inglesModuleDefs as inglesB1ModuleDefs,
+  inglesSampleLessons as inglesB1SampleLessons,
+} from "./aulas/completo/B1";
 
 const KAIQUE_PHOTO = require("../../assets/Foto kaique.jpeg");
 
@@ -65,12 +70,12 @@ const LEVEL_CONFIG = {
     available: true,
   },
   Intermediate: {
-    folder: "B1-B2",
-    routeName: null,
-    storageKey: "@progesso_ingles_completo_B1-B2",
-    moduleDefs: [],
-    lessons: [],
-    available: false,
+    folder: "B1",
+    routeName: "InglescompletoB1",
+    storageKey: INGLES_COMPLETO_B1_STORAGE_KEY,
+    moduleDefs: inglesB1ModuleDefs,
+    lessons: inglesB1SampleLessons,
+    available: true,
   },
   Advanced: {
     folder: "C1-C2",
@@ -95,7 +100,7 @@ const COURSE_CONFIG = {
 };
 
 const COURSE_LEVEL_AVAILABILITY = {
-  "Ingles Completo": ["Starter", "Elementary"],
+  "Ingles Completo": ["Starter", "Elementary", "Intermediate"],
   "Bussines English": ["Starter"],
 };
 
@@ -168,6 +173,7 @@ export default function Inglescompleto({ navigation, route }) {
     () => [
       ...inglesSampleLessons,
       ...inglesA2SampleLessons,
+      ...inglesB1SampleLessons,
       ...bussinesSampleLessons,
     ],
     [],
@@ -299,6 +305,7 @@ export default function Inglescompleto({ navigation, route }) {
             await Promise.all([
               AsyncStorage.removeItem(INGLES_COMPLETO_STORAGE_KEY),
               AsyncStorage.removeItem(INGLES_COMPLETO_A2_STORAGE_KEY),
+              AsyncStorage.removeItem(INGLES_COMPLETO_B1_STORAGE_KEY),
               AsyncStorage.removeItem(BUSSINES_STORAGE_KEY),
               AsyncStorage.removeItem(LESSON_STREAK_STORAGE_KEY),
             ]);

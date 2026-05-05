@@ -1,0 +1,142 @@
+import React from "react";
+import CourseOverviewScreen from "../../CourseOverviewScreen";
+
+export const INGLES_COMPLETO_STORAGE_KEY = "@progesso_ingles_completo_B1";
+export const INGLES_COMPLETO_COURSE_NAME = "Inglês Completo";
+
+export const inglesModuleDefs = [
+  {
+    id: 0,
+    name: "Presente Perfect",
+    subtitle: "Aulas B1IC01 ate B1IC05",
+    locked: false,
+    accent: "#6C63FF",
+    icon: "check",
+  },
+  {
+    id: 1,
+    name: "Work & Modern Careers",
+    subtitle: "Aulas B1IC06 ate B1IC10",
+    locked: false,
+    accent: "#6C63FF",
+    icon: "check",
+  },
+  {
+    id: 2,
+    name: "Hypothetical Situations",
+    subtitle: "Aulas B1IC11 ate B1IC14",
+    locked: false,
+    accent: "#6C63FF",
+    icon: "check",
+  },
+  {
+    id: 3,
+    name: "Socializing & Small Talk",
+    subtitle: "Aulas B1IC15 ate B1IC20",
+    locked: false,
+    accent: "#6C63FF",
+    icon: "check",
+  },
+  {
+    id: 4,
+    name: "Rules, Permissions & Obligations",
+    subtitle: "Aulas B1IC21 ate B1IC24",
+    locked: false,
+    accent: "#6C63FF",
+    icon: "check",
+  },
+  {
+    id: 5,
+    name: "Narrative Tenses (Mastering Stories)",
+    subtitle: "Aulas B1IC25 ate B1IC28",
+    locked: false,
+    accent: "#6C63FF",
+    icon: "check",
+  },
+  {
+    id: 6,
+    name: "The Passive Voice (Focus on Information)",
+    subtitle: "Aulas B1IC29 ate B1IC31",
+    locked: false,
+    accent: "#6C63FF",
+    icon: "check",
+  },
+  {
+    id: 7,
+    name: "Advanced Phrasal Verbs & Idioms",
+    subtitle: "Aulas B1IC32 ate B1IC35",
+    locked: false,
+    accent: "#6C63FF",
+    icon: "check",
+  },
+  {
+    id: 8,
+    name: "Speculating About the Past (Modal Verbs 4)",
+    subtitle: "Aulas B1IC36 ate B1IC38",
+    locked: false,
+    accent: "#6C63FF",
+    icon: "check",
+  },
+  {
+    id: 9,
+    name: "Expressing Complex Opinions (Debates)",
+    subtitle: "Aula B1IC39",
+    locked: false,
+    accent: "#6C63FF",
+    icon: "check",
+  },
+];
+
+export const inglesSampleLessons = [
+  { module: 0, id: "1", title: "B1IC01", type: "Aula", screen: "B1IC01" },
+  { module: 0, id: "2", title: "B1IC02", type: "Aula", screen: "B1IC02" },
+  { module: 0, id: "3", title: "B1IC03", type: "Aula", screen: "B1IC03" },
+  { module: 0, id: "4", title: "B1IC04", type: "Aula", screen: "B1IC04" },
+  { module: 0, id: "5", title: "B1IC05", type: "Aula", screen: "B1IC05" },
+  { module: 1, id: "6", title: "B1IC06", type: "Aula", screen: "B1IC06" },
+  { module: 1, id: "7", title: "B1IC07", type: "Aula", screen: "B1IC07" },
+  { module: 1, id: "8", title: "B1IC08", type: "Aula", screen: "B1IC08" },
+  { module: 1, id: "9", title: "B1IC09", type: "Aula", screen: "B1IC09" },
+  { module: 1, id: "10", title: "B1IC10", type: "Aula", screen: "B1IC10" },
+  { module: 2, id: "11", title: "B1IC11", type: "Aula", screen: "B1IC11" },
+  { module: 2, id: "12", title: "B1IC12", type: "Aula", screen: "B1IC12" },
+  { module: 2, id: "13", title: "B1IC13", type: "Aula", screen: "B1IC13" },
+  { module: 2, id: "14", title: "B1IC14", type: "Aula", screen: "B1IC14" },
+  { module: 3, id: "15", title: "B1IC15", type: "Aula", screen: "B1IC15" },
+  { module: 3, id: "16", title: "B1IC16", type: "Aula", screen: "B1IC16" },
+  { module: 3, id: "17", title: "B1IC17", type: "Aula", screen: "B1IC17" },
+  { module: 3, id: "18", title: "B1IC18", type: "Aula", screen: "B1IC18" },
+  { module: 3, id: "19", title: "B1IC19", type: "Aula", screen: "B1IC19" },
+  { module: 3, id: "20", title: "B1IC20", type: "Aula", screen: "B1IC20" },
+  { module: 4, id: "21", title: "B1IC21", type: "Aula", screen: "B1IC21" },
+  { module: 4, id: "22", title: "B1IC22", type: "Aula", screen: "B1IC22" },
+  { module: 4, id: "23", title: "B1IC23", type: "Aula", screen: "B1IC23" },
+  { module: 4, id: "24", title: "B1IC24", type: "Aula", screen: "B1IC24" },
+  { module: 5, id: "25", title: "B1IC25", type: "Aula", screen: "B1IC25" },
+  { module: 5, id: "26", title: "B1IC26", type: "Aula", screen: "B1IC26" },
+  { module: 5, id: "27", title: "B1IC27", type: "Aula", screen: "B1IC27" },
+  { module: 5, id: "28", title: "B1IC28", type: "Aula", screen: "B1IC28" },
+  { module: 6, id: "29", title: "B1IC29", type: "Aula", screen: "B1IC29" },
+  { module: 6, id: "30", title: "B1IC30", type: "Aula", screen: "B1IC30" },
+  { module: 6, id: "31", title: "B1IC31", type: "Aula", screen: "B1IC31" },
+  { module: 7, id: "32", title: "B1IC32", type: "Aula", screen: "B1IC32" },
+  { module: 7, id: "33", title: "B1IC33", type: "Aula", screen: "B1IC33" },
+  { module: 7, id: "34", title: "B1IC34", type: "Aula", screen: "B1IC34" },
+  { module: 7, id: "35", title: "B1IC35", type: "Aula", screen: "B1IC35" },
+  { module: 8, id: "36", title: "B1IC36", type: "Aula", screen: "B1IC36" },
+  { module: 8, id: "37", title: "B1IC37", type: "Aula", screen: "B1IC37" },
+  { module: 8, id: "38", title: "B1IC38", type: "Aula", screen: "B1IC38" },
+  { module: 9, id: "39", title: "B1IC39", type: "Aula", screen: "B1IC39" },
+];
+
+export default function InglesCompletoScreen(props) {
+  return (
+    <CourseOverviewScreen
+      {...props}
+      courseName={INGLES_COMPLETO_COURSE_NAME}
+      storageKey={INGLES_COMPLETO_STORAGE_KEY}
+      moduleDefs={inglesModuleDefs}
+      lessons={inglesSampleLessons}
+    />
+  );
+}
