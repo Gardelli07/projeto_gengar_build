@@ -124,7 +124,7 @@ const LESSON_SLIDES = [
       options: ["I call me Sarah.", "I'm Sarah."],
       correctAnswer: "I'm Sarah.",
       successTitle: "Correto",
-      successMessage: 'Em inglês, usamos "I am" ou "My name is": "I'm Sarah."',
+      successMessage: 'Em inglês, usamos "I am" ou "My name is": "I\'m Sarah."',
     },
   },
   {

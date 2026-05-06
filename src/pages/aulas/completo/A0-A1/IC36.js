@@ -201,7 +201,7 @@ const LESSON_SLIDES = [
       words: ["What's", "phone", "your", "number?"],
       correctOrder: ["What's", "your", "phone", "number?"],
       successTitle: "Correto",
-      successMessage: 'A frase correta é "What's your phone number?"',
+      successMessage: 'A frase correta é "What\'s your phone number?"',
     },
   },
   {
