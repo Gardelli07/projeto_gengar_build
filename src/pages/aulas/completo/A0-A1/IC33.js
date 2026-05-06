@@ -72,7 +72,7 @@ const LESSON_SLIDES = [
       label: "11-20",
       content: [
         ICA1.A33S1,
-        "Atenção, comandante! Os números agora ganharam um novo código. Você consegue dominar os rebeldes 11 e 12 e os jovens Teens?",
+        "AtenÃ§Ã£o, comandante! Os nÃºmeros agora ganharam um novo cÃ³digo. VocÃª consegue dominar os rebeldes 11 e 12 e os jovens Teens?",
       ],
       continueLabel: "Continuar",
     },
@@ -88,7 +88,7 @@ const LESSON_SLIDES = [
       answerOptions: ["11 a 20", "20 a 11"],
       correctOption: "11 a 20",
       successTitle: "Correto",
-      feedbackMessage: "O áudio apresenta a sequência de 11 até 20.",
+      feedbackMessage: "O Ã¡udio apresenta a sequÃªncia de 11 atÃ© 20.",
     },
   },
   {
@@ -102,7 +102,7 @@ const LESSON_SLIDES = [
       answerOptions: ["twelve", "eleven"],
       correctOption: "eleven",
       successTitle: "Correto",
-      feedbackMessage: '"Eleven" corresponde ao número 11.',
+      feedbackMessage: '"Eleven" corresponde ao nÃºmero 11.',
     },
   },
   {
@@ -116,7 +116,7 @@ const LESSON_SLIDES = [
       answerOptions: ["Eleven", "Twelve"],
       correctOption: "Twelve",
       successTitle: "Correto",
-      feedbackMessage: '"Twelve" corresponde ao número 12.',
+      feedbackMessage: '"Twelve" corresponde ao nÃºmero 12.',
     },
   },
   {
@@ -131,7 +131,7 @@ const LESSON_SLIDES = [
       correctOption: "13",
       successTitle: "Correto",
       feedbackMessage:
-        "Thirteen tem o som forte no final e representa o número 13.",
+        "Thirteen tem o som forte no final e representa o nÃºmero 13.",
     },
   },
   {
@@ -139,17 +139,17 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "O 11 e o 12 são rebeldes, com nomes únicos. Do 13 ao 19, todos terminam em TEEN:",
-        "11 - Eleven - i-lé-ven",
-        "12 - Twelve - tu-él-v",
-        "13 - Thirteen - tãr-tín",
-        "14 - Fourteen - fór-tín",
-        "15 - Fifteen - fif-tín",
-        "16 - Sixteen - siks-tín",
-        "17 - Seventeen - sé-ven-tín",
-        "18 - Eighteen - êit-tín",
-        "19 - Nineteen - náin-tín",
-        "20 - Twenty - tu-ên-ti",
+        "O 11 e o 12 sÃ£o rebeldes, com nomes Ãºnicos. Do 13 ao 19, todos terminam em TEEN:",
+        "11 - Eleven - i-lÃ©-ven",
+        "12 - Twelve - tu-Ã©l-v",
+        "13 - Thirteen - tÃ¡r-tÃ©n",
+        "14 - Fourteen - fÃ¡r-tÃ©n",
+        "15 - Fifteen - fif-tÃ­n",
+        "16 - Sixteen - siks-tÃ­n",
+        "17 - Seventeen - sÃ©-ven-tÃ­n",
+        "18 - Eighteen - Ãªit-tÃ­n",
+        "19 - Nineteen - nÃ¡in-tÃ­n",
+        "20 - Twenty - tu-Ã©n-ti",
       ],
       continueLabel: "Continuar",
     },
@@ -159,8 +159,8 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Curiosidade Espacial: a palavra Teenager vem justamente desses números.",
-        "É a fase da vida que vai do thirteen ao nineteen!",
+        "Curiosidade Espacial: a palavra Teenager vem justamente desses nÃºmeros.",
+        "Ã‰ a fase da vida que vai do thirteen ao nineteen!",
       ],
       continueLabel: "Continuar",
     },
@@ -190,29 +190,29 @@ const LESSON_SLIDES = [
       letters: ["E", "T", "W", "E", "L", "V"],
       correctWord: "TWELVE",
       successTitle: "Correto",
-      successMessage: 'A palavra correta é "TWELVE".',
+      successMessage: 'A palavra correta Ã© "TWELVE".',
     },
   },
   {
     component: Exercise6,
     activity: {
-      prompt: "Complete a ordem de ignição dos motores.",
+      prompt: "Complete a ordem de igniÃ§Ã£o dos motores.",
       words: ["Eighteen,", "Seventeen,", "Nineteen"],
       correctOrder: ["Seventeen,", "Eighteen,", "Nineteen"],
       successTitle: "Correto",
-      successMessage: 'A sequência correta é "Seventeen, Eighteen, Nineteen."',
+      successMessage: 'A sequÃªncia correta Ã© "Seventeen, Eighteen, Nineteen."',
     },
   },
   {
     component: Exercise11,
     activity: {
-      prompt: "Mensagem recebida da Terra! Digite o número que você ouvir!",
-      title: "Digite rápido",
+      prompt: "Mensagem recebida da Terra! Digite o nÃºmero que vocÃª ouvir!",
+      title: "Digite rÃ¡pido",
       placeholder: "Digite aqui",
       secondsPerWord: 5,
       words: ["Eleven"],
       successTitle: "Correto",
-      successMessage: 'A resposta esperada é "11" ou "Eleven".',
+      successMessage: 'A resposta esperada Ã© "11" ou "Eleven".',
     },
   },
   {
@@ -220,8 +220,8 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Speaking",
       instruction:
-        "Grave o relatório de altitude: Conte do 11 até o 20 sem errar os Teens!",
-      helperText: "Faça a sequência completa com clareza.",
+        "Grave o relatÃ©rio de altitude: Conte do 11 atÃ© o 20 sem errar os Teens!",
+      helperText: "FaÃ§a a sequÃªncia completa com clareza.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
       tipText:
@@ -231,9 +231,9 @@ const LESSON_SLIDES = [
       playLabel: "Ouvir",
       pauseLabel: "Pausar",
       rerecordLabel: "Regravar",
-      submitLabel: "Enviar áudio",
+      submitLabel: "Enviar Ã¡udio",
       successTitle: "Correto",
-      successMessage: "Resposta esperada: gravação da sequência completa.",
+      successMessage: "Resposta esperada: gravaÃ§Ã£o da sequÃªncia completa.",
     },
   },
   {

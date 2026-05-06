@@ -69,7 +69,7 @@ const LESSON_SLIDES = [
   {
     component: Exercise10,
     activity: {
-      prompt: "Responda as questões",
+      prompt: "Responda as questÃ¡es",
       title: "Conversa Global",
       userImage: Images.ex16,
       lockStorageKey: "@ic22_exercise10_lock_until",
@@ -77,34 +77,34 @@ const LESSON_SLIDES = [
         {
           image: Images.ex10,
           question:
-            "Você está na Austrália às 10h. Qual é a saudação mais icônica?",
+            "VocÃª estÃ¡ na AustrÃ¡lia Ã s 10h. Qual Ã© a saudaÃ§Ã£o mais icÃ´nica?",
           options: ["G'day!", "Top o' the mornin'!"],
           correctAnswer: "G'day!",
         },
         {
           image: Images.ex10,
           question:
-            'Em Londres, alguém te vê à noite e pergunta: "Alright?". O que isso significa?',
-          options: ["Você está bem?", "Oi / Tudo certo?"],
+            'Em Londres, alguÃ©m te vÃª Ã© noite e pergunta: "Alright?". O que isso significa?',
+          options: ["VocÃª estÃ¡ bem?", "Oi / Tudo certo?"],
           correctAnswer: "Oi / Tudo certo?",
         },
         {
           image: Images.ex10,
-          question: 'Qual é o "atalho" informal para Good Morning nos EUA?',
+          question: 'Qual Ã© o "atalho" informal para Good Morning nos EUA?',
           options: ["Morning!", "Good!"],
           correctAnswer: "Morning!",
         },
         {
           image: Images.ex10,
           question:
-            "Você está na Irlanda e quer desejar uma ótima manhã. O que diz?",
+            "VocÃª estÃ¡ na Irlanda e quer desejar uma Ã³tima manhÃ£. O que diz?",
           options: ["G'day!", "Top o' the mornin'!"],
           correctAnswer: "Top o' the mornin'!",
         },
         {
           image: Images.ex10,
           question:
-            "Saindo de uma loja em Nova York, qual é a despedida mais natural?",
+            "Saindo de uma loja em Nova York, qual Ã© a despedida mais natural?",
           options: ["Good afternoon!", "Have a good one!"],
           correctAnswer: "Have a good one!",
         },
@@ -117,33 +117,33 @@ const LESSON_SLIDES = [
         {
           image: Images.ex10,
           question:
-            "Você chega a um jantar às 20h. Qual a saudação de entrada?",
+            "VocÃª chega a um jantar Ã s 20h. Qual a saudaÃ§Ã£o de entrada?",
           options: ["Good night!", "Good evening!"],
           correctAnswer: "Good evening!",
         },
         {
           image: Images.ex10,
           question:
-            'Qual dessas é uma gíria australiana para "Tenha um bom dia"?',
+            'Qual dessas Ã© uma gÃ­ria australiana para "Tenha um bom dia"?',
           options: ["Have a good one!", "Have a g'day!"],
           correctAnswer: "Have a g'day!",
         },
         {
           image: Images.ex10,
-          question: 'Qual é o "atalho" para dizer Good Night de forma rápida?',
+          question: 'Qual Ã© o "atalho" para dizer Good Night de forma rÃ¡pida?',
           options: ["Nine!", "Night!"],
           correctAnswer: "Night!",
         },
         {
           image: Images.ex10,
           question:
-            "Em Dublin, \"Top o' the mornin' to ya\" é um cumprimento de:",
-          options: ["Chegada (Manhã)", "Despedida (Noite)"],
-          correctAnswer: "Chegada (Manhã)",
+            "Em Dublin, \"Top o' the mornin' to ya\" Ã© um cumprimento de:",
+          options: ["Chegada (ManhÃ£)", "Despedida (Noite)"],
+          correctAnswer: "Chegada (ManhÃ£)",
         },
       ],
       successTitle: "Correto",
-      successMessage: "Você acertou todas as 10 respostas da conversa global.",
+      successMessage: "VocÃª acertou todas as 10 respostas da conversa global.",
     },
   },
   {

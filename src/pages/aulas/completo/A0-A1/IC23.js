@@ -72,7 +72,7 @@ const LESSON_SLIDES = [
       label: "Vowels",
       content: [
         ICA1.A23S1,
-        "Toda palavra precisa de uma vogal para ter som. Vamos aprender como elas se chamam em inglês?",
+        "Toda palavra precisa de uma vogal para ter som. Vamos aprender como elas se chamam em inglÃªs?",
       ],
       continueLabel: "Continuar",
     },
@@ -88,7 +88,7 @@ const LESSON_SLIDES = [
       answerOptions: ["A", "E"],
       correctOption: "A",
       successTitle: "Correto",
-      feedbackMessage: 'A letra "A" em inglês tem som de êi.',
+      feedbackMessage: 'A letra "A" em inglÃªs tem som de Ãªi.',
     },
   },
   {
@@ -102,7 +102,7 @@ const LESSON_SLIDES = [
       answerOptions: ["E", "I"],
       correctOption: "E",
       successTitle: "Correto",
-      feedbackMessage: 'A letra "E" em inglês tem som de ii, como um sorriso.',
+      feedbackMessage: 'A letra "E" em inglÃªs tem som de ii, como um sorriso.',
     },
   },
   {
@@ -116,7 +116,7 @@ const LESSON_SLIDES = [
       answerOptions: ["I", "E"],
       correctOption: "I",
       successTitle: "Correto",
-      feedbackMessage: 'A letra "I" em inglês tem som de ái.',
+      feedbackMessage: 'A letra "I" em inglÃªs tem som de Ãªi.',
     },
   },
   {
@@ -130,7 +130,7 @@ const LESSON_SLIDES = [
       answerOptions: ["O", "U"],
       correctOption: "O",
       successTitle: "Correto",
-      feedbackMessage: 'A letra "O" em inglês tem som de ôu.',
+      feedbackMessage: 'A letra "O" em inglÃªs tem som de Ã´u.',
     },
   },
   {
@@ -145,7 +145,7 @@ const LESSON_SLIDES = [
       correctOption: "U",
       successTitle: "Correto",
       feedbackMessage:
-        'A letra "U" em inglês tem som de iú, como a palavra "you".',
+        'A letra "U" em inglÃªs tem som de iÃº, como a palavra "you".',
     },
   },
   {
@@ -154,11 +154,11 @@ const LESSON_SLIDES = [
       label: "Tip",
       content: [
         "Dica para nunca mais esquecer:",
-        "A -> Pense em um EI! (chamando alguém).",
+        "A -> Pense em um EI! (chamando alguÃ©m).",
         "E -> Pense em um II... (dando um sorriso).",
-        "I -> Pense em um AI! (quando você se machuca).",
-        "O -> Pense em um OU... (uma dúvida).",
-        "U -> Pense em YOU (você).",
+        "I -> Pense em um AI! (quando vocÃª se machuca).",
+        "O -> Pense em um OU... (uma dÃºvida).",
+        "U -> Pense em YOU (vocÃª).",
       ],
       continueLabel: "Continuar",
     },
@@ -166,29 +166,29 @@ const LESSON_SLIDES = [
   {
     component: Exercise1,
     activity: {
-      prompt: "Conecte som à letra",
+      prompt: "Conecte som Ã© letra",
       pairs: [
-        { en: "Ái", pt: "I" },
-        { en: "Êi", pt: "A" },
+        { en: "Ã¡i", pt: "I" },
+        { en: "Ãªi", pt: "A" },
         { en: "Ii", pt: "E" },
-        { en: "Iú", pt: "U" },
-        { en: "Ôu", pt: "O" },
+        { en: "IÃº", pt: "U" },
+        { en: "Ã´u", pt: "O" },
       ],
       successTitle: "Excelente",
-      successMessage: "Ái = I, Êi = A, Ii = E, Iú = U, Ôu = O.",
+      successMessage: "Ã¡i = I, Ãªi = A, Ii = E, IÃº = U, Ã´u = O.",
     },
   },
   {
     component: Exercise11,
     activity: {
       prompt:
-        "O Camaleão vai dizer as vogais rápido. Digite a sequência que você ouvir!",
-      title: "Digite rápido",
+        "O CamaleÃ£o vai dizer as vogais rÃ¡pido. Digite a sequÃªncia que vocÃª ouvir!",
+      title: "Digite rÃ¡pido",
       placeholder: "Digite aqui",
       secondsPerWord: 8,
       words: ["A", "E", "I", "O", "U"],
       successTitle: "Correto",
-      successMessage: "Você digitou AIE no tempo certo.",
+      successMessage: "VocÃª digitou AIE no tempo certo.",
     },
   },
   {

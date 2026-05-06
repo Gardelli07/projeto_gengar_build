@@ -72,7 +72,7 @@ const LESSON_SLIDES = [
       label: "It's J-A...",
       content: [
         ICA1.A28S1,
-        "Em viagens, nomes diferentes precisam ser soletrados. Vamos praticar com nomes americanos e britânicos?",
+        "Em viagens, nomes diferentes precisam ser soletrados. Vamos praticar com nomes americanos e britÃ¢nicos?",
       ],
       continueLabel: "Continuar",
     },
@@ -88,7 +88,7 @@ const LESSON_SLIDES = [
       answerOptions: ["Madson", "Madison"],
       correctOption: "Madison",
       successTitle: "Correto",
-      feedbackMessage: 'A soletração forma "Madison".',
+      feedbackMessage: 'A soletraÃ§Ã£o forma "Madison".',
     },
   },
   {
@@ -102,40 +102,40 @@ const LESSON_SLIDES = [
       answerOptions: ["Poppy", "Popy"],
       correctOption: "Poppy",
       successTitle: "Correto",
-      feedbackMessage: "Atenção ao Y no final: a forma correta é Poppy.",
+      feedbackMessage: "AtenÃ§Ã£o ao Y no final: a forma correta Ã© Poppy.",
     },
   },
   {
     component: Exercise1,
     activity: {
-      prompt: "Conecte nomes às soletrações",
+      prompt: "Conecte nomes Ã s soletraÃ§Ãµes",
       pairs: [
-        { en: "Ethan (US)", pt: "Í-têitch-êi-én" },
-        { en: "Harrison (UK)", pt: "Éitch-êi-ár-ár-ái-és-ôu-én" },
-        { en: "Imogen (UK)", pt: "Ái-ém-ôu-djí-í-én" },
+        { en: "Ethan (US)", pt: "Ã­-tÃª-Ãªitch-Ãªi-Ã©n" },
+        { en: "Harrison (UK)", pt: "Ãªitch-Ãªi-Ã¡r-Ã¡r-Ã¡i-Ã©s-Ã´u-Ã©n" },
+        { en: "Imogen (UK)", pt: "Ã¡i-Ã©m-Ã´u-djii-Ã­-Ã©n" },
       ],
       successTitle: "Excelente",
       successMessage:
-        "Ethan = Í-têitch-êi-én, Harrison = Éitch-êi-ár-ár-ái-és-ôu-én, Imogen = Ái-ém-ôu-djí-í-én.",
+        "Ethan = Ã­-tÃª-Ãªitch-Ãªi-Ã©n, Harrison = Ãªitch-Ãªi-Ã¡r-Ã¡r-Ã¡i-Ã©s-Ã´u-Ã©n, Imogen = Ã¡i-Ã©m-Ã´u-djii-Ã­-Ã©n.",
     },
   },
   {
     component: Exercise6,
     activity: {
-      prompt: "Você quer pedir para o Sr. Harper soletrar o nome dele.",
+      prompt: "VocÃª quer pedir para o Sr. Harper soletrar o nome dele.",
       words: ["spell", "you", "How", "do", "Harper?"],
       correctOrder: ["How", "do", "you", "spell", "Harper?"],
       successTitle: "Correto",
-      successMessage: 'A frase correta é "How do you spell Harper?"',
+      successMessage: 'A frase correta Ã© "How do you spell Harper?"',
     },
   },
   {
     component: Exercise17,
     activity: {
-      label: "Símbolos Digitais",
+      label: "SÃ­mbolos Digitais",
       content: [
         ICA1.A28S6,
-        "E-mails usam códigos. Você sabe como dizer 'ponto' ou 'sublinhado' em inglês?",
+        "E-mails usam cÃ³digos. VocÃª sabe como dizer 'ponto' ou 'sublinhado' em inglÃªs?",
       ],
       continueLabel: "Continuar",
     },
@@ -151,7 +151,7 @@ const LESSON_SLIDES = [
       answerOptions: ["tech_hero@mail.net", "tech-hero@mail.net"],
       correctOption: "tech-hero@mail.net",
       successTitle: "Correto",
-      feedbackMessage: "Dash é o hífen, o traço do meio.",
+      feedbackMessage: "Dash Ã© o hÃ­fen, o traÃ§o do meio.",
     },
   },
   {
@@ -159,9 +159,9 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Sabe aquele traço que fica embaixo, o 'sublinhado'?",
-        "Em inglês ele se chama Underscore (Ander-scór).",
-        "Pense em Under (embaixo) + Score (traço).",
+        "Sabe aquele traÃ§o que fica embaixo, o 'sublinhado'?",
+        "Em inglÃªs ele se chama Underscore (Ander-scÃ³r).",
+        "Pense em Under (embaixo) + Score (traÃ§o).",
       ],
       continueLabel: "Continuar",
     },
@@ -169,7 +169,7 @@ const LESSON_SLIDES = [
   {
     component: Exercise1,
     activity: {
-      prompt: "Conecte o domínio ao som",
+      prompt: "Conecte o domÃ­nio ao som",
       pairs: [
         { en: ".com", pt: "Dot com" },
         { en: ".net", pt: "Dot net" },
@@ -182,23 +182,23 @@ const LESSON_SLIDES = [
   {
     component: Exercise6,
     activity: {
-      prompt: "Monte o endereço do site de viagens fictício.",
+      prompt: "Monte o endereÃ§o do site de viagens fictÃ­cio.",
       words: ["net", "travel", "_", ".", "world"],
       correctOrder: ["travel", "_", "world", ".", "net"],
       successTitle: "Correto",
-      successMessage: 'O endereço correto é "travel_world.net".',
+      successMessage: 'O endereÃ§o correto Ã© "travel_world.net".',
     },
   },
   {
     component: Exercise11,
     activity: {
-      prompt: "O Camaleão vai ditar um e-mail secreto. Digite rápido!",
-      title: "Digite rápido",
+      prompt: "O CamaleÃ£o vai ditar um e-mail secreto. Digite rÃ¡pido!",
+      title: "Digite rÃ¡pido",
       placeholder: "Digite aqui",
       secondsPerWord: 12,
       words: ["blue.sky@web.com"],
       successTitle: "Correto",
-      successMessage: "Você digitou o e-mail secreto no tempo certo.",
+      successMessage: "VocÃª digitou o e-mail secreto no tempo certo.",
     },
   },
   {
@@ -206,8 +206,8 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Speaking",
       instruction:
-        "Leia este e-mail fictício para o Camaleão: star_ninja@lingueto.edu.",
-      helperText: "Diga os símbolos com naturalidade.",
+        "Leia este e-mail fictÃ­cio para o CamaleÃ£o: star_ninja@lingueto.edu.",
+      helperText: "Diga os sÃ­mbolos com naturalidade.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
       tipText: "Star underscore ninja at lingueto dot edu",
@@ -216,7 +216,7 @@ const LESSON_SLIDES = [
       playLabel: "Ouvir",
       pauseLabel: "Pausar",
       rerecordLabel: "Regravar",
-      submitLabel: "Enviar áudio",
+      submitLabel: "Enviar Ã¡udio",
       successTitle: "Correto",
       successMessage:
         'Resposta esperada: "Star underscore ninja at lingueto dot edu".',

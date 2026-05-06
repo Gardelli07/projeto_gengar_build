@@ -55,7 +55,7 @@ const LESSON_SLIDES = [
       content: [
         "/blue{Observe a cena}",
         ICA1.slide1,
-        `Como voc� iniciaria uma conversa aqui?`,
+        `Como você iniciaria uma conversa aqui?`,
       ],
       continueLabel: "Continuar",
     },
@@ -71,7 +71,7 @@ const LESSON_SLIDES = [
       answerOptions: ["Hello", "High"],
       correctOption: "Hello",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "Hello" para dizer "ol�".',
+      feedbackMessage: 'Usamos "Hello" para dizer "olá".',
     },
   },
   {
@@ -93,21 +93,21 @@ const LESSON_SLIDES = [
     component: Exercise17,
     activity: {
       label: "Tip",
-      content: `/blueHello � o seu curinga. Ele funciona com o seu chefe, com um m�dico ou com um desconhecido. 
-� seguro e educado. /blueHi � um degrau abaixo na formalidade, use com colegas e pessoas que voc� j� viu antes.`,
+      content: `/blueHello é o seu curinga. Ele funciona com o seu chefe, com um médico ou com um desconhecido.
+É seguro e educado. /blueHi é um degrau abaixo na formalidade, use com colegas e pessoas que você já viu antes.`,
       continueLabel: "Continuar",
     },
   },
   {
     component: Exercise1,
     activity: {
-      prompt: "Encontre a tradu��o",
+      prompt: "Encontre a tradução",
       pairs: [
-        { en: "Hello", pt: "ol�" },
+        { en: "Hello", pt: "olá" },
         { en: "Hi", pt: "oi" },
       ],
       successTitle: "Excelente",
-      successMessage: "Voc� acertou todas as tradu��es.",
+      successMessage: "Você acertou todas as traduções.",
     },
   },
   {
@@ -127,7 +127,7 @@ const LESSON_SLIDES = [
         { imageId: "phone", wordId: "phone-word" },
       ],
       successTitle: "Correto",
-      successMessage: "Voc� formou os dois pares corretamente.",
+      successMessage: "Você formou os dois pares corretamente.",
     },
   },
   {
@@ -140,15 +140,15 @@ const LESSON_SLIDES = [
       letters: ["H", "E", "L", "L", "O"],
       correctWord: "HELLO",
       successTitle: "Correto",
-      successMessage: 'A palavra correta � "HELLO".',
+      successMessage: 'A palavra correta é "HELLO".',
     },
   },
   {
     component: Exercise17,
     activity: {
       label: "Tip",
-      content: `/blueAten��o: Em muitos pa�ses de l�ngua inglesa, n�o dizer nada ao entrar em um elevador ou loja pode parecer rude. 
-Um simples /blueHello acompanhado de um sorriso � a chave para ser bem recebido em qualquer lugar!.`,
+      content: `/blueAtenção: Em muitos países de língua inglesa, não dizer nada ao entrar em um elevador ou loja pode parecer rude.
+Um simples /blueHello acompanhado de um sorriso é a chave para ser bem recebido em qualquer lugar!.`,
       continueLabel: "Continuar",
     },
   },
@@ -161,7 +161,7 @@ Um simples /blueHello acompanhado de um sorriso � a chave para ser bem recebid
       options: ["Hey! I need help.", "Hello! I need help."],
       correctAnswer: "Hello! I need help.",
       successTitle: "Correto",
-      successMessage: 'A forma correta � "Hello! I need help."',
+      successMessage: 'A forma correta é "Hello! I need help."',
     },
   },
   {
@@ -174,7 +174,7 @@ Um simples /blueHello acompanhado de um sorriso � a chave para ser bem recebid
       options: ["Hello", "Goodbye"],
       correctAnswer: "Hello",
       successTitle: "Correto",
-      successMessage: 'A forma correta � "Hello, my name is Jake."',
+      successMessage: 'A forma correta é "Hello, my name is Jake."',
     },
   },
   {
@@ -188,16 +188,16 @@ Um simples /blueHello acompanhado de um sorriso � a chave para ser bem recebid
       correctOrder: ["Hello", "my", "name's", "Jake"],
       audioRate: 0.85,
       successTitle: "Correto",
-      successMessage: `A frase correta � "Hello, my name's Jake."`,
+      successMessage: `A frase correta é "Hello, my name's Jake."`,
     },
   },
   {
     component: Exercise12,
     activity: {
       prompt: "Write your introduction",
-      instruction: "Escreva brevemente sobre voc� em ingl�s.",
+      instruction: "Escreva brevemente sobre você em inglês.",
       helperText:
-        "Imagine que voc� est� enviando um convite no LinkedIn para um recrutador. Escreva a primeira palavra da sua mensagem.",
+        "Imagine que você está enviando um convite no LinkedIn para um recrutador. Escreva a primeira palavra da sua mensagem.",
       placeholder: "...",
       tipText: "Hello.",
       minLength: 3,
@@ -211,10 +211,10 @@ Um simples /blueHello acompanhado de um sorriso � a chave para ser bem recebid
       label: "Tip",
       content: `/blue{Mandou muito bem na estreia!}?? 
       
-Dica final: O /blue{'H'} em ingl�s tem som de um suspiro, como se voc� estivesse emba�ando um vidro. 
+Dica final: O /blue{'H'} em inglês tem som de um suspiro, como se você estivesse embaçando um vidro.
 Tente de novo: Hhh-ello. 
 
-Vejo voc� na aula 2 para descobrirmos o tom informal do Hey!.`,
+Vejo você na aula 2 para descobrirmos o tom informal do Hey!.`,
       continueLabel: "Continuar",
     },
   },

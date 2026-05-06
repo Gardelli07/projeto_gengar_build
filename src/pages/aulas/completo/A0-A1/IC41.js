@@ -72,7 +72,7 @@ const LESSON_SLIDES = [
       label: "This is my ...",
       content: [
         ICA1.A41S1,
-        "VocÍ est· com um amigo e encontra seu chefe. Como vocÍ apresenta um ao outro? Vamos aprender a conectar as pessoas!",
+        "Voc√™ est√° com um amigo e encontra seu chefe. Como voc√™ apresenta um ao outro? Vamos aprender a conectar as pessoas!",
       ],
       continueLabel: "Continuar",
     },
@@ -88,7 +88,7 @@ const LESSON_SLIDES = [
       answerOptions: ["Teeth is", "This is"],
       correctOption: "This is",
       successTitle: "Correto",
-      feedbackMessage: '"This is" È a forma correta para apresentar alguÈm.',
+      feedbackMessage: '"This is" √© a forma correta para apresentar algu√©m.',
     },
   },
   {
@@ -96,9 +96,9 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Dica de Ouro: para apresentar alguÈm que est· ao seu lado, usamos sempre This is...",
-        "Evite dizer He is... ou She is... logo de cara na apresentaÁ„o.",
-        "This is È o padr„o de etiqueta.",
+        "Dica de Ouro: para apresentar algu√©m que est√° ao seu lado, usamos sempre This is...",
+        "Evite dizer He is... ou She is... logo de cara na apresenta√ß√£o.",
+        "This is √© o padr√£o de etiqueta.",
       ],
       continueLabel: "Continuar",
     },
@@ -128,7 +128,7 @@ const LESSON_SLIDES = [
       answerOptions: ["Meet my", "this is my"],
       correctOption: "Meet my",
       successTitle: "Correto",
-      feedbackMessage: '"Meet my" È a express„o ouvida no ·udio.',
+      feedbackMessage: '"Meet my" √© a express√£o ouvida no √°udio.',
     },
   },
   {
@@ -136,9 +136,9 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Dica TÈcnica: se vocÍ quer ser um pouco mais din‚mico, pode usar Meet my...",
+        "Dica T√©cnica: se voc√™ quer ser um pouco mais din√¢mico, pode usar Meet my...",
         "Ex: Meet my friend, Julia.",
-        "… uma forma calorosa de iniciar a conex„o.",
+        "√â uma forma calorosa de iniciar a conex√£o.",
       ],
       continueLabel: "Continuar",
     },
@@ -160,17 +160,17 @@ const LESSON_SLIDES = [
   {
     component: Exercise6,
     activity: {
-      prompt: "VocÍ quer apresentar sua amiga, Maria, para o seu grupo.",
+      prompt: "Voc√™ quer apresentar sua amiga, Maria, para o seu grupo.",
       words: ["Maria.", "friend,", "my", "This", "is"],
       correctOrder: ["This", "is", "my", "friend,", "Maria."],
       successTitle: "Correto",
-      successMessage: 'A frase correta È "This is my friend, Maria."',
+      successMessage: 'A frase correta √© "This is my friend, Maria."',
     },
   },
   {
     component: Exercise1,
     activity: {
-      prompt: "Conectar quem È quem",
+      prompt: "Conectar quem √© quem",
       pairs: [
         { en: "Meet my boss, Mr. Smith.", pt: "Boss" },
         { en: "This is my friend, Bob.", pt: "Friend" },
@@ -185,7 +185,7 @@ const LESSON_SLIDES = [
     component: Exercise7,
     activity: {
       prompt:
-        "Ordene a conversa entre trÍs pessoas (Tom, Ana e o novo amigo Ben).",
+        "Ordene a conversa entre tr√™s pessoas (Tom, Ana e o novo amigo Ben).",
       options: [
         'Ana: "Hi, Ben! Nice to meet you."',
         'Tom: "Ana, this is my friend, Ben."',
@@ -197,7 +197,7 @@ const LESSON_SLIDES = [
         'Ben: "Nice to meet you too, Ana."',
       ],
       successTitle: "Correto",
-      successMessage: "A ordem correta È 2, 1, 3.",
+      successMessage: "A ordem correta √© 2, 1, 3.",
     },
   },
   {
@@ -205,12 +205,12 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Frase errada vs. correta",
       image: ICA1.A41S11,
-      wrongSentence: "Apresentando sua m„e para alguÈm.",
+      wrongSentence: "Apresentando sua m√£e para algu√©m.",
       options: ["She is my mother, Helena.", "This is my mother, Helena."],
       correctAnswer: "This is my mother, Helena.",
       successTitle: "Correto",
       successMessage:
-        'Em apresentaÁıes, a forma natural È "This is my mother, Helena."',
+        'Em apresenta√ß√µes, a forma natural √© "This is my mother, Helena."',
     },
   },
   {
@@ -221,23 +221,23 @@ const LESSON_SLIDES = [
       image: ICA1.A41S12,
       audioSource: require("../../../../../mp3/IC/A0-A1/A41S12.mp3"),
       audioDurationMs: 7500,
-      answerOptions: ["O chefe da Sarah", "O irm„o do Leo"],
-      correctOption: "O irm„o do Leo",
+      answerOptions: ["O chefe da Sarah", "O irm√£o do Leo"],
+      correctOption: "O irm√£o do Leo",
       successTitle: "Correto",
-      feedbackMessage: "Mark È o irm„o do Leo na conversa.",
+      feedbackMessage: "Mark √© o irm√£o do Leo na conversa.",
     },
   },
   {
     component: Exercise11,
     activity: {
-      prompt: "R·pido! Como se diz 'Esta È minha irm„'?",
-      title: "Digite r·pido",
+      prompt: "R√°pido! Como se diz 'Esta √© minha irm√£'?",
+      title: "Digite r√°pido",
       placeholder: "Digite aqui",
       secondsPerWord: 8,
       words: ["This is my sister"],
       successTitle: "Correto",
       successMessage:
-        'A resposta esperada È "This is my sister" ou "Meet my sister".',
+        'A resposta esperada √© "This is my sister" ou "Meet my sister".',
     },
   },
   {
@@ -245,7 +245,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Speaking",
       instruction:
-        "O Camale„o est· com um novo amigo chamado Zeca. Ele diz: Hey! This is my friend, Zeca.",
+        "O Camale√£o est√° com um novo amigo chamado Zeca. Ele diz: Hey! This is my friend, Zeca.",
       helperText: "Seja gentil e cumprimente o Zeca.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
@@ -256,7 +256,7 @@ const LESSON_SLIDES = [
       playLabel: "Ouvir",
       pauseLabel: "Pausar",
       rerecordLabel: "Regravar",
-      submitLabel: "Enviar ·udio",
+      submitLabel: "Enviar √°udio",
       successTitle: "Correto",
       successMessage:
         'Resposta esperada: "Hi, Zeca! Nice to meet you!" ou "Hello, Zeca! Nice to meet you too!"',

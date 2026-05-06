@@ -72,7 +72,7 @@ const LESSON_SLIDES = [
       label: "How old are you?",
       content: [
         ICA1.A35S1,
-        "Para viajar entre as estrelas, precisamos saber quem você é e sua experiência. Como perguntar e responder sua idade?",
+        "Para viajar entre as estrelas, precisamos saber quem vocÃª Ã© e sua experiÃªncia. Como perguntar e responder sua idade?",
       ],
       continueLabel: "Continuar",
     },
@@ -84,7 +84,7 @@ const LESSON_SLIDES = [
       words: ["are", "old", "How", "you?"],
       correctOrder: ["How", "old", "are", "you?"],
       successTitle: "Correto",
-      successMessage: 'A frase correta é "How old are you?"',
+      successMessage: 'A frase correta Ã© "How old are you?"',
     },
   },
   {
@@ -92,7 +92,7 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "ALERTA DE SEGURANÇA: em português dizemos Eu tenho 20 anos, mas em inglês usamos o verbo TO BE.",
+        "ALERTA DE SEGURANÃ‡A: em portuguÃªs dizemos Eu tenho 20 anos, mas em inglÃªs usamos o verbo TO BE.",
         "Correto: I am 25.",
         "Errado: I have 25.",
       ],
@@ -131,11 +131,11 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Frase errada vs. correta",
       image: ICA1.A35S6,
-      wrongSentence: "Alguém pergunta sua idade e você tem 19 anos.",
+      wrongSentence: "AlguÃ©m pergunta sua idade e vocÃª tem 19 anos.",
       options: ["I have 19 years old.", "I am 19 years old."],
       correctAnswer: "I am 19 years old.",
       successTitle: "Correto",
-      successMessage: 'Em inglês usamos "I am 19 years old."',
+      successMessage: 'Em inglÃªs usamos "I am 19 years old."',
     },
   },
   {
@@ -162,14 +162,14 @@ const LESSON_SLIDES = [
       letters: ["E", "A", "R", "S", "Y"],
       correctWord: "YEARS",
       successTitle: "Correto",
-      successMessage: 'A palavra correta é "YEARS".',
+      successMessage: 'A palavra correta Ã© "YEARS".',
     },
   },
   {
     component: Exercise11,
     activity: {
-      prompt: "O sistema está reiniciando! Digite sua idade agora!",
-      title: "Digite rápido",
+      prompt: "O sistema estÃ¡ reiniciando! Digite sua idade agora!",
+      title: "Digite rÃ¡pido",
       placeholder: "Digite aqui",
       secondsPerWord: 5,
       words: ["25"],
@@ -182,20 +182,20 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Speaking",
       instruction:
-        "Relatório final! O controle da missão pergunta: How old are you? Responda com sua idade real usando I am...",
+        "RelatÃ©rio final! O controle da missÃ£o pergunta: How old are you? Responda com sua idade real usando I am...",
       helperText:
-        "Você pode completar com years old ou responder de forma curta.",
+        "VocÃª pode completar com years old ou responder de forma curta.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
-      tipText: "I am [número]. / I am [número] years old.",
+      tipText: "I am [nÃºmero]. / I am [nÃºmero] years old.",
       recordLabel: "Speak",
       stopLabel: "Parar",
       playLabel: "Ouvir",
       pauseLabel: "Pausar",
       rerecordLabel: "Regravar",
-      submitLabel: "Enviar áudio",
+      submitLabel: "Enviar Ã¡udio",
       successTitle: "Correto",
-      successMessage: 'Resposta esperada: "I am [número] (years old)."',
+      successMessage: 'Resposta esperada: "I am [nÃºmero] (years old)."',
     },
   },
   {

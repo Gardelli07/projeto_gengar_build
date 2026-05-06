@@ -72,7 +72,7 @@ const LESSON_SLIDES = [
       label: 'Time do "EH"',
       content: [
         ICA1.A25S1,
-        'Diferente do time anterior, essas letras começam com um som de "É". Prepare o fôlego!',
+        'Diferente do time anterior, essas letras comeÃ§am com um som de "Ã©". Prepare o fÃ´lego!',
       ],
       continueLabel: "Continuar",
     },
@@ -88,7 +88,7 @@ const LESSON_SLIDES = [
       answerOptions: ["F", "S"],
       correctOption: "F",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta é "F".',
+      feedbackMessage: 'A letra correta Ã© "F".',
     },
   },
   {
@@ -102,7 +102,7 @@ const LESSON_SLIDES = [
       answerOptions: ["L", "I"],
       correctOption: "L",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta é "L".',
+      feedbackMessage: 'A letra correta Ã© "L".',
     },
   },
   {
@@ -116,7 +116,7 @@ const LESSON_SLIDES = [
       answerOptions: ["M", "N"],
       correctOption: "M",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta é "M".',
+      feedbackMessage: 'A letra correta Ã© "M".',
     },
   },
   {
@@ -130,7 +130,7 @@ const LESSON_SLIDES = [
       answerOptions: ["N", "M"],
       correctOption: "N",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta é "N".',
+      feedbackMessage: 'A letra correta Ã© "N".',
     },
   },
   {
@@ -144,7 +144,7 @@ const LESSON_SLIDES = [
       answerOptions: ["S", "C"],
       correctOption: "S",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta é "S".',
+      feedbackMessage: 'A letra correta Ã© "S".',
     },
   },
   {
@@ -158,7 +158,7 @@ const LESSON_SLIDES = [
       answerOptions: ["X", "S"],
       correctOption: "X",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta é "X".',
+      feedbackMessage: 'A letra correta Ã© "X".',
     },
   },
   {
@@ -166,9 +166,9 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Dica de Ouro: Para falar o M (ém), você precisa fechar os lábios no final. Se a boca ficar aberta, vai soar como N (én).",
-        "M = Lábios grudados.",
-        "N = Língua no céu da boca.",
+        "Dica de Ouro: Para falar o M (Ã©m), vocÃª precisa fechar os lÃ¡bios no final. Se a boca ficar aberta, vai soar como N (Ã©n).",
+        "M = LÃ¡bios grudados.",
+        "N = LÃ­ngua no cÃ©u da boca.",
       ],
       continueLabel: "Continuar",
     },
@@ -178,8 +178,8 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "O X (éks) tem um som de 'ks' no final, como o som de uma faísca.",
-        "Pratique: é-ks!",
+        "O X (Ã©ks) tem um som de 'ks' no final, como o som de uma faÃ­sca.",
+        "Pratique: Ã©-ks!",
       ],
       continueLabel: "Continuar",
     },
@@ -189,23 +189,23 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Conecte a letra ao seu som",
       pairs: [
-        { en: "L", pt: "Él" },
-        { en: "M", pt: "Ém" },
-        { en: "X", pt: "Éks" },
-        { en: "F", pt: "Éf" },
+        { en: "L", pt: "Ã©l" },
+        { en: "M", pt: "Ã©m" },
+        { en: "X", pt: "Ã©ks" },
+        { en: "F", pt: "Ã©f" },
       ],
       successTitle: "Excelente",
-      successMessage: "L = Él, M = Ém, X = Éks, F = Éf.",
+      successMessage: "L = Ã©l, M = Ã©m, X = Ã©ks, F = Ã©f.",
     },
   },
   {
     component: Exercise6,
     activity: {
-      prompt: "Coloque estas letras do time na ordem alfabética correta.",
+      prompt: "Coloque estas letras do time na ordem alfabÃ©tica correta.",
       words: ["N", "L", "M"],
       correctOrder: ["L", "M", "N"],
       successTitle: "Correto",
-      successMessage: "A sequência correta é L, M, N.",
+      successMessage: "A sequÃªncia correta Ã© L, M, N.",
     },
   },
   {
@@ -213,18 +213,18 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Speaking",
       instruction: "Soletre a palavra S - M - S.",
-      helperText: "Dica: cheque se você fechou a boca no M!",
+      helperText: "Dica: cheque se vocÃª fechou a boca no M!",
       image: Images.ex16,
       tipButtonLabel: "Tip",
-      tipText: "és - ém - és",
+      tipText: "Ã©s - Ã©m - Ã©s",
       recordLabel: "Speak",
       stopLabel: "Parar",
       playLabel: "Ouvir",
       pauseLabel: "Pausar",
       rerecordLabel: "Regravar",
-      submitLabel: "Enviar áudio",
+      submitLabel: "Enviar Ã¡udio",
       successTitle: "Correto",
-      successMessage: 'Resposta esperada: "és - ém - és".',
+      successMessage: 'Resposta esperada: "Ã©s - Ã©m - Ã©s".',
     },
   },
   {

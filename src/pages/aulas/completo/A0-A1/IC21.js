@@ -72,7 +72,7 @@ const LESSON_SLIDES = [
       label: "Morning!",
       content: [
         ICA1.A21S1,
-        "O inglÍs È falado no mundo todo, mas cada lugar tem seu tempero. Vamos ver como os nativos se cumprimentam de verdade?",
+        "O ingl√™s √© falado no mundo todo, mas cada lugar tem seu tempero. Vamos ver como os nativos se cumprimentam de verdade?",
       ],
       continueLabel: "Continuar",
     },
@@ -89,7 +89,7 @@ const LESSON_SLIDES = [
       correctOption: "Morning!",
       successTitle: "Correto",
       feedbackMessage:
-        "Nos EUA e no Reino Unido, a forma mais comum e informal È simplesmente cortar o 'Good'. … o nosso 'Dia!'.",
+        "Nos EUA e no Reino Unido, a forma mais comum e informal √© simplesmente cortar o 'Good'. √© o nosso 'Dia!'.",
     },
   },
   {
@@ -104,7 +104,7 @@ const LESSON_SLIDES = [
       correctOption: "Top o' the mornin'!",
       successTitle: "Correto",
       feedbackMessage:
-        "Na Irlanda, essa È uma express„o cl·ssica (embora um pouco antiga/clichÍ). Significa 'o melhor da manh„ para vocÍ!'. … super charmoso!",
+        "Na Irlanda, essa √© uma express√£o cl√°ssica (embora um pouco antiga/clich√™). Significa 'o melhor da manh√£ para voc√™!'. √© super charmoso!",
     },
   },
   {
@@ -119,7 +119,7 @@ const LESSON_SLIDES = [
       correctOption: "G'day!",
       successTitle: "Correto",
       feedbackMessage:
-        "Na Austr·lia, o G'day (contraÁ„o de Good Day) È usado desde o amanhecer atÈ o sol se pÙr. … a marca registrada dos australianos!",
+        "Na Austr√°lia, o G'day (contra√ß√£o de Good Day) √© usado desde o amanhecer at√© o sol se p√¥r. √© a marca registrada dos australianos!",
     },
   },
   {
@@ -134,7 +134,7 @@ const LESSON_SLIDES = [
       correctOption: "Alright?",
       successTitle: "Correto",
       feedbackMessage:
-        "No Reino Unido (especialmente em Londres), as pessoas raramente dizem 'Good evening'. Elas dizem 'Alright?' (Tudo certo?). … um 'oi' e um 'tudo bem' ao mesmo tempo!",
+        "No Reino Unido (especialmente em Londres), as pessoas raramente dizem 'Good evening'. Elas dizem 'Alright?' (Tudo certo?). √© um 'oi' e um 'tudo bem' ao mesmo tempo!",
     },
   },
   {
@@ -149,7 +149,7 @@ const LESSON_SLIDES = [
       correctOption: "Nighty-night!",
       successTitle: "Correto",
       feedbackMessage:
-        "Tanto nos EUA quanto no Reino Unido, Nighty-night È uma forma super informal e fofa de dizer boa noite, geralmente usada entre casais ou para crianÁas.",
+        "Tanto nos EUA quanto no Reino Unido, Nighty-night √© uma forma super informal e fofa de dizer boa noite, geralmente usada entre casais ou para crian√ßas.",
     },
   },
   {
@@ -164,32 +164,32 @@ const LESSON_SLIDES = [
       correctOption: "Night!",
       successTitle: "Correto",
       feedbackMessage:
-        "O atalho universal: assim como no 'Morning', tirar o 'Good' e dizer apenas 'Night!' funciona em qualquer paÌs de lÌngua inglesa.",
+        "O atalho universal: assim como no 'Morning', tirar o 'Good' e dizer apenas 'Night!' funciona em qualquer pa√≠s de l√≠ngua inglesa.",
     },
   },
   {
     component: Exercise1,
     activity: {
-      prompt: "Conecte a regi„o ‡ express„o",
+      prompt: "Conecte a regi√£o √© express√£o",
       pairs: [
-        { en: "Austr·lia", pt: "G'day!" },
+        { en: "Austr√°lia", pt: "G'day!" },
         { en: "Irlanda", pt: "Top o' the mornin'!" },
         { en: "Londres (UK)", pt: "Alright?" },
         { en: "Global (Informal)", pt: "Morning!" },
       ],
       successTitle: "Excelente",
       successMessage:
-        "Austr·lia: G'day! Irlanda: Top o' the mornin'! Londres: Alright? Global informal: Morning!",
+        "Austr√°lia: G'day! Irlanda: Top o' the mornin'! Londres: Alright? Global informal: Morning!",
     },
   },
   {
     component: Exercise6,
     activity: {
-      prompt: "VocÍ est· em Dublin (Irlanda) e quer saudar alguÈm de manh„.",
+      prompt: "Voc√™ est√° em Dublin (Irlanda) e quer saudar algu√©m de manh√£.",
       words: ["the", "Top", "mornin'!", "o'"],
       correctOrder: ["Top", "o'", "the", "mornin'!"],
       successTitle: "Correto",
-      successMessage: "A frase correta È \"Top o' the mornin'!\"",
+      successMessage: "A frase correta √© \"Top o' the mornin'!\"",
     },
   },
   {
@@ -197,7 +197,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Speaking",
       instruction:
-        "Escolha sua regi„o favorita (EUA, Austr·lia ou Irlanda) e mande a saudaÁ„o informal que vocÍ aprendeu!",
+        "Escolha sua regi√£o favorita (EUA, Austr√°lia ou Irlanda) e mande a sauda√ß√£o informal que voc√™ aprendeu!",
       helperText: "Escolha entre Morning!, G'day! ou Top o' the mornin'!",
       image: Images.ex16,
       tipButtonLabel: "Tip",
@@ -207,7 +207,7 @@ const LESSON_SLIDES = [
       playLabel: "Ouvir",
       pauseLabel: "Pausar",
       rerecordLabel: "Regravar",
-      submitLabel: "Enviar ·udio",
+      submitLabel: "Enviar √°udio",
       successTitle: "Correto",
       successMessage:
         "Resposta esperada: Morning!, G'day! ou Top o' the mornin'!",

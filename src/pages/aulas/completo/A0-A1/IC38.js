@@ -69,7 +69,7 @@ const LESSON_SLIDES = [
   {
     component: Exercise10,
     activity: {
-      prompt: "Responda as questões",
+      prompt: "Responda as questÃ¡es",
       title: "38 Challenge",
       userImage: Images.ex16,
       lockStorageKey: "@ic38_exercise10_lock_until",
@@ -88,31 +88,31 @@ const LESSON_SLIDES = [
         },
         {
           image: Images.ex10,
-          question: 'Áudio dita: "Thirteen". Qual o número?',
+          question: 'Ã¡udio dita: "Thirteen". Qual o nÃºmero?',
           options: ["13", "30"],
           correctAnswer: "13",
         },
         {
           image: Images.ex10,
-          question: "Qual a escrita correta do número 3?",
+          question: "Qual a escrita correta do nÃºmero 3?",
           options: ["Tree", "Three"],
           correctAnswer: "Three",
         },
         {
           image: Images.ex10,
-          question: "Como se diz o número 0 num telefone?",
+          question: "Como se diz o nÃºmero 0 num telefone?",
           options: ["Oh", "Circle"],
           correctAnswer: "Oh",
         },
         {
           image: Images.ex10,
-          question: "Qual destes é o número 12?",
+          question: "Qual destes Ã© o nÃºmero 12?",
           options: ["Eleven", "Twelve"],
           correctAnswer: "Twelve",
         },
         {
           image: Images.ex10,
-          question: "Como ler o preço $4.50 de forma rápida?",
+          question: "Como ler o preÃ§o $4.50 de forma rÃ¡pida?",
           options: ["Four fifty", "Four and fifty"],
           correctAnswer: "Four fifty",
         },
@@ -136,7 +136,7 @@ const LESSON_SLIDES = [
         },
       ],
       successTitle: "Correto",
-      successMessage: "Você acertou todas as 10 respostas do desafio 38.",
+      successMessage: "VocÃª acertou todas as 10 respostas do desafio 38.",
     },
   },
   {

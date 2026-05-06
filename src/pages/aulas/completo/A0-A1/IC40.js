@@ -72,7 +72,7 @@ const LESSON_SLIDES = [
       label: "What's your name?",
       content: [
         ICA1.A40S1,
-        "Você já se apresentou, mas e agora? Vamos aprender a perguntar o nome da outra pessoa e mostrar que foi um prazer conhecê-la!",
+        "VocÃª jÃ¡ se apresentou, mas e agora? Vamos aprender a perguntar o nome da outra pessoa e mostrar que foi um prazer conhecÃª-la!",
       ],
       continueLabel: "Continuar",
     },
@@ -99,8 +99,8 @@ const LESSON_SLIDES = [
       image: ICA1.A40S3,
       audioSource: require("../../../../../mp3/IC/A0-A1/A40S3.mp3"),
       audioDurationMs: 1500,
-      answerOptions: ["Quantos anos você tem?", "Como é o seu nome?"],
-      correctOption: "Como é o seu nome?",
+      answerOptions: ["Quantos anos vocÃª tem?", "Como Ã© o seu nome?"],
+      correctOption: "Como Ã© o seu nome?",
       successTitle: "Correto",
       feedbackMessage: '"What\'s your name?" pergunta o nome da pessoa.',
     },
@@ -110,9 +110,9 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Dica Técnica: What's é a contração de What is.",
-        "Na fala natural, quase ninguém diz a forma completa.",
-        "Pratique o som do s no final: uót-s!",
+        "Dica TÃ©cnica: What's Ã© a contraÃ§Ã£o de What is.",
+        "Na fala natural, quase ninguÃ©m diz a forma completa.",
+        "Pratique o som do s no final: uÃ³t-s!",
       ],
       continueLabel: "Continuar",
     },
@@ -125,11 +125,11 @@ const LESSON_SLIDES = [
       image: ICA1.A40S5,
       audioSource: require("../../../../../mp3/IC/A0-A1/A40S5.mp3"),
       audioDurationMs: 1600,
-      answerOptions: ["Que bom te ver", "Prazer em conhecê-lo(la)"],
-      correctOption: "Prazer em conhecê-lo(la)",
+      answerOptions: ["Que bom te ver", "Prazer em conhecÃª-lo(la)"],
+      correctOption: "Prazer em conhecÃª-lo(la)",
       successTitle: "Correto",
       feedbackMessage:
-        '"Nice to meet you" significa "Prazer em conhecê-lo(la)".',
+        '"Nice to meet you" significa "Prazer em conhecÃª-lo(la)".',
     },
   },
   {
@@ -137,7 +137,7 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Dica Cultural: quando alguém diz Nice to meet you, a resposta automática e educada é adicionar o too no final.",
+        "Dica Cultural: quando alguÃ©m diz Nice to meet you, a resposta automÃ¡tica e educada Ã© adicionar o too no final.",
         "Pessoa A: Nice to meet you.",
         "Pessoa B: Nice to meet you too.",
       ],
@@ -147,11 +147,11 @@ const LESSON_SLIDES = [
   {
     component: Exercise6,
     activity: {
-      prompt: "Você quer saber o nome do novo professor.",
+      prompt: "VocÃª quer saber o nome do novo professor.",
       words: ["name?", "your", "What's"],
       correctOrder: ["What's", "your", "name?"],
       successTitle: "Correto",
-      successMessage: 'A frase correta é "What\'s your name?"',
+      successMessage: 'A frase correta Ã© "What\'s your name?"',
     },
   },
   {
@@ -170,7 +170,7 @@ const LESSON_SLIDES = [
   {
     component: Exercise7,
     activity: {
-      prompt: "Coloque as falas na ordem lógica de uma conversa real.",
+      prompt: "Coloque as falas na ordem lÃ³gica de uma conversa real.",
       options: [
         "Nice to meet you, Anna!",
         "Hi! I'm Tom. What's your name?",
@@ -183,7 +183,7 @@ const LESSON_SLIDES = [
       ],
       successTitle: "Correto",
       successMessage:
-        'A ordem correta é: "Hi! I\'m Tom. What\'s your name?", "My name is Anna. Nice to meet you." e "Nice to meet you, Anna!".',
+        'A ordem correta Ã©: "Hi! I\'m Tom. What\'s your name?", "My name is Anna. Nice to meet you." e "Nice to meet you, Anna!".',
     },
   },
   {
@@ -192,25 +192,25 @@ const LESSON_SLIDES = [
       prompt: "Frase errada vs. correta",
       image: ICA1.A40S10,
       wrongSentence:
-        'Brasileiros costumam dizer "Much pleasure". Isso não soa natural em inglês.',
+        'Brasileiros costumam dizer "Much pleasure". Isso nÃ£o soa natural em inglÃªs.',
       options: ["Much pleasure to meet you.", "Nice to meet you."],
       correctAnswer: "Nice to meet you.",
       successTitle: "Correto",
-      successMessage: 'A forma natural em inglês é "Nice to meet you."',
+      successMessage: 'A forma natural em inglÃªs Ã© "Nice to meet you."',
     },
   },
   {
     component: Exercise11,
     activity: {
       prompt:
-        "O tempo está acabando! Digite a resposta curta para: Nice to meet you.",
-      title: "Digite rápido",
+        "O tempo estÃ¡ acabando! Digite a resposta curta para: Nice to meet you.",
+      title: "Digite rÃ¡pido",
       placeholder: "Digite aqui",
       secondsPerWord: 8,
       words: ["Nice to meet you too"],
       successTitle: "Correto",
       successMessage:
-        'A resposta esperada é "Nice to meet you too" ou "You too".',
+        'A resposta esperada Ã© "Nice to meet you too" ou "You too".',
     },
   },
   {
@@ -218,9 +218,9 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Speaking",
       instruction:
-        "O Camaleão diz: Hello! My name is Lingueto. Nice to meet you!",
+        "O CamaleÃ£o diz: Hello! My name is Lingueto. Nice to meet you!",
       helperText:
-        "Responda de forma completa, dizendo seu nome e retribuindo o prazer em conhecê-lo.",
+        "Responda de forma completa, dizendo seu nome e retribuindo o prazer em conhecÃª-lo.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
       tipText: "Hi Lingueto! My name is [Nome]. Nice to meet you too!",
@@ -229,7 +229,7 @@ const LESSON_SLIDES = [
       playLabel: "Ouvir",
       pauseLabel: "Pausar",
       rerecordLabel: "Regravar",
-      submitLabel: "Enviar áudio",
+      submitLabel: "Enviar Ã¡udio",
       successTitle: "Correto",
       successMessage:
         'Resposta esperada: "Hi Lingueto! My name is [Nome]. Nice to meet you too!"',

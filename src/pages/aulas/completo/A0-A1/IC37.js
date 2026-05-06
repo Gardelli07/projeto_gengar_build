@@ -72,7 +72,7 @@ const LESSON_SLIDES = [
       label: "How much is it?",
       content: [
         ICA1.A37S1,
-        "Sobreviver no espaço não é de graça! Como perguntamos o preço das coisas e entendemos o valor em dólares e centavos?",
+        "Sobreviver no espaÃ§o nÃ£o Ã© de graÃ§a! Como perguntamos o preÃ§o das coisas e entendemos o valor em dÃ³lares e centavos?",
       ],
       continueLabel: "Continuar",
     },
@@ -88,17 +88,17 @@ const LESSON_SLIDES = [
       answerOptions: ["how much is it", "How many is it?"],
       correctOption: "how much is it",
       successTitle: "Correto",
-      feedbackMessage: '"How much is it?" é a pergunta para saber o preço.',
+      feedbackMessage: '"How much is it?" Ã© a pergunta para saber o preÃ§o.',
     },
   },
   {
     component: Exercise6,
     activity: {
-      prompt: "Você quer saber o preço de um capacete novo.",
+      prompt: "VocÃª quer saber o preÃ§o de um capacete novo.",
       words: ["is", "much", "How", "it?"],
       correctOrder: ["How", "much", "is", "it?"],
       successTitle: "Correto",
-      successMessage: 'A frase correta é "How much is it?"',
+      successMessage: 'A frase correta Ã© "How much is it?"',
     },
   },
   {
@@ -106,9 +106,9 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Dica Técnica: existem duas formas de ler preços como $5.50.",
+        "Dica TÃ©cnica: existem duas formas de ler preÃ§os como $5.50.",
         "Completa: Five dollars and fifty cents.",
-        "Rápida, mais comum: Five fifty.",
+        "RÃ¡pida, mais comum: Five fifty.",
       ],
       continueLabel: "Continuar",
     },
@@ -118,10 +118,10 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Vocabulário de Câmbio:",
+        "VocabulÃ¡rio de CÃ¢mbio:",
         "$ = Dollar no singular / Dollars no plural.",
-        "¢ = Cent no singular / Cents no plural.",
-        "Para valores menores que 1 dólar, dizemos apenas os centavos. Ex: 75¢ = Seventy-five cents.",
+        "Ã‰ = Cent no singular / Cents no plural.",
+        "Para valores menores que 1 dÃ³lar, dizemos apenas os centavos. Ex: 75Â¢ = Seventy-five cents.",
       ],
       continueLabel: "Continuar",
     },
@@ -178,7 +178,7 @@ const LESSON_SLIDES = [
       letters: ["L", "A", "R", "D", "O", "L"],
       correctWord: "DOLLAR",
       successTitle: "Correto",
-      successMessage: 'A palavra correta é "DOLLAR".',
+      successMessage: 'A palavra correta Ã© "DOLLAR".',
     },
   },
   {
@@ -186,24 +186,24 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Frase errada vs. correta",
       image: ICA1.A37S10,
-      wrongSentence: "Você quer dizer que algo custa 5 dólares.",
+      wrongSentence: "VocÃª quer dizer que algo custa 5 dÃ³lares.",
       options: ["It is five dollars.", "It has five dollars."],
       correctAnswer: "It is five dollars.",
       successTitle: "Correto",
       successMessage:
-        'No preço, a coisa "é" o valor: "It is five dollars."',
+        'No preÃ§o, a coisa "Ã©" o valor: "It is five dollars."',
     },
   },
   {
     component: Exercise11,
     activity: {
-      prompt: "O robô de vendas está esperando! Digite o preço que ele disse!",
-      title: "Digite rápido",
+      prompt: "O robÃ´ de vendas estÃ¡ esperando! Digite o preÃ§o que ele disse!",
+      title: "Digite rÃ¡pido",
       placeholder: "Digite aqui",
       secondsPerWord: 5,
       words: ["40"],
       successTitle: "Correto",
-      successMessage: 'A resposta esperada é "40" ou "$40".',
+      successMessage: 'A resposta esperada Ã© "40" ou "$40".',
     },
   },
   {
@@ -211,8 +211,8 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Speaking",
       instruction:
-        "Imagine que você é o vendedor. O cliente pergunta: How much is it? Aponte para um item de $15.00 e responda em voz alta!",
-      helperText: "Responda usando o valor em dólares.",
+        "Imagine que vocÃª Ã© o vendedor. O cliente pergunta: How much is it? Aponte para um item de $15.00 e responda em voz alta!",
+      helperText: "Responda usando o valor em dÃ³lares.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
       tipText: "It is fifteen dollars.",
@@ -221,7 +221,7 @@ const LESSON_SLIDES = [
       playLabel: "Ouvir",
       pauseLabel: "Pausar",
       rerecordLabel: "Regravar",
-      submitLabel: "Enviar áudio",
+      submitLabel: "Enviar Ã¡udio",
       successTitle: "Correto",
       successMessage: 'Resposta esperada: "It is fifteen dollars."',
     },

@@ -73,7 +73,7 @@ const LESSON_SLIDES = [
       content: [
         ICA1.A18S1,
         ICA1.A18S1p2,
-        "O sol mudou de posiÁ„o, e o seu cumprimento tambÈm muda! Vamos aprender a saudar o dia?",
+        "O sol mudou de posi√ß√£o, e o seu cumprimento tamb√©m muda! Vamos aprender a saudar o dia?",
       ],
       continueLabel: "Continuar",
     },
@@ -97,9 +97,9 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Dica Cultural: De manh„, os nativos costumam ser pr·ticos.",
-        "Em situaÁıes informais, com amigos ou famÌlia, È muito comum eles cortarem o Good e dizerem apenas Morning!",
-        "… como o nosso Dia! em vez de Bom dia!.",
+        "Dica Cultural: De manh√£, os nativos costumam ser pr√°ticos.",
+        "Em situa√ß√µes informais, com amigos ou fam√≠lia, √© muito comum eles cortarem o Good e dizerem apenas Morning!",
+        "√â como o nosso Dia! em vez de Bom dia!.",
       ],
       continueLabel: "Continuar",
     },
@@ -124,8 +124,8 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Quando muda? O Good afternoon comeca exatamente apÛs o meio-dia (12:00 PM) e vai atÈ o pÙr do sol, por volta das 5 ou 6 da tarde.",
-        "Dica de Pron˙ncia: Note que as palavras se juntam! O som parece gu-dafter-nun.",
+        "Quando muda? O Good afternoon comeca exatamente ap√≥s o meio-dia (12:00 PM) e vai at√© o p√¥r do sol, por volta das 5 ou 6 da tarde.",
+        "Dica de Pron√∫ncia: Note que as palavras se juntam! O som parece gu-dafter-nun.",
         "O d do Good gruda no a do Afternoon!",
       ],
       continueLabel: "Continuar",
@@ -154,17 +154,17 @@ const LESSON_SLIDES = [
       letters: ["O", "O", "N", "R", "A", "F", "T", "E", "N"],
       correctWord: "AFTERNOON",
       successTitle: "Correto",
-      successMessage: 'A palavra correta È "AFTERNOON".',
+      successMessage: 'A palavra correta √© "AFTERNOON".',
     },
   },
   {
     component: Exercise6,
     activity: {
-      prompt: "Voce chega no trabalho ·s 9 da manh„.",
+      prompt: "Voce chega no trabalho √†s 9 da manh√£.",
       words: ["morning,", "Good", "boss!"],
       correctOrder: ["Good", "morning,", "boss!"],
       successTitle: "Correto",
-      successMessage: 'A frase correta È "Good morning, boss!"',
+      successMessage: 'A frase correta √© "Good morning, boss!"',
     },
   },
   {
@@ -175,10 +175,10 @@ const LESSON_SLIDES = [
       image: ICA1.A18S2,
       audioText: "Good morning, everyone!",
       audioDurationMs: 1850,
-      answerOptions: ["PerÌodo da manh„", "PerÌodo da tarde"],
-      correctOption: "PerÌodo da manh„",
+      answerOptions: ["Per√≠odo da manh√£", "Per√≠odo da tarde"],
+      correctOption: "Per√≠odo da manh√£",
       successTitle: "Correto",
-      feedbackMessage: '"Good morning" indica o perÌodo da manh„.',
+      feedbackMessage: '"Good morning" indica o per√≠odo da manh√£.',
     },
   },
   {
@@ -189,10 +189,10 @@ const LESSON_SLIDES = [
       image: ICA1.A18S4,
       audioText: "Good afternoon, sir.",
       audioDurationMs: 1400,
-      answerOptions: ["PerÌodo da manh„", "PerÌodo da tarde"],
-      correctOption: "PerÌodo da tarde",
+      answerOptions: ["Per√≠odo da manh√£", "Per√≠odo da tarde"],
+      correctOption: "Per√≠odo da tarde",
       successTitle: "Correto",
-      feedbackMessage: '"Good afternoon" indica o perÌodo da tarde.',
+      feedbackMessage: '"Good afternoon" indica o per√≠odo da tarde.',
     },
   },
   {
@@ -200,7 +200,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Speaking",
       instruction: "Imagine que sao 14:00.",
-      helperText: "Grave uma saudaÁ„o para o seu professor.",
+      helperText: "Grave uma sauda√ß√£o para o seu professor.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
       tipText: "Good afternoon! / Good afternoon, teacher!",
@@ -220,9 +220,9 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip Final",
       content: [
-        "ParabÈns! VocÍ agora sabe brilhar em qualquer hor·rio do dia.",
+        "Parab√©ns! Voc√™ agora sabe brilhar em qualquer hor√°rio do dia.",
         "Lembre-se: o Good morning traz energia, e o Good afternoon mantem o ritmo!",
-        "PrÛxima aula: O misterio do Good Evening vs Good Night. See you!",
+        "Pr√≥xima aula: O mist√©rio do Good Evening vs Good Night. See you!",
       ],
       continueLabel: "Continuar",
     },

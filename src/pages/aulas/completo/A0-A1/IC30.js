@@ -69,10 +69,10 @@ const LESSON_SLIDES = [
   {
     component: Exercise17,
     activity: {
-      label: "O Mestre da Soletração",
+      label: "O Mestre da SoletraÃ§Ã£o",
       content: [
         ICA1.A30S1,
-        "Você desbloqueou todos os sons do alfabeto. Consegue identificar cada um no meio da confusão?",
+        "VocÃª desbloqueou todos os sons do alfabeto. Consegue identificar cada um no meio da confusÃ£o?",
       ],
       continueLabel: "Continuar",
     },
@@ -122,7 +122,7 @@ const LESSON_SLIDES = [
   {
     component: Exercise1,
     activity: {
-      prompt: "Conecte Símbolos",
+      prompt: "Conecte SÃ­mbolos",
       pairs: [
         { en: "@", pt: "At" },
         { en: ".", pt: "Dot" },
@@ -136,36 +136,36 @@ const LESSON_SLIDES = [
     component: Exercise13,
     needsSpeech: true,
     activity: {
-      prompt: "Letras bagunçadas",
+      prompt: "Letras bagunÃ§adas",
       audioSource: require("../../../../../mp3/IC/A0-A1/A30S6.mp3"),
       audioDurationMs: 1200,
       letters: ["E", "L", "I", "A", "M"],
       correctWord: "EMAIL",
       successTitle: "Correto",
-      successMessage: 'A palavra correta é "EMAIL".',
+      successMessage: 'A palavra correta Ã© "EMAIL".',
     },
   },
   {
     component: Exercise6,
     activity: {
       prompt:
-        "Você não entendeu o nome de um americano. Peça para ele soletrar.",
+        "VocÃª nÃ£o entendeu o nome de um americano. PeÃ§a para ele soletrar.",
       words: ["do", "you", "spell", "How", "that?"],
       correctOrder: ["How", "do", "you", "spell", "that?"],
       successTitle: "Correto",
-      successMessage: 'A frase correta é "How do you spell that?"',
+      successMessage: 'A frase correta Ã© "How do you spell that?"',
     },
   },
   {
     component: Exercise11,
     activity: {
-      prompt: "O Camaleão vai ditar uma sigla técnica. Digite rápido!",
-      title: "Digite rápido",
+      prompt: "O CamaleÃ£o vai ditar uma sigla tÃ©cnica. Digite rÃ¡pido!",
+      title: "Digite rÃ¡pido",
       placeholder: "Digite aqui",
       secondsPerWord: 8,
       words: ["BPV"],
       successTitle: "Correto",
-      successMessage: "Você digitou BPV no tempo certo.",
+      successMessage: "VocÃª digitou BPV no tempo certo.",
     },
   },
   {
@@ -173,20 +173,20 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Speaking",
       instruction:
-        "Prove que você é um mestre! Soletre o nome do nosso app para o Camaleão: L - I - N - G - U - E - T - O.",
-      helperText: "Diga cada letra com a pronúncia correta.",
+        "Prove que vocÃª Ã© um mestre! Soletre o nome do nosso app para o CamaleÃ£o: L - I - N - G - U - E - T - O.",
+      helperText: "Diga cada letra com a pronÃºncia correta.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
-      tipText: "Él-Ái-Én-Djii-Iú-Ii-Tii-Ôu",
+      tipText: "Ã©l-Ã¡i-Ã©n-Djii-IÃº-Ii-Tii-Ã´u",
       recordLabel: "Speak",
       stopLabel: "Parar",
       playLabel: "Ouvir",
       pauseLabel: "Pausar",
       rerecordLabel: "Regravar",
-      submitLabel: "Enviar áudio",
+      submitLabel: "Enviar Ã¡udio",
       successTitle: "Correto",
       successMessage:
-        "Resposta esperada: cada letra de LINGUETO com a pronúncia correta.",
+        "Resposta esperada: cada letra de LINGUETO com a pronÃºncia correta.",
     },
   },
   {

@@ -73,7 +73,7 @@ const LESSON_SLIDES = [
       content: [
         ICA1.A27S1,
         ICA1.A27S1p2,
-        "Nomes americanos e britânicos podem ser parecidos, mas a escrita muda. Você está pronto para ser um mestre da soletração?",
+        "Nomes americanos e britÃ¢nicos podem ser parecidos, mas a escrita muda. VocÃª estÃ¡ pronto para ser um mestre da soletraÃ§Ã£o?",
       ],
       continueLabel: "Continuar",
     },
@@ -89,7 +89,7 @@ const LESSON_SLIDES = [
       answerOptions: ["how that?", "How do you spell that?"],
       correctOption: "How do you spell that?",
       successTitle: "Correto",
-      feedbackMessage: 'A pergunta correta é "How do you spell that?".',
+      feedbackMessage: 'A pergunta correta Ã© "How do you spell that?".',
     },
   },
   {
@@ -97,8 +97,8 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Não importa se você está nos EUA ou na Inglaterra, se o nome soar difícil, peça: 'How do you spell that?'.",
-        "Dica Cultural: Britânicos costumam ser muito formais e educados, então eles vão adorar te ajudar se você perguntar com um sorriso!",
+        "NÃ£o importa se vocÃª estÃ¡ nos EUA ou na Inglaterra, se o nome soar difÃ­cil, peÃ§a: 'How do you spell that?'.",
+        "Dica Cultural: BritÃ¢nicos costumam ser muito formais e educados, entÃ£o eles vÃ£o adorar te ajudar se vocÃª perguntar com um sorriso!",
       ],
       continueLabel: "Continuar",
     },
@@ -114,46 +114,46 @@ const LESSON_SLIDES = [
       answerOptions: ["Jaxon", "Jackson"],
       correctOption: "Jackson",
       successTitle: "Correto",
-      feedbackMessage: 'A soletração correta forma "Jackson".',
+      feedbackMessage: 'A soletraÃ§Ã£o correta forma "Jackson".',
     },
   },
   {
     component: Exercise14,
     needsSpeech: true,
     activity: {
-      prompt: "Qual foi a última letra dita pelo hóspede?",
+      prompt: "Qual foi a Ãºltima letra dita pelo hÃ³spede?",
       image: ICA1.A27S1p2,
       audioSource: require("../../../../../mp3/IC/A0-A1/A27S5.mp3"),
       audioDurationMs: 3200,
       answerOptions: ["I", "E"],
       correctOption: "E",
       successTitle: "Correto",
-      feedbackMessage: 'A última letra dita foi "E".',
+      feedbackMessage: 'A Ãºltima letra dita foi "E".',
     },
   },
   {
     component: Exercise1,
     activity: {
-      prompt: "Conecte nomes às soletrações",
+      prompt: "Conecte nomes Ã s soletraÃ§Ãµes",
       pairs: [
-        { en: "Sarah (US)", pt: "És-êi-ár-êi-êitch" },
-        { en: "Oliver (UK)", pt: "Ôu-él-ái-ví-í-ár" },
-        { en: "Hermione (UK)", pt: "Éitch-í-ár-ém-ái-ôu-én-í" },
+        { en: "Sarah (US)", pt: "Ã©s-Ãªi-Ã¡r-Ãªi-Ãªitch" },
+        { en: "Oliver (UK)", pt: "Ã´u-Ã©l-Ã¡i-vÃª-Ã­-Ã¡r" },
+        { en: "Hermione (UK)", pt: "Ãªitch-Ã­-Ã¡r-Ã©m-Ã¡i-Ã´u-Ã©n-Ã­" },
       ],
       successTitle: "Excelente",
       successMessage:
-        "Sarah = És-êi-ár-êi-êitch, Oliver = Ôu-él-ái-ví-í-ár, Hermione = Éitch-í-ár-ém-ái-ôu-én-í.",
+        "Sarah = Ã©s-Ãªi-Ã¡r-Ãªi-Ãªitch, Oliver = Ã´u-Ã©l-Ã¡i-vÃª-Ã­-Ã¡r, Hermione = Ãªitch-Ã­-Ã¡r-Ã©m-Ã¡i-Ã´u-Ã©n-Ã­.",
     },
   },
   {
     component: Exercise6,
     activity: {
       prompt:
-        "Você precisa perguntar o sobrenome (last name) de um americano chamado Mr. Smith.",
+        "VocÃª precisa perguntar o sobrenome (last name) de um americano chamado Mr. Smith.",
       words: ["spell", "last", "do", "How", "your", "you", "name?"],
       correctOrder: ["How", "do", "you", "spell", "your", "last", "name?"],
       successTitle: "Correto",
-      successMessage: 'A frase correta é "How do you spell your last name?"',
+      successMessage: 'A frase correta Ã© "How do you spell your last name?"',
     },
   },
   {
@@ -164,7 +164,7 @@ const LESSON_SLIDES = [
         "Cuidado com a letra Z!",
         "Nos EUA, eles dizem: ZEE (rima com 'E').",
         "No Reino Unido, eles dizem: ZED.",
-        "Se você ouvir 'Zed', já sabe que está falando com um britânico!",
+        "Se vocÃª ouvir 'Zed', jÃ¡ sabe que estÃ¡ falando com um britÃ¢nico!",
       ],
       continueLabel: "Continuar",
     },
@@ -174,9 +174,9 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Speaking",
       instruction:
-        "Imagine que você é um barista no Starbucks em Nova York.",
+        "Imagine que vocÃª Ã© um barista no Starbucks em Nova York.",
       helperText:
-        "Pergunte ao cliente: 'What's your name?' e depois peça para ele soletrar: 'How do you spell that?'.",
+        "Pergunte ao cliente: 'What's your name?' e depois peÃ§a para ele soletrar: 'How do you spell that?'.",
       image: ICA1.A27S9,
       tipButtonLabel: "Tip",
       tipText: "What's your name? / How do you spell that?",
@@ -185,10 +185,10 @@ const LESSON_SLIDES = [
       playLabel: "Ouvir",
       pauseLabel: "Pausar",
       rerecordLabel: "Regravar",
-      submitLabel: "Enviar áudio",
+      submitLabel: "Enviar Ã¡udio",
       successTitle: "Correto",
       successMessage:
-        "Resposta esperada: as duas perguntas com entonação natural.",
+        "Resposta esperada: as duas perguntas com entonaÃ§Ã£o natural.",
     },
   },
   {

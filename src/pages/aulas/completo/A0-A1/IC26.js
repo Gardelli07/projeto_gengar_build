@@ -72,7 +72,7 @@ const LESSON_SLIDES = [
       label: "Letras rebeldes",
       content: [
         ICA1.A26S1,
-        "Estas letras não seguem as regras das outras famílias. Cada uma tem sua própria personalidade e som único!",
+        "Estas letras nÃ£o seguem as regras das outras famÃ­lias. Cada uma tem sua prÃ³pria personalidade e som Ãºnico!",
       ],
       continueLabel: "Continuar",
     },
@@ -88,7 +88,7 @@ const LESSON_SLIDES = [
       answerOptions: ["H", "A"],
       correctOption: "H",
       successTitle: "Correto",
-      feedbackMessage: "H rima com o número 8 em inglês: eight.",
+      feedbackMessage: "H rima com o nÃºmero 8 em inglÃªs: eight.",
     },
   },
   {
@@ -116,7 +116,7 @@ const LESSON_SLIDES = [
       answerOptions: ["K", "Q"],
       correctOption: "K",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta é "K".',
+      feedbackMessage: 'A letra correta Ã© "K".',
     },
   },
   {
@@ -130,7 +130,7 @@ const LESSON_SLIDES = [
       answerOptions: ["Q", "K"],
       correctOption: "Q",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta é "Q".',
+      feedbackMessage: 'A letra correta Ã© "Q".',
     },
   },
   {
@@ -144,7 +144,7 @@ const LESSON_SLIDES = [
       answerOptions: ["R", "I"],
       correctOption: "R",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta é "R".',
+      feedbackMessage: 'A letra correta Ã© "R".',
     },
   },
   {
@@ -158,7 +158,7 @@ const LESSON_SLIDES = [
       answerOptions: ["W", "U"],
       correctOption: "W",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta é "W".',
+      feedbackMessage: 'A letra correta Ã© "W".',
     },
   },
   {
@@ -180,10 +180,10 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Para não esquecer:",
-        "O R (ár) tem som de pirata!",
-        "O Y (uái) soa como um mineiro perguntando 'uai?'.",
-        "Fica impossível de esquecer assim, né?",
+        "Para nÃ£o esquecer:",
+        "O R (Ã¡r) tem som de pirata!",
+        "O Y (uÃ¡i) soa como um mineiro perguntando 'uai?'.",
+        "Fica impossÃ­vel de esquecer assim, nÃ©?",
       ],
       continueLabel: "Continuar",
     },
@@ -193,9 +193,9 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "A confusão clássica:",
-        "J = Djêi (Rima com 'A').",
-        "G = Djii (Rima com 'E'). Lembre-se: O J é o 'Jota-ei'!",
+        "A confusÃ£o clÃ¡ssica:",
+        "J = DjÃªi (Rima com 'A').",
+        "G = Djii (Rima com 'E'). Lembre-se: O J Ã© o 'Jota-ei'!",
       ],
       continueLabel: "Continuar",
     },
@@ -205,8 +205,8 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "O W se chama Double-U porque ele parece dois 'U' grudados (embora pareça mais com dois 'V').",
-        "É a letra com o nome mais longo do alfabeto!",
+        "O W se chama Double-U porque ele parece dois 'U' grudados (embora pareÃ§a mais com dois 'V').",
+        "Ã‰ a letra com o nome mais longo do alfabeto!",
       ],
       continueLabel: "Continuar",
     },
@@ -216,24 +216,24 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Conecte a letra ao seu som",
       pairs: [
-        { en: "H", pt: "Êitch" },
-        { en: "J", pt: "Djêi" },
-        { en: "W", pt: "Dâbol-iú" },
-        { en: "Y", pt: "Uái" },
+        { en: "H", pt: "Ãªitch" },
+        { en: "J", pt: "DjÃªi" },
+        { en: "W", pt: "DÃ¢bol-iÃº" },
+        { en: "Y", pt: "UÃ¡i" },
       ],
       successTitle: "Excelente",
-      successMessage: "H = Êitch, J = Djêi, W = Dâbol-iú, Y = Uái.",
+      successMessage: "H = Ãªitch, J = DjÃªi, W = DÃ¢bol-iÃº, Y = UÃ¡i.",
     },
   },
   {
     component: Exercise6,
     activity: {
-      prompt: "Qual é a letra que falta na marca de Nova York?",
+      prompt: "Qual Ã© a letra que falta na marca de Nova York?",
       words: ["N", "Y"],
       correctOrder: ["N", "Y"],
       successTitle: "Correto",
       successMessage:
-        "A sequência correta é NY. O Y é fundamental em muitas siglas.",
+        "A sequÃªncia correta Ã© NY. O Y Ã© fundamental em muitas siglas.",
     },
   },
   {
@@ -241,19 +241,19 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Speaking",
       instruction:
-        "O Camaleão quer saber se você conhece essa sigla: H - B - O. Soletre para ele!",
-      helperText: "Diga o nome das letras em inglês.",
+        "O CamaleÃ£o quer saber se vocÃª conhece essa sigla: H - B - O. Soletre para ele!",
+      helperText: "Diga o nome das letras em inglÃªs.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
-      tipText: "êitch - bí - ôu",
+      tipText: "Ãªitch - bÃª - Ã´u",
       recordLabel: "Speak",
       stopLabel: "Parar",
       playLabel: "Ouvir",
       pauseLabel: "Pausar",
       rerecordLabel: "Regravar",
-      submitLabel: "Enviar áudio",
+      submitLabel: "Enviar Ã¡udio",
       successTitle: "Correto",
-      successMessage: 'Resposta esperada: "êitch - bí - ôu".',
+      successMessage: 'Resposta esperada: "Ãªitch - bÃª - Ã´u".',
     },
   },
   {

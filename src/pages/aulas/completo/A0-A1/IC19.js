@@ -73,7 +73,7 @@ const LESSON_SLIDES = [
       content: [
         ICA1.A19S1,
         ICA1.A19S1p2,
-        "Existem dois jeitos de dizer Boa noite. Um é para quando você chega e o outro para quando você vai dormir. Consegue adivinhar qual é qual?",
+        "Existem dois jeitos de dizer Boa noite. Um Ã© para quando vocÃª chega e o outro para quando vocÃª vai dormir. Consegue adivinhar qual Ã© qual?",
       ],
       continueLabel: "Continuar",
     },
@@ -89,7 +89,7 @@ const LESSON_SLIDES = [
       answerOptions: ["Good evening", "Good night"],
       correctOption: "Good evening",
       successTitle: "Correto",
-      feedbackMessage: "Good evening é o cumprimento de chegada a noite.",
+      feedbackMessage: "Good evening Ã© o cumprimento de chegada a noite.",
     },
   },
   {
@@ -97,9 +97,9 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Dica de Ouro do Camaleão: Good evening é um cumprimento de chegada.",
+        "Dica de Ouro do CamaleÃ£o: Good evening Ã© um cumprimento de chegada.",
         "Pense nele como o Hello da noite.",
-        "Se você entrar em um restaurante ou na aula as 20h, use sempre Evening!",
+        "Se vocÃª entrar em um restaurante ou na aula as 20h, use sempre Evening!",
       ],
       continueLabel: "Continuar",
     },
@@ -115,7 +115,7 @@ const LESSON_SLIDES = [
       answerOptions: ["Good evening", "Good night"],
       correctOption: "Good night",
       successTitle: "Correto",
-      feedbackMessage: "Good night é usado para se despedir ou ir dormir.",
+      feedbackMessage: "Good night Ã© usado para se despedir ou ir dormir.",
     },
   },
   {
@@ -123,9 +123,9 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Dica Cultural: Good night NÃO e um cumprimento de chegada.",
-        "Ele é usado apenas para se despedir ou quando você está indo dormir.",
-        "Se você disser Good night ao entrar em uma festa, as pessoas vão achar que você já está indo embora!",
+        "Dica Cultural: Good night NÃƒO e um cumprimento de chegada.",
+        "Ele Ã© usado apenas para se despedir ou quando vocÃª estÃ¡ indo dormir.",
+        "Se vocÃª disser Good night ao entrar em uma festa, as pessoas vÃ£o achar que vocÃª jÃ¡ estÃ¡ indo embora!",
       ],
       continueLabel: "Continuar",
     },
@@ -135,8 +135,8 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Conecte a situacao",
       pairs: [
-        { en: "Chegando em um evento às 19:00", pt: "Good evening" },
-        { en: "Saindo de casa às 22:00", pt: "Good night" },
+        { en: "Chegando em um evento Ã s 19:00", pt: "Good evening" },
+        { en: "Saindo de casa Ã s 22:00", pt: "Good night" },
       ],
       successTitle: "Excelente",
       successMessage:
@@ -161,12 +161,12 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escolha a frase correta",
       image: ICA1.A19S8,
-      wrongSentence: "Você chega na casa de um amigo às 21h.",
+      wrongSentence: "VocÃª chega na casa de um amigo Ã s 21h.",
       options: ["Good night, my friend!", "Good evening, my friend!"],
       correctAnswer: "Good evening, my friend!",
       successTitle: "Correto",
       successMessage:
-        "Good evening mostra que você acabou de chegar. Good night parece despedida.",
+        "Good evening mostra que vocÃª acabou de chegar. Good night parece despedida.",
     },
   },
   {
@@ -202,8 +202,8 @@ const LESSON_SLIDES = [
     component: Exercise16,
     activity: {
       prompt: "Speaking",
-      instruction: "Imagine que voce esta saindo de uma pizzaria às 23h.",
-      helperText: "Como você se despede do garcom?",
+      instruction: "Imagine que voce esta saindo de uma pizzaria Ã s 23h.",
+      helperText: "Como vocÃª se despede do garÃ§om?",
       image: Images.ex16,
       tipButtonLabel: "Tip",
       tipText: "Good night!",
@@ -223,7 +223,7 @@ const LESSON_SLIDES = [
       label: "Tip Final",
       content: [
         "Conquista Desbloqueada: Mestre da Noite!",
-        "Agora você nunca mais vai passar vergonha chegando nos lugares e dizendo tchau sem querer.",
+        "Agora vocÃª nunca mais vai passar vergonha chegando nos lugares e dizendo tchau sem querer.",
         "Lembre-se: Evening = Hello / Night = Bye. See you soon!",
       ],
       continueLabel: "Continuar",

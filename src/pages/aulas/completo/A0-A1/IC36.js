@@ -72,7 +72,7 @@ const LESSON_SLIDES = [
       label: "Phone number",
       content: [
         ICA1.A36S1,
-        "Para não ficar isolado no espaço, você precisa passar suas coordenadas de contato. Como dizemos números de telefone em inglês?",
+        "Para nÃ£o ficar isolado no espaÃ§o, vocÃª precisa passar suas coordenadas de contato. Como dizemos nÃºmeros de telefone em inglÃªs?",
       ],
       continueLabel: "Continuar",
     },
@@ -82,8 +82,8 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Dica de Ouro: em inglês, nunca agrupamos os números de telefone como noventa e nove.",
-        "Dizemos dígito por dígito.",
+        "Dica de Ouro: em inglÃªs, nunca agrupamos os nÃºmeros de telefone como noventa e nove.",
+        "Dizemos dÃ­gito por dÃ­gito.",
         "9912 = Nine, nine, one, two.",
       ],
       continueLabel: "Continuar",
@@ -94,9 +94,9 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Códigos Avançados:",
+        "CÃ³digos AvanÃ§ados:",
         "O Zero: quase sempre dizemos O em vez de Zero.",
-        "Números Iguais: se tivermos 55, dizemos Double Five.",
+        "NÃºmeros Iguais: se tivermos 55, dizemos Double Five.",
       ],
       continueLabel: "Continuar",
     },
@@ -132,17 +132,17 @@ const LESSON_SLIDES = [
   {
     component: Exercise6,
     activity: {
-      prompt: "Você quer o contato da central de comando.",
+      prompt: "VocÃª quer o contato da central de comando.",
       words: ["phone", "your", "number?", "is", "What"],
       correctOrder: ["What", "is", "your", "phone", "number?"],
       successTitle: "Correto",
-      successMessage: 'A frase correta é "What is your phone number?"',
+      successMessage: 'A frase correta Ã© "What is your phone number?"',
     },
   },
   {
     component: Exercise1,
     activity: {
-      prompt: "Conectar a leitura ao número",
+      prompt: "Conectar a leitura ao nÃºmero",
       pairs: [
         { en: "Nine-one-double three", pt: "9133" },
         { en: "Five-oh-nine-two", pt: "5092" },
@@ -163,20 +163,20 @@ const LESSON_SLIDES = [
       letters: ["E", "N", "O", "H", "P"],
       correctWord: "PHONE",
       successTitle: "Correto",
-      successMessage: 'A palavra correta é "PHONE".',
+      successMessage: 'A palavra correta Ã© "PHONE".',
     },
   },
   {
     component: Exercise11,
     activity: {
       prompt:
-        "A base está ditando o código de resgate! Digite os números que você ouvir!",
-      title: "Digite rápido",
+        "A base estÃ¡ ditando o cÃ³digo de resgate! Digite os nÃºmeros que vocÃª ouvir!",
+      title: "Digite rÃ¡pido",
       placeholder: "Digite aqui",
       secondsPerWord: 8,
       words: ["88014"],
       successTitle: "Correto",
-      successMessage: "A resposta esperada é 88014.",
+      successMessage: "A resposta esperada Ã© 88014.",
     },
   },
   {
@@ -187,21 +187,21 @@ const LESSON_SLIDES = [
       image: ICA1.A36S10,
       audioSource: require("../../../../../mp3/IC/A0-A1/A36S10.mp3"),
       audioDurationMs: 3200,
-      answerOptions: ["What’s you phone number?", "What number?"],
-      correctOption: "What’s you phone number?",
+      answerOptions: ["What's you phone number?", "What number?"],
+      correctOption: "What's you phone number?",
       successTitle: "Correto",
       feedbackMessage:
-        "Essa foi a opção marcada no roteiro para esta atividade.",
+        "Essa foi a opÃ§Ã£o marcada no roteiro para esta atividade.",
     },
   },
   {
     component: Exercise6,
     activity: {
       prompt: "Monte a frase",
-      words: ["What’s", "phone", "your", "number?"],
-      correctOrder: ["What’s", "your", "phone", "number?"],
+      words: ["What's", "phone", "your", "number?"],
+      correctOrder: ["What's", "your", "phone", "number?"],
       successTitle: "Correto",
-      successMessage: 'A frase correta é "What’s your phone number?"',
+      successMessage: 'A frase correta Ã© "What's your phone number?"',
     },
   },
   {
@@ -209,8 +209,8 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Speaking",
       instruction:
-        "O controle da missão pergunta: What is your phone number? Invente um número e soletre dígito por dígito para o Lingueto!",
-      helperText: "Diga os números individualmente.",
+        "O controle da missÃ£o pergunta: What is your phone number? Invente um nÃºmero e soletre dÃ­gito por dÃ­gito para o Lingueto!",
+      helperText: "Diga os nÃºmeros individualmente.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
       tipText:
@@ -220,10 +220,10 @@ const LESSON_SLIDES = [
       playLabel: "Ouvir",
       pauseLabel: "Pausar",
       rerecordLabel: "Regravar",
-      submitLabel: "Enviar áudio",
+      submitLabel: "Enviar Ã¡udio",
       successTitle: "Correto",
       successMessage:
-        "Resposta esperada: gravação dizendo os números individualmente.",
+        "Resposta esperada: gravaÃ§Ã£o dizendo os nÃºmeros individualmente.",
     },
   },
   {

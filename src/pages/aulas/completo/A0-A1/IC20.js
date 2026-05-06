@@ -72,7 +72,7 @@ const LESSON_SLIDES = [
       label: "See you!",
       content: [
         ICA1.A20S1,
-        "Você terminou sua compra. O que dizer para fechar a interação com chave de ouro?",
+        "VocÃª terminou sua compra. O que dizer para fechar a interaÃ§Ã£o com chave de ouro?",
       ],
       continueLabel: "Continuar",
     },
@@ -89,7 +89,7 @@ const LESSON_SLIDES = [
       correctOption: "Have a good one!",
       successTitle: "Correto",
       feedbackMessage:
-        'Have a good one! é uma despedida comum em lojas e restaurantes.',
+        'Have a good one! Ã© uma despedida comum em lojas e restaurantes.',
     },
   },
   {
@@ -97,9 +97,9 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Dica de Nativo: Have a good one! é a frase favorita dos americanos.",
+        "Dica de Nativo: Have a good one! Ã© a frase favorita dos americanos.",
         "O 'one' aqui substitui 'day', 'afternoon' ou 'evening'. Ou seja, serve para qualquer hora!",
-        "É a forma mais comum de se despedir em lojas e restaurantes.",
+        "Ã‰ a forma mais comum de se despedir em lojas e restaurantes.",
       ],
       continueLabel: "Continuar",
     },
@@ -115,7 +115,7 @@ const LESSON_SLIDES = [
       answerOptions: ["See you later!", "See later you!"],
       correctOption: "See you later!",
       successTitle: "Correto",
-      feedbackMessage: 'A ordem correta é "See you later!".',
+      feedbackMessage: 'A ordem correta Ã© "See you later!".',
     },
   },
   {
@@ -123,8 +123,8 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Com amigos, os nativos são ainda mais rápidos.",
-        "Em vez de 'See you later', você ouvirá muito apenas um 'See ya!' ou simplesmente 'Later!'.",
+        "Com amigos, os nativos sÃ£o ainda mais rÃ¡pidos.",
+        "Em vez de 'See you later', vocÃª ouvirÃ¡ muito apenas um 'See ya!' ou simplesmente 'Later!'.",
         "Pratique o som: 'lei-der'.",
       ],
       continueLabel: "Continuar",
@@ -141,7 +141,7 @@ const LESSON_SLIDES = [
       answerOptions: ["Later!", "Letter!"],
       correctOption: "Later!",
       successTitle: "Correto",
-      feedbackMessage: "Later! é uma despedida casual. Letter é carta, não confunda!",
+      feedbackMessage: "Later! Ã© uma despedida casual. Letter Ã© carta, nÃ£o confunda!",
     },
   },
   {
@@ -163,9 +163,9 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Take care é uma despedida calorosa.",
+        "Take care Ã© uma despedida calorosa.",
         "Significa 'se cuida'.",
-        "É perfeita para usar com amigos, vizinhos ou pessoas que você não verá por alguns dias.",
+        "Ã‰ perfeita para usar com amigos, vizinhos ou pessoas que vocÃª nÃ£o verÃ¡ por alguns dias.",
       ],
       continueLabel: "Continuar",
     },
@@ -173,28 +173,28 @@ const LESSON_SLIDES = [
   {
     component: Exercise6,
     activity: {
-      prompt: "Você está saindo do táxi e deseja um bom dia ao motorista.",
+      prompt: "VocÃª estÃ¡ saindo do tÃ¡xi e deseja um bom dia ao motorista.",
       words: ["day!", "nice", "a", "Have"],
       correctOrder: ["Have", "a", "nice", "day!"],
       successTitle: "Correto",
-      successMessage: 'A frase correta é "Have a nice day!"',
+      successMessage: 'A frase correta Ã© "Have a nice day!"',
     },
   },
   {
     component: Exercise1,
     activity: {
-      prompt: "Conecte a situação",
+      prompt: "Conecte a situaÃ§Ã£o",
       pairs: [
         { en: "Saindo do supermercado", pt: "Have a good one!" },
         { en: "Indo embora da casa de um amigo", pt: "Take care!" },
         {
-          en: "Saindo de perto de alguém que você verá logo",
+          en: "Saindo de perto de alguÃ©m que vocÃª verÃ¡ logo",
           pt: "See you!",
         },
       ],
       successTitle: "Excelente",
       successMessage:
-        "Saindo do supermercado: Have a good one! Indo embora da casa de um amigo: Take care! Verá logo: See you!",
+        "Saindo do supermercado: Have a good one! Indo embora da casa de um amigo: Take care! VerÃ¡ logo: See you!",
     },
   },
   {
@@ -202,12 +202,12 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escolha a frase correta",
       image: ICA1.A20S11,
-      wrongSentence: "Você está se despedindo de um grupo às 15h.",
+      wrongSentence: "VocÃª estÃ¡ se despedindo de um grupo Ã s 15h.",
       options: ["Good afternoon!", "Have a good afternoon!"],
       correctAnswer: "Have a good afternoon!",
       successTitle: "Correto",
       successMessage:
-        'Good afternoon! é "Oi". Have a good afternoon! é "Tchau".',
+        'Good afternoon! Ã© "Oi". Have a good afternoon! Ã© "Tchau".',
     },
   },
   {
@@ -215,8 +215,8 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Speaking",
       instruction:
-        "Grave a frase que você mais usaria ao sair de um Starbucks em Nova York.",
-      helperText: "Use uma despedida natural em ambiente de serviço.",
+        "Grave a frase que vocÃª mais usaria ao sair de um Starbucks em Nova York.",
+      helperText: "Use uma despedida natural em ambiente de serviÃ§o.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
       tipText: "Have a good one! / Have a nice day!",
@@ -225,7 +225,7 @@ const LESSON_SLIDES = [
       playLabel: "Ouvir",
       pauseLabel: "Pausar",
       rerecordLabel: "Regravar",
-      submitLabel: "Enviar áudio",
+      submitLabel: "Enviar Ã¡udio",
       successTitle: "Correto",
       successMessage:
         'Resposta esperada: "Have a good one!" ou "Have a nice day!".',

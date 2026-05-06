@@ -72,7 +72,7 @@ const LESSON_SLIDES = [
       label: "Time do EE",
       content: [
         ICA1.A24S1,
-        "Estas letras são melhores amigas. Todas elas terminam com o mesmo som: um 'ii' longo e sorridente!",
+        "Estas letras sÃ£o melhores amigas. Todas elas terminam com o mesmo som: um 'ii' longo e sorridente!",
       ],
       continueLabel: "Continuar",
     },
@@ -88,7 +88,7 @@ const LESSON_SLIDES = [
       answerOptions: ["B", "D"],
       correctOption: "B",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta é "B".',
+      feedbackMessage: 'A letra correta Ã© "B".',
     },
   },
   {
@@ -102,7 +102,7 @@ const LESSON_SLIDES = [
       answerOptions: ["C", "S"],
       correctOption: "C",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta é "C".',
+      feedbackMessage: 'A letra correta Ã© "C".',
     },
   },
   {
@@ -116,7 +116,7 @@ const LESSON_SLIDES = [
       answerOptions: ["D", "T"],
       correctOption: "D",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta é "D".',
+      feedbackMessage: 'A letra correta Ã© "D".',
     },
   },
   {
@@ -130,7 +130,7 @@ const LESSON_SLIDES = [
       answerOptions: ["G", "J"],
       correctOption: "G",
       successTitle: "Correto",
-      feedbackMessage: "O G tem som de 'dj', não confunda com o som do J!",
+      feedbackMessage: "O G tem som de 'dj', nÃ£o confunda com o som do J!",
     },
   },
   {
@@ -144,7 +144,7 @@ const LESSON_SLIDES = [
       answerOptions: ["P", "B"],
       correctOption: "P",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta é "P".',
+      feedbackMessage: 'A letra correta Ã© "P".',
     },
   },
   {
@@ -158,7 +158,7 @@ const LESSON_SLIDES = [
       answerOptions: ["T", "D"],
       correctOption: "T",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta é "T".',
+      feedbackMessage: 'A letra correta Ã© "T".',
     },
   },
   {
@@ -172,7 +172,7 @@ const LESSON_SLIDES = [
       answerOptions: ["V", "F"],
       correctOption: "V",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta é "V".',
+      feedbackMessage: 'A letra correta Ã© "V".',
     },
   },
   {
@@ -195,7 +195,7 @@ const LESSON_SLIDES = [
       label: "Tip",
       content: [
         ICA1.A24S10,
-        "Para falar qualquer uma dessas letras, estique os lábios como se estivesse tirando uma foto!",
+        "Para falar qualquer uma dessas letras, estique os lÃ¡bios como se estivesse tirando uma foto!",
         "B, C, D, G, P, T, V, Z... todos terminam em IIIII.",
       ],
       continueLabel: "Continuar",
@@ -206,9 +206,9 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Cuidado com a pressão!",
-        "O B é um som mais relaxado.",
-        "O P é um som explosivo, sinta o ar saindo da boca ao dizer PÍ!",
+        "Cuidado com a pressÃ£o!",
+        "O B Ã© um som mais relaxado.",
+        "O P Ã© um som explosivo, sinta o ar saindo da boca ao dizer PÃª!",
       ],
       continueLabel: "Continuar",
     },
@@ -218,24 +218,24 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Conecte a letra ao seu som",
       pairs: [
-        { en: "G", pt: "Djí" },
-        { en: "C", pt: "Sí" },
-        { en: "Z", pt: "Zí" },
-        { en: "D", pt: "Dí" },
+        { en: "G", pt: "DjÃ¡" },
+        { en: "C", pt: "SÃª" },
+        { en: "Z", pt: "ZÃª" },
+        { en: "D", pt: "DÃª" },
       ],
       successTitle: "Excelente",
-      successMessage: "G = Djí, C = Sí, Z = Zí, D = Dí.",
+      successMessage: "G = DjÃ¡, C = SÃª, Z = ZÃª, D = DÃª.",
     },
   },
   {
     component: Exercise6,
     activity: {
-      prompt: "Coloque estas letras do time na ordem alfabética correta.",
+      prompt: "Coloque estas letras do time na ordem alfabÃ©tica correta.",
       words: ["D", "B", "C", "E"],
       correctOrder: ["B", "C", "D", "E"],
       successTitle: "Correto",
       successMessage:
-        "A sequência correta é B, C, D, E. Lembrando que o E também tem o som de ii.",
+        "A sequÃªncia correta Ã© B, C, D, E. Lembrando que o E tambÃ©m tem o som de ii.",
     },
   },
   {
@@ -243,18 +243,18 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Speaking",
       instruction: "Soletre estas duas letras famosas: T - V.",
-      helperText: "Grave dizendo o nome das letras em inglês.",
+      helperText: "Grave dizendo o nome das letras em inglÃªs.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
-      tipText: "Tí - Ví",
+      tipText: "TÃª - VÃª",
       recordLabel: "Speak",
       stopLabel: "Parar",
       playLabel: "Ouvir",
       pauseLabel: "Pausar",
       rerecordLabel: "Regravar",
-      submitLabel: "Enviar áudio",
+      submitLabel: "Enviar Ã¡udio",
       successTitle: "Correto",
-      successMessage: 'Resposta esperada: "Tí - Ví".',
+      successMessage: 'Resposta esperada: "TÃª - VÃª".',
     },
   },
   {

@@ -72,7 +72,7 @@ const LESSON_SLIDES = [
       label: "0-10",
       content: [
         ICA1.A32S1,
-        "Atenção, astronauta! O lançamento depende de uma contagem perfeita. Você está pronto para comandar os motores?",
+        "AtenÃ§Ã£o, astronauta! O lanÃ§amento depende de uma contagem perfeita. VocÃª estÃ¡ pronto para comandar os motores?",
       ],
       continueLabel: "Continuar",
     },
@@ -88,7 +88,7 @@ const LESSON_SLIDES = [
       answerOptions: ["0 a 10", "10 a 0"],
       correctOption: "0 a 10",
       successTitle: "Correto",
-      feedbackMessage: "O áudio faz a contagem de zero até dez.",
+      feedbackMessage: "O Ã¡udio faz a contagem de zero atÃ© dez.",
     },
   },
   {
@@ -102,7 +102,7 @@ const LESSON_SLIDES = [
       answerOptions: ["Tree", "Three"],
       correctOption: "Three",
       successTitle: "Correto",
-      feedbackMessage: '"Three" é o número 3.',
+      feedbackMessage: '"Three" Ã© o nÃºmero 3.',
     },
   },
   {
@@ -117,7 +117,7 @@ const LESSON_SLIDES = [
       correctOption: "Three",
       successTitle: "Correto",
       feedbackMessage:
-        'No Lingueto, ensinamos que "Tree" é árvore e "Three" é o número 3.',
+        'No Lingueto, ensinamos que "Tree" Ã© Ã¡rvore e "Three" Ã© o nÃºmero 3.',
     },
   },
   {
@@ -125,7 +125,7 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Dica: No Lingueto, ensinamos que Tree é árvore e Three é o número 3!",
+        "Dica: No Lingueto, ensinamos que Tree Ã© Ã¡rvore e Three Ã© o nÃºmero 3!",
       ],
       continueLabel: "Continuar",
     },
@@ -141,7 +141,7 @@ const LESSON_SLIDES = [
       answerOptions: ["Eight", "Eighty"],
       correctOption: "Eight",
       successTitle: "Correto",
-      feedbackMessage: '"Eight" é o número 8.',
+      feedbackMessage: '"Eight" Ã© o nÃºmero 8.',
     },
   },
   {
@@ -150,17 +150,17 @@ const LESSON_SLIDES = [
       label: "Tip",
       content: [
         "Consulte o seu painel sempre que precisar conferir a escrita oficial dos comandos:",
-        "0 - Zero / Oh - zí-rou / ôu",
-        "1 - One - uán",
-        "2 - Two - tú",
-        "3 - Three - rrí (com sopro)",
-        "4 - Four - fór",
-        "5 - Five - fáiv",
+        "0 - Zero / Oh - zÃ­-rou / Ã´u",
+        "1 - One - uÃ©n",
+        "2 - Two - tÃº",
+        "3 - Three - rrÃ­ (com sopro)",
+        "4 - Four - fÃ¡r",
+        "5 - Five - fÃ¡iv",
         "6 - Six - siks",
-        "7 - Seven - sé-ven",
-        "8 - Eight - êit",
-        "9 - Nine - náin",
-        "10 - Ten - tén",
+        "7 - Seven - sÃ©-ven",
+        "8 - Eight - Ãªit",
+        "9 - Nine - nÃ¡in",
+        "10 - Ten - tÃ©n",
       ],
       continueLabel: "Continuar",
     },
@@ -176,7 +176,7 @@ const LESSON_SLIDES = [
       answerOptions: ["9 1 ou 6", "9 1 0 6"],
       correctOption: "9 1 0 6",
       successTitle: "Correto",
-      feedbackMessage: "A sequência correta é 9 1 0 6.",
+      feedbackMessage: "A sequÃªncia correta Ã© 9 1 0 6.",
     },
   },
   {
@@ -184,7 +184,7 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Dica Técnica: Em códigos, números de telefone ou missões, os nativos costumam dizer O em vez de Zero.",
+        "Dica TÃ©cnica: Em cÃ³digos, nÃºmeros de telefone ou missÃµes, os nativos costumam dizer O em vez de Zero.",
         "Ex: Sala 101 = One-O-One.",
       ],
       continueLabel: "Continuar",
@@ -214,7 +214,7 @@ const LESSON_SLIDES = [
       letters: ["E", "V", "E", "S", "N"],
       correctWord: "SEVEN",
       successTitle: "Correto",
-      successMessage: 'A palavra correta é "SEVEN".',
+      successMessage: 'A palavra correta Ã© "SEVEN".',
     },
   },
   {
@@ -222,12 +222,12 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "O foguete vai subir! Complete a contagem regressiva: Three, Two, One...",
-      title: "Digite rápido",
+      title: "Digite rÃ¡pido",
       placeholder: "Digite aqui",
       secondsPerWord: 5,
       words: ["Zero"],
       successTitle: "Correto",
-      successMessage: 'A resposta esperada é "Zero" ou "0".',
+      successMessage: 'A resposta esperada Ã© "Zero" ou "0".',
     },
   },
   {
@@ -235,8 +235,8 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Speaking",
       instruction:
-        "Grave sua voz contando de 10 até 0 para autorizar a decolagem.",
-      helperText: "Faça a sequência regressiva completa.",
+        "Grave sua voz contando de 10 atÃ© 0 para autorizar a decolagem.",
+      helperText: "FaÃ§a a sequÃªncia regressiva completa.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
       tipText:
@@ -246,10 +246,10 @@ const LESSON_SLIDES = [
       playLabel: "Ouvir",
       pauseLabel: "Pausar",
       rerecordLabel: "Regravar",
-      submitLabel: "Enviar áudio",
+      submitLabel: "Enviar Ã¡udio",
       successTitle: "Correto",
       successMessage:
-        "Resposta esperada: gravação da contagem regressiva de 10 até 0.",
+        "Resposta esperada: gravaÃ§Ã£o da contagem regressiva de 10 atÃ© 0.",
     },
   },
   {
