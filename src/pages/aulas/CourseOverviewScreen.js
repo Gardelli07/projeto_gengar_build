@@ -154,14 +154,6 @@ export default function CourseOverviewScreen({
                   >
                     {moduleItem.name}
                   </Text>
-                  <Text
-                    style={[
-                      styles.moduleSubtitle,
-                      moduleItem.locked && styles.lockedText,
-                    ]}
-                  >
-                    {moduleItem.subtitle}
-                  </Text>
                   {!moduleItem.locked && (
                     <Text style={styles.moduleMeta}>
                       {moduleCompleted}/{moduleLessons.length} aulas concluidas
@@ -219,9 +211,6 @@ export default function CourseOverviewScreen({
                               ]}
                             >
                               {lesson.title}
-                            </Text>
-                            <Text style={styles.lessonType}>
-                              {lesson.type || "Aula"}
                             </Text>
                           </View>
                         </View>
@@ -381,7 +370,7 @@ const styles = StyleSheet.create({
   lessonTitle: {
     color: THEME.textStrong,
     fontSize: 15,
-    fontWeight: "700",
+    fontWeight: "400",
   },
   lessonType: {
     color: "#7B8698",
