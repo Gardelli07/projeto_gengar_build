@@ -205,7 +205,7 @@ A resposta clássica? 'Not much' (Nada de mais). `,
       instruction: "Fale brevemente sobre você em inglês.",
       helperText:
         "Grave um áudio cumprimentando alguém usando 'Howdy!' com uma entonação bem animada, como se estivesse usando um chapéu de caubói!",
-      image: BussinesImages.menina2,
+      image: Images.ex16,
       tipButtonLabel: "Tip",
       tipText: "Howdy!",
       recordLabel: "Speak",

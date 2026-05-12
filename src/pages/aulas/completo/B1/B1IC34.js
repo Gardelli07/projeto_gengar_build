@@ -128,7 +128,6 @@ Exemplos: make money, make a decision, make a mistake.`,
     component: Exercise5,
     activity: {
       prompt: "Complete a frase.",
-      image: BussinesImages.confuso,
       sentenceStart: "I studied hard, but I",
       sentenceEnd: "a big mistake on the test.",
       options: ["made", "did"],
@@ -204,8 +203,7 @@ Exemplos: make money, make a decision, make a mistake.`,
       prompt: "Writing",
       instruction:
         "Escreva 2 frases. Na primeira, confesse um erro que você cometeu (make a mistake). Na segunda, prometa dar o seu melhor (do your best) para consertar.",
-      placeholder:
-        "I made a mistake when...\nI will do my best to fix it.",
+      placeholder: "I made a mistake when...\nI will do my best to fix it.",
       helperText: 'Use "made a mistake" e "do my best".',
       submitLabel: "Enviar",
       successTitle: "Correto",

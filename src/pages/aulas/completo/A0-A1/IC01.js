@@ -20,7 +20,7 @@ import ex15, { Exercise15 } from "../../../../exc/ex15";
 import ex14, { Exercise14 } from "../../../../exc/ex14";
 import ex17, { Exercise17 } from "../../../../exc/ex17";
 import Feedback from "../../../../exc/feedback";
-import { BussinesImages, ICA1, Images } from "../../../../util/images";
+import { ICA1, Images } from "../../../../util/images";
 import {
   calculateLessonAccuracy,
   LESSON_STREAK_MIN_ACCURACY,

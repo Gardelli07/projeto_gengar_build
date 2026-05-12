@@ -13,17 +13,30 @@ import SplashScreen from "../pages/SplashScreen";
 import InglesCompletoHome from "../pages/aulas/completo/A0-A1";
 import InglesCompletoA2Home from "../pages/aulas/completo/A2";
 import InglesCompletoB1Home from "../pages/aulas/completo/B1";
-import BussinesHome from "../pages/aulas/bussines";
+import BussinesHome from "../pages/aulas/bussines/A1";
+import BussinesA2Home from "../pages/aulas/bussines/A2";
 
 // Business
-import MeetingsQuiz from "../pages/aulas/bussines/MeetingsQuiz";
-import MeetingPhrasebook from "../pages/aulas/bussines/MeetingPhrasebook";
-import PracticeMeetingExpressions from "../pages/aulas/bussines/PracticeMeetingExpressions";
-import NetworkingSmallTalk from "../pages/aulas/bussines/NetworkingSmallTalk";
-import IntroBusinessEnglish from "../pages/aulas/bussines/IntroBusinessEnglish";
-import ProfessionalEmails from "../pages/aulas/bussines/ProfessionalEmails";
-import ProfessionalEmailsPart2 from "../pages/aulas/bussines/ProfessionalEmailsPart2";
-import TelephoneConversations from "../pages/aulas/bussines/TelephoneConversations";
+import A1BU1 from "../pages/aulas/bussines/A1/A1BU1";
+import A1BU2 from "../pages/aulas/bussines/A1/A1BU2";
+import A1BU3 from "../pages/aulas/bussines/A1/A1BU3";
+import A1BU4 from "../pages/aulas/bussines/A1/A1BU4";
+import A1BU5 from "../pages/aulas/bussines/A1/A1BU5";
+import A1BU6 from "../pages/aulas/bussines/A1/A1BU6";
+import A1BU7 from "../pages/aulas/bussines/A1/A1BU7";
+import A1BU8 from "../pages/aulas/bussines/A1/A1BU8";
+import A1BU9 from "../pages/aulas/bussines/A1/A1BU9";
+import A1BU10 from "../pages/aulas/bussines/A1/A1BU10";
+import A1BU11 from "../pages/aulas/bussines/A1/A1BU11";
+import A1BU12 from "../pages/aulas/bussines/A1/A1BU12";
+import A1BU13 from "../pages/aulas/bussines/A1/A1BU13";
+import A1BU14 from "../pages/aulas/bussines/A1/A1BU14";
+import A1BU15 from "../pages/aulas/bussines/A1/A1BU15";
+import A1BU16 from "../pages/aulas/bussines/A1/A1BU16";
+import A1BU17 from "../pages/aulas/bussines/A1/A1BU17";
+import A1BU18 from "../pages/aulas/bussines/A1/A1BU18";
+import A1BU19 from "../pages/aulas/bussines/A1/A1BU19";
+import A1BU20 from "../pages/aulas/bussines/A1/A1BU20";
 
 // Completo
 import IC01 from "../pages/aulas/completo/A0-A1/IC01";
@@ -224,53 +237,52 @@ export default function Routes() {
 
         {/* ===== BUSINESS ===== */}
         <Stack.Screen
-          name="MeetingPhrasebook"
-          component={MeetingPhrasebook}
-          options={{
-            title: "Phrasebook: Expressões de Reunião",
-            ...defaultHeader,
-          }}
-        />
-        <Stack.Screen
-          name="PracticeMeetingExpressions"
-          component={PracticeMeetingExpressions}
-          options={{ title: "Quiz: Prática de Expressões", ...defaultHeader }}
-        />
-        <Stack.Screen
-          name="MeetingsQuiz"
-          component={MeetingsQuiz}
-          options={{ title: "Agendas & Meetings Quiz", ...defaultHeader }}
-        />
-        <Stack.Screen
-          name="NetworkingSmallTalk"
-          component={NetworkingSmallTalk}
-          options={{ title: "Networking & Small Talk", ...defaultHeader }}
-        />
-        <Stack.Screen
-          name="IntroBusinessEnglish"
-          component={IntroBusinessEnglish}
-          options={{ title: "Intro Business English", ...defaultHeader }}
-        />
-        <Stack.Screen
-          name="ProfessionalEmails"
-          component={ProfessionalEmails}
-          options={{ title: "Professional Emails", ...defaultHeader }}
-        />
-        <Stack.Screen
-          name="ProfessionalEmailsPart2"
-          component={ProfessionalEmailsPart2}
-          options={{ title: "Professional Emails Part 2", ...defaultHeader }}
-        />
-        <Stack.Screen
-          name="TelephoneConversations"
-          component={TelephoneConversations}
-          options={{ title: "Telephone Conversations", ...defaultHeader }}
-        />
-        <Stack.Screen
           name="Bussines"
           component={BussinesHome}
           options={{
             title: "Business English",
+            ...defaultHeader,
+            headerShown: false,
+          }}
+        />
+        {[
+          A1BU1,
+          A1BU2,
+          A1BU3,
+          A1BU4,
+          A1BU5,
+          A1BU6,
+          A1BU7,
+          A1BU8,
+          A1BU9,
+          A1BU10,
+          A1BU11,
+          A1BU12,
+          A1BU13,
+          A1BU14,
+          A1BU15,
+          A1BU16,
+          A1BU17,
+          A1BU18,
+          A1BU19,
+          A1BU20,
+        ].map((Screen, index) => {
+          const screenName = `A1BU${index + 1}`;
+
+          return (
+            <Stack.Screen
+              key={screenName}
+              name={screenName}
+              component={Screen}
+              options={{ headerShown: false }}
+            />
+          );
+        })}
+        <Stack.Screen
+          name="BussinesA2"
+          component={BussinesA2Home}
+          options={{
+            title: "Business English A2",
             ...defaultHeader,
             headerShown: false,
           }}

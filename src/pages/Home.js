@@ -18,7 +18,7 @@ import { LESSON_STREAK_STORAGE_KEY } from "../util/lessonPerformance";
 import { getLevelProgress, XP_PER_LESSON } from "../util/xp";
 import {
   BUSSINES_STORAGE_KEY,
-  bussinesModules,
+  bussinesModuleDefs,
   bussinesSampleLessons,
 } from "./aulas/bussines";
 import {
@@ -186,14 +186,7 @@ export default function Inglescompleto({ navigation, route }) {
       : activeLevelConfig.storageKey;
   const activeModuleDefs = useMemo(() => {
     if (activeCourseId === "bussines") {
-      return bussinesModules.map((name, index) => ({
-        id: index,
-        name,
-        subtitle: "Business English",
-        locked: index > 0,
-        accent: index === 0 ? THEME.green : "#B8C2CF",
-        icon: index === 0 ? "check" : "lock-outline",
-      }));
+      return bussinesModuleDefs;
     }
     return activeLevelConfig.moduleDefs;
   }, [activeCourseId, activeLevelConfig]);

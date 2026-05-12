@@ -178,7 +178,7 @@ Fique com o Hi ou Hello!`,
       instruction: "Fale brevemente sobre você em inglês.",
       helperText:
         "Grave um áudio cumprimentando um colega de trabalho que você gosta muito e tem intimidade. Use 'Hey there!' com uma entonação bem positiva.",
-      image: BussinesImages.menina2,
+      image: Images.ex16,
       tipButtonLabel: "Tip",
       tipText: "Hey there!",
       recordLabel: "Speak",

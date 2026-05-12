@@ -121,7 +121,6 @@ const LESSON_SLIDES = [
     component: Exercise5,
     activity: {
       prompt: "Complete a frase com a opção correta.",
-      image: BussinesImages.conversa,
       sentenceStart: "The client didn't accept the price, so we had to",
       sentenceEnd: ".",
       options: ["back down", "bring up"],
@@ -164,7 +163,8 @@ const LESSON_SLIDES = [
         ],
       ],
       successTitle: "Correto",
-      successMessage: "Bring up menciona o assunto; back down mostra que alguém cedeu.",
+      successMessage:
+        "Bring up menciona o assunto; back down mostra que alguém cedeu.",
     },
   },
   {

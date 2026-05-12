@@ -90,7 +90,8 @@ const LESSON_SLIDES = [
       options: ["Time flies", "Break the bank", "Back down", "Make a mistake"],
       correctAnswer: "Time flies",
       successTitle: "Correto",
-      successMessage: "Um relógio com asas representa literalmente: Time flies.",
+      successMessage:
+        "Um relógio com asas representa literalmente: Time flies.",
     },
   },
   {
@@ -98,7 +99,6 @@ const LESSON_SLIDES = [
     component: Exercise4,
     activity: {
       prompt: "Qual frase soa mais natural usando as expressões aprendidas?",
-      image: BussinesImages.confuso,
       wrongSentence: "Idioms",
       options: [
         "Buying this car will time flies.",
@@ -108,7 +108,7 @@ const LESSON_SLIDES = [
       correctAnswer: "We can buy this TV, it won't break the bank.",
       successTitle: "Correto",
       successMessage:
-        'It won\'t break the bank significa que algo não vai custar uma fortuna.',
+        "It won't break the bank significa que algo não vai custar uma fortuna.",
     },
   },
   {
@@ -176,7 +176,6 @@ const LESSON_SLIDES = [
     component: Exercise5,
     activity: {
       prompt: "Complete a frase com a opção correta.",
-      image: BussinesImages.celebro,
       sentenceStart: "I bought this shirt on sale. It didn't",
       sentenceEnd: ".",
       options: ["time fly", "break the bank"],

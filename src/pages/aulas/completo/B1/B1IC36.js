@@ -101,7 +101,8 @@ I shoulda told you.`,
       answerOptions: ["Should have", "Could have"],
       correctOption: "Should have",
       successTitle: "Correto",
-      feedbackMessage: '"Should have" fala de arrependimento ou crítica sobre o passado.',
+      feedbackMessage:
+        '"Should have" fala de arrependimento ou crítica sobre o passado.',
     },
   },
   {
@@ -126,20 +127,21 @@ I shoulda told you.`,
     component: Exercise5,
     activity: {
       prompt: "Complete a frase com a opção correta.",
-      image: BussinesImages.confuso,
       sentenceStart: "I failed the test. I",
       sentenceEnd: "studied more.",
       options: ["should have", "should"],
       correctAnswer: "should have",
       successTitle: "Correto",
-      successMessage: "Should have + studied fala do que deveria ter acontecido.",
+      successMessage:
+        "Should have + studied fala do que deveria ter acontecido.",
     },
   },
   {
     key: "late-advice-match",
     component: Exercise1,
     activity: {
-      prompt: "Conecte as partes para formar o conselho que chegou tarde demais.",
+      prompt:
+        "Conecte as partes para formar o conselho que chegou tarde demais.",
       pairs: [
         { en: "You should have", pt: "arrived earlier." },
         { en: "I shouldn't have", pt: "eaten so much." },
@@ -165,7 +167,8 @@ I shoulda told you.`,
     component: Exercise13,
     needsSpeech: true,
     activity: {
-      prompt: 'Organize as letras para formar a palavra que acompanha "Should have".',
+      prompt:
+        'Organize as letras para formar a palavra que acompanha "Should have".',
       audioSource: require("../../../../../mp3/IC/B1/A36S7.mp3"),
       audioText: "Spoken",
       audioDurationMs: 1000,

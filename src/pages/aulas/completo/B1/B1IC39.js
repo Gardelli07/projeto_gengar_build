@@ -123,13 +123,13 @@ Nunca use "Despite of"!`,
     component: Exercise5,
     activity: {
       prompt: "Complete a frase com a opção correta.",
-      image: BussinesImages.estrela,
       sentenceStart: "The car is beautiful.",
       sentenceEnd: ", it is too expensive.",
       options: ["However", "Despite"],
       correctAnswer: "However",
       successTitle: "Correto",
-      successMessage: "However conecta duas ideias contrastantes em frases completas.",
+      successMessage:
+        "However conecta duas ideias contrastantes em frases completas.",
     },
   },
   {
@@ -154,7 +154,8 @@ Nunca use "Despite of"!`,
         { en: "But", pt: "Mas (Informal)" },
       ],
       successTitle: "Correto",
-      successMessage: "Essas palavras ajudam a contrastar ideias com níveis diferentes de formalidade.",
+      successMessage:
+        "Essas palavras ajudam a contrastar ideias com níveis diferentes de formalidade.",
     },
   },
   {
@@ -199,8 +200,7 @@ Nunca use "Despite of"!`,
       prompt: "Writing",
       instruction:
         'Escreva um pequeno parágrafo defendendo uma opinião polêmica sua. Use "However" ou "Despite" para contrastar com a opinião dos outros.',
-      placeholder:
-        "People think fast food is bad. However, I believe...",
+      placeholder: "People think fast food is bad. However, I believe...",
       helperText:
         'Use "However" para contrastar frases completas ou "Despite" antes de substantivo/-ing.',
       submitLabel: "Enviar",

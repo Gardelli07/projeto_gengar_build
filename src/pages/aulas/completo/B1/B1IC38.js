@@ -129,13 +129,13 @@ Ou seja: você não pode ter visto ela!`,
     component: Exercise5,
     activity: {
       prompt: "Complete a frase.",
-      image: BussinesImages.arquivo,
       sentenceStart: "The thief",
       sentenceEnd: "opened that safe without the code.",
       options: ["couldn't have", "wouldn't have"],
       correctAnswer: "couldn't have",
       successTitle: "Correto",
-      successMessage: "Couldn't have mostra que algo não poderia ter acontecido.",
+      successMessage:
+        "Couldn't have mostra que algo não poderia ter acontecido.",
     },
   },
   {
