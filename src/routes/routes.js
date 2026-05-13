@@ -14,7 +14,7 @@ import InglesCompletoHome from "../pages/aulas/completo/A0-A1";
 import InglesCompletoA2Home from "../pages/aulas/completo/A2";
 import InglesCompletoB1Home from "../pages/aulas/completo/B1";
 import BussinesHome from "../pages/aulas/bussines/A1";
-import BussinesA2Home from "../pages/aulas/bussines/A2";
+import BussinesB1Home from "../pages/aulas/bussines/B1";
 
 // Business
 import A1BU1 from "../pages/aulas/bussines/A1/A1BU1";
@@ -37,6 +37,26 @@ import A1BU17 from "../pages/aulas/bussines/A1/A1BU17";
 import A1BU18 from "../pages/aulas/bussines/A1/A1BU18";
 import A1BU19 from "../pages/aulas/bussines/A1/A1BU19";
 import A1BU20 from "../pages/aulas/bussines/A1/A1BU20";
+import B1BU1 from "../pages/aulas/bussines/B1/B1BU1";
+import B1BU2 from "../pages/aulas/bussines/B1/B1BU2";
+import B1BU3 from "../pages/aulas/bussines/B1/B1BU3";
+import B1BU4 from "../pages/aulas/bussines/B1/B1BU4";
+import B1BU5 from "../pages/aulas/bussines/B1/B1BU5";
+import B1BU6 from "../pages/aulas/bussines/B1/B1BU6";
+import B1BU7 from "../pages/aulas/bussines/B1/B1BU7";
+import B1BU8 from "../pages/aulas/bussines/B1/B1BU8";
+import B1BU9 from "../pages/aulas/bussines/B1/B1BU9";
+import B1BU10 from "../pages/aulas/bussines/B1/B1BU10";
+import B1BU11 from "../pages/aulas/bussines/B1/B1BU11";
+import B1BU12 from "../pages/aulas/bussines/B1/B1BU12";
+import B1BU13 from "../pages/aulas/bussines/B1/B1BU13";
+import B1BU14 from "../pages/aulas/bussines/B1/B1BU14";
+import B1BU15 from "../pages/aulas/bussines/B1/B1BU15";
+import B1BU16 from "../pages/aulas/bussines/B1/B1BU16";
+import B1BU17 from "../pages/aulas/bussines/B1/B1BU17";
+import B1BU18 from "../pages/aulas/bussines/B1/B1BU18";
+import B1BU19 from "../pages/aulas/bussines/B1/B1BU19";
+import B1BU20 from "../pages/aulas/bussines/B1/B1BU20";
 
 // Completo
 import IC01 from "../pages/aulas/completo/A0-A1/IC01";
@@ -279,14 +299,47 @@ export default function Routes() {
           );
         })}
         <Stack.Screen
-          name="BussinesA2"
-          component={BussinesA2Home}
+          name="BussinesB1"
+          component={BussinesB1Home}
           options={{
-            title: "Business English A2",
+            title: "Business English B1",
             ...defaultHeader,
             headerShown: false,
           }}
         />
+        {[
+          B1BU1,
+          B1BU2,
+          B1BU3,
+          B1BU4,
+          B1BU5,
+          B1BU6,
+          B1BU7,
+          B1BU8,
+          B1BU9,
+          B1BU10,
+          B1BU11,
+          B1BU12,
+          B1BU13,
+          B1BU14,
+          B1BU15,
+          B1BU16,
+          B1BU17,
+          B1BU18,
+          B1BU19,
+          B1BU20,
+        ].map((Screen, index) => {
+          const screenName = `B1BU${index + 1}`;
+
+          return (
+            <Stack.Screen
+              key={screenName}
+              name={screenName}
+              component={Screen}
+              options={{ headerShown: false }}
+            />
+          );
+        })}
 
         {/* ===== COMPLETO ===== */}
         <Stack.Screen

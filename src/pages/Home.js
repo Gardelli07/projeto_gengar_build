@@ -22,6 +22,11 @@ import {
   bussinesSampleLessons,
 } from "./aulas/bussines";
 import {
+  BUSSINES_B1_STORAGE_KEY,
+  bussinesB1ModuleDefs,
+  bussinesB1SampleLessons,
+} from "./aulas/bussines/B1";
+import {
   INGLES_COMPLETO_STORAGE_KEY,
   inglesModuleDefs,
   inglesSampleLessons,
@@ -95,13 +100,31 @@ const COURSE_CONFIG = {
   "Bussines English": {
     courseId: "bussines",
     defaultLevel: "Starter",
+  },
+};
+
+const BUSINESS_LEVEL_CONFIG = {
+  Starter: {
+    folder: "A1",
     routeName: "Bussines",
+    storageKey: BUSSINES_STORAGE_KEY,
+    moduleDefs: bussinesModuleDefs,
+    lessons: bussinesSampleLessons,
+    available: true,
+  },
+  Intermediate: {
+    folder: "B1",
+    routeName: "BussinesB1",
+    storageKey: BUSSINES_B1_STORAGE_KEY,
+    moduleDefs: bussinesB1ModuleDefs,
+    lessons: bussinesB1SampleLessons,
+    available: true,
   },
 };
 
 const COURSE_LEVEL_AVAILABILITY = {
   "Ingles Completo": ["Starter", "Elementary", "Intermediate"],
-  "Bussines English": ["Starter"],
+  "Bussines English": ["Starter", "Intermediate"],
 };
 
 async function loadProgress(storageKey) {
@@ -167,6 +190,8 @@ export default function Inglescompleto({ navigation, route }) {
   const [selectedLevel, setSelectedLevel] = useState(initialLevel ?? "Starter");
   const activeLevel = selectedLevel ?? "Starter";
   const activeLevelConfig = LEVEL_CONFIG[activeLevel] ?? LEVEL_CONFIG.Starter;
+  const activeBusinessLevelConfig =
+    BUSINESS_LEVEL_CONFIG[activeLevel] ?? BUSINESS_LEVEL_CONFIG.Starter;
   const isCourseList = !selectedCourse;
 
   const allLessons = useMemo(
@@ -175,6 +200,7 @@ export default function Inglescompleto({ navigation, route }) {
       ...inglesA2SampleLessons,
       ...inglesB1SampleLessons,
       ...bussinesSampleLessons,
+      ...bussinesB1SampleLessons,
     ],
     [],
   );
@@ -182,20 +208,20 @@ export default function Inglescompleto({ navigation, route }) {
     COURSE_CONFIG[selectedCourse]?.courseId ?? "ingles_completo";
   const activeStorageKey =
     activeCourseId === "bussines"
-      ? BUSSINES_STORAGE_KEY
+      ? activeBusinessLevelConfig.storageKey
       : activeLevelConfig.storageKey;
   const activeModuleDefs = useMemo(() => {
     if (activeCourseId === "bussines") {
-      return bussinesModuleDefs;
+      return activeBusinessLevelConfig.moduleDefs;
     }
     return activeLevelConfig.moduleDefs;
-  }, [activeCourseId, activeLevelConfig]);
+  }, [activeCourseId, activeBusinessLevelConfig, activeLevelConfig]);
   const activeLessons = useMemo(
     () =>
       activeCourseId === "bussines"
-        ? bussinesSampleLessons
+        ? activeBusinessLevelConfig.lessons
         : activeLevelConfig.lessons,
-    [activeCourseId, activeLevelConfig],
+    [activeCourseId, activeBusinessLevelConfig, activeLevelConfig],
   );
   const availableCourseOptions = useMemo(
     () =>
@@ -230,7 +256,9 @@ export default function Inglescompleto({ navigation, route }) {
   useEffect(() => {
     if (!autoOpenLessonId || openedRef.current) return;
 
-    const lesson = allLessons.find(
+    const lesson = activeLessons.find(
+      (item) => String(item.id) === String(autoOpenLessonId),
+    ) || allLessons.find(
       (item) => String(item.id) === String(autoOpenLessonId),
     );
 
@@ -240,11 +268,13 @@ export default function Inglescompleto({ navigation, route }) {
     navigation.setParams({ autoOpenLessonId: null });
 
     requestAnimationFrame(() => {
-      const lessonList = bussinesSampleLessons.some(
-        (item) => String(item.id) === String(lesson.id),
+      const lessonList = activeLessons.some(
+        (item) =>
+          item.screen === lesson.screen &&
+          String(item.id) === String(lesson.id),
       )
-        ? bussinesSampleLessons
-        : activeLessons;
+        ? activeLessons
+        : allLessons;
       navigation.replace(lesson.screen, {
         lesson,
         lessons: lessonList,
@@ -300,6 +330,7 @@ export default function Inglescompleto({ navigation, route }) {
               AsyncStorage.removeItem(INGLES_COMPLETO_A2_STORAGE_KEY),
               AsyncStorage.removeItem(INGLES_COMPLETO_B1_STORAGE_KEY),
               AsyncStorage.removeItem(BUSSINES_STORAGE_KEY),
+              AsyncStorage.removeItem(BUSSINES_B1_STORAGE_KEY),
               AsyncStorage.removeItem(LESSON_STREAK_STORAGE_KEY),
             ]);
 
@@ -325,7 +356,7 @@ export default function Inglescompleto({ navigation, route }) {
     const routeName =
       courseName === "Ingles Completo"
         ? activeLevelConfig.routeName
-        : COURSE_CONFIG[courseName]?.routeName;
+        : activeBusinessLevelConfig.routeName;
 
     if (courseName === "Ingles Completo" && !activeLevelConfig.available) {
       Alert.alert(
@@ -538,7 +569,7 @@ export default function Inglescompleto({ navigation, route }) {
                     <Text style={styles.moduleSubtitle}>
                       {courseName === "Ingles Completo"
                         ? `${activeLevel} - ${activeLevelConfig.folder}`
-                        : "Business English"}
+                        : `${activeLevel} - ${activeBusinessLevelConfig.folder}`}
                     </Text>
                   </View>
 

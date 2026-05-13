@@ -4,13 +4,6 @@ import CourseOverviewScreen from "../CourseOverviewScreen";
 export const BUSSINES_STORAGE_KEY = "@curso_progress_bussines_A1";
 export const BUSSINES_COURSE_NAME = "Bussines English";
 
-export const bussinesModules = [
-  "Getting Started in Business",
-  "Key Business Communications",
-  "Delivering Presentations",
-  "Business Negotiations",
-];
-
 export const bussinesModuleDefs = [
   {
     id: 0,
