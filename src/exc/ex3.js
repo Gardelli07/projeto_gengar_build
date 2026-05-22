@@ -44,6 +44,12 @@ export function Exercise3({
   const isCorrect = result === "correct";
   const isWrong = result === "wrong";
   const wrongMessage = activity.feedbackMessage || activity.successMessage;
+  const statementText =
+    activity.statement || activity.dialogue || activity.textOnScreen || "";
+  const correctMessage =
+    activity.successMessage ||
+    activity.feedbackMessage ||
+    (statementText ? `Resposta correta para: ${statementText}` : "");
 
   const shakeTranslateX = shakeAnim.interpolate({
     inputRange: [0, 0.25, 0.5, 0.75, 1],
@@ -144,18 +150,22 @@ export function Exercise3({
       useNativeDriver: false,
     }).start();
 
-    speak?.({
-      text: audioPromptText,
-      language: activity.audioLanguage || "en-US",
-      rate: audioRate,
-      onDone: () => audioProgressAnim.setValue(1),
-      onStopped: () => audioProgressAnim.stopAnimation(),
-      onError: () => audioProgressAnim.stopAnimation(),
-    });
+    if (speak) {
+      speak({
+        text: audioPromptText,
+        language: activity.audioLanguage || "en-US",
+        rate: audioRate,
+        onDone: () => audioProgressAnim.setValue(1),
+        onStopped: () => audioProgressAnim.stopAnimation(),
+        onError: () => audioProgressAnim.stopAnimation(),
+      });
+    }
   };
 
   const triggerWrongFeedback = () => {
-    onAttempt?.({ isCorrect: false });
+    if (onAttempt) {
+      onAttempt({ isCorrect: false });
+    }
     setResult("wrong");
     Vibration.vibrate(140);
     shakeAnim.setValue(0);
@@ -205,7 +215,9 @@ export function Exercise3({
     setSelected(option);
 
     if (option === activity.correctAnswer) {
-      onAttempt?.({ isCorrect: true });
+      if (onAttempt) {
+        onAttempt({ isCorrect: true });
+      }
       setResult("correct");
       return;
     }
@@ -246,7 +258,9 @@ export function Exercise3({
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.listenAnswerDialogue}>{activity.dialogue}</Text>
+        {!!statementText && (
+          <Text style={styles.listenAnswerDialogue}>{statementText}</Text>
+        )}
 
         <View style={styles.listenAnswerOptionsRow}>
           {activity.options.map((option) => {
@@ -362,7 +376,7 @@ export function Exercise3({
                 {isWrong ? "X Tente novamente" : "✓ Muito bem!"}
               </Text>
               <Text style={styles.feedbackTextBlack}>
-                {isWrong ? wrongMessage : activity.successMessage}
+                {isWrong ? wrongMessage : correctMessage}
               </Text>
             </View>
 

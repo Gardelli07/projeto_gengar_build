@@ -1,426 +1,307 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Animated,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as Speech from "expo-speech";
-import geral from "../../../../exc/geral";
-import ex1, { Exercise1 } from "../../../../exc/ex1";
-import ex2, { Exercise2 } from "../../../../exc/ex2";
-import ex3, { Exercise3 } from "../../../../exc/ex3";
-import ex4, { Exercise4 } from "../../../../exc/ex4";
-import ex5, { Exercise5 } from "../../../../exc/ex5";
-import ex6, { Exercise6 } from "../../../../exc/ex6";
-import ex7, { Exercise7 } from "../../../../exc/ex7";
-import ex8, { Exercise8 } from "../../../../exc/ex8";
-import ex9, { Exercise9 } from "../../../../exc/ex9";
-import ex10, { Exercise10 } from "../../../../exc/ex10";
-import ex11, { Exercise11 } from "../../../../exc/ex11";
-import ex12, { Exercise12 } from "../../../../exc/ex12";
-import ex13, { Exercise13 } from "../../../../exc/ex13";
-import ex15, { Exercise15 } from "../../../../exc/ex15";
-import ex14, { Exercise14 } from "../../../../exc/ex14";
-import ex16, { Exercise16 } from "../../../../exc/ex16";
-import ex17, { Exercise17 } from "../../../../exc/ex17";
-import ex18, { Exercise18 } from "../../../../exc/ex18";
-import Feedback from "../../../../exc/feedback";
-import { BussinesImages, IC, Images } from "../../../../util/images";
-import {
-  calculateLessonAccuracy,
-  LESSON_STREAK_MIN_ACCURACY,
-  LESSON_STREAK_STORAGE_KEY,
-} from "../../../../util/lessonPerformance";
-import { getLevelProgress, XP_PER_LESSON } from "../../../../util/xp";
-
-const SlideNavContext = React.createContext(null);
-
-const STORAGE_KEY = "@progesso_ingles_completo_A2";
-const BACK_IMAGE = require("../../../../../assets/seta.png");
-const CLOSE_IMAGE = require("../../../../../assets/x.png");
-
-const styles = {
-  ...geral,
-  ...ex1,
-  ...ex2,
-  ...ex3,
-  ...ex4,
-  ...ex5,
-  ...ex6,
-  ...ex7,
-  ...ex8,
-  ...ex9,
-  ...ex10,
-  ...ex11,
-  ...ex12,
-  ...ex13,
-  ...ex14,
-  ...ex15,
-  ...ex16,
-  ...ex17,
-  ...ex18,
-};
+import createA2LessonScreen from "./A2LessonScreen";
+import { ICA2 } from "../../../../util/images";
 
 const LESSON_SLIDES = [
   {
-    key: "lesson-finish",
-    type: "finish",
+    key: "a2ic13s1",
+    component: "Exercise4",
+    activity: {
+      prompt: 'Como dizemos "Eu fui ao cinema ontem"?',
+      image: ICA2.A13S1,
+      wrongSentence: "I goed to the cinema yesterday.",
+      options: [
+        "I went to the cinema yesterday.",
+        "I goed to the cinema yesterday.",
+        "I gone to the cinema yesterday.",
+      ],
+      correctAnswer: "I went to the cinema yesterday.",
+      successTitle: "Correto",
+      successMessage: "Go é irregular: no passado vira went.",
+    },
+  },
+  {
+    key: "a2ic13s2",
+    component: "Exercise14",
+    needsSpeech: true,
+    activity: {
+      prompt: "Ouça o áudio e selecione a forma do passado.",
+      image: ICA2.A13S2,
+      audioSource: require("../../../../../mp3/IC/A2/A13S2.mp3"),
+      audioText: "Bought",
+      options: ["Buy", "Bought"],
+      correctAnswer: "Bought",
+      correctOption: "Bought",
+      feedbackMessage: "Buy vira bought no passado.",
+      successTitle: "Correto",
+    },
+  },
+  {
+    key: "a2ic13s3",
+    component: "Exercise14",
+    needsSpeech: true,
+    activity: {
+      prompt: "Ouça o áudio e selecione a forma do passado.",
+      image: ICA2.A13S3,
+      audioSource: require("../../../../../mp3/IC/A2/A13S3.mp3"),
+      audioText: "Took",
+      options: ["Take", "Took"],
+      correctAnswer: "Took",
+      correctOption: "Took",
+      feedbackMessage: "Take vira took no passado.",
+      successTitle: "Correto",
+    },
+  },
+  {
+    key: "a2ic13s4",
+    component: "Exercise14",
+    needsSpeech: true,
+    activity: {
+      prompt: "Ouça o áudio e selecione a forma do passado.",
+      image: ICA2.A13S4,
+      audioSource: require("../../../../../mp3/IC/A2/A13S4.mp3"),
+      audioText: "Had",
+      options: ["Have", "Had"],
+      correctAnswer: "Had",
+      correctOption: "Had",
+      feedbackMessage: "Have vira had no passado.",
+      successTitle: "Correto",
+    },
+  },
+  {
+    key: "a2ic13s5",
+    component: "Exercise14",
+    needsSpeech: true,
+    activity: {
+      prompt: "Ouça o áudio e selecione a forma do passado.",
+      image: ICA2.A13S5,
+      audioSource: require("../../../../../mp3/IC/A2/A13S5.mp3"),
+      audioText: "Went",
+      options: ["Go", "Went"],
+      correctAnswer: "Went",
+      correctOption: "Went",
+      feedbackMessage: "Go vira went no passado.",
+      successTitle: "Correto",
+    },
+  },
+  {
+    key: "a2ic13s6",
+    component: "Exercise17",
+    activity: {
+      label: "MÓDULO 2 • AULA 13",
+      content: [
+        "/blue{I took a shower}",
+        "Chegou a hora de conhecer os rebeldes do inglês: os Verbos Irregulares.",
+        "",
+        "/blue{Por que Irregulares?}",
+        "Eles não terminam em -ed. Eles mudam de palavra.",
+        "Go → Went",
+        "Have → Had",
+        "Buy → Bought",
+        "Take → Took",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    key: "a2ic13s7",
+    component: "Exercise1",
+    activity: {
+      prompt: "Conecte o verbo no presente com sua forma irregular no passado.",
+      pairs: [
+        { en: "Take", pt: "Took" },
+        { en: "Buy", pt: "Bought" },
+        { en: "Go", pt: "Went" },
+        { en: "Have", pt: "Had" },
+      ],
+      successTitle: "Correto",
+      successMessage: "Esses são quatro irregulares muito frequentes.",
+    },
+  },
+  {
+    key: "a2ic13s8",
+    component: "Exercise5",
+    activity: {
+      prompt: 'Complete a frase com o passado de "HAVE".',
+      image: ICA2.A13S8,
+      sentenceStart: "I",
+      sentenceEnd: "a big breakfast this morning.",
+      options: ["had", "has"],
+      correctAnswer: "had",
+      successTitle: "Correto",
+      successMessage: "Have vira had no passado.",
+    },
+  },
+  {
+    key: "a2ic13s9",
+    component: "Exercise13",
+    needsSpeech: true,
+    activity: {
+      prompt: 'Ordene as letras para formar o passado de "BUY".',
+      audioSource: require("../../../../../mp3/IC/A2/A13S9.mp3"),
+      audioText: "Bought",
+      letters: ["B", "O", "U", "G", "H", "T"],
+      correctWord: "BOUGHT",
+      successTitle: "Correto",
+      successMessage: "Buy vira bought.",
+    },
+  },
+  {
+    key: "a2ic13s10",
+    component: "Exercise15",
+    activity: {
+      prompt: "Clique na imagem e na frase que a descreve.",
+      images: [
+        { id: "img1", image: ICA2.A13S10 },
+        { id: "img2", image: ICA2.A13S10p2 },
+      ],
+      words: [
+        { id: "w1", label: "She took a beautiful photograph." },
+        { id: "w2", label: "She saw a nice painting on the wall." },
+      ],
+      pairs: [
+        { imageId: "img1", wordId: "w1" },
+        { imageId: "img2", wordId: "w2" },
+      ],
+      successTitle: "Correto",
+      successMessage: "Took e saw são formas irregulares do passado.",
+    },
+  },
+  {
+    key: "a2ic13s11",
+    component: "Exercise17",
+    activity: {
+      label: "Tip",
+      content: [
+        "/blue{O grupo do OUGHT}",
+        "Muitos verbos irregulares terminam em -ought.",
+        "A pronúncia parece um Ó aberto e o GH é mudo.",
+        "Bought, brought, thought.",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    key: "a2ic13s12",
+    component: "Exercise6",
+    activity: {
+      prompt: "Coloque as palavras na ordem correta.",
+      words: ["went", "They", "to", "the", "beach", "Sunday", "last", "."],
+      correctOrder: ["They", "went", "to", "the", "beach", "last", "Sunday", "."],
+      successTitle: "Correto",
+      successMessage: "They went to the beach last Sunday.",
+    },
+  },
+  {
+    key: "a2ic13s13",
+    component: "Exercise3",
+    needsSpeech: true,
+    activity: {
+      prompt: "Ouça e responda: verdadeiro ou falso?",
+      image: ICA2.A13S13,
+      audioSource: require("../../../../../mp3/IC/A2/A13S13.mp3"),
+      audioText: "I went to the mall yesterday and I bought a new pair of shoes.",
+      statement: "The person bought shoes at the mall.",
+      textOnScreen: "The person bought shoes at the mall.",
+      options: ["true", "false"],
+      correctAnswer: "true",
+      successTitle: "Correto",
+      successMessage: "True. A pessoa foi ao shopping e comprou sapatos.",
+      feedbackMessage: "O áudio diz: I bought a new pair of shoes.",
+    },
+  },
+  {
+    key: "a2ic13s14",
+    component: "Exercise2",
+    activity: {
+      prompt: "Escolha as palavras para completar a história de Mike.",
+      paragraphs: [
+        [
+          "Last night, I ",
+          { id: "b1", answer: "had", options: ["had", "went"] },
+          " dinner with my friends. Then, I ",
+          { id: "b2", answer: "took", options: ["took", "bought"] },
+          " a taxi to go home.",
+        ],
+      ],
+      successTitle: "Correto",
+      successMessage: "Had dinner e took a taxi são combinações naturais.",
+    },
+  },
+  {
+    key: "a2ic13s15",
+    component: "Exercise17",
+    activity: {
+      label: "Tip cultural",
+      content: [
+        "/blue{No restaurante}",
+        'Em inglês, é muito comum usar HAD para comida e bebida.',
+        'Exemplo: "I had a coffee and a sandwich."',
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    key: "a2ic13s16",
+    component: "Exercise12",
+    activity: {
+      prompt: "Freer Practice",
+      instruction: "Escreva uma frase sobre algo que você comprou recentemente.",
+      helperText: "Exemplo: I bought a new book yesterday.",
+      placeholder: "Digite sua frase aqui",
+      tipText: "Use bought para falar de compras no passado.",
+      successTitle: "Muito bem!",
+      successMessage: "Você usou um verbo irregular no passado.",
+    },
+  },
+  {
+    key: "a2ic13s17",
+    component: "Exercise16",
+    activity: {
+      prompt: "Freer Practice - Áudio",
+      instruction: "Mande um áudio contando para onde você foi no seu último feriado.",
+      helperText: "Lembre-se: se for um lugar, diga I went to...",
+      tipText: "Exemplo: I went to the beach.",
+      successTitle: "Muito bem!",
+      successMessage: "Seu áudio foi gravado.",
+    },
+  },
+  {
+    key: "a2ic13s18",
+    component: "Exercise17",
+    activity: {
+      label: "Desafio",
+      content: [
+        "/blue{Desafio dos Rebeldes!}",
+        "Estes verbos são irregulares e mudam de forma. Digite a forma correta do passado em até 5 segundos.",
+      ],
+      continueLabel: "Começar",
+    },
+  },
+  {
+    key: "a2ic13s19",
+    component: "Exercise11",
+    activity: {
+      prompt: "Digite o passado dos verbos irregulares:",
+      title: "Escreva rápido",
+      placeholder: "Digite aqui",
+      secondsPerWord: 5,
+      words: ["Went", "Had", "Bought", "Took", "Saw"],
+      successTitle: "Correto",
+      successMessage: "Você praticou os irregulares essenciais.",
+    },
+  },
+  {
+    key: "a2ic13s20",
+    component: "Exercise17",
+    activity: {
+      label: "Final",
+      content: [
+        "/blue{Sobrevivendo aos Rebeldes!}",
+        "Aprenda os irregulares mais usados primeiro. Com os de hoje, você já conversa sobre grande parte do seu dia.",
+      ],
+      continueLabel: "Concluir",
+    },
   },
 ];
 
-const SLIDE_COUNT = LESSON_SLIDES.length;
-const EXERCISE_SLIDE_COUNT = LESSON_SLIDES.filter(
-  (slide) => slide.type !== "finish",
-).length;
-
-function useSpeech() {
-  const speak = ({ text, stopBefore = true, ...speechOptions }) => {
-    if (!text) return;
-    if (stopBefore) Speech.stop();
-    Speech.speak(text, speechOptions);
-  };
-
-  return { speak };
-}
-
-async function loadProgress() {
-  const raw = await AsyncStorage.getItem(STORAGE_KEY);
-  return raw ? JSON.parse(raw) : {};
-}
-
-async function saveProgress(progress) {
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
-}
-
-function updateProgress(progressAnim, index, total) {
-  Animated.timing(progressAnim, {
-    toValue: (index + 1) / total,
-    duration: 300,
-    useNativeDriver: false,
-  }).start();
-}
-
-function useSlideNavigation({
-  currentSlideIndex,
-  setCurrentSlideIndex,
-  totalSlides,
-  progressAnim,
-}) {
-  const lockRef = useRef(false);
-
-  const next = () => {
-    if (lockRef.current || currentSlideIndex >= totalSlides - 1) return;
-    lockRef.current = true;
-    setTimeout(() => {
-      lockRef.current = false;
-    }, 300);
-
-    const nextIndex = currentSlideIndex + 1;
-    setCurrentSlideIndex(nextIndex);
-    updateProgress(progressAnim, nextIndex, totalSlides);
-  };
-
-  const prev = () => {
-    if (lockRef.current || currentSlideIndex === 0) return;
-    lockRef.current = true;
-    setTimeout(() => {
-      lockRef.current = false;
-    }, 300);
-
-    const previousIndex = currentSlideIndex - 1;
-    setCurrentSlideIndex(previousIndex);
-    updateProgress(progressAnim, previousIndex, totalSlides);
-  };
-
-  function renderPrevButton() {
-    if (currentSlideIndex === 0) return null;
-
-    return (
-      <TouchableOpacity onPress={prev} style={styles.headerCircleButton}>
-        <Image source={BACK_IMAGE} style={styles.headerCircleImage} />
-      </TouchableOpacity>
-    );
-  }
-
-  return { next, renderPrevButton };
-}
-
-function useNav() {
-  return React.useContext(SlideNavContext);
-}
-
-function SlideHeader() {
-  const { progressAnim, goBack, renderPrevButton } = useNav();
-
-  return (
-    <View style={styles.headerContainer}>
-      <TouchableOpacity onPress={goBack} style={styles.headerCircleButton}>
-        <Image source={CLOSE_IMAGE} style={styles.headerCircleImage} />
-      </TouchableOpacity>
-
-      <View style={styles.headerProgress}>
-        <Animated.View
-          style={[
-            styles.progressBarFill,
-            {
-              width: progressAnim.interpolate({
-                inputRange: [0, 1],
-                outputRange: ["0%", "100%"],
-              }),
-            },
-          ]}
-        />
-      </View>
-
-      <View style={styles.headerButton}>{renderPrevButton()}</View>
-    </View>
-  );
-}
-
-function LessonFinishSlide({ onPressNextLesson, feedbackProps }) {
-  return (
-    <Feedback
-      onContinue={onPressNextLesson}
-      reviewLabel="Revisar erros ->"
-      {...feedbackProps}
-    />
-  );
-}
-
-function LessonSlideRenderer({
-  slide,
-  next,
-  speak,
-  onPressNextLesson,
-  onAttempt,
-  feedbackProps,
-}) {
-  if (slide.type === "finish") {
-    return (
-      <LessonFinishSlide
-        onPressNextLesson={onPressNextLesson}
-        feedbackProps={feedbackProps}
-      />
-    );
-  }
-
-  const ExerciseComponent = slide.component;
-
-  return (
-    <ExerciseComponent
-      activity={slide.activity}
-      styles={styles}
-      HeaderComponent={SlideHeader}
-      next={next}
-      onAttempt={onAttempt}
-      {...(slide.needsSpeech ? { speak } : {})}
-    />
-  );
-}
-
-export default function A2IC13({ route, navigation }) {
-  const lesson = route?.params?.lesson;
-  const lessons = route?.params?.lessons;
-  const { speak } = useSpeech();
-
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const progressAnim = useRef(new Animated.Value(1 / SLIDE_COUNT)).current;
-  const [lessonStats, setLessonStats] = useState({
-    correct: 0,
-    total: 0,
-    exerciseScores: {},
-    slideAttempts: {},
-  });
-  const [completedLessonsCount, setCompletedLessonsCount] = useState(0);
-  const [currentStreak, setCurrentStreak] = useState(0);
-  const [lessonAlreadyCompleted, setLessonAlreadyCompleted] = useState(false);
-  const [lessonMetaLoaded, setLessonMetaLoaded] = useState(false);
-  const lessonCommitRef = useRef(false);
-
-  useEffect(() => {
-    updateProgress(progressAnim, currentSlideIndex, SLIDE_COUNT);
-  }, [currentSlideIndex, progressAnim]);
-
-  const slideNav = useSlideNavigation({
-    currentSlideIndex,
-    setCurrentSlideIndex,
-    totalSlides: SLIDE_COUNT,
-    progressAnim,
-  });
-
-  const currentSlide = LESSON_SLIDES[currentSlideIndex];
-  const completedExerciseScores = Object.values(lessonStats.exerciseScores);
-  const lessonAccuracy = completedExerciseScores.length
-    ? Math.round(
-        completedExerciseScores.reduce((sum, score) => sum + score, 0) /
-          EXERCISE_SLIDE_COUNT,
-      )
-    : calculateLessonAccuracy(lessonStats.correct, lessonStats.total);
-  const earnedXp = lessonAlreadyCompleted ? 0 : XP_PER_LESSON;
-  const nextStreak = lessonAlreadyCompleted
-    ? currentStreak
-    : lessonAccuracy >= LESSON_STREAK_MIN_ACCURACY
-      ? currentStreak + 1
-      : 0;
-  const totalXpAfterLesson = completedLessonsCount * XP_PER_LESSON + earnedXp;
-  const levelProgress = getLevelProgress(totalXpAfterLesson);
-
-  useEffect(() => {
-    let active = true;
-
-    async function loadLessonMeta() {
-      const [progress, streakRaw] = await Promise.all([
-        loadProgress(),
-        AsyncStorage.getItem(LESSON_STREAK_STORAGE_KEY),
-      ]);
-
-      if (!active) return;
-
-      const completedCount = Object.values(progress || {}).filter(
-        Boolean,
-      ).length;
-      const alreadyCompleted = Boolean(
-        lesson?.id != null && progress?.[lesson.id],
-      );
-      const streak = streakRaw ? Number(streakRaw) || 0 : 0;
-
-      setCompletedLessonsCount(completedCount);
-      setLessonAlreadyCompleted(alreadyCompleted);
-      setCurrentStreak(streak);
-      setLessonMetaLoaded(true);
-    }
-
-    loadLessonMeta();
-
-    return () => {
-      active = false;
-    };
-  }, [lesson?.id]);
-
-  const handleAttempt = ({
-    isCorrect,
-    correctDelta,
-    totalDelta,
-    exerciseAccuracy,
-  } = {}) => {
-    setLessonStats((current) => {
-      const nextCorrect =
-        current.correct +
-        (typeof correctDelta === "number" ? correctDelta : isCorrect ? 1 : 0);
-      const nextTotal =
-        current.total + (typeof totalDelta === "number" ? totalDelta : 1);
-
-      const previousSlideAttempts = current.slideAttempts[
-        currentSlideIndex
-      ] || {
-        correct: 0,
-        total: 0,
-      };
-      const nextSlideAttempts = {
-        correct:
-          previousSlideAttempts.correct +
-          (typeof correctDelta === "number" ? correctDelta : isCorrect ? 1 : 0),
-        total:
-          previousSlideAttempts.total +
-          (typeof totalDelta === "number" ? totalDelta : 1),
-      };
-
-      const derivedExerciseAccuracy =
-        typeof exerciseAccuracy === "number"
-          ? exerciseAccuracy
-          : calculateLessonAccuracy(
-              nextSlideAttempts.correct,
-              nextSlideAttempts.total,
-            );
-
-      return {
-        correct: nextCorrect,
-        total: nextTotal,
-        slideAttempts: {
-          ...current.slideAttempts,
-          [currentSlideIndex]: nextSlideAttempts,
-        },
-        exerciseScores: {
-          ...current.exerciseScores,
-          [currentSlideIndex]: derivedExerciseAccuracy,
-        },
-      };
-    });
-  };
-
-  useEffect(() => {
-    if (!lessonMetaLoaded || currentSlide?.type !== "finish") return;
-    if (lessonAlreadyCompleted || lessonCommitRef.current) return;
-
-    lessonCommitRef.current = true;
-
-    async function commitLessonCompletion() {
-      if (lesson?.id != null) {
-        const progress = await loadProgress();
-        await Promise.all([
-          saveProgress({ ...progress, [lesson.id]: true }),
-          AsyncStorage.setItem(LESSON_STREAK_STORAGE_KEY, String(nextStreak)),
-        ]);
-      }
-    }
-
-    commitLessonCompletion();
-  }, [
-    currentSlide?.type,
-    lesson?.id,
-    lessonAlreadyCompleted,
-    lessonMetaLoaded,
-    nextStreak,
-  ]);
-
-  const findNextLesson = () => {
-    if (!lessons || !lesson) return null;
-    const lessonIndex = lessons.findIndex(
-      (lessonItem) => String(lessonItem.id) === String(lesson.id),
-    );
-    return lessons[lessonIndex + 1] || null;
-  };
-
-  const goToNextLesson = async () => {
-    navigation.replace("InglescompletoA2", {
-      autoOpenLessonId: findNextLesson()?.id || null,
-    });
-  };
-
-  return (
-    <SafeAreaView style={{ flex: 1 }} edges={["top", "bottom"]}>
-      <SlideNavContext.Provider
-        value={{
-          ...slideNav,
-          progressAnim,
-          goBack: () => navigation.goBack(),
-        }}
-      >
-        <ScrollView
-          contentContainerStyle={{ flexGrow: 1 }}
-          keyboardShouldPersistTaps="handled"
-        >
-          <LessonSlideRenderer
-            slide={currentSlide}
-            next={slideNav.next}
-            speak={speak}
-            onPressNextLesson={goToNextLesson}
-            onAttempt={handleAttempt}
-            feedbackProps={{
-              earnedXp,
-              accuracy: lessonAccuracy,
-              streak: nextStreak,
-              totalXp: totalXpAfterLesson,
-              lessonAlreadyCompleted,
-              ...levelProgress,
-            }}
-          />
-        </ScrollView>
-      </SlideNavContext.Provider>
-    </SafeAreaView>
-  );
-}
+export default createA2LessonScreen(LESSON_SLIDES);

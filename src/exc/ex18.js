@@ -34,6 +34,9 @@ export function Exercise18({
 
   const isCorrect = result === "correct";
   const isWrong = result === "wrong";
+  const scrambledSentence =
+    activity.scrambledSentence ||
+    (activity.scrambledWords || activity.words || []).join(" ");
 
   const shakeTranslateX = shakeAnim.interpolate({
     inputRange: [0, 0.25, 0.5, 0.75, 1],
@@ -142,7 +145,7 @@ export function Exercise18({
           ]}
         >
           <Text style={styles.orderSentenceWordsText}>
-            {activity.scrambledSentence}
+            {scrambledSentence}
           </Text>
         </Animated.View>
 

@@ -1,570 +1,156 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Animated,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as Speech from "expo-speech";
-import geral from "../../../../exc/geral";
-import ex1, { Exercise1 } from "../../../../exc/ex1";
-import ex2, { Exercise2 } from "../../../../exc/ex2";
-import ex3, { Exercise3 } from "../../../../exc/ex3";
-import ex4, { Exercise4 } from "../../../../exc/ex4";
-import ex5, { Exercise5 } from "../../../../exc/ex5";
-import ex6, { Exercise6 } from "../../../../exc/ex6";
-import ex7, { Exercise7 } from "../../../../exc/ex7";
-import ex8, { Exercise8 } from "../../../../exc/ex8";
-import ex9, { Exercise9 } from "../../../../exc/ex9";
-import ex10, { Exercise10 } from "../../../../exc/ex10";
-import ex11, { Exercise11 } from "../../../../exc/ex11";
-import ex12, { Exercise12 } from "../../../../exc/ex12";
-import ex13, { Exercise13 } from "../../../../exc/ex13";
-import ex15, { Exercise15 } from "../../../../exc/ex15";
-import ex14, { Exercise14 } from "../../../../exc/ex14";
-import ex16, { Exercise16 } from "../../../../exc/ex16";
-import ex17, { Exercise17 } from "../../../../exc/ex17";
-import ex18, { Exercise18 } from "../../../../exc/ex18";
-import Feedback from "../../../../exc/feedback";
-import { ICA2, Images } from "../../../../util/images";
-import {
-  calculateLessonAccuracy,
-  LESSON_STREAK_MIN_ACCURACY,
-  LESSON_STREAK_STORAGE_KEY,
-} from "../../../../util/lessonPerformance";
-import { getLevelProgress, XP_PER_LESSON } from "../../../../util/xp";
-
-const SlideNavContext = React.createContext(null);
-
-const STORAGE_KEY = "@progesso_ingles_completo_A2";
-const BACK_IMAGE = require("../../../../../assets/seta.png");
-const CLOSE_IMAGE = require("../../../../../assets/x.png");
-
-const styles = {
-  ...geral,
-  ...ex1,
-  ...ex2,
-  ...ex3,
-  ...ex4,
-  ...ex5,
-  ...ex6,
-  ...ex7,
-  ...ex8,
-  ...ex9,
-  ...ex10,
-  ...ex11,
-  ...ex12,
-  ...ex13,
-  ...ex14,
-  ...ex15,
-  ...ex16,
-  ...ex17,
-  ...ex18,
-};
+import createA2LessonScreen from "./A2LessonScreen";
+import { ICA2 } from "../../../../util/images";
 
 const LESSON_SLIDES = [
   {
-    component: Exercise17,
+    key: "a2ic01s1",
+    component: "Exercise17",
     activity: {
-      label: "Tip - O Sufixo do Movimento",
+      label: "MÓDULO 1 • AULA 1",
       content: [
-        'Para transformar um verbo estático em uma ação viva, usamos o /blue{-ING}. É o nosso "ando", "endo", "indo".',
+        "/blue{Present Continuous: I am working}",
         "",
-        "Work (trabalhar) -> /blue{Working} (trabalhando)",
-        "Study (estudar) -> /blue{Studying} (estudando)",
+        'Pare por um segundo e observe: o mundo ao seu redor não é uma fotografia parada, é um vídeo em alta definição. Enquanto você respira, algo está acontecendo. Vamos capturar o "agora"?',
+        "",
+        "/blue{Tip - O Sufixo do Movimento}",
+        "Para transformar um verbo estático em uma ação viva, usamos o -ING. É o nosso \"ando\", \"endo\", \"indo\".",
+        "Work → Working",
+        "Study → Studying",
       ],
       continueLabel: "Continuar",
     },
   },
   {
-    component: Exercise17,
+    key: "a2ic01s2",
+    component: "Exercise17",
     activity: {
-      label: "Tip - A Dança do 'E'",
+      label: "Tip",
       content: [
-        'Verbos que terminam em /blue{E} são charmosos, mas o "E" precisa sair para o /blue{-ING} entrar.',
-        "",
-        "Dance -> /blue{Dancing}",
-        "Write -> /blue{Writing}",
+        "/blue{A Dança do E}",
+        "Verbos que terminam em E são charmosos, mas o E precisa sair para o -ING entrar.",
+        "Dance → Dancing",
+        "Write → Writing",
       ],
       continueLabel: "Continuar",
     },
   },
   {
-    component: Exercise17,
+    key: "a2ic01s3",
+    component: "Exercise17",
     activity: {
-      label: "Tip - O Peso da Consoante",
+      label: "Tip",
       content: [
-        "Verbos curtos que terminam em /blue{CVC} (Consoante + Vogal + Consoante) ganham um reforço: dobramos a última letra.",
-        "",
-        "Vogais: A, E, I, O, U",
-        "Run -> /blue{Running}",
-        "Swim -> /blue{Swimming}",
+        "/blue{O Peso da Consoante}",
+        "Verbos curtos que terminam em CVC (Consoante + Vogal + Consoante) ganham um reforço: dobramos a última letra.",
+        "Run → Running",
+        "Swim → Swimming",
       ],
       continueLabel: "Continuar",
     },
   },
   {
-    component: Exercise17,
+    key: "a2ic01s4",
+    component: "Exercise17",
     activity: {
-      label: "Tip - A Bateria da Frase",
+      label: "Tip",
       content: [
-        "Uma ação não anda sozinha. Você precisa do verbo /blue{BE} (am, is, are) para ligar o motor.",
-        "",
-        "Informal (dia a dia): /blue{I'm working.}",
-        "Formal (escrita): /blue{I am working.}",
+        "/blue{A Bateria da Frase}",
+        "Uma ação não anda sozinha. Você precisa do verbo BE (am, is, are) para ligar o motor.",
+        'Informal: "I\'m working."',
+        'Formal: "I am working."',
       ],
       continueLabel: "Continuar",
     },
   },
   {
-    component: Exercise14,
+    key: "a2ic01s5",
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
-      prompt: "Ouça a frase e preencha o que falta:\nThey ____ swimming.",
+      prompt: "Ouça e complete a estrutura",
       image: ICA2.A1S5,
+      audioSource: require("../../../../../mp3/IC/A2/A1S5.mp3"),
       audioText: "They are swimming.",
-      answerOptions: ["are", "is", "am"],
+      options: ["are", "'re"],
+      correctAnswer: "are",
       correctOption: "are",
+      feedbackMessage: 'A estrutura correta é "They are swimming."',
       successTitle: "Correto",
-      successMessage: 'A estrutura correta é "They are swimming."',
-      feedbackMessage: 'Use "are" com "they": "They are swimming."',
     },
   },
   {
-    component: Exercise6,
+    key: "a2ic01s6",
+    component: "Exercise6",
     activity: {
       prompt: "Coloque as peças no lugar para formar a ação:",
       words: ["is", "My", "writing", "father", "a book."],
       correctOrder: ["My", "father", "is", "writing", "a book."],
       successTitle: "Correto",
-      successMessage: 'A frase correta é "My father is writing a book."',
-      feedbackMessage:
-        'A ordem é sujeito + verbo BE + verbo com -ING: "My father is writing a book."',
+      successMessage: "My father is writing a book.",
     },
   },
   {
-    component: Exercise5,
+    key: "a2ic01s7",
+    component: "Exercise3",
+    needsSpeech: true,
     activity: {
-      prompt: "Verdadeiro ou falso?",
+      prompt: "Leia e responda: verdadeiro ou falso?",
       image: ICA2.A1S7,
-      sentenceStart: "I am eating",
-      sentenceEnd: "significa que a pessoa sempre come nesse horário.",
-      options: ["True", "False"],
-      correctAnswer: "False",
+      audioText: "I am eating.",
+      statement: 'Se a pessoa diz "I am eating", isso significa que ela sempre come no mesmo horário todos os dias.',
+      textOnScreen: 'Se a pessoa diz "I am eating", isso significa rotina diária.',
+      options: ["true", "false"],
+      correctAnswer: "false",
       successTitle: "Correto",
-      successMessage:
-        'False. "I am eating" significa que a ação está acontecendo agora.',
-      feedbackMessage:
-        'Present Continuous fala do presente imediato: "I am eating" é agora.',
+      successMessage: 'False. "I am eating" descreve a ação acontecendo agora.',
+      feedbackMessage: "Present Continuous fala do momento atual, não de rotina.",
     },
   },
   {
-    component: Exercise3,
+    key: "a2ic01s8",
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Onde a ação está acontecendo?",
       image: ICA2.A1S8,
+      audioSource: require("../../../../../mp3/IC/A2/A1S8.mp3"),
       audioText: "She is dancing in the kitchen.",
-      dialogue: "She is dancing in the ______.",
-      options: ["Bedroom", "Kitchen"],
-      correctAnswer: "Kitchen",
+      options: ["No quarto (Bedroom)", "Na cozinha (Kitchen)"],
+      correctAnswer: "Na cozinha (Kitchen)",
+      correctOption: "Na cozinha (Kitchen)",
+      feedbackMessage: 'A frase diz "in the kitchen".',
       successTitle: "Correto",
-      successMessage: 'Kitchen quer dizer "cozinha".',
-      feedbackMessage: 'A frase diz "in the kitchen": na cozinha.',
     },
   },
   {
-    component: Exercise14,
+    key: "a2ic01s9",
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
-      prompt: "Escute e complete",
+      prompt: 'Escolha a resposta para "What are you doing?"',
       image: ICA2.A1S9,
+      audioSource: require("../../../../../mp3/IC/A2/A1S9.mp3"),
       audioText: "Hey! What are you doing?",
-      answerOptions: [
-        "I study with Lingueto.",
-        "I'm studying with Lingueto right now!",
-      ],
+      options: ["I study with Lingueto.", "I'm studying with Lingueto right now!"],
+      correctAnswer: "I'm studying with Lingueto right now!",
       correctOption: "I'm studying with Lingueto right now!",
-      successTitle: "Conexão perfeita",
-      successMessage:
-        'Quando alguém pergunta "What are you doing?", responda sobre o presente imediato com -ING.',
-      feedbackMessage:
-        'Use Present Continuous para o agora: "I\'m studying with Lingueto right now!"',
+      feedbackMessage: 'Com "What are you doing?", responda com ação acontecendo agora.',
+      successTitle: "Correto",
     },
   },
   {
-    component: Exercise16,
+    key: "a2ic01s10",
+    component: "Exercise16",
     activity: {
       prompt: "Não deixe a ação parar!",
       instruction: "Grave sua voz descrevendo o seu momento para o Lingueto.",
-      helperText: "I am studying English.",
-      image: Images.ex16,
-      tipButtonLabel: "Tip",
-      tipText: 'Sinta a vibração do "-ing" no final de "studying".',
-      recordLabel: "Gravar",
-      stopLabel: "Parar",
-      successTitle: "Muito bem",
-      successMessage: 'Você praticou: "I am studying English."',
+      helperText: 'Diga: "I am studying English."',
+      expectedText: "I am studying English.",
+      tipText: 'Sinta a vibração do "-ing" no final das palavras.',
+      successTitle: "Muito bem!",
+      successMessage: "Você descreveu uma ação acontecendo agora.",
     },
-  },
-  {
-    key: "lesson-finish",
-    type: "finish",
   },
 ];
 
-const SLIDE_COUNT = LESSON_SLIDES.length;
-const EXERCISE_SLIDE_COUNT = LESSON_SLIDES.filter(
-  (slide) => slide.type !== "finish",
-).length;
-
-function useSpeech() {
-  const speak = ({ text, stopBefore = true, ...speechOptions }) => {
-    if (!text) return;
-    if (stopBefore) Speech.stop();
-    Speech.speak(text, speechOptions);
-  };
-
-  return { speak };
-}
-
-async function loadProgress() {
-  const raw = await AsyncStorage.getItem(STORAGE_KEY);
-  return raw ? JSON.parse(raw) : {};
-}
-
-async function saveProgress(progress) {
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
-}
-
-function updateProgress(progressAnim, index, total) {
-  Animated.timing(progressAnim, {
-    toValue: (index + 1) / total,
-    duration: 300,
-    useNativeDriver: false,
-  }).start();
-}
-
-function useSlideNavigation({
-  currentSlideIndex,
-  setCurrentSlideIndex,
-  totalSlides,
-  progressAnim,
-}) {
-  const lockRef = useRef(false);
-
-  const next = () => {
-    if (lockRef.current || currentSlideIndex >= totalSlides - 1) return;
-    lockRef.current = true;
-    setTimeout(() => {
-      lockRef.current = false;
-    }, 300);
-
-    const nextIndex = currentSlideIndex + 1;
-    setCurrentSlideIndex(nextIndex);
-    updateProgress(progressAnim, nextIndex, totalSlides);
-  };
-
-  const prev = () => {
-    if (lockRef.current || currentSlideIndex === 0) return;
-    lockRef.current = true;
-    setTimeout(() => {
-      lockRef.current = false;
-    }, 300);
-
-    const previousIndex = currentSlideIndex - 1;
-    setCurrentSlideIndex(previousIndex);
-    updateProgress(progressAnim, previousIndex, totalSlides);
-  };
-
-  function renderPrevButton() {
-    if (currentSlideIndex === 0) return null;
-
-    return (
-      <TouchableOpacity onPress={prev} style={styles.headerCircleButton}>
-        <Image source={BACK_IMAGE} style={styles.headerCircleImage} />
-      </TouchableOpacity>
-    );
-  }
-
-  return { next, renderPrevButton };
-}
-
-function useNav() {
-  return React.useContext(SlideNavContext);
-}
-
-function SlideHeader() {
-  const { progressAnim, goBack, renderPrevButton } = useNav();
-
-  return (
-    <View style={styles.headerContainer}>
-      <TouchableOpacity onPress={goBack} style={styles.headerCircleButton}>
-        <Image source={CLOSE_IMAGE} style={styles.headerCircleImage} />
-      </TouchableOpacity>
-
-      <View style={styles.headerProgress}>
-        <Animated.View
-          style={[
-            styles.progressBarFill,
-            {
-              width: progressAnim.interpolate({
-                inputRange: [0, 1],
-                outputRange: ["0%", "100%"],
-              }),
-            },
-          ]}
-        />
-      </View>
-
-      <View style={styles.headerButton}>{renderPrevButton()}</View>
-    </View>
-  );
-}
-
-function LessonFinishSlide({ onPressNextLesson, feedbackProps }) {
-  return (
-    <Feedback
-      onContinue={onPressNextLesson}
-      reviewLabel="Revisar erros ->"
-      {...feedbackProps}
-    />
-  );
-}
-
-function LessonSlideRenderer({
-  slide,
-  next,
-  speak,
-  onPressNextLesson,
-  onAttempt,
-  feedbackProps,
-}) {
-  if (slide.type === "finish") {
-    return (
-      <LessonFinishSlide
-        onPressNextLesson={onPressNextLesson}
-        feedbackProps={feedbackProps}
-      />
-    );
-  }
-
-  const ExerciseComponent = slide.component;
-
-  return (
-    <ExerciseComponent
-      activity={slide.activity}
-      styles={styles}
-      HeaderComponent={SlideHeader}
-      next={next}
-      onAttempt={onAttempt}
-      {...(slide.needsSpeech ? { speak } : {})}
-    />
-  );
-}
-
-export default function A2IC01({ route, navigation }) {
-  const lesson = route?.params?.lesson;
-  const lessons = route?.params?.lessons;
-  const { speak } = useSpeech();
-
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const progressAnim = useRef(new Animated.Value(1 / SLIDE_COUNT)).current;
-  const [lessonStats, setLessonStats] = useState({
-    correct: 0,
-    total: 0,
-    exerciseScores: {},
-    slideAttempts: {},
-  });
-  const [completedLessonsCount, setCompletedLessonsCount] = useState(0);
-  const [currentStreak, setCurrentStreak] = useState(0);
-  const [lessonAlreadyCompleted, setLessonAlreadyCompleted] = useState(false);
-  const [lessonMetaLoaded, setLessonMetaLoaded] = useState(false);
-  const lessonCommitRef = useRef(false);
-
-  useEffect(() => {
-    updateProgress(progressAnim, currentSlideIndex, SLIDE_COUNT);
-  }, [currentSlideIndex, progressAnim]);
-
-  const slideNav = useSlideNavigation({
-    currentSlideIndex,
-    setCurrentSlideIndex,
-    totalSlides: SLIDE_COUNT,
-    progressAnim,
-  });
-
-  const currentSlide = LESSON_SLIDES[currentSlideIndex];
-  const completedExerciseScores = Object.values(lessonStats.exerciseScores);
-  const lessonAccuracy = completedExerciseScores.length
-    ? Math.round(
-        completedExerciseScores.reduce((sum, score) => sum + score, 0) /
-          EXERCISE_SLIDE_COUNT,
-      )
-    : calculateLessonAccuracy(lessonStats.correct, lessonStats.total);
-  const earnedXp = lessonAlreadyCompleted ? 0 : XP_PER_LESSON;
-  const nextStreak = lessonAlreadyCompleted
-    ? currentStreak
-    : lessonAccuracy >= LESSON_STREAK_MIN_ACCURACY
-      ? currentStreak + 1
-      : 0;
-  const totalXpAfterLesson = completedLessonsCount * XP_PER_LESSON + earnedXp;
-  const levelProgress = getLevelProgress(totalXpAfterLesson);
-
-  useEffect(() => {
-    let active = true;
-
-    async function loadLessonMeta() {
-      const [progress, streakRaw] = await Promise.all([
-        loadProgress(),
-        AsyncStorage.getItem(LESSON_STREAK_STORAGE_KEY),
-      ]);
-
-      if (!active) return;
-
-      const completedCount = Object.values(progress || {}).filter(
-        Boolean,
-      ).length;
-      const alreadyCompleted = Boolean(
-        lesson?.id != null && progress?.[lesson.id],
-      );
-      const streak = streakRaw ? Number(streakRaw) || 0 : 0;
-
-      setCompletedLessonsCount(completedCount);
-      setLessonAlreadyCompleted(alreadyCompleted);
-      setCurrentStreak(streak);
-      setLessonMetaLoaded(true);
-    }
-
-    loadLessonMeta();
-
-    return () => {
-      active = false;
-    };
-  }, [lesson?.id]);
-
-  const handleAttempt = ({
-    isCorrect,
-    correctDelta,
-    totalDelta,
-    exerciseAccuracy,
-  } = {}) => {
-    setLessonStats((current) => {
-      const nextCorrect =
-        current.correct +
-        (typeof correctDelta === "number" ? correctDelta : isCorrect ? 1 : 0);
-      const nextTotal =
-        current.total + (typeof totalDelta === "number" ? totalDelta : 1);
-
-      const previousSlideAttempts = current.slideAttempts[
-        currentSlideIndex
-      ] || {
-        correct: 0,
-        total: 0,
-      };
-      const nextSlideAttempts = {
-        correct:
-          previousSlideAttempts.correct +
-          (typeof correctDelta === "number" ? correctDelta : isCorrect ? 1 : 0),
-        total:
-          previousSlideAttempts.total +
-          (typeof totalDelta === "number" ? totalDelta : 1),
-      };
-
-      const derivedExerciseAccuracy =
-        typeof exerciseAccuracy === "number"
-          ? exerciseAccuracy
-          : calculateLessonAccuracy(
-              nextSlideAttempts.correct,
-              nextSlideAttempts.total,
-            );
-
-      return {
-        correct: nextCorrect,
-        total: nextTotal,
-        slideAttempts: {
-          ...current.slideAttempts,
-          [currentSlideIndex]: nextSlideAttempts,
-        },
-        exerciseScores: {
-          ...current.exerciseScores,
-          [currentSlideIndex]: derivedExerciseAccuracy,
-        },
-      };
-    });
-  };
-
-  useEffect(() => {
-    if (!lessonMetaLoaded || currentSlide?.type !== "finish") return;
-    if (lessonAlreadyCompleted || lessonCommitRef.current) return;
-
-    lessonCommitRef.current = true;
-
-    async function commitLessonCompletion() {
-      if (lesson?.id != null) {
-        const progress = await loadProgress();
-        await Promise.all([
-          saveProgress({ ...progress, [lesson.id]: true }),
-          AsyncStorage.setItem(LESSON_STREAK_STORAGE_KEY, String(nextStreak)),
-        ]);
-      }
-    }
-
-    commitLessonCompletion();
-  }, [
-    currentSlide?.type,
-    lesson?.id,
-    lessonAlreadyCompleted,
-    lessonMetaLoaded,
-    nextStreak,
-  ]);
-
-  const findNextLesson = () => {
-    if (!lessons || !lesson) return null;
-    const lessonIndex = lessons.findIndex(
-      (lessonItem) => String(lessonItem.id) === String(lesson.id),
-    );
-    return lessons[lessonIndex + 1] || null;
-  };
-
-  const goToNextLesson = async () => {
-    navigation.replace("InglescompletoA2", {
-      autoOpenLessonId: findNextLesson()?.id || null,
-    });
-  };
-
-  return (
-    <SafeAreaView style={{ flex: 1 }} edges={["top", "bottom"]}>
-      <SlideNavContext.Provider
-        value={{
-          ...slideNav,
-          progressAnim,
-          goBack: () => navigation.goBack(),
-        }}
-      >
-        <ScrollView
-          contentContainerStyle={{ flexGrow: 1 }}
-          keyboardShouldPersistTaps="handled"
-        >
-          <LessonSlideRenderer
-            slide={currentSlide}
-            next={slideNav.next}
-            speak={speak}
-            onPressNextLesson={goToNextLesson}
-            onAttempt={handleAttempt}
-            feedbackProps={{
-              earnedXp,
-              accuracy: lessonAccuracy,
-              streak: nextStreak,
-              totalXp: totalXpAfterLesson,
-              lessonAlreadyCompleted,
-              ...levelProgress,
-            }}
-          />
-        </ScrollView>
-      </SlideNavContext.Provider>
-    </SafeAreaView>
-  );
-}
+export default createA2LessonScreen(LESSON_SLIDES);

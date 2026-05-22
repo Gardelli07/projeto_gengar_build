@@ -15,6 +15,7 @@ import InglesCompletoA2Home from "../pages/aulas/completo/A2";
 import InglesCompletoB1Home from "../pages/aulas/completo/B1";
 import BussinesHome from "../pages/aulas/bussines/A1";
 import BussinesB1Home from "../pages/aulas/bussines/B1";
+import TravelHome from "../pages/aulas/viagem/A1";
 
 // Business
 import A1BU1 from "../pages/aulas/bussines/A1/A1BU1";
@@ -57,6 +58,32 @@ import B1BU17 from "../pages/aulas/bussines/B1/B1BU17";
 import B1BU18 from "../pages/aulas/bussines/B1/B1BU18";
 import B1BU19 from "../pages/aulas/bussines/B1/B1BU19";
 import B1BU20 from "../pages/aulas/bussines/B1/B1BU20";
+import A1TR1 from "../pages/aulas/viagem/A1/A1TR1";
+import A1TR2 from "../pages/aulas/viagem/A1/A1TR2";
+import A1TR3 from "../pages/aulas/viagem/A1/A1TR3";
+import A1TR4 from "../pages/aulas/viagem/A1/A1TR4";
+import A1TR5 from "../pages/aulas/viagem/A1/A1TR5";
+import A1TR6 from "../pages/aulas/viagem/A1/A1TR6";
+import A1TR7 from "../pages/aulas/viagem/A1/A1TR7";
+import A1TR8 from "../pages/aulas/viagem/A1/A1TR8";
+import A1TR9 from "../pages/aulas/viagem/A1/A1TR9";
+import A1TR10 from "../pages/aulas/viagem/A1/A1TR10";
+import A1TR11 from "../pages/aulas/viagem/A1/A1TR11";
+import A1TR12 from "../pages/aulas/viagem/A1/A1TR12";
+import A1TR13 from "../pages/aulas/viagem/A1/A1TR13";
+import A1TR14 from "../pages/aulas/viagem/A1/A1TR14";
+import A1TR15 from "../pages/aulas/viagem/A1/A1TR15";
+import A1TR16 from "../pages/aulas/viagem/A1/A1TR16";
+import A1TR17 from "../pages/aulas/viagem/A1/A1TR17";
+import A1TR18 from "../pages/aulas/viagem/A1/A1TR18";
+import A1TR19 from "../pages/aulas/viagem/A1/A1TR19";
+import A1TR20 from "../pages/aulas/viagem/A1/A1TR20";
+import A1TR21 from "../pages/aulas/viagem/A1/A1TR21";
+import A1TR22 from "../pages/aulas/viagem/A1/A1TR22";
+import A1TR23 from "../pages/aulas/viagem/A1/A1TR23";
+import A1TR24 from "../pages/aulas/viagem/A1/A1TR24";
+import A1TR25 from "../pages/aulas/viagem/A1/A1TR25";
+import A1TR26 from "../pages/aulas/viagem/A1/A1TR26";
 
 // Completo
 import IC01 from "../pages/aulas/completo/A0-A1/IC01";
@@ -142,6 +169,26 @@ import A2IC37 from "../pages/aulas/completo/A2/A2IC37";
 import A2IC38 from "../pages/aulas/completo/A2/A2IC38";
 import A2IC39 from "../pages/aulas/completo/A2/A2IC39";
 import A2IC40 from "../pages/aulas/completo/A2/A2IC40";
+import A2IC41 from "../pages/aulas/completo/A2/A2IC41";
+import A2IC42 from "../pages/aulas/completo/A2/A2IC42";
+import A2IC43 from "../pages/aulas/completo/A2/A2IC43";
+import A2IC44 from "../pages/aulas/completo/A2/A2IC44";
+import A2IC45 from "../pages/aulas/completo/A2/A2IC45";
+import A2IC46 from "../pages/aulas/completo/A2/A2IC46";
+import A2IC47 from "../pages/aulas/completo/A2/A2IC47";
+import A2IC48 from "../pages/aulas/completo/A2/A2IC48";
+import A2IC49 from "../pages/aulas/completo/A2/A2IC49";
+import A2IC50 from "../pages/aulas/completo/A2/A2IC50";
+import A2IC51 from "../pages/aulas/completo/A2/A2IC51";
+import A2IC52 from "../pages/aulas/completo/A2/A2IC52";
+import A2IC53 from "../pages/aulas/completo/A2/A2IC53";
+import A2IC54 from "../pages/aulas/completo/A2/A2IC54";
+import A2IC55 from "../pages/aulas/completo/A2/A2IC55";
+import A2IC56 from "../pages/aulas/completo/A2/A2IC56";
+import A2IC57 from "../pages/aulas/completo/A2/A2IC57";
+import A2IC58 from "../pages/aulas/completo/A2/A2IC58";
+import A2IC59 from "../pages/aulas/completo/A2/A2IC59";
+import A2IC60 from "../pages/aulas/completo/A2/A2IC60";
 import B1IC01 from "../pages/aulas/completo/B1/B1IC01";
 import B1IC02 from "../pages/aulas/completo/B1/B1IC02";
 import B1IC03 from "../pages/aulas/completo/B1/B1IC03";
@@ -341,6 +388,56 @@ export default function Routes() {
           );
         })}
 
+        {/* ===== TRAVEL ===== */}
+        <Stack.Screen
+          name="TravelEnglish"
+          component={TravelHome}
+          options={{
+            title: "Ingles para viagem",
+            ...defaultHeader,
+            headerShown: false,
+          }}
+        />
+        {[
+          A1TR1,
+          A1TR2,
+          A1TR3,
+          A1TR4,
+          A1TR5,
+          A1TR6,
+          A1TR7,
+          A1TR8,
+          A1TR9,
+          A1TR10,
+          A1TR11,
+          A1TR12,
+          A1TR13,
+          A1TR14,
+          A1TR15,
+          A1TR16,
+          A1TR17,
+          A1TR18,
+          A1TR19,
+          A1TR20,
+          A1TR21,
+          A1TR22,
+          A1TR23,
+          A1TR24,
+          A1TR25,
+          A1TR26,
+        ].map((Screen, index) => {
+          const screenName = `A1TR${index + 1}`;
+
+          return (
+            <Stack.Screen
+              key={screenName}
+              name={screenName}
+              component={Screen}
+              options={{ headerShown: false }}
+            />
+          );
+        })}
+
         {/* ===== COMPLETO ===== */}
         <Stack.Screen
           name="Inglescompleto"
@@ -463,6 +560,26 @@ export default function Routes() {
           A2IC38,
           A2IC39,
           A2IC40,
+          A2IC41,
+          A2IC42,
+          A2IC43,
+          A2IC44,
+          A2IC45,
+          A2IC46,
+          A2IC47,
+          A2IC48,
+          A2IC49,
+          A2IC50,
+          A2IC51,
+          A2IC52,
+          A2IC53,
+          A2IC54,
+          A2IC55,
+          A2IC56,
+          A2IC57,
+          A2IC58,
+          A2IC59,
+          A2IC60,
         ].map((Screen, index) => {
           const screenNumber = String(index + 1).padStart(2, "0");
 

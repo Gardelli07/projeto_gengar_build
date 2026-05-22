@@ -41,15 +41,45 @@ export function Exercise2({
         </Text>
       ));
 
+  const paragraphs = useMemo(() => {
+    if (activity.paragraphs) return activity.paragraphs;
+    if (!activity.text || !activity.blanks) return [];
+
+    const sortedBlanks = [...activity.blanks].sort((left, right) =>
+      String(left.id).localeCompare(String(right.id), undefined, {
+        numeric: true,
+      }),
+    );
+
+    const paragraph = [];
+    let remainingText = activity.text;
+
+    sortedBlanks.forEach((blank) => {
+      const markerRegex = new RegExp(`\\(${blank.id}\\)\\s*_+`);
+      const match = remainingText.match(markerRegex);
+
+      if (!match) return;
+
+      const before = remainingText.slice(0, match.index);
+      if (before) paragraph.push(before);
+      paragraph.push(blank);
+      remainingText = remainingText.slice(match.index + match[0].length);
+    });
+
+    if (remainingText) paragraph.push(remainingText);
+
+    return [paragraph];
+  }, [activity]);
+
   const blankMap = useMemo(() => {
-    const entries = activity.paragraphs.flatMap((paragraph) =>
+    const entries = paragraphs.flatMap((paragraph) =>
       paragraph
         .filter((item) => typeof item !== "string")
         .map((blank) => [blank.id, blank]),
     );
 
     return Object.fromEntries(entries);
-  }, [activity.paragraphs]);
+  }, [paragraphs]);
 
   const blankIds = useMemo(() => Object.keys(blankMap), [blankMap]);
   const [answers, setAnswers] = useState({});
@@ -232,7 +262,7 @@ export function Exercise2({
         <Text style={styles.fastTypePrompt}>{activity.prompt}</Text>
 
         <View style={styles.completeCard}>
-          {activity.paragraphs.map((paragraph, paragraphIndex) => (
+          {paragraphs.map((paragraph, paragraphIndex) => (
             <View
               key={`paragraph-${paragraphIndex}`}
               style={styles.completeLine}

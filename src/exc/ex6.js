@@ -10,6 +10,13 @@ import {
 } from "react-native";
 import CORES from "../util/cores";
 
+const normalizeSentence = (value) =>
+  String(value || "")
+    .trim()
+    .replace(/\s+/g, " ")
+    .replace(/\s+([?.!,])/g, "$1")
+    .toLowerCase();
+
 export function Exercise6({
   activity,
   styles,
@@ -35,6 +42,7 @@ export function Exercise6({
     () => shuffleArray(activity.words),
     [activity.words],
   );
+  const expectedOrder = activity.correctOrder || [];
 
   const alertTranslateY = useRef(new Animated.Value(64)).current;
   const alertOpacity = useRef(new Animated.Value(0)).current;
@@ -121,15 +129,21 @@ export function Exercise6({
   };
 
   const handleWordPress = (word) => {
-    if (isCorrect || isWrong || selectedWords.includes(word)) return;
+    const selectedCount = selectedWords.filter((item) => item === word).length;
+    const availableCount = activity.words.filter((item) => item === word).length;
+
+    if (isCorrect || isWrong || selectedCount >= availableCount) return;
 
     const nextWords = [...selectedWords, word];
     setSelectedWords(nextWords);
 
-    if (nextWords.length === activity.correctOrder.length) {
-      const isAnswerCorrect = nextWords.every(
-        (selectedWord, index) => selectedWord === activity.correctOrder[index],
-      );
+    if (nextWords.length === (expectedOrder.length || activity.words.length)) {
+      const isAnswerCorrect = expectedOrder.length
+        ? nextWords.every(
+            (selectedWord, index) => selectedWord === expectedOrder[index],
+          )
+        : normalizeSentence(nextWords.join(" ")) ===
+          normalizeSentence(activity.correctAnswer);
 
       if (isAnswerCorrect) {
         onAttempt?.({ isCorrect: true });
@@ -142,9 +156,11 @@ export function Exercise6({
     }
   };
 
-  const handleSelectedWordPress = (word) => {
+  const handleSelectedWordPress = (wordIndex) => {
     if (isCorrect || isWrong) return;
-    setSelectedWords((current) => current.filter((item) => item !== word));
+    setSelectedWords((current) =>
+      current.filter((_, index) => index !== wordIndex),
+    );
   };
 
   return (
@@ -166,14 +182,14 @@ export function Exercise6({
           {selectedWords.length === 0 ? (
             <Text style={styles.orderSentencePlaceholder}>_____</Text>
           ) : (
-            selectedWords.map((word) => (
+            selectedWords.map((word, index) => (
               <TouchableOpacity
-                key={`selected-${word}`}
+                key={`selected-${word}-${index}`}
                 style={[
                   styles.orderSentenceSelectedWord,
                   isCorrect && styles.orderSentenceSelectedWordCorrect,
                 ]}
-                onPress={() => handleSelectedWordPress(word)}
+                onPress={() => handleSelectedWordPress(index)}
                 disabled={isCorrect || isWrong}
               >
                 <Text
@@ -190,12 +206,18 @@ export function Exercise6({
         </Animated.View>
 
         <View style={styles.orderSentenceOptionsRow}>
-          {shuffledOptions.map((word) => {
-            const used = selectedWords.includes(word);
+          {shuffledOptions.map((word, index) => {
+            const selectedCount = selectedWords.filter(
+              (item) => item === word,
+            ).length;
+            const occurrenceIndex = shuffledOptions
+              .slice(0, index + 1)
+              .filter((item) => item === word).length;
+            const used = selectedCount >= occurrenceIndex;
 
             return (
               <TouchableOpacity
-                key={word}
+                key={`${word}-${index}`}
                 style={[
                   styles.orderSentenceOption,
                   used && styles.orderSentenceOptionUsed,

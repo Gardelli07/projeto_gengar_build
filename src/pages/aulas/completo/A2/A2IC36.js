@@ -1,426 +1,394 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Animated,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as Speech from "expo-speech";
-import geral from "../../../../exc/geral";
-import ex1, { Exercise1 } from "../../../../exc/ex1";
-import ex2, { Exercise2 } from "../../../../exc/ex2";
-import ex3, { Exercise3 } from "../../../../exc/ex3";
-import ex4, { Exercise4 } from "../../../../exc/ex4";
-import ex5, { Exercise5 } from "../../../../exc/ex5";
-import ex6, { Exercise6 } from "../../../../exc/ex6";
-import ex7, { Exercise7 } from "../../../../exc/ex7";
-import ex8, { Exercise8 } from "../../../../exc/ex8";
-import ex9, { Exercise9 } from "../../../../exc/ex9";
-import ex10, { Exercise10 } from "../../../../exc/ex10";
-import ex11, { Exercise11 } from "../../../../exc/ex11";
-import ex12, { Exercise12 } from "../../../../exc/ex12";
-import ex13, { Exercise13 } from "../../../../exc/ex13";
-import ex15, { Exercise15 } from "../../../../exc/ex15";
-import ex14, { Exercise14 } from "../../../../exc/ex14";
-import ex16, { Exercise16 } from "../../../../exc/ex16";
-import ex17, { Exercise17 } from "../../../../exc/ex17";
-import ex18, { Exercise18 } from "../../../../exc/ex18";
-import Feedback from "../../../../exc/feedback";
-import { BussinesImages, IC, Images } from "../../../../util/images";
-import {
-  calculateLessonAccuracy,
-  LESSON_STREAK_MIN_ACCURACY,
-  LESSON_STREAK_STORAGE_KEY,
-} from "../../../../util/lessonPerformance";
-import { getLevelProgress, XP_PER_LESSON } from "../../../../util/xp";
-
-const SlideNavContext = React.createContext(null);
-
-const STORAGE_KEY = "@progesso_ingles_completo_A2";
-const BACK_IMAGE = require("../../../../../assets/seta.png");
-const CLOSE_IMAGE = require("../../../../../assets/x.png");
-
-const styles = {
-  ...geral,
-  ...ex1,
-  ...ex2,
-  ...ex3,
-  ...ex4,
-  ...ex5,
-  ...ex6,
-  ...ex7,
-  ...ex8,
-  ...ex9,
-  ...ex10,
-  ...ex11,
-  ...ex12,
-  ...ex13,
-  ...ex14,
-  ...ex15,
-  ...ex16,
-  ...ex17,
-  ...ex18,
-};
+import createA2LessonScreen from "./A2LessonScreen";
+import { ICA2 } from "../../../../util/images";
 
 const LESSON_SLIDES = [
   {
-    key: "lesson-finish",
-    type: "finish",
+    key: "a2ic36s1",
+    component: "Exercise17",
+    activity: {
+      label: "MÓDULO 4 • AULA 36",
+      content: [
+        "/blue{It's hotter today!}",
+        "/blue{Regra Geral: o sufixo -ER}",
+        "Quando o adjetivo é curto, geralmente grudamos -ER no final dele para comparar.",
+        "Fórmula: adjetivo + ER + THAN.",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    key: "a2ic36s2",
+    component: "Exercise14",
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e escolha.",
+      image: ICA2.A36S2,
+      audioSource: require("../../../../../mp3/IC/A2/A36S2.mp3"),
+      audioText: "Taller",
+      options: ["Tall", "Taller"],
+      correctAnswer: "Taller",
+      correctOption: "Taller",
+      feedbackMessage: "Tall vira taller.",
+      successTitle: "Correto",
+    },
+  },
+  {
+    key: "a2ic36s3",
+    component: "Exercise14",
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e escolha.",
+      image: ICA2.A36S3,
+      audioSource: require("../../../../../mp3/IC/A2/A36S3.mp3"),
+      audioText: "Faster",
+      options: ["Fast", "Faster"],
+      correctAnswer: "Faster",
+      correctOption: "Faster",
+      feedbackMessage: "Fast vira faster.",
+      successTitle: "Correto",
+    },
+  },
+  {
+    key: "a2ic36s4",
+    component: "Exercise14",
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e escolha.",
+      image: ICA2.A36S4,
+      audioSource: require("../../../../../mp3/IC/A2/A36S4.mp3"),
+      audioText: "Older",
+      options: ["Old", "Older"],
+      correctAnswer: "Older",
+      correctOption: "Older",
+      feedbackMessage: "Old vira older.",
+      successTitle: "Correto",
+    },
+  },
+  {
+    key: "a2ic36s5",
+    component: "Exercise13",
+    needsSpeech: true,
+    activity: {
+      prompt: 'O Camaleão correu muito! Escreva "mais rápido".',
+      audioSource: require("../../../../../mp3/IC/A2/A36S5.mp3"),
+      audioText: "Faster",
+      letters: ["F", "A", "S", "T", "E", "R"],
+      correctWord: "FASTER",
+      successTitle: "Correto",
+      successMessage: "Faster.",
+    },
+  },
+  {
+    key: "a2ic36s6",
+    component: "Exercise6",
+    activity: {
+      prompt: "Organize as peças.",
+      words: ["The car", "is", "faster", "than", "the bike", "."],
+      correctOrder: ["The car", "is", "faster", "than", "the bike", "."],
+      successTitle: "Correto",
+      successMessage: "The car is faster than the bike.",
+    },
+  },
+  {
+    key: "a2ic36s7",
+    component: "Exercise5",
+    activity: {
+      prompt: 'Use a forma certa de "tall".',
+      image: ICA2.A36S7,
+      sentenceStart: "My brother is",
+      sentenceEnd: "than me.",
+      options: ["taller", "tallest"],
+      correctAnswer: "taller",
+      successTitle: "Correto",
+      successMessage: "Taller é comparativo; tallest é superlativo.",
+    },
+  },
+  {
+    key: "a2ic36s8",
+    component: "Exercise17",
+    activity: {
+      label: "Vocabulário",
+      content: [
+        "/blue{+10 para seu Vocabulário!}",
+        "Long → Longer",
+        "Short → Shorter",
+        "Young → Younger",
+        "Cold → Colder",
+        "Clean → Cleaner",
+        "Dark → Darker",
+        "Hard → Harder",
+        "Near → Nearer",
+        "Rich → Richer",
+        "Cheap → Cheaper",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    key: "a2ic36s9",
+    component: "Exercise17",
+    activity: {
+      label: "Tip",
+      content: [
+        "/blue{Tchau, Y!}",
+        "Se o adjetivo termina em consoante + Y, jogamos o Y fora e colocamos -IER.",
+        "Happy → Happier",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    key: "a2ic36s10",
+    component: "Exercise14",
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e escolha.",
+      image: ICA2.A36S10,
+      audioSource: require("../../../../../mp3/IC/A2/A36S10.mp3"),
+      audioText: "Happier",
+      options: ["Happy", "Happier"],
+      correctAnswer: "Happier",
+      correctOption: "Happier",
+      feedbackMessage: "Happy vira happier.",
+      successTitle: "Correto",
+    },
+  },
+  {
+    key: "a2ic36s11",
+    component: "Exercise14",
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e escolha.",
+      image: ICA2.A36S11,
+      audioSource: require("../../../../../mp3/IC/A2/A36S11.mp3"),
+      audioText: "Easier",
+      options: ["Easy", "Easier"],
+      correctAnswer: "Easier",
+      correctOption: "Easier",
+      feedbackMessage: "Easy vira easier.",
+      successTitle: "Correto",
+    },
+  },
+  {
+    key: "a2ic36s12",
+    component: "Exercise14",
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e escolha.",
+      image: ICA2.A36S12,
+      audioSource: require("../../../../../mp3/IC/A2/A36S12.mp3"),
+      audioText: "Prettier",
+      options: ["Prettie", "Prettier"],
+      correctAnswer: "Prettier",
+      correctOption: "Prettier",
+      feedbackMessage: "Pretty vira prettier.",
+      successTitle: "Correto",
+    },
+  },
+  {
+    key: "a2ic36s13",
+    component: "Exercise13",
+    needsSpeech: true,
+    activity: {
+      prompt: 'Escreva "mais fácil".',
+      audioSource: require("../../../../../mp3/IC/A2/A36S13.mp3"),
+      audioText: "Easier",
+      letters: ["E", "A", "S", "I", "E", "R"],
+      correctWord: "EASIER",
+      successTitle: "Correto",
+      successMessage: "Easier.",
+    },
+  },
+  {
+    key: "a2ic36s14",
+    component: "Exercise5",
+    activity: {
+      prompt: 'Use "happy" corretamente.',
+      image: ICA2.A36S14,
+      sentenceStart: "I am",
+      sentenceEnd: "today than yesterday.",
+      options: ["happier", "more happy"],
+      correctAnswer: "happier",
+      successTitle: "Correto",
+      successMessage: "Happy vira happier.",
+    },
+  },
+  {
+    key: "a2ic36s15",
+    component: "Exercise6",
+    activity: {
+      prompt: "Organize a frase.",
+      words: ["English", "is", "easier", "than", "Chinese", "."],
+      correctOrder: ["English", "is", "easier", "than", "Chinese", "."],
+      successTitle: "Correto",
+      successMessage: "English is easier than Chinese.",
+    },
+  },
+  {
+    key: "a2ic36s16",
+    component: "Exercise17",
+    activity: {
+      label: "Vocabulário",
+      content: [
+        "/blue{+10 Adjetivos com Y}",
+        "Funny → Funnier",
+        "Heavy → Heavier",
+        "Lucky → Luckier",
+        "Dirty → Dirtier",
+        "Busy → Busier",
+        "Early → Earlier",
+        "Healthy → Healthier",
+        "Hungry → Hungrier",
+        "Lazy → Lazier",
+        "Noisy → Noisier",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    key: "a2ic36s17",
+    component: "Exercise17",
+    activity: {
+      label: "Tip",
+      content: [
+        "/blue{O Sanduíche CVC}",
+        "Se a palavra termina em consoante + vogal + consoante, dobramos a última letra.",
+        "Big → Bigger",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    key: "a2ic36s18",
+    component: "Exercise14",
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e escolha.",
+      image: ICA2.A36S18,
+      audioSource: require("../../../../../mp3/IC/A2/A36S18.mp3"),
+      audioText: "Bigger",
+      options: ["Biger", "Bigger"],
+      correctAnswer: "Bigger",
+      correctOption: "Bigger",
+      feedbackMessage: "Big vira bigger, com G dobrado.",
+      successTitle: "Correto",
+    },
+  },
+  {
+    key: "a2ic36s19",
+    component: "Exercise14",
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e escolha.",
+      image: ICA2.A36S19,
+      audioSource: require("../../../../../mp3/IC/A2/A36S19.mp3"),
+      audioText: "Hotter",
+      options: ["Hoter", "Hotter"],
+      correctAnswer: "Hotter",
+      correctOption: "Hotter",
+      feedbackMessage: "Hot vira hotter, com T dobrado.",
+      successTitle: "Correto",
+    },
+  },
+  {
+    key: "a2ic36s20",
+    component: "Exercise14",
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e escolha.",
+      image: ICA2.A36S20,
+      audioSource: require("../../../../../mp3/IC/A2/A36S20.mp3"),
+      audioText: "Thinner",
+      options: ["Thiner", "Thinner"],
+      correctAnswer: "Thinner",
+      correctOption: "Thinner",
+      feedbackMessage: "Thin vira thinner, com N dobrado.",
+      successTitle: "Correto",
+    },
+  },
+  {
+    key: "a2ic36s21",
+    component: "Exercise13",
+    needsSpeech: true,
+    activity: {
+      prompt: 'Escreva "maior", cuidado com a letra dobrada.',
+      audioSource: require("../../../../../mp3/IC/A2/A36S21.mp3"),
+      audioText: "Bigger",
+      letters: ["B", "I", "G", "G", "E", "R"],
+      correctWord: "BIGGER",
+      successTitle: "Correto",
+      successMessage: "Bigger.",
+    },
+  },
+  {
+    key: "a2ic36s22",
+    component: "Exercise5",
+    activity: {
+      prompt: 'O verão chegou! Use "hot".',
+      image: ICA2.A36S22,
+      sentenceStart: "Summer is",
+      sentenceEnd: "than winter.",
+      options: ["colder", "hotter"],
+      correctAnswer: "hotter",
+      successTitle: "Correto",
+      successMessage: "Hot vira hotter.",
+    },
+  },
+  {
+    key: "a2ic36s23",
+    component: "Exercise6",
+    activity: {
+      prompt: "Compare o elefante e o gato.",
+      words: ["The elephant", "is", "bigger", "than", "the cat", "."],
+      correctOrder: ["The elephant", "is", "bigger", "than", "the cat", "."],
+      successTitle: "Correto",
+      successMessage: "The elephant is bigger than the cat.",
+    },
+  },
+  {
+    key: "a2ic36s24",
+    component: "Exercise17",
+    activity: {
+      label: "Vocabulário",
+      content: [
+        "/blue{+10 Exemplos de Dobra CVC}",
+        "Sad → Sadder",
+        "Fat → Fatter",
+        "Mad → Madder",
+        "Wet → Wetter",
+        "Slim → Slimmer",
+        "Fit → Fitter",
+        "Flat → Flatter",
+        "Glad → Gladder",
+        "Dim → Dimmer",
+        "Grim → Grimmer",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    key: "a2ic36s25",
+    component: "Exercise16",
+    activity: {
+      prompt: "Gravação de áudio",
+      instruction: "Grave uma frase comparando duas coisas.",
+      helperText: 'Exemplo: "My dog is bigger than my cat."',
+      successTitle: "Muito bem!",
+      successMessage: "Seu áudio foi gravado.",
+    },
+  },
+  {
+    key: "a2ic36s26",
+    component: "Exercise17",
+    activity: {
+      label: "Final",
+      content: [
+        "/blue{Você é um mestre da comparação!}",
+        "Três regras dominadas! Agora você sabe lidar com qualquer adjetivo curto no comparativo.",
+      ],
+      continueLabel: "Concluir",
+    },
   },
 ];
 
-const SLIDE_COUNT = LESSON_SLIDES.length;
-const EXERCISE_SLIDE_COUNT = LESSON_SLIDES.filter(
-  (slide) => slide.type !== "finish",
-).length;
-
-function useSpeech() {
-  const speak = ({ text, stopBefore = true, ...speechOptions }) => {
-    if (!text) return;
-    if (stopBefore) Speech.stop();
-    Speech.speak(text, speechOptions);
-  };
-
-  return { speak };
-}
-
-async function loadProgress() {
-  const raw = await AsyncStorage.getItem(STORAGE_KEY);
-  return raw ? JSON.parse(raw) : {};
-}
-
-async function saveProgress(progress) {
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
-}
-
-function updateProgress(progressAnim, index, total) {
-  Animated.timing(progressAnim, {
-    toValue: (index + 1) / total,
-    duration: 300,
-    useNativeDriver: false,
-  }).start();
-}
-
-function useSlideNavigation({
-  currentSlideIndex,
-  setCurrentSlideIndex,
-  totalSlides,
-  progressAnim,
-}) {
-  const lockRef = useRef(false);
-
-  const next = () => {
-    if (lockRef.current || currentSlideIndex >= totalSlides - 1) return;
-    lockRef.current = true;
-    setTimeout(() => {
-      lockRef.current = false;
-    }, 300);
-
-    const nextIndex = currentSlideIndex + 1;
-    setCurrentSlideIndex(nextIndex);
-    updateProgress(progressAnim, nextIndex, totalSlides);
-  };
-
-  const prev = () => {
-    if (lockRef.current || currentSlideIndex === 0) return;
-    lockRef.current = true;
-    setTimeout(() => {
-      lockRef.current = false;
-    }, 300);
-
-    const previousIndex = currentSlideIndex - 1;
-    setCurrentSlideIndex(previousIndex);
-    updateProgress(progressAnim, previousIndex, totalSlides);
-  };
-
-  function renderPrevButton() {
-    if (currentSlideIndex === 0) return null;
-
-    return (
-      <TouchableOpacity onPress={prev} style={styles.headerCircleButton}>
-        <Image source={BACK_IMAGE} style={styles.headerCircleImage} />
-      </TouchableOpacity>
-    );
-  }
-
-  return { next, renderPrevButton };
-}
-
-function useNav() {
-  return React.useContext(SlideNavContext);
-}
-
-function SlideHeader() {
-  const { progressAnim, goBack, renderPrevButton } = useNav();
-
-  return (
-    <View style={styles.headerContainer}>
-      <TouchableOpacity onPress={goBack} style={styles.headerCircleButton}>
-        <Image source={CLOSE_IMAGE} style={styles.headerCircleImage} />
-      </TouchableOpacity>
-
-      <View style={styles.headerProgress}>
-        <Animated.View
-          style={[
-            styles.progressBarFill,
-            {
-              width: progressAnim.interpolate({
-                inputRange: [0, 1],
-                outputRange: ["0%", "100%"],
-              }),
-            },
-          ]}
-        />
-      </View>
-
-      <View style={styles.headerButton}>{renderPrevButton()}</View>
-    </View>
-  );
-}
-
-function LessonFinishSlide({ onPressNextLesson, feedbackProps }) {
-  return (
-    <Feedback
-      onContinue={onPressNextLesson}
-      reviewLabel="Revisar erros ->"
-      {...feedbackProps}
-    />
-  );
-}
-
-function LessonSlideRenderer({
-  slide,
-  next,
-  speak,
-  onPressNextLesson,
-  onAttempt,
-  feedbackProps,
-}) {
-  if (slide.type === "finish") {
-    return (
-      <LessonFinishSlide
-        onPressNextLesson={onPressNextLesson}
-        feedbackProps={feedbackProps}
-      />
-    );
-  }
-
-  const ExerciseComponent = slide.component;
-
-  return (
-    <ExerciseComponent
-      activity={slide.activity}
-      styles={styles}
-      HeaderComponent={SlideHeader}
-      next={next}
-      onAttempt={onAttempt}
-      {...(slide.needsSpeech ? { speak } : {})}
-    />
-  );
-}
-
-export default function A2IC36({ route, navigation }) {
-  const lesson = route?.params?.lesson;
-  const lessons = route?.params?.lessons;
-  const { speak } = useSpeech();
-
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const progressAnim = useRef(new Animated.Value(1 / SLIDE_COUNT)).current;
-  const [lessonStats, setLessonStats] = useState({
-    correct: 0,
-    total: 0,
-    exerciseScores: {},
-    slideAttempts: {},
-  });
-  const [completedLessonsCount, setCompletedLessonsCount] = useState(0);
-  const [currentStreak, setCurrentStreak] = useState(0);
-  const [lessonAlreadyCompleted, setLessonAlreadyCompleted] = useState(false);
-  const [lessonMetaLoaded, setLessonMetaLoaded] = useState(false);
-  const lessonCommitRef = useRef(false);
-
-  useEffect(() => {
-    updateProgress(progressAnim, currentSlideIndex, SLIDE_COUNT);
-  }, [currentSlideIndex, progressAnim]);
-
-  const slideNav = useSlideNavigation({
-    currentSlideIndex,
-    setCurrentSlideIndex,
-    totalSlides: SLIDE_COUNT,
-    progressAnim,
-  });
-
-  const currentSlide = LESSON_SLIDES[currentSlideIndex];
-  const completedExerciseScores = Object.values(lessonStats.exerciseScores);
-  const lessonAccuracy = completedExerciseScores.length
-    ? Math.round(
-        completedExerciseScores.reduce((sum, score) => sum + score, 0) /
-          EXERCISE_SLIDE_COUNT,
-      )
-    : calculateLessonAccuracy(lessonStats.correct, lessonStats.total);
-  const earnedXp = lessonAlreadyCompleted ? 0 : XP_PER_LESSON;
-  const nextStreak = lessonAlreadyCompleted
-    ? currentStreak
-    : lessonAccuracy >= LESSON_STREAK_MIN_ACCURACY
-      ? currentStreak + 1
-      : 0;
-  const totalXpAfterLesson = completedLessonsCount * XP_PER_LESSON + earnedXp;
-  const levelProgress = getLevelProgress(totalXpAfterLesson);
-
-  useEffect(() => {
-    let active = true;
-
-    async function loadLessonMeta() {
-      const [progress, streakRaw] = await Promise.all([
-        loadProgress(),
-        AsyncStorage.getItem(LESSON_STREAK_STORAGE_KEY),
-      ]);
-
-      if (!active) return;
-
-      const completedCount = Object.values(progress || {}).filter(
-        Boolean,
-      ).length;
-      const alreadyCompleted = Boolean(
-        lesson?.id != null && progress?.[lesson.id],
-      );
-      const streak = streakRaw ? Number(streakRaw) || 0 : 0;
-
-      setCompletedLessonsCount(completedCount);
-      setLessonAlreadyCompleted(alreadyCompleted);
-      setCurrentStreak(streak);
-      setLessonMetaLoaded(true);
-    }
-
-    loadLessonMeta();
-
-    return () => {
-      active = false;
-    };
-  }, [lesson?.id]);
-
-  const handleAttempt = ({
-    isCorrect,
-    correctDelta,
-    totalDelta,
-    exerciseAccuracy,
-  } = {}) => {
-    setLessonStats((current) => {
-      const nextCorrect =
-        current.correct +
-        (typeof correctDelta === "number" ? correctDelta : isCorrect ? 1 : 0);
-      const nextTotal =
-        current.total + (typeof totalDelta === "number" ? totalDelta : 1);
-
-      const previousSlideAttempts = current.slideAttempts[
-        currentSlideIndex
-      ] || {
-        correct: 0,
-        total: 0,
-      };
-      const nextSlideAttempts = {
-        correct:
-          previousSlideAttempts.correct +
-          (typeof correctDelta === "number" ? correctDelta : isCorrect ? 1 : 0),
-        total:
-          previousSlideAttempts.total +
-          (typeof totalDelta === "number" ? totalDelta : 1),
-      };
-
-      const derivedExerciseAccuracy =
-        typeof exerciseAccuracy === "number"
-          ? exerciseAccuracy
-          : calculateLessonAccuracy(
-              nextSlideAttempts.correct,
-              nextSlideAttempts.total,
-            );
-
-      return {
-        correct: nextCorrect,
-        total: nextTotal,
-        slideAttempts: {
-          ...current.slideAttempts,
-          [currentSlideIndex]: nextSlideAttempts,
-        },
-        exerciseScores: {
-          ...current.exerciseScores,
-          [currentSlideIndex]: derivedExerciseAccuracy,
-        },
-      };
-    });
-  };
-
-  useEffect(() => {
-    if (!lessonMetaLoaded || currentSlide?.type !== "finish") return;
-    if (lessonAlreadyCompleted || lessonCommitRef.current) return;
-
-    lessonCommitRef.current = true;
-
-    async function commitLessonCompletion() {
-      if (lesson?.id != null) {
-        const progress = await loadProgress();
-        await Promise.all([
-          saveProgress({ ...progress, [lesson.id]: true }),
-          AsyncStorage.setItem(LESSON_STREAK_STORAGE_KEY, String(nextStreak)),
-        ]);
-      }
-    }
-
-    commitLessonCompletion();
-  }, [
-    currentSlide?.type,
-    lesson?.id,
-    lessonAlreadyCompleted,
-    lessonMetaLoaded,
-    nextStreak,
-  ]);
-
-  const findNextLesson = () => {
-    if (!lessons || !lesson) return null;
-    const lessonIndex = lessons.findIndex(
-      (lessonItem) => String(lessonItem.id) === String(lesson.id),
-    );
-    return lessons[lessonIndex + 1] || null;
-  };
-
-  const goToNextLesson = async () => {
-    navigation.replace("InglescompletoA2", {
-      autoOpenLessonId: findNextLesson()?.id || null,
-    });
-  };
-
-  return (
-    <SafeAreaView style={{ flex: 1 }} edges={["top", "bottom"]}>
-      <SlideNavContext.Provider
-        value={{
-          ...slideNav,
-          progressAnim,
-          goBack: () => navigation.goBack(),
-        }}
-      >
-        <ScrollView
-          contentContainerStyle={{ flexGrow: 1 }}
-          keyboardShouldPersistTaps="handled"
-        >
-          <LessonSlideRenderer
-            slide={currentSlide}
-            next={slideNav.next}
-            speak={speak}
-            onPressNextLesson={goToNextLesson}
-            onAttempt={handleAttempt}
-            feedbackProps={{
-              earnedXp,
-              accuracy: lessonAccuracy,
-              streak: nextStreak,
-              totalXp: totalXpAfterLesson,
-              lessonAlreadyCompleted,
-              ...levelProgress,
-            }}
-          />
-        </ScrollView>
-      </SlideNavContext.Provider>
-    </SafeAreaView>
-  );
-}
+export default createA2LessonScreen(LESSON_SLIDES);

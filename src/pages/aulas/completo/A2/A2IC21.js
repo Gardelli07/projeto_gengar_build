@@ -1,426 +1,277 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Animated,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as Speech from "expo-speech";
-import geral from "../../../../exc/geral";
-import ex1, { Exercise1 } from "../../../../exc/ex1";
-import ex2, { Exercise2 } from "../../../../exc/ex2";
-import ex3, { Exercise3 } from "../../../../exc/ex3";
-import ex4, { Exercise4 } from "../../../../exc/ex4";
-import ex5, { Exercise5 } from "../../../../exc/ex5";
-import ex6, { Exercise6 } from "../../../../exc/ex6";
-import ex7, { Exercise7 } from "../../../../exc/ex7";
-import ex8, { Exercise8 } from "../../../../exc/ex8";
-import ex9, { Exercise9 } from "../../../../exc/ex9";
-import ex10, { Exercise10 } from "../../../../exc/ex10";
-import ex11, { Exercise11 } from "../../../../exc/ex11";
-import ex12, { Exercise12 } from "../../../../exc/ex12";
-import ex13, { Exercise13 } from "../../../../exc/ex13";
-import ex15, { Exercise15 } from "../../../../exc/ex15";
-import ex14, { Exercise14 } from "../../../../exc/ex14";
-import ex16, { Exercise16 } from "../../../../exc/ex16";
-import ex17, { Exercise17 } from "../../../../exc/ex17";
-import ex18, { Exercise18 } from "../../../../exc/ex18";
-import Feedback from "../../../../exc/feedback";
-import { BussinesImages, IC, Images } from "../../../../util/images";
-import {
-  calculateLessonAccuracy,
-  LESSON_STREAK_MIN_ACCURACY,
-  LESSON_STREAK_STORAGE_KEY,
-} from "../../../../util/lessonPerformance";
-import { getLevelProgress, XP_PER_LESSON } from "../../../../util/xp";
-
-const SlideNavContext = React.createContext(null);
-
-const STORAGE_KEY = "@progesso_ingles_completo_A2";
-const BACK_IMAGE = require("../../../../../assets/seta.png");
-const CLOSE_IMAGE = require("../../../../../assets/x.png");
-
-const styles = {
-  ...geral,
-  ...ex1,
-  ...ex2,
-  ...ex3,
-  ...ex4,
-  ...ex5,
-  ...ex6,
-  ...ex7,
-  ...ex8,
-  ...ex9,
-  ...ex10,
-  ...ex11,
-  ...ex12,
-  ...ex13,
-  ...ex14,
-  ...ex15,
-  ...ex16,
-  ...ex17,
-  ...ex18,
-};
+import createA2LessonScreen from "./A2LessonScreen";
+import { ICA2 } from "../../../../util/images";
 
 const LESSON_SLIDES = [
   {
-    key: "lesson-finish",
-    type: "finish",
+    key: "a2ic21s1",
+    component: "Exercise17",
+    activity: {
+      label: "MÓDULO 2 • AULA 21",
+      content: [
+        "/blue{Nice concert!}",
+        "/blue{Desafio de Ouvido!}",
+        "Hoje o desafio é sobre um show de rock. Vamos ouvir uma conversa entre Leo e Mia e entender o que aconteceu ontem.",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    key: "a2ic21s2",
+    component: "Exercise14",
+    needsSpeech: true,
+    activity: {
+      prompt: "Vocabulário: escute e escolha.",
+      image: ICA2.A21S2,
+      audioSource: require("../../../../../mp3/IC/A2/A21S2.mp3"),
+      audioText: "Concert",
+      options: ["Concert", "Concrete"],
+      correctAnswer: "Concert",
+      correctOption: "Concert",
+      feedbackMessage: "Concert significa show ou apresentação musical.",
+      successTitle: "Correto",
+    },
+  },
+  {
+    key: "a2ic21s3",
+    component: "Exercise14",
+    needsSpeech: true,
+    activity: {
+      prompt: "Vocabulário: escute e escolha.",
+      image: ICA2.A21S3,
+      audioSource: require("../../../../../mp3/IC/A2/A21S3.mp3"),
+      audioText: "Woke up",
+      options: ["Wake up", "Woke up"],
+      correctAnswer: "Woke up",
+      correctOption: "Woke up",
+      feedbackMessage: "Woke up é o passado de wake up.",
+      successTitle: "Correto",
+    },
+  },
+  {
+    key: "a2ic21s4",
+    type: "listenOnly",
+    activity: {
+      prompt: "Part 1: Leo's Night",
+      image: ICA2.A21S5,
+      audioSource: require("../../../../../mp3/IC/A2/A21S4.mp3"),
+      audioText:
+        "Leo: Hey Mia! Did you have a good weekend? Mia: It was okay. I stayed at home and watched a movie with my sister. What about you? Leo: I went to that rock concert last night! It was amazing! Mia: Really? I called you around 9 PM, but you didn't answer!",
+      transcript:
+        "Leo: Hey Mia! Did you have a good weekend?\nMia: It was okay. I stayed at home and watched a movie with my sister. What about you?\nLeo: I went to that rock concert last night! It was amazing!\nMia: Really? I called you around 9 PM, but you didn't answer!",
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    key: "a2ic21s5",
+    component: "Exercise4",
+    activity: {
+      prompt: "What did Mia do on her weekend?",
+      image: ICA2.A21S5,
+      wrongSentence: "Choose the correct answer.",
+      options: ["She went to a concert.", "She stayed home with her sister."],
+      correctAnswer: "She stayed home with her sister.",
+      successTitle: "Correto",
+      successMessage: "Mia stayed at home and watched a movie with her sister.",
+    },
+  },
+  {
+    key: "a2ic21s6",
+    component: "Exercise4",
+    activity: {
+      prompt: "Por que o Leo não atendeu o telefone às 21h?",
+      image: ICA2.A21S6,
+      wrongSentence: "Choose the correct answer.",
+      options: ["Porque ele estava dormindo.", "Porque ele estava no show."],
+      correctAnswer: "Porque ele estava no show.",
+      successTitle: "Correto",
+      successMessage: "Leo estava no show de rock.",
+    },
+  },
+  {
+    key: "a2ic21s7",
+    component: "Exercise18",
+    activity: {
+      prompt: "O que o Leo fez ontem à noite? Digite a frase completa:",
+      scrambledSentence: "went / a / He / concert / to / .",
+      correctAnswer: "He went to a concert.",
+      placeholder: "Digite a frase",
+      submitLabel: "Responder",
+      successTitle: "Correto",
+      successMessage: "He went to a concert.",
+    },
+  },
+  {
+    key: "a2ic21s8",
+    component: "Exercise14",
+    needsSpeech: true,
+    activity: {
+      prompt: "Vocabulário: escute e escolha.",
+      image: ICA2.A21S8,
+      audioSource: require("../../../../../mp3/IC/A2/A21S8.mp3"),
+      audioText: "Headache",
+      options: ["Headache", "Heartache"],
+      correctAnswer: "Headache",
+      correctOption: "Headache",
+      feedbackMessage: "Headache significa dor de cabeça.",
+      successTitle: "Correto",
+    },
+  },
+  {
+    key: "a2ic21s9",
+    type: "listenOnly",
+    activity: {
+      prompt: "Part 2: The Invitation",
+      image: ICA2.A21S10,
+      audioText:
+        "Mia: So, did you go to the concert alone? Leo: Yes, I did. I invited my brother, but he didn't want to go. Mia: That's strange! He loves that band. Did he have a problem? Leo: He didn't feel well yesterday. He had a headache, so he stayed in bed.",
+      transcript:
+        "Mia: So, did you go to the concert alone?\nLeo: Yes, I did. I invited my brother, but he didn't want to go.\nMia: That's strange! He loves that band. Did he have a problem?\nLeo: He didn't feel well yesterday. He had a headache, so he stayed in bed.",
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    key: "a2ic21s10",
+    component: "Exercise8",
+    activity: {
+      prompt: "Why didn't Leo's brother go to the concert?",
+      image: ICA2.A21S10,
+      options: ["Because he had a headache.", "Because he didn't like the band."],
+      correctAnswer: "Because he had a headache.",
+      successTitle: "Correto",
+      successMessage: "He had a headache, so he stayed in bed.",
+    },
+  },
+  {
+    key: "a2ic21s11",
+    component: "Exercise19",
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e digite o que Leo disse sobre o irmão:",
+      audioSource: require("../../../../../mp3/IC/A2/A21S11.mp3"),
+      audioText: "He didn't want to go.",
+      correctAnswer: "He didn't want to go.",
+      placeholder: "Digite a frase",
+      submitLabel: "Responder",
+      successTitle: "Correto",
+      successMessage: "Você escreveu a frase corretamente.",
+      errorMessage: "Confira: He didn't want to go.",
+    },
+  },
+  {
+    key: "a2ic21s12",
+    component: "Exercise14",
+    needsSpeech: true,
+    activity: {
+      prompt: "Vocabulário: escute e escolha.",
+      image: ICA2.A21S12,
+      audioSource: require("../../../../../mp3/IC/A2/A21S12.mp3"),
+      audioText: "Actually",
+      options: ["Actually", "Currently"],
+      correctAnswer: "Actually",
+      correctOption: "Actually",
+      feedbackMessage: "Actually significa na verdade.",
+      successTitle: "Correto",
+    },
+  },
+  {
+    key: "a2ic21s13",
+    component: "Exercise14",
+    needsSpeech: true,
+    activity: {
+      prompt: "Vocabulário: escute e escolha.",
+      image: ICA2.A21S13,
+      audioSource: require("../../../../../mp3/IC/A2/A21S13.mp3"),
+      audioText: "Near",
+      options: ["Near", "Far"],
+      correctAnswer: "Near",
+      correctOption: "Near",
+      feedbackMessage: "Near significa perto.",
+      successTitle: "Correto",
+    },
+  },
+  {
+    key: "a2ic21s14",
+    component: "Exercise14",
+    needsSpeech: true,
+    activity: {
+      prompt: "Vocabulário: escute e escolha.",
+      image: ICA2.A21S14,
+      audioSource: require("../../../../../mp3/IC/A2/A21S14.mp3"),
+      audioText: "Stage",
+      options: ["Stage", "State"],
+      correctAnswer: "Stage",
+      correctOption: "Stage",
+      feedbackMessage: "Stage significa palco.",
+      successTitle: "Correto",
+    },
+  },
+  {
+    key: "a2ic21s15",
+    type: "listenOnly",
+    activity: {
+      prompt: "Part 3: At the Venue",
+      image: ICA2.A21S16,
+      audioSource: require("../../../../../mp3/IC/A2/A21S15.mp3"),
+      audioText:
+        "Mia: Did you see anyone we know there? Leo: Actually, I did! I met Sarah near the stage! Did you know she was going? Mia: No, I didn't! Did she like the show? Leo: She loved it! But she didn't stay until the end because she was tired.",
+      transcript:
+        "Mia: Did you see anyone we know there?\nLeo: Actually, I did! I met Sarah near the stage!\nMia: No, I didn't! Did she like the show?\nLeo: She loved it! But she didn't stay until the end because she was tired.",
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    key: "a2ic21s16",
+    component: "Exercise4",
+    activity: {
+      prompt: "Onde o Leo encontrou a Sarah?",
+      image: ICA2.A21S16,
+      wrongSentence: "Choose the correct answer.",
+      options: ["Perto do palco.", "Na entrada do show."],
+      correctAnswer: "Perto do palco.",
+      successTitle: "Correto",
+      successMessage: "Leo met Sarah near the stage.",
+    },
+  },
+  {
+    key: "a2ic21s17",
+    component: "Exercise19",
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute a pergunta da Mia e digite:",
+      audioSource: require("../../../../../mp3/IC/A2/A21S17.mp3"),
+      audioText: "Did she like the show?",
+      correctAnswer: "Did she like the show?",
+      placeholder: "Digite a pergunta",
+      submitLabel: "Responder",
+      successTitle: "Correto",
+      successMessage: "Você escreveu a pergunta corretamente.",
+      errorMessage: "Confira: Did she like the show?",
+    },
+  },
+  {
+    key: "a2ic21s18",
+    component: "Exercise16",
+    activity: {
+      prompt: "Gravação de áudio",
+      instruction: "Grave um áudio contando três coisas que aconteceram no show.",
+      helperText: 'Use frases como "Leo went to a concert", "He met Sarah" ou "His brother had a headache".',
+      tipText: "Use Simple Past.",
+      successTitle: "Muito bem!",
+      successMessage: "Seu áudio foi gravado.",
+    },
+  },
+  {
+    key: "a2ic21s19",
+    component: "Exercise17",
+    activity: {
+      label: "Final",
+      content: [
+        "/blue{Audição Impecável!}",
+        "Você entendeu um diálogo natural e aprendeu palavras como actually e headache.",
+      ],
+      continueLabel: "Concluir",
+    },
   },
 ];
 
-const SLIDE_COUNT = LESSON_SLIDES.length;
-const EXERCISE_SLIDE_COUNT = LESSON_SLIDES.filter(
-  (slide) => slide.type !== "finish",
-).length;
-
-function useSpeech() {
-  const speak = ({ text, stopBefore = true, ...speechOptions }) => {
-    if (!text) return;
-    if (stopBefore) Speech.stop();
-    Speech.speak(text, speechOptions);
-  };
-
-  return { speak };
-}
-
-async function loadProgress() {
-  const raw = await AsyncStorage.getItem(STORAGE_KEY);
-  return raw ? JSON.parse(raw) : {};
-}
-
-async function saveProgress(progress) {
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
-}
-
-function updateProgress(progressAnim, index, total) {
-  Animated.timing(progressAnim, {
-    toValue: (index + 1) / total,
-    duration: 300,
-    useNativeDriver: false,
-  }).start();
-}
-
-function useSlideNavigation({
-  currentSlideIndex,
-  setCurrentSlideIndex,
-  totalSlides,
-  progressAnim,
-}) {
-  const lockRef = useRef(false);
-
-  const next = () => {
-    if (lockRef.current || currentSlideIndex >= totalSlides - 1) return;
-    lockRef.current = true;
-    setTimeout(() => {
-      lockRef.current = false;
-    }, 300);
-
-    const nextIndex = currentSlideIndex + 1;
-    setCurrentSlideIndex(nextIndex);
-    updateProgress(progressAnim, nextIndex, totalSlides);
-  };
-
-  const prev = () => {
-    if (lockRef.current || currentSlideIndex === 0) return;
-    lockRef.current = true;
-    setTimeout(() => {
-      lockRef.current = false;
-    }, 300);
-
-    const previousIndex = currentSlideIndex - 1;
-    setCurrentSlideIndex(previousIndex);
-    updateProgress(progressAnim, previousIndex, totalSlides);
-  };
-
-  function renderPrevButton() {
-    if (currentSlideIndex === 0) return null;
-
-    return (
-      <TouchableOpacity onPress={prev} style={styles.headerCircleButton}>
-        <Image source={BACK_IMAGE} style={styles.headerCircleImage} />
-      </TouchableOpacity>
-    );
-  }
-
-  return { next, renderPrevButton };
-}
-
-function useNav() {
-  return React.useContext(SlideNavContext);
-}
-
-function SlideHeader() {
-  const { progressAnim, goBack, renderPrevButton } = useNav();
-
-  return (
-    <View style={styles.headerContainer}>
-      <TouchableOpacity onPress={goBack} style={styles.headerCircleButton}>
-        <Image source={CLOSE_IMAGE} style={styles.headerCircleImage} />
-      </TouchableOpacity>
-
-      <View style={styles.headerProgress}>
-        <Animated.View
-          style={[
-            styles.progressBarFill,
-            {
-              width: progressAnim.interpolate({
-                inputRange: [0, 1],
-                outputRange: ["0%", "100%"],
-              }),
-            },
-          ]}
-        />
-      </View>
-
-      <View style={styles.headerButton}>{renderPrevButton()}</View>
-    </View>
-  );
-}
-
-function LessonFinishSlide({ onPressNextLesson, feedbackProps }) {
-  return (
-    <Feedback
-      onContinue={onPressNextLesson}
-      reviewLabel="Revisar erros ->"
-      {...feedbackProps}
-    />
-  );
-}
-
-function LessonSlideRenderer({
-  slide,
-  next,
-  speak,
-  onPressNextLesson,
-  onAttempt,
-  feedbackProps,
-}) {
-  if (slide.type === "finish") {
-    return (
-      <LessonFinishSlide
-        onPressNextLesson={onPressNextLesson}
-        feedbackProps={feedbackProps}
-      />
-    );
-  }
-
-  const ExerciseComponent = slide.component;
-
-  return (
-    <ExerciseComponent
-      activity={slide.activity}
-      styles={styles}
-      HeaderComponent={SlideHeader}
-      next={next}
-      onAttempt={onAttempt}
-      {...(slide.needsSpeech ? { speak } : {})}
-    />
-  );
-}
-
-export default function A2IC21({ route, navigation }) {
-  const lesson = route?.params?.lesson;
-  const lessons = route?.params?.lessons;
-  const { speak } = useSpeech();
-
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const progressAnim = useRef(new Animated.Value(1 / SLIDE_COUNT)).current;
-  const [lessonStats, setLessonStats] = useState({
-    correct: 0,
-    total: 0,
-    exerciseScores: {},
-    slideAttempts: {},
-  });
-  const [completedLessonsCount, setCompletedLessonsCount] = useState(0);
-  const [currentStreak, setCurrentStreak] = useState(0);
-  const [lessonAlreadyCompleted, setLessonAlreadyCompleted] = useState(false);
-  const [lessonMetaLoaded, setLessonMetaLoaded] = useState(false);
-  const lessonCommitRef = useRef(false);
-
-  useEffect(() => {
-    updateProgress(progressAnim, currentSlideIndex, SLIDE_COUNT);
-  }, [currentSlideIndex, progressAnim]);
-
-  const slideNav = useSlideNavigation({
-    currentSlideIndex,
-    setCurrentSlideIndex,
-    totalSlides: SLIDE_COUNT,
-    progressAnim,
-  });
-
-  const currentSlide = LESSON_SLIDES[currentSlideIndex];
-  const completedExerciseScores = Object.values(lessonStats.exerciseScores);
-  const lessonAccuracy = completedExerciseScores.length
-    ? Math.round(
-        completedExerciseScores.reduce((sum, score) => sum + score, 0) /
-          EXERCISE_SLIDE_COUNT,
-      )
-    : calculateLessonAccuracy(lessonStats.correct, lessonStats.total);
-  const earnedXp = lessonAlreadyCompleted ? 0 : XP_PER_LESSON;
-  const nextStreak = lessonAlreadyCompleted
-    ? currentStreak
-    : lessonAccuracy >= LESSON_STREAK_MIN_ACCURACY
-      ? currentStreak + 1
-      : 0;
-  const totalXpAfterLesson = completedLessonsCount * XP_PER_LESSON + earnedXp;
-  const levelProgress = getLevelProgress(totalXpAfterLesson);
-
-  useEffect(() => {
-    let active = true;
-
-    async function loadLessonMeta() {
-      const [progress, streakRaw] = await Promise.all([
-        loadProgress(),
-        AsyncStorage.getItem(LESSON_STREAK_STORAGE_KEY),
-      ]);
-
-      if (!active) return;
-
-      const completedCount = Object.values(progress || {}).filter(
-        Boolean,
-      ).length;
-      const alreadyCompleted = Boolean(
-        lesson?.id != null && progress?.[lesson.id],
-      );
-      const streak = streakRaw ? Number(streakRaw) || 0 : 0;
-
-      setCompletedLessonsCount(completedCount);
-      setLessonAlreadyCompleted(alreadyCompleted);
-      setCurrentStreak(streak);
-      setLessonMetaLoaded(true);
-    }
-
-    loadLessonMeta();
-
-    return () => {
-      active = false;
-    };
-  }, [lesson?.id]);
-
-  const handleAttempt = ({
-    isCorrect,
-    correctDelta,
-    totalDelta,
-    exerciseAccuracy,
-  } = {}) => {
-    setLessonStats((current) => {
-      const nextCorrect =
-        current.correct +
-        (typeof correctDelta === "number" ? correctDelta : isCorrect ? 1 : 0);
-      const nextTotal =
-        current.total + (typeof totalDelta === "number" ? totalDelta : 1);
-
-      const previousSlideAttempts = current.slideAttempts[
-        currentSlideIndex
-      ] || {
-        correct: 0,
-        total: 0,
-      };
-      const nextSlideAttempts = {
-        correct:
-          previousSlideAttempts.correct +
-          (typeof correctDelta === "number" ? correctDelta : isCorrect ? 1 : 0),
-        total:
-          previousSlideAttempts.total +
-          (typeof totalDelta === "number" ? totalDelta : 1),
-      };
-
-      const derivedExerciseAccuracy =
-        typeof exerciseAccuracy === "number"
-          ? exerciseAccuracy
-          : calculateLessonAccuracy(
-              nextSlideAttempts.correct,
-              nextSlideAttempts.total,
-            );
-
-      return {
-        correct: nextCorrect,
-        total: nextTotal,
-        slideAttempts: {
-          ...current.slideAttempts,
-          [currentSlideIndex]: nextSlideAttempts,
-        },
-        exerciseScores: {
-          ...current.exerciseScores,
-          [currentSlideIndex]: derivedExerciseAccuracy,
-        },
-      };
-    });
-  };
-
-  useEffect(() => {
-    if (!lessonMetaLoaded || currentSlide?.type !== "finish") return;
-    if (lessonAlreadyCompleted || lessonCommitRef.current) return;
-
-    lessonCommitRef.current = true;
-
-    async function commitLessonCompletion() {
-      if (lesson?.id != null) {
-        const progress = await loadProgress();
-        await Promise.all([
-          saveProgress({ ...progress, [lesson.id]: true }),
-          AsyncStorage.setItem(LESSON_STREAK_STORAGE_KEY, String(nextStreak)),
-        ]);
-      }
-    }
-
-    commitLessonCompletion();
-  }, [
-    currentSlide?.type,
-    lesson?.id,
-    lessonAlreadyCompleted,
-    lessonMetaLoaded,
-    nextStreak,
-  ]);
-
-  const findNextLesson = () => {
-    if (!lessons || !lesson) return null;
-    const lessonIndex = lessons.findIndex(
-      (lessonItem) => String(lessonItem.id) === String(lesson.id),
-    );
-    return lessons[lessonIndex + 1] || null;
-  };
-
-  const goToNextLesson = async () => {
-    navigation.replace("InglescompletoA2", {
-      autoOpenLessonId: findNextLesson()?.id || null,
-    });
-  };
-
-  return (
-    <SafeAreaView style={{ flex: 1 }} edges={["top", "bottom"]}>
-      <SlideNavContext.Provider
-        value={{
-          ...slideNav,
-          progressAnim,
-          goBack: () => navigation.goBack(),
-        }}
-      >
-        <ScrollView
-          contentContainerStyle={{ flexGrow: 1 }}
-          keyboardShouldPersistTaps="handled"
-        >
-          <LessonSlideRenderer
-            slide={currentSlide}
-            next={slideNav.next}
-            speak={speak}
-            onPressNextLesson={goToNextLesson}
-            onAttempt={handleAttempt}
-            feedbackProps={{
-              earnedXp,
-              accuracy: lessonAccuracy,
-              streak: nextStreak,
-              totalXp: totalXpAfterLesson,
-              lessonAlreadyCompleted,
-              ...levelProgress,
-            }}
-          />
-        </ScrollView>
-      </SlideNavContext.Provider>
-    </SafeAreaView>
-  );
-}
+export default createA2LessonScreen(LESSON_SLIDES);

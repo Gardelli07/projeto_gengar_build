@@ -1,512 +1,219 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Animated,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as Speech from "expo-speech";
-import geral from "../../../../exc/geral";
-import ex1, { Exercise1 } from "../../../../exc/ex1";
-import ex2, { Exercise2 } from "../../../../exc/ex2";
-import ex3, { Exercise3 } from "../../../../exc/ex3";
-import ex4, { Exercise4 } from "../../../../exc/ex4";
-import ex5, { Exercise5 } from "../../../../exc/ex5";
-import ex6, { Exercise6 } from "../../../../exc/ex6";
-import ex7, { Exercise7 } from "../../../../exc/ex7";
-import ex8, { Exercise8 } from "../../../../exc/ex8";
-import ex9, { Exercise9 } from "../../../../exc/ex9";
-import ex10, { Exercise10 } from "../../../../exc/ex10";
-import ex11, { Exercise11 } from "../../../../exc/ex11";
-import ex12, { Exercise12 } from "../../../../exc/ex12";
-import ex13, { Exercise13 } from "../../../../exc/ex13";
-import ex15, { Exercise15 } from "../../../../exc/ex15";
-import ex14, { Exercise14 } from "../../../../exc/ex14";
-import ex16, { Exercise16 } from "../../../../exc/ex16";
-import ex17, { Exercise17 } from "../../../../exc/ex17";
-import ex18, { Exercise18 } from "../../../../exc/ex18";
-import Feedback from "../../../../exc/feedback";
-import { Images } from "../../../../util/images";
-import {
-  calculateLessonAccuracy,
-  LESSON_STREAK_MIN_ACCURACY,
-  LESSON_STREAK_STORAGE_KEY,
-} from "../../../../util/lessonPerformance";
-import { getLevelProgress, XP_PER_LESSON } from "../../../../util/xp";
+import createA2LessonScreen from "./A2LessonScreen";
+import { ICA2 } from "../../../../util/images";
 
-const SlideNavContext = React.createContext(null);
-
-const STORAGE_KEY = "@progesso_ingles_completo_A2";
-const BACK_IMAGE = require("../../../../../assets/seta.png");
-const CLOSE_IMAGE = require("../../../../../assets/x.png");
-
-const styles = {
-  ...geral,
-  ...ex1,
-  ...ex2,
-  ...ex3,
-  ...ex4,
-  ...ex5,
-  ...ex6,
-  ...ex7,
-  ...ex8,
-  ...ex9,
-  ...ex10,
-  ...ex11,
-  ...ex12,
-  ...ex13,
-  ...ex14,
-  ...ex15,
-  ...ex16,
-  ...ex17,
-  ...ex18,
-};
-
-const A2IC04_QUESTIONS = [
-  {
-    image: Images.ex10,
-    question: 'Friend: "What are you doing?" Você: "I..."',
-    options: ["am studying", "studying", "am study"],
-    correctAnswer: "am studying",
-  },
-  {
-    image: Images.ex10,
-    question:
-      'Friend: "And your brother? Is he here?" Você: "Yes, he..."',
-    options: ["are playing", "is playing", "playing"],
-    correctAnswer: "is playing",
-  },
-  {
-    image: Images.ex10,
-    question:
-      'Friend: "I hear music! Is your sister there?" Você: "Yes, she..."',
-    options: ["is danceing", "is dancing", "are dancing"],
-    correctAnswer: "is dancing",
-  },
-  {
-    image: Images.ex10,
-    question:
-      'Friend: "I smell coffee! Is your father busy?" Você: "Yes, he..."',
-    options: [
-      "is makeing coffee",
-      "is making coffee",
-      "are making coffee",
-    ],
-    correctAnswer: "is making coffee",
-  },
-  {
-    image: Images.ex10,
-    question: 'Friend: "And your mother?" Você: "She..."',
-    options: ["is working", "are working", "working"],
-    correctAnswer: "is working",
-  },
-  {
-    image: Images.ex10,
-    question:
-      'Friend: "Look at the dog in the garden!" Você: "Oh! It..."',
-    options: ["is runing", "is running", "runs"],
-    correctAnswer: "is running",
-  },
-  {
-    image: Images.ex10,
-    question: 'Friend: "What about your friends?" Você: "They..."',
-    options: ["is waiting", "are waiting", "wait"],
-    correctAnswer: "are waiting",
-  },
-  {
-    image: Images.ex10,
-    question:
-      'Friend: "Are we ready for the lesson?" Você: "Yes, we..."',
-    options: ["are starting now", "is starting now", "starting"],
-    correctAnswer: "are starting now",
-  },
-  {
-    image: Images.ex10,
-    question:
-      'Friend: "Is your neighbor outside?" Você: "Yes, he..."',
-    options: ["is washing the car", "washing the car", "are washing"],
-    correctAnswer: "is washing the car",
-  },
-  {
-    image: Images.ex10,
-    question:
-      'Friend: "Wow, everyone is busy!" Você: "Yes, we..."',
-    options: ["is learning a lot", "are learning a lot", "learning"],
-    correctAnswer: "are learning a lot",
-  },
-];
+const BLOG_TEXT =
+  "Hello, everyone! This is my life right now. I’m sitting in my home office. I’m drinking a delicious hot coffee in my favorite mug. Outside, the sun is shining, but I’m working hard on my new project. My cat, Luna, is sleeping on the rug near my feet. Leo is in the kitchen; he’s making a chocolate cake for us! My parents are staying at a hotel near the beach this week. They’re relaxing and walking on the sand. I’m wearing my comfortable blue sweater because the AC is on. I’m feeling very happy and productive today!";
 
 const LESSON_SLIDES = [
   {
-    component: Exercise10,
+    key: "a2ic04s1",
+    component: "Exercise17",
     activity: {
-      prompt: "Responda as questões",
-      title: "Conversa",
-      userImage: Images.ex16,
-      lockStorageKey: "@a2ic04_exercise10_lock_until",
-      questions: A2IC04_QUESTIONS,
-      successTitle: "Correto",
-      successMessage: "Você acertou todas as 10 respostas da conversa.",
+      label: "MÓDULO 1 • AULA 4",
+      content: [
+        "/blue{Sabrina’s Blog}",
+        "",
+        "Imagine que você está navegando nas redes sociais e para no status de um amigo. Ler em inglês é como montar um quebra-cabeça de ações.",
+        "",
+        "/blue{Tip - Escaneando a Ação}",
+        "Procure primeiro pelos verbos de ajuda: am, is, are.",
+        'Palavras como "right now", "at the moment" e "look!" confirmam que a cena está acontecendo agora.',
+      ],
+      continueLabel: "Continuar",
     },
   },
   {
-    key: "lesson-finish",
-    type: "finish",
+    key: "a2ic04s2",
+    type: "listenOnly",
+    activity: {
+      prompt: "Ouça o blog da Sabrina",
+      image: ICA2.A4S2,
+      transcript: BLOG_TEXT,
+      audioText: BLOG_TEXT,
+      continueLabel: "Continuar",
+    },
+  },
+  {
+    key: "a2ic04s3",
+    component: "Exercise5",
+    activity: {
+      prompt: "Onde a Sabrina está trabalhando?",
+      image: ICA2.A4S2,
+      sentenceStart: "Sabrina is working in her",
+      sentenceEnd: ".",
+      options: ["home office", "kitchen"],
+      correctAnswer: "home office",
+      successTitle: "Correto",
+      successMessage: "Ela está trabalhando no home office.",
+    },
+  },
+  {
+    key: "a2ic04s4",
+    component: "Exercise5",
+    activity: {
+      prompt: "O que ela está bebendo?",
+      image: ICA2.A1S5,
+      sentenceStart: "She is drinking",
+      sentenceEnd: "coffee.",
+      options: ["hot", "cold"],
+      correctAnswer: "hot",
+      successTitle: "Correto",
+      successMessage: "She is drinking hot coffee.",
+    },
+  },
+  {
+    key: "a2ic04s5",
+    component: "Exercise5",
+    activity: {
+      prompt: "O que o sol está fazendo lá fora?",
+      image: ICA2.A4S13,
+      sentenceStart: "The sun is",
+      sentenceEnd: ".",
+      options: ["shining", "raining"],
+      correctAnswer: "shining",
+      successTitle: "Correto",
+      successMessage: "The sun is shining.",
+    },
+  },
+  {
+    key: "a2ic04s6",
+    component: "Exercise5",
+    activity: {
+      prompt: "Onde a gata Luna está dormindo?",
+      image: ICA2.A4S2,
+      sentenceStart: "Luna is sleeping on the",
+      sentenceEnd: ".",
+      options: ["rug", "table"],
+      correctAnswer: "rug",
+      successTitle: "Correto",
+      successMessage: "Luna is sleeping on the rug.",
+    },
+  },
+  {
+    key: "a2ic04s7",
+    component: "Exercise5",
+    activity: {
+      prompt: "O que o Leo está fazendo na cozinha?",
+      image: ICA2.A1S8,
+      sentenceStart: "He’s",
+      sentenceEnd: "a cake.",
+      options: ["making", "doing"],
+      correctAnswer: "making",
+      successTitle: "Correto",
+      successMessage: "He’s making a cake.",
+    },
+  },
+  {
+    key: "a2ic04s8",
+    component: "Exercise5",
+    activity: {
+      prompt: "Onde os pais da Sabrina estão passando a semana?",
+      image: ICA2.A4S13,
+      sentenceStart: "They are staying at a",
+      sentenceEnd: ".",
+      options: ["hotel", "park"],
+      correctAnswer: "hotel",
+      successTitle: "Correto",
+      successMessage: "They are staying at a hotel.",
+    },
+  },
+  {
+    key: "a2ic04s9",
+    component: "Exercise5",
+    activity: {
+      prompt: "O que os pais dela estão fazendo na praia?",
+      image: ICA2.A4S13,
+      sentenceStart: "They are",
+      sentenceEnd: "and walking.",
+      options: ["relaxing", "working"],
+      correctAnswer: "relaxing",
+      successTitle: "Correto",
+      successMessage: "They are relaxing and walking.",
+    },
+  },
+  {
+    key: "a2ic04s10",
+    component: "Exercise5",
+    activity: {
+      prompt: "Por que a Sabrina está usando um casaco?",
+      image: ICA2.A4S2,
+      sentenceStart: "Because the",
+      sentenceEnd: "is on.",
+      options: ["AC", "oven"],
+      correctAnswer: "AC",
+      successTitle: "Correto",
+      successMessage: "Because the AC is on.",
+    },
+  },
+  {
+    key: "a2ic04s11",
+    component: "Exercise5",
+    activity: {
+      prompt: "Qual é a cor do casaco da Sabrina?",
+      image: ICA2.A4S2,
+      sentenceStart: "She is wearing a",
+      sentenceEnd: "sweater.",
+      options: ["blue", "red"],
+      correctAnswer: "blue",
+      successTitle: "Correto",
+      successMessage: "She is wearing a blue sweater.",
+    },
+  },
+  {
+    key: "a2ic04s12",
+    component: "Exercise5",
+    activity: {
+      prompt: "Como a Sabrina está se sentindo hoje?",
+      image: ICA2.A4S2,
+      sentenceStart: "She is feeling",
+      sentenceEnd: "and productive.",
+      options: ["happy", "tired"],
+      correctAnswer: "happy",
+      successTitle: "Correto",
+      successMessage: "She is feeling happy and productive.",
+    },
+  },
+  {
+    key: "a2ic04s13",
+    component: "Exercise3",
+    needsSpeech: true,
+    activity: {
+      prompt: "Segundo o texto, verdadeiro ou falso?",
+      image: ICA2.A4S13,
+      audioText: "Sabrina is working in her home office.",
+      statement: "Segundo o texto, a Sabrina está de férias na praia com os pais dela.",
+      textOnScreen: "A Sabrina está de férias na praia com os pais dela.",
+      options: ["true", "false"],
+      correctAnswer: "false",
+      successTitle: "Correto",
+      successMessage: "False. Ela está trabalhando no escritório; os pais estão na praia.",
+      feedbackMessage: "No texto, Sabrina está no home office.",
+    },
+  },
+  {
+    key: "a2ic04s14",
+    component: "Exercise6",
+    activity: {
+      prompt: "Monte a frase que descreve o que o Leo está fazendo:",
+      words: ["is", "making", "Leo", "cake.", "a", "chocolate"],
+      correctOrder: ["Leo", "is", "making", "a", "chocolate", "cake."],
+      successTitle: "Correto",
+      successMessage: "Leo is making a chocolate cake.",
+    },
+  },
+  {
+    key: "a2ic04s15",
+    component: "Exercise11",
+    activity: {
+      prompt: "Digite estes verbos do texto com -ING:",
+      title: "Escreva a forma com -ING",
+      placeholder: "Digite aqui",
+      secondsPerWord: 8,
+      words: ["Shining", "Sitting", "Making", "Feeling", "Staying"],
+      successTitle: "Correto",
+      successMessage: "Você reconheceu as ações principais do texto.",
+    },
   },
 ];
 
-const SLIDE_COUNT = LESSON_SLIDES.length;
-const EXERCISE_SLIDE_COUNT = LESSON_SLIDES.filter(
-  (slide) => slide.type !== "finish",
-).length;
-
-function useSpeech() {
-  const speak = ({ text, stopBefore = true, ...speechOptions }) => {
-    if (!text) return;
-    if (stopBefore) Speech.stop();
-    Speech.speak(text, speechOptions);
-  };
-
-  return { speak };
-}
-
-async function loadProgress() {
-  const raw = await AsyncStorage.getItem(STORAGE_KEY);
-  return raw ? JSON.parse(raw) : {};
-}
-
-async function saveProgress(progress) {
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
-}
-
-function updateProgress(progressAnim, index, total) {
-  Animated.timing(progressAnim, {
-    toValue: (index + 1) / total,
-    duration: 300,
-    useNativeDriver: false,
-  }).start();
-}
-
-function useSlideNavigation({
-  currentSlideIndex,
-  setCurrentSlideIndex,
-  totalSlides,
-  progressAnim,
-}) {
-  const lockRef = useRef(false);
-
-  const next = () => {
-    if (lockRef.current || currentSlideIndex >= totalSlides - 1) return;
-    lockRef.current = true;
-    setTimeout(() => {
-      lockRef.current = false;
-    }, 300);
-
-    const nextIndex = currentSlideIndex + 1;
-    setCurrentSlideIndex(nextIndex);
-    updateProgress(progressAnim, nextIndex, totalSlides);
-  };
-
-  const prev = () => {
-    if (lockRef.current || currentSlideIndex === 0) return;
-    lockRef.current = true;
-    setTimeout(() => {
-      lockRef.current = false;
-    }, 300);
-
-    const previousIndex = currentSlideIndex - 1;
-    setCurrentSlideIndex(previousIndex);
-    updateProgress(progressAnim, previousIndex, totalSlides);
-  };
-
-  function renderPrevButton() {
-    if (currentSlideIndex === 0) return null;
-
-    return (
-      <TouchableOpacity onPress={prev} style={styles.headerCircleButton}>
-        <Image source={BACK_IMAGE} style={styles.headerCircleImage} />
-      </TouchableOpacity>
-    );
-  }
-
-  return { next, renderPrevButton };
-}
-
-function useNav() {
-  return React.useContext(SlideNavContext);
-}
-
-function SlideHeader() {
-  const { progressAnim, goBack, renderPrevButton } = useNav();
-
-  return (
-    <View style={styles.headerContainer}>
-      <TouchableOpacity onPress={goBack} style={styles.headerCircleButton}>
-        <Image source={CLOSE_IMAGE} style={styles.headerCircleImage} />
-      </TouchableOpacity>
-
-      <View style={styles.headerProgress}>
-        <Animated.View
-          style={[
-            styles.progressBarFill,
-            {
-              width: progressAnim.interpolate({
-                inputRange: [0, 1],
-                outputRange: ["0%", "100%"],
-              }),
-            },
-          ]}
-        />
-      </View>
-
-      <View style={styles.headerButton}>{renderPrevButton()}</View>
-    </View>
-  );
-}
-
-function LessonFinishSlide({ onPressNextLesson, feedbackProps }) {
-  return (
-    <Feedback
-      onContinue={onPressNextLesson}
-      reviewLabel="Revisar erros ->"
-      {...feedbackProps}
-    />
-  );
-}
-
-function LessonSlideRenderer({
-  slide,
-  next,
-  speak,
-  onPressNextLesson,
-  onAttempt,
-  feedbackProps,
-}) {
-  if (slide.type === "finish") {
-    return (
-      <LessonFinishSlide
-        onPressNextLesson={onPressNextLesson}
-        feedbackProps={feedbackProps}
-      />
-    );
-  }
-
-  const ExerciseComponent = slide.component;
-
-  return (
-    <ExerciseComponent
-      activity={slide.activity}
-      styles={styles}
-      HeaderComponent={SlideHeader}
-      next={next}
-      onAttempt={onAttempt}
-      {...(slide.needsSpeech ? { speak } : {})}
-    />
-  );
-}
-
-export default function A2IC04({ route, navigation }) {
-  const lesson = route?.params?.lesson;
-  const lessons = route?.params?.lessons;
-  const { speak } = useSpeech();
-
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const progressAnim = useRef(new Animated.Value(1 / SLIDE_COUNT)).current;
-  const [lessonStats, setLessonStats] = useState({
-    correct: 0,
-    total: 0,
-    exerciseScores: {},
-    slideAttempts: {},
-  });
-  const [completedLessonsCount, setCompletedLessonsCount] = useState(0);
-  const [currentStreak, setCurrentStreak] = useState(0);
-  const [lessonAlreadyCompleted, setLessonAlreadyCompleted] = useState(false);
-  const [lessonMetaLoaded, setLessonMetaLoaded] = useState(false);
-  const lessonCommitRef = useRef(false);
-
-  useEffect(() => {
-    updateProgress(progressAnim, currentSlideIndex, SLIDE_COUNT);
-  }, [currentSlideIndex, progressAnim]);
-
-  const slideNav = useSlideNavigation({
-    currentSlideIndex,
-    setCurrentSlideIndex,
-    totalSlides: SLIDE_COUNT,
-    progressAnim,
-  });
-
-  const currentSlide = LESSON_SLIDES[currentSlideIndex];
-  const completedExerciseScores = Object.values(lessonStats.exerciseScores);
-  const lessonAccuracy = completedExerciseScores.length
-    ? Math.round(
-        completedExerciseScores.reduce((sum, score) => sum + score, 0) /
-          EXERCISE_SLIDE_COUNT,
-      )
-    : calculateLessonAccuracy(lessonStats.correct, lessonStats.total);
-  const earnedXp = lessonAlreadyCompleted ? 0 : XP_PER_LESSON;
-  const nextStreak = lessonAlreadyCompleted
-    ? currentStreak
-    : lessonAccuracy >= LESSON_STREAK_MIN_ACCURACY
-      ? currentStreak + 1
-      : 0;
-  const totalXpAfterLesson = completedLessonsCount * XP_PER_LESSON + earnedXp;
-  const levelProgress = getLevelProgress(totalXpAfterLesson);
-
-  useEffect(() => {
-    let active = true;
-
-    async function loadLessonMeta() {
-      const [progress, streakRaw] = await Promise.all([
-        loadProgress(),
-        AsyncStorage.getItem(LESSON_STREAK_STORAGE_KEY),
-      ]);
-
-      if (!active) return;
-
-      const completedCount = Object.values(progress || {}).filter(
-        Boolean,
-      ).length;
-      const alreadyCompleted = Boolean(
-        lesson?.id != null && progress?.[lesson.id],
-      );
-      const streak = streakRaw ? Number(streakRaw) || 0 : 0;
-
-      setCompletedLessonsCount(completedCount);
-      setLessonAlreadyCompleted(alreadyCompleted);
-      setCurrentStreak(streak);
-      setLessonMetaLoaded(true);
-    }
-
-    loadLessonMeta();
-
-    return () => {
-      active = false;
-    };
-  }, [lesson?.id]);
-
-  const handleAttempt = ({
-    isCorrect,
-    correctDelta,
-    totalDelta,
-    exerciseAccuracy,
-  } = {}) => {
-    setLessonStats((current) => {
-      const nextCorrect =
-        current.correct +
-        (typeof correctDelta === "number" ? correctDelta : isCorrect ? 1 : 0);
-      const nextTotal =
-        current.total + (typeof totalDelta === "number" ? totalDelta : 1);
-
-      const previousSlideAttempts = current.slideAttempts[
-        currentSlideIndex
-      ] || {
-        correct: 0,
-        total: 0,
-      };
-      const nextSlideAttempts = {
-        correct:
-          previousSlideAttempts.correct +
-          (typeof correctDelta === "number" ? correctDelta : isCorrect ? 1 : 0),
-        total:
-          previousSlideAttempts.total +
-          (typeof totalDelta === "number" ? totalDelta : 1),
-      };
-
-      const derivedExerciseAccuracy =
-        typeof exerciseAccuracy === "number"
-          ? exerciseAccuracy
-          : calculateLessonAccuracy(
-              nextSlideAttempts.correct,
-              nextSlideAttempts.total,
-            );
-
-      return {
-        correct: nextCorrect,
-        total: nextTotal,
-        slideAttempts: {
-          ...current.slideAttempts,
-          [currentSlideIndex]: nextSlideAttempts,
-        },
-        exerciseScores: {
-          ...current.exerciseScores,
-          [currentSlideIndex]: derivedExerciseAccuracy,
-        },
-      };
-    });
-  };
-
-  useEffect(() => {
-    if (!lessonMetaLoaded || currentSlide?.type !== "finish") return;
-    if (lessonAlreadyCompleted || lessonCommitRef.current) return;
-
-    lessonCommitRef.current = true;
-
-    async function commitLessonCompletion() {
-      if (lesson?.id != null) {
-        const progress = await loadProgress();
-        await Promise.all([
-          saveProgress({ ...progress, [lesson.id]: true }),
-          AsyncStorage.setItem(LESSON_STREAK_STORAGE_KEY, String(nextStreak)),
-        ]);
-      }
-    }
-
-    commitLessonCompletion();
-  }, [
-    currentSlide?.type,
-    lesson?.id,
-    lessonAlreadyCompleted,
-    lessonMetaLoaded,
-    nextStreak,
-  ]);
-
-  const findNextLesson = () => {
-    if (!lessons || !lesson) return null;
-    const lessonIndex = lessons.findIndex(
-      (lessonItem) => String(lessonItem.id) === String(lesson.id),
-    );
-    return lessons[lessonIndex + 1] || null;
-  };
-
-  const goToNextLesson = async () => {
-    navigation.replace("InglescompletoA2", {
-      autoOpenLessonId: findNextLesson()?.id || null,
-    });
-  };
-
-  return (
-    <SafeAreaView style={{ flex: 1 }} edges={["top", "bottom"]}>
-      <SlideNavContext.Provider
-        value={{
-          ...slideNav,
-          progressAnim,
-          goBack: () => navigation.goBack(),
-        }}
-      >
-        <ScrollView
-          contentContainerStyle={{ flexGrow: 1 }}
-          keyboardShouldPersistTaps="handled"
-        >
-          <LessonSlideRenderer
-            slide={currentSlide}
-            next={slideNav.next}
-            speak={speak}
-            onPressNextLesson={goToNextLesson}
-            onAttempt={handleAttempt}
-            feedbackProps={{
-              earnedXp,
-              accuracy: lessonAccuracy,
-              streak: nextStreak,
-              totalXp: totalXpAfterLesson,
-              lessonAlreadyCompleted,
-              ...levelProgress,
-            }}
-          />
-        </ScrollView>
-      </SlideNavContext.Provider>
-    </SafeAreaView>
-  );
-}
+export default createA2LessonScreen(LESSON_SLIDES);

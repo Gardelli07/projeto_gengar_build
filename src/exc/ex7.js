@@ -32,9 +32,10 @@ export function Exercise7({
     return shuffled;
   };
 
+  const sourceOptions = activity.options || activity.sentences || [];
   const shuffledOptions = useMemo(
-    () => shuffleArray(activity.options),
-    [activity.options],
+    () => shuffleArray(sourceOptions),
+    [sourceOptions],
   );
 
   const [selectedPhrases, setSelectedPhrases] = useState([]);
