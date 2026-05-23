@@ -131,10 +131,24 @@ export const inglesSampleLessons = [
   },
   {
     module: 0,
+    id: "61",
+    title: "Challenge",
+    type: "Aula",
+    screen: "A2IC61",
+  },
+  {
+    module: 0,
     id: "10",
     title: "Do or doing?",
     type: "Aula",
     screen: "A2IC10",
+  },
+  {
+    module: 0,
+    id: "62",
+    title: "Challenge 2",
+    type: "Aula",
+    screen: "A2IC62",
   },
   {
     module: 1,

@@ -189,6 +189,20 @@ import A2IC57 from "../pages/aulas/completo/A2/A2IC57";
 import A2IC58 from "../pages/aulas/completo/A2/A2IC58";
 import A2IC59 from "../pages/aulas/completo/A2/A2IC59";
 import A2IC60 from "../pages/aulas/completo/A2/A2IC60";
+import A2IC61 from "../pages/aulas/completo/A2/A2IC61";
+import A2IC62 from "../pages/aulas/completo/A2/A2IC62";
+import A2IC63 from "../pages/aulas/completo/A2/A2IC63";
+import A2IC64 from "../pages/aulas/completo/A2/A2IC64";
+import A2IC65 from "../pages/aulas/completo/A2/A2IC65";
+import A2IC66 from "../pages/aulas/completo/A2/A2IC66";
+import A2IC67 from "../pages/aulas/completo/A2/A2IC67";
+import A2IC68 from "../pages/aulas/completo/A2/A2IC68";
+import A2IC69 from "../pages/aulas/completo/A2/A2IC69";
+import A2IC70 from "../pages/aulas/completo/A2/A2IC70";
+import A2IC71 from "../pages/aulas/completo/A2/A2IC71";
+import A2IC72 from "../pages/aulas/completo/A2/A2IC72";
+import A2IC73 from "../pages/aulas/completo/A2/A2IC73";
+import A2IC74 from "../pages/aulas/completo/A2/A2IC74";
 import B1IC01 from "../pages/aulas/completo/B1/B1IC01";
 import B1IC02 from "../pages/aulas/completo/B1/B1IC02";
 import B1IC03 from "../pages/aulas/completo/B1/B1IC03";
@@ -580,6 +594,20 @@ export default function Routes() {
           A2IC58,
           A2IC59,
           A2IC60,
+          A2IC61,
+          A2IC62,
+          A2IC63,
+          A2IC64,
+          A2IC65,
+          A2IC66,
+          A2IC67,
+          A2IC68,
+          A2IC69,
+          A2IC70,
+          A2IC71,
+          A2IC72,
+          A2IC73,
+          A2IC74,
         ].map((Screen, index) => {
           const screenNumber = String(index + 1).padStart(2, "0");
 
