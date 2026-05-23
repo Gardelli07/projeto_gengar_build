@@ -92,7 +92,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça a palavra isolada e escolha a alternativa correta.",
       image: BUB1.A5S5,
       audioSource: require("../../../../../mp3/BU/B1/A5S5.mp3"),
-      audioText: "Focus.",
       audioDurationMs: 900,
       answerOptions: ["Focus", "Force"],
       correctOption: "Focus",
@@ -179,8 +178,6 @@ const LESSON_SLIDES = [
         "Escute o áudio do Chair da reunião separando uma discussão. A afirmação escrita é verdadeira ou falsa?",
       image: BUB1.A5S10,
       audioSource: require("../../../../../mp3/BU/B1/A5S10.mp3"),
-      audioText:
-        "Alright everyone, let's take a step back. I understand the frustration with the client, but let's keep this constructive and focus on solutions.",
       audioDurationMs: 7200,
       statement:
         "O líder da reunião concorda que eles devem continuar reclamando do cliente.",

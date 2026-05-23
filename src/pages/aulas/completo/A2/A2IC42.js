@@ -25,7 +25,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A42S2,
       audioSource: require("../../../../../mp3/IC/A2/A42S2.mp3"),
-      audioText: "The tallest",
       options: ["The tallest", "The most tall"],
       correctAnswer: "The tallest",
       correctOption: "The tallest",
@@ -41,7 +40,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A42S3,
       audioSource: require("../../../../../mp3/IC/A2/A42S3.mp3"),
-      audioText: "The fastest",
       options: ["The fast", "The fastest"],
       correctAnswer: "The fastest",
       correctOption: "The fastest",
@@ -57,7 +55,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A42S4,
       audioSource: require("../../../../../mp3/IC/A2/A42S4.mp3"),
-      audioText: "The oldest",
       options: ["The newest", "The oldest"],
       correctAnswer: "The oldest",
       correctOption: "The oldest",
@@ -73,7 +70,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A42S5,
       audioSource: require("../../../../../mp3/IC/A2/A42S5.mp3"),
-      audioText: "The coldest",
       options: ["The coldest", "The colder"],
       correctAnswer: "The coldest",
       correctOption: "The coldest",
@@ -88,7 +84,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: 'Escreva "o mais rápido".',
       audioSource: require("../../../../../mp3/IC/A2/A42S6.mp3"),
-      audioText: "Fastest",
       letters: ["F", "A", "S", "T", "E", "S", "T"],
       correctWord: "FASTEST",
       successTitle: "Correto",
@@ -102,7 +97,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: 'Escreva "o mais alto".',
       audioSource: require("../../../../../mp3/IC/A2/A42S7.mp3"),
-      audioText: "Tallest",
       letters: ["T", "A", "L", "L", "E", "S", "T"],
       correctWord: "TALLEST",
       successTitle: "Correto",
@@ -116,7 +110,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: 'Escreva "o mais velho".',
       audioSource: require("../../../../../mp3/IC/A2/A42S8.mp3"),
-      audioText: "Oldest",
       letters: ["O", "L", "D", "E", "S", "T"],
       correctWord: "OLDEST",
       successTitle: "Correto",
@@ -204,7 +197,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e digite.",
       audioSource: require("../../../../../mp3/IC/A2/A42S15.mp3"),
-      audioText: "This is the cheapest phone in the store.",
       correctAnswer: "This is the cheapest phone in the store.",
       successTitle: "Correto",
       successMessage: "This is the cheapest phone in the store.",
@@ -216,7 +208,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e digite.",
       audioSource: require("../../../../../mp3/IC/A2/A42S16.mp3"),
-      audioText: "Today is the shortest day of the year.",
       correctAnswer: "Today is the shortest day of the year.",
       successTitle: "Correto",
       successMessage: "Today is the shortest day of the year.",

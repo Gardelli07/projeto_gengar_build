@@ -32,7 +32,6 @@ Nativos adoram apresentações organizadas. Use: First, Then, Finally para guiar
       prompt: "Escute e escolha a alternativa correta.",
       image: BUA1.A10S2,
       audioSource: require("../../../../../mp3/BU/A1/A10S2.mp3"),
-      audioText: "First",
       audioDurationMs: 800,
       answerOptions: ["First", "Fast"],
       correctOption: "First",
@@ -91,7 +90,9 @@ Nativos adoram apresentações organizadas. Use: First, Then, Finally para guiar
     component: Exercise17,
     activity: {
       label: "Today I will talk about...",
-      content: ['Use: "Today, I will talk about..." para começar sua apresentação de forma profissional.'],
+      content: [
+        'Use: "Today, I will talk about..." para começar sua apresentação de forma profissional.',
+      ],
       continueLabel: "Continuar",
     },
   },
@@ -132,7 +133,8 @@ Nativos adoram apresentações organizadas. Use: First, Then, Finally para guiar
     component: Exercise16,
     activity: {
       prompt: "Speaking",
-      instruction: 'Grave um áudio dizendo: "Hello. Today, I will talk about sales."',
+      instruction:
+        'Grave um áudio dizendo: "Hello. Today, I will talk about sales."',
       helperText: "Hello. Today, I will talk about sales.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
@@ -148,7 +150,9 @@ Nativos adoram apresentações organizadas. Use: First, Then, Finally para guiar
     component: Exercise17,
     activity: {
       label: "Great Start!",
-      content: ["Excelente! Você já sabe estruturar apresentações com clareza. Continue usando First, Then e Finally."],
+      content: [
+        "Excelente! Você já sabe estruturar apresentações com clareza. Continue usando First, Then e Finally.",
+      ],
       continueLabel: "Finalizar",
     },
   },

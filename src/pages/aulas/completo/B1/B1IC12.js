@@ -108,13 +108,11 @@ Let's practice!`,
       prompt: "Complete a frase",
       image: ICB1.A20S3,
       sentenceStart: "If I",
-      sentenceEnd:
-        "you, I would buy a Perfect Brew machine for the office.",
+      sentenceEnd: "you, I would buy a Perfect Brew machine for the office.",
       options: ["was", "were"],
       correctAnswer: "were",
       successTitle: "Correto",
-      successMessage:
-        'Para conselho formal e correto, use "If I were you".',
+      successMessage: 'Para conselho formal e correto, use "If I were you".',
     },
   },
   {

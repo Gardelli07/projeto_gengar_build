@@ -50,9 +50,9 @@ Quando um cliente chega, nós nunca perguntamos "What do you want?". Isso soa mu
     component: Exercise19,
     needsSpeech: true,
     activity: {
-      prompt: "Escute o áudio com atenção e digite exatamente o que você ouviu.",
+      prompt:
+        "Escute o áudio com atenção e digite exatamente o que você ouviu.",
       audioSource: require("../../../../../mp3/BU/A1/A3S3.mp3"),
-      audioText: "How much is this?",
       audioDurationMs: 1800,
       correctAnswer: "How much is this?",
       placeholder: "Digite a frase",

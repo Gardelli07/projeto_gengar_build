@@ -88,7 +88,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça a palavra isolada e escolha a alternativa correta.",
       image: BUB1.A15S5,
       audioSource: require("../../../../../mp3/BU/B1/A15S5.mp3"),
-      audioText: "Summarize.",
       audioDurationMs: 1200,
       answerOptions: ["Summarize", "Summer"],
       correctOption: "Summarize",
@@ -178,8 +177,6 @@ const LESSON_SLIDES = [
         "Escute a compradora americana aceitando a proposta. A afirmação escrita é verdadeira ou falsa?",
       image: BUB1.A15S10,
       audioSource: require("../../../../../mp3/BU/B1/A15S10.mp3"),
-      audioText:
-        "That is a perfect middle ground for us. To summarize our agreed terms, you deliver the coir liners in 30 days, organic quality, with a 5% discount. Yes, we have a deal.",
       audioDurationMs: 8500,
       statement:
         "Eles encontraram um meio-termo perfeito e a compradora confirmou que eles têm um acordo.",

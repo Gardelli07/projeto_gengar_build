@@ -26,7 +26,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A41S1,
       audioSource: require("../../../../../mp3/IC/A2/A41S2.mp3"),
-      audioText: "The most beautiful",
       options: ["The most beautiful", "The more beautiful"],
       correctAnswer: "The most beautiful",
       correctOption: "The most beautiful",
@@ -42,7 +41,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A41S3,
       audioSource: require("../../../../../mp3/IC/A2/A41S3.mp3"),
-      audioText: "The most dangerous",
       options: ["The most dangerous", "The more dangerous"],
       correctAnswer: "The most dangerous",
       correctOption: "The most dangerous",
@@ -58,7 +56,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A41S4,
       audioSource: require("../../../../../mp3/IC/A2/A41S4.mp3"),
-      audioText: "The most comfortable",
       options: ["The most comfortable", "The more comfortable"],
       correctAnswer: "The most comfortable",
       correctOption: "The most comfortable",
@@ -73,7 +70,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: 'Escreva o adjetivo para "perigoso".',
       audioSource: require("../../../../../mp3/IC/A2/A41S5.mp3"),
-      audioText: "Dangerous",
       letters: ["D", "A", "N", "G", "E", "R", "O", "U", "S"],
       correctWord: "DANGEROUS",
       successTitle: "Correto",
@@ -87,9 +83,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: 'Escreva o adjetivo para "importante".',
       audioSource: require("../../../../../mp3/IC/A2/A41S6.mp3"),
-      audioText: "Important",
       letters: ["I", "M", "P", "O", "R", "T", "A", "N", "T"],
-      correctWord: "IMPORTANT",
       successTitle: "Correto",
       successMessage: "Important.",
     },
@@ -101,7 +95,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: 'Escreva o adjetivo para "difícil".',
       audioSource: require("../../../../../mp3/IC/A2/A41S7.mp3"),
-      audioText: "Difficult",
       letters: ["D", "I", "F", "F", "I", "C", "U", "L", "T"],
       correctWord: "DIFFICULT",
       successTitle: "Correto",
@@ -175,7 +168,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e digite a frase completa.",
       audioSource: require("../../../../../mp3/IC/A2/A41S13.mp3"),
-      audioText: "Health is the most important thing.",
       correctAnswer: "Health is the most important thing.",
       successTitle: "Correto",
       successMessage: "Health is the most important thing.",
@@ -187,7 +179,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e digite.",
       audioSource: require("../../../../../mp3/IC/A2/A41S14.mp3"),
-      audioText: "This is the most comfortable sofa.",
       correctAnswer: "This is the most comfortable sofa.",
       successTitle: "Correto",
       successMessage: "This is the most comfortable sofa.",
@@ -198,7 +189,8 @@ const LESSON_SLIDES = [
     component: "Exercise16",
     activity: {
       prompt: "Gravação de áudio",
-      instruction: 'Grave: "English is the most interesting language to learn!"',
+      instruction:
+        'Grave: "English is the most interesting language to learn!"',
       helperText: "English is the most interesting language to learn!",
       successTitle: "Muito bem!",
       successMessage: "Seu áudio foi gravado.",

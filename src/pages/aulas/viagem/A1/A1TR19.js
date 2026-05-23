@@ -109,7 +109,6 @@ Se não estiver, você deve adicionar o tip na hora de pagar com o cartão ou de
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
       image: TRA1.A19S7,
       audioSource: require("../../../../../mp3/TR/A1/A19S7.mp3"),
-      audioText: "The check, please.",
       audioDurationMs: 1400,
       statement:
         "O cliente do áudio está pedindo para ver o cardápio (menu) de novo.",
@@ -138,7 +137,8 @@ Se não estiver, você deve adicionar o tip na hora de pagar com o cartão ou de
     key: "payment-vocab",
     component: Exercise1,
     activity: {
-      prompt: "Conecte os termos de pagamento com as traduções para não errar na saída.",
+      prompt:
+        "Conecte os termos de pagamento com as traduções para não errar na saída.",
       pairs: [
         { en: "The check", pt: "A conta" },
         { en: "Tip", pt: "Gorjeta" },
@@ -152,7 +152,8 @@ Se não estiver, você deve adicionar o tip na hora de pagar com o cartão ou de
     key: "check-correct-sentence",
     component: Exercise4,
     activity: {
-      prompt: "Como você pede a conta de forma educada em um restaurante internacional?",
+      prompt:
+        "Como você pede a conta de forma educada em um restaurante internacional?",
       image: TRA1.A19S10,
       wrongSentence: "Payment request",
       options: ["I want pay now.", "The check, please.", "Money for you."],
@@ -174,7 +175,8 @@ Se não estiver, você deve adicionar o tip na hora de pagar com o cartão ou de
         ],
       ],
       successTitle: "Correto",
-      successMessage: "In the USA, it is important to leave a tip for the waiter.",
+      successMessage:
+        "In the USA, it is important to leave a tip for the waiter.",
     },
   },
   {

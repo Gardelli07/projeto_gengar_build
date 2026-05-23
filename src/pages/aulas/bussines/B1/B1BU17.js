@@ -63,7 +63,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça a palavra isolada e escolha a alternativa correta.",
       image: BUB1.A17S5,
       audioSource: require("../../../../../mp3/BU/B1/A17S5.mp3"),
-      audioText: "Ownership.",
       audioDurationMs: 1100,
       answerOptions: ["Ownership", "Fellowship"],
       correctOption: "Ownership",
@@ -151,8 +150,6 @@ const LESSON_SLIDES = [
         "Escute a coordenadora delegando funções. A afirmação é verdadeira ou falsa?",
       image: BUB1.A17S10,
       audioSource: require("../../../../../mp3/BU/B1/A17S10.mp3"),
-      audioText:
-        "Alright, the main action item is to fix the website. David is taking ownership of the design deliverables. And we need this done by Friday.",
       audioDurationMs: 7200,
       statement:
         "O David será o responsável pelos entregáveis de design e o prazo é até sexta-feira.",

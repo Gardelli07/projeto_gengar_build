@@ -31,7 +31,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A13S2,
       audioSource: require("../../../../../mp3/TR/A1/A13S2.mp3"),
-      audioText: "Breakfast",
       audioDurationMs: 1200,
       answerOptions: ["Breakfast", "Dinner"],
       correctOption: "Breakfast",
@@ -48,7 +47,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A13S3,
       audioSource: require("../../../../../mp3/TR/A1/A13S3.mp3"),
-      audioText: "Wi-Fi password",
       audioDurationMs: 1600,
       answerOptions: ["Wi-Fi password", "Room key"],
       correctOption: "Wi-Fi password",
@@ -88,7 +86,8 @@ Para saber o horário do café, não use "What time is it?", que pergunta que ho
         { imageId: "wifi-img", wordId: "wifi-word" },
       ],
       successTitle: "Correto",
-      successMessage: "Breakfast é café da manhã; Wi-Fi password é senha do Wi-Fi.",
+      successMessage:
+        "Breakfast é café da manhã; Wi-Fi password é senha do Wi-Fi.",
     },
   },
   {

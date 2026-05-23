@@ -25,7 +25,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A26S2,
       audioSource: require("../../../../../mp3/IC/A2/A26S2.mp3"),
-      audioText: "Was she working?",
       options: ["Was she working?", "Was she work?"],
       correctAnswer: "Was she working?",
       correctOption: "Was she working?",
@@ -41,7 +40,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A26S3,
       audioSource: require("../../../../../mp3/IC/A2/A26S3.mp3"),
-      audioText: "Were you listening?",
       options: ["Was you listening?", "Were you listening?"],
       correctAnswer: "Were you listening?",
       correctOption: "Were you listening?",
@@ -57,7 +55,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A26S4,
       audioSource: require("../../../../../mp3/IC/A2/A26S4.mp3"),
-      audioText: "Was it raining?",
       options: ["Was it raining?", "Were it raining?"],
       correctAnswer: "Was it raining?",
       correctOption: "Was it raining?",
@@ -119,7 +116,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute a pergunta com atenção e digite-a por extenso.",
       audioSource: require("../../../../../mp3/IC/A2/A26S9.mp3"),
-      audioText: "Was he playing video games?",
       correctAnswer: "Was he playing video games?",
       successTitle: "Correto",
       successMessage: "Was he playing video games?",
@@ -131,7 +127,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "O que eles estavam fazendo? Ouça e digite.",
       audioSource: require("../../../../../mp3/IC/A2/A26S10.mp3"),
-      audioText: "Were they eating pizza?",
       correctAnswer: "Were they eating pizza?",
       successTitle: "Correto",
       successMessage: "Were they eating pizza?",
@@ -143,7 +138,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Atenção ao lugar. Digite o que ouviu.",
       audioSource: require("../../../../../mp3/IC/A2/A26S11.mp3"),
-      audioText: "Was it snowing in London?",
       correctAnswer: "Was it snowing in London?",
       successTitle: "Correto",
       successMessage: "Was it snowing in London?",
@@ -186,7 +180,8 @@ const LESSON_SLIDES = [
     component: "Exercise12",
     activity: {
       prompt: "Imagine que você ligou para um amigo e ele não atendeu.",
-      instruction: 'Crie duas perguntas para saber o que ele estava fazendo. Use "Were you...ing...?"',
+      instruction:
+        'Crie duas perguntas para saber o que ele estava fazendo. Use "Were you...ing...?"',
       correctAnswer: "Were you sleeping? Were you working?",
       successTitle: "Muito bem!",
       successMessage: "Perguntas registradas.",
@@ -197,7 +192,8 @@ const LESSON_SLIDES = [
     component: "Exercise16",
     activity: {
       prompt: "Gravação de áudio",
-      instruction: 'Grave esta pergunta: "Were you studying English yesterday morning?"',
+      instruction:
+        'Grave esta pergunta: "Were you studying English yesterday morning?"',
       helperText: "Were you studying English yesterday morning?",
       tipText: "Lembre-se da entonação de pergunta no final.",
       successTitle: "Muito bem!",

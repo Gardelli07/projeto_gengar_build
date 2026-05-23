@@ -81,7 +81,6 @@ const LESSON_SLIDES = [
         "Ouça a palavra isolada e escolha a alternativa correta que você escutou.",
       image: BUB1.A3S9,
       audioSource: require("../../../../../mp3/BU/B1/A3S5.mp3"),
-      audioText: "Hold.",
       audioDurationMs: 900,
       answerOptions: ["Hold", "Old"],
       correctOption: "Hold",
@@ -151,8 +150,6 @@ const LESSON_SLIDES = [
         "Escute o áudio. A afirmação escrita é verdadeira ou falsa sobre a atitude do gerente?",
       image: BUB1.A3S9,
       audioSource: require("../../../../../mp3/BU/B1/A3S9.mp3"),
-      audioText:
-        "John, hold that thought. We need to hear from the rest of the room. I'd like to bring Sarah in on this. Sarah, what's your take?",
       audioDurationMs: 7200,
       statement:
         "O gerente quer que o John continue falando para que a Sarah possa escutar.",

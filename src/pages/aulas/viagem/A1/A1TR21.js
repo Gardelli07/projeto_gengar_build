@@ -110,7 +110,8 @@ Se você estiver com uma peça na mão e quiser saber se pode experimentar, apon
       audioSource: require("../../../../../mp3/TR/A1/A21S7.mp3"),
       audioText: "Where is the fitting room?",
       audioDurationMs: 1900,
-      statement: "O cliente do áudio está perguntando onde fica o banheiro da loja.",
+      statement:
+        "O cliente do áudio está perguntando onde fica o banheiro da loja.",
       options: ["true", "false"],
       correctAnswer: "false",
       successTitle: "Correto",
@@ -136,7 +137,8 @@ Se você estiver com uma peça na mão e quiser saber se pode experimentar, apon
     key: "sizes-vocab",
     component: Exercise1,
     activity: {
-      prompt: "Conecte os tamanhos internacionais com as traduções para não errar na mala.",
+      prompt:
+        "Conecte os tamanhos internacionais com as traduções para não errar na mala.",
       pairs: [
         { en: "Small (S)", pt: "Pequeno" },
         { en: "Medium (M)", pt: "Médio" },

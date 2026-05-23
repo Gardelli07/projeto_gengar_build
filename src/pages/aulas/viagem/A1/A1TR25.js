@@ -73,7 +73,8 @@ Back + ache = backache.
     key: "sickness-dialogue-order",
     component: Exercise7,
     activity: {
-      prompt: "Você está conversando com o recepcionista do hotel sobre o seu mal-estar. Organize o diálogo.",
+      prompt:
+        "Você está conversando com o recepcionista do hotel sobre o seu mal-estar. Organize o diálogo.",
       options: [
         "Are you okay?",
         "No, I feel sick.",
@@ -110,7 +111,6 @@ Back + ache = backache.
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
       image: TRA1.A25S7,
       audioSource: require("../../../../../mp3/TR/A1/A25S7.mp3"),
-      audioText: "I have a stomach ache.",
       audioDurationMs: 1900,
       statement: "O turista do áudio está dizendo que está com dor de cabeça.",
       options: ["true", "false"],
@@ -158,11 +158,7 @@ Back + ache = backache.
         "Você acordou com muita dor de cabeça no hotel. O que você diz para o seu acompanhante ou para o médico?",
       image: TRA1.A25S10,
       wrongSentence: "Symptom sentence",
-      options: [
-        "I have a headache.",
-        "I have a stomach ache.",
-        "I feel good.",
-      ],
+      options: ["I have a headache.", "I have a stomach ache.", "I feel good."],
       correctAnswer: "I have a headache.",
       successTitle: "Correto",
       successMessage: "I have a headache.",

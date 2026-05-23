@@ -116,9 +116,19 @@ Nunca use "Yo" ou "Hey" para quem você quer que te contrate!`,
     activity: {
       prompt: "Complete o e-mail para um novo investidor",
       paragraphs: [
-        [{ id: "b1", answer: "Dear", options: ["Dear", "Hi"] }, "Mr. Anderson, I am writing"],
-        [{ id: "b2", answer: "regarding", options: ["regarding", "with"] }, "the new update on the Lingueto app."],
-        ["Please find the roadmap", { id: "b3", answer: "attached", options: ["inside", "attached"] }, "to this email. Sincerely, Kaique."],
+        [
+          { id: "b1", answer: "Dear", options: ["Dear", "Hi"] },
+          "Mr. Anderson, I am writing",
+        ],
+        [
+          { id: "b2", answer: "regarding", options: ["regarding", "with"] },
+          "the new update on the Lingueto app.",
+        ],
+        [
+          "Please find the roadmap",
+          { id: "b3", answer: "attached", options: ["inside", "attached"] },
+          "to this email. Sincerely, Kaique.",
+        ],
       ],
       successTitle: "Correto",
       successMessage: "Para um investidor novo: Dear / regarding / attached.",
@@ -163,8 +173,7 @@ Nunca use "Yo" ou "Hey" para quem você quer que te contrate!`,
       options: ["Sincerely,", "Best regards,", "Attachment", "Thanks,"],
       correctAnswer: "Attachment",
       successTitle: "Correto",
-      successMessage:
-        "Attachment significa anexo, não fechamento de e-mail.",
+      successMessage: "Attachment significa anexo, não fechamento de e-mail.",
     },
   },
   {
@@ -173,8 +182,16 @@ Nunca use "Yo" ou "Hey" para quem você quer que te contrate!`,
     activity: {
       prompt: "Complete a conversa",
       paragraphs: [
-        ['David: "Not', { id: "b1", answer: "yet", options: ["yet", "attach", "already"] }, '. I\'m checking the spelling."'],
-        ['Sarah: "Don\'t forget to', { id: "b2", answer: "attach", options: ["attach", "yet", "inquire"] }, 'the PDF file!"'],
+        [
+          'David: "Not',
+          { id: "b1", answer: "yet", options: ["yet", "attach", "already"] },
+          ". I'm checking the spelling.\"",
+        ],
+        [
+          "Sarah: \"Don't forget to",
+          { id: "b2", answer: "attach", options: ["attach", "yet", "inquire"] },
+          'the PDF file!"',
+        ],
       ],
       successTitle: "Correto",
       successMessage: "A sequência correta é: yet / attach.",
@@ -218,8 +235,7 @@ Nunca use "Yo" ou "Hey" para quem você quer que te contrate!`,
       image: ICB1.A9S3,
       placeholder:
         "Dear Mr. Anderson,\nI am writing to inquire about your availability for a meeting. Please find the project overview attached.\nSincerely,\nKaique",
-      tipText:
-        "Para tom formal, use Dear, attached e Sincerely.",
+      tipText: "Para tom formal, use Dear, attached e Sincerely.",
       minLength: 40,
       successTitle: "Correto",
       successMessage: "Ótimo! Seu e-mail está com tom profissional.",

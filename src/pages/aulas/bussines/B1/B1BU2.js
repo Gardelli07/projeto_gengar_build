@@ -86,7 +86,6 @@ const LESSON_SLIDES = [
         "Ouça a palavra isolada e escolha a alternativa correta que você escutou.",
       image: BUB1.A2S5,
       audioSource: require("../../../../../mp3/BU/B1/A2S5.mp3"),
-      audioText: "Interest.",
       audioDurationMs: 1000,
       answerOptions: ["Interest", "Internet"],
       correctOption: "Interest",
@@ -169,8 +168,6 @@ const LESSON_SLIDES = [
         "Escute o áudio. A frase escrita na tela é verdadeira ou falsa sobre a decisão da líder da reunião?",
       image: BUB1.A2S10,
       audioSource: require("../../../../../mp3/BU/B1/A2S10.mp3"),
-      audioText:
-        "In the interest of time, we need to park that thought. Let's reel this back to the main project.",
       audioDurationMs: 5200,
       statement:
         "A líder quer continuar falando sobre o assunto secundário porque eles têm muito tempo sobrando.",

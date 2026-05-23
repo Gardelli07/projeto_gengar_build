@@ -103,7 +103,8 @@ These are opposites in meaning! Be very careful.`,
         },
       ],
       successTitle: "Excellent",
-      successMessage: "You separated optional, forbidden, and required actions.",
+      successMessage:
+        "You separated optional, forbidden, and required actions.",
     },
   },
   {
@@ -153,8 +154,6 @@ These are opposites in meaning! Be very careful.`,
       prompt: "Listen and decide: true or false?",
       image: ICB1.A23S3,
       audioSource: require("../../../../../mp3/IC/B1/A23S3.mp3"),
-      audioText:
-        "On weekends, I don't have to wake up early. I can stay in bed as long as I want. But I mustn't forget to feed my cat -- she gets very angry if I'm late!",
       audioLanguage: "en-US",
       audioDurationMs: 8500,
       dialogue:
@@ -226,8 +225,7 @@ These are opposites in meaning! Be very careful.`,
       helperText:
         'Example: "I have to wake up at 7am. I must drink more water. I don\'t have to work on Sundays."',
       image: ICB1.A23S2p2,
-      placeholder:
-        "I have to...\nI must...\nI don't have to...",
+      placeholder: "I have to...\nI must...\nI don't have to...",
       tipText:
         "Use have to for external obligations, must for personal decisions, and don't have to for optional actions.",
       minLength: 45,

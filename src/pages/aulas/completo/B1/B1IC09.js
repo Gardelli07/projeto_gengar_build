@@ -118,8 +118,7 @@ Recharge: recarregar as energias.`,
         "A social pressure to work all the time to reach success.",
         "A traditional way of farming in North America.",
       ],
-      correctOption:
-        "A social pressure to work all the time to reach success.",
+      correctOption: "A social pressure to work all the time to reach success.",
       successTitle: "Correto",
       feedbackMessage: 'O "T" é mudo: RÃ-ssou KÂL-tcher.',
     },
@@ -137,11 +136,9 @@ Recharge: recarregar as energias.`,
         "Limits you establish to separate work and personal life.",
         "New features or updates in a software project.",
       ],
-      correctOption:
-        "Limits you establish to separate work and personal life.",
+      correctOption: "Limits you establish to separate work and personal life.",
       successTitle: "Correto",
-      feedbackMessage:
-        "Boundaries são limites entre trabalho e vida pessoal.",
+      feedbackMessage: "Boundaries são limites entre trabalho e vida pessoal.",
     },
   },
   {
@@ -150,9 +147,24 @@ Recharge: recarregar as energias.`,
     activity: {
       prompt: "Escolha a melhor opção para completar a lógica profissional:",
       paragraphs: [
-        ["To avoid", { id: "b1", answer: "Burnout", options: ["Burnout", "Scale"] }, ", a developer needs a healthy"],
-        [{ id: "b2", answer: "Work-life balance", options: ["Work-life balance", "Deadline"] }, "."],
-        ["This involves learning how to", { id: "b3", answer: "Unplug", options: ["Pitch", "Unplug"] }, "and rest."],
+        [
+          "To avoid",
+          { id: "b1", answer: "Burnout", options: ["Burnout", "Scale"] },
+          ", a developer needs a healthy",
+        ],
+        [
+          {
+            id: "b2",
+            answer: "Work-life balance",
+            options: ["Work-life balance", "Deadline"],
+          },
+          ".",
+        ],
+        [
+          "This involves learning how to",
+          { id: "b3", answer: "Unplug", options: ["Pitch", "Unplug"] },
+          "and rest.",
+        ],
       ],
       successTitle: "Correto",
       successMessage:
@@ -164,8 +176,26 @@ Recharge: recarregar as energias.`,
     component: Exercise6,
     activity: {
       prompt: "Monte a frase sobre prioridades:",
-      words: ["Mental", "health", "is", "a", "priority", "over", "hustle culture", "."],
-      correctOrder: ["Mental", "health", "is", "a", "priority", "over", "hustle culture", "."],
+      words: [
+        "Mental",
+        "health",
+        "is",
+        "a",
+        "priority",
+        "over",
+        "hustle culture",
+        ".",
+      ],
+      correctOrder: [
+        "Mental",
+        "health",
+        "is",
+        "a",
+        "priority",
+        "over",
+        "hustle culture",
+        ".",
+      ],
       successTitle: "Correto",
       successMessage: "Mental health is a priority over hustle culture.",
     },
@@ -226,8 +256,7 @@ However, he soon faced Burnout. He couldn't code, he couldn't play his guitar, a
       ],
       correctAnswer: "It became better and more creative.",
       successTitle: "Correto",
-      successMessage:
-        "O equilíbrio deixou David mais criativo e focado.",
+      successMessage: "O equilíbrio deixou David mais criativo e focado.",
     },
   },
   {
@@ -236,9 +265,25 @@ However, he soon faced Burnout. He couldn't code, he couldn't play his guitar, a
     activity: {
       prompt: "Complete a lógica com base no texto:",
       paragraphs: [
-        ["If you follow the", { id: "b1", answer: "Hustle Culture", options: ["Hustle Culture", "Work-life balance"] }, "too strictly, you might face"],
+        [
+          "If you follow the",
+          {
+            id: "b1",
+            answer: "Hustle Culture",
+            options: ["Hustle Culture", "Work-life balance"],
+          },
+          "too strictly, you might face",
+        ],
         [{ id: "b2", answer: "Burnout", options: ["Success", "Burnout"] }, "."],
-        ["To avoid this, you should set", { id: "b3", answer: "Boundaries", options: ["Deadlines", "Boundaries"] }, "and find time to recharge."],
+        [
+          "To avoid this, you should set",
+          {
+            id: "b3",
+            answer: "Boundaries",
+            options: ["Deadlines", "Boundaries"],
+          },
+          "and find time to recharge.",
+        ],
       ],
       successTitle: "Correto",
       successMessage:

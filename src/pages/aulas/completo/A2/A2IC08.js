@@ -25,7 +25,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha",
       image: ICA2.A8S2,
       audioSource: require("../../../../../mp3/IC/A2/A8S2.mp3"),
-      audioText: "I am not sleeping.",
       options: ["I am sleeping.", "I am not sleeping."],
       correctAnswer: "I am not sleeping.",
       correctOption: "I am not sleeping.",
@@ -122,7 +121,8 @@ const LESSON_SLIDES = [
         { imageId: "img2", wordId: "w2" },
       ],
       successTitle: "Correto",
-      successMessage: "A imagem do sofá mostra o que ele não está fazendo: He isn't running.",
+      successMessage:
+        "A imagem do sofá mostra o que ele não está fazendo: He isn't running.",
     },
   },
   {
@@ -144,7 +144,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e responda: verdadeiro ou falso?",
       image: ICA2.A8S10,
       audioSource: require("../../../../../mp3/IC/A2/A8S10.mp3"),
-      audioText: "The kids are very quiet. They aren't playing, they are reading a book.",
       statement: "The kids are playing.",
       textOnScreen: "The kids are playing.",
       options: ["true", "false"],
@@ -162,14 +161,23 @@ const LESSON_SLIDES = [
       paragraphs: [
         [
           "I'm at a party, but it's boring. The DJ ",
-          { id: "b1", answer: "isn't playing", options: ["isn't playing", "am not playing"] },
+          {
+            id: "b1",
+            answer: "isn't playing",
+            options: ["isn't playing", "am not playing"],
+          },
           " good music and people ",
-          { id: "b2", answer: "aren't dancing", options: ["aren't dancing", "isn't dancing"] },
+          {
+            id: "b2",
+            answer: "aren't dancing",
+            options: ["aren't dancing", "isn't dancing"],
+          },
           ".",
         ],
       ],
       successTitle: "Correto",
-      successMessage: "The DJ isn't playing good music and people aren't dancing.",
+      successMessage:
+        "The DJ isn't playing good music and people aren't dancing.",
     },
   },
   {
@@ -203,7 +211,8 @@ const LESSON_SLIDES = [
     component: "Exercise16",
     activity: {
       prompt: "Freer Practice - Áudio",
-      instruction: "Imagine que você está na academia. Diga 2 coisas que você NÃO está fazendo lá.",
+      instruction:
+        "Imagine que você está na academia. Diga 2 coisas que você NÃO está fazendo lá.",
       helperText: "Exemplo: I'm not swimming.",
       tipText: "Use I'm not / isn't / aren't + verbo com -ING.",
       successTitle: "Muito bem!",

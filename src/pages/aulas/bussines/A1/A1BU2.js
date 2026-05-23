@@ -32,7 +32,6 @@ Dica de Nativo:
       prompt: "Escute a palavra e escolha a alternativa correta.",
       image: BUA1.A2S2,
       audioSource: require("../../../../../mp3/BU/A1/A2S2.mp3"),
-      audioText: "Manager",
       audioDurationMs: 1000,
       answerOptions: ["Manager", "Maker"],
       correctOption: "Manager",

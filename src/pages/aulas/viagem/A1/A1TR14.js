@@ -31,7 +31,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A14S2,
       audioSource: require("../../../../../mp3/TR/A1/A14S2.mp3"),
-      audioText: "Towel",
       audioDurationMs: 900,
       answerOptions: ["Towel", "Key"],
       correctOption: "Towel",
@@ -47,7 +46,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A14S3,
       audioSource: require("../../../../../mp3/TR/A1/A14S3.mp3"),
-      audioText: "Not working",
       audioDurationMs: 1300,
       answerOptions: ["Not working", "Good morning"],
       correctOption: "Not working",
@@ -95,7 +93,8 @@ Mas e se você só quiser pedir algo, como uma toalha extra? A forma mais fácil
     key: "problems-vocab",
     component: Exercise1,
     activity: {
-      prompt: "Conecte o vocabulário para resolver os seus problemas no quarto.",
+      prompt:
+        "Conecte o vocabulário para resolver os seus problemas no quarto.",
       pairs: [
         { en: "Towel", pt: "Toalha" },
         { en: "Need", pt: "Precisar" },

@@ -88,7 +88,6 @@ const LESSON_SLIDES = [
       prompt: 'Ouça a palavra isolada. Ela é a versão profissional de "but".',
       image: BUB1.A9S5,
       audioSource: require("../../../../../mp3/BU/B1/A9S5.mp3"),
-      audioText: "However.",
       audioDurationMs: 1000,
       answerOptions: ["Whoever", "However"],
       correctOption: "However",
@@ -170,8 +169,6 @@ const LESSON_SLIDES = [
         "Escute a diretora discordando da nova política. A afirmação escrita é verdadeira ou falsa?",
       image: BUB1.A9S10,
       audioSource: require("../../../../../mp3/BU/B1/A9S10.mp3"),
-      audioText:
-        "I see your point about working on weekends to finish faster. However, with respect, I see it slightly differently. The team is already exhausted.",
       audioDurationMs: 7600,
       statement:
         "A Diretora concordou totalmente com a ideia de trabalhar nos finais de semana.",

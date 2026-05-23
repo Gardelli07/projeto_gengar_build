@@ -94,7 +94,6 @@ const LESSON_SLIDES = [
         'Ouça a palavra isolada e escolha a alternativa correta. Ela significa "leve" ou "pequeno".',
       image: BUB1.A6S5,
       audioSource: require("../../../../../mp3/BU/B1/A6S5.mp3"),
-      audioText: "Slight.",
       audioDurationMs: 900,
       answerOptions: ["Flight", "Slight"],
       correctOption: "Slight",
@@ -176,8 +175,6 @@ const LESSON_SLIDES = [
         "Escute o áudio do Gerente de Projetos lidando com um contratempo. A afirmação escrita é verdadeira ou falsa?",
       image: BUB1.A6S10,
       audioSource: require("../../../../../mp3/BU/B1/A6S10.mp3"),
-      audioText:
-        "Hey guys, there seems to be a slight issue with our delivery timeline. I tend to feel that we should communicate this to the client immediately.",
       audioDurationMs: 7200,
       statement:
         "O gerente acha que a equipe deve esconder o problema do cliente por enquanto.",

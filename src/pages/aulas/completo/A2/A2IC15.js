@@ -27,7 +27,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A15S2,
       audioSource: require("../../../../../mp3/IC/A2/A15S2.mp3"),
-      audioText: "I went to work.",
       options: ["I went to work.", "I goed to work."],
       correctAnswer: "I went to work.",
       correctOption: "I went to work.",
@@ -75,7 +74,10 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escolha a frase que descreve a imagem.",
       image: ICA2.A15S5,
-      options: ["She cleaned the house yesterday.", "She clean the house yesterday."],
+      options: [
+        "She cleaned the house yesterday.",
+        "She clean the house yesterday.",
+      ],
       correctAnswer: "She cleaned the house yesterday.",
       successTitle: "Correto",
       successMessage: "Clean é regular: cleaned.",
@@ -99,7 +101,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: 'Ordene as letras. Dica: passado de "DRINK".',
       audioSource: require("../../../../../mp3/IC/A2/A15S7.mp3"),
-      audioText: "Drank",
       letters: ["D", "R", "A", "N", "K"],
       correctWord: "DRANK",
       successTitle: "Correto",
@@ -114,7 +115,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça e responda: verdadeiro ou falso?",
       image: ICA2.A15S8,
       audioSource: require("../../../../../mp3/IC/A2/A15S8.mp3"),
-      audioText: "Last Sunday, I played video games all day and I didn't study.",
       statement: "The person studied last Sunday.",
       textOnScreen: "The person studied last Sunday.",
       options: ["true", "false"],
@@ -167,7 +167,8 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Freer Practice",
       instruction: "Write three things you did last Saturday.",
-      helperText: "Exemplo: I played soccer, I saw my friends and I cooked dinner.",
+      helperText:
+        "Exemplo: I played soccer, I saw my friends and I cooked dinner.",
       placeholder: "Digite sua resposta aqui",
       tipText: "Misture verbos regulares e irregulares.",
       successTitle: "Muito bem!",

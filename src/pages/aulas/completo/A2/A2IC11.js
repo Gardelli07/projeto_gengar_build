@@ -27,7 +27,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça o áudio e selecione a palavra correta.",
       image: ICA2.A11S2,
       audioSource: require("../../../../../mp3/IC/A2/A11S2.mp3"),
-      audioText: "Played",
       options: ["Play", "Played"],
       correctAnswer: "Played",
       correctOption: "Played",
@@ -124,7 +123,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: 'Ordene as letras para formar o passado de "DANCE".',
       audioSource: require("../../../../../mp3/IC/A2/A11S8.mp3"),
-      audioText: "Danced",
       letters: ["D", "E", "C", "N", "A", "D"],
       correctWord: "DANCED",
       successTitle: "Correto",
@@ -150,8 +148,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça o áudio e responda: verdadeiro ou falso?",
       image: ICA2.A11S10,
       audioSource: require("../../../../../mp3/IC/A2/A11S10.mp3"),
-      audioText: "I stayed at home last weekend. I cooked dinner and listened to music.",
-      statement: "The person visited friends last weekend.",
       textOnScreen: "The person visited friends last weekend.",
       options: ["true", "false"],
       correctAnswer: "false",
@@ -198,7 +194,8 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Freer Practice",
       instruction: "O que você fez ontem?",
-      helperText: "Escreva uma frase usando um verbo regular: worked, studied, cleaned ou cooked.",
+      helperText:
+        "Escreva uma frase usando um verbo regular: worked, studied, cleaned ou cooked.",
       placeholder: "Digite sua frase aqui",
       tipText: "Use uma palavra de passado, como yesterday ou last night.",
       successTitle: "Muito bem!",
@@ -210,7 +207,8 @@ const LESSON_SLIDES = [
     component: "Exercise16",
     activity: {
       prompt: "Freer Practice - Áudio",
-      instruction: "Mande um áudio contando duas coisas que você fez semana passada.",
+      instruction:
+        "Mande um áudio contando duas coisas que você fez semana passada.",
       helperText: "Exemplo: I worked and studied last week.",
       tipText: "Use verbos regulares com -ed.",
       successTitle: "Muito bem!",

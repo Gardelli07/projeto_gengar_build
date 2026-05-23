@@ -26,7 +26,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A25S2,
       audioSource: require("../../../../../mp3/IC/A2/A25S2.mp3"),
-      audioText: "I wasn't sleeping",
       options: ["I wasn't sleeping", "Weren't sleeping"],
       correctAnswer: "I wasn't sleeping",
       correctOption: "I wasn't sleeping",
@@ -42,7 +41,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A25S3,
       audioSource: require("../../../../../mp3/IC/A2/A25S3.mp3"),
-      audioText: "You weren't talking",
       options: ["Wasn't talking", "You weren't talking"],
       correctAnswer: "You weren't talking",
       correctOption: "You weren't talking",
@@ -58,7 +56,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A25S4,
       audioSource: require("../../../../../mp3/IC/A2/A25S4.mp3"),
-      audioText: "She wasn't working",
       options: ["She wasn't working", "Wasn't work"],
       correctAnswer: "She wasn't working",
       correctOption: "She wasn't working",
@@ -74,7 +71,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A25S5,
       audioSource: require("../../../../../mp3/IC/A2/A25S5.mp3"),
-      audioText: "They weren't eating",
       options: ["They weren't eating", "Was eating"],
       correctAnswer: "They weren't eating",
       correctOption: "They weren't eating",
@@ -95,7 +91,8 @@ const LESSON_SLIDES = [
         { en: "You", pt: "Weren't eating" },
       ],
       successTitle: "Correto",
-      successMessage: "Wasn't é singular; weren't é plural e também combina com you.",
+      successMessage:
+        "Wasn't é singular; weren't é plural e também combina com you.",
     },
   },
   {
@@ -117,7 +114,10 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Olhe a imagem e escolha a frase correta.",
       image: ICA2.A25S8,
-      options: ["He wasn't doing his homework.", "He weren't doing his homework."],
+      options: [
+        "He wasn't doing his homework.",
+        "He weren't doing his homework.",
+      ],
       correctAnswer: "He wasn't doing his homework.",
       successTitle: "Correto",
       successMessage: "He combina com wasn't.",
@@ -178,7 +178,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e digite a frase negativa completa.",
       audioSource: require("../../../../../mp3/IC/A2/A25S13.mp3"),
-      audioText: "She wasn't listening to me.",
       correctAnswer: "She wasn't listening to me.",
       successTitle: "Correto",
       successMessage: "She wasn't listening to me.",
@@ -190,7 +189,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute com atenção ao weren't e digite.",
       audioSource: require("../../../../../mp3/IC/A2/A25S14.mp3"),
-      audioText: "You weren't driving fast.",
       correctAnswer: "You weren't driving fast.",
       successTitle: "Correto",
       successMessage: "You weren't driving fast.",
@@ -240,7 +238,8 @@ const LESSON_SLIDES = [
     component: "Exercise16",
     activity: {
       prompt: "Gravação de áudio",
-      instruction: 'Grave um áudio dizendo: "We weren\'t watching the game yesterday."',
+      instruction:
+        'Grave um áudio dizendo: "We weren\'t watching the game yesterday."',
       helperText: "We weren't watching the game yesterday.",
       tipText: "Capriche na pronúncia do weren't.",
       successTitle: "Muito bem!",

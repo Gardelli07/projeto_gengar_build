@@ -95,15 +95,12 @@ Key words: for, since, all day, all morning, how long.`,
       prompt: "Listen and choose the correct form",
       image: ICB1.A26S5,
       audioSource: require("../../../../../mp3/IC/B1/A26S2.mp3"),
-      audioText:
-        "She had been studying for five hours before she took a break.",
       audioLanguage: "en-US",
       audioDurationMs: 3600,
       answerOptions: ["had been studying", "has been studying"],
       correctOption: "had been studying",
       successTitle: "Correct",
-      feedbackMessage:
-        "Had been studying shows duration before a past moment.",
+      feedbackMessage: "Had been studying shows duration before a past moment.",
     },
   },
   {
@@ -145,8 +142,6 @@ Key words: for, since, all day, all morning, how long.`,
     activity: {
       prompt: "Listen and write what you hear",
       audioSource: require("../../../../../mp3/IC/B1/A26S9.mp3"),
-      audioText:
-        "We had been travelling for six hours when we finally reached the hotel.",
       audioLanguage: "en-GB",
       audioDurationMs: 5200,
       correctAnswer:

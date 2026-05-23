@@ -109,14 +109,13 @@ const LESSON_SLIDES = [
       prompt: "Listen and choose the filler you heard",
       image: ICB1.A28S5,
       audioSource: require("../../../../../mp3/IC/B1/A28S3.mp3"),
-      audioText:
-        "Believe it or not, I ran into my old teacher at the airport yesterday!",
       audioLanguage: "en-US",
       audioDurationMs: 3800,
       answerOptions: ["Believe it or not", "Long story short"],
       correctOption: "Believe it or not",
       successTitle: "Correct",
-      feedbackMessage: "Believe it or not introduces surprising true information.",
+      feedbackMessage:
+        "Believe it or not introduces surprising true information.",
     },
   },
   {

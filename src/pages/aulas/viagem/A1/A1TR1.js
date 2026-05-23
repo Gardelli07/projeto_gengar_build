@@ -33,7 +33,7 @@ const LESSON_SLIDES = [
       correctOption: "Good morning",
       successTitle: "Correto",
       feedbackMessage:
-        "Usamos \"Good morning\" desde a hora que acordamos até o meio-dia.",
+        'Usamos "Good morning" desde a hora que acordamos até o meio-dia.',
     },
   },
   {
@@ -44,7 +44,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A1S3,
       audioSource: require("../../../../../mp3/TR/A1/A1S3.mp3"),
-      audioText: "Good evening",
       audioDurationMs: 1200,
       answerOptions: ["Good evening", "Good afternoon"],
       correctOption: "Good evening",
@@ -91,7 +90,6 @@ Está indo embora do restaurante ou indo dormir no hotel? Diga "Good night". Nun
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A1S6,
       audioSource: require("../../../../../mp3/TR/A1/A1S6.mp3"),
-      audioText: "Excuse me",
       audioDurationMs: 1200,
       answerOptions: ["Excuse me", "Thank you"],
       correctOption: "Excuse me",
@@ -108,7 +106,6 @@ Está indo embora do restaurante ou indo dormir no hotel? Diga "Good night". Nun
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A1S7,
       audioSource: require("../../../../../mp3/TR/A1/A1S7.mp3"),
-      audioText: "Sorry",
       audioDurationMs: 1000,
       answerOptions: ["Please", "Sorry"],
       correctOption: "Sorry",

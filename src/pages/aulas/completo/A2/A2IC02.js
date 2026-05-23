@@ -80,7 +80,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça e escolha a frase correta",
       image: ICA2.A2S6,
       audioSource: require("../../../../../mp3/IC/A2/A2S6.mp3"),
-      audioText: "They are making dinner.",
       options: ["They are making dinner.", "They are makeng dinner."],
       correctAnswer: "They are making dinner.",
       correctOption: "They are making dinner.",
@@ -96,13 +95,15 @@ const LESSON_SLIDES = [
       prompt: "Leia e responda: verdadeiro ou falso?",
       image: ICA2.A2S7,
       audioText: "I'm swimming in the pool.",
-      statement: 'Na frase "I\'m swiming in the pool", a escrita do verbo está correta.',
+      statement:
+        'Na frase "I\'m swiming in the pool", a escrita do verbo está correta.',
       textOnScreen: '"I\'m swiming in the pool" está escrito corretamente.',
       options: ["true", "false"],
       correctAnswer: "false",
       successTitle: "Correto",
       successMessage: "False. O correto é swimming com dois Ms pela regra CVC.",
-      feedbackMessage: "Verbos CVC como swim dobram a última consoante: swimming.",
+      feedbackMessage:
+        "Verbos CVC como swim dobram a última consoante: swimming.",
     },
   },
   {
@@ -145,7 +146,10 @@ const LESSON_SLIDES = [
       prompt: 'Alguém pergunta: "Onde está o João?"',
       image: ICA2.A2S10,
       wrongSentence: "Escolha a ação acontecendo agora.",
-      options: ["He works at the office.", "He's working at the office right now."],
+      options: [
+        "He works at the office.",
+        "He's working at the office right now.",
+      ],
       correctAnswer: "He's working at the office right now.",
       successTitle: "Correto",
       successMessage: 'Right now pede Present Continuous: "He\'s working".',

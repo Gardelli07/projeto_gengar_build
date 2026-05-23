@@ -30,7 +30,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A11S2,
       audioSource: require("../../../../../mp3/TR/A1/A11S2.mp3"),
-      audioText: "Right",
       audioDurationMs: 900,
       answerOptions: ["Right", "Left"],
       correctOption: "Right",
@@ -79,7 +78,6 @@ Mas e se for para continuar andando reto na mesma rua? Vamos ver no próximo sli
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A11S5,
       audioSource: require("../../../../../mp3/TR/A1/A11S5.mp3"),
-      audioText: "Go straight",
       audioDurationMs: 1300,
       answerOptions: ["Go straight", "Turn left"],
       correctOption: "Go straight",
@@ -110,7 +108,6 @@ Mas e se for para continuar andando reto na mesma rua? Vamos ver no próximo sli
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
       image: TRA1.A11S7,
       audioSource: require("../../../../../mp3/TR/A1/A11S7.mp3"),
-      audioText: "Turn right.",
       audioDurationMs: 1200,
       statement: "A pessoa do áudio está dizendo para você virar à esquerda.",
       options: ["true", "false"],
@@ -178,8 +175,7 @@ Mas e se for para continuar andando reto na mesma rua? Vamos ver no próximo sli
     component: Exercise16,
     activity: {
       prompt: "Speaking",
-      instruction:
-        'Aperte o botão e grave a frase: "Go straight" (Vá reto).',
+      instruction: 'Aperte o botão e grave a frase: "Go straight" (Vá reto).',
       helperText: "Go straight",
       image: Images.ex16,
       tipButtonLabel: "Tip",

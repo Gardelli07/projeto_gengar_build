@@ -112,7 +112,8 @@ I still haven't finished! (Frustrado)`,
       answerOptions: ["Não, foi agora mesmo", "Sim, foi há muito tempo"],
       correctOption: "Não, foi agora mesmo",
       successTitle: "Correto",
-      feedbackMessage: '"Just" indica uma ação imediata, que acabou de acontecer.',
+      feedbackMessage:
+        '"Just" indica uma ação imediata, que acabou de acontecer.',
     },
   },
   {
@@ -144,7 +145,7 @@ I still haven't finished! (Frustrado)`,
       correctOption: "Frustração/Impaciência",
       successTitle: "Correto",
       feedbackMessage:
-        '"Still" antes de haven\'t/hasn\'t mostra que algo continua pendente e incomoda.',
+        "\"Still\" antes de haven't/hasn't mostra que algo continua pendente e incomoda.",
     },
   },
   {
@@ -210,7 +211,8 @@ Dica do Mestre: STILL no Present Perfect é quase sempre usado em frases negativ
       answerOptions: ["Não, foi agora mesmo", "Sim, foi ontem"],
       correctOption: "Não, foi agora mesmo",
       successTitle: "Correto",
-      feedbackMessage: '"Just" indica que a ação aconteceu há pouquíssimo tempo.',
+      feedbackMessage:
+        '"Just" indica que a ação aconteceu há pouquíssimo tempo.',
     },
   },
   {
@@ -236,7 +238,8 @@ Dica do Mestre: STILL no Present Perfect é quase sempre usado em frases negativ
     activity: {
       prompt: "Verdadeiro ou falso?",
       image: ICB1.A2S8,
-      audioText: "We use yet in positive sentences to show something is finished.",
+      audioText:
+        "We use yet in positive sentences to show something is finished.",
       audioDurationMs: 3600,
       dialogue:
         "We use YET in positive sentences to show something is finished.",
@@ -271,7 +274,7 @@ Dica do Mestre: STILL no Present Perfect é quase sempre usado em frases negativ
       correctAnswer: "still",
       successTitle: "Correto",
       successMessage:
-        '"Still" vem antes de haven\'t/hasn\'t para enfatizar demora ou pendência.',
+        "\"Still\" vem antes de haven't/hasn't para enfatizar demora ou pendência.",
     },
   },
   {
@@ -308,13 +311,12 @@ Dica do Mestre: STILL no Present Perfect é quase sempre usado em frases negativ
     activity: {
       prompt: "Sua lista de hoje",
       instruction: "Pense na sua lista de tarefas de hoje.",
-      helperText:
-        "Escreva 3 frases usando already, yet e just.",
+      helperText: "Escreva 3 frases usando already, yet e just.",
       image: ICB1.A3S3,
       placeholder:
         "I've already checked my emails. I haven't had lunch yet. I've just finished a task.",
       tipText:
-        'Already fica entre have/has e o verbo. Yet vai no final. Just fica entre have/has e o verbo.',
+        "Already fica entre have/has e o verbo. Yet vai no final. Just fica entre have/has e o verbo.",
       minLength: 20,
       successTitle: "Correto",
       successMessage:

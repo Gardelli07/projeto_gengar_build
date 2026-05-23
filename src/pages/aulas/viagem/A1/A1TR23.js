@@ -101,7 +101,6 @@ const LESSON_SLIDES = [
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
       image: TRA1.A23S7,
       audioSource: require("../../../../../mp3/TR/A1/A23S7.mp3"),
-      audioText: "It's for a gift, please.",
       audioDurationMs: 1800,
       statement:
         "O cliente do áudio quer que o vendedor embrulhe o produto para presente.",

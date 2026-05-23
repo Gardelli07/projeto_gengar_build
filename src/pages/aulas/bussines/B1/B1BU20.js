@@ -67,7 +67,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça a palavra isolada e escolha a alternativa correta.",
       image: BUB1.A20S5,
       audioSource: require("../../../../../mp3/BU/B1/A20S5.mp3"),
-      audioText: "Improvement.",
       audioDurationMs: 1100,
       answerOptions: ["Improvement", "Important"],
       correctOption: "Improvement",
@@ -153,8 +152,6 @@ const LESSON_SLIDES = [
         "Escute o Diretor avaliando a reunião mensal. A afirmação é verdadeira ou falsa?",
       image: BUB1.A20S10,
       audioSource: require("../../../../../mp3/BU/B1/A20S10.mp3"),
-      audioText:
-        "The meeting today was outcome-driven and we had a great ROI. However, there is some room for improvement in our debrief process. Let's focus on that next time.",
       audioDurationMs: 7800,
       statement:
         "O Diretor acha que a reunião foi um desperdício de tempo e não teve resultados.",

@@ -24,7 +24,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A33S2,
       audioSource: require("../../../../../mp3/IC/A2/A33S2.mp3"),
-      audioText: "Museum",
       options: ["Museum", "Music"],
       correctAnswer: "Museum",
       correctOption: "Museum",
@@ -40,7 +39,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A33S3,
       audioSource: require("../../../../../mp3/IC/A2/A33S3.mp3"),
-      audioText: "Guided tour",
       options: ["Garden tour", "Guided tour"],
       correctAnswer: "Guided tour",
       correctOption: "Guided tour",
@@ -56,7 +54,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A33S4,
       audioSource: require("../../../../../mp3/IC/A2/A33S4.mp3"),
-      audioText: "Souvenir",
       options: ["Souvenir", "Summer"],
       correctAnswer: "Souvenir",
       correctOption: "Souvenir",
@@ -72,7 +69,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A33S5,
       audioSource: require("../../../../../mp3/IC/A2/A33S5.mp3"),
-      audioText: "Landmark",
       options: ["Landmark", "Landlord"],
       correctAnswer: "Landmark",
       correctOption: "Landmark",
@@ -125,7 +121,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute o que o turista comprou e digite.",
       audioSource: require("../../../../../mp3/IC/A2/A33S9.mp3"),
-      audioText: "I bought a souvenir for my mom.",
       correctAnswer: "I bought a souvenir for my mom.",
       successTitle: "Correto",
       successMessage: "I bought a souvenir for my mom.",
@@ -137,7 +132,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute a pergunta e digite.",
       audioSource: require("../../../../../mp3/IC/A2/A33S10.mp3"),
-      audioText: "Is there a landmark near here?",
       correctAnswer: "Is there a landmark near here?",
       successTitle: "Correto",
       successMessage: "Is there a landmark near here?",
@@ -171,7 +165,8 @@ const LESSON_SLIDES = [
     component: "Exercise16",
     activity: {
       prompt: "Gravação de áudio",
-      instruction: 'Grave: "I\'d like two tickets for the guided tour, please."',
+      instruction:
+        'Grave: "I\'d like two tickets for the guided tour, please."',
       helperText: "I'd like two tickets for the guided tour, please.",
       successTitle: "Muito bem!",
       successMessage: "Seu áudio foi gravado.",

@@ -40,11 +40,11 @@ const LESSON_SLIDES = [
       prompt: "Escute e identifique a palavra de rotina",
       image: ICA2.A10S2,
       audioSource: require("../../../../../mp3/IC/A2/A10S2.mp3"),
-      audioText: "I usually work from home, but today I'm working in a cafe.",
       options: ["Usually (Routine)", "Always (Right now)"],
       correctAnswer: "Usually (Routine)",
       correctOption: "Usually (Routine)",
-      feedbackMessage: 'Usually é uma palavra de rotina, ligada ao Present Simple.',
+      feedbackMessage:
+        "Usually é uma palavra de rotina, ligada ao Present Simple.",
       successTitle: "Correto",
     },
   },
@@ -125,13 +125,13 @@ const LESSON_SLIDES = [
       prompt: "Escute e responda: verdadeiro ou falso?",
       image: ICA2.A10S8,
       audioSource: require("../../../../../mp3/IC/A2/A10S8.mp3"),
-      audioText: "I'm a vegetarian, so I don't eat meat. But today, I'm trying a plant-based burger that looks like meat!",
       statement: "The person usually eats meat.",
       textOnScreen: "The person usually eats meat.",
       options: ["true", "false"],
       correctAnswer: "false",
       successTitle: "Correto",
-      successMessage: "False. A pessoa diz que é vegetariana e normalmente não come carne.",
+      successMessage:
+        "False. A pessoa diz que é vegetariana e normalmente não come carne.",
       feedbackMessage: 'O áudio diz: "I don\'t eat meat."',
     },
   },
@@ -171,10 +171,13 @@ const LESSON_SLIDES = [
     component: "Exercise12",
     activity: {
       prompt: "Freer Practice",
-      instruction: "What do you usually do on Saturdays? And what are you doing this Saturday?",
-      helperText: "Exemplo: I usually stay home, but this Saturday I'm going to a party.",
+      instruction:
+        "What do you usually do on Saturdays? And what are you doing this Saturday?",
+      helperText:
+        "Exemplo: I usually stay home, but this Saturday I'm going to a party.",
       placeholder: "Digite suas duas frases aqui",
-      tipText: "Use Present Simple para rotina e Present Continuous para plano específico.",
+      tipText:
+        "Use Present Simple para rotina e Present Continuous para plano específico.",
       successTitle: "Muito bem!",
       successMessage: "Você contrastou rotina e ação específica.",
     },
@@ -184,7 +187,8 @@ const LESSON_SLIDES = [
     component: "Exercise16",
     activity: {
       prompt: "Freer Practice - Áudio",
-      instruction: "Fale sobre seu melhor amigo: o trabalho dele/dela e o que ele/ela está fazendo agora.",
+      instruction:
+        "Fale sobre seu melhor amigo: o trabalho dele/dela e o que ele/ela está fazendo agora.",
       helperText: "Exemplo: She works at a bank. She is studying now.",
       tipText: "Use Simple para fato e Continuous para agora.",
       successTitle: "Muito bem!",

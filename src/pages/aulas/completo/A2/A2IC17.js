@@ -50,7 +50,11 @@ const LESSON_SLIDES = [
         [
           'A: "Did you like the party?" ',
           'B: "Actually, I ',
-          { id: "b1", answer: "didn't go", options: ["didn't go", "didn't went"] },
+          {
+            id: "b1",
+            answer: "didn't go",
+            options: ["didn't go", "didn't went"],
+          },
           ' there."',
         ],
       ],
@@ -67,7 +71,11 @@ const LESSON_SLIDES = [
         [
           'A: "Really? Why?" ',
           'B: "I ',
-          { id: "b1", answer: "didn't have", options: ["didn't had", "didn't have"] },
+          {
+            id: "b1",
+            answer: "didn't have",
+            options: ["didn't had", "didn't have"],
+          },
           ' any free time."',
         ],
       ],

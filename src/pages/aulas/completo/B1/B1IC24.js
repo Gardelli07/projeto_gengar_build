@@ -115,8 +115,6 @@ To give permission: "Yes, you can / could / may." To refuse: "No, you can't / ma
       prompt: "Listen and decide: true or false?",
       image: ICB1.A24S3,
       audioSource: require("../../../../../mp3/IC/B1/A24S3.mp3"),
-      audioText:
-        "May I is the most formal way to ask for permission. Could I is more polite than Can I, but less formal than May I.",
       audioLanguage: "en-GB",
       audioDurationMs: 7500,
       dialogue: 'Written sentence: "Could I is more formal than May I."',
@@ -185,7 +183,8 @@ To give permission: "Yes, you can / could / may." To refuse: "No, you can't / ma
         ],
       ],
       successTitle: "Excellent",
-      successMessage: "Answers: (1) Can/Could - (2) can - (3) Could - (4) Can/Could - (5) can't",
+      successMessage:
+        "Answers: (1) Can/Could - (2) can - (3) Could - (4) Can/Could - (5) can't",
     },
   },
   {

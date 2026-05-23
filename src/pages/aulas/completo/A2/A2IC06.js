@@ -29,7 +29,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça e complete a pergunta",
       image: ICA2.A6S2,
       audioSource: require("../../../../../mp3/IC/A2/A6S2.mp3"),
-      audioText: "What are you making for dinner?",
       options: ["are / making", "is / making"],
       correctAnswer: "are / making",
       correctOption: "are / making",
@@ -44,7 +43,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça a entonação das perguntas",
       image: ICA2.A6S3,
       audioSource: require("../../../../../mp3/IC/A2/A6S3.mp3"),
-      audioText: "Is she dancing? Why are you crying?",
       transcript: "Is she dancing? ... Why are you crying?",
       continueLabel: "Continuar",
     },
@@ -57,13 +55,15 @@ const LESSON_SLIDES = [
       prompt: "Leia e responda: verdadeiro ou falso?",
       image: ICA2.A6S4,
       audioText: "Are they studying English now?",
-      statement: 'Na pergunta "Are they study English now?", a estrutura está correta.',
+      statement:
+        'Na pergunta "Are they study English now?", a estrutura está correta.',
       textOnScreen: '"Are they study English now?" está correta.',
       options: ["true", "false"],
       correctAnswer: "false",
       successTitle: "Correto",
       successMessage: "False. Falta o -ING: Are they studying English now?",
-      feedbackMessage: "Depois de are, use verbo com -ING no Present Continuous.",
+      feedbackMessage:
+        "Depois de are, use verbo com -ING no Present Continuous.",
     },
   },
   {

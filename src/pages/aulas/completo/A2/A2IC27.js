@@ -26,7 +26,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A27S2,
       audioSource: require("../../../../../mp3/IC/A2/A27S2.mp3"),
-      audioText: "They weren't studying.",
       options: ["They were studying.", "They weren't studying."],
       correctAnswer: "They weren't studying.",
       correctOption: "They weren't studying.",
@@ -42,7 +41,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A27S3,
       audioSource: require("../../../../../mp3/IC/A2/A27S3.mp3"),
-      audioText: "Was he sleeping?",
       options: ["Was he sleeping?", "He was sleeping."],
       correctAnswer: "Was he sleeping?",
       correctOption: "Was he sleeping?",
@@ -58,7 +56,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A27S4,
       audioSource: require("../../../../../mp3/IC/A2/A27S4.mp3"),
-      audioText: "We were having fun.",
       options: ["We were having fun.", "We was having fun."],
       correctAnswer: "We were having fun.",
       correctOption: "We were having fun.",
@@ -144,7 +141,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e digite.",
       audioSource: require("../../../../../mp3/IC/A2/A27S10.mp3"),
-      audioText: "I wasn't working yesterday morning.",
       correctAnswer: "I wasn't working yesterday morning.",
       successTitle: "Correto",
       successMessage: "I wasn't working yesterday morning.",
@@ -156,7 +152,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e digite.",
       audioSource: require("../../../../../mp3/IC/A2/A27S11.mp3"),
-      audioText: "Were they dancing at the party?",
       correctAnswer: "Were they dancing at the party?",
       successTitle: "Correto",
       successMessage: "Were they dancing at the party?",
@@ -168,7 +163,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e digite.",
       audioSource: require("../../../../../mp3/IC/A2/A27S12.mp3"),
-      audioText: "She was wearing a green dress.",
       correctAnswer: "She was wearing a green dress.",
       successTitle: "Correto",
       successMessage: "She was wearing a green dress.",
@@ -209,8 +203,10 @@ const LESSON_SLIDES = [
     key: "a2ic27s15",
     component: "Exercise12",
     activity: {
-      prompt: "Descreva uma cena de um filme que você gosta usando o Past Continuous.",
-      instruction: "Diga o que o herói estava fazendo e o que o vilão não estava fazendo.",
+      prompt:
+        "Descreva uma cena de um filme que você gosta usando o Past Continuous.",
+      instruction:
+        "Diga o que o herói estava fazendo e o que o vilão não estava fazendo.",
       correctAnswer: "The hero was fighting. The villain wasn't winning.",
       successTitle: "Muito bem!",
       successMessage: "Cena registrada.",
@@ -221,7 +217,8 @@ const LESSON_SLIDES = [
     component: "Exercise16",
     activity: {
       prompt: "Gravação de áudio",
-      instruction: 'Grave: "Were you studying? No, I wasn\'t. I was playing Lingueto!"',
+      instruction:
+        'Grave: "Were you studying? No, I wasn\'t. I was playing Lingueto!"',
       helperText: "Were you studying? No, I wasn't. I was playing Lingueto!",
       successTitle: "Muito bem!",
       successMessage: "Seu áudio foi gravado.",

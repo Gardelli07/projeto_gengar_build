@@ -27,7 +27,8 @@ const LESSON_SLIDES = [
     key: "anchor-match",
     component: Exercise1,
     activity: {
-      prompt: "Conecte as expressões de abertura de negociação com os seus significados em português.",
+      prompt:
+        "Conecte as expressões de abertura de negociação com os seus significados em português.",
       pairs: [
         { en: "Baseline proposal", pt: "Proposta base / Ponto de partida" },
         { en: "Positioned to offer", pt: "Posicionados para oferecer" },
@@ -40,7 +41,8 @@ const LESSON_SLIDES = [
     key: "baseline-correct",
     component: Exercise4,
     activity: {
-      prompt: "Chegou a hora de falar de valores. Qual é a frase escrita corretamente?",
+      prompt:
+        "Chegou a hora de falar de valores. Qual é a frase escrita corretamente?",
       image: BUB1.A11S10,
       wrongSentence: "Anchor",
       options: [
@@ -50,7 +52,8 @@ const LESSON_SLIDES = [
       ],
       correctAnswer: "Our baseline proposal is $50,000.",
       successTitle: "Correto",
-      successMessage: '"Baseline" é escrito como uma única palavra neste contexto.',
+      successMessage:
+        '"Baseline" é escrito como uma única palavra neste contexto.',
     },
   },
   {
@@ -58,10 +61,10 @@ const LESSON_SLIDES = [
     component: Exercise14,
     needsSpeech: true,
     activity: {
-      prompt: 'Ouça a palavra isolada e escolha a alternativa correta. É a palavra avançada para "justificativa lógica".',
+      prompt:
+        'Ouça a palavra isolada e escolha a alternativa correta. É a palavra avançada para "justificativa lógica".',
       image: BUB1.A11S5,
       audioSource: require("../../../../../mp3/BU/B1/A11S5.mp3"),
-      audioText: "Rationale.",
       audioDurationMs: 1200,
       answerOptions: ["Rationale", "Rational"],
       correctOption: "Rationale",
@@ -84,7 +87,8 @@ const LESSON_SLIDES = [
     key: "rationale-complete",
     component: Exercise5,
     activity: {
-      prompt: "O comprador americano questionou o valor da sua proposta. Como você começa a justificar esse valor?",
+      prompt:
+        "O comprador americano questionou o valor da sua proposta. Como você começa a justificar esse valor?",
       image: BUB1.A11S5,
       sentenceStart: "I understand your concern. The",
       sentenceEnd: "behind this figure is our premium material quality.",
@@ -112,15 +116,28 @@ const LESSON_SLIDES = [
     key: "pitch-complete",
     component: Exercise2,
     activity: {
-      prompt: "Leia a fala do negociador e preencha as lacunas com as alternativas corretas.",
+      prompt:
+        "Leia a fala do negociador e preencha as lacunas com as alternativas corretas.",
       paragraphs: [
         [
           "Gentlemen, to start, our ",
-          { id: "blank-1", options: ["baseline", "sideline"], answer: "baseline" },
+          {
+            id: "blank-1",
+            options: ["baseline", "sideline"],
+            answer: "baseline",
+          },
           " proposal is $100k. We are ",
-          { id: "blank-2", options: ["pointed", "positioned"], answer: "positioned" },
+          {
+            id: "blank-2",
+            options: ["pointed", "positioned"],
+            answer: "positioned",
+          },
           " to offer full logistics support. The ",
-          { id: "blank-3", options: ["rationale", "national"], answer: "rationale" },
+          {
+            id: "blank-3",
+            options: ["rationale", "national"],
+            answer: "rationale",
+          },
           " behind this figure is the speed of delivery.",
         ],
       ],
@@ -133,23 +150,26 @@ const LESSON_SLIDES = [
     component: Exercise3,
     needsSpeech: true,
     activity: {
-      prompt: "Escute o vendedor estabelecendo os termos. A afirmação escrita é verdadeira ou falsa?",
+      prompt:
+        "Escute o vendedor estabelecendo os termos. A afirmação escrita é verdadeira ou falsa?",
       image: BUB1.A11S10,
       audioSource: require("../../../../../mp3/BU/B1/A11S10.mp3"),
-      audioText: "Our baseline proposal is $200,000. I know it seems high, but the rationale behind this figure is the exclusive technology we are positioned to offer.",
       audioDurationMs: 7800,
-      statement: "O vendedor diz que a justificativa para essa cifra alta é a tecnologia exclusiva que eles oferecem.",
+      statement:
+        "O vendedor diz que a justificativa para essa cifra alta é a tecnologia exclusiva que eles oferecem.",
       options: ["true", "false"],
       correctAnswer: "true",
       successTitle: "Correto",
-      feedbackMessage: "A tecnologia exclusiva é o rationale por trás da figure.",
+      feedbackMessage:
+        "A tecnologia exclusiva é o rationale por trás da figure.",
     },
   },
   {
     key: "rationale-order",
     component: Exercise6,
     activity: {
-      prompt: "Clique nas palavras na ordem correta para introduzir a sua justificativa.",
+      prompt:
+        "Clique nas palavras na ordem correta para introduzir a sua justificativa.",
       words: ["figure", "this", "behind", "rationale", "the", "is"],
       correctOrder: ["the", "rationale", "behind", "this", "figure", "is"],
       successTitle: "Correto",
@@ -162,11 +182,13 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Speaking",
       instruction:
-        'Venda a licença anual do app Lingueto: diga que a proposta base é 10 mil dólares, que vocês estão posicionados para oferecer treinamento completo e que a justificativa por trás dessa cifra é a alta tecnologia.',
-      helperText: "Our baseline proposal is $10,000. We are positioned to offer complete training. The rationale behind this figure is our high technology.",
+        "Venda a licença anual do app Lingueto: diga que a proposta base é 10 mil dólares, que vocês estão posicionados para oferecer treinamento completo e que a justificativa por trás dessa cifra é a alta tecnologia.",
+      helperText:
+        "Our baseline proposal is $10,000. We are positioned to offer complete training. The rationale behind this figure is our high technology.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
-      tipText: "Our baseline proposal is $10,000. We are positioned to offer complete training. The rationale behind this figure is our high technology.",
+      tipText:
+        "Our baseline proposal is $10,000. We are positioned to offer complete training. The rationale behind this figure is our high technology.",
       recordLabel: "Gravar Áudio",
       stopLabel: "Parar",
       successTitle: "Correto",

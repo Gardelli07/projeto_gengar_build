@@ -64,7 +64,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute a pergunta e digite exatamente o que foi dito:",
       audioSource: require("../../../../../mp3/IC/A2/A19S5.mp3"),
-      audioText: "Did you buy the tickets?",
       correctAnswer: "Did you buy the tickets?",
       placeholder: "Digite a frase",
       submitLabel: "Responder",
@@ -80,7 +79,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute com atenção e digite a frase inteira:",
       audioSource: require("../../../../../mp3/IC/A2/A19S6.mp3"),
-      audioText: "Did you like the party last night?",
       correctAnswer: "Did you like the party last night?",
       placeholder: "Digite a frase",
       submitLabel: "Responder",

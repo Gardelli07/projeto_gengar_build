@@ -23,7 +23,6 @@ const LESSON_SLIDES = [
       prompt: "Vocabulário: escute e escolha.",
       image: ICA2.A21S2,
       audioSource: require("../../../../../mp3/IC/A2/A21S2.mp3"),
-      audioText: "Concert",
       options: ["Concert", "Concrete"],
       correctAnswer: "Concert",
       correctOption: "Concert",
@@ -39,7 +38,6 @@ const LESSON_SLIDES = [
       prompt: "Vocabulário: escute e escolha.",
       image: ICA2.A21S3,
       audioSource: require("../../../../../mp3/IC/A2/A21S3.mp3"),
-      audioText: "Woke up",
       options: ["Wake up", "Woke up"],
       correctAnswer: "Woke up",
       correctOption: "Woke up",
@@ -54,8 +52,6 @@ const LESSON_SLIDES = [
       prompt: "Part 1: Leo's Night",
       image: ICA2.A21S5,
       audioSource: require("../../../../../mp3/IC/A2/A21S4.mp3"),
-      audioText:
-        "Leo: Hey Mia! Did you have a good weekend? Mia: It was okay. I stayed at home and watched a movie with my sister. What about you? Leo: I went to that rock concert last night! It was amazing! Mia: Really? I called you around 9 PM, but you didn't answer!",
       transcript:
         "Leo: Hey Mia! Did you have a good weekend?\nMia: It was okay. I stayed at home and watched a movie with my sister. What about you?\nLeo: I went to that rock concert last night! It was amazing!\nMia: Really? I called you around 9 PM, but you didn't answer!",
       continueLabel: "Continuar",
@@ -108,7 +104,6 @@ const LESSON_SLIDES = [
       prompt: "Vocabulário: escute e escolha.",
       image: ICA2.A21S8,
       audioSource: require("../../../../../mp3/IC/A2/A21S8.mp3"),
-      audioText: "Headache",
       options: ["Headache", "Heartache"],
       correctAnswer: "Headache",
       correctOption: "Headache",
@@ -135,7 +130,10 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Why didn't Leo's brother go to the concert?",
       image: ICA2.A21S10,
-      options: ["Because he had a headache.", "Because he didn't like the band."],
+      options: [
+        "Because he had a headache.",
+        "Because he didn't like the band.",
+      ],
       correctAnswer: "Because he had a headache.",
       successTitle: "Correto",
       successMessage: "He had a headache, so he stayed in bed.",
@@ -148,7 +146,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e digite o que Leo disse sobre o irmão:",
       audioSource: require("../../../../../mp3/IC/A2/A21S11.mp3"),
-      audioText: "He didn't want to go.",
       correctAnswer: "He didn't want to go.",
       placeholder: "Digite a frase",
       submitLabel: "Responder",
@@ -165,7 +162,6 @@ const LESSON_SLIDES = [
       prompt: "Vocabulário: escute e escolha.",
       image: ICA2.A21S12,
       audioSource: require("../../../../../mp3/IC/A2/A21S12.mp3"),
-      audioText: "Actually",
       options: ["Actually", "Currently"],
       correctAnswer: "Actually",
       correctOption: "Actually",
@@ -181,7 +177,6 @@ const LESSON_SLIDES = [
       prompt: "Vocabulário: escute e escolha.",
       image: ICA2.A21S13,
       audioSource: require("../../../../../mp3/IC/A2/A21S13.mp3"),
-      audioText: "Near",
       options: ["Near", "Far"],
       correctAnswer: "Near",
       correctOption: "Near",
@@ -197,7 +192,6 @@ const LESSON_SLIDES = [
       prompt: "Vocabulário: escute e escolha.",
       image: ICA2.A21S14,
       audioSource: require("../../../../../mp3/IC/A2/A21S14.mp3"),
-      audioText: "Stage",
       options: ["Stage", "State"],
       correctAnswer: "Stage",
       correctOption: "Stage",
@@ -212,8 +206,6 @@ const LESSON_SLIDES = [
       prompt: "Part 3: At the Venue",
       image: ICA2.A21S16,
       audioSource: require("../../../../../mp3/IC/A2/A21S15.mp3"),
-      audioText:
-        "Mia: Did you see anyone we know there? Leo: Actually, I did! I met Sarah near the stage! Did you know she was going? Mia: No, I didn't! Did she like the show? Leo: She loved it! But she didn't stay until the end because she was tired.",
       transcript:
         "Mia: Did you see anyone we know there?\nLeo: Actually, I did! I met Sarah near the stage!\nMia: No, I didn't! Did she like the show?\nLeo: She loved it! But she didn't stay until the end because she was tired.",
       continueLabel: "Continuar",
@@ -239,7 +231,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute a pergunta da Mia e digite:",
       audioSource: require("../../../../../mp3/IC/A2/A21S17.mp3"),
-      audioText: "Did she like the show?",
       correctAnswer: "Did she like the show?",
       placeholder: "Digite a pergunta",
       submitLabel: "Responder",
@@ -253,8 +244,10 @@ const LESSON_SLIDES = [
     component: "Exercise16",
     activity: {
       prompt: "Gravação de áudio",
-      instruction: "Grave um áudio contando três coisas que aconteceram no show.",
-      helperText: 'Use frases como "Leo went to a concert", "He met Sarah" ou "His brother had a headache".',
+      instruction:
+        "Grave um áudio contando três coisas que aconteceram no show.",
+      helperText:
+        'Use frases como "Leo went to a concert", "He met Sarah" ou "His brother had a headache".',
       tipText: "Use Simple Past.",
       successTitle: "Muito bem!",
       successMessage: "Seu áudio foi gravado.",

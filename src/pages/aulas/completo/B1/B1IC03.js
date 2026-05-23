@@ -121,8 +121,7 @@ Ex: Eu tenho andado lendo este livro.`,
     activity: {
       prompt: "Escolha a melhor interpretação",
       image: ICB1.A3S7,
-      audioText:
-        "David has been coding this new feature since early morning.",
+      audioText: "David has been coding this new feature since early morning.",
       audioDurationMs: 3800,
       answerOptions: [
         "David is still in the process of writing the code.",
@@ -158,8 +157,7 @@ Ex: Eu tenho andado lendo este livro.`,
     key: "result-not-process-song",
     component: Exercise8,
     activity: {
-      prompt:
-        "Qual frase foca no resultado final e não no processo contínuo?",
+      prompt: "Qual frase foca no resultado final e não no processo contínuo?",
       image: ICB1.A4S1,
       options: [
         "I've been practicing the song.",
@@ -195,7 +193,7 @@ Ex: Eu tenho andado lendo este livro.`,
     needsSpeech: true,
     activity: {
       prompt:
-        'Para formar o Continuous, você sempre precisa deste verbo no particípio. Desembaralhe:',
+        "Para formar o Continuous, você sempre precisa deste verbo no particípio. Desembaralhe:",
       audioText: "Been",
       audioDurationMs: 900,
       letters: ["B", "E", "E", "N"],
@@ -227,7 +225,15 @@ Ex: Eu tenho andado lendo este livro.`,
     component: Exercise6,
     activity: {
       prompt: 'Monte a frase: "Ela tem trabalhado muito no novo design."',
-      words: ["She", "has been", "working", "hard", "on the", "new design", "."],
+      words: [
+        "She",
+        "has been",
+        "working",
+        "hard",
+        "on the",
+        "new design",
+        ".",
+      ],
       correctOrder: [
         "She",
         "has been",
@@ -246,13 +252,12 @@ Ex: Eu tenho andado lendo este livro.`,
     component: Exercise8,
     activity: {
       prompt:
-        'David: "I\'ve ____ working out every morning. I\'ve ____ doing this for three months now."',
+        "David: \"I've ____ working out every morning. I've ____ doing this for three months now.\"",
       image: ICB1.A4S5,
       options: ["been / been", "being / been", "been / be"],
       correctAnswer: "been / been",
       successTitle: "Correto",
-      successMessage:
-        "A estrutura é have/has + been + verbo com -ing.",
+      successMessage: "A estrutura é have/has + been + verbo com -ing.",
     },
   },
   {
@@ -273,8 +278,7 @@ Ex: Eu tenho andado lendo este livro.`,
       prompt: "O que você tem andado fazendo?",
       instruction:
         "Pense no que você tem feito ultimamente para melhorar seu inglês ou sua carreira.",
-      helperText:
-        "Escreva 3 frases usando o Present Perfect Continuous.",
+      helperText: "Escreva 3 frases usando o Present Perfect Continuous.",
       image: ICB1.A5S2,
       placeholder:
         "I've been watching series in English. I've been studying every night. I've been practicing speaking.",

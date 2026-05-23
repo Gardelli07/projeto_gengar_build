@@ -31,7 +31,6 @@ Sempre compre tempo! Diga: "That is a good question." Isso soa educado e te dá 
     activity: {
       prompt: "Escute e escreva exatamente o que você ouviu.",
       audioSource: require("../../../../../mp3/BU/A1/A12S2.mp3"),
-      audioText: "Any questions?",
       audioDurationMs: 1400,
       correctAnswer: "Any questions?",
       placeholder: "Digite a frase",
@@ -63,9 +62,17 @@ Sempre compre tempo! Diga: "That is a good question." Isso soa educado e te dá 
       paragraphs: [
         [
           "Do you have any ",
-          { id: "blank-1", options: ["questions", "question"], answer: "questions" },
+          {
+            id: "blank-1",
+            options: ["questions", "question"],
+            answer: "questions",
+          },
           "? Yes, that is a good ",
-          { id: "blank-2", options: ["question", "questions"], answer: "question" },
+          {
+            id: "blank-2",
+            options: ["question", "questions"],
+            answer: "question",
+          },
           ".",
         ],
       ],
@@ -92,7 +99,9 @@ Sempre compre tempo! Diga: "That is a good question." Isso soa educado e te dá 
     component: Exercise17,
     activity: {
       label: "Let me check",
-      content: ['Se você não souber a resposta, diga:\n\n"Let me check and get back to you."\n\nIsso é profissional e evita erros.'],
+      content: [
+        'Se você não souber a resposta, diga:\n\n"Let me check and get back to you."\n\nIsso é profissional e evita erros.',
+      ],
       continueLabel: "Continuar",
     },
   },
@@ -133,7 +142,8 @@ Sempre compre tempo! Diga: "That is a good question." Isso soa educado e te dá 
     component: Exercise16,
     activity: {
       prompt: "Speaking",
-      instruction: "Grave um áudio dizendo: Any questions? That is a good question.",
+      instruction:
+        "Grave um áudio dizendo: Any questions? That is a good question.",
       helperText: "Any questions? That is a good question.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
@@ -149,7 +159,9 @@ Sempre compre tempo! Diga: "That is a good question." Isso soa educado e te dá 
     component: Exercise17,
     activity: {
       label: "Great Answer!",
-      content: ["Excelente! Agora você sabe lidar com perguntas com confiança e profissionalismo."],
+      content: [
+        "Excelente! Agora você sabe lidar com perguntas com confiança e profissionalismo.",
+      ],
       continueLabel: "Finalizar",
     },
   },

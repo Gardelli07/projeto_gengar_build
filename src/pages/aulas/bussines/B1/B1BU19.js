@@ -66,7 +66,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça a palavra isolada e escolha a alternativa correta.",
       image: BUB1.A19S5,
       audioSource: require("../../../../../mp3/BU/B1/A19S5.mp3"),
-      audioText: "Loop.",
       audioDurationMs: 900,
       answerOptions: ["Look", "Loop"],
       correctOption: "Loop",
@@ -146,8 +145,6 @@ const LESSON_SLIDES = [
         "Escute o líder pedindo informações. A afirmação é verdadeira ou falsa?",
       image: BUB1.A19S10,
       audioSource: require("../../../../../mp3/BU/B1/A19S10.mp3"),
-      audioText:
-        "Hey Mark, let's touch base on the client from yesterday. Where do we stand on the negotiation? Give me a status update and keep me in the loop.",
       audioDurationMs: 7200,
       statement:
         "O líder pediu para o Mark esquecer o cliente de ontem e focar no projeto novo.",

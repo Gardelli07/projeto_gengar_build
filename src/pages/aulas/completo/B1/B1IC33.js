@@ -119,7 +119,6 @@ const LESSON_SLIDES = [
       prompt: "Escute o áudio e responda se a frase é verdadeira ou falsa.",
       image: ICB1.A33S2e4,
       audioSource: require("../../../../../mp3/IC/B1/A33S4.mp3"),
-      audioText: "I can't believe it's already December. Time flies!",
       audioDurationMs: 3500,
       statement: "The person feels that the year passed very slowly.",
       options: ["true", "false"],
@@ -150,7 +149,6 @@ const LESSON_SLIDES = [
       prompt:
         'Organize as letras para formar a palavra que completa a expressão "Break the _____".',
       audioSource: require("../../../../../mp3/IC/B1/A33S6.mp3"),
-      audioText: "Bank",
       audioDurationMs: 900,
       letters: ["K", "N", "A", "B"],
       correctWord: "BANK",

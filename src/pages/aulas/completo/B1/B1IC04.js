@@ -170,29 +170,42 @@ What've you been up to?: a forma comum de perguntar "o que você tem feito de bo
     activity: {
       prompt: "Complete a conversa",
       paragraphs: [
-        ['George: "It\'s great! We\'ve', {
-          id: "blank-1",
-          answer: "been",
-          options: ["been", "yet", "already"],
-        }, 'working on the new UI."'],
-        ['CEO: "Nice. Have you finished the animations', {
-          id: "blank-2",
-          answer: "yet",
-          options: ["already", "yet", "been"],
-        }, '?"'],
-        ['George: "Not', {
-          id: "blank-3",
-          answer: "yet",
-          options: ["yet", "been", "already"],
-        }, ', but I\'ve', {
-          id: "blank-4",
-          answer: "already",
-          options: ["yet", "already", "been"],
-        }, 'finished the icons."'],
+        [
+          "George: \"It's great! We've",
+          {
+            id: "blank-1",
+            answer: "been",
+            options: ["been", "yet", "already"],
+          },
+          'working on the new UI."',
+        ],
+        [
+          'CEO: "Nice. Have you finished the animations',
+          {
+            id: "blank-2",
+            answer: "yet",
+            options: ["already", "yet", "been"],
+          },
+          '?"',
+        ],
+        [
+          'George: "Not',
+          {
+            id: "blank-3",
+            answer: "yet",
+            options: ["yet", "been", "already"],
+          },
+          ", but I've",
+          {
+            id: "blank-4",
+            answer: "already",
+            options: ["yet", "already", "been"],
+          },
+          'finished the icons."',
+        ],
       ],
       successTitle: "Correto",
-      successMessage:
-        "A sequência correta é: been / yet / yet / already.",
+      successMessage: "A sequência correta é: been / yet / yet / already.",
     },
   },
   {
@@ -213,8 +226,7 @@ What've you been up to?: a forma comum de perguntar "o que você tem feito de bo
       prompt: "Use a gíria dos nativos!",
       instruction:
         'Escreva 2 frases: uma usando "What\'ve you been up to?" e outra usando "Been there, done that".',
-      helperText:
-        "Use as expressões em uma situação da sua vida.",
+      helperText: "Use as expressões em uma situação da sua vida.",
       image: ICB1.A7S3,
       placeholder:
         "Hey Kaique, what've you been up to? Learning React Native? Been there, done that!",
@@ -222,8 +234,7 @@ What've you been up to?: a forma comum de perguntar "o que você tem feito de bo
         '"What\'ve you been up to?" pergunta sobre novidades recentes. "Been there, done that" mostra que você já viveu aquela situação.',
       minLength: 20,
       successTitle: "Correto",
-      successMessage:
-        "Boa! Você praticou expressões naturais de conversa.",
+      successMessage: "Boa! Você praticou expressões naturais de conversa.",
     },
   },
   {

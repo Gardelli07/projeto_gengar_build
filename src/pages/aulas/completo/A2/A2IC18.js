@@ -55,7 +55,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e digite exatamente o que foi dito:",
       audioSource: require("../../../../../mp3/IC/A2/A18S4.mp3"),
-      audioText: "Did you have lunch?",
       correctAnswer: "Did you have lunch?",
       placeholder: "Digite a frase",
       submitLabel: "Responder",

@@ -32,7 +32,6 @@ Dica de Nativo:
       prompt: "Escute a palavra e escolha a alternativa correta.",
       image: BUA1.A9S2,
       audioSource: require("../../../../../mp3/BU/A1/A9S2.mp3"),
-      audioText: "Attached",
       audioDurationMs: 1000,
       answerOptions: ["Attached", "Attack"],
       correctOption: "Attached",
@@ -62,7 +61,11 @@ Dica de Nativo:
       paragraphs: [
         [
           "Hello team, please find ",
-          { id: "blank-1", options: ["attached", "attach"], answer: "attached" },
+          {
+            id: "blank-1",
+            options: ["attached", "attach"],
+            answer: "attached",
+          },
           " the new report. ",
           { id: "blank-2", options: ["Best", "Good"], answer: "Best" },
           " regards, Mark.",
@@ -111,7 +114,8 @@ Dica de Nativo:
       ],
       correctAnswer: "Please find attached the document.",
       successTitle: "Correto",
-      successMessage: '"Please find attached the document" é formal e profissional.',
+      successMessage:
+        '"Please find attached the document" é formal e profissional.',
     },
   },
   {
@@ -120,7 +124,6 @@ Dica de Nativo:
     needsSpeech: true,
     activity: {
       prompt: "As letras estão bagunçadas! Escreva a palavra na ordem correta.",
-      audioText: "Email",
       audioDurationMs: 900,
       letters: ["E", "M", "I", "A", "L"],
       correctWord: "EMAIL",

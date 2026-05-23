@@ -32,7 +32,6 @@ Em negociações, ao invés de dizer "expensive", nativos preferem algo mais dip
       prompt: "Escute e escolha a alternativa correta.",
       image: BUA1.A16S2,
       audioSource: require("../../../../../mp3/BU/A1/A16S2.mp3"),
-      audioText: "High",
       audioDurationMs: 800,
       answerOptions: ["High", "Hello"],
       correctOption: "High",
@@ -69,7 +68,8 @@ Em negociações, ao invés de dizer "expensive", nativos preferem algo mais dip
         ],
       ],
       successTitle: "Correto",
-      successMessage: "Too high indica que o preço está alto; How about sugere uma alternativa.",
+      successMessage:
+        "Too high indica que o preço está alto; How about sugere uma alternativa.",
     },
   },
   {
@@ -91,7 +91,9 @@ Em negociações, ao invés de dizer "expensive", nativos preferem algo mais dip
     component: Exercise17,
     activity: {
       label: "How about...?",
-      content: ['Para sugerir algo educadamente, use:\n\n"How about...?" (Que tal...?)\n\nExemplo: "How about 50 dollars?"'],
+      content: [
+        'Para sugerir algo educadamente, use:\n\n"How about...?" (Que tal...?)\n\nExemplo: "How about 50 dollars?"',
+      ],
       continueLabel: "Continuar",
     },
   },
@@ -143,7 +145,9 @@ Em negociações, ao invés de dizer "expensive", nativos preferem algo mais dip
     component: Exercise17,
     activity: {
       label: "Counter-offer sent!",
-      content: ["Perfeito! Você já sabe recusar e propor alternativas com educação."],
+      content: [
+        "Perfeito! Você já sabe recusar e propor alternativas com educação.",
+      ],
       continueLabel: "Finalizar",
     },
   },

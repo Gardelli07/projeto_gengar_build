@@ -53,7 +53,6 @@ Não complique! Use "go up" (subir) e "go down" (descer). Até executivos usam i
       prompt: "Escolha a alternativa correta.",
       image: BUA1.A11S3,
       audioSource: require("../../../../../mp3/BU/A1/A11S3.mp3"),
-      audioText: "Chart",
       audioDurationMs: 900,
       answerOptions: ["Chart", "Start"],
       correctOption: "Chart",
@@ -94,7 +93,9 @@ Não complique! Use "go up" (subir) e "go down" (descer). Até executivos usam i
     component: Exercise17,
     activity: {
       label: "Look at vs See",
-      content: ['Use "Look at" para direcionar atenção.\n\n✔ Look at this chart\n❌ See this chart'],
+      content: [
+        'Use "Look at" para direcionar atenção.\n\n✔ Look at this chart\n❌ See this chart',
+      ],
       continueLabel: "Continuar",
     },
   },
@@ -106,7 +107,6 @@ Não complique! Use "go up" (subir) e "go down" (descer). Até executivos usam i
       prompt: "Verdadeiro ou falso?",
       image: BUA1.A11S7,
       audioSource: require("../../../../../mp3/BU/A1/A11S7.mp3"),
-      audioText: "Look at this chart. The sales go down.",
       audioDurationMs: 3000,
       statement: "The sales go up.",
       options: ["true", "false"],
@@ -133,7 +133,8 @@ Não complique! Use "go up" (subir) e "go down" (descer). Até executivos usam i
     component: Exercise12,
     activity: {
       prompt: "Writing",
-      instruction: "Escreva uma frase: peça para olhar o gráfico e diga que as vendas sobem.",
+      instruction:
+        "Escreva uma frase: peça para olhar o gráfico e diga que as vendas sobem.",
       placeholder: "Look at this chart. The sales go up.",
       helperText: 'Use "Look at this chart" e "go up".',
       submitLabel: "Enviar",
@@ -146,7 +147,9 @@ Não complique! Use "go up" (subir) e "go down" (descer). Até executivos usam i
     component: Exercise17,
     activity: {
       label: "Numbers don't lie!",
-      content: ["Excelente! Você já consegue apresentar gráficos com clareza e confiança."],
+      content: [
+        "Excelente! Você já consegue apresentar gráficos com clareza e confiança.",
+      ],
       continueLabel: "Finalizar",
     },
   },

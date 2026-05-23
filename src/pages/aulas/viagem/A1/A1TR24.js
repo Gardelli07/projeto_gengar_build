@@ -107,7 +107,6 @@ const LESSON_SLIDES = [
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
       image: TRA1.A24S7,
       audioSource: require("../../../../../mp3/TR/A1/A24S7.mp3"),
-      audioText: "I need a painkiller, please.",
       audioDurationMs: 1900,
       statement: "O turista do áudio está pedindo um café coado na farmácia.",
       options: ["true", "false"],

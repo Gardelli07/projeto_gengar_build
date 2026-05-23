@@ -25,7 +25,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A44S2,
       audioSource: require("../../../../../mp3/IC/A2/A44S2.mp3"),
-      audioText: "The best",
       options: ["The best", "The better"],
       correctAnswer: "The best",
       correctOption: "The best",
@@ -40,7 +39,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: 'Escreva "o melhor".',
       audioSource: require("../../../../../mp3/IC/A2/A44S3.mp3"),
-      audioText: "Best",
       letters: ["B", "E", "S", "T"],
       correctWord: "BEST",
       successTitle: "Correto",
@@ -80,7 +78,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A44S6,
       audioSource: require("../../../../../mp3/IC/A2/A44S6.mp3"),
-      audioText: "The worst",
       options: ["The worst", "The worse"],
       correctAnswer: "The worst",
       correctOption: "The worst",
@@ -95,7 +92,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: 'Escreva "o pior".',
       audioSource: require("../../../../../mp3/IC/A2/A44S7.mp3"),
-      audioText: "Worst",
       letters: ["W", "O", "R", "S", "T"],
       correctWord: "WORST",
       successTitle: "Correto",
@@ -135,7 +131,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A44S10,
       audioSource: require("../../../../../mp3/IC/A2/A44S10.mp3"),
-      audioText: "The farthest",
       options: ["The farther", "The farthest"],
       correctAnswer: "The farthest",
       correctOption: "The farthest",
@@ -150,7 +145,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: 'Escreva "o mais longe".',
       audioSource: require("../../../../../mp3/IC/A2/A44S11.mp3"),
-      audioText: "Farthest",
       letters: ["F", "A", "R", "T", "H", "E", "S", "T"],
       correctWord: "FARTHEST",
       successTitle: "Correto",
@@ -179,7 +173,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute o elogio do Camaleão e digite.",
       audioSource: require("../../../../../mp3/IC/A2/A44S13.mp3"),
-      audioText: "You are the best student in the class.",
       correctAnswer: "You are the best student in the class.",
       successTitle: "Correto",
       successMessage: "You are the best student in the class.",

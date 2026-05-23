@@ -66,7 +66,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e digite exatamente o que ouviu.",
       audioSource: require("../../../../../mp3/IC/A2/A24S5.mp3"),
-      audioText: "We were eating pizza.",
       correctAnswer: "We were eating pizza.",
       successTitle: "Correto",
       successMessage: "We were eating pizza.",
@@ -104,7 +103,8 @@ const LESSON_SLIDES = [
     component: "Exercise16",
     activity: {
       prompt: "Gravação de áudio",
-      instruction: "Grave um áudio contando o que seus amigos ou família estavam fazendo ontem à tarde.",
+      instruction:
+        "Grave um áudio contando o que seus amigos ou família estavam fazendo ontem à tarde.",
       helperText: 'Exemplo: "They were watching a movie."',
       successTitle: "Muito bem!",
       successMessage: "Seu áudio foi gravado.",

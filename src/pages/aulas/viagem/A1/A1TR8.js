@@ -30,7 +30,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A8S2,
       audioSource: require("../../../../../mp3/TR/A1/A8S2.mp3"),
-      audioText: "Tourism",
       audioDurationMs: 1000,
       answerOptions: ["Tourism", "Today"],
       correctOption: "Tourism",
@@ -47,7 +46,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A8S3,
       audioSource: require("../../../../../mp3/TR/A1/A8S3.mp3"),
-      audioText: "Business",
       audioDurationMs: 1000,
       answerOptions: ["Business", "Baggage"],
       correctOption: "Business",
@@ -81,7 +79,6 @@ Responda apenas o que foi perguntado. Respostas curtas, precisas e confiantes fu
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A8S5,
       audioSource: require("../../../../../mp3/TR/A1/A8S5.mp3"),
-      audioText: "Hotel",
       audioDurationMs: 1000,
       answerOptions: ["Hotel", "Window"],
       correctOption: "Hotel",
@@ -113,9 +110,9 @@ Responda apenas o que foi perguntado. Respostas curtas, precisas e confiantes fu
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
       image: TRA1.A8S7,
       audioSource: require("../../../../../mp3/TR/A1/A8S7.mp3"),
-      audioText: "Ten days.",
       audioDurationMs: 1200,
-      statement: "O passageiro do áudio respondeu ao oficial que vai ficar no país por 5 dias.",
+      statement:
+        "O passageiro do áudio respondeu ao oficial que vai ficar no país por 5 dias.",
       options: ["true", "false"],
       correctAnswer: "false",
       successTitle: "Correto",
@@ -126,7 +123,8 @@ Responda apenas o que foi perguntado. Respostas curtas, precisas e confiantes fu
     key: "immigration-vocab-match",
     component: Exercise1,
     activity: {
-      prompt: "Conecte o vocabulário de sobrevivência da imigração com as traduções.",
+      prompt:
+        "Conecte o vocabulário de sobrevivência da imigração com as traduções.",
       pairs: [
         { en: "Tourism", pt: "Turismo" },
         { en: "Business", pt: "Negócios" },
@@ -167,7 +165,7 @@ Responda apenas o que foi perguntado. Respostas curtas, precisas e confiantes fu
     activity: {
       prompt: "Writing",
       instruction:
-        "Imagine que você está viajando a trabalho. O oficial pergunta o motivo da viagem. Digite em inglês a palavra para \"Negócios\".",
+        'Imagine que você está viajando a trabalho. O oficial pergunta o motivo da viagem. Digite em inglês a palavra para "Negócios".',
       placeholder: "Business",
       helperText: "Uma palavra basta.",
       tipText: "Business",

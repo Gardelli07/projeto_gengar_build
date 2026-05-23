@@ -170,9 +170,20 @@ O prazo final. Em startups, perder um deadline pode custar caro!`,
     activity: {
       prompt: "Escolha as palavras corretas para a conversa entre dois sócios:",
       paragraphs: [
-        ["Our", { id: "b1", answer: "VC", options: ["VC", "Deadline"] }, "is meeting us today."],
-        ["We need to give a perfect", { id: "b2", answer: "Pitch", options: ["Pitch", "Scale"] }, "to show how we will"],
-        [{ id: "b3", answer: "Scale", options: ["Deadline", "Scale"] }, "the Lingueto app this year."],
+        [
+          "Our",
+          { id: "b1", answer: "VC", options: ["VC", "Deadline"] },
+          "is meeting us today.",
+        ],
+        [
+          "We need to give a perfect",
+          { id: "b2", answer: "Pitch", options: ["Pitch", "Scale"] },
+          "to show how we will",
+        ],
+        [
+          { id: "b3", answer: "Scale", options: ["Deadline", "Scale"] },
+          "the Lingueto app this year.",
+        ],
       ],
       successTitle: "Correto",
       successMessage: "A sequência correta é: VC / Pitch / Scale.",
@@ -227,8 +238,20 @@ O prazo final. Em startups, perder um deadline pode custar caro!`,
     activity: {
       prompt: "Complete a conversa",
       paragraphs: [
-        ['David: "We have to! The', { id: "b1", answer: "deadline", options: ["deadline", "VC", "pitch"] }, 'is at midnight."'],
-        ['Developer: "I hope the', { id: "b2", answer: "VC", options: ["scale", "deadline", "VC"] }, 'gives us more money after this."'],
+        [
+          'David: "We have to! The',
+          {
+            id: "b1",
+            answer: "deadline",
+            options: ["deadline", "VC", "pitch"],
+          },
+          'is at midnight."',
+        ],
+        [
+          'Developer: "I hope the',
+          { id: "b2", answer: "VC", options: ["scale", "deadline", "VC"] },
+          'gives us more money after this."',
+        ],
       ],
       successTitle: "Correto",
       successMessage: "A sequência correta é: deadline / VC.",

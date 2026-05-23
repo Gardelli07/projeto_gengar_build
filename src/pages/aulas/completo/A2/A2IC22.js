@@ -23,7 +23,6 @@ const LESSON_SLIDES = [
       prompt: "Vocabulário: escute e escolha.",
       image: ICA2.A22S2,
       audioSource: require("../../../../../mp3/IC/A2/A22S2.mp3"),
-      audioText: "First",
       options: ["First", "Fast"],
       correctAnswer: "First",
       correctOption: "First",
@@ -39,7 +38,6 @@ const LESSON_SLIDES = [
       prompt: "Vocabulário: escute e escolha.",
       image: ICA2.A22S3,
       audioSource: require("../../../../../mp3/IC/A2/A22S3.mp3"),
-      audioText: "Then",
       options: ["Ten", "Then"],
       correctAnswer: "Then",
       correctOption: "Then",
@@ -55,7 +53,6 @@ const LESSON_SLIDES = [
       prompt: "Vocabulário: escute e escolha.",
       image: ICA2.A22S4,
       audioSource: require("../../../../../mp3/IC/A2/A22S4.mp3"),
-      audioText: "After that",
       options: ["After that", "After this"],
       correctAnswer: "After that",
       correctOption: "After that",
@@ -71,7 +68,6 @@ const LESSON_SLIDES = [
       prompt: "Vocabulário: escute e escolha.",
       image: ICA2.A22S4p2,
       audioSource: require("../../../../../mp3/IC/A2/A22S5.mp3"),
-      audioText: "Finally",
       options: ["Final", "Finally"],
       correctAnswer: "Finally",
       correctOption: "Finally",
@@ -126,7 +122,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e digite a frase completa:",
       audioSource: require("../../../../../mp3/IC/A2/A22S9.mp3"),
-      audioText: "After that, I went to the park.",
       correctAnswer: "After that, I went to the park.",
       placeholder: "Digite a frase",
       submitLabel: "Responder",
@@ -204,7 +199,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute como a história terminou e digite:",
       audioSource: require("../../../../../mp3/IC/A2/A22S15.mp3"),
-      audioText: "Finally, we ate pizza.",
       correctAnswer: "Finally, we ate pizza.",
       placeholder: "Digite a frase",
       submitLabel: "Responder",
@@ -231,7 +225,8 @@ const LESSON_SLIDES = [
         "Finally, I went to sleep at 11 PM.",
       ],
       successTitle: "Correto",
-      successMessage: "A história ficou em ordem: First, Then, After that, Finally.",
+      successMessage:
+        "A história ficou em ordem: First, Then, After that, Finally.",
     },
   },
   {
@@ -246,7 +241,11 @@ const LESSON_SLIDES = [
           ", I saw a movie. ",
           { id: "b2", answer: "Then", options: ["First", "Then", "Finally"] },
           ", I felt hungry and ate a sandwich. ",
-          { id: "b3", answer: "Finally", options: ["First", "Then", "Finally"] },
+          {
+            id: "b3",
+            answer: "Finally",
+            options: ["First", "Then", "Finally"],
+          },
           ", I went to bed.",
         ],
       ],
@@ -274,7 +273,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e digite a frase final da história:",
       audioSource: require("../../../../../mp3/IC/A2/A22S19.mp3"),
-      audioText: "Finally, I arrived home.",
       correctAnswer: "Finally, I arrived home.",
       placeholder: "Digite a frase",
       submitLabel: "Responder",
@@ -301,7 +299,8 @@ const LESSON_SLIDES = [
     component: "Exercise16",
     activity: {
       prompt: "Gravação de áudio",
-      instruction: "Grave um áudio contando sua rotina de ontem de forma rápida.",
+      instruction:
+        "Grave um áudio contando sua rotina de ontem de forma rápida.",
       helperText: 'Exemplo: "First, I drank coffee. Then, I worked..."',
       tipText: "Use First, Then, After that e Finally.",
       successTitle: "Muito bem!",

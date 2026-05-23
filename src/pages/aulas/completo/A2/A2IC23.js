@@ -38,7 +38,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha a frase correta.",
       image: ICA2.A23S3,
       audioSource: require("../../../../../mp3/IC/A2/A23S3.mp3"),
-      audioText: "I was working",
       options: ["I was working", "Was work"],
       correctAnswer: "I was working",
       correctOption: "I was working",
@@ -54,7 +53,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha a frase correta.",
       image: ICA2.A23S4,
       audioSource: require("../../../../../mp3/IC/A2/A23S4.mp3"),
-      audioText: "He was eating",
       options: ["He was eating", "Was eating"],
       correctAnswer: "He was eating",
       correctOption: "He was eating",
@@ -70,7 +68,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha a frase correta.",
       image: ICA2.A23S5,
       audioSource: require("../../../../../mp3/IC/A2/A23S5.mp3"),
-      audioText: "She was studying",
       options: ["She was studying", "Was study"],
       correctAnswer: "She was studying",
       correctOption: "She was studying",
@@ -132,7 +129,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e digite exatamente o que ouviu.",
       audioSource: require("../../../../../mp3/IC/A2/A23S10.mp3"),
-      audioText: "She was running.",
       correctAnswer: "She was running.",
       successTitle: "Correto",
       successMessage: "She was running.",
@@ -169,7 +165,8 @@ const LESSON_SLIDES = [
     key: "a2ic23s13",
     component: "Exercise12",
     activity: {
-      prompt: "Imagine que ontem às 20h você estava fazendo algo muito legal. O que era?",
+      prompt:
+        "Imagine que ontem às 20h você estava fazendo algo muito legal. O que era?",
       instruction: 'Comece com "I was..." e adicione uma ação com ING.',
       correctAnswer: "I was watching a movie.",
       successTitle: "Muito bem!",

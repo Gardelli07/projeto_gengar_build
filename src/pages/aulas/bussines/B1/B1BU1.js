@@ -88,7 +88,6 @@ const LESSON_SLIDES = [
         "Ouça a palavra isolada e escolha a alternativa correta que você escutou.",
       image: BUB1.A1S5,
       audioSource: require("../../../../../mp3/BU/B1/A1S5.mp3"),
-      audioText: "Hard.",
       audioDurationMs: 900,
       answerOptions: ["Hard", "Heart"],
       correctOption: "Hard",
@@ -167,8 +166,6 @@ const LESSON_SLIDES = [
         "Escute o áudio do Chair da reunião. A afirmação escrita é verdadeira ou falsa?",
       image: BUB1.A1S10,
       audioSource: require("../../../../../mp3/BU/B1/A1S10.mp3"),
-      audioText:
-        "Alright, let's kick things off. First on the docket is the Q3 budget. And just a reminder, I have a hard stop at noon.",
       audioDurationMs: 6500,
       statement: "O líder da reunião pode ficar na sala até as 13:00h (1 PM).",
       options: ["true", "false"],

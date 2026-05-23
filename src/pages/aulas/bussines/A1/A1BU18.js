@@ -32,7 +32,6 @@ Nunca diga apenas "No" em negócios. Use sempre uma estrutura mais educada como:
       prompt: "Escute e escolha a alternativa correta.",
       image: BUA1.A18S2,
       audioSource: require("../../../../../mp3/BU/A1/A18S2.mp3"),
-      audioText: "Cannot",
       audioDurationMs: 900,
       answerOptions: ["Cannot", "Can"],
       correctOption: "Cannot",
@@ -87,7 +86,9 @@ Nunca diga apenas "No" em negócios. Use sempre uma estrutura mais educada como:
     component: Exercise17,
     activity: {
       label: "I am sorry, but...",
-      content: ['Essa é a estrutura mais importante para recusar com educação:\n\n"I am sorry, but..."\n\nExemplo: "I am sorry, but we cannot accept the offer."'],
+      content: [
+        'Essa é a estrutura mais importante para recusar com educação:\n\n"I am sorry, but..."\n\nExemplo: "I am sorry, but we cannot accept the offer."',
+      ],
       continueLabel: "Continuar",
     },
   },
@@ -99,7 +100,6 @@ Nunca diga apenas "No" em negócios. Use sempre uma estrutura mais educada como:
       prompt: "Verdadeiro ou falso?",
       image: BUA1.A18S7,
       audioSource: require("../../../../../mp3/BU/A1/A18S7.mp3"),
-      audioText: "I am sorry, but we cannot accept the offer.",
       audioDurationMs: 3300,
       statement: "The person accepts the offer.",
       options: ["true", "false"],
@@ -137,7 +137,9 @@ Nunca diga apenas "No" em negócios. Use sempre uma estrutura mais educada como:
     component: Exercise17,
     activity: {
       label: "Professional No!",
-      content: ["Muito bem! Você já sabe dizer “não” de forma profissional e manter o relacionamento."],
+      content: [
+        "Muito bem! Você já sabe dizer “não” de forma profissional e manter o relacionamento.",
+      ],
       continueLabel: "Finalizar",
     },
   },

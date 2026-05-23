@@ -52,7 +52,6 @@ Em inglês, usamos muito a palavra "deal" no dia a dia corporativo. Em vez de "a
     activity: {
       prompt: "Digite exatamente o que você ouviu.",
       audioSource: require("../../../../../mp3/BU/A1/A17S3.mp3"),
-      audioText: "We have a deal.",
       audioDurationMs: 1700,
       correctAnswer: "We have a deal.",
       placeholder: "Digite a frase",
@@ -95,7 +94,9 @@ Em inglês, usamos muito a palavra "deal" no dia a dia corporativo. Em vez de "a
     component: Exercise17,
     activity: {
       label: "Deal!",
-      content: ['Para dizer "Fechado!", use apenas:\n\n"Deal!"\n\nExemplo:\nPessoa A: How about 80?\nPessoa B: Deal!'],
+      content: [
+        'Para dizer "Fechado!", use apenas:\n\n"Deal!"\n\nExemplo:\nPessoa A: How about 80?\nPessoa B: Deal!',
+      ],
       continueLabel: "Continuar",
     },
   },
@@ -153,7 +154,9 @@ Em inglês, usamos muito a palavra "deal" no dia a dia corporativo. Em vez de "a
     component: Exercise17,
     activity: {
       label: "Deal closed!",
-      content: ["Excelente! Você já consegue fechar negociações com confiança."],
+      content: [
+        "Excelente! Você já consegue fechar negociações com confiança.",
+      ],
       continueLabel: "Finalizar",
     },
   },

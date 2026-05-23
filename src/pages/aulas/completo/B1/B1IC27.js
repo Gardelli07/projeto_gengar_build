@@ -93,8 +93,6 @@ Together: "It was raining when she walked in. She had forgotten her umbrella."`,
       prompt: "Listen and decide: true or false?",
       image: ICB1.A27S2,
       audioSource: require("../../../../../mp3/IC/B1/A27S2.mp3"),
-      audioText:
-        "It was a dark evening. Mark was walking home when he suddenly heard a noise. Someone had broken the window of the shop on the corner.",
       audioLanguage: "en-US",
       audioDurationMs: 8500,
       dialogue:
@@ -117,25 +115,45 @@ Together: "It was raining when she walked in. She had forgotten her umbrella."`,
           {
             id: "b1",
             answer: "was sitting",
-            options: ["was sitting", "had forgotten", "started", "were talking"],
+            options: [
+              "was sitting",
+              "had forgotten",
+              "started",
+              "were talking",
+            ],
           },
           "in the cafe when it",
           {
             id: "b2",
             answer: "started",
-            options: ["was sitting", "had forgotten", "started", "were talking"],
+            options: [
+              "was sitting",
+              "had forgotten",
+              "started",
+              "were talking",
+            ],
           },
           "to rain. She and her friend",
           {
             id: "b3",
             answer: "were talking",
-            options: ["was sitting", "had forgotten", "started", "were talking"],
+            options: [
+              "was sitting",
+              "had forgotten",
+              "started",
+              "were talking",
+            ],
           },
           "about their holiday plans. Anna suddenly remembered she",
           {
             id: "b4",
             answer: "had forgotten",
-            options: ["was sitting", "had forgotten", "started", "were talking"],
+            options: [
+              "was sitting",
+              "had forgotten",
+              "started",
+              "were talking",
+            ],
           },
           "her keys at home.",
         ],
@@ -176,8 +194,7 @@ Together: "It was raining when she walked in. She had forgotten her umbrella."`,
       helperText:
         'Example: "I was walking to school when I realised I had left my bag at home."',
       image: ICB1.A27S5,
-      placeholder:
-        "I was...\nThen...\nI realised I had...",
+      placeholder: "I was...\nThen...\nI realised I had...",
       tipText:
         "Use Past Continuous for the background, Simple Past for the main event, and Past Perfect for an earlier action.",
       minLength: 55,

@@ -66,7 +66,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça a palavra isolada e escolha a alternativa correta.",
       image: BUB1.A18S5,
       audioSource: require("../../../../../mp3/BU/B1/A18S5.mp3"),
-      audioText: "Pending.",
       audioDurationMs: 1000,
       answerOptions: ["Pending", "Ending"],
       correctOption: "Pending",
@@ -145,8 +144,6 @@ const LESSON_SLIDES = [
         "Escute o gerente ditando um e-mail. A afirmação é verdadeira ou falsa?",
       image: BUB1.A18S10,
       audioSource: require("../../../../../mp3/BU/B1/A18S10.mp3"),
-      audioText:
-        "Write this down: As discussed, we are launching the Lingueto app in Brazil. Please find outlined below the action items. Moving forward, the marketing team will focus on social media, pending the client's approval.",
       audioDurationMs: 9000,
       statement:
         "O e-mail diz que a equipe de marketing vai focar nas redes sociais daqui para frente.",

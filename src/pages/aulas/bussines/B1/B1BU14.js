@@ -67,7 +67,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça a palavra isolada e escolha a alternativa correta.",
       image: BUB1.A14S5,
       audioSource: require("../../../../../mp3/BU/B1/A14S5.mp3"),
-      audioText: "Align.",
       audioDurationMs: 900,
       answerOptions: ["Align", "Alive"],
       correctOption: "Align",
@@ -147,8 +146,6 @@ const LESSON_SLIDES = [
         "Escute o cliente americano formalizando a compra. A afirmação escrita é verdadeira ou falsa?",
       image: BUB1.A14S10,
       audioSource: require("../../../../../mp3/BU/B1/A14S10.mp3"),
-      audioText:
-        "We reviewed the specs for the plant liners and they completely meet our requirements. We are aligned on the delivery schedule. We will draft the contract tomorrow morning.",
       audioDurationMs: 7600,
       statement:
         "O cliente disse que as especificações não atendem aos requisitos, por isso eles não vão redigir o contrato.",

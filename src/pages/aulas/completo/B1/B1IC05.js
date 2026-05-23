@@ -95,21 +95,30 @@ Ex: I've been building the login screen. (Ainda estou nela, que trabalho!)`,
     activity: {
       prompt: "Escolha a intenção correta do falante",
       paragraphs: [
-        ['"I\'ve been playing the guitar all day." -', {
-          id: "blank-1",
-          answer: "tempo gasto",
-          options: ["tempo gasto", "quantidade", "resultado"],
-        }],
-        ['"I\'ve played the guitar twice today." -', {
-          id: "blank-2",
-          answer: "quantidade",
-          options: ["resultado", "tempo gasto", "quantidade"],
-        }],
-        ['"I\'ve finished the song." -', {
-          id: "blank-3",
-          answer: "resultado",
-          options: ["quantidade", "resultado", "tempo gasto"],
-        }],
+        [
+          '"I\'ve been playing the guitar all day." -',
+          {
+            id: "blank-1",
+            answer: "tempo gasto",
+            options: ["tempo gasto", "quantidade", "resultado"],
+          },
+        ],
+        [
+          '"I\'ve played the guitar twice today." -',
+          {
+            id: "blank-2",
+            answer: "quantidade",
+            options: ["resultado", "tempo gasto", "quantidade"],
+          },
+        ],
+        [
+          '"I\'ve finished the song." -',
+          {
+            id: "blank-3",
+            answer: "resultado",
+            options: ["quantidade", "resultado", "tempo gasto"],
+          },
+        ],
       ],
       successTitle: "Correto",
       successMessage:
@@ -142,16 +151,24 @@ Ex: I've been building the login screen. (Ainda estou nela, que trabalho!)`,
     activity: {
       prompt: "Analise o contexto e preencha com a forma correta de LEARN",
       paragraphs: [
-        ["David is a fast learner. Today, he", {
-          id: "blank-1",
-          answer: "has learned",
-          options: ["has learned", "has been learning", "learned"],
-        }, "three new React Native tricks."],
-        ["He is exhausted because he", {
-          id: "blank-2",
-          answer: "has been learning",
-          options: ["has learned", "has been learning", "learns"],
-        }, "new features all afternoon."],
+        [
+          "David is a fast learner. Today, he",
+          {
+            id: "blank-1",
+            answer: "has learned",
+            options: ["has learned", "has been learning", "learned"],
+          },
+          "three new React Native tricks.",
+        ],
+        [
+          "He is exhausted because he",
+          {
+            id: "blank-2",
+            answer: "has been learning",
+            options: ["has learned", "has been learning", "learns"],
+          },
+          "new features all afternoon.",
+        ],
       ],
       successTitle: "Correto",
       successMessage:
@@ -202,8 +219,7 @@ Ex: I've been building the login screen. (Ainda estou nela, que trabalho!)`,
     component: Exercise12,
     activity: {
       prompt: "Processo e resultado",
-      instruction:
-        "O Camaleão quer ver se você entendeu a diferença.",
+      instruction: "O Camaleão quer ver se você entendeu a diferença.",
       helperText:
         "Escreva 2 frases sobre o seu projeto atual: uma com Continuous para dizer há quanto tempo você está nele e outra com Simple para dizer algo específico que já terminou.",
       image: ICB1.A8S2,
@@ -213,8 +229,7 @@ Ex: I've been building the login screen. (Ainda estou nela, que trabalho!)`,
         "Se tem número ou quantidade, vá de Simple. Se tem all day, for ou since destacando esforço, considere o Continuous.",
       minLength: 20,
       successTitle: "Correto",
-      successMessage:
-        "Ótimo! Você alternou entre processo e resultado.",
+      successMessage: "Ótimo! Você alternou entre processo e resultado.",
     },
   },
   {

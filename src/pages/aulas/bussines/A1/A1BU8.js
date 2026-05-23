@@ -50,9 +50,9 @@ Nativos evitam soar desesperados. Quando algo dá errado, eles dizem calmamente 
     component: Exercise19,
     needsSpeech: true,
     activity: {
-      prompt: "Escute o áudio com atenção e digite exatamente o que você ouviu.",
+      prompt:
+        "Escute o áudio com atenção e digite exatamente o que você ouviu.",
       audioSource: require("../../../../../mp3/BU/A1/A8S3.mp3"),
-      audioText: "We have a problem.",
       audioDurationMs: 1800,
       correctAnswer: "We have a problem.",
       placeholder: "Digite a frase",
@@ -131,7 +131,8 @@ No ambiente de trabalho do dia a dia, "fix" é o mais usado para situações rá
     key: "problem-image-choice",
     component: Exercise8,
     activity: {
-      prompt: "Olhe para a imagem. O que nós temos aqui no contexto de negócios?",
+      prompt:
+        "Olhe para a imagem. O que nós temos aqui no contexto de negócios?",
       image: BUA1.A8S2p1,
       options: ["Problem", "Meeting"],
       correctAnswer: "Problem",
@@ -144,7 +145,8 @@ No ambiente de trabalho do dia a dia, "fix" é o mais usado para situações rá
     component: Exercise16,
     activity: {
       prompt: "Speaking",
-      instruction: "Hora da prática! Mande um áudio comunicando um problema para a sua equipe.",
+      instruction:
+        "Hora da prática! Mande um áudio comunicando um problema para a sua equipe.",
       helperText: "We have a problem.",
       image: Images.ex16,
       tipButtonLabel: "Tip",

@@ -118,8 +118,6 @@ Key words: already, just, never, before, after, by the time.`,
       prompt: "Listen and decide: true or false?",
       image: ICB1.A25S3,
       audioSource: require("../../../../../mp3/IC/B1/A25S3.mp3"),
-      audioText:
-        "When Tom arrived at the party, everyone had already left. He felt disappointed because he had forgotten about the time difference.",
       audioLanguage: "en-US",
       audioDurationMs: 7600,
       dialogue:
@@ -208,7 +206,6 @@ Key words: already, just, never, before, after, by the time.`,
     activity: {
       prompt: "Listen and write what you hear",
       audioSource: require("../../../../../mp3/IC/B1/A25S9.mp3"),
-      audioText: "They had already eaten when the food arrived.",
       audioLanguage: "en-GB",
       audioDurationMs: 3600,
       correctAnswer: "They had already eaten when the food arrived.",

@@ -27,20 +27,23 @@ const LESSON_SLIDES = [
     key: "concessions-match",
     component: Exercise1,
     activity: {
-      prompt: "Conecte as expressões de troca (trade-offs) com os seus significados em português corporativo.",
+      prompt:
+        "Conecte as expressões de troca (trade-offs) com os seus significados em português corporativo.",
       pairs: [
         { en: "Commit to", pt: "Comprometer-se com (garantir algo)" },
         { en: "Concede on", pt: "Ceder em (abrir mão de algo)" },
       ],
       successTitle: "Correto",
-      successMessage: "Negociadores fortes cedem apenas quando recebem algo em troca.",
+      successMessage:
+        "Negociadores fortes cedem apenas quando recebem algo em troca.",
     },
   },
   {
     key: "commit-concede-correct",
     component: Exercise4,
     activity: {
-      prompt: "O cliente pediu frete grátis. Você só vai dar o frete se ele comprar 500 unidades. Qual estrutura está correta?",
+      prompt:
+        "O cliente pediu frete grátis. Você só vai dar o frete se ele comprar 500 unidades. Qual estrutura está correta?",
       image: BUB1.A12S10,
       wrongSentence: "Trade-off",
       options: [
@@ -48,7 +51,8 @@ const LESSON_SLIDES = [
         "If you can commit on 500 units, we can concede to the shipping.",
         "If you can commit at 500 units, we can concede at the shipping.",
       ],
-      correctAnswer: "If you can commit to 500 units, we can concede on the shipping.",
+      correctAnswer:
+        "If you can commit to 500 units, we can concede on the shipping.",
       successTitle: "Correto",
       successMessage: 'Use "commit to" e "concede on".',
     },
@@ -61,7 +65,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça a palavra isolada e escolha a alternativa correta.",
       image: BUB1.A12S5,
       audioSource: require("../../../../../mp3/BU/B1/A12S5.mp3"),
-      audioText: "Dealbreaker.",
       audioDurationMs: 1100,
       answerOptions: ["Dealmaker", "Dealbreaker"],
       correctOption: "Dealbreaker",
@@ -84,7 +87,8 @@ const LESSON_SLIDES = [
     key: "dealbreaker-complete",
     component: Exercise5,
     activity: {
-      prompt: "O fornecedor quer aumentar o preço em 40%. Complete a frase para impor seu limite final.",
+      prompt:
+        "O fornecedor quer aumentar o preço em 40%. Complete a frase para impor seu limite final.",
       image: BUB1.A12S5,
       sentenceStart: "I'm sorry, but a 40% price increase is a",
       sentenceEnd: "for us. We cannot accept that.",
@@ -99,7 +103,8 @@ const LESSON_SLIDES = [
     component: Exercise13,
     needsSpeech: true,
     activity: {
-      prompt: 'Organize as letras para formar a palavra em "Is there any ________ on the deadline?".',
+      prompt:
+        'Organize as letras para formar a palavra em "Is there any ________ on the deadline?".',
       audioText: "Flexibility",
       audioDurationMs: 1400,
       letters: ["X", "E", "L", "F", "I", "B", "I", "I", "L", "Y", "T"],
@@ -112,17 +117,25 @@ const LESSON_SLIDES = [
     key: "tradeoff-complete",
     component: Exercise2,
     activity: {
-      prompt: 'Leia a negociação completa e preencha as lacunas.',
+      prompt: "Leia a negociação completa e preencha as lacunas.",
       paragraphs: [
         [
           'Buyer: "Is there any ',
-          { id: "blank-1", options: ["flexibility", "possibility"], answer: "flexibility" },
+          {
+            id: "blank-1",
+            options: ["flexibility", "possibility"],
+            answer: "flexibility",
+          },
           ' on the price?"\nSeller: "If you can ',
           { id: "blank-2", options: ["connect", "commit"], answer: "commit" },
           " to a larger volume, we can ",
           { id: "blank-3", options: ["concede", "cancel"], answer: "concede" },
           " on the price. However, changing the delivery schedule is a ",
-          { id: "blank-4", options: ["dealmaker", "dealbreaker"], answer: "dealbreaker" },
+          {
+            id: "blank-4",
+            options: ["dealmaker", "dealbreaker"],
+            answer: "dealbreaker",
+          },
           '."',
         ],
       ],
@@ -135,12 +148,13 @@ const LESSON_SLIDES = [
     component: Exercise3,
     needsSpeech: true,
     activity: {
-      prompt: "Escute o vendedor respondendo à contraproposta. A afirmação escrita é verdadeira ou falsa?",
+      prompt:
+        "Escute o vendedor respondendo à contraproposta. A afirmação escrita é verdadeira ou falsa?",
       image: BUB1.A12S10,
       audioSource: require("../../../../../mp3/BU/B1/A12S10.mp3"),
-      audioText: "We can concede on the payment terms if you commit to five years. But removing the support team is a dealbreaker for us.",
       audioDurationMs: 6700,
-      statement: "O vendedor disse que tirar a equipe de suporte é algo aceitável e negociável para eles.",
+      statement:
+        "O vendedor disse que tirar a equipe de suporte é algo aceitável e negociável para eles.",
       options: ["true", "false"],
       correctAnswer: "false",
       successTitle: "Correto",
@@ -151,9 +165,28 @@ const LESSON_SLIDES = [
     key: "flexibility-order",
     component: Exercise6,
     activity: {
-      prompt: "Clique nas palavras na ordem correta para testar se há margem no prazo.",
-      words: ["flexibility", "any", "there", "the", "is", "deadline", "on", "?"],
-      correctOrder: ["is", "there", "any", "flexibility", "on", "the", "deadline", "?"],
+      prompt:
+        "Clique nas palavras na ordem correta para testar se há margem no prazo.",
+      words: [
+        "flexibility",
+        "any",
+        "there",
+        "the",
+        "is",
+        "deadline",
+        "on",
+        "?",
+      ],
+      correctOrder: [
+        "is",
+        "there",
+        "any",
+        "flexibility",
+        "on",
+        "the",
+        "deadline",
+        "?",
+      ],
       successTitle: "Correto",
       successMessage: "Is there any flexibility on the deadline?",
     },
@@ -165,10 +198,12 @@ const LESSON_SLIDES = [
       prompt: "Speaking",
       instruction:
         'O cliente quer 20% de desconto. Pergunte sobre flexibilidade na quantidade, proponha "If you commit to 1000 units..." e finalize dizendo que desconto de graça é dealbreaker.',
-      helperText: "Is there any flexibility on the quantity? If you commit to 1000 units, we can concede on the price. A free discount is a dealbreaker for us.",
+      helperText:
+        "Is there any flexibility on the quantity? If you commit to 1000 units, we can concede on the price. A free discount is a dealbreaker for us.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
-      tipText: "Is there any flexibility on the quantity? If you commit to 1000 units, we can concede on the price. A free discount is a dealbreaker for us.",
+      tipText:
+        "Is there any flexibility on the quantity? If you commit to 1000 units, we can concede on the price. A free discount is a dealbreaker for us.",
       recordLabel: "Gravar Áudio",
       stopLabel: "Parar",
       successTitle: "Correto",

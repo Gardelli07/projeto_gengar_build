@@ -35,7 +35,8 @@ const LESSON_SLIDES = [
       prompt: "Leia e responda: verdadeiro ou falso?",
       image: ICA2.A7S2,
       audioText: "Are you working today?",
-      statement: 'Na pergunta "Are you work today?", a estrutura está correta para o Present Continuous.',
+      statement:
+        'Na pergunta "Are you work today?", a estrutura está correta para o Present Continuous.',
       textOnScreen: '"Are you work today?" está correta no Present Continuous.',
       options: ["true", "false"],
       correctAnswer: "false",
@@ -82,7 +83,8 @@ const LESSON_SLIDES = [
       prompt: "Leia e responda: verdadeiro ou falso?",
       image: ICA2.A7S5,
       audioText: "Why are you laughing?",
-      statement: 'Em perguntas como "Why are you laughing?", o "are" deve vir antes do sujeito "you".',
+      statement:
+        'Em perguntas como "Why are you laughing?", o "are" deve vir antes do sujeito "you".',
       textOnScreen: 'Em "Why are you laughing?", o "are" vem antes de "you".',
       options: ["true", "false"],
       correctAnswer: "true",
@@ -123,7 +125,8 @@ const LESSON_SLIDES = [
       prompt: "Leia e responda: verdadeiro ou falso?",
       image: ICA2.A7S8,
       audioText: "Is Leo making a cake?",
-      statement: 'A pergunta "Is Leo makeing a cake?" está escrita corretamente.',
+      statement:
+        'A pergunta "Is Leo makeing a cake?" está escrita corretamente.',
       textOnScreen: '"Is Leo makeing a cake?" está escrita corretamente.',
       options: ["true", "false"],
       correctAnswer: "false",

@@ -181,12 +181,14 @@ const LESSON_SLIDES = [
       prompt: "Segundo o texto, verdadeiro ou falso?",
       image: ICA2.A4S13,
       audioText: "Sabrina is working in her home office.",
-      statement: "Segundo o texto, a Sabrina está de férias na praia com os pais dela.",
+      statement:
+        "Segundo o texto, a Sabrina está de férias na praia com os pais dela.",
       textOnScreen: "A Sabrina está de férias na praia com os pais dela.",
       options: ["true", "false"],
       correctAnswer: "false",
       successTitle: "Correto",
-      successMessage: "False. Ela está trabalhando no escritório; os pais estão na praia.",
+      successMessage:
+        "False. Ela está trabalhando no escritório; os pais estão na praia.",
       feedbackMessage: "No texto, Sabrina está no home office.",
     },
   },

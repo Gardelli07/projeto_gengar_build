@@ -23,7 +23,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A32S2,
       audioSource: require("../../../../../mp3/IC/A2/A32S2.mp3"),
-      audioText: "Air conditioning",
       options: ["Air conditioning", "Hair conditioning"],
       correctAnswer: "Air conditioning",
       correctOption: "Air conditioning",
@@ -39,7 +38,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A32S3,
       audioSource: require("../../../../../mp3/IC/A2/A32S3.mp3"),
-      audioText: "Extra bed",
       options: ["Exit bed", "Extra bed"],
       correctAnswer: "Extra bed",
       correctOption: "Extra bed",
@@ -55,7 +53,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A32S4,
       audioSource: require("../../../../../mp3/IC/A2/A32S4.mp3"),
-      audioText: "Towels",
       options: ["Towels", "Towers"],
       correctAnswer: "Towels",
       correctOption: "Towels",
@@ -71,7 +68,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A32S5,
       audioSource: require("../../../../../mp3/IC/A2/A32S5.mp3"),
-      audioText: "Hairdryer",
       options: ["Hairbrush", "Hairdryer"],
       correctAnswer: "Hairdryer",
       correctOption: "Hairdryer",
@@ -125,7 +121,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute o pedido e digite exatamente o que ouviu.",
       audioSource: require("../../../../../mp3/IC/A2/A32S9.mp3"),
-      audioText: "Could I have some fresh towels?",
       correctAnswer: "Could I have some fresh towels?",
       successTitle: "Correto",
       successMessage: "Could I have some fresh towels?",
@@ -137,7 +132,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute o problema e digite.",
       audioSource: require("../../../../../mp3/IC/A2/A32S10.mp3"),
-      audioText: "The remote control is broken.",
       correctAnswer: "The remote control is broken.",
       successTitle: "Correto",
       successMessage: "The remote control is broken.",
@@ -181,7 +175,8 @@ const LESSON_SLIDES = [
     component: "Exercise12",
     activity: {
       prompt: "Escreva uma mensagem curta para o WhatsApp do hotel.",
-      instruction: 'Peça um secador de cabelo e toalhas novas. Use "I need..." ou "Could I have...?"',
+      instruction:
+        'Peça um secador de cabelo e toalhas novas. Use "I need..." ou "Could I have...?"',
       correctAnswer: "Could I have a hairdryer and some fresh towels?",
       successTitle: "Muito bem!",
       successMessage: "Mensagem registrada.",
@@ -192,7 +187,8 @@ const LESSON_SLIDES = [
     component: "Exercise16",
     activity: {
       prompt: "Gravação de áudio",
-      instruction: 'Grave: "Hello, the AC in my room isn\'t working. Can you help me?"',
+      instruction:
+        'Grave: "Hello, the AC in my room isn\'t working. Can you help me?"',
       helperText: "Hello, the AC in my room isn't working. Can you help me?",
       successTitle: "Muito bem!",
       successMessage: "Seu áudio foi gravado.",

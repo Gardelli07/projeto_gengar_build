@@ -9,7 +9,11 @@ const LESSON_SLIDES = [
       prompt: 'Como escrevemos o passado de "STOP"?',
       image: ICA2.A12S1,
       wrongSentence: "The bus stoped here.",
-      options: ["The bus stopped here.", "The bus stoped here.", "The bus stoping here."],
+      options: [
+        "The bus stopped here.",
+        "The bus stoped here.",
+        "The bus stoping here.",
+      ],
       correctAnswer: "The bus stopped here.",
       successTitle: "Correto",
       successMessage: "Stop é CVC, então dobra o P: stopped.",
@@ -23,7 +27,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça o som final e escolha a palavra que você ouviu.",
       image: ICA2.A12S2,
       audioSource: require("../../../../../mp3/IC/A2/A12S2.mp3"),
-      audioText: "Wanted",
       options: ["Want", "Wanted"],
       correctAnswer: "Wanted",
       correctOption: "Wanted",
@@ -84,7 +87,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: 'Ordene as letras para formar o passado de "PLAN".',
       audioSource: require("../../../../../mp3/IC/A2/A12S6.mp3"),
-      audioText: "Planned",
       letters: ["P", "L", "A", "N", "N", "E", "D"],
       correctWord: "PLANNED",
       successTitle: "Correto",
@@ -127,7 +129,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça e responda: verdadeiro ou falso?",
       image: ICA2.A12S9,
       audioSource: require("../../../../../mp3/IC/A2/A12S9.mp3"),
-      audioText: "I planned a surprise party for my friend, but she decided to stay home.",
       statement: "The person planned a party.",
       textOnScreen: "The person planned a party.",
       options: ["true", "false"],
@@ -166,7 +167,8 @@ const LESSON_SLIDES = [
     component: "Exercise12",
     activity: {
       prompt: "Freer Practice",
-      instruction: "Pense em algo que você precisou ou planejou fazer semana passada.",
+      instruction:
+        "Pense em algo que você precisou ou planejou fazer semana passada.",
       helperText: "Exemplo: I needed to buy bread.",
       placeholder: "Digite sua frase aqui",
       tipText: "Use needed ou planned.",

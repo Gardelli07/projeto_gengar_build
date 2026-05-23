@@ -597,6 +597,7 @@ export default function createA2LessonScreen(slides) {
             keyboardShouldPersistTaps="handled"
           >
             <LessonSlideRenderer
+              key={currentSlide.key || currentSlideIndex}
               slide={currentSlide}
               next={slideNav.next}
               speak={speak}

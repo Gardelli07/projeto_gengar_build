@@ -24,7 +24,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A31S2,
       audioSource: require("../../../../../mp3/IC/A2/A31S2.mp3"),
-      audioText: "One-way ticket",
       options: ["One-way ticket", "On-way ticket"],
       correctAnswer: "One-way ticket",
       correctOption: "One-way ticket",
@@ -40,7 +39,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A31S3,
       audioSource: require("../../../../../mp3/IC/A2/A31S3.mp3"),
-      audioText: "Round-trip",
       options: ["Road-trip", "Round-trip"],
       correctAnswer: "Round-trip",
       correctOption: "Round-trip",
@@ -56,7 +54,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A31S4,
       audioSource: require("../../../../../mp3/IC/A2/A31S4.mp3"),
-      audioText: "Departure",
       options: ["Departure", "Department"],
       correctAnswer: "Departure",
       correctOption: "Departure",
@@ -72,7 +69,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A31S5,
       audioSource: require("../../../../../mp3/IC/A2/A31S5.mp3"),
-      audioText: "Arrival",
       options: ["Rival", "Arrival"],
       correctAnswer: "Arrival",
       correctOption: "Arrival",
@@ -125,7 +121,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute a instrução de embarque e digite.",
       audioSource: require("../../../../../mp3/IC/A2/A31S9.mp3"),
-      audioText: "The flight leaves from gate five.",
       correctAnswer: "The flight leaves from gate five.",
       successTitle: "Correto",
       successMessage: "The flight leaves from gate five.",
@@ -137,7 +132,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute o desejo do passageiro e digite.",
       audioSource: require("../../../../../mp3/IC/A2/A31S10.mp3"),
-      audioText: "I would like to book a train to London.",
       correctAnswer: "I would like to book a train to London.",
       successTitle: "Correto",
       successMessage: "I would like to book a train to London.",
@@ -159,7 +153,8 @@ const LESSON_SLIDES = [
     key: "a2ic31s12",
     component: "Exercise4",
     activity: {
-      prompt: "Você quer viajar, mas não quer voltar. Qual opção você marca no site?",
+      prompt:
+        "Você quer viajar, mas não quer voltar. Qual opção você marca no site?",
       image: ICA2.A31S12,
       wrongSentence: "Choose the correct answer.",
       options: ["Round-trip", "One-way"],
@@ -173,7 +168,8 @@ const LESSON_SLIDES = [
     component: "Exercise16",
     activity: {
       prompt: "Gravação de áudio",
-      instruction: 'Grave: "I\'d like to book a round-trip ticket to New York, please."',
+      instruction:
+        'Grave: "I\'d like to book a round-trip ticket to New York, please."',
       helperText: "I'd like to book a round-trip ticket to New York, please.",
       successTitle: "Muito bem!",
       successMessage: "Seu áudio foi gravado.",

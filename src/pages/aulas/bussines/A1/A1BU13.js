@@ -32,7 +32,6 @@ Use "As you can see..." para conectar o público ao slide sem perder contato vis
       prompt: "Escute e escolha a alternativa correta.",
       image: BUA1.A13S2,
       audioSource: require("../../../../../mp3/BU/A1/A13S2.mp3"),
-      audioText: "Smile",
       audioDurationMs: 900,
       answerOptions: ["Smile", "Small"],
       correctOption: "Smile",
@@ -75,7 +74,6 @@ Use "As you can see..." para conectar o público ao slide sem perder contato vis
     activity: {
       prompt: "Organize a palavra.",
       audioSource: require("../../../../../mp3/BU/A1/A13S2.mp3"),
-      audioText: "Smile",
       audioDurationMs: 900,
       letters: ["M", "I", "S", "E", "L"],
       correctWord: "SMILE",
@@ -88,7 +86,9 @@ Use "As you can see..." para conectar o público ao slide sem perder contato vis
     component: Exercise17,
     activity: {
       label: 'Can sem "to"',
-      content: ['Depois de can, nunca usamos "to".\n\n✔ You can see\n❌ You can to see'],
+      content: [
+        'Depois de can, nunca usamos "to".\n\n✔ You can see\n❌ You can to see',
+      ],
       continueLabel: "Continuar",
     },
   },
@@ -127,7 +127,8 @@ Use "As you can see..." para conectar o público ao slide sem perder contato vis
     component: Exercise12,
     activity: {
       prompt: "Writing",
-      instruction: "Escreva uma frase dizendo: As you can see, we have a problem.",
+      instruction:
+        "Escreva uma frase dizendo: As you can see, we have a problem.",
       placeholder: "As you can see, we have a problem.",
       helperText: 'Use "As you can see..."',
       submitLabel: "Enviar",
@@ -140,7 +141,9 @@ Use "As you can see..." para conectar o público ao slide sem perder contato vis
     component: Exercise17,
     activity: {
       label: "You have their attention!",
-      content: ["Perfeito! Agora você sabe como engajar o público e transmitir mais confiança."],
+      content: [
+        "Perfeito! Agora você sabe como engajar o público e transmitir mais confiança.",
+      ],
       continueLabel: "Finalizar",
     },
   },

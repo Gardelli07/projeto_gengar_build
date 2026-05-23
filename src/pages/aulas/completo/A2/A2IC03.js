@@ -28,7 +28,8 @@ const LESSON_SLIDES = [
       prompt: "Leia e responda: verdadeiro ou falso?",
       image: ICA2.A3S2,
       audioText: "We are swimming in the pool.",
-      statement: 'Na frase "We are swiming in the pool", o verbo está escrito corretamente.',
+      statement:
+        'Na frase "We are swiming in the pool", o verbo está escrito corretamente.',
       textOnScreen: '"We are swiming in the pool" está escrito corretamente.',
       options: ["true", "false"],
       correctAnswer: "false",
@@ -127,7 +128,7 @@ const LESSON_SLIDES = [
       options: ["is making", "is makeing"],
       correctAnswer: "is making",
       successTitle: "Correto",
-      successMessage: 'Make perde o E: making.',
+      successMessage: "Make perde o E: making.",
     },
   },
   {
@@ -155,7 +156,7 @@ const LESSON_SLIDES = [
       options: ["is running", "is runing"],
       correctAnswer: "is running",
       successTitle: "Correto",
-      successMessage: 'Run vira running com dois Ns.',
+      successMessage: "Run vira running com dois Ns.",
     },
   },
   {
@@ -197,7 +198,7 @@ const LESSON_SLIDES = [
       options: ["is washing", "are washing"],
       correctAnswer: "is washing",
       successTitle: "Correto",
-      successMessage: 'He is washing the car.',
+      successMessage: "He is washing the car.",
     },
   },
   {
@@ -211,7 +212,7 @@ const LESSON_SLIDES = [
       options: ["are learning", "is learning"],
       correctAnswer: "are learning",
       successTitle: "Correto",
-      successMessage: 'We are learning a lot.',
+      successMessage: "We are learning a lot.",
     },
   },
 ];

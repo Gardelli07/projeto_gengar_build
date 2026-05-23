@@ -67,7 +67,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça a palavra isolada e escolha a alternativa correta.",
       image: BUB1.A16S5,
       audioSource: require("../../../../../mp3/BU/B1/A16S5.mp3"),
-      audioText: "Nutshell.",
       audioDurationMs: 1000,
       answerOptions: ["Nutshell", "Nothing"],
       correctOption: "Nutshell",
@@ -149,8 +148,6 @@ const LESSON_SLIDES = [
         "Escute a gerente amarrando as ideias. A afirmação escrita é verdadeira ou falsa?",
       image: BUB1.A16S10,
       audioSource: require("../../../../../mp3/BU/B1/A16S10.mp3"),
-      audioText:
-        "To recap our main takeaways today: we have a new design for the app. In a nutshell, it's more modern and faster. The key consensus is that we launch it next week.",
       audioDurationMs: 7800,
       statement:
         "In a nutshell, a gerente resumiu que o novo design do app é mais moderno e mais rápido.",

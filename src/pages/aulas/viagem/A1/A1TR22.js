@@ -68,7 +68,8 @@ const LESSON_SLIDES = [
     key: "payment-dialogue-order",
     component: Exercise7,
     activity: {
-      prompt: "Você está no caixa para pagar. Organize o diálogo na ordem correta.",
+      prompt:
+        "Você está no caixa para pagar. Organize o diálogo na ordem correta.",
       options: [
         "Hello! How much is this shirt?",
         "It's twenty dollars.",
@@ -105,7 +106,6 @@ const LESSON_SLIDES = [
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
       image: TRA1.A22S7,
       audioSource: require("../../../../../mp3/TR/A1/A22S7.mp3"),
-      audioText: "How much is it?",
       audioDurationMs: 1600,
       statement: "O cliente do áudio está perguntando onde fica o provador.",
       options: ["true", "false"],

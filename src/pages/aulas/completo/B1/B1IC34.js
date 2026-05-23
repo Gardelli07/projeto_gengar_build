@@ -186,7 +186,6 @@ Exemplos: make money, make a decision, make a mistake.`,
     activity: {
       prompt: "Escute o áudio e escreva o que escutou.",
       audioSource: require("../../../../../mp3/IC/B1/A34S8.mp3"),
-      audioText: "Could you do me a favor?",
       audioDurationMs: 2200,
       correctAnswer: "Could you do me a favor?",
       placeholder: "Digite a frase",

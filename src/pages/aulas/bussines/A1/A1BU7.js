@@ -32,7 +32,6 @@ No mundo dos negócios, nativos adoram a palavra "Step". Quando terminam de apre
       prompt: "Escute a palavra e escolha a alternativa correta.",
       image: BUA1.A7S2,
       audioSource: require("../../../../../mp3/BU/A1/A7S2.mp3"),
-      audioText: "News",
       audioDurationMs: 900,
       answerOptions: ["News", "New"],
       correctOption: "News",

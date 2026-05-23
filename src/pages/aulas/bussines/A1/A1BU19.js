@@ -32,7 +32,6 @@ Para soar mais moderno e profissional, use "partnership" ao invés de apenas "co
       prompt: "Escute e escolha a alternativa correta.",
       image: BUA1.A19S2,
       audioSource: require("../../../../../mp3/BU/A1/A19S2.mp3"),
-      audioText: "Contract",
       audioDurationMs: 1000,
       answerOptions: ["Contract", "Contact"],
       correctOption: "Contract",
@@ -85,7 +84,11 @@ Para soar mais moderno e profissional, use "partnership" ao invés de apenas "co
           "Great deal! Please ",
           { id: "blank-1", options: ["sign", "sing"], answer: "sign" },
           " the ",
-          { id: "blank-2", options: ["contract", "contact"], answer: "contract" },
+          {
+            id: "blank-2",
+            options: ["contract", "contact"],
+            answer: "contract",
+          },
           ".",
         ],
       ],
@@ -98,7 +101,9 @@ Para soar mais moderno e profissional, use "partnership" ao invés de apenas "co
     component: Exercise17,
     activity: {
       label: "Sign vs. Signature",
-      content: ['Sign = verbo (assinar)\nSignature = substantivo (assinatura)\n\nExemplo: "Please sign the document."'],
+      content: [
+        'Sign = verbo (assinar)\nSignature = substantivo (assinatura)\n\nExemplo: "Please sign the document."',
+      ],
       continueLabel: "Continuar",
     },
   },

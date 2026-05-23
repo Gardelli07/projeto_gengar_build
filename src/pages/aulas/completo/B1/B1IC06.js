@@ -143,13 +143,36 @@ Nunca diga que não tem fraquezas. Isso soa arrogante ou mentiroso. Escolha algo
     activity: {
       prompt: "Preencha com a estratégia de melhoria contínua:",
       paragraphs: [
-        ["I sometimes", { id: "b1", answer: "struggle", options: ["been", "struggle", "working"] }, "with public speaking."],
-        ["However, I have", { id: "b2", answer: "been", options: ["working", "struggle", "been"] }, "taking a course to improve my communication."],
-        ["I've been", { id: "b3", answer: "working", options: ["been", "working", "struggle"] }, "on my presentation skills lately."],
+        [
+          "I sometimes",
+          {
+            id: "b1",
+            answer: "struggle",
+            options: ["been", "struggle", "working"],
+          },
+          "with public speaking.",
+        ],
+        [
+          "However, I have",
+          {
+            id: "b2",
+            answer: "been",
+            options: ["working", "struggle", "been"],
+          },
+          "taking a course to improve my communication.",
+        ],
+        [
+          "I've been",
+          {
+            id: "b3",
+            answer: "working",
+            options: ["been", "working", "struggle"],
+          },
+          "on my presentation skills lately.",
+        ],
       ],
       successTitle: "Correto",
-      successMessage:
-        "A sequência correta é: struggle / been / working.",
+      successMessage: "A sequência correta é: struggle / been / working.",
     },
   },
   {
@@ -160,7 +183,22 @@ Nunca diga que não tem fraquezas. Isso soa arrogante ou mentiroso. Escolha algo
       prompt: "Desembaralhe a força que todo desenvolvedor de app precisa ter:",
       audioText: "Problem solver",
       audioDurationMs: 1200,
-      letters: ["S", "O", "L", "V", "E", "R", "-", "P", "R", "O", "B", "L", "E", "M"],
+      letters: [
+        "S",
+        "O",
+        "L",
+        "V",
+        "E",
+        "R",
+        "-",
+        "P",
+        "R",
+        "O",
+        "B",
+        "L",
+        "E",
+        "M",
+      ],
       correctWord: "PROBLEM-SOLVER",
       successTitle: "Correto",
       successMessage: 'A força é "PROBLEM-SOLVER".',
@@ -189,13 +227,24 @@ Nunca diga que não tem fraquezas. Isso soa arrogante ou mentiroso. Escolha algo
     activity: {
       prompt: "Complete a entrevista",
       paragraphs: [
-        ['David: "I tend to take on too many tasks. But lately, I\'ve', { id: "b1", answer: "been", options: ["been", "has", "yet"] }, 'learning how to delegate more effectively."'],
-        ['Interviewer: "And how has that', { id: "b2", answer: "been", options: ["has", "been", "working"] }, 'going?"'],
-        ['David: "It\'s been great. My team', { id: "b3", answer: "has", options: ["been", "has", "have"] }, 'been more productive since then."'],
+        [
+          "David: \"I tend to take on too many tasks. But lately, I've",
+          { id: "b1", answer: "been", options: ["been", "has", "yet"] },
+          'learning how to delegate more effectively."',
+        ],
+        [
+          'Interviewer: "And how has that',
+          { id: "b2", answer: "been", options: ["has", "been", "working"] },
+          'going?"',
+        ],
+        [
+          "David: \"It's been great. My team",
+          { id: "b3", answer: "has", options: ["been", "has", "have"] },
+          'been more productive since then."',
+        ],
       ],
       successTitle: "Correto",
-      successMessage:
-        "A sequência correta é: been / been / has.",
+      successMessage: "A sequência correta é: been / been / has.",
     },
   },
   {

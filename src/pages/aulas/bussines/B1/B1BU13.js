@@ -67,7 +67,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça a palavra isolada e escolha a alternativa correta.",
       image: BUB1.A13S5,
       audioSource: require("../../../../../mp3/BU/B1/A13S5.mp3"),
-      audioText: "Compliance.",
       audioDurationMs: 1100,
       answerOptions: ["Compliance", "Complain"],
       correctOption: "Compliance",
@@ -153,8 +152,6 @@ const LESSON_SLIDES = [
         "Escute o fornecedor brasileiro respondendo às exigências. A afirmação escrita é verdadeira ou falsa?",
       image: BUB1.A13S10,
       audioSource: require("../../../../../mp3/BU/B1/A13S10.mp3"),
-      audioText:
-        "To maintain strict vendor compliance with your standards, we guarantee that we do NOT use latex in our coir plant liners. They are 100% natural. And our lead time is 45 days.",
       audioDurationMs: 9000,
       statement:
         "O fornecedor afirma que eles não usam látex nas mantas para as plantas, mantendo o produto natural.",

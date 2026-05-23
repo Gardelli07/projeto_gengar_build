@@ -18,13 +18,18 @@ const LESSON_SLIDES = [
     key: "a2ic09s1",
     component: "Exercise4",
     activity: {
-      prompt: 'Qual é a maneira correta para dizer "I go to the dentist tomorrow"?',
+      prompt:
+        'Qual é a maneira correta para dizer "I go to the dentist tomorrow"?',
       image: ICA2.A9S1,
       wrongSentence: "I go to the dentist tomorrow.",
-      options: ["I am going to the dentist tomorrow.", "I am go to the dentist tomorrow."],
+      options: [
+        "I am going to the dentist tomorrow.",
+        "I am go to the dentist tomorrow.",
+      ],
       correctAnswer: "I am going to the dentist tomorrow.",
       successTitle: "Correto",
-      successMessage: "Com plano confirmado no futuro, podemos usar Present Continuous.",
+      successMessage:
+        "Com plano confirmado no futuro, podemos usar Present Continuous.",
     },
   },
   {
@@ -35,7 +40,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha",
       image: ICA2.A9S2,
       audioSource: require("../../../../../mp3/IC/A2/A9S2.mp3"),
-      audioText: "I'm traveling to London next week.",
       options: ["I'm traveling next week.", "I'm traveling right now."],
       correctAnswer: "I'm traveling next week.",
       correctOption: "I'm traveling next week.",
@@ -106,7 +110,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Coloque as letras na ordem para formar a palavra:",
       audioSource: require("../../../../../mp3/IC/A2/A9S7.mp3"),
-      audioText: "Tomorrow",
       letters: ["T", "O", "M", "O", "R", "R", "O", "W"],
       correctWord: "TOMORROW",
       successTitle: "Correto",
@@ -132,7 +135,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e responda: verdadeiro ou falso?",
       image: ICA2.A9S9,
       audioSource: require("../../../../../mp3/IC/A2/A9S9.mp3"),
-      audioText: "I'm so excited! I'm seeing my favorite band in concert tonight.",
       statement: "The person is at the concert right now.",
       textOnScreen: "The person is at the concert right now.",
       options: ["true", "false"],
@@ -150,9 +152,17 @@ const LESSON_SLIDES = [
       paragraphs: [
         [
           "My sister ",
-          { id: "b1", answer: "is coming", options: ["is coming", "are coming"] },
+          {
+            id: "b1",
+            answer: "is coming",
+            options: ["is coming", "are coming"],
+          },
           " to visit me next month. We ",
-          { id: "b2", answer: "are staying", options: ["are staying", "is staying"] },
+          {
+            id: "b2",
+            answer: "are staying",
+            options: ["are staying", "is staying"],
+          },
           " at a hotel near the beach.",
         ],
       ],
@@ -190,7 +200,8 @@ const LESSON_SLIDES = [
     component: "Exercise16",
     activity: {
       prompt: "Freer Practice - Áudio",
-      instruction: "Fale sobre suas próximas férias. Para onde você vai e com quem vai viajar?",
+      instruction:
+        "Fale sobre suas próximas férias. Para onde você vai e com quem vai viajar?",
       helperText: "Exemplo: I'm traveling to Rio with my family.",
       tipText: "Use Present Continuous para plano confirmado.",
       successTitle: "Muito bem!",

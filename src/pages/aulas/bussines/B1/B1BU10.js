@@ -91,7 +91,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça a palavra isolada e escolha a alternativa correta.",
       image: BUB1.A10S4,
       audioSource: require("../../../../../mp3/BU/B1/A10S5.mp3"),
-      audioText: "Mindful.",
       audioDurationMs: 1000,
       answerOptions: ["Mindful", "Mindless"],
       correctOption: "Mindful",
@@ -180,8 +179,6 @@ const LESSON_SLIDES = [
         "Escute o Líder Global tentando resolver uma confusão. A afirmação escrita é verdadeira ou falsa?",
       image: BUB1.A10S10,
       audioSource: require("../../../../../mp3/BU/B1/A10S10.mp3"),
-      audioText:
-        "I think there is a miscommunication. Just to bridge the gap here, let's review the data. And please, let's be mindful of the different cultures on this call.",
       audioDurationMs: 7600,
       statement:
         "O líder quer tentar preencher a lacuna de comunicação e pede para que todos sejam respeitosos/conscientes das diferenças culturais.",

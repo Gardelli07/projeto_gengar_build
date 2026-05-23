@@ -10,7 +10,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha.",
       image: ICA2.A16S1,
       audioSource: require("../../../../../mp3/IC/A2/A16S1.mp3"),
-      audioText: "She didn't see me.",
       options: ["She didn't see me.", "She didn't saw me."],
       correctAnswer: "She didn't see me.",
       correctOption: "She didn't see me.",
@@ -46,7 +45,8 @@ const LESSON_SLIDES = [
         { en: "Drank", pt: "Didn't drink" },
       ],
       successTitle: "Correto",
-      successMessage: "Didn't puxa o passado e o verbo principal volta ao presente.",
+      successMessage:
+        "Didn't puxa o passado e o verbo principal volta ao presente.",
     },
   },
   {
@@ -57,9 +57,17 @@ const LESSON_SLIDES = [
       paragraphs: [
         [
           "I was tired, so I ",
-          { id: "b1", answer: "didn't go", options: ["didn't go", "didn't went"] },
+          {
+            id: "b1",
+            answer: "didn't go",
+            options: ["didn't go", "didn't went"],
+          },
           " to the party. I ",
-          { id: "b2", answer: "didn't have", options: ["didn't have", "didn't had"] },
+          {
+            id: "b2",
+            answer: "didn't have",
+            options: ["didn't have", "didn't had"],
+          },
           " any fun.",
         ],
       ],
@@ -98,7 +106,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça e responda: verdadeiro ou falso?",
       image: ICA2.A16S7,
       audioSource: require("../../../../../mp3/IC/A2/A16S7.mp3"),
-      audioText: "I went to the mall, but I didn't see any good shoes, so I didn't buy anything.",
       statement: "The person bought new shoes.",
       textOnScreen: "The person bought new shoes.",
       options: ["true", "false"],

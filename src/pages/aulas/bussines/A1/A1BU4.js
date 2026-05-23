@@ -32,7 +32,6 @@ Nativos adoram usar o Present Continuous nas reuniões para dar foco no que est�
       prompt: "Escute a palavra e escolha a alternativa correta.",
       image: BUA1.A4S2,
       audioSource: require("../../../../../mp3/BU/A1/A4S2.mp3"),
-      audioText: "Working",
       audioDurationMs: 1000,
       answerOptions: ["Working", "Walking"],
       correctOption: "Working",
@@ -77,10 +76,10 @@ Nativos adoram usar o Present Continuous nas reuniões para dar foco no que est�
     component: Exercise3,
     needsSpeech: true,
     activity: {
-      prompt: "Escute o áudio e responda se a frase escrita é verdadeira ou falsa.",
+      prompt:
+        "Escute o áudio e responda se a frase escrita é verdadeira ou falsa.",
       image: BUA1.A4S3,
       audioSource: require("../../../../../mp3/BU/A1/A4S5.mp3"),
-      audioText: "I am working on the presentation right now.",
       audioDurationMs: 3200,
       statement: "The person is finished with the presentation.",
       options: ["true", "false"],
@@ -110,7 +109,8 @@ Sem enrolação, os chefes gringos amam direto ao ponto.`,
     key: "done-image-choice",
     component: Exercise8,
     activity: {
-      prompt: "Olhe para a imagem. Como dizemos que uma tarefa está terminada em inglês?",
+      prompt:
+        "Olhe para a imagem. Como dizemos que uma tarefa está terminada em inglês?",
       emoji: "✓",
       options: ["Done", "Working"],
       correctAnswer: "Done",

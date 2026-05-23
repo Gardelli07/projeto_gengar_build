@@ -32,7 +32,6 @@ No mundo dos negócios, nativos raramente dizem "I give you a price". O mais pro
       prompt: "Escute a palavra e escolha a alternativa correta.",
       image: BUA1.A15S2,
       audioSource: require("../../../../../mp3/BU/A1/A15S2.mp3"),
-      audioText: "Offer",
       audioDurationMs: 900,
       answerOptions: ["Offer", "Open"],
       correctOption: "Offer",
@@ -94,7 +93,9 @@ No mundo dos negócios, nativos raramente dizem "I give you a price". O mais pro
     component: Exercise17,
     activity: {
       label: "We vs. I",
-      content: ['Use "We" em negociações. Exemplo:\n\n"We can offer..." soa mais profissional que "I can offer".'],
+      content: [
+        'Use "We" em negociações. Exemplo:\n\n"We can offer..." soa mais profissional que "I can offer".',
+      ],
       continueLabel: "Continuar",
     },
   },
@@ -106,7 +107,6 @@ No mundo dos negócios, nativos raramente dizem "I give you a price". O mais pro
       prompt: "Verdadeiro ou falso?",
       image: BUA1.A15S7,
       audioSource: require("../../../../../mp3/BU/A1/A15S7.mp3"),
-      audioText: "We can offer a good price.",
       audioDurationMs: 2200,
       statement: "The person is offering a bad price.",
       options: ["true", "false"],
@@ -147,7 +147,9 @@ No mundo dos negócios, nativos raramente dizem "I give you a price". O mais pro
     component: Exercise17,
     activity: {
       label: "Good Offer!",
-      content: ["Excelente! Você já sabe iniciar uma negociação de forma profissional."],
+      content: [
+        "Excelente! Você já sabe iniciar uma negociação de forma profissional.",
+      ],
       continueLabel: "Finalizar",
     },
   },

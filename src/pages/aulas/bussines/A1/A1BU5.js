@@ -53,7 +53,6 @@ No balcão do aeroporto ou hotel, você vai ouvir muito a palavra "Here" quando 
       prompt: "Escute a palavra e escolha a alternativa correta.",
       image: BUA1.A5S8,
       audioSource: require("../../../../../mp3/BU/A1/A5S3.mp3"),
-      audioText: "Ticket",
       audioDurationMs: 900,
       answerOptions: ["Ticket", "Pocket"],
       correctOption: "Ticket",
@@ -65,7 +64,8 @@ No balcão do aeroporto ou hotel, você vai ouvir muito a palavra "Here" quando 
     key: "hotel-checkin-order",
     component: Exercise7,
     activity: {
-      prompt: "Coloque o diálogo de check-in na ordem correta clicando nas frases.",
+      prompt:
+        "Coloque o diálogo de check-in na ordem correta clicando nas frases.",
       options: [
         "Good evening. Welcome to the hotel.",
         "Hello. I have a reservation.",
@@ -126,10 +126,10 @@ No balcão do aeroporto ou hotel, você vai ouvir muito a palavra "Here" quando 
     component: Exercise3,
     needsSpeech: true,
     activity: {
-      prompt: "Escute o áudio e responda se a frase escrita é verdadeira ou falsa.",
+      prompt:
+        "Escute o áudio e responda se a frase escrita é verdadeira ou falsa.",
       image: BUA1.A5S8,
       audioSource: require("../../../../../mp3/BU/A1/A5S8.mp3"),
-      audioText: "Here is my ticket and my passport.",
       audioDurationMs: 2600,
       statement: "The person is only giving the ticket.",
       options: ["true", "false"],

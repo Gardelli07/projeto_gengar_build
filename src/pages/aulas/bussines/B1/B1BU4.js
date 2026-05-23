@@ -89,7 +89,6 @@ const LESSON_SLIDES = [
         "Ouça a palavra isolada e escolha a alternativa correta que você escutou.",
       image: BUB1.A4S5,
       audioSource: require("../../../../../mp3/BU/B1/A4S5.mp3"),
-      audioText: "Wrap up.",
       audioDurationMs: 1000,
       answerOptions: ["Wrap up", "Rap up"],
       correctOption: "Wrap up",
@@ -168,8 +167,6 @@ const LESSON_SLIDES = [
         "Escute o áudio. A afirmação escrita é verdadeira ou falsa sobre o que a líder quer fazer?",
       image: BUB1.A4S10,
       audioSource: require("../../../../../mp3/BU/B1/A4S10.mp3"),
-      audioText:
-        "Alright, we're running short on time. Let's wrap this up and move on to the next item.",
       audioDurationMs: 5200,
       statement:
         "A líder quer finalizar a reunião inteira e ir todo mundo embora.",

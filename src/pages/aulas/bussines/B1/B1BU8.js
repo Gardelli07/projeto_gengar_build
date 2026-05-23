@@ -94,7 +94,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça a palavra isolada e escolha a alternativa correta.",
       image: BUB1.A8S5,
       audioSource: require("../../../../../mp3/BU/B1/A8S5.mp3"),
-      audioText: "Exactly.",
       audioDurationMs: 1000,
       answerOptions: ["Exactly", "Extract"],
       correctOption: "Exactly",
@@ -176,8 +175,6 @@ const LESSON_SLIDES = [
         "Escute a analista pedindo esclarecimentos ao time de tecnologia. A afirmação escrita é verdadeira ou falsa?",
       image: BUB1.A8S10,
       audioSource: require("../../../../../mp3/BU/B1/A8S10.mp3"),
-      audioText:
-        "Wait, just to make sure I'm following... the servers will be down for two days? Could you expand on that? What exactly is the risk for the client?",
       audioDurationMs: 7600,
       statement:
         "A analista entendeu tudo perfeitamente na primeira vez e não precisa de mais informações.",

@@ -30,7 +30,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A6S2,
       audioSource: require("../../../../../mp3/TR/A1/A6S2.mp3"),
-      audioText: "Boarding pass",
       audioDurationMs: 1300,
       answerOptions: ["Boarding pass", "Passport"],
       correctOption: "Boarding pass",
@@ -46,7 +45,6 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A6S7,
       audioSource: require("../../../../../mp3/TR/A1/A6S3.mp3"),
-      audioText: "Gate",
       audioDurationMs: 1000,
       answerOptions: ["Gate", "Bag"],
       correctOption: "Gate",
@@ -62,13 +60,11 @@ const LESSON_SLIDES = [
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A6S7,
       audioSource: require("../../../../../mp3/TR/A1/A6S4.mp3"),
-      audioText: "Where is...?",
       audioDurationMs: 1300,
       answerOptions: ["Where is...?", "How much is it?"],
       correctOption: "Where is...?",
       successTitle: "Correto",
-      feedbackMessage:
-        '"Where is...?" significa "Onde é/está...?".',
+      feedbackMessage: '"Where is...?" significa "Onde é/está...?".',
     },
   },
   {
@@ -109,7 +105,6 @@ Se o agente disser "Shoes" ou apontar para sua garrafa de água, sorria, tire os
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
       image: TRA1.A6S7,
       audioSource: require("../../../../../mp3/TR/A1/A6S7.mp3"),
-      audioText: "Go to gate ten.",
       audioDurationMs: 1500,
       statement: "O áudio está instruindo você a ir para o portão 10.",
       options: ["true", "false"],
@@ -122,7 +117,8 @@ Se o agente disser "Shoes" ou apontar para sua garrafa de água, sorria, tire os
     key: "airport-keywords-match",
     component: Exercise1,
     activity: {
-      prompt: "Conecte as palavras-chave do aeroporto com as traduções corretas.",
+      prompt:
+        "Conecte as palavras-chave do aeroporto com as traduções corretas.",
       pairs: [
         { en: "Boarding pass", pt: "Cartão de embarque" },
         { en: "Gate", pt: "Portão" },
