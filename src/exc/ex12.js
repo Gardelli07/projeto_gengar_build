@@ -143,7 +143,7 @@ export function Exercise12({
                 <Text style={styles.successIcon}>✓</Text>
               </View>
               <Text style={styles.successAlertTitle}>
-                {activity.successTitle}
+                {activity.successTitle || "Correto"}
               </Text>
             </View>
 
@@ -210,11 +210,12 @@ const ex12 = StyleSheet.create({
     borderRadius: 8,
     overflow: "hidden",
     marginBottom: 10,
+    backgroundColor: CORES.SURFACE_MUTED,
   },
   writeIntroImage: {
     width: "100%",
     height: "100%",
-    resizeMode: "cover",
+    resizeMode: "contain",
   },
   writeIntroBox: {
     width: "88%",

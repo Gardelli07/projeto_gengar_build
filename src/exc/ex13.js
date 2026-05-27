@@ -373,7 +373,7 @@ export function Exercise13({
               >
                 {isWrong
                   ? activity.errorTitle || "Incorreto"
-                  : activity.successTitle}
+                  : activity.successTitle || "Correto"}
               </Text>
             </View>
 

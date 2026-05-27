@@ -228,7 +228,7 @@ export function Exercise8({
               >
                 {isWrong
                   ? activity.errorTitle || "Incorreto"
-                  : activity.successTitle}
+                  : activity.successTitle || "Correto"}
               </Text>
             </View>
 
@@ -283,14 +283,14 @@ const ex8 = StyleSheet.create({
     borderRadius: 16,
     overflow: "hidden",
     marginBottom: 16,
-    backgroundColor: "#77C4E6",
+    backgroundColor: CORES.SURFACE_MUTED,
     alignItems: "center",
     justifyContent: "center",
   },
   imageChoiceMedia: {
     width: "100%",
     height: "100%",
-    resizeMode: "cover",
+    resizeMode: "contain",
   },
   imageChoiceEmojiWrap: {
     flex: 1,

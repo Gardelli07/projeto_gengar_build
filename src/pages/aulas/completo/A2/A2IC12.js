@@ -1,5 +1,5 @@
 import createA2LessonScreen from "./A2LessonScreen";
-import { ICA2 } from "../../../../util/images";
+import { ICA2, Images } from "../../../../util/images";
 
 const LESSON_SLIDES = [
   {
@@ -181,6 +181,8 @@ const LESSON_SLIDES = [
     component: "Exercise16",
     activity: {
       prompt: "Freer Practice - Áudio",
+      image: Images.ex16,
+      tipButtonLabel: "Tip",
       instruction: "Mande um áudio pronunciando estas 3 palavras no passado.",
       helperText: "Wanted, Needed, Decided.",
       tipText: "Essas três terminam com som de ID.",

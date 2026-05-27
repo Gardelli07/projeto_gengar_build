@@ -253,7 +253,7 @@ export function Exercise1({
                 <Text style={styles.successIcon}>✓</Text>
               </View>
               <Text style={styles.successAlertTitle}>
-                {activity.successTitle}
+                {activity.successTitle || "Correto"}
               </Text>
             </View>
 

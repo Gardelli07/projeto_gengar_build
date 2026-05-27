@@ -1,5 +1,5 @@
 import createA2LessonScreen from "./A2LessonScreen";
-import { ICA2 } from "../../../../util/images";
+import { ICA2, Images } from "../../../../util/images";
 
 const LESSON_SLIDES = [
   {
@@ -158,6 +158,8 @@ const LESSON_SLIDES = [
     component: "Exercise16",
     activity: {
       prompt: "Gravação de áudio",
+      image: Images.ex16,
+      tipButtonLabel: "Tip",
       instruction: 'Grave uma preferência usando "better than".',
       helperText: 'Exemplo: "Fruits are better than candy!"',
       successTitle: "Muito bem!",

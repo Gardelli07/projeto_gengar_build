@@ -152,6 +152,9 @@ export function Exercise5({
                 styles.completePhraseBlankText,
                 isCorrect && styles.completePhraseBlankTextCorrect,
               ]}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.75}
             >
               {selected || "_____"}
             </Text>
@@ -255,7 +258,7 @@ export function Exercise5({
               >
                 {isWrong
                   ? activity.errorTitle || "Incorreto"
-                  : activity.successTitle}
+                  : activity.successTitle || "Correto"}
               </Text>
             </View>
 
@@ -315,7 +318,7 @@ const ex5 = StyleSheet.create({
   completePhraseImage: {
     width: "100%",
     height: "100%",
-    resizeMode: "cover",
+    resizeMode: "contain",
   },
   completePhraseSentencePill: {
     width: "88%",
@@ -341,13 +344,16 @@ const ex5 = StyleSheet.create({
     textAlign: "center",
   },
   completePhraseBlank: {
-    width: 68,
-    minHeight: 26,
-    borderRadius: 13,
+    minWidth: 68,
+    maxWidth: "100%",
+    minHeight: 28,
+    borderRadius: 14,
     backgroundColor: CORES.WHITE,
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 12,
+    paddingVertical: 3,
+    flexShrink: 1,
   },
   completePhraseBlankCorrect: {
     backgroundColor: CORES.SUCCESS_BG,
@@ -362,6 +368,9 @@ const ex5 = StyleSheet.create({
     color: CORES.PRIMARY,
     fontSize: 14,
     fontWeight: "700",
+    lineHeight: 18,
+    textAlign: "center",
+    flexShrink: 1,
   },
   completePhraseBlankTextCorrect: {
     color: CORES.SUCCESS_DARK,

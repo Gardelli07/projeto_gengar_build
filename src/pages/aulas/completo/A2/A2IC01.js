@@ -1,5 +1,5 @@
 import createA2LessonScreen from "./A2LessonScreen";
-import { ICA2 } from "../../../../util/images";
+import { ICA2, Images } from "../../../../util/images";
 
 const LESSON_SLIDES = [
   {
@@ -147,6 +147,8 @@ const LESSON_SLIDES = [
     component: "Exercise16",
     activity: {
       prompt: "Não deixe a ação parar!",
+      image: Images.ex16,
+      tipButtonLabel: "Tip",
       instruction: "Grave sua voz descrevendo o seu momento para o Lingueto.",
       helperText: 'Diga: "I am studying English."',
       expectedText: "I am studying English.",

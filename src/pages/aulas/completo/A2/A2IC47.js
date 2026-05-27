@@ -1,5 +1,5 @@
 import createA2LessonScreen from "./A2LessonScreen";
-import { ICA2 } from "../../../../util/images";
+import { ICA2, Images } from "../../../../util/images";
 
 const LESSON_SLIDES = [
   {
@@ -29,44 +29,44 @@ const LESSON_SLIDES = [
   },
   {
     key: "a2ic47s3",
-    component: "Exercise3",
+    component: "Exercise14",
+    needsSpeech: true,
     activity: {
-      prompt: "Ouça e responda verdadeiro ou falso.",
+      prompt: "Escute e complete",
       image: ICA2.A47S3,
       audioSource: require("../../../../../mp3/IC/A2/A47S3.mp3"),
-      textOnScreen: "Mark quer saber o que ele deveria fazer.",
-      options: ["true", "false"],
-      correctAnswer: "true",
-      successMessage: "Ele pergunta: What should I do?",
-      feedbackMessage: "A frase fala sobre pedir conselho, não sobre ontem.",
+      answerOptions: ["O que ele fez ontem", "O que ele deveria fazer"],
+      correctOption: "O que ele deveria fazer",
+      successTitle: "Correto",
+      feedbackMessage: 'Usamos "Hello" para dizer "oi".',
     },
   },
   {
     key: "a2ic47s4",
-    component: "Exercise3",
+    component: "Exercise14",
+    needsSpeech: true,
     activity: {
-      prompt: "Ouça o primeiro conselho da Sarah.",
+      prompt: "Escute e complete",
       image: ICA2.A47S4,
       audioSource: require("../../../../../mp3/IC/A2/A47S4.mp3"),
-      textOnScreen: "Sarah diz que Mark não deveria ir para a cama tão tarde.",
-      options: ["true", "false"],
-      correctAnswer: "true",
-      successMessage: "You shouldn't go to bed so late.",
-      feedbackMessage: "Shouldn't indica o que ele deve evitar.",
+      answerOptions: ["Ir para a cama cedo", "Não ir para cama tão tarde"],
+      correctOption: "Não ir para cama tão tarde",
+      successTitle: "Correto",
+      feedbackMessage: 'Usamos "Hello" para dizer "oi".',
     },
   },
   {
     key: "a2ic47s5",
-    component: "Exercise3",
+    component: "Exercise14",
+    needsSpeech: true,
     activity: {
-      prompt: "Ouça e responda.",
+      prompt: "Escute e complete",
       image: ICA2.A47S5,
       audioSource: require("../../../../../mp3/IC/A2/A47S5.mp3"),
-      textOnScreen: "Mark deve parar de beber tanto refrigerante.",
-      options: ["true", "false"],
-      correctAnswer: "true",
-      successMessage: "Sarah recomenda água e diz para evitar soda.",
-      feedbackMessage: "O conselho negativo é sobre refrigerante.",
+      answerOptions: ["Àgua", "Refrigerante"],
+      correctOption: "Refrigerante",
+      successTitle: "Correto",
+      feedbackMessage: 'Usamos "Hello" para dizer "oi".',
     },
   },
   {
@@ -125,6 +125,10 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A47S10.mp3"),
       correctAnswer: "What should I do to be healthy?",
       successMessage: "Ditado perfeito!",
+      placeholder: "What...",
+      submitLabel: "Responder",
+      successTitle: "Correto",
+      errorMessage: "A frase correta é: What should I do to be healthy?",
     },
   },
   {
@@ -143,6 +147,8 @@ const LESSON_SLIDES = [
     component: "Exercise16",
     activity: {
       prompt: "Grave sua resposta para o Mark:",
+      image: Images.ex16,
+      tipButtonLabel: "Tip",
       phrase: "You shouldn't worry so much. You should relax!",
       correctAnswer: "You shouldn't worry so much. You should relax!",
       successMessage: "Muito bem!",

@@ -260,7 +260,7 @@ export function Exercise15({
               >
                 {isWrong
                   ? activity.errorTitle || "Incorreto"
-                  : activity.successTitle}
+                  : activity.successTitle || "Correto"}
               </Text>
             </View>
 
@@ -351,7 +351,7 @@ const ex15 = StyleSheet.create({
   matchMediaWordImage: {
     width: "100%",
     height: "100%",
-    resizeMode: "cover",
+    resizeMode: "contain",
   },
   matchMediaWordOptionsRow: {
     width: "88%",

@@ -476,7 +476,7 @@ export function Exercise16({
                 <Text style={styles.successIcon}>✓</Text>
               </View>
               <Text style={styles.successAlertTitle}>
-                {activity.successTitle}
+                {activity.successTitle || "Correto"}
               </Text>
             </View>
 
@@ -544,7 +544,7 @@ const ex16 = StyleSheet.create({
   sendAudioAvatar: {
     width: "100%",
     height: "100%",
-    resizeMode: "cover",
+    resizeMode: "contain",
   },
   sendAudioContentCard: {
     width: "88%",

@@ -184,7 +184,14 @@ export function Exercise11({
       {currentWord ? (
         <>
           <View style={styles.fastTypeWordPill}>
-            <Text style={styles.fastTypeWordPillText}>{currentWord}</Text>
+            <Text
+              style={styles.fastTypeWordPillText}
+              numberOfLines={2}
+              adjustsFontSizeToFit
+              minimumFontScale={0.8}
+            >
+              {currentWord}
+            </Text>
           </View>
 
           <View style={styles.fastTypeInputWrap}>
@@ -308,21 +315,26 @@ const ex11 = StyleSheet.create({
     alignItems: "center",
   },
   fastTypeWordPill: {
-    width: "50%",
+    minWidth: "50%",
+    maxWidth: "88%",
     minHeight: 44,
     borderRadius: 10,
     backgroundColor: "#76A8D7",
     alignItems: "center",
     justifyContent: "center",
     marginTop: 18,
-    marginBottom: 26,
+    marginBottom: 24,
     paddingHorizontal: 16,
+    paddingVertical: 8,
+    alignSelf: "center",
   },
   fastTypeWordPillText: {
     color: CORES.WHITE,
     fontSize: 16,
+    lineHeight: 20,
     fontWeight: "700",
     textDecorationLine: "underline",
+    textAlign: "center",
   },
   fastTypeInputWrap: {
     width: "38%",

@@ -214,7 +214,7 @@ export function Exercise9({
               >
                 {isWrong
                   ? activity.errorTitle || "Incorreto"
-                  : activity.successTitle}
+                  : activity.successTitle || "Correto"}
               </Text>
             </View>
 
@@ -296,7 +296,7 @@ const ex9 = StyleSheet.create({
   imageGridOptionImage: {
     width: "100%",
     height: "100%",
-    resizeMode: "cover",
+    resizeMode: "contain",
   },
   imageGridOptionCorrect: {
     borderColor: CORES.SUCCESS,

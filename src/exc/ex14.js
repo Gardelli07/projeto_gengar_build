@@ -362,7 +362,7 @@ export function Exercise14({
               >
                 {isWrong
                   ? activity.errorTitle || "Incorreto"
-                  : activity.successTitle}
+                  : activity.successTitle || "Correto"}
               </Text>
             </View>
 
@@ -414,7 +414,7 @@ const ex14 = StyleSheet.create({
   mediaCard: {
     width: "100%",
     height: 190,
-    backgroundColor: "#38BDF8",
+    backgroundColor: CORES.SURFACE_MUTED,
     borderTopLeftRadius: 18,
     borderTopRightRadius: 18,
     overflow: "hidden",
@@ -422,7 +422,7 @@ const ex14 = StyleSheet.create({
   mediaImage: {
     width: "100%",
     height: "100%",
-    resizeMode: "cover",
+    resizeMode: "contain",
   },
   audioButton: {
     flexDirection: "row",

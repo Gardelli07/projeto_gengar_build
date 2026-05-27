@@ -232,7 +232,7 @@ export function Exercise4({
               >
                 {isWrong
                   ? activity.errorTitle || "Incorreto"
-                  : activity.successTitle}
+                  : activity.successTitle || "Correto"}
               </Text>
             </View>
 
@@ -292,7 +292,7 @@ const ex4 = StyleSheet.create({
   correctSentenceImage: {
     width: "100%",
     height: "100%",
-    resizeMode: "cover",
+    resizeMode: "contain",
   },
   correctSentencePromptPill: {
     width: "88%",

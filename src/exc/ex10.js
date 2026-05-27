@@ -421,7 +421,7 @@ export function Exercise10({
                 <Text style={styles.successIcon}>✓</Text>
               </View>
               <Text style={styles.successAlertTitle}>
-                {activity.successTitle}
+                {activity.successTitle || "Correto"}
               </Text>
             </View>
 
@@ -494,6 +494,7 @@ const ex10 = StyleSheet.create({
     width: 38,
     height: 38,
     borderRadius: 19,
+    resizeMode: "contain",
   },
   chatQuizQuestionBubble: {
     maxWidth: "78%",
