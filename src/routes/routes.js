@@ -10,6 +10,7 @@ import TabsNavigator from "./TabsNavigator";
 /* ===== PÁGINAS ===== */
 // padrão
 import SplashScreen from "../pages/SplashScreen";
+import PlacementFlow from "../pages/PlacementFlow";
 import InglesCompletoHome from "../pages/aulas/completo/A0-A1";
 import InglesCompletoA2Home from "../pages/aulas/completo/A2";
 import InglesCompletoB1Home from "../pages/aulas/completo/B1";
@@ -710,6 +711,12 @@ export default function Routes() {
         />
 
         {/* ===== SPLASH ===== */}
+        <Stack.Screen
+          name="PlacementFlow"
+          component={PlacementFlow}
+          options={{ headerShown: false }}
+        />
+
         <Stack.Screen
           name="Splash"
           component={SplashScreen}

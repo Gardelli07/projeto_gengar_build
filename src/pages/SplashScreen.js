@@ -5,7 +5,7 @@ import CORES from "../util/cores";
 export default function SplashScreen({ navigation }) {
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.replace("Tabs");
+      navigation.replace("PlacementFlow");
     }, 2000);
     return () => clearTimeout(timer);
   }, [navigation]);
