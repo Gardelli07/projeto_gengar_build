@@ -1,9 +1,6 @@
 import createA2LessonScreen from "./A2LessonScreen";
 import { ICA2 } from "../../../../util/images";
 
-const PICNIC_AUDIO =
-  "Hi! I'm Sabrina. I'm sitting in the park right now. It's a beautiful day! My brother, Leo, is running near the lake. My parents are eating sandwiches on the grass. Oh, look! A small dog is chasing a ball. It's so cute! My sister is taking photos of everyone. I'm wearing my green hat and I'm drinking cold juice. My friends are arriving now. We're starting a big picnic!";
-
 const LESSON_SLIDES = [
   {
     key: "a2ic05s1",
@@ -29,7 +26,6 @@ const LESSON_SLIDES = [
       prompt: "Ouça o áudio principal",
       image: ICA2.A5S2,
       audioSource: require("../../../../../mp3/IC/A2/A5S2.mp3"),
-      transcript: PICNIC_AUDIO,
       continueLabel: "Continuar",
     },
   },

@@ -9,7 +9,9 @@ import {
   Vibration,
   View,
 } from "react-native";
+import Slider from "@react-native-community/slider";
 import { createAudioPlayer } from "expo-audio";
+import * as Speech from "expo-speech";
 import CORES from "../util/cores";
 
 const normalizeText = (value) =>
@@ -27,16 +29,20 @@ export function Exercise19({
   speak,
 }) {
   const bottomSafeSpace = 3;
-  const audioProgressAnim = useRef(new Animated.Value(0)).current;
   const alertTranslateY = useRef(new Animated.Value(64)).current;
   const alertOpacity = useRef(new Animated.Value(0)).current;
   const shakeAnim = useRef(new Animated.Value(0)).current;
   const blinkAnim = useRef(new Animated.Value(0)).current;
   const playerRef = useRef(null);
   const playbackSubscriptionRef = useRef(null);
+  const shouldResumeAfterSeekRef = useRef(false);
+  const speechPausedRef = useRef(false);
 
   const [typedText, setTypedText] = useState("");
   const [result, setResult] = useState(null);
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  const [audioProgress, setAudioProgress] = useState(0);
+  const [audioDuration, setAudioDuration] = useState(0);
 
   const audioPromptText =
     activity.audioText || activity.spokenText || activity.correctAnswer || "";
@@ -71,14 +77,18 @@ export function Exercise19({
       playerRef.current.remove();
       playerRef.current = null;
     }
+
+    shouldResumeAfterSeekRef.current = false;
+    speechPausedRef.current = false;
+    Speech.stop().catch(() => {});
+    setIsAudioPlaying(false);
   };
 
   useEffect(() => {
     return () => {
       clearPlayback();
-      audioProgressAnim.stopAnimation();
     };
-  }, [audioProgressAnim]);
+  }, []);
 
   useEffect(() => {
     if (isCorrect || isWrong) {
@@ -104,60 +114,151 @@ export function Exercise19({
     alertOpacity.setValue(0);
   }, [isCorrect, isWrong, alertOpacity, alertTranslateY]);
 
-  const playAudio = async () => {
-    audioProgressAnim.stopAnimation();
-    audioProgressAnim.setValue(0);
-    Animated.timing(audioProgressAnim, {
-      toValue: 1,
-      duration: estimatedDurationMs,
-      easing: Easing.linear,
-      useNativeDriver: false,
-    }).start();
+  const updateAudioStatus = (status) => {
+    if (!status?.isLoaded) {
+      setIsAudioPlaying(false);
+      return;
+    }
 
+    const duration =
+      typeof status.duration === "number" && status.duration > 0
+        ? status.duration
+        : estimatedDurationMs / 1000;
+    const currentTime =
+      typeof status.currentTime === "number" ? status.currentTime : 0;
+    const progress = duration > 0 ? currentTime / duration : 0;
+
+    setAudioDuration(duration);
+    setAudioProgress(Math.max(0, Math.min(progress, 1)));
+    setIsAudioPlaying(Boolean(status.playing));
+
+    if (status.didJustFinish) {
+      setAudioProgress(1);
+      setIsAudioPlaying(false);
+    }
+  };
+
+  const ensureAudioPlayer = () => {
+    if (playerRef.current || !activity.audioSource) {
+      return playerRef.current;
+    }
+
+    const player = createAudioPlayer(activity.audioSource, {
+      updateInterval: 100,
+    });
+    playbackSubscriptionRef.current = player.addListener(
+      "playbackStatusUpdate",
+      updateAudioStatus,
+    );
+    playerRef.current = player;
+
+    return player;
+  };
+
+  const playAudio = async () => {
     if (activity.audioSource) {
       try {
-        clearPlayback();
+        const player = ensureAudioPlayer();
+        if (!player) return;
 
-        const player = createAudioPlayer(activity.audioSource);
-        playbackSubscriptionRef.current = player.addListener(
-          "playbackStatusUpdate",
-          (status) => {
-            if (status.didJustFinish) {
-              audioProgressAnim.stopAnimation();
-              audioProgressAnim.setValue(1);
-              clearPlayback();
-            }
-          },
-        );
+        if (isAudioPlaying) {
+          player.pause();
+          setIsAudioPlaying(false);
+          return;
+        }
 
-        playerRef.current = player;
+        if (audioProgress >= 0.995) {
+          await player.seekTo(0);
+          setAudioProgress(0);
+        }
+
         player.play();
+        setIsAudioPlaying(true);
         return;
       } catch (error) {
         console.warn("Exercise19 playAudio error", error);
-        audioProgressAnim.stopAnimation();
-        audioProgressAnim.setValue(0);
+        clearPlayback();
+        setAudioProgress(0);
+      }
+    }
+
+    if (isAudioPlaying) {
+      try {
+        await Speech.pause();
+        speechPausedRef.current = true;
+      } catch (error) {
+        await Speech.stop().catch(() => {});
+        speechPausedRef.current = false;
+      }
+
+      setIsAudioPlaying(false);
+      return;
+    }
+
+    if (speechPausedRef.current) {
+      try {
+        await Speech.resume();
+        setIsAudioPlaying(true);
+        return;
+      } catch (error) {
+        speechPausedRef.current = false;
       }
     }
 
     clearPlayback();
-    audioProgressAnim.stopAnimation();
-    audioProgressAnim.setValue(0);
-    Animated.timing(audioProgressAnim, {
-      toValue: 1,
-      duration: estimatedDurationMs,
-      easing: Easing.linear,
-      useNativeDriver: false,
-    }).start();
+    speechPausedRef.current = false;
+    setAudioProgress(0);
+    setIsAudioPlaying(true);
 
-    speak?.({
+    if (!speak) {
+      setIsAudioPlaying(false);
+      return;
+    }
+
+    speak({
       text: audioPromptText,
       language: activity.audioLanguage || "en-US",
       rate: audioRate,
-      onDone: () => audioProgressAnim.setValue(1),
-      onStopped: () => audioProgressAnim.stopAnimation(),
-      onError: () => audioProgressAnim.stopAnimation(),
+      onDone: () => {
+        setAudioProgress(1);
+        setIsAudioPlaying(false);
+      },
+      onStopped: () => setIsAudioPlaying(false),
+      onError: () => setIsAudioPlaying(false),
     });
+  };
+
+  const handleAudioSeekStart = () => {
+    shouldResumeAfterSeekRef.current = isAudioPlaying;
+    playerRef.current?.pause?.();
+    setIsAudioPlaying(false);
+  };
+
+  const handleAudioSeek = (value) => {
+    setAudioProgress(Math.max(0, Math.min(value, 1)));
+  };
+
+  const handleAudioSeekComplete = async (value) => {
+    const player = ensureAudioPlayer();
+    const progress = Math.max(0, Math.min(value, 1));
+    const duration = audioDuration || estimatedDurationMs / 1000;
+
+    setAudioProgress(progress);
+
+    if (!player) return;
+
+    try {
+      await player.seekTo(duration * progress);
+
+      if (shouldResumeAfterSeekRef.current) {
+        player.play();
+        setIsAudioPlaying(true);
+      }
+    } catch (error) {
+      console.warn("Exercise19 seekAudio error", error);
+    } finally {
+      shouldResumeAfterSeekRef.current = false;
+    }
   };
 
   const triggerWrongFeedback = () => {
@@ -218,22 +319,35 @@ export function Exercise19({
       <View style={styles.writeAudioBlock}>
         <Text style={styles.writeAudioPrompt}>{activity.prompt}</Text>
 
-        <TouchableOpacity style={styles.writeAudioPlayer} onPress={playAudio}>
-          <Text style={styles.writeAudioPlayIcon}>▶</Text>
+        <View style={styles.writeAudioPlayer}>
+          <TouchableOpacity
+            style={styles.writeAudioPlayButton}
+            onPress={playAudio}
+            accessibilityRole="button"
+            accessibilityLabel={
+              isAudioPlaying ? "Pausar audio" : "Reproduzir audio"
+            }
+          >
+            <Text style={styles.writeAudioPlayIcon}>
+              {isAudioPlaying ? "II" : "▶"}
+            </Text>
+          </TouchableOpacity>
           <View style={styles.writeAudioBar}>
-            <Animated.View
-              style={[
-                styles.writeAudioProgress,
-                {
-                  width: audioProgressAnim.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: ["0%", "100%"],
-                  }),
-                },
-              ]}
+            <Slider
+              style={styles.writeAudioSlider}
+              minimumValue={0}
+              maximumValue={1}
+              value={audioProgress}
+              minimumTrackTintColor={CORES.WHITE_SHORT}
+              maximumTrackTintColor="rgba(255,255,255,0.3)"
+              thumbTintColor={CORES.WHITE_SHORT}
+              onSlidingStart={handleAudioSeekStart}
+              onValueChange={handleAudioSeek}
+              onSlidingComplete={handleAudioSeekComplete}
+              disabled={!activity.audioSource}
             />
           </View>
-        </TouchableOpacity>
+        </View>
 
         <Animated.View
           style={[
@@ -345,7 +459,10 @@ export function Exercise19({
                 styles.alertContinueButton,
                 isWrong && styles.resultAlertButtonWrong,
               ]}
-              onPress={next}
+              onPress={() => {
+                clearPlayback();
+                next?.();
+              }}
             >
               <Text style={styles.alertContinueButtonText}>
                 {isWrong
@@ -387,18 +504,22 @@ const ex19 = StyleSheet.create({
     color: CORES.WHITE_SHORT,
     fontSize: 18,
     fontWeight: "700",
+    textAlign: "center",
+  },
+  writeAudioPlayButton: {
+    width: 32,
+    height: 32,
+    alignItems: "center",
+    justifyContent: "center",
   },
   writeAudioBar: {
     flex: 1,
-    height: 6,
-    backgroundColor: "rgba(255,255,255,0.3)",
-    borderRadius: 3,
-    overflow: "hidden",
+    height: 36,
+    justifyContent: "center",
   },
-  writeAudioProgress: {
-    height: "100%",
-    backgroundColor: CORES.WHITE_SHORT,
-    borderRadius: 3,
+  writeAudioSlider: {
+    width: "100%",
+    height: 36,
   },
   writeAudioInputWrap: {
     width: "58%",

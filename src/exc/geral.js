@@ -123,18 +123,28 @@ const geral = StyleSheet.create({
   audioIcon: {
     color: CORES.WHITE_SHORT,
     fontSize: 18,
+    fontWeight: "800",
+    textAlign: "center",
+  },
+  audioPlayButton: {
+    width: 32,
+    height: 32,
+    alignItems: "center",
+    justifyContent: "center",
   },
   audioBar: {
     flex: 1,
-    height: 6,
-    backgroundColor: "rgba(255,255,255,0.3)",
-    borderRadius: 3,
-    overflow: "hidden",
+    height: 36,
+    justifyContent: "center",
+  },
+  audioSlider: {
+    width: "100%",
+    height: 36,
   },
   audioProgress: {
-    height: "100%",
+    height: 4,
     backgroundColor: CORES.WHITE_SHORT,
-    borderRadius: 3,
+    borderRadius: 4,
   },
   feedbackBox: {
     width: "85%",

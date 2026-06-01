@@ -10,6 +10,7 @@ import {
   View,
   StyleSheet,
 } from "react-native";
+import Slider from "@react-native-community/slider";
 import {
   createAudioPlayer,
   RecordingPresets,
@@ -38,6 +39,7 @@ export function Exercise16({
   const recorder = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
   const playerRef = useRef(null);
   const playbackSubscriptionRef = useRef(null);
+  const shouldResumeAfterSeekRef = useRef(false);
   const alertTranslateY = useRef(new Animated.Value(64)).current;
   const alertOpacity = useRef(new Animated.Value(0)).current;
   const blinkAnim = useRef(new Animated.Value(0)).current;
@@ -48,6 +50,7 @@ export function Exercise16({
   const [isPlaying, setIsPlaying] = useState(false);
   const [recordingSeconds, setRecordingSeconds] = useState(0);
   const [playbackProgress, setPlaybackProgress] = useState(0);
+  const [playbackDuration, setPlaybackDuration] = useState(0);
   const [showTip, setShowTip] = useState(false);
   const [result, setResult] = useState(null);
 
@@ -143,7 +146,46 @@ export function Exercise16({
       playerRef.current = null;
     }
 
+    shouldResumeAfterSeekRef.current = false;
     setIsPlaying(false);
+  };
+
+  const updatePlaybackStatus = (status) => {
+    if (status.didJustFinish || !status.isLoaded) {
+      setIsPlaying(false);
+      setPlaybackProgress(status.didJustFinish ? 1 : 0);
+      return;
+    }
+
+    setIsPlaying(Boolean(status.playing));
+    const duration =
+      typeof status.duration === "number" && status.duration > 0
+        ? status.duration
+        : recordingSeconds;
+    const progress = duration > 0 ? status.currentTime / duration : 0;
+
+    setPlaybackDuration(duration);
+    setPlaybackProgress(Math.max(0, Math.min(progress, 1)));
+  };
+
+  const ensurePlaybackPlayer = () => {
+    if (playerRef.current || !audioUri) {
+      return playerRef.current;
+    }
+
+    const player = createAudioPlayer(
+      { uri: audioUri },
+      {
+        updateInterval: 100,
+      },
+    );
+    playbackSubscriptionRef.current = player.addListener(
+      "playbackStatusUpdate",
+      updatePlaybackStatus,
+    );
+    playerRef.current = player;
+
+    return player;
   };
 
   const startRecording = async () => {
@@ -168,6 +210,7 @@ export function Exercise16({
       setIsRecordingPaused(false);
       setRecordingSeconds(0);
       setPlaybackProgress(0);
+      setPlaybackDuration(0);
       setResult(null);
     } catch (error) {
       console.warn("startRecording error", error);
@@ -228,34 +271,52 @@ export function Exercise16({
     try {
       if (!audioUri) return;
 
-      clearPlayback();
-      setPlaybackProgress(0);
+      const player = ensurePlaybackPlayer();
+      if (!player) return;
 
-      const player = createAudioPlayer({ uri: audioUri });
-      playbackSubscriptionRef.current = player.addListener(
-        "playbackStatusUpdate",
-        (status) => {
-          if (status.didJustFinish || !status.isLoaded) {
-            setIsPlaying(false);
-            setPlaybackProgress(status.didJustFinish ? 1 : 0);
-          } else {
-            setIsPlaying(Boolean(status.playing));
-            const duration =
-              typeof status.duration === "number" && status.duration > 0
-                ? status.duration
-                : recordingSeconds;
-            const progress = duration > 0 ? status.currentTime / duration : 0;
-            setPlaybackProgress(Math.max(0, Math.min(progress, 1)));
-          }
-        },
-      );
+      if (playbackProgress >= 0.995) {
+        await player.seekTo(0);
+        setPlaybackProgress(0);
+      }
 
-      playerRef.current = player;
       player.play();
       setIsPlaying(true);
     } catch (error) {
       console.warn("playRecording error", error);
       Alert.alert("Erro", "NÃ£o foi possÃ­vel reproduzir o Ã¡udio.");
+    }
+  };
+
+  const handlePlaybackSeekStart = () => {
+    shouldResumeAfterSeekRef.current = isPlaying;
+    playerRef.current?.pause?.();
+    setIsPlaying(false);
+  };
+
+  const handlePlaybackSeek = (value) => {
+    setPlaybackProgress(Math.max(0, Math.min(value, 1)));
+  };
+
+  const handlePlaybackSeekComplete = async (value) => {
+    const player = ensurePlaybackPlayer();
+    const progress = Math.max(0, Math.min(value, 1));
+    const duration = playbackDuration || recordingSeconds;
+
+    setPlaybackProgress(progress);
+
+    if (!player || duration <= 0) return;
+
+    try {
+      await player.seekTo(duration * progress);
+
+      if (shouldResumeAfterSeekRef.current) {
+        player.play();
+        setIsPlaying(true);
+      }
+    } catch (error) {
+      console.warn("seekPlayback error", error);
+    } finally {
+      shouldResumeAfterSeekRef.current = false;
     }
   };
 
@@ -284,6 +345,7 @@ export function Exercise16({
     setIsRecordingPaused(false);
     setRecordingSeconds(0);
     setPlaybackProgress(0);
+    setPlaybackDuration(0);
     setResult(null);
   };
 
@@ -432,11 +494,18 @@ export function Exercise16({
               </View>
 
               <View style={styles.sendAudioProgressTrack}>
-                <View
-                  style={[
-                    styles.sendAudioProgressFill,
-                    { width: `${playbackProgress * 100}%` },
-                  ]}
+                <Slider
+                  style={styles.sendAudioProgressSlider}
+                  minimumValue={0}
+                  maximumValue={1}
+                  value={playbackProgress}
+                  minimumTrackTintColor={CORES.WHITE}
+                  maximumTrackTintColor="rgba(255,255,255,0.3)"
+                  thumbTintColor={CORES.WHITE}
+                  onSlidingStart={handlePlaybackSeekStart}
+                  onValueChange={handlePlaybackSeek}
+                  onSlidingComplete={handlePlaybackSeekComplete}
+                  disabled={!hasRecordedAudio}
                 />
               </View>
             </View>
@@ -669,15 +738,12 @@ const ex16 = StyleSheet.create({
   },
   sendAudioProgressTrack: {
     width: "100%",
-    height: 6,
-    borderRadius: 999,
-    backgroundColor: "rgba(255,255,255,0.3)",
-    overflow: "hidden",
+    height: 28,
+    justifyContent: "center",
   },
-  sendAudioProgressFill: {
-    height: "100%",
-    borderRadius: 999,
-    backgroundColor: CORES.WHITE,
+  sendAudioProgressSlider: {
+    width: "100%",
+    height: 28,
   },
   sendAudioToolbarPauseButton: {
     width: 38,

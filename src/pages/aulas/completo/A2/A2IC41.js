@@ -84,6 +84,7 @@ const LESSON_SLIDES = [
       prompt: 'Escreva o adjetivo para "importante".',
       audioSource: require("../../../../../mp3/IC/A2/A41S6.mp3"),
       letters: ["I", "M", "P", "O", "R", "T", "A", "N", "T"],
+      correctWord: "IMPORTANT",
       successTitle: "Correto",
       successMessage: "Important.",
     },

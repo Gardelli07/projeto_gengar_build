@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   Animated,
-  Easing,
   Image,
   ScrollView,
   Text,
@@ -10,6 +9,8 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Slider from "@react-native-community/slider";
+import { useFocusEffect } from "@react-navigation/native";
 import * as Speech from "expo-speech";
 import { createAudioPlayer } from "expo-audio";
 import geral from "../../../../exc/geral";
@@ -197,10 +198,15 @@ function SlideHeader() {
 }
 
 function ListenOnlySlide({ activity, next, speak, onAttempt }) {
-  const audioProgressAnim = useRef(new Animated.Value(0)).current;
   const playerRef = useRef(null);
   const playbackSubscriptionRef = useRef(null);
   const completedRef = useRef(false);
+  const shouldResumeAfterSeekRef = useRef(false);
+  const speechPausedRef = useRef(false);
+
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  const [audioProgress, setAudioProgress] = useState(0);
+  const [audioDuration, setAudioDuration] = useState(0);
 
   const audioRate = activity.audioRate || 0.85;
   const audioPromptText = activity.audioText || activity.transcript || "";
@@ -221,57 +227,168 @@ function ListenOnlySlide({ activity, next, speak, onAttempt }) {
       playerRef.current.remove();
       playerRef.current = null;
     }
+
+    shouldResumeAfterSeekRef.current = false;
+    speechPausedRef.current = false;
+    Speech.stop().catch(() => {});
+    setIsAudioPlaying(false);
   };
 
   useEffect(() => {
     return () => {
       clearPlayback();
-      audioProgressAnim.stopAnimation();
     };
-  }, [audioProgressAnim]);
+  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        clearPlayback();
+      };
+    }, []),
+  );
+
+  const updateAudioStatus = (status) => {
+    if (!status?.isLoaded) {
+      setIsAudioPlaying(false);
+      return;
+    }
+
+    const duration =
+      typeof status.duration === "number" && status.duration > 0
+        ? status.duration
+        : estimatedDurationMs / 1000;
+    const currentTime =
+      typeof status.currentTime === "number" ? status.currentTime : 0;
+    const progress = duration > 0 ? currentTime / duration : 0;
+
+    setAudioDuration(duration);
+    setAudioProgress(Math.max(0, Math.min(progress, 1)));
+    setIsAudioPlaying(Boolean(status.playing));
+
+    if (status.didJustFinish) {
+      setAudioProgress(1);
+      setIsAudioPlaying(false);
+    }
+  };
+
+  const ensureAudioPlayer = () => {
+    if (playerRef.current || !activity.audioSource) {
+      return playerRef.current;
+    }
+
+    const player = createAudioPlayer(activity.audioSource, {
+      updateInterval: 100,
+    });
+    playbackSubscriptionRef.current = player.addListener(
+      "playbackStatusUpdate",
+      updateAudioStatus,
+    );
+    playerRef.current = player;
+
+    return player;
+  };
 
   const playAudio = async () => {
-    audioProgressAnim.stopAnimation();
-    audioProgressAnim.setValue(0);
-    Animated.timing(audioProgressAnim, {
-      toValue: 1,
-      duration: estimatedDurationMs,
-      easing: Easing.linear,
-      useNativeDriver: false,
-    }).start();
-
     if (activity.audioSource) {
       try {
-        clearPlayback();
-        const player = createAudioPlayer(activity.audioSource);
-        playbackSubscriptionRef.current = player.addListener(
-          "playbackStatusUpdate",
-          (status) => {
-            if (status.didJustFinish) {
-              audioProgressAnim.stopAnimation();
-              audioProgressAnim.setValue(1);
-              clearPlayback();
-            }
-          },
-        );
+        const player = ensureAudioPlayer();
+        if (!player) return;
 
-        playerRef.current = player;
+        if (isAudioPlaying) {
+          player.pause();
+          setIsAudioPlaying(false);
+          return;
+        }
+
+        if (audioProgress >= 0.995) {
+          await player.seekTo(0);
+          setAudioProgress(0);
+        }
+
         player.play();
+        setIsAudioPlaying(true);
         return;
       } catch (error) {
         console.warn("ListenOnlySlide playAudio error", error);
+        clearPlayback();
+        setAudioProgress(0);
+      }
+    }
+
+    if (isAudioPlaying) {
+      try {
+        await Speech.pause();
+        speechPausedRef.current = true;
+      } catch (error) {
+        await Speech.stop().catch(() => {});
+        speechPausedRef.current = false;
+      }
+
+      setIsAudioPlaying(false);
+      return;
+    }
+
+    if (speechPausedRef.current) {
+      try {
+        await Speech.resume();
+        setIsAudioPlaying(true);
+        return;
+      } catch (error) {
+        speechPausedRef.current = false;
       }
     }
 
     clearPlayback();
+    speechPausedRef.current = false;
+    setAudioProgress(0);
+    setIsAudioPlaying(true);
+
     speak({
       text: audioPromptText,
       language: activity.audioLanguage || "en-US",
       rate: audioRate,
-      onDone: () => audioProgressAnim.setValue(1),
-      onStopped: () => audioProgressAnim.stopAnimation(),
-      onError: () => audioProgressAnim.stopAnimation(),
+      onDone: () => {
+        setAudioProgress(1);
+        setIsAudioPlaying(false);
+      },
+      onStopped: () => setIsAudioPlaying(false),
+      onError: () => setIsAudioPlaying(false),
     });
+  };
+
+  const handleAudioSeekStart = () => {
+    shouldResumeAfterSeekRef.current = isAudioPlaying;
+    playerRef.current?.pause?.();
+    setIsAudioPlaying(false);
+  };
+
+  const handleAudioSeek = (value) => {
+    setAudioProgress(Math.max(0, Math.min(value, 1)));
+  };
+
+  const handleAudioSeekComplete = async (value) => {
+    const player = ensureAudioPlayer();
+    const progress = Math.max(0, Math.min(value, 1));
+    const duration = audioDuration || estimatedDurationMs / 1000;
+    const seekTime = duration * progress;
+
+    setAudioProgress(progress);
+
+    if (!player) return;
+
+    try {
+      await player.seekTo(seekTime);
+
+      if (shouldResumeAfterSeekRef.current) {
+        player.play();
+        setIsAudioPlaying(true);
+      }
+    } catch (error) {
+      console.warn("ListenOnlySlide seekAudio error", error);
+    } finally {
+      shouldResumeAfterSeekRef.current = false;
+    }
   };
 
   const handleContinue = () => {
@@ -285,6 +402,7 @@ function ListenOnlySlide({ activity, next, speak, onAttempt }) {
       });
     }
 
+    clearPlayback();
     next();
   };
 
@@ -302,22 +420,33 @@ function ListenOnlySlide({ activity, next, speak, onAttempt }) {
           />
         </View>
 
-        <TouchableOpacity style={styles.audioButton} onPress={playAudio}>
-          <Text style={styles.audioIcon}>▶</Text>
+        <View style={styles.audioButton}>
+          <TouchableOpacity
+            style={styles.audioPlayButton}
+            onPress={playAudio}
+            accessibilityRole="button"
+            accessibilityLabel={
+              isAudioPlaying ? "Pausar audio" : "Reproduzir audio"
+            }
+          >
+            <Text style={styles.audioIcon}>{isAudioPlaying ? "II" : "▶"}</Text>
+          </TouchableOpacity>
           <View style={styles.audioBar}>
-            <Animated.View
-              style={[
-                styles.audioProgress,
-                {
-                  width: audioProgressAnim.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: ["0%", "100%"],
-                  }),
-                },
-              ]}
+            <Slider
+              style={styles.audioSlider}
+              minimumValue={0}
+              maximumValue={1}
+              value={audioProgress}
+              minimumTrackTintColor="#F8FAFC"
+              maximumTrackTintColor="rgba(255,255,255,0.35)"
+              thumbTintColor="#F8FAFC"
+              onSlidingStart={handleAudioSeekStart}
+              onValueChange={handleAudioSeek}
+              onSlidingComplete={handleAudioSeekComplete}
+              disabled={!activity.audioSource}
             />
           </View>
-        </TouchableOpacity>
+        </View>
       </View>
 
       {activity.transcript ? (

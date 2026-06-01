@@ -24,12 +24,10 @@ const LESSON_SLIDES = [
   },
   {
     key: "a2ic04s2",
-    type: "listenOnly",
+    component: "Exercise17",
     activity: {
-      prompt: "Ouça o blog da Sabrina",
-      image: ICA2.A4S2,
-      transcript: BLOG_TEXT,
-      audioText: BLOG_TEXT,
+      label: "Blog da Sabrina",
+      content: [ICA2.A4S2, BLOG_TEXT],
       continueLabel: "Continuar",
     },
   },
