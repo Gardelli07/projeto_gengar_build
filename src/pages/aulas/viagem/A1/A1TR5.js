@@ -1,5 +1,5 @@
 import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise3 } from "../../../../exc/ex3";
+import { Exercise20 } from "../../../../exc/ex20";
 import { Exercise5 } from "../../../../exc/ex5";
 import { Exercise6 } from "../../../../exc/ex6";
 import { Exercise12 } from "../../../../exc/ex12";
@@ -117,14 +117,11 @@ Atenção: "Aisle" se pronuncia "ÁIL". O "S" é mudo!`,
   },
   {
     key: "aisle-please-true-false",
-    component: Exercise3,
-    needsSpeech: true,
+    component: Exercise20,
     activity: {
-      prompt: "Escute o áudio e responda: verdadeiro ou falso?",
+      prompt: "Observe e responda: verdadeiro ou falso?",
       image: TRA1.A5S8,
-      audioText: "Aisle, please.",
-      audioDurationMs: 1400,
-      statement: "O passageiro do áudio está pedindo para sentar na janela.",
+      statement: 'A frase "Aisle, please." pede para sentar na janela.',
       options: ["true", "false"],
       correctAnswer: "false",
       successTitle: "Correto",

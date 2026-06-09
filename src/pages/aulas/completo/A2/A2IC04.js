@@ -173,12 +173,10 @@ const LESSON_SLIDES = [
   },
   {
     key: "a2ic04s13",
-    component: "Exercise3",
-    needsSpeech: true,
+    component: "Exercise20",
     activity: {
       prompt: "Segundo o texto, verdadeiro ou falso?",
       image: ICA2.A4S13,
-      audioText: "Sabrina is working in her home office.",
       statement:
         "Segundo o texto, a Sabrina está de férias na praia com os pais dela.",
       textOnScreen: "A Sabrina está de férias na praia com os pais dela.",

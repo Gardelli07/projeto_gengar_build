@@ -12,7 +12,6 @@ import * as Speech from "expo-speech";
 import geral from "../../../../exc/geral";
 import ex1, { Exercise1 } from "../../../../exc/ex1";
 import ex2, { Exercise2 } from "../../../../exc/ex2";
-import ex3, { Exercise3 } from "../../../../exc/ex3";
 import ex4, { Exercise4 } from "../../../../exc/ex4";
 import ex5, { Exercise5 } from "../../../../exc/ex5";
 import ex6, { Exercise6 } from "../../../../exc/ex6";
@@ -28,6 +27,7 @@ import ex14, { Exercise14 } from "../../../../exc/ex14";
 import ex16, { Exercise16 } from "../../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../../exc/ex17";
 import ex18, { Exercise18 } from "../../../../exc/ex18";
+import ex20, { Exercise20 } from "../../../../exc/ex20";
 import Feedback from "../../../../exc/feedback";
 import { BussinesImages, ICB1, Images } from "../../../../util/images";
 import {
@@ -47,7 +47,6 @@ const styles = {
   ...geral,
   ...ex1,
   ...ex2,
-  ...ex3,
   ...ex4,
   ...ex5,
   ...ex6,
@@ -63,6 +62,7 @@ const styles = {
   ...ex16,
   ...ex17,
   ...ex18,
+  ...ex20,
 };
 
 const LESSON_SLIDES = [
@@ -233,14 +233,10 @@ Dica do Mestre: STILL no Present Perfect é quase sempre usado em frases negativ
   },
   {
     key: "yet-positive-false",
-    component: Exercise3,
-    needsSpeech: true,
+    component: Exercise20,
     activity: {
       prompt: "Verdadeiro ou falso?",
       image: ICB1.A2S8,
-      audioText:
-        "We use yet in positive sentences to show something is finished.",
-      audioDurationMs: 3600,
       dialogue:
         "We use YET in positive sentences to show something is finished.",
       options: ["True", "False"],

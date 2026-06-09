@@ -16,7 +16,6 @@ import { createAudioPlayer } from "expo-audio";
 import geral from "../../../../exc/geral";
 import ex1, { Exercise1 } from "../../../../exc/ex1";
 import ex2, { Exercise2 } from "../../../../exc/ex2";
-import ex3, { Exercise3 } from "../../../../exc/ex3";
 import ex4, { Exercise4 } from "../../../../exc/ex4";
 import ex5, { Exercise5 } from "../../../../exc/ex5";
 import ex6, { Exercise6 } from "../../../../exc/ex6";
@@ -33,6 +32,7 @@ import ex16, { Exercise16 } from "../../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../../exc/ex17";
 import ex18, { Exercise18 } from "../../../../exc/ex18";
 import ex19, { Exercise19 } from "../../../../exc/ex19";
+import ex20, { Exercise20 } from "../../../../exc/ex20";
 import Feedback from "../../../../exc/feedback";
 import { Images } from "../../../../util/images";
 import {
@@ -52,7 +52,6 @@ const styles = {
   ...geral,
   ...ex1,
   ...ex2,
-  ...ex3,
   ...ex4,
   ...ex5,
   ...ex6,
@@ -69,12 +68,12 @@ const styles = {
   ...ex17,
   ...ex18,
   ...ex19,
+  ...ex20,
 };
 
 const COMPONENTS = {
   Exercise1,
   Exercise2,
-  Exercise3,
   Exercise4,
   Exercise5,
   Exercise6,
@@ -91,6 +90,7 @@ const COMPONENTS = {
   Exercise17,
   Exercise18,
   Exercise19,
+  Exercise20,
 };
 
 function useSpeech() {

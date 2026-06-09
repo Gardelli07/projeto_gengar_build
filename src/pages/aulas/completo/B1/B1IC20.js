@@ -28,6 +28,7 @@ import ex14, { Exercise14 } from "../../../../exc/ex14";
 import ex16, { Exercise16 } from "../../../../exc/ex16";
 import ex17, { Exercise17 } from "../../../../exc/ex17";
 import ex18, { Exercise18 } from "../../../../exc/ex18";
+import ex20, { Exercise20 } from "../../../../exc/ex20";
 import ex19, { Exercise19 } from "../../../../exc/ex19";
 import Feedback from "../../../../exc/feedback";
 import { BussinesImages, ICB1, Images } from "../../../../util/images";
@@ -65,6 +66,7 @@ const styles = {
   ...ex17,
   ...ex18,
   ...ex19,
+  ...ex20,
 };
 
 const LESSON_SLIDES = [
@@ -121,14 +123,10 @@ Faça sons como "Uh-huh", "Wow" ou "No way!" para mostrar que está acompanhando
   },
   {
     key: "coffee-legend-false",
-    component: Exercise3,
-    needsSpeech: true,
+    component: Exercise20,
     activity: {
-      prompt: "Escute o áudio com atenção e responda.",
+      prompt: "Observe e responda.",
       image: ICB1.A20S3,
-      audioText:
-        "Legend says that coffee was discovered in Ethiopia by a goat shepherd named Kaldi. He noticed that his goats became extremely energetic after eating red berries from a certain tree. They wouldn't sleep at night! Later, monks used these berries to stay awake during long prayers, and that's how the coffee drink was born.",
-      audioDurationMs: 15000,
       dialogue:
         "The goats became very tired and sleepy after eating the red berries.",
       options: ["True", "False"],

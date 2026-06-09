@@ -146,12 +146,10 @@ const LESSON_SLIDES = [
   ),
   {
     key: "a2ic05s13",
-    component: "Exercise3",
-    needsSpeech: true,
+    component: "Exercise20",
     activity: {
       prompt: "De acordo com o áudio, verdadeiro ou falso?",
       image: ICA2.A5S13,
-      audioText: "My parents are eating sandwiches on the grass.",
       statement:
         "De acordo com o áudio, os pais da Sabrina estão comendo pizza.",
       textOnScreen: "Os pais da Sabrina estão comendo pizza.",

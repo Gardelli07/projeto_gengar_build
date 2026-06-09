@@ -29,6 +29,7 @@ import ex16 from "../../../../exc/ex16";
 import ex17 from "../../../../exc/ex17";
 import ex18 from "../../../../exc/ex18";
 import ex19 from "../../../../exc/ex19";
+import ex20 from "../../../../exc/ex20";
 import Feedback from "../../../../exc/feedback";
 import {
   calculateLessonAccuracy,
@@ -64,6 +65,7 @@ const styles = {
   ...ex17,
   ...ex18,
   ...ex19,
+  ...ex20,
 };
 
 function useSpeech() {

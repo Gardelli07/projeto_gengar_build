@@ -90,12 +90,10 @@ const LESSON_SLIDES = [
   },
   {
     key: "a2ic01s7",
-    component: "Exercise3",
-    needsSpeech: true,
+    component: "Exercise20",
     activity: {
       prompt: "Leia e responda: verdadeiro ou falso?",
       image: ICA2.A1S7,
-      audioText: "I am eating.",
       statement:
         'Se a pessoa diz "I am eating", isso significa que ela sempre come no mesmo horário todos os dias.',
       textOnScreen:

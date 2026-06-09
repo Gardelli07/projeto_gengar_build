@@ -49,12 +49,10 @@ const LESSON_SLIDES = [
   },
   {
     key: "a2ic06s4",
-    component: "Exercise3",
-    needsSpeech: true,
+    component: "Exercise20",
     activity: {
       prompt: "Leia e responda: verdadeiro ou falso?",
       image: ICA2.A6S4,
-      audioText: "Are they studying English now?",
       statement:
         'Na pergunta "Are they study English now?", a estrutura está correta.',
       textOnScreen: '"Are they study English now?" está correta.',

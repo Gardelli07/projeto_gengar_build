@@ -89,12 +89,10 @@ const LESSON_SLIDES = [
   },
   {
     key: "a2ic02s7",
-    component: "Exercise3",
-    needsSpeech: true,
+    component: "Exercise20",
     activity: {
       prompt: "Leia e responda: verdadeiro ou falso?",
       image: ICA2.A2S7,
-      audioText: "I'm swimming in the pool.",
       statement:
         'Na frase "I\'m swiming in the pool", a escrita do verbo está correta.',
       textOnScreen: '"I\'m swiming in the pool" está escrito corretamente.',
