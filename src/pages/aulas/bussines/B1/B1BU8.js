@@ -134,7 +134,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "Organize as letras para formar a palavra que usamos para ir exatamente ao ponto.",
-      audioText: "Exactly",
+      audioSource: require("../../../../../mp3/BU/B1/A8S5.mp3"),
       audioDurationMs: 1200,
       letters: ["X", "E", "T", "C", "Y", "A", "L"],
       correctWord: "EXACTLY",

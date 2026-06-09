@@ -103,7 +103,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "Organize as letras para formar a palavra que usamos para assumir responsabilidade.",
-      audioText: "Ownership",
+      audioSource: require("../../../../../mp3/BU/B1/A17S5.mp3"),
       audioDurationMs: 1300,
       letters: ["P", "O", "R", "E", "W", "N", "I", "H", "S"],
       correctWord: "OWNERSHIP",

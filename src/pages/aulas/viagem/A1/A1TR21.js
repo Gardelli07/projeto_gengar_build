@@ -45,7 +45,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A21S3,
-      audioText: "Fitting room",
+      audioSource: require("../../../../../mp3/TR/A1/A21S7.mp3"),
       audioDurationMs: 1400,
       answerOptions: ["Fitting room", "Bathroom"],
       correctOption: "Fitting room",
@@ -108,7 +108,6 @@ Se você estiver com uma peça na mão e quiser saber se pode experimentar, apon
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
       image: TRA1.A21S7,
       audioSource: require("../../../../../mp3/TR/A1/A21S7.mp3"),
-      audioText: "Where is the fitting room?",
       audioDurationMs: 1900,
       statement:
         "O cliente do áudio está perguntando onde fica o banheiro da loja.",

@@ -204,7 +204,7 @@ Nunca use "Yo" ou "Hey" para quem você quer que te contrate!`,
     activity: {
       prompt:
         'Desembaralhe a palavra usada para "perguntar" ou "saber" sobre algo formalmente:',
-      audioText: "Inquire",
+      audioSource: require("../../../../../mp3/IC/B1/A7S7.mp3"),
       audioDurationMs: 1000,
       letters: ["I", "N", "Q", "U", "I", "R", "E"],
       correctWord: "INQUIRE",

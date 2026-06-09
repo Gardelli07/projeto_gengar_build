@@ -123,8 +123,7 @@ Nunca diga que não tem fraquezas. Isso soa arrogante ou mentiroso. Escolha algo
     activity: {
       prompt: "Escolha a melhor interpretação",
       image: ICB1.A8S3,
-      audioText:
-        "I'd say my main strength is that I'm highly adaptable. I've been working with different frameworks for years, and I pick up new tech very quickly.",
+      audioSource: require("../../../../../mp3/IC/B1/A6S2.mp3"),
       audioDurationMs: 7200,
       answerOptions: [
         "David focuses on his ability to learn and adjust to new environments.",
@@ -181,7 +180,7 @@ Nunca diga que não tem fraquezas. Isso soa arrogante ou mentiroso. Escolha algo
     needsSpeech: true,
     activity: {
       prompt: "Desembaralhe a força que todo desenvolvedor de app precisa ter:",
-      audioText: "Problem solver",
+      audioSource: require("../../../../../mp3/IC/B1/A6S4.mp3"),
       audioDurationMs: 1200,
       letters: [
         "S",

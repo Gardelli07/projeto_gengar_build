@@ -97,7 +97,7 @@ What've you been up to?: a forma comum de perguntar "o que você tem feito de bo
     activity: {
       prompt: "Escolha a melhor interpretação",
       image: ICB1.A5S5,
-      audioText: "Hey man! What've you been up to lately?",
+      audioSource: require("../../../../../mp3/IC/B1/A4S1.mp3"),
       audioDurationMs: 3200,
       answerOptions: [
         "The speaker is asking about the other person's recent activities.",
@@ -117,7 +117,7 @@ What've you been up to?: a forma comum de perguntar "o que você tem feito de bo
     activity: {
       prompt: "Escolha a melhor interpretação",
       image: ICB1.A6S2,
-      audioText: "That's it! I've had it with this buggy code!",
+      audioSource: require("../../../../../mp3/IC/B1/A4S2.mp3"),
       audioDurationMs: 3400,
       answerOptions: [
         "The speaker is frustrated and has reached his limit.",

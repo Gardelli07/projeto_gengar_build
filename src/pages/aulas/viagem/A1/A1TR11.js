@@ -45,7 +45,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A11S3,
-      audioText: "Left",
+      audioSource: require("../../../../../mp3/TR/A1/A11A3.mp3"),
       audioDurationMs: 900,
       answerOptions: ["Left", "Right"],
       correctOption: "Left",

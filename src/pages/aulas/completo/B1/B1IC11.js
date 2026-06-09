@@ -109,8 +109,7 @@ Ready?`,
     activity: {
       prompt: "Escute e responda",
       image: ICB1.A18S2,
-      audioText:
-        "If I won the lottery, I would buy a professional espresso machine for my home office.",
+      audioSource: require("../../../../../mp3/IC/B1/A11S3.mp3"),
       audioDurationMs: 5200,
       dialogue: "The person would buy a new car.",
       options: ["True", "False"],

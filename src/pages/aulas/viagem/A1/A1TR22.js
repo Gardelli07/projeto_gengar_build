@@ -30,7 +30,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A22S2,
-      audioText: "How much is it?",
+      audioSource: require("../../../../../mp3/TR/A1/A22S7.mp3"),
       audioDurationMs: 1600,
       answerOptions: ["How much is it?", "Where is it?"],
       correctOption: "How much is it?",
@@ -121,7 +121,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "Ouça com atenção e escreva exatamente o que o cliente perguntou para saber o valor do produto.",
-      audioText: "How much is it?",
+      audioSource: require("../../../../../mp3/TR/A1/A22S7.mp3"),
       audioDurationMs: 1600,
       correctAnswer: "How much is it?",
       placeholder: "Digite a pergunta",

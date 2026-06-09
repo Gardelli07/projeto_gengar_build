@@ -92,7 +92,7 @@ Recharge: recarregar as energias.`,
     activity: {
       prompt: "Escolha a melhor interpretação",
       image: ICB1.A11S5,
-      audioText: "Setting boundaries is the best way to avoid burnout.",
+      audioSource: require("../../../../../mp3/IC/B1/A9S1.mp3"),
       audioDurationMs: 3400,
       answerOptions: [
         "The speaker believes that limits help prevent professional exhaustion.",
@@ -112,7 +112,7 @@ Recharge: recarregar as energias.`,
     activity: {
       prompt: "Escolha a definição correta",
       image: ICB1.A11S6,
-      audioText: "Hustle Culture is very common in startups.",
+      audioSource: require("../../../../../mp3/IC/B1/A9S2.mp3"),
       audioDurationMs: 3000,
       answerOptions: [
         "A social pressure to work all the time to reach success.",
@@ -130,7 +130,7 @@ Recharge: recarregar as energias.`,
     activity: {
       prompt: "Escolha a definição correta",
       image: ICB1.A11S7,
-      audioText: "You must set boundaries to protect your time.",
+      audioSource: require("../../../../../mp3/IC/B1/A9S3.mp3"),
       audioDurationMs: 3200,
       answerOptions: [
         "Limits you establish to separate work and personal life.",

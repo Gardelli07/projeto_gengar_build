@@ -122,7 +122,7 @@ Exemplo: "I'd like the chicken, please." Treine esse som para soar mais natural.
     needsSpeech: true,
     activity: {
       prompt: "Ouça com atenção e escreva exatamente o que o cliente pediu.",
-      audioText: "I would like the chicken, please.",
+      audioSource: require("../../../../../mp3/TR/A1/A18S7.mp3"),
       audioDurationMs: 2100,
       correctAnswer: "I would like the chicken, please.",
       placeholder: "Digite a frase",

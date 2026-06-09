@@ -9,7 +9,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e escreva.",
       audioSource: require("../../../../../mp3/IC/A2/A17S1.mp3"),
-      audioText: "We didn't go to the beach.",
       correctAnswer: "We didn't go to the beach.",
       placeholder: "Digite a frase aqui",
       submitLabel: "Responder",

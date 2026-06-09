@@ -93,8 +93,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Responda verdadeiro ou falso.",
       image: ICA2.A56S8,
-      audioText:
-        "If your phone is dead, it means it is broken and you need a new one.",
+      audioSource: require("../../../../../mp3/IC/A2/A56S8.mp3"),
       textOnScreen:
         "If your phone is dead, it means it is broken and you need a new one.",
       options: ["true", "false"],

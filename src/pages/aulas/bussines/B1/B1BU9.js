@@ -128,7 +128,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         'Organize as letras para formar a palavra que usamos no lugar do simples "but".',
-      audioText: "However",
+      audioSource: require("../../../../../mp3/BU/B1/A9S5.mp3"),
       audioDurationMs: 1200,
       letters: ["W", "E", "R", "E", "V", "O", "H"],
       correctWord: "HOWEVER",

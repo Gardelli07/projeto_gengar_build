@@ -101,7 +101,7 @@ Ex: Eu tenho andado lendo este livro.`,
     activity: {
       prompt: "Escolha a melhor interpretação",
       image: ICB1.A3S5,
-      audioText: "I'm exhausted because I've been working out for two hours.",
+      audioSource: require("../../../../../mp3/IC/B1/A3S1.mp3"),
       audioDurationMs: 3800,
       answerOptions: [
         "The person has spent a lot of energy exercising recently.",
@@ -121,7 +121,7 @@ Ex: Eu tenho andado lendo este livro.`,
     activity: {
       prompt: "Escolha a melhor interpretação",
       image: ICB1.A3S7,
-      audioText: "David has been coding this new feature since early morning.",
+      audioSource: require("../../../../../mp3/IC/B1/A3S2.mp3"),
       audioDurationMs: 3800,
       answerOptions: [
         "David is still in the process of writing the code.",
@@ -140,7 +140,7 @@ Ex: Eu tenho andado lendo este livro.`,
     activity: {
       prompt: "Escolha a melhor interpretação",
       image: ICB1.A3S9,
-      audioText: "I've been playing the guitar for three hours straight.",
+      audioSource: require("../../../../../mp3/IC/B1/A3S3.mp3"),
       audioDurationMs: 3600,
       answerOptions: [
         "The speaker started playing 3 hours ago and is likely still playing.",
@@ -194,7 +194,7 @@ Ex: Eu tenho andado lendo este livro.`,
     activity: {
       prompt:
         "Para formar o Continuous, você sempre precisa deste verbo no particípio. Desembaralhe:",
-      audioText: "Been",
+      audioSource: require("../../../../../mp3/IC/B1/A3S6.mp3"),
       audioDurationMs: 900,
       letters: ["B", "E", "E", "N"],
       correctWord: "BEEN",

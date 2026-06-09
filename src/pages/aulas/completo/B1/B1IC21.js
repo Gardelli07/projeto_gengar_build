@@ -146,8 +146,7 @@ In questions and negatives they behave very differently -- pay attention to the 
     activity: {
       prompt: "Listen and decide: true or false?",
       image: ICB1.A21S3,
-      audioText:
-        "At my job, I have to wear a badge every day -- it's a company rule. But I personally feel I must improve my time management. I really must stop being late to meetings.",
+      audioSource: require("../../../../../mp3/IC/B1/A21S3.mp3"),
       audioDurationMs: 11000,
       dialogue:
         'Written sentence: "The speaker has a personal rule about wearing a badge."',
@@ -217,7 +216,7 @@ In questions and negatives they behave very differently -- pay attention to the 
     needsSpeech: true,
     activity: {
       prompt: "Listen and write what you hear",
-      audioText: "You have to show your ID to enter the building.",
+      audioSource: require("../../../../../mp3/IC/B1/A21S9.mp3"),
       audioLanguage: "en-GB",
       audioDurationMs: 3500,
       correctAnswer: "You have to show your ID to enter the building.",

@@ -96,7 +96,7 @@ Vamos aprender a fazer essas perguntas!`,
     activity: {
       prompt:
         "Organize as letras para formar a palavra essencial para perguntas imaginárias.",
-      audioText: "Would",
+      audioSource: require("../../../../../mp3/IC/B1/A13S2.mp3"),
       audioDurationMs: 900,
       letters: ["D", "L", "U", "O", "W"],
       correctWord: "WOULD",
@@ -161,7 +161,7 @@ Vamos aprender a fazer essas perguntas!`,
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e digite exatamente a pergunta que você ouviu.",
-      audioText: "Where would you live if you could choose any country?",
+      audioSource: require("../../../../../mp3/IC/B1/A13S5.mp3"),
       audioDurationMs: 4400,
       correctAnswer: "Where would you live if you could choose any country?",
       placeholder: "Digite a pergunta",

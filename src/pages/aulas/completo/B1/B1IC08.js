@@ -96,7 +96,7 @@ O prazo final. Em startups, perder um deadline pode custar caro!`,
     activity: {
       prompt: "Escolha a definição correta",
       image: ICB1.A9S11,
-      audioText: "The VC loved our project.",
+      audioSource: require("../../../../../mp3/IC/B1/A8S1.mp3"),
       audioDurationMs: 2200,
       answerOptions: [
         "Venture Capital refers to investors who provide money to startups.",
@@ -115,7 +115,7 @@ O prazo final. Em startups, perder um deadline pode custar caro!`,
     activity: {
       prompt: "Escolha a definição correta",
       image: ICB1.A10S1,
-      audioText: "David is preparing his pitch for tomorrow.",
+      audioSource: require("../../../../../mp3/IC/B1/A8S2.mp3"),
       audioDurationMs: 2800,
       answerOptions: [
         "A pitch is a fast presentation to sell an idea or product.",
@@ -134,7 +134,7 @@ O prazo final. Em startups, perder um deadline pode custar caro!`,
     activity: {
       prompt: "Escolha a definição correta",
       image: ICB1.A10S2,
-      audioText: "We need to scale our application globally.",
+      audioSource: require("../../../../../mp3/IC/B1/A8S3.mp3"),
       audioDurationMs: 3000,
       answerOptions: [
         "To scale means to grow the business significantly.",
@@ -152,7 +152,7 @@ O prazo final. Em startups, perder um deadline pode custar caro!`,
     activity: {
       prompt: "Escolha a definição correta",
       image: ICB1.A10S3,
-      audioText: "The deadline for the new update is Friday.",
+      audioSource: require("../../../../../mp3/IC/B1/A8S4.mp3"),
       audioDurationMs: 3200,
       answerOptions: [
         "A deadline is the latest time or date something must be finished.",
@@ -263,7 +263,7 @@ O prazo final. Em startups, perder um deadline pode custar caro!`,
     needsSpeech: true,
     activity: {
       prompt: 'Desembaralhe a palavra usada para a "apresentação de venda":',
-      audioText: "Pitch",
+      audioSource: require("../../../../../mp3/IC/B1/A8S10.mp3"),
       audioDurationMs: 900,
       letters: ["P", "I", "T", "C", "H"],
       correctWord: "PITCH",

@@ -128,7 +128,7 @@ I wish I had more time.`,
     activity: {
       prompt: "Escute e responda",
       image: ICB1.A20S7,
-      audioText: "My car is too small. I wish I had a big SUV.",
+      audioSource: require("../../../../../mp3/IC/B1/A14S4.mp3"),
       audioDurationMs: 3200,
       dialogue: "The person is happy with their car.",
       options: ["True", "False"],

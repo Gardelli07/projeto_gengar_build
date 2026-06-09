@@ -146,7 +146,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e escolha",
       image: ICA1.A28S7,
-      audioText: "tech dash hero at mail dot net",
+      audioSource: require("../../../../../mp3/IC/A0-A1/A28S7.mp3"),
       audioDurationMs: 2200,
       answerOptions: ["tech_hero@mail.net", "tech-hero@mail.net"],
       correctOption: "tech-hero@mail.net",

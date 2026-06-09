@@ -91,7 +91,7 @@ Legacy: o impacto duradouro deixado por alguém.`,
     activity: {
       prompt: "Escolha a definição correta",
       image: ICB1.A14S4,
-      audioText: "Steve Jobs was the founder of Apple.",
+      audioSource: require("../../../../../mp3/IC/B1/A10S1.mp3"),
       audioDurationMs: 3000,
       answerOptions: [
         "The person who starts a company or an organization.",
@@ -109,7 +109,7 @@ Legacy: o impacto duradouro deixado por alguém.`,
     activity: {
       prompt: "Escolha a definição correta",
       image: ICB1.A15S2,
-      audioText: "He was a visionary leader in the tech industry.",
+      audioSource: require("../../../../../mp3/IC/B1/A10S2.mp3"),
       audioDurationMs: 3200,
       answerOptions: [
         "Someone who has creative and original ideas about the future.",
@@ -128,7 +128,7 @@ Legacy: o impacto duradouro deixado por alguém.`,
     activity: {
       prompt: "Escolha a definição correta",
       image: ICB1.A15S3,
-      audioText: "Apple is famous for its innovative designs.",
+      audioSource: require("../../../../../mp3/IC/B1/A10S3.mp3"),
       audioDurationMs: 3200,
       answerOptions: [
         "Featuring new methods; advanced and original.",
@@ -146,7 +146,7 @@ Legacy: o impacto duradouro deixado por alguém.`,
     activity: {
       prompt: "Escolha a definição correta",
       image: ICB1.A15S6,
-      audioText: "His legacy continues to inspire millions of people.",
+      audioSource: require("../../../../../mp3/IC/B1/A10S4.mp3"),
       audioDurationMs: 3400,
       answerOptions: [
         "The long-lasting impact or reputation left by someone.",

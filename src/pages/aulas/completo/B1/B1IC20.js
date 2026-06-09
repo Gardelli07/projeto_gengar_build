@@ -110,7 +110,7 @@ Faça sons como "Uh-huh", "Wow" ou "No way!" para mostrar que está acompanhando
     activity: {
       prompt: "Escute a palavra-chave e escolha a correta.",
       image: ICB1.A20S2,
-      audioText: "Shepherd",
+      audioSource: require("../../../../../mp3/IC/B1/A20S3.mp3"),
       audioDurationMs: 1000,
       answerOptions: ["Shepherd", "Sheep"],
       correctOption: "Shepherd",
@@ -144,7 +144,7 @@ Faça sons como "Uh-huh", "Wow" ou "No way!" para mostrar que está acompanhando
     needsSpeech: true,
     activity: {
       prompt: "Escute este trecho curto e digite exatamente o que ouviu.",
-      audioText: "They wouldn't sleep at night.",
+      audioSource: require("../../../../../mp3/IC/B1/A20S5.mp3"),
       audioDurationMs: 2400,
       correctAnswer: "They wouldn't sleep at night.",
       placeholder: "Digite a frase",
@@ -221,8 +221,7 @@ Focus!`,
     activity: {
       prompt: "A história continua. Escute e responda.",
       image: ICB1.A20S7,
-      audioText:
-        "Centuries later, in Italy, the espresso machine was invented. The word espresso means pressed out. These machines use high pressure to force hot water through finely ground coffee, creating a strong shot with a perfect crema on top.",
+      audioSource: require("../../../../../mp3/IC/B1/A20S10.mp3"),
       audioDurationMs: 10500,
       dialogue:
         "The audio states that an espresso machine uses cold water and low pressure.",

@@ -94,7 +94,7 @@ Use:
     activity: {
       prompt: "Escute a palavra-chave e escolha a alternativa correta.",
       image: ICB1.A18S2,
-      audioText: "Clarify",
+      audioSource: require("../../../../../mp3/IC/B1/A17S2.mp3"),
       audioDurationMs: 1000,
       answerOptions: ["Clarify", "Classify"],
       correctOption: "Clarify",
@@ -172,7 +172,7 @@ Isso mostra que você está prestando atenção e garante que não haverá falha
     needsSpeech: true,
     activity: {
       prompt: "Escute com atenção e digite exatamente o que ouvir.",
-      audioText: "So, in other words, the project is delayed.",
+      audioSource: require("../../../../../mp3/IC/B1/A17S7.mp3"),
       audioDurationMs: 3600,
       correctAnswer: "So, in other words, the project is delayed.",
       placeholder: "Digite a frase",

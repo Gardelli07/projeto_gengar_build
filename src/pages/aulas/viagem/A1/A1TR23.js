@@ -44,7 +44,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A23S3,
-      audioText: "Gift",
+      audioSource: require("../../../../../mp3/TR/A1/A23S7.mp3"),
       audioDurationMs: 900,
       answerOptions: ["Gift", "Price"],
       correctOption: "Gift",
@@ -59,7 +59,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A23S4,
-      audioText: "For a gift",
+      audioSource: require("../../../../../mp3/TR/A1/A23S7.mp3"),
       audioDurationMs: 1400,
       answerOptions: ["For a gift", "For here"],
       correctOption: "For a gift",

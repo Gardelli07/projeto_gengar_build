@@ -132,7 +132,7 @@ Ex: I've been building the login screen. (Ainda estou nela, que trabalho!)`,
     activity: {
       prompt: "Escolha a melhor interpretação",
       image: ICB1.A7S5,
-      audioText: "Man, I've been fixing this bug since breakfast!",
+      audioSource: require("../../../../../mp3/IC/B1/A5S2.mp3"),
       audioDurationMs: 3400,
       answerOptions: [
         "David is emphasizing the continuous struggle and duration of the task.",

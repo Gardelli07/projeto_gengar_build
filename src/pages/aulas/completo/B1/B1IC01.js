@@ -97,7 +97,7 @@ Essa estrutura conecta o passado ao presente. Se você diz "I've worked here for
     activity: {
       prompt: "O falante ainda é um desenvolvedor?",
       image: ICB1.A1S1,
-      audioText: "I have been a software developer for over a decade.",
+      audioSource: require("../../../../../mp3/IC/B1/A1S1.mp3"),
       audioDurationMs: 3200,
       answerOptions: ["Sim", "Não"],
       correctOption: "Sim",
@@ -113,7 +113,7 @@ Essa estrutura conecta o passado ao presente. Se você diz "I've worked here for
     activity: {
       prompt: "Quando foi a última atualização?",
       image: ICB1.A1S2,
-      audioText: "We haven't updated the system since the last quarter.",
+      audioSource: require("../../../../../mp3/IC/B1/A1S2.mp3"),
       audioDurationMs: 3300,
       answerOptions: ["No último trimestre", "Por vários meses"],
       correctOption: "No último trimestre",
@@ -129,7 +129,7 @@ Essa estrutura conecta o passado ao presente. Se você diz "I've worked here for
     activity: {
       prompt: "David começou a tocar guitarra quando?",
       image: ICB1.A1S3,
-      audioText: "David has played the guitar since he was a child.",
+      audioSource: require("../../../../../mp3/IC/B1/A1S3.mp3"),
       audioDurationMs: 3200,
       answerOptions: ["Na infância", "Por muitos anos"],
       correctOption: "Na infância",
@@ -191,8 +191,7 @@ Certo: I have lived here since 2019. (Ponto de partida)`,
     activity: {
       prompt: "O áudio indica um ponto de partida ou uma duração?",
       image: ICB1.A1S6,
-      audioText:
-        "David hasn't played his electric guitar since his daughter was born.",
+      audioSource: require("../../../../../mp3/IC/B1/A1S6.mp3"),
       audioDurationMs: 4000,
       answerOptions: ["Duração (For)", "Ponto de Partida (Since)"],
       correctOption: "Ponto de Partida (Since)",

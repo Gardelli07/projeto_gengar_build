@@ -132,7 +132,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "Organize as letras para formar a palavra que descreve um profissional atento às necessidades dos outros.",
-      audioText: "Mindful",
+      audioSource: require("../../../../../mp3/BU/B1/A10S5.mp3"),
       audioDurationMs: 1200,
       letters: ["F", "I", "L", "U", "M", "N", "D"],
       correctWord: "MINDFUL",

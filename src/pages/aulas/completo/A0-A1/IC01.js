@@ -183,7 +183,6 @@ Um simples /blueHello acompanhado de um sorriso é a chave para ser bem recebido
     activity: {
       prompt: "Coloque a frase em ordem.",
       image: Images.teacher,
-      audioText: "Hello, my name's Jake.",
       words: ["Hello", "name's", "my", "Jake"],
       correctOrder: ["Hello", "my", "name's", "Jake"],
       audioRate: 0.85,

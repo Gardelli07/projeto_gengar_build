@@ -113,8 +113,7 @@ Hoje vamos aprender como os nativos mantêm o assunto fluindo de forma natural!`
     activity: {
       prompt: "Escute e responda",
       image: ICB1.A20S3,
-      audioText:
-        "Person A: I love coffee. I just bought a perfect brew machine for my home office. Person B: Oh, nice! What kind of beans do you usually buy?",
+      audioSource: require("../../../../../mp3/IC/B1/A15S3.mp3"),
       audioDurationMs: 7800,
       dialogue: "Person B killed the conversation.",
       options: ["True", "False"],

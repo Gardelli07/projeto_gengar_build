@@ -114,8 +114,7 @@ Em reuniões, expressões como "I see your point" ou "I hear what you're saying"
     activity: {
       prompt: "Escute e responda",
       image: ICB1.A16S5,
-      audioText:
-        "I see what you mean about the project deadline, however, I'm not so sure we have enough staff to finish it by Friday.",
+      audioSource: require("../../../../../mp3/IC/B1/A16S3.mp3"),
       audioDurationMs: 6500,
       dialogue: "The speaker completely agrees with the deadline.",
       options: ["True", "False"],
@@ -215,7 +214,7 @@ Em reuniões, expressões como "I see your point" ou "I hear what you're saying"
     needsSpeech: true,
     activity: {
       prompt: "Escute e escreva a frase.",
-      audioText: "I'm afraid I can't go along with you on that.",
+      audioSource: require("../../../../../mp3/IC/B1/A16S9.mp3"),
       audioDurationMs: 3800,
       correctAnswer: "I'm afraid I can't go along with you on that.",
       placeholder: "Digite a frase",

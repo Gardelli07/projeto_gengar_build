@@ -91,7 +91,7 @@ Mas para soar profissional ou entender o noticiário, dominar a voz passiva é e
     activity: {
       prompt: "Escute a palavra e escolha a alternativa correta.",
       image: ICB1.A29S2,
-      audioText: "Reported",
+      audioSource: require("../../../../../mp3/IC/B1/A29S2.mp3"),
       audioDurationMs: 1000,
       answerOptions: ["Reported", "Responded"],
       correctOption: "Reported",
@@ -107,8 +107,7 @@ Mas para soar profissional ou entender o noticiário, dominar a voz passiva é e
     activity: {
       prompt: "Verdadeiro ou falso?",
       image: ICB1.A29S3,
-      audioText:
-        "It was reported that the economy is finally growing this year.",
+      audioSource: require("../../../../../mp3/IC/B1/A29S3.mp3"),
       audioDurationMs: 3900,
       dialogue: "It is reported that the economy is growing this year.",
       options: ["True", "False"],

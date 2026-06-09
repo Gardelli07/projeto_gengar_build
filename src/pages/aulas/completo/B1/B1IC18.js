@@ -111,8 +111,7 @@ Vamos aprender essas estruturas!`,
     activity: {
       prompt: "Escute e responda",
       image: ICB1.A18S3,
-      audioText:
-        "Hi, I don't think we've met. I'm Mark. I'm a content creator and I manage educational channels on YouTube and Spotify.",
+      audioSource: require("../../../../../mp3/IC/B1/A18S3.mp3"),
       audioDurationMs: 6500,
       dialogue: "Mark works with digital media and education.",
       options: ["True", "False"],

@@ -126,7 +126,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "Organize as letras para formar a palavra-chave da nossa última expressão.",
-      audioText: "Interest",
+      audioSource: require("../../../../../mp3/BU/B1/A2S5.mp3"),
       audioDurationMs: 1000,
       letters: ["N", "I", "E", "T", "R", "E", "S", "T"],
       correctWord: "INTEREST",
