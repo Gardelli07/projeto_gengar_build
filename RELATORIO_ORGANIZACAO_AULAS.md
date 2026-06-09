@@ -6,7 +6,7 @@ Observacao: o caminho informado como `stc/pages/aula` corresponde, no projeto, a
 
 ## Visao geral
 
-| Curso | Nivel | Pasta | Arquivos de aula | Modulos no index | Aulas no index | Padrao principal |
+| Curso | Nível | Pasta | Arquivos de aula | Módulos no index | Aulas no index | Padrão principal |
 | --- | --- | --- | ---: | ---: | ---: | --- |
 | Ingles Completo | A0-A1 | `src/pages/aulas/completo/A0-A1` | 43 | 6 | 43 | Tela completa inline em cada arquivo |
 | Ingles Completo | A2 | `src/pages/aulas/completo/A2` | 74 | 8 | 62 declaradas no index | Factory compartilhada `A2LessonScreen` |
@@ -17,7 +17,7 @@ Observacao: o caminho informado como `stc/pages/aula` corresponde, no projeto, a
 
 ## Estrutura comum dos indices
 
-Cada nivel possui um `index.js` que funciona como catalogo do curso/nivel:
+Cada nível possui um `index.js` que funciona como catálogo do curso/nível:
 
 - exporta uma chave de progresso em AsyncStorage, por exemplo `@progesso_ingles_completo_A2` ou `@curso_progress_travel_A1`;
 - exporta o nome do curso;
@@ -28,12 +28,12 @@ Cada nivel possui um `index.js` que funciona como catalogo do curso/nivel:
 A tela comum de overview fica em `src/pages/aulas/CourseOverviewScreen.js`. Ela:
 
 - le progresso com `AsyncStorage`;
-- agrupa aulas por modulo;
-- mostra progresso por modulo;
+- agrupa aulas por módulo;
+- mostra progresso por módulo;
 - navega para `lesson.screen`;
-- aceita `autoOpenLessonId` para abrir automaticamente a proxima aula.
+- aceita `autoOpenLessonId` para abrir automaticamente a próxima aula.
 
-As pastas `bussines` e `viagem` tambem possuem arquivos pequenos de reexport:
+As pastas `bussines` e `viagem` também possuem arquivos pequenos de reexport:
 
 - `src/pages/aulas/bussines/index.js` reexporta `./A1`;
 - `src/pages/aulas/viagem/index.js` reexporta `./A1`;
@@ -47,17 +47,17 @@ Pasta: `src/pages/aulas/completo/A0-A1`
 
 Organizacao:
 
-- `index.js` declara 6 modulos e 43 aulas.
-- As aulas seguem nomes `IC01.js` ate `IC43.js`.
-- Cada arquivo de aula contem a tela inteira, nao apenas os dados da licao.
-- O padrao interno de cada aula inclui imports de React Native, `AsyncStorage`, `expo-speech`, estilos de exercicios, `Feedback`, calculo de desempenho e XP.
-- Cada arquivo declara `STORAGE_KEY`, `styles`, `LESSON_SLIDES`, hooks auxiliares, renderer de slide, logica de progresso, conclusao da aula e navegacao para a proxima.
-- O componente default e uma funcao com o proprio nome da aula, por exemplo `export default function IC01(...)`.
+- `index.js` declara 6 módulos e 43 aulas.
+- As aulas seguem nomes `IC01.js` até `IC43.js`.
+- Cada arquivo de aula contém a tela inteira, não apenas os dados da licao.
+- O padrão interno de cada aula inclui imports de React Native, `AsyncStorage`, `expo-speech`, estilos de exercicios, `Feedback`, cálculo de desempenho e XP.
+- Cada arquivo declara `STORAGE_KEY`, `styles`, `LESSON_SLIDES`, hooks auxiliares, renderer de slide, lógica de progresso, conclusão da aula e navegação para a próxima.
+- O componente default e uma função com o próprio nome da aula, por exemplo `export default function IC01(...)`.
 
 Implicacao:
 
-- E o padrao mais duplicado junto com `completo/B1`.
-- Para alterar comportamento de navegacao, progresso, streak, feedback ou header, provavelmente e necessario replicar a mudanca em muitos arquivos.
+- E o padrão mais duplicado junto com `completo/B1`.
+- Para alterar comportamento de navegação, progresso, streak, feedback ou header, provavelmente e necessário replicar a mudanca em muitos arquivos.
 
 ### A2
 
@@ -65,18 +65,18 @@ Pasta: `src/pages/aulas/completo/A2`
 
 Organizacao:
 
-- `index.js` declara 8 modulos.
-- O index declara 62 aulas na lista de navegacao, mas a pasta contem arquivos `A2IC01.js` ate `A2IC74.js`.
+- `index.js` declara 8 módulos.
+- O index declara 62 aulas na lista de navegação, mas a pasta contém arquivos `A2IC01.js` até `A2IC74.js`.
 - Existe uma tela/factory compartilhada: `A2LessonScreen.js`.
 - Cada aula importa `createA2LessonScreen` e exporta `createA2LessonScreen(LESSON_SLIDES)`.
 - Nos arquivos de aula, os slides usam `component` como string, por exemplo `"Exercise17"`, `"Exercise14"` e `"Exercise20"`.
-- `A2LessonScreen.js` centraliza o mapa `COMPONENTS`, estilos, navegacao, audio, progresso, feedback, XP e conclusao.
+- `A2LessonScreen.js` centraliza o mapa `COMPONENTS`, estilos, navegação, audio, progresso, feedback, XP e conclusão.
 
 Implicacao:
 
-- E o nivel mais padronizado de `completo`.
+- É o nível mais padronizado de `completo`.
 - O conteudo de cada aula fica mais isolado em `LESSON_SLIDES`.
-- Existe uma diferenca importante: ha mais arquivos de aula na pasta do que aulas declaradas no `index.js`. Alguns arquivos podem estar fora da navegacao atual ou serem desafios extras.
+- Existe uma diferença importante: há mais arquivos de aula na pasta do que aulas declaradas no `index.js`. Alguns arquivos podem estar fora da navegação atual ou serem desafios extras.
 
 ### B1
 
@@ -84,16 +84,16 @@ Pasta: `src/pages/aulas/completo/B1`
 
 Organizacao:
 
-- `index.js` declara 10 modulos e 39 aulas.
-- A pasta contem arquivos `B1IC01.js` ate `B1IC40.js`.
-- Assim como A0-A1, cada aula contem a tela completa inline.
-- Cada arquivo declara seus proprios imports, `STORAGE_KEY`, `styles`, `LESSON_SLIDES`, renderer, hooks, progresso, feedback e navegacao.
-- A navegacao final troca para a rota `InglescompletoB1`.
+- `index.js` declara 10 módulos e 39 aulas.
+- A pasta contém arquivos `B1IC01.js` até `B1IC40.js`.
+- Assim como A0-A1, cada aula contém a tela completa inline.
+- Cada arquivo declara seus próprios imports, `STORAGE_KEY`, `styles`, `LESSON_SLIDES`, renderer, hooks, progresso, feedback e navegação.
+- A navegação final troca para a rota `InglescompletoB1`.
 
 Implicacao:
 
 - Mesmo problema de duplicacao de A0-A1.
-- Ha 40 arquivos na pasta, mas 39 aulas no index. `B1IC40.js` existe, porem aparentemente nao esta listado no catalogo do nivel.
+- Há 40 arquivos na pasta, mas 39 aulas no index. `B1IC40.js` existe, porém aparentemente não está listado no catálogo do nível.
 
 ## Bussines English
 
@@ -103,20 +103,20 @@ Pasta: `src/pages/aulas/bussines/A1`
 
 Organizacao:
 
-- `index.js` declara 4 modulos.
-- O index declara 19 aulas, mas a pasta contem `A1BU1.js` ate `A1BU20.js`.
+- `index.js` declara 4 módulos.
+- O index declara 19 aulas, mas a pasta contém `A1BU1.js` até `A1BU20.js`.
 - Cada aula importa os componentes de exercicio usados diretamente, imagens de `BUA1`/`Images`, e `createBusinessLessonScreen`.
 - Cada arquivo declara `LESSON_SLIDES` e exporta `createBusinessLessonScreen(LESSON_SLIDES)`.
 - O template compartilhado fica em `BusinessLessonTemplate.js`.
-- O template centraliza progresso, feedback, navegacao, header e renderizacao de slides.
-- A rota usada para proxima aula no template A1 e `Bussines`.
+- O template centraliza progresso, feedback, navegação, header e renderização de slides.
+- A rota usada para próxima aula no template A1 e `Bussines`.
 
 Implicacao:
 
 - A estrutura e bem mais limpa que `completo/A0-A1` e `completo/B1`.
 - O conteudo fica nos arquivos de aula.
-- Ha uma possivel aula extra: `A1BU20.js` existe na pasta, mas nao aparece no `index.js`.
-- `A1BU20.js` e muito menor que as demais aulas e merece revisao se deveria estar listado ou removido.
+- Há uma possível aula extra: `A1BU20.js` existe na pasta, mas não aparece no `index.js`.
+- `A1BU20.js` é muito menor que as demais aulas e merece revisao se deveria estar listado ou removido.
 
 ### B1
 
@@ -124,16 +124,16 @@ Pasta: `src/pages/aulas/bussines/B1`
 
 Organizacao:
 
-- `index.js` declara 4 modulos e 20 aulas.
-- Cada aula usa `BusinessLessonTemplate.js` do proprio nivel.
+- `index.js` declara 4 módulos e 20 aulas.
+- Cada aula usa `BusinessLessonTemplate.js` do próprio nível.
 - Os arquivos importam os exercicios reais como componentes, por exemplo `Exercise1`, `Exercise14`, `Exercise17`.
 - Cada aula declara `LESSON_SLIDES` com objetos contendo `key`, `component`, `activity`, e ocasionalmente `needsSpeech` ou `type: "finish"`.
 - O template B1 usa `@curso_progress_bussines_B1` e navega pela rota `BussinesB1`.
 
 Implicacao:
 
-- Padrao consistente dentro do nivel.
-- Apesar do nome igual ao template de A1, e uma copia separada em outra pasta. Mudancas estruturais precisam ser feitas nos dois templates se valerem para ambos os niveis.
+- Padrão consistente dentro do nível.
+- Apesar do nome igual ao template de A1, é uma cópia separada em outra pasta. Mudanças estruturais precisam ser feitas nos dois templates se valerem para ambos os níveis.
 
 ## Ingles para Viagem
 
@@ -143,8 +143,8 @@ Pasta: `src/pages/aulas/viagem/A1`
 
 Organizacao:
 
-- `index.js` declara 7 modulos e 26 aulas.
-- Cada aula segue o nome `A1TR1.js` ate `A1TR26.js`.
+- `index.js` declara 7 módulos e 26 aulas.
+- Cada aula segue o nome `A1TR1.js` até `A1TR26.js`.
 - Cada arquivo importa os exercicios usados, imagens de `TRA1`/`Images`, e `createTravelLessonScreen`.
 - Cada aula declara `LESSON_SLIDES` e exporta `createTravelLessonScreen(LESSON_SLIDES)`.
 - O template compartilhado fica em `TravelLessonTemplate.js`.
@@ -153,11 +153,11 @@ Organizacao:
 Implicacao:
 
 - Estrutura consistente e parecida com `bussines`.
-- O nome da factory exportada dentro de `TravelLessonTemplate.js` aparece como `createBusinessLessonScreen`, embora seja importada nas aulas como `createTravelLessonScreen`. Isso funciona por ser export default, mas o nome interno pode confundir manutencao/debug.
+- O nome da factory exportada dentro de `TravelLessonTemplate.js` aparece como `createBusinessLessonScreen`, embora seja importada nas aulas como `createTravelLessonScreen`. Isso funciona por ser export default, mas o nome interno pode confundir manutenção/debug.
 
 ## Comparacao dos padroes
 
-### Padrao 1: aula inline completa
+### Padrão 1: aula inline completa
 
 Usado em:
 
@@ -168,7 +168,7 @@ Caracteristicas:
 
 - Cada arquivo de aula e autossuficiente.
 - O conteudo e a infraestrutura ficam misturados.
-- Repeticao alta de imports, hooks, progresso, feedback, navegacao e renderizacao.
+- Repeticao alta de imports, hooks, progresso, feedback, navegação e renderização.
 - Arquivos geralmente entre 500 e 700 linhas.
 
 Vantagem:
@@ -177,9 +177,9 @@ Vantagem:
 
 Desvantagem:
 
-- Manutencao cara e propensa a inconsistencias.
+- Manutenção cara e propensa a inconsistencias.
 
-### Padrao 2: factory central com slides como dados
+### Padrão 2: factory central com slides como dados
 
 Usado em:
 
@@ -194,29 +194,29 @@ Caracteristicas:
 - Um template/factory centraliza comportamento comum.
 - Arquivos de aula ficam menores.
 
-Diferencas internas:
+Diferenças internas:
 
 - `completo/A2` usa strings no campo `component` e resolve no mapa `COMPONENTS` dentro de `A2LessonScreen.js`.
 - `bussines` e `viagem` importam os componentes de exercicio diretamente e passam a referencia no campo `component`.
 
 Vantagem:
 
-- Mais facil alterar navegacao, progresso, feedback e renderizacao em um unico lugar por nivel.
+- Mais fácil alterar navegação, progresso, feedback e renderização em um único lugar por nível.
 
 Desvantagem:
 
-- Ainda ha templates duplicados entre cursos/niveis.
-- Como cada nivel tem seu proprio template, uma correcao estrutural pode precisar ser replicada em varios templates.
+- Ainda há templates duplicados entre cursos/níveis.
+- Como cada nível tem seu próprio template, uma correção estrutural pode precisar ser replicada em vários templates.
 
 ## Inconsistencias encontradas
 
 1. Nome da pasta `bussines`
 
-   A pasta e os nomes de rota usam `bussines`, enquanto o termo correto seria `business`. Isso pode estar intencional por compatibilidade, mas vale padronizar mentalmente para nao quebrar imports/rotas.
+   A pasta e os nomes de rota usam `bussines`, enquanto o termo correto seria `business`. Isso pode estar intencional por compatibilidade, mas vale padronizar mentalmente para não quebrar imports/rotas.
 
 2. Encoding aparente em textos
 
-   Varios textos aparecem como `InglÃªs`, `atÃ©`, `vocÃª`, etc. Isso indica arquivos salvos/lidos com encoding inconsistente em alguns pontos.
+   Vários textos apareciam como `Inglês`, `até`, `você`, etc. Isso indicava arquivos salvos/lidos com encoding inconsistente em alguns pontos.
 
 3. Arquivos de aula fora do index
 
@@ -224,7 +224,7 @@ Desvantagem:
    - `completo/B1`: existem 40 arquivos, mas o index lista 39 aulas.
    - `bussines/A1`: existem 20 arquivos, mas o index lista 19 aulas.
 
-   Isso pode ser intencional, mas se a navegacao depende do index, esses arquivos extras nao aparecem para o usuario.
+   Isso pode ser intencional, mas se a navegação depende do index, esses arquivos extras não aparecem para o usuario.
 
 4. Templates duplicados
 
@@ -233,11 +233,11 @@ Desvantagem:
    - `viagem/A1/TravelLessonTemplate.js`
    - `completo/A2/A2LessonScreen.js`
 
-   Todos centralizam conceitos parecidos: slides, progresso, speech/audio, feedback, XP e navegacao. A diferenca principal esta em storage key, rota de retorno e forma de resolver componente.
+   Todos centralizam conceitos parecidos: slides, progresso, speech/audio, feedback, XP e navegação. A diferença principal está em storage key, rota de retorno e forma de resolver componente.
 
 5. Nome interno confuso no template de viagem
 
-   `TravelLessonTemplate.js` exporta default uma funcao chamada internamente `createBusinessLessonScreen`. Como e default export, o import com nome `createTravelLessonScreen` funciona, mas o stack trace e a leitura do codigo ficam confusos.
+   `TravelLessonTemplate.js` exporta default uma função chamada internamente `createBusinessLessonScreen`. Como é default export, o import com nome `createTravelLessonScreen` funciona, mas o stack trace e a leitura do codigo ficam confusos.
 
 ## Recomendacao de organizacao futura
 
@@ -247,12 +247,12 @@ Prioridade sugerida:
 2. Corrigir ou decidir uma estrategia para encoding dos textos.
 3. Padronizar os templates de aula em uma unica factory compartilhada, parametrizada por:
    - `storageKey`;
-   - rota de retorno/proxima aula;
+   - rota de retorno/próxima aula;
    - mapa ou estrategia de componentes;
    - estilos/exercicios habilitados.
-4. Migrar `completo/A0-A1` e `completo/B1` para o padrao de slides + factory, como ja acontece em `completo/A2`.
+4. Migrar `completo/A0-A1` e `completo/B1` para o padrão de slides + factory, como ja acontece em `completo/A2`.
 5. Opcionalmente padronizar a forma de `component`:
    - ou todos usam string + registry central;
    - ou todos importam o componente diretamente no arquivo da aula.
 
-Resumo final: a camada de catalogo dos cursos esta relativamente padronizada via `CourseOverviewScreen`, mas a camada das telas de aula tem dois modelos diferentes. O modelo mais sustentavel ja esta em `A2`, `bussines` e `viagem`; os niveis `completo/A0-A1` e `completo/B1` sao os principais candidatos a refatoracao.
+Resumo final: a camada de catálogo dos cursos está relativamente padronizada via `CourseOverviewScreen`, mas a camada das telas de aula tem dois modelos diferentes. O modelo mais sustentável ja está em `A2`, `bussines` e `viagem`; os níveis `completo/A0-A1` e `completo/B1` sao os principais candidatos a refatoração.

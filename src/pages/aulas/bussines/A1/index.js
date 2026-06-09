@@ -1,4 +1,24 @@
 import React from "react";
+import A1BU1 from "./A1BU1";
+import A1BU2 from "./A1BU2";
+import A1BU3 from "./A1BU3";
+import A1BU4 from "./A1BU4";
+import A1BU5 from "./A1BU5";
+import A1BU6 from "./A1BU6";
+import A1BU7 from "./A1BU7";
+import A1BU8 from "./A1BU8";
+import A1BU9 from "./A1BU9";
+import A1BU10 from "./A1BU10";
+import A1BU11 from "./A1BU11";
+import A1BU12 from "./A1BU12";
+import A1BU13 from "./A1BU13";
+import A1BU14 from "./A1BU14";
+import A1BU15 from "./A1BU15";
+import A1BU16 from "./A1BU16";
+import A1BU17 from "./A1BU17";
+import A1BU18 from "./A1BU18";
+import A1BU19 from "./A1BU19";
+import A1BU20 from "./A1BU20";
 import CourseOverviewScreen from "../CourseOverviewScreen";
 
 export const BUSSINES_STORAGE_KEY = "@curso_progress_bussines_A1";
@@ -174,6 +194,29 @@ export const bussinesSampleLessons = [
     screen: "A1BU19",
   },
 ];
+
+export const lessonScreens = {
+  A1BU1,
+  A1BU2,
+  A1BU3,
+  A1BU4,
+  A1BU5,
+  A1BU6,
+  A1BU7,
+  A1BU8,
+  A1BU9,
+  A1BU10,
+  A1BU11,
+  A1BU12,
+  A1BU13,
+  A1BU14,
+  A1BU15,
+  A1BU16,
+  A1BU17,
+  A1BU18,
+  A1BU19,
+  A1BU20,
+};
 
 export default function BussinesScreen(props) {
   return (

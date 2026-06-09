@@ -1,4 +1,24 @@
 import React from "react";
+import B1BU1 from "./B1BU1";
+import B1BU2 from "./B1BU2";
+import B1BU3 from "./B1BU3";
+import B1BU4 from "./B1BU4";
+import B1BU5 from "./B1BU5";
+import B1BU6 from "./B1BU6";
+import B1BU7 from "./B1BU7";
+import B1BU8 from "./B1BU8";
+import B1BU9 from "./B1BU9";
+import B1BU10 from "./B1BU10";
+import B1BU11 from "./B1BU11";
+import B1BU12 from "./B1BU12";
+import B1BU13 from "./B1BU13";
+import B1BU14 from "./B1BU14";
+import B1BU15 from "./B1BU15";
+import B1BU16 from "./B1BU16";
+import B1BU17 from "./B1BU17";
+import B1BU18 from "./B1BU18";
+import B1BU19 from "./B1BU19";
+import B1BU20 from "./B1BU20";
 import CourseOverviewScreen from "../CourseOverviewScreen";
 
 export const BUSSINES_B1_STORAGE_KEY = "@curso_progress_bussines_B1";
@@ -97,6 +117,29 @@ export const bussinesB1SampleLessons = [
   { module: 3, id: "19", title: "Feedback Loops & Status Reports", type: "Aula", screen: "B1BU19" },
   { module: 3, id: "20", title: "Analyzing Meeting Effectiveness (ROI)", type: "Aula", screen: "B1BU20" },
 ];
+
+export const lessonScreens = {
+  B1BU1,
+  B1BU2,
+  B1BU3,
+  B1BU4,
+  B1BU5,
+  B1BU6,
+  B1BU7,
+  B1BU8,
+  B1BU9,
+  B1BU10,
+  B1BU11,
+  B1BU12,
+  B1BU13,
+  B1BU14,
+  B1BU15,
+  B1BU16,
+  B1BU17,
+  B1BU18,
+  B1BU19,
+  B1BU20,
+};
 
 export default function BussinesB1Screen(props) {
   return (

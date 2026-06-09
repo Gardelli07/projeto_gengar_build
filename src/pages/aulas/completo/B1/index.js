@@ -1,4 +1,44 @@
-import React from "react";
+﻿import React from "react";
+import B1IC01 from "./B1IC01";
+import B1IC02 from "./B1IC02";
+import B1IC03 from "./B1IC03";
+import B1IC04 from "./B1IC04";
+import B1IC05 from "./B1IC05";
+import B1IC06 from "./B1IC06";
+import B1IC07 from "./B1IC07";
+import B1IC08 from "./B1IC08";
+import B1IC09 from "./B1IC09";
+import B1IC10 from "./B1IC10";
+import B1IC11 from "./B1IC11";
+import B1IC12 from "./B1IC12";
+import B1IC13 from "./B1IC13";
+import B1IC14 from "./B1IC14";
+import B1IC15 from "./B1IC15";
+import B1IC16 from "./B1IC16";
+import B1IC17 from "./B1IC17";
+import B1IC18 from "./B1IC18";
+import B1IC19 from "./B1IC19";
+import B1IC20 from "./B1IC20";
+import B1IC21 from "./B1IC21";
+import B1IC22 from "./B1IC22";
+import B1IC23 from "./B1IC23";
+import B1IC24 from "./B1IC24";
+import B1IC25 from "./B1IC25";
+import B1IC26 from "./B1IC26";
+import B1IC27 from "./B1IC27";
+import B1IC28 from "./B1IC28";
+import B1IC29 from "./B1IC29";
+import B1IC30 from "./B1IC30";
+import B1IC31 from "./B1IC31";
+import B1IC32 from "./B1IC32";
+import B1IC33 from "./B1IC33";
+import B1IC34 from "./B1IC34";
+import B1IC35 from "./B1IC35";
+import B1IC36 from "./B1IC36";
+import B1IC37 from "./B1IC37";
+import B1IC38 from "./B1IC38";
+import B1IC39 from "./B1IC39";
+import B1IC40 from "./B1IC40";
 import CourseOverviewScreen from "../../CourseOverviewScreen";
 
 export const INGLES_COMPLETO_STORAGE_KEY = "@progesso_ingles_completo_B1";
@@ -320,6 +360,49 @@ export const inglesSampleLessons = [
     screen: "B1IC39",
   },
 ];
+
+export const lessonScreens = {
+  B1IC01,
+  B1IC02,
+  B1IC03,
+  B1IC04,
+  B1IC05,
+  B1IC06,
+  B1IC07,
+  B1IC08,
+  B1IC09,
+  B1IC10,
+  B1IC11,
+  B1IC12,
+  B1IC13,
+  B1IC14,
+  B1IC15,
+  B1IC16,
+  B1IC17,
+  B1IC18,
+  B1IC19,
+  B1IC20,
+  B1IC21,
+  B1IC22,
+  B1IC23,
+  B1IC24,
+  B1IC25,
+  B1IC26,
+  B1IC27,
+  B1IC28,
+  B1IC29,
+  B1IC30,
+  B1IC31,
+  B1IC32,
+  B1IC33,
+  B1IC34,
+  B1IC35,
+  B1IC36,
+  B1IC37,
+  B1IC38,
+  B1IC39,
+  B1IC40,
+};
 
 export default function InglesCompletoScreen(props) {
   return (

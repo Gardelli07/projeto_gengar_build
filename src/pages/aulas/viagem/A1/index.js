@@ -1,4 +1,30 @@
 import React from "react";
+import A1TR1 from "./A1TR1";
+import A1TR2 from "./A1TR2";
+import A1TR3 from "./A1TR3";
+import A1TR4 from "./A1TR4";
+import A1TR5 from "./A1TR5";
+import A1TR6 from "./A1TR6";
+import A1TR7 from "./A1TR7";
+import A1TR8 from "./A1TR8";
+import A1TR9 from "./A1TR9";
+import A1TR10 from "./A1TR10";
+import A1TR11 from "./A1TR11";
+import A1TR12 from "./A1TR12";
+import A1TR13 from "./A1TR13";
+import A1TR14 from "./A1TR14";
+import A1TR15 from "./A1TR15";
+import A1TR16 from "./A1TR16";
+import A1TR17 from "./A1TR17";
+import A1TR18 from "./A1TR18";
+import A1TR19 from "./A1TR19";
+import A1TR20 from "./A1TR20";
+import A1TR21 from "./A1TR21";
+import A1TR22 from "./A1TR22";
+import A1TR23 from "./A1TR23";
+import A1TR24 from "./A1TR24";
+import A1TR25 from "./A1TR25";
+import A1TR26 from "./A1TR26";
 import CourseOverviewScreen from "../CourseOverviewScreen";
 
 export const TRAVEL_STORAGE_KEY = "@curso_progress_travel_A1";
@@ -247,6 +273,35 @@ export const travelSampleLessons = [
     screen: "A1TR26",
   },
 ];
+
+export const lessonScreens = {
+  A1TR1,
+  A1TR2,
+  A1TR3,
+  A1TR4,
+  A1TR5,
+  A1TR6,
+  A1TR7,
+  A1TR8,
+  A1TR9,
+  A1TR10,
+  A1TR11,
+  A1TR12,
+  A1TR13,
+  A1TR14,
+  A1TR15,
+  A1TR16,
+  A1TR17,
+  A1TR18,
+  A1TR19,
+  A1TR20,
+  A1TR21,
+  A1TR22,
+  A1TR23,
+  A1TR24,
+  A1TR25,
+  A1TR26,
+};
 
 export default function TravelScreen(props) {
   return (
