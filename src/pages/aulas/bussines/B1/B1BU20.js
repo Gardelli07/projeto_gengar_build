@@ -91,7 +91,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "A reunião foi boa, mas demorou demais. Como sugerir melhora de forma elegante?",
-      image: BUB1.A20S5,
       sentenceStart:
         "The discussion was good, but regarding the duration, there is",
       sentenceEnd: "for improvement.",
@@ -126,7 +125,7 @@ const LESSON_SLIDES = [
           "Overall, our last session was highly ",
           {
             id: "b1",
-            options: ["productive", "product"],
+      options: ["productive", "product"],
             answer: "productive",
           },
           ". It was clearly ",

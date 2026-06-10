@@ -84,7 +84,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "Você está escolhendo um perfume para sua esposa e diz para o vendedor:",
-      image: TRA1.A23S3,
       sentenceStart: "This is for a",
       sentenceEnd: ".",
       options: ["gift", "room"],

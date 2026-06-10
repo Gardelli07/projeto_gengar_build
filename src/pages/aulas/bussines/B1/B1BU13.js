@@ -91,7 +91,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "O comprador exige materiais 100% naturais. Complete a frase para mostrar que você segue as regras técnicas dele.",
-      image: BUB1.A13S5,
       sentenceStart: "To meet your vendor",
       sentenceEnd: "we guarantee our products are strictly organic.",
       options: ["compliance", "complaint"],
@@ -125,7 +124,7 @@ const LESSON_SLIDES = [
           "We need a fast ",
           {
             id: "blank-1",
-            options: ["turnaround", "lead"],
+      options: ["turnaround", "lead"],
             answer: "turnaround",
           },
           " time on the sample approval. Also, regarding the main order, what is your production ",
@@ -133,7 +132,7 @@ const LESSON_SLIDES = [
           " time? Finally, our vendor ",
           {
             id: "blank-3",
-            options: ["compliance", "assurance"],
+      options: ["compliance", "assurance"],
             answer: "compliance",
           },
           " policy forbids the use of chemicals.",

@@ -256,7 +256,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Part 3: The Night. Quanto tempo eles dormiram?",
-      image: ICA2.A20S20,
       sentenceStart: "They slept for",
       sentenceEnd: ".",
       options: ["10 hours", "8 hours"],
@@ -283,7 +282,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Quanto tempo eles dormiram?",
-      image: ICA2.A20S20,
       sentenceStart: "They slept for",
       sentenceEnd: ".",
       options: ["10 hours", "8 hours"],

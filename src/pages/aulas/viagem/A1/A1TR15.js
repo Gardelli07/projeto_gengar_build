@@ -87,7 +87,6 @@ Aponte para a sua mala e pergunte: "Can I leave my bags here?" Leave significa "
     activity: {
       prompt:
         "Você chegou na recepção no seu último dia de manhã, entregou a chave e disse:",
-      image: TRA1.A15S2,
       sentenceStart: "Good morning. I would like to check",
       sentenceEnd: ", please.",
       options: ["out", "in"],

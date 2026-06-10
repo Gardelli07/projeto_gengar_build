@@ -70,7 +70,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Expresse uma possibilidade geral:",
-      image: ICA2.A51S6,
       sentenceStart: "We",
       sentenceEnd: "go to the beach on Saturday.",
       options: ["might", "must"],
@@ -120,18 +119,18 @@ const LESSON_SLIDES = [
             { id: "1", options: ["might", "could to"], correctAnswer: "might" },
             {
               id: "2",
-              options: ["could", "could be"],
-              correctAnswer: "could be",
+      options: ["could", "could be"],
+      correctAnswer: "could be",
             },
             {
               id: "3",
-              options: ["Could", "Do we could"],
-              correctAnswer: "Could",
+      options: ["Could", "Do we could"],
+      correctAnswer: "Could",
             },
             {
               id: "4",
-              options: ["might", "could not be"],
-              correctAnswer: "might",
+      options: ["might", "could not be"],
+      correctAnswer: "might",
             },
           ],
         },

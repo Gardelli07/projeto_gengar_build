@@ -103,7 +103,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Para ver o resto da página, o que você deve fazer?",
-      image: ICA2.A54S9,
       sentenceStart: "I need to",
       sentenceEnd: "down to read the text.",
       options: ["scroll", "put"],

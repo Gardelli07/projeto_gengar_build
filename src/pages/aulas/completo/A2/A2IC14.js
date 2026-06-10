@@ -158,7 +158,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: 'Complete com o passado de "DRINK".',
-      image: ICA2.A14S11,
       sentenceStart: "I",
       sentenceEnd: "a lot of water after the gym.",
       options: ["drunk", "drank"],

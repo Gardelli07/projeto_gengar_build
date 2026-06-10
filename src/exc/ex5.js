@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
   Easing,
-  Image,
   Text,
   TouchableOpacity,
   Vibration,
@@ -128,10 +127,6 @@ export function Exercise5({
 
       <View style={styles.completePhraseBlock}>
         <Text style={styles.fastTypePrompt}>{activity.prompt}</Text>
-
-        <View style={styles.completePhraseMediaCard}>
-          <Image source={activity.image} style={styles.completePhraseImage} />
-        </View>
 
         <View style={styles.completePhraseSentencePill}>
           <Text style={styles.completePhraseSentenceText}>
@@ -307,19 +302,6 @@ const ex5 = StyleSheet.create({
     width: "100%",
     alignItems: "center",
   },
-  completePhraseMediaCard: {
-    width: "88%",
-    height: 150,
-    borderRadius: 18,
-    overflow: "hidden",
-    marginBottom: 12,
-    backgroundColor: CORES.SURFACE_MUTED,
-  },
-  completePhraseImage: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "contain",
-  },
   completePhraseSentencePill: {
     width: "88%",
     minHeight: 38,
@@ -427,7 +409,6 @@ export default ex5;
     component: Exercise5,
     activity: {
       prompt: "Complete a frase",
-      image: BussinesImages.company,
       sentenceStart: "She",
       sentenceEnd: "the bus.",
       options: ["take", "takes"],

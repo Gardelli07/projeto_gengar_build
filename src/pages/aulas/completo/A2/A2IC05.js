@@ -134,12 +134,11 @@ const LESSON_SLIDES = [
       component: "Exercise5",
       activity: {
         prompt,
-        image: ICA2.A5S13,
         sentenceStart,
         sentenceEnd,
         options,
         correctAnswer,
-        successTitle: "Correto",
+      successTitle: "Correto",
         successMessage,
       },
     }),

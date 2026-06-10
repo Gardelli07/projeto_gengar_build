@@ -124,7 +124,6 @@ Se não estiver, você deve adicionar o tip na hora de pagar com o cartão ou de
     activity: {
       prompt:
         "Você terminou o seu café espresso e quer ir embora. Você chama o atendente e diz:",
-      image: TRA1.A19S2,
       sentenceStart: "The",
       sentenceEnd: ", please.",
       options: ["check", "coffee"],

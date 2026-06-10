@@ -69,7 +69,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Complete com a forma correta de have to:",
-      image: ICA2.A49S6,
       sentenceStart: "She",
       sentenceEnd: "wash her hands before dinner.",
       options: ["has to", "have to"],

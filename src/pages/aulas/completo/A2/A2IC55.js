@@ -92,7 +92,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "David é famoso! Ele tem muitos fãs.",
-      image: ICA2.A55S8,
       sentenceStart: "David has one million",
       sentenceEnd: "on Instagram.",
       options: ["friends", "followers"],

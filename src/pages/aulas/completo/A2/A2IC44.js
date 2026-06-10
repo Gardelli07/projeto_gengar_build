@@ -61,7 +61,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Dê a nota máxima para a pizza.",
-      image: ICA2.A44S5,
       sentenceStart: "This is",
       sentenceEnd: "pizza in the city!",
       options: ["the best", "better"],
@@ -114,7 +113,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "O filme foi um desastre.",
-      image: ICA2.A44S9,
       sentenceStart: "That was",
       sentenceEnd: "movie ever.",
       options: ["worse", "the worst"],

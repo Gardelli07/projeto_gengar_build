@@ -35,8 +35,8 @@ Essa estrutura conecta o passado ao presente. Se você diz "I've worked here for
       image: ICB1.A1S1,
       audioSource: require("../../../../../mp3/IC/B1/A1S1.mp3"),
       audioDurationMs: 3200,
-      answerOptions: ["Sim", "Não"],
-      correctOption: "Sim",
+      answerOptions: ["yes", "no"],
+      correctOption: "yes",
       successTitle: "Correto",
       feedbackMessage:
         'O Present Perfect indica uma ação conectada ao presente. "For" foca na extensão do tempo, não na data de início.',

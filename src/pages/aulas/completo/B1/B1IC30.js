@@ -60,7 +60,6 @@ A tela é conectada.`,
     component: "Exercise5",
     activity: {
       prompt: "Complete a frase com a opção correta.",
-      image: ICB1.A30S5,
       sentenceStart: "First, the components",
       sentenceEnd: "in a factory in Asia.",
       options: ["are produced", "is produced"],

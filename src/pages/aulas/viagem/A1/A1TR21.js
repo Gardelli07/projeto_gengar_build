@@ -123,7 +123,6 @@ Se você estiver com uma peça na mão e quiser saber se pode experimentar, apon
     activity: {
       prompt:
         "Você achou uma camiseta linda, mas precisa provar. Você pergunta ao vendedor:",
-      image: TRA1.A21S3,
       sentenceStart: "Where is the",
       sentenceEnd: "room?",
       options: ["fitting", "breakfast"],

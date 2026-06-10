@@ -88,7 +88,6 @@ Nativos evitam soar desesperados. Quando algo dá errado, eles dizem calmamente 
     component: Exercise5,
     activity: {
       prompt: "Complete a frase.",
-      image: BUA1.A8S2p2,
       sentenceStart: "Don't worry, I can",
       sentenceEnd: "the problem.",
       options: ["fix", "break"],

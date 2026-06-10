@@ -272,7 +272,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Falando de conforto.",
-      image: ICA2.A38S18,
       sentenceStart: "A chair is",
       sentenceEnd: "comfortable than a sofa.",
       options: ["less", "more"],

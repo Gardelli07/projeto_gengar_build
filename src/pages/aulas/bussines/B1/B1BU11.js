@@ -89,7 +89,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "O comprador americano questionou o valor da sua proposta. Como você começa a justificar esse valor?",
-      image: BUB1.A11S5,
       sentenceStart: "I understand your concern. The",
       sentenceEnd: "behind this figure is our premium material quality.",
       options: ["rationale", "reason"],
@@ -123,19 +122,19 @@ const LESSON_SLIDES = [
           "Gentlemen, to start, our ",
           {
             id: "blank-1",
-            options: ["baseline", "sideline"],
+      options: ["baseline", "sideline"],
             answer: "baseline",
           },
           " proposal is $100k. We are ",
           {
             id: "blank-2",
-            options: ["pointed", "positioned"],
+      options: ["pointed", "positioned"],
             answer: "positioned",
           },
           " to offer full logistics support. The ",
           {
             id: "blank-3",
-            options: ["rationale", "national"],
+      options: ["rationale", "national"],
             answer: "rationale",
           },
           " behind this figure is the speed of delivery.",

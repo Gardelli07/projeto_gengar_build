@@ -77,7 +77,6 @@ Em reuniões, expressões como "I see your point" ou "I hear what you're saying"
     component: "Exercise5",
     activity: {
       prompt: "Complete a frase",
-      image: ICB1.A16S6,
       sentenceStart: "I hear what you're saying,",
       sentenceEnd: "I think we should consider a different strategy.",
       options: ["nevertheless", "absolutely"],

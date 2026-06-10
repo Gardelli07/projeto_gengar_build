@@ -193,7 +193,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "David está com resfriado.",
-      image: ICA2.A58S14,
       sentenceStart: "I have a bad cold. Can I get some",
       sentenceEnd: "medicine?",
       options: ["OTC", "bad"],
@@ -221,7 +220,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "David está lendo as instruções da caixa de comprimidos.",
-      image: ICA2.A58S16,
       sentenceStart: "Take two",
       sentenceEnd: "every 8 hours with water.",
       options: ["OTC", "pills"],

@@ -118,7 +118,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "O fornecedor fez uma proposta muito confusa. Como você foca a conversa de forma incisiva, mas diplomática?",
-      image: BUB1.A8S5,
       sentenceStart: "This sounds interesting, but what",
       sentenceEnd: "are you proposing in terms of deadlines?",
       options: ["exactly", "extract"],
@@ -152,7 +151,7 @@ const LESSON_SLIDES = [
           'Boss: "We need to optimize the global synergy of our assets."\nYou: "Okay, just to make sure I\'m ',
           {
             id: "blank-1",
-            options: ["following", "going"],
+      options: ["following", "going"],
             answer: "following",
           },
           "... could you ",

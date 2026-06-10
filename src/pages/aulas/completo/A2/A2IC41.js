@@ -140,7 +140,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: 'Use o superlativo de "expensive".',
-      image: ICA2.A41S11,
       sentenceStart: "This diamond is",
       sentenceEnd: "expensive ring in the shop.",
       options: ["the more", "the most"],

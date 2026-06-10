@@ -84,7 +84,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "Você vê alguém passando muito mal na rua e grita para as pessoas ao redor:",
-      image: TRA1.A26S3,
       sentenceStart: "Please, call a",
       sentenceEnd: "!",
       options: ["doctor", "souvenir"],

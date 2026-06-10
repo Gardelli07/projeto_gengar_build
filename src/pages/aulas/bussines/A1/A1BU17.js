@@ -80,7 +80,6 @@ Em inglês, usamos muito a palavra "deal" no dia a dia corporativo. Em vez de "a
     component: Exercise5,
     activity: {
       prompt: "Complete a frase.",
-      image: BUA1.A17S2p2,
       sentenceStart: "Great! I",
       sentenceEnd: "the offer.",
       options: ["accept", "about"],

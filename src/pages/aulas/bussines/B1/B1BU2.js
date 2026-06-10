@@ -110,7 +110,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         'O tempo está acabando. Qual é a palavra certa para usar a "desculpa de ouro"?',
-      image: BUB1.A2S10,
       sentenceStart: "In the",
       sentenceEnd: "of time, let's move on to the final topic.",
       options: ["interest", "inside"],
@@ -147,7 +146,7 @@ const LESSON_SLIDES = [
           " that thought. It's not on the agenda today. In the ",
           {
             id: "blank-2",
-            options: ["interest", "internet"],
+      options: ["interest", "internet"],
             answer: "interest",
           },
           " of time, I need to ",

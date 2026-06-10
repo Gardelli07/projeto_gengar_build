@@ -82,7 +82,6 @@ Nunca termine com "That's it". Use sempre: "Thank you for your time."`,
     component: Exercise5,
     activity: {
       prompt: "Complete a frase.",
-      image: BUA1.A14S7,
       sentenceStart: "Thank you",
       sentenceEnd: "your time.",
       options: ["for", "to"],

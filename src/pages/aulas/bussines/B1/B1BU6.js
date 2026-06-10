@@ -118,7 +118,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "Você encontrou um erro no contrato do cliente. Como comunica isso sem causar pânico imediato?",
-      image: BUB1.A6S4,
       sentenceStart: "Boss, there seems to be a",
       sentenceEnd: "issue with the contract numbers.",
       options: ["slight", "light"],
@@ -156,7 +155,7 @@ const LESSON_SLIDES = [
           " with the budget. Because of this, it might be worth ",
           {
             id: "blank-3",
-            options: ["to consider", "considering"],
+      options: ["to consider", "considering"],
             answer: "considering",
           },
           " a different approach.",

@@ -63,7 +63,7 @@ Dica de Nativo:
           "Hello team, please find ",
           {
             id: "blank-1",
-            options: ["attached", "attach"],
+      options: ["attached", "attach"],
             answer: "attached",
           },
           " the new report. ",
@@ -80,7 +80,6 @@ Dica de Nativo:
     component: Exercise5,
     activity: {
       prompt: "Complete a frase.",
-      image: BUA1.A9S7,
       sentenceStart: "Please",
       sentenceEnd: "the document attached.",
       options: ["read", "reading"],

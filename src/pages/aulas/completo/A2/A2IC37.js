@@ -49,7 +49,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Dê sua opinião sobre sabores.",
-      image: ICA2.A37S4,
       sentenceStart: "Chocolate is",
       sentenceEnd: "than vanilla.",
       options: ["better", "taller"],

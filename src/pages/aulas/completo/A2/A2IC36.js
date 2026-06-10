@@ -90,7 +90,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: 'Use a forma certa de "tall".',
-      image: ICA2.A36S7,
       sentenceStart: "My brother is",
       sentenceEnd: "than me.",
       options: ["taller", "tallest"],
@@ -196,7 +195,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: 'Use "happy" corretamente.',
-      image: ICA2.A36S14,
       sentenceStart: "I am",
       sentenceEnd: "today than yesterday.",
       options: ["happier", "more happy"],
@@ -313,7 +311,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: 'O verão chegou! Use "hot".',
-      image: ICA2.A36S22,
       sentenceStart: "Summer is",
       sentenceEnd: "than winter.",
       options: ["colder", "hotter"],

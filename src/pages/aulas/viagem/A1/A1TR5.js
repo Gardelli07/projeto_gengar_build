@@ -106,7 +106,6 @@ Atenção: "Aisle" se pronuncia "ÁIL". O "S" é mudo!`,
     activity: {
       prompt:
         'O atendente do aeroporto diz "Hello! Passport, please?". Você entrega o documento e diz:',
-      image: TRA1.A5S2,
       sentenceStart: "Here is my",
       sentenceEnd: ".",
       options: ["passport", "bag"],

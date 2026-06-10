@@ -103,7 +103,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "O lugar está barulhento! O que você deve usar?",
-      image: ICA2.A53S9,
       sentenceStart: "I have to use my",
       sentenceEnd: "to hear the teacher.",
       options: ["headphones", "shoes"],

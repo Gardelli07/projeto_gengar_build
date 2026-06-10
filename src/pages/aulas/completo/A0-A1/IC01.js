@@ -122,7 +122,6 @@ Um simples /blueHello acompanhado de um sorriso é a chave para ser bem recebido
     component: "Exercise5",
     activity: {
       prompt: "Complete a frase",
-      image: ICA1.A1S10,
       sentenceStart: "",
       sentenceEnd: ", my name is Jake.",
       options: ["Hello", "Goodbye"],

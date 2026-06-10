@@ -79,7 +79,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Complete a frase:",
-      image: ICA2.A9S5,
       sentenceStart: "We are",
       sentenceEnd: "a party this Saturday!",
       options: ["having", "have"],
@@ -155,13 +154,13 @@ const LESSON_SLIDES = [
           {
             id: "b1",
             answer: "is coming",
-            options: ["is coming", "are coming"],
+      options: ["is coming", "are coming"],
           },
           " to visit me next month. We ",
           {
             id: "b2",
             answer: "are staying",
-            options: ["are staying", "is staying"],
+      options: ["are staying", "is staying"],
           },
           " at a hotel near the beach.",
         ],

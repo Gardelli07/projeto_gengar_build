@@ -168,7 +168,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "What was the bear doing when the person saw it?",
-      image: ICA2.A29S13,
       sentenceStart: "It was",
       sentenceEnd: ".",
       options: ["sleeping", "eating berries"],
@@ -182,7 +181,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "O que aconteceu enquanto a pessoa tirava a foto?",
-      image: ICA2.A29S14,
       sentenceStart: "The bear",
       sentenceEnd: ".",
       options: ["spotted me", "turned off the phone"],

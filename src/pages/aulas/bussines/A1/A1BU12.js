@@ -64,13 +64,13 @@ Sempre compre tempo! Diga: "That is a good question." Isso soa educado e te dá 
           "Do you have any ",
           {
             id: "blank-1",
-            options: ["questions", "question"],
+      options: ["questions", "question"],
             answer: "questions",
           },
           "? Yes, that is a good ",
           {
             id: "blank-2",
-            options: ["question", "questions"],
+      options: ["question", "questions"],
             answer: "question",
           },
           ".",
@@ -85,7 +85,6 @@ Sempre compre tempo! Diga: "That is a good question." Isso soa educado e te dá 
     component: Exercise5,
     activity: {
       prompt: "Complete a frase.",
-      image: Images.ex16,
       sentenceStart: "That is a",
       sentenceEnd: "question.",
       options: ["good", "well"],

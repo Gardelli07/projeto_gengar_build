@@ -112,7 +112,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "Seu colega teve uma boa ideia, mas a empresa não tem dinheiro para isso no momento.",
-      image: BUB1.A9S4,
       sentenceStart: "That's a very creative idea, Mark. I see your point,",
       sentenceEnd: "we don't have the budget for it this year.",
       options: ["however", "whenever"],
@@ -148,7 +147,7 @@ const LESSON_SLIDES = [
           ", ",
           {
             id: "blank-2",
-            options: ["whenever", "however"],
+      options: ["whenever", "however"],
             answer: "however",
           },
           ", with ",

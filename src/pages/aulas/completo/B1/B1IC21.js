@@ -46,25 +46,25 @@ In questions and negatives they behave very differently -- pay attention to the 
           {
             id: "b1",
             answer: "have to",
-            options: ["must", "have to", "has to"],
+      options: ["must", "have to", "has to"],
           },
           "arrive before 8 a.m. -- it's company policy. But I also feel I",
           {
             id: "b2",
             answer: "must",
-            options: ["must", "have to", "has to"],
+      options: ["must", "have to", "has to"],
           },
           "get more sleep. My colleague Jake",
           {
             id: "b3",
             answer: "has to",
-            options: ["must", "have to", "has to"],
+      options: ["must", "have to", "has to"],
           },
           "attend every Monday meeting. We both think we",
           {
             id: "b4",
             answer: "must",
-            options: ["must", "have to", "has to"],
+      options: ["must", "have to", "has to"],
           },
           "find a better work-life balance.",
         ],
@@ -134,7 +134,6 @@ In questions and negatives they behave very differently -- pay attention to the 
     component: "Exercise5",
     activity: {
       prompt: "Choose one word",
-      image: ICB1.A21S7,
       sentenceStart: "You",
       sentenceEnd: "read this book -- it's absolutely amazing!",
       options: ["must", "have to"],

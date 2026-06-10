@@ -65,7 +65,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "O diretor está falando, mas você teve uma ideia brilhante e precisa interromper.",
-      image: BUB1.A7S3p1,
       sentenceStart: "Sorry to interrupt, Mark, but if I could just",
       sentenceEnd: "in here, I have an idea that might help.",
       options: ["step", "jump"],

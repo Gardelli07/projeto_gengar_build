@@ -58,7 +58,6 @@ Nunca diga apenas "No" em negócios. Use sempre uma estrutura mais educada como:
     component: Exercise5,
     activity: {
       prompt: "Complete a frase.",
-      image: BUA1.A18S2,
       sentenceStart: "I am sorry,",
       sentenceEnd: "I cannot accept.",
       options: ["but", "and"],

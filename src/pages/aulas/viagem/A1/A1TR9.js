@@ -88,7 +88,6 @@ Eles vão te dar um formulário e cuidar de tudo. Lembre-se: "Lost" = perdido.`,
     activity: {
       prompt:
         "A esteira parou, todo mundo foi embora e sua mala não chegou. Você vai ao balcão e diz:",
-      image: TRA1.A9S5,
       sentenceStart: "My bag is",
       sentenceEnd: ".",
       options: ["lost", "here"],

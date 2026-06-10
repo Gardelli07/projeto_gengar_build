@@ -80,7 +80,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "O Camaleão e seu irmão têm a mesma altura.",
-      image: ICA2.A39S6,
       sentenceStart: "Cam is",
       sentenceEnd: "tall ______ his brother.",
       options: ["as", "better"],

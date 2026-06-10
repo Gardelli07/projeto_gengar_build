@@ -79,7 +79,6 @@ Para pedir a palavra, você não precisa levantar a mão e gritar. Uma das forma
     component: Exercise5,
     activity: {
       prompt: "Complete a frase com a palavra correta.",
-      image: BUA1.A6S7,
       sentenceStart: "I",
       sentenceEnd: "with you.",
       options: ["agree", "am"],

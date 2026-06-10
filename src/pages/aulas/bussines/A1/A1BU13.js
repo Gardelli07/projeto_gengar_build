@@ -58,7 +58,6 @@ Use "As you can see..." para conectar o público ao slide sem perder contato vis
     component: Exercise5,
     activity: {
       prompt: "Complete a frase.",
-      image: BUA1.A13S7,
       sentenceStart: "As you can",
       sentenceEnd: ", the project is ready.",
       options: ["see", "look"],

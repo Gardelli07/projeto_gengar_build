@@ -26,7 +26,6 @@ I wish I had more time.`,
     component: "Exercise5",
     activity: {
       prompt: "Complete a frase",
-      image: ICB1.A19S2p3,
       sentenceStart: "I can't speak French. I wish I",
       sentenceEnd: "speak French.",
       options: ["could", "can"],

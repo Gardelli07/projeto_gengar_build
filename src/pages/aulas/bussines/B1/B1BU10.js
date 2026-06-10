@@ -115,7 +115,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "A equipe de Londres já passou do horário de expediente. Como você demonstra consciência dessa diferença?",
-      image: BUB1.A10S10,
       sentenceStart: "I know we have more to discuss, but I want to be",
       sentenceEnd: "of the time zones.",
       options: ["mindful", "careful"],
@@ -153,13 +152,13 @@ const LESSON_SLIDES = [
           " we're all ",
           {
             id: "blank-2",
-            options: ["aligned", "assigned"],
+      options: ["aligned", "assigned"],
             answer: "aligned",
           },
           " on the next steps. I also want to be ",
           {
             id: "blank-3",
-            options: ["mindful", "mindless"],
+      options: ["mindful", "mindless"],
             answer: "mindful",
           },
           " of the time difference, since it's already midnight in Tokyo. Thank you.",

@@ -141,7 +141,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "David jogou muito futebol hoje.",
-      image: ICA2.A57S12,
       sentenceStart: "David is tired. His",
       sentenceEnd: "are very sore from running.",
       options: ["legs", "head"],

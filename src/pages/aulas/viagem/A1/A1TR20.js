@@ -87,7 +87,6 @@ Se estiver com um filho pequeno: "One adult and one child, please." Simples e di
     activity: {
       prompt:
         "Você chegou na bilheteria do museu e quer dois ingressos. Complete a frase:",
-      image: TRA1.A20S10,
       sentenceStart: "Can I have two",
       sentenceEnd: ", please?",
       options: ["tickets", "tables"],

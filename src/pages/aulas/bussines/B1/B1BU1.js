@@ -112,7 +112,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "Tempo é valioso. Escolha a palavra certa para completar a frase do líder da reunião.",
-      image: BUB1.A1S5,
       sentenceStart: "I know we have a lot to discuss, but we have a",
       sentenceEnd: "stop at 11:00 AM.",
       options: ["heavy", "hard"],

@@ -68,7 +68,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Cam está cansado. O que ele deveria fazer?",
-      image: ICA2.A46S6,
       sentenceStart: "Cam",
       sentenceEnd: "sleep more.",
       options: ["should", "shouldn't"],
@@ -168,7 +167,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "O sinal está vermelho.",
-      image: ICA2.A46S14,
       sentenceStart: "You",
       sentenceEnd: "cross the street now.",
       options: ["should", "shouldn't"],
@@ -229,7 +227,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Pergunta sobre o futuro:",
-      image: ICA2.A46S19,
       sentenceStart: "",
       sentenceEnd: "I call her tonight?",
       options: ["Should", "Shouldn't"],
@@ -274,18 +271,18 @@ const LESSON_SLIDES = [
           blanks: [
             {
               id: "1",
-              options: ["should", "shouldn't"],
-              correctAnswer: "should",
+      options: ["should", "shouldn't"],
+      correctAnswer: "should",
             },
             {
               id: "2",
-              options: ["should", "shouldn't"],
-              correctAnswer: "shouldn't",
+      options: ["should", "shouldn't"],
+      correctAnswer: "shouldn't",
             },
             {
               id: "3",
-              options: ["should", "should to"],
-              correctAnswer: "should",
+      options: ["should", "should to"],
+      correctAnswer: "should",
             },
           ],
         },

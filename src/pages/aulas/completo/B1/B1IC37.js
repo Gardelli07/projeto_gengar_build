@@ -60,7 +60,6 @@ Essas estruturas sempre vâm acompanhadas do verbo no particípio!`,
     component: "Exercise5",
     activity: {
       prompt: "é uma dedução lógica de quase 100% (Must). Complete a frase.",
-      image: ICB1.A37S2,
       sentenceStart: "Look at the streets. It",
       sentenceEnd: "rained last night.",
       options: ["must have", "might have"],

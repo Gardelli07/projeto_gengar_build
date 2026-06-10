@@ -76,7 +76,6 @@ Mas para soar profissional ou entender o noticiârio, dominar a voz passiva é e
     component: "Exercise5",
     activity: {
       prompt: "Complete a frase com a palavra correta.",
-      image: ICB1.A29S2,
       sentenceStart: "It was",
       sentenceEnd: "that the company lost millions of dollars.",
       options: ["reported", "report"],

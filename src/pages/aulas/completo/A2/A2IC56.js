@@ -108,7 +108,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Lia está tentando falar com você no Zoom.",
-      image: ICA2.A56S9,
       sentenceStart: "Not really. The",
       sentenceEnd: "is very slow today.",
       options: ["TV", "Wi-Fi"],
@@ -147,7 +146,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Complete a reclamação do David:",
-      image: ICA2.A56S12,
       sentenceStart: "Wait a minute. I can't scroll the page. The screen is",
       sentenceEnd: ".",
       options: ["frozen", "melt"],

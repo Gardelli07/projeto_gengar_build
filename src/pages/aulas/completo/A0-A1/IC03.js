@@ -127,7 +127,6 @@ A resposta clássicaí 'Not much' (Nada de mais). `,
     component: "Exercise5",
     activity: {
       prompt: "Complete a frase",
-      image: ICA1.A3S10,
       sentenceStart: "A forma correta de abreviar what\'s up é:",
       sentenceEnd: "",
       options: ["sup ", "whatés"],

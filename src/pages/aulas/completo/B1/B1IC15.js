@@ -108,7 +108,6 @@ Isso mostra que você está prestando atenção.`,
     component: "Exercise5",
     activity: {
       prompt: "Complete a reação para manter a conversa rolando.",
-      image: ICB1.A20S4,
       sentenceStart: 'A: "I watched a great movie yesterday." B: "Really?',
       sentenceEnd: 'was it about?"',
       options: ["What", "Who"],

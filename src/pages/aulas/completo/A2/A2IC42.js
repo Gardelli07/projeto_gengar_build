@@ -154,7 +154,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: 'Use o superlativo de "tall".',
-      image: ICA2.A42S12,
       sentenceStart: "The giraffe is",
       sentenceEnd: "animal in the world.",
       options: ["the tallest", "taller"],
@@ -168,7 +167,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: 'Use o superlativo de "old".',
-      image: ICA2.A42S13,
       sentenceStart: "My grandma is",
       sentenceEnd: "person in my family.",
       options: ["the youngest", "the oldest"],

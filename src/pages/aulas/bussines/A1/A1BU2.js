@@ -44,7 +44,6 @@ Dica de Nativo:
     component: Exercise5,
     activity: {
       prompt: "Complete a frase com a palavra correta.",
-      image: BUA1.A2S7,
       sentenceStart: "I",
       sentenceEnd: "a developer.",
       options: ["am", "are"],

@@ -63,7 +63,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         'Complete a frase usando uma alternativa mais nativa que "opinion".',
-      image: BUB1.A3S4,
       sentenceStart: "We've seen the numbers. Mark, what's your",
       sentenceEnd: "on this?",
       options: ["talk", "take"],

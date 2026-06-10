@@ -112,7 +112,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "Você precisa recapitular o que foi decidido para garantir que não há dúvidas.",
-      image: BUB1.A15S10,
       sentenceStart: "Before we finish, allow me to",
       sentenceEnd: "our agreed terms.",
       options: ["summarize", "subtract"],
@@ -148,7 +147,7 @@ const LESSON_SLIDES = [
           "Since we reached a ",
           {
             id: "blank-1",
-            options: ["deadlock", "deadline"],
+      options: ["deadlock", "deadline"],
             answer: "deadlock",
           },
           " on the price, let's find a ",
@@ -156,7 +155,7 @@ const LESSON_SLIDES = [
           " ground. I'll drop the price by 5%. To ",
           {
             id: "blank-3",
-            options: ["summarize", "surprise"],
+      options: ["summarize", "surprise"],
             answer: "summarize",
           },
           " our agreed terms: 5% discount and delivery in 30 days. Do we have a ",

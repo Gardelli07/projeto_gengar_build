@@ -79,7 +79,6 @@ Não complique! Use "go up" (subir) e "go down" (descer). Até executivos usam i
     component: Exercise5,
     activity: {
       prompt: "Complete a frase.",
-      image: BUA1.A11S2p1,
       sentenceStart: "The sales go",
       sentenceEnd: "this month.",
       options: ["up", "open"],

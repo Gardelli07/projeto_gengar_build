@@ -91,7 +91,6 @@ Exemplo clássico: 15 é Fifteen. 50 é Fifty. O som no final muda tudo na hora 
     activity: {
       prompt:
         "Você pegou um ímã de geladeira na loja de souvenirs e quer saber o preço. Como você completa a pergunta?",
-      image: TRA1.A3S2,
       sentenceStart: "How",
       sentenceEnd: "is it?",
       options: ["much", "many"],

@@ -118,7 +118,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: 'Complete a frase com o passado de "HAVE".',
-      image: ICA2.A13S8,
       sentenceStart: "I",
       sentenceEnd: "a big breakfast this morning.",
       options: ["had", "has"],

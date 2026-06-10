@@ -93,7 +93,6 @@ Responda apenas o que foi perguntado. Respostas curtas, precisas e confiantes fu
     activity: {
       prompt:
         "Você chegou na cabine de imigração. O oficial pergunta o motivo da viagem. Você está de férias, então completa:",
-      image: TRA1.A8S2,
       sentenceStart: "I am here for",
       sentenceEnd: ".",
       options: ["tourism", "passport"],

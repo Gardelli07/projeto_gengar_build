@@ -91,7 +91,6 @@ Exemplo perfeito: "Can I have water, please?"`,
     activity: {
       prompt:
         "O carrinho chegou! Você quer pedir uma água para o comissário usando a frase coringa super educada. Complete:",
-      image: TRA1.A7S2,
       sentenceStart: "Can I",
       sentenceEnd: "water, please?",
       options: ["have", "speak"],

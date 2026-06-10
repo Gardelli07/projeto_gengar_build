@@ -79,7 +79,6 @@ No inglês falado e informal, você vai ouvir muito nativo dizendo "If I was you
     component: "Exercise5",
     activity: {
       prompt: "Complete a frase",
-      image: ICB1.A18S3,
       sentenceStart: "If I",
       sentenceEnd: "the lottery, I would travel the world.",
       options: ["won", "win"],
@@ -94,7 +93,6 @@ No inglês falado e informal, você vai ouvir muito nativo dizendo "If I was you
     component: "Exercise5",
     activity: {
       prompt: "Complete a frase",
-      image: ICB1.A18S5,
       sentenceStart: "If I",
       sentenceEnd: "you, I would study more.",
       options: ["were", "am"],

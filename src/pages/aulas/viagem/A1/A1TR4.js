@@ -93,7 +93,6 @@ Se o seu voo é às 20h, no painel estará: 8:00 PM. Muito cuidado para não con
     activity: {
       prompt:
         "Você chegou na recepção e quer confirmar a hora do seu check-out. Como você pergunta as horas?",
-      image: TRA1.A4S2,
       sentenceStart: "Excuse me, what",
       sentenceEnd: "is it?",
       options: ["time", "money"],

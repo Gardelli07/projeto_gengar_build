@@ -113,7 +113,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         'Qual é a palavra certa para convidar a equipe a "amarrar" e concluir o assunto?',
-      image: BUB1.A4S5,
       sentenceStart: "We made good progress, but let's",
       sentenceEnd: "this up now.",
       options: ["wrap", "close"],

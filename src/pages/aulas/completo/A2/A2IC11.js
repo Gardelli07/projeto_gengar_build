@@ -86,7 +86,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Complete a frase com o passado do verbo entre parênteses.",
-      image: ICA2.A11S6,
       sentenceStart: "She",
       sentenceEnd: "for the test last night.",
       options: ["studying", "studied"],

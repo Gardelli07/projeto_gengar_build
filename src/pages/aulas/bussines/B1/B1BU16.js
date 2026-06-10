@@ -90,7 +90,6 @@ const LESSON_SLIDES = [
     component: Exercise5,
     activity: {
       prompt: 'Como você diz "Em resumo" de forma avançada?',
-      image: BUB1.A16S5,
       sentenceStart: "It's a complex software, but in a",
       sentenceEnd: "it makes your system 50% faster.",
       options: ["nutshell", "nutshells"],
@@ -129,7 +128,7 @@ const LESSON_SLIDES = [
           ", we are spending too much on software. So, the key ",
           {
             id: "b4",
-            options: ["consensus", "consequence"],
+      options: ["consensus", "consequence"],
             answer: "consensus",
           },
           " is to freeze new purchases.",

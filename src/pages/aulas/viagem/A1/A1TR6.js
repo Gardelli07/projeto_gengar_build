@@ -88,7 +88,6 @@ Se o agente disser "Shoes" ou apontar para sua garrafa de água, sorria, tire os
     activity: {
       prompt:
         "Você olhou no painel e viu que o seu voo sai do portão 5. Como você pergunta onde fica?",
-      image: TRA1.A6S7,
       sentenceStart: "Excuse me,",
       sentenceEnd: "is gate 5?",
       options: ["Where", "What"],

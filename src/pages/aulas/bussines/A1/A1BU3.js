@@ -88,7 +88,6 @@ Quando um cliente chega, nós nunca perguntamos "What do you want?". Isso soa mu
     component: Exercise5,
     activity: {
       prompt: "Complete a frase.",
-      image: BUA1.A3S8,
       sentenceStart: "How",
       sentenceEnd: "is this product?",
       options: ["much", "many"],

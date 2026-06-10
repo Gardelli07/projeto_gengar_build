@@ -120,7 +120,6 @@ const LESSON_SLIDES = [
     component: Exercise5,
     activity: {
       prompt: "Você está resfriado e entra na farmácia. Você diz ao atendente:",
-      image: TRA1.A24S3,
       sentenceStart: "I need",
       sentenceEnd: "medicine, please.",
       options: ["cold", "ticket"],

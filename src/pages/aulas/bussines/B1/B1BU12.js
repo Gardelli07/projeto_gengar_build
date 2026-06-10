@@ -89,7 +89,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "O fornecedor quer aumentar o preço em 40%. Complete a frase para impor seu limite final.",
-      image: BUB1.A12S5,
       sentenceStart: "I'm sorry, but a 40% price increase is a",
       sentenceEnd: "for us. We cannot accept that.",
       options: ["dealbreaker", "dealmaker"],
@@ -123,7 +122,7 @@ const LESSON_SLIDES = [
           'Buyer: "Is there any ',
           {
             id: "blank-1",
-            options: ["flexibility", "possibility"],
+      options: ["flexibility", "possibility"],
             answer: "flexibility",
           },
           ' on the price?"\nSeller: "If you can ',
@@ -133,7 +132,7 @@ const LESSON_SLIDES = [
           " on the price. However, changing the delivery schedule is a ",
           {
             id: "blank-4",
-            options: ["dealmaker", "dealbreaker"],
+      options: ["dealmaker", "dealbreaker"],
             answer: "dealbreaker",
           },
           '."',

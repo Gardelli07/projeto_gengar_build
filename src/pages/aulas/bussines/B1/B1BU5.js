@@ -116,7 +116,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "Como você valida o que a pessoa está sentindo antes de redirecionar a reunião?",
-      image: BUB1.A5S4,
       sentenceStart: "I understand the",
       sentenceEnd: "John, but complaining won't fix the bug.",
       options: ["frustration", "friction"],
@@ -153,13 +152,13 @@ const LESSON_SLIDES = [
           " a step back and keep this ",
           {
             id: "blank-2",
-            options: ["constructive", "comfortable"],
+      options: ["constructive", "comfortable"],
             answer: "constructive",
           },
           ". I understand the ",
           {
             id: "blank-3",
-            options: ["frustration", "celebration"],
+      options: ["frustration", "celebration"],
             answer: "frustration",
           },
           ", but pointing fingers doesn't help. Let's focus on solutions.",

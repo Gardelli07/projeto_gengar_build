@@ -81,7 +81,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Complete a rotina:",
-      image: ICA2.A10S5,
       sentenceStart: "He",
       sentenceEnd: "to the gym every Monday.",
       options: ["go", "goes"],
@@ -95,7 +94,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Complete a ação agora:",
-      image: ICA2.A10S6,
       sentenceStart: "Look! She",
       sentenceEnd: "to the gym right now.",
       options: ["is going", "are going"],

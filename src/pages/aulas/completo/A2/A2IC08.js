@@ -80,7 +80,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Complete com a forma do verbo:",
-      image: ICA2.A8S6,
       sentenceStart: "They are",
       sentenceEnd: "a movie.",
       options: ["watching", "watched"],
@@ -94,7 +93,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Complete com a negação:",
-      image: ICA2.A8S7,
       sentenceStart: "It",
       sentenceEnd: "raining outside right now.",
       options: ["be not", "isn't"],
@@ -164,13 +162,13 @@ const LESSON_SLIDES = [
           {
             id: "b1",
             answer: "isn't playing",
-            options: ["isn't playing", "am not playing"],
+      options: ["isn't playing", "am not playing"],
           },
           " good music and people ",
           {
             id: "b2",
             answer: "aren't dancing",
-            options: ["aren't dancing", "isn't dancing"],
+      options: ["aren't dancing", "isn't dancing"],
           },
           ".",
         ],

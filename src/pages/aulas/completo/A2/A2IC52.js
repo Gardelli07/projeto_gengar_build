@@ -125,7 +125,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Você quer ir à praia. Use a forma direta:",
-      image: ICA2.A52S10,
       sentenceStart: "",
       sentenceEnd: "go to the beach!",
       options: ["Let's", "Shall we go"],

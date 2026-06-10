@@ -90,7 +90,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "O Diretor vai viajar, mas quer continuar recebendo notícias sobre a negociação.",
-      image: BUB1.A19S5,
       sentenceStart:
         "Team, I will be traveling today, but please keep me in the",
       sentenceEnd: "about the contract.",

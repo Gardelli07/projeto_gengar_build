@@ -36,7 +36,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Onde a Sabrina está trabalhando?",
-      image: ICA2.A4S2,
       sentenceStart: "Sabrina is working in her",
       sentenceEnd: ".",
       options: ["home office", "kitchen"],
@@ -50,7 +49,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "O que ela está bebendo?",
-      image: ICA2.A1S5,
       sentenceStart: "She is drinking",
       sentenceEnd: "coffee.",
       options: ["hot", "cold"],
@@ -64,7 +62,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "O que o sol está fazendo lá fora?",
-      image: ICA2.A4S13,
       sentenceStart: "The sun is",
       sentenceEnd: ".",
       options: ["shining", "raining"],
@@ -78,7 +75,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Onde a gata Luna está dormindo?",
-      image: ICA2.A4S2,
       sentenceStart: "Luna is sleeping on the",
       sentenceEnd: ".",
       options: ["rug", "table"],
@@ -92,7 +88,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "O que o Leo está fazendo na cozinha?",
-      image: ICA2.A1S8,
       sentenceStart: "He’s",
       sentenceEnd: "a cake.",
       options: ["making", "doing"],
@@ -106,7 +101,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Onde os pais da Sabrina estão passando a semana?",
-      image: ICA2.A4S13,
       sentenceStart: "They are staying at a",
       sentenceEnd: ".",
       options: ["hotel", "park"],
@@ -120,7 +114,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "O que os pais dela estão fazendo na praia?",
-      image: ICA2.A4S13,
       sentenceStart: "They are",
       sentenceEnd: "and walking.",
       options: ["relaxing", "working"],
@@ -134,7 +127,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Por que a Sabrina está usando um casaco?",
-      image: ICA2.A4S2,
       sentenceStart: "Because the",
       sentenceEnd: "is on.",
       options: ["AC", "oven"],
@@ -148,7 +140,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Qual é a cor do casaco da Sabrina?",
-      image: ICA2.A4S2,
       sentenceStart: "She is wearing a",
       sentenceEnd: "sweater.",
       options: ["blue", "red"],
@@ -162,7 +153,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Como a Sabrina está se sentindo hoje?",
-      image: ICA2.A4S2,
       sentenceStart: "She is feeling",
       sentenceEnd: "and productive.",
       options: ["happy", "tired"],

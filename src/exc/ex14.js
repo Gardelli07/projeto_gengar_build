@@ -596,7 +596,7 @@ const ex14 = StyleSheet.create({
     marginBottom: 14,
   },
   resultBarText: {
-    fontSize: 28,
+    fontSize: 20,
     fontFamily: "serif",
     fontWeight: "500",
     color: CORES.TEXT_DARK,

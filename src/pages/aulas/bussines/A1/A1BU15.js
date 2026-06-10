@@ -79,7 +79,6 @@ No mundo dos negócios, nativos raramente dizem "I give you a price". O mais pro
     component: Exercise5,
     activity: {
       prompt: "Complete a frase.",
-      image: BUA1.A15S2,
       sentenceStart: "We can",
       sentenceEnd: "a good price.",
       options: ["offer", "office"],

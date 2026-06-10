@@ -96,7 +96,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Complete a pergunta do Mark:",
-      image: ICA2.A47S8,
       sentenceStart: "",
       sentenceEnd: "I exercise in the morning?",
       options: ["Should", "Shouldn't"],
@@ -109,7 +108,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Sarah acha que Mark trabalha demais:",
-      image: ICA2.A47S9,
       sentenceStart: "You",
       sentenceEnd: "work on weekends. It's bad for you.",
       options: ["should", "shouldn't"],

@@ -98,7 +98,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: 'Complete a frase com o passado de "NEED".',
-      image: ICA2.A12S7,
       sentenceStart: "I",
       sentenceEnd: "some help with my homework yesterday.",
       options: ["needed", "needs"],
@@ -112,7 +111,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: 'Complete com a grafia correta de "SHOP" no passado.',
-      image: ICA2.A12S8,
       sentenceStart: "I",
       sentenceEnd: "at the mall last weekend.",
       options: ["shopping", "shopped"],

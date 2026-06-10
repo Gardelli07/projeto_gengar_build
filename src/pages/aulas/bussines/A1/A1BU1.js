@@ -79,7 +79,6 @@ No dia a dia corporativo, a gente raramente usa aquele "How do you do?" dos livr
     component: Exercise5,
     activity: {
       prompt: "Complete a frase com a palavra correta.",
-      image: BUA1.A1S2,
       sentenceStart: "Hello,",
       sentenceEnd: "name is John.",
       options: ["my", "I"],

@@ -78,7 +78,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: 'Friend: "What are you doing?"',
-      image: ICA2.A3S4,
       sentenceStart: "I",
       sentenceEnd: "for the exam.",
       options: ["am studying", "are studying"],
@@ -92,7 +91,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: 'Friend: "And your brother? Is he here?"',
-      image: ICA2.A3S2,
       sentenceStart: "Yes, he",
       sentenceEnd: "in the garden.",
       options: ["is playing", "are playing"],
@@ -106,7 +104,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: 'Friend: "I hear music! Is your sister there?"',
-      image: ICA2.A1S8,
       sentenceStart: "Yes, she",
       sentenceEnd: ".",
       options: ["is dancing", "are dancing"],
@@ -120,7 +117,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: 'Friend: "I smell coffee! Is your father busy?"',
-      image: ICA2.A1S5,
       sentenceStart: "Yes, he",
       sentenceEnd: "coffee.",
       options: ["is making", "is makeing"],
@@ -134,7 +130,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: 'Friend: "And your mother?"',
-      image: ICA2.A2S10,
       sentenceStart: "She",
       sentenceEnd: ".",
       options: ["is working", "are working"],
@@ -148,7 +143,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: 'Friend: "Look at the dog in the garden!"',
-      image: ICA2.A2S7,
       sentenceStart: "Oh! It",
       sentenceEnd: ".",
       options: ["is running", "is runing"],
@@ -162,7 +156,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: 'Friend: "What about your friends?"',
-      image: ICA2.A2S9,
       sentenceStart: "They",
       sentenceEnd: ".",
       options: ["are waiting", "is waiting"],
@@ -176,7 +169,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: 'Friend: "Are we ready for the lesson?"',
-      image: ICA2.A1S9,
       sentenceStart: "Yes, we",
       sentenceEnd: "now.",
       options: ["are starting", "is starting"],
@@ -190,7 +182,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: 'Friend: "Is your neighbor outside?"',
-      image: ICA2.A6S4,
       sentenceStart: "Yes, he",
       sentenceEnd: "the car.",
       options: ["is washing", "are washing"],
@@ -204,7 +195,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: 'Friend: "Wow, everyone is busy!"',
-      image: ICA2.A1S9,
       sentenceStart: "Yes, we",
       sentenceEnd: "a lot.",
       options: ["are learning", "is learning"],

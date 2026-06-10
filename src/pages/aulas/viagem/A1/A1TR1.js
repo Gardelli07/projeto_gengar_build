@@ -73,7 +73,6 @@ Está indo embora do restaurante ou indo dormir no hotel? Diga "Good night". Nun
     activity: {
       prompt:
         "Você acabou de chegar ao balcão do hotel às 20h para o check-in. Como você cumprimenta o recepcionista?",
-      image: TRA1.A1S3,
       sentenceStart: "",
       sentenceEnd: ", I have a reservation.",
       options: ["Good evening", "Good night"],

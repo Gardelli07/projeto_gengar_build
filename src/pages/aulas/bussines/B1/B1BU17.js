@@ -87,7 +87,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "Você precisa que alguém seja o responsável final por essa missão.",
-      image: BUB1.A17S5,
       sentenceStart: "Mark, I need to know: who is taking",
       sentenceEnd: "of this project?",
       options: ["ownership", "relationship"],
@@ -123,13 +122,13 @@ const LESSON_SLIDES = [
           " items. Sarah, you are responsible for the marketing ",
           {
             id: "b2",
-            options: ["deliver", "deliverables"],
+      options: ["deliver", "deliverables"],
             answer: "deliverables",
           },
           ". John, who is taking ",
           {
             id: "b3",
-            options: ["ownership", "partnership"],
+      options: ["ownership", "partnership"],
             answer: "ownership",
           },
           " of the financial report? And ",

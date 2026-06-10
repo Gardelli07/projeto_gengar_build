@@ -90,7 +90,6 @@ Exemplo: "Take me to this address, please".`,
     activity: {
       prompt:
         'Você entrou no táxi, mostrou o celular com o nome da rua para o motorista e disse: "Take me to this ______, please."',
-      image: TRA1.A10S5,
       sentenceStart: "Take me to this",
       sentenceEnd: ", please.",
       options: ["address", "window"],

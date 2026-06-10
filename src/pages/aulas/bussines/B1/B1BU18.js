@@ -89,7 +89,6 @@ const LESSON_SLIDES = [
     component: Exercise5,
     activity: {
       prompt: "O cronograma está parado esperando o Diretor dar o OK final.",
-      image: BUB1.A18S5,
       sentenceStart: "We will begin writing the software code,",
       sentenceEnd: "your approval of the final budget.",
       options: ["pending", "sending"],

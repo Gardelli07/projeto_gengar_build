@@ -91,7 +91,6 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "Vocês fecharam as especificações técnicas. Agora precisam concordar com as datas.",
-      image: BUB1.A14S10,
       sentenceStart: "Now that we agree on the price, let's",
       sentenceEnd: "on the delivery schedules.",
       options: ["align", "assign"],

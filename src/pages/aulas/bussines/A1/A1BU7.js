@@ -76,7 +76,6 @@ No mundo dos negócios, nativos adoram a palavra "Step". Quando terminam de apre
     component: Exercise5,
     activity: {
       prompt: "Complete a frase com a palavra correta.",
-      image: BUA1.A7S2,
       sentenceStart: "What is the next",
       sentenceEnd: "?",
       options: ["step", "walk"],

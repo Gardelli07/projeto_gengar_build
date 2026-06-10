@@ -79,7 +79,6 @@ Isso resolve 90% dos problemas de comunicação!`,
     activity: {
       prompt:
         "O fiscal do aeroporto fez uma pergunta muito rápida e você não compreendeu. O que você diz?",
-      image: TRA1.A2S2,
       sentenceStart: "Sorry, I don't",
       sentenceEnd: ".",
       options: ["understand", "morning"],

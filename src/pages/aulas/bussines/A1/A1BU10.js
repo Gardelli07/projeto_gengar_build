@@ -76,7 +76,6 @@ Nativos adoram apresentações organizadas. Use: First, Then, Finally para guiar
     component: Exercise5,
     activity: {
       prompt: "Complete a frase.",
-      image: BUA1.A10S2,
       sentenceStart: "",
       sentenceEnd: ", thank you for your time.",
       options: ["Finally", "Finish"],

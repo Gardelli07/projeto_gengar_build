@@ -41,7 +41,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Complete a frase",
-      image: ICA1.A5S8,
       sentenceStart: "",
       sentenceEnd: "he your brother?",
       options: ["is", "are"],
@@ -113,7 +112,7 @@ Curto, grosso e natural!
           {
             id: "blank-1",
             answer: "Is / Isn't",
-            options: ["Is / Isn't", "Are / Am"],
+      options: ["Is / Isn't", "Are / Am"],
           },
           "she at home?",
         ],
@@ -122,7 +121,7 @@ Curto, grosso e natural!
           {
             id: "blank-2",
             answer: "Is / Isn't",
-            options: ["Is / Isn't", "Are / Am"],
+      options: ["Is / Isn't", "Are / Am"],
           },
           "",
         ],

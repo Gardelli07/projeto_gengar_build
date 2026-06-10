@@ -91,7 +91,6 @@ Mas e se for para continuar andando reto na mesma rua? Vamos ver no próximo sli
     activity: {
       prompt:
         "Você perguntou onde fica o supermercado e a pessoa apontou para a esquina dizendo para você virar à esquerda. Complete a frase que ela disse:",
-      image: TRA1.A11S3,
       sentenceStart: "Turn",
       sentenceEnd: ".",
       options: ["left", "straight"],

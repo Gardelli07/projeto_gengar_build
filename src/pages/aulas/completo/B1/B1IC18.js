@@ -82,7 +82,6 @@ ou
     component: "Exercise5",
     activity: {
       prompt: "Complete a frase",
-      image: ICB1.A18S5,
       sentenceStart: "Hi, I don't think we've met. I'm Julia. I work",
       sentenceEnd: "digital marketing.",
       options: ["in", "on"],

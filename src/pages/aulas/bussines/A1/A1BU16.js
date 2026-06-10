@@ -77,7 +77,6 @@ Em negociações, ao invés de dizer "expensive", nativos preferem algo mais dip
     component: Exercise5,
     activity: {
       prompt: "Complete a frase.",
-      image: BUA1.A16S2,
       sentenceStart: "That price is too",
       sentenceEnd: ".",
       options: ["high", "happy"],

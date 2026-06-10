@@ -57,7 +57,6 @@ const LESSON_SLIDES = [
     component: "Exercise5",
     activity: {
       prompt: "Hoje é feriado! O que acontece?",
-      image: ICA2.A50S5,
       sentenceStart: "We",
       sentenceEnd: "go to work today.",
       options: ["doesn't have to", "don't have to"],
@@ -104,18 +103,18 @@ const LESSON_SLIDES = [
           blanks: [
             {
               id: "1",
-              options: ["has to", "doesn't have to"],
-              correctAnswer: "has to",
+      options: ["has to", "doesn't have to"],
+      correctAnswer: "has to",
             },
             {
               id: "2",
-              options: ["has to", "doesn't have to"],
-              correctAnswer: "doesn't have to",
+      options: ["has to", "doesn't have to"],
+      correctAnswer: "doesn't have to",
             },
             {
               id: "3",
-              options: ["Do I have to", "Has to I"],
-              correctAnswer: "Do I have to",
+      options: ["Do I have to", "Has to I"],
+      correctAnswer: "Do I have to",
             },
           ],
         },

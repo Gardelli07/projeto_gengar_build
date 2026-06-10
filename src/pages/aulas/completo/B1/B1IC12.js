@@ -42,7 +42,6 @@ Let's practice!`,
     component: "Exercise5",
     activity: {
       prompt: "Complete a frase",
-      image: ICB1.A20S3,
       sentenceStart: "If I",
       sentenceEnd: "you, I would buy a Perfect Brew machine for the office.",
       options: ["was", "were"],

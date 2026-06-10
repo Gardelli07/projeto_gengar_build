@@ -62,7 +62,6 @@ Eu mandei consertar meu carro.`,
     component: "Exercise5",
     activity: {
       prompt: "Complete a frase corretamente.",
-      image: ICB1.A31S3,
       sentenceStart: "She",
       sentenceEnd: "her hair cut at the new salon.",
       options: ["had", "did"],
