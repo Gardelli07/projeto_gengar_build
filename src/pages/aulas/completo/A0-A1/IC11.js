@@ -27,7 +27,7 @@ const LESSON_SLIDES = [
       answerOptions: ["We ", "Me"],
       correctOption: "We ",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "Are" para dizer "você".',
+      feedbackMessage: 'Usamos "We" para dizer "nós".',
     },
   },
   {
@@ -41,7 +41,7 @@ const LESSON_SLIDES = [
       answerOptions: ["They", "Day"],
       correctOption: "They",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "You are" para dizer "você".',
+      feedbackMessage: 'Usamos "They" para dizer "eles/elas".',
     },
   },
   {
@@ -66,7 +66,7 @@ Ao falar /blueThey, coloque a ponta da língua nos dentes de cima e solte o ar. 
       answerOptions: ["We are", "We is"],
       correctOption: "We are",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "You are" para dizer "você".',
+      feedbackMessage: 'Usamos "We are" para dizer "nós somos/estamos".',
     },
   },
   {
@@ -80,7 +80,7 @@ Ao falar /blueThey, coloque a ponta da língua nos dentes de cima e solte o ar. 
       answerOptions: ["They are", "They is"],
       correctOption: "They are",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "You are" para dizer "você".',
+      feedbackMessage: 'Usamos "They are" para dizer "eles/elas são/estão".',
     },
   },
   {
@@ -114,7 +114,7 @@ Ao falar /blueThey, coloque a ponta da língua nos dentes de cima e solte o ar. 
       answerOptions: ["Aren't ", "Are"],
       correctOption: "Aren't ",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "Aren\'t " para dizer "você".',
+      feedbackMessage: 'Usamos "Aren\'t" para dizer "não é/não está".',
     },
   },
   {
@@ -128,7 +128,7 @@ Ao falar /blueThey, coloque a ponta da língua nos dentes de cima e solte o ar. 
       answerOptions: ["We aren't ", "We are"],
       correctOption: "We aren't ",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "We aren\'t " para dizer "nós".',
+      feedbackMessage: 'Usamos "We aren\'t" para dizer "nós não somos/estamos".',
     },
   },
   {
@@ -142,7 +142,7 @@ Ao falar /blueThey, coloque a ponta da língua nos dentes de cima e solte o ar. 
       answerOptions: ["They aren't", "They are"],
       correctOption: "They aren't",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "They aren\'t " para dizer "eles/elas".',
+      feedbackMessage: 'Usamos "They aren\'t" para dizer "eles/elas não são/estão".',
     },
   },
   {

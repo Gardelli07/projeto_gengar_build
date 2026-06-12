@@ -61,13 +61,13 @@ const LESSON_SLIDES = [
         },
         {
           image: Images.ex10,
-          question: "Qual a forma correta de escrever a despedidaí",
+          question: "Qual a forma correta de escrever a despedida?",
           options: ["Bye", "Buy"],
           correctAnswer: "Bye",
         },
         {
           image: Images.ex10,
-          question: '"Good Night" serve para cumprimentar na chegadaí',
+          question: '"Good Night" serve para cumprimentar na chegada?',
           options: ["Verdadeiro", "Falso"],
           correctAnswer: "Falso",
         },

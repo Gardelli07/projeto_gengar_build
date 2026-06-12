@@ -55,7 +55,7 @@ const LESSON_SLIDES = [
       answerOptions: ["Aren't ", "Air"],
       correctOption: "Aren't ",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "Aren\'t " para dizer "você".',
+      feedbackMessage: 'Usamos "Aren\'t" para dizer "não é/não está".',
     },
   },
   {
@@ -64,8 +64,8 @@ const LESSON_SLIDES = [
       label: "Tip",
       content: [
         `Dica de Ouro: You significa 'Você' E 'Vocês'. O verbo não muda: é sempre ARE.
-  ?1 pessoa: You are a student.
-  ?2+ pessoas: You are students. 
+  • 1 pessoa: You are a student.
+  • 2+ pessoas: You are students. 
 O segredo está no que vem depois! `,
       ],
       continueLabel: "Continuar",
@@ -76,8 +76,8 @@ O segredo está no que vem depois! `,
     activity: {
       prompt: "Encontre a tradução",
       pairs: [
-        { en: "You are", pt: "Você ? / Vocês são" },
-        { en: "You aren't", pt: "Você não ?/está" },
+        { en: "You are", pt: "Você é / Vocês são" },
+        { en: "You aren't", pt: "Você não é/está" },
       ],
       successTitle: "Excelente",
       successMessage: "Você acertou todas as traduções.",

@@ -69,7 +69,7 @@ const LESSON_SLIDES = [
   {
     component: "Exercise1",
     activity: {
-      prompt: "Conecte a situacao",
+      prompt: "Conecte a situação",
       pairs: [
         { en: "Chegando em um evento às 19:00", pt: "Good evening" },
         { en: "Saindo de casa às 22:00", pt: "Good night" },

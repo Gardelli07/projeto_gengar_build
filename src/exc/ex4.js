@@ -29,6 +29,7 @@ export function Exercise4({
   const isCorrect = result === "correct";
   const isWrong = result === "wrong";
   const wrongMessage = activity.feedbackMessage || activity.successMessage;
+  const commandText = activity.command || activity.wrongSentence;
 
   const shakeTranslateX = shakeAnim.interpolate({
     inputRange: [0, 0.25, 0.5, 0.75, 1],
@@ -133,11 +134,11 @@ export function Exercise4({
           <Image source={activity.image} style={styles.correctSentenceImage} />
         </View>
 
-        <View style={styles.correctSentencePromptPill}>
-          <Text style={styles.correctSentencePromptText}>
-            {activity.wrongSentence}
-          </Text>
-        </View>
+        {!!commandText && (
+          <View style={styles.correctSentencePromptPill}>
+            <Text style={styles.correctSentencePromptText}>{commandText}</Text>
+          </View>
+        )}
 
         <View style={styles.correctSentenceOptionsList}>
           {activity.options.map((option) => {
@@ -283,7 +284,8 @@ const ex4 = StyleSheet.create({
   },
   correctSentenceMediaCard: {
     width: "88%",
-    height: 150,
+    maxWidth: 520,
+    aspectRatio: 16 / 9,
     borderRadius: 18,
     overflow: "hidden",
     marginBottom: 12,
@@ -292,7 +294,7 @@ const ex4 = StyleSheet.create({
   correctSentenceImage: {
     width: "100%",
     height: "100%",
-    resizeMode: "contain",
+    resizeMode: "cover",
   },
   correctSentencePromptPill: {
     width: "88%",

@@ -33,7 +33,7 @@ const LESSON_SLIDES = [
         {
           image: Images.ex10,
           question:
-            "Você está na Irlanda e quer desejar uma Ótima manhá. O que diz?",
+            "Você está na Irlanda e quer desejar uma ótima manhã. O que diz?",
           options: ["G'day!", "Top o' the mornin'!"],
           correctAnswer: "Top o' the mornin'!",
         },

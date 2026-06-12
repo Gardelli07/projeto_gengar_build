@@ -198,6 +198,9 @@ export function Exercise1({
                       styles.matchCardText,
                       matched && styles.matchCardTextCorrect,
                     ]}
+                    numberOfLines={2}
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.76}
                   >
                     {word}
                   </Text>
@@ -224,6 +227,9 @@ export function Exercise1({
                       styles.matchCardTextTranslation,
                       matched && styles.matchCardTextCorrect,
                     ]}
+                    numberOfLines={2}
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.76}
                   >
                     {word}
                   </Text>
@@ -328,15 +334,21 @@ const ex1 = StyleSheet.create({
   },
   matchCardButton: {
     width: "100%",
-    minHeight: 44,
+    minHeight: 52,
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 12,
+    paddingVertical: 8,
   },
   matchCardText: {
     fontSize: 19,
+    lineHeight: 23,
     color: "#397BB2",
     fontFamily: "serif",
+    textAlign: "center",
+    textAlignVertical: "center",
+    includeFontPadding: false,
+    flexShrink: 1,
   },
   matchCardTextTranslation: {
     color: CORES.WHITE,

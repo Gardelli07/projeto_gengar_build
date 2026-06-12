@@ -8,7 +8,7 @@ const LESSON_SLIDES = [
       label: "See you!",
       content: [
         ICA1.A20S1,
-        "Você terminou sua compra. O que dizer para fechar a interaíão com chave de ouro?",
+        "Você terminou sua compra. O que dizer para fechar a interação com chave de ouro?",
       ],
       continueLabel: "Continuar",
     },
@@ -51,7 +51,8 @@ const LESSON_SLIDES = [
       answerOptions: ["See you later!", "See later you!"],
       correctOption: "See you later!",
       successTitle: "Correto",
-      feedbackMessage: 'A ordem correta é "See you later!".',
+      feedbackMessage:
+        'Usamos "See you later!" para dizer "até mais". Em inglês, o "you" vem logo depois de "see".',
     },
   },
   {
@@ -60,7 +61,7 @@ const LESSON_SLIDES = [
       label: "Tip",
       content: [
         "Com amigos, os nativos são ainda mais rápidos.",
-        "Em vez de 'See you later', você ouvirÉ muito apenas um 'See ya!' ou simplesmente 'Later!'.",
+        "Em vez de 'See you later', você ouvirá muito apenas um 'See ya!' ou simplesmente 'Later!'.",
         "Pratique o som: 'lei-der'.",
       ],
       continueLabel: "Continuar",
@@ -143,7 +144,7 @@ const LESSON_SLIDES = [
       correctAnswer: "Have a good afternoon!",
       successTitle: "Correto",
       successMessage:
-        'Good afternoon! ? "Oi". Have a good afternoon! ? "Tchau".',
+        'Good afternoon! é "Oi". Have a good afternoon! é "Tchau".',
     },
   },
   {

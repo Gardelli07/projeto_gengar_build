@@ -162,7 +162,7 @@ However, he soon faced Burnout. He couldn't code, he couldn't play his guitar, a
       ],
       correctAnswer: "Because he worked too much.",
       successTitle: "Correto",
-      successMessage: "Ele trabalhava até 3 da manhá e não descansava.",
+      successMessage: "Ele trabalhava até 3 da manhã e não descansava.",
     },
   },
   {

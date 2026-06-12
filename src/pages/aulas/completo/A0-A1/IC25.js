@@ -8,7 +8,7 @@ const LESSON_SLIDES = [
       label: 'Time do "EH"',
       content: [
         ICA1.A25S1,
-        'Diferente do time anterior, essas letras começam com um som de "?". Prepare o fôlego!',
+        'Diferente do time anterior, essas letras começam com um som de "É". Prepare o fôlego!',
       ],
       continueLabel: "Continuar",
     },
@@ -24,7 +24,7 @@ const LESSON_SLIDES = [
       answerOptions: ["F", "S"],
       correctOption: "F",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta ? "F".',
+      feedbackMessage: 'A letra correta é "F".',
     },
   },
   {
@@ -38,7 +38,7 @@ const LESSON_SLIDES = [
       answerOptions: ["L", "I"],
       correctOption: "L",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta ? "L".',
+      feedbackMessage: 'A letra correta é "L".',
     },
   },
   {
@@ -52,7 +52,7 @@ const LESSON_SLIDES = [
       answerOptions: ["M", "N"],
       correctOption: "M",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta ? "M".',
+      feedbackMessage: 'A letra correta é "M".',
     },
   },
   {
@@ -66,7 +66,7 @@ const LESSON_SLIDES = [
       answerOptions: ["N", "M"],
       correctOption: "N",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta ? "N".',
+      feedbackMessage: 'A letra correta é "N".',
     },
   },
   {
@@ -80,7 +80,7 @@ const LESSON_SLIDES = [
       answerOptions: ["S", "C"],
       correctOption: "S",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta ? "S".',
+      feedbackMessage: 'A letra correta é "S".',
     },
   },
   {
@@ -94,7 +94,7 @@ const LESSON_SLIDES = [
       answerOptions: ["X", "S"],
       correctOption: "X",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta ? "X".',
+      feedbackMessage: 'A letra correta é "X".',
     },
   },
   {
@@ -115,7 +115,7 @@ const LESSON_SLIDES = [
       label: "Tip",
       content: [
         "O X (éks) tem um som de 'ks' no final, como o som de uma faísca.",
-        "Pratique: ?-ks!",
+        "Pratique: 'é-ks'!",
       ],
       continueLabel: "Continuar",
     },
@@ -125,13 +125,13 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Conecte a letra ao seu som",
       pairs: [
-        { en: "L", pt: "ál" },
-        { en: "M", pt: "âm" },
+        { en: "L", pt: "él" },
+        { en: "M", pt: "ém" },
         { en: "X", pt: "éks" },
         { en: "F", pt: "éf" },
       ],
       successTitle: "Excelente",
-      successMessage: "L = ál, M = âm, X = éks, F = éf.",
+      successMessage: "L = él, M = ém, X = éks, F = éf.",
     },
   },
   {
@@ -141,7 +141,7 @@ const LESSON_SLIDES = [
       words: ["N", "L", "M"],
       correctOrder: ["L", "M", "N"],
       successTitle: "Correto",
-      successMessage: "A sequência correta ? L, M, N.",
+      successMessage: "A sequência correta é L, M, N.",
     },
   },
   {
@@ -152,7 +152,7 @@ const LESSON_SLIDES = [
       helperText: "Dica: cheque se você fechou a boca no M!",
       image: Images.ex16,
       tipButtonLabel: "Tip",
-      tipText: "às - âm - às",
+      tipText: "és - ém - és",
       recordLabel: "Speak",
       stopLabel: "Parar",
       playLabel: "Ouvir",
@@ -160,7 +160,7 @@ const LESSON_SLIDES = [
       rerecordLabel: "Regravar",
       submitLabel: "Enviar áudio",
       successTitle: "Correto",
-      successMessage: 'Resposta esperada: "às - âm - às".',
+      successMessage: 'Resposta esperada: "és - ém - és".',
     },
   },
   {

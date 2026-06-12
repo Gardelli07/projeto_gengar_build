@@ -7,7 +7,7 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        `Para dizer quem você ?, você precisa de uma palavra mágica. Consegue adivinhar?`,
+        `Para falar de outras pessoas ou objetos, precisamos de novos sons. Vamos conhecê-los?`,
         ICA1.A8S1,
       ],
       continueLabel: "Continuar",
@@ -52,7 +52,7 @@ const LESSON_SLIDES = [
       answerOptions: ["It", "Eat"],
       correctOption: "It",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "It is" para dizer "?".',
+      feedbackMessage: 'Usamos "It is" para dizer "isso é/está".',
     },
   },
   {
@@ -66,7 +66,7 @@ const LESSON_SLIDES = [
       answerOptions: ["Is", "Easy"],
       correctOption: "Is",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "Is" para dizer "?".',
+      feedbackMessage: 'Usamos "Is" para dizer "é/está".',
     },
   },
   {
@@ -80,7 +80,7 @@ const LESSON_SLIDES = [
       answerOptions: ["Isn't", "Is"],
       correctOption: "Isn't",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "Isn\'t" para dizer "?".',
+      feedbackMessage: 'Usamos "Isn\'t" para dizer "não é/não está".',
     },
   },
   {
@@ -125,7 +125,7 @@ Pense neles como um time inseparável! `,
       pairs: [
         { en: "He is", pt: "Ele é/está" },
         { en: "She is", pt: "Ela é/está" },
-        { en: "It is", pt: "Isto ?/está" },
+        { en: "It is", pt: "Isto é/está" },
       ],
       successTitle: "Excelente",
       successMessage: "Você acertou todas as traduções.",

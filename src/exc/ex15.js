@@ -208,6 +208,9 @@ export function Exercise15({
                         styles.matchMediaWordOptionText,
                         isMatched && styles.matchMediaWordOptionTextCorrect,
                       ]}
+                      numberOfLines={2}
+                      adjustsFontSizeToFit
+                      minimumFontScale={0.78}
                     >
                       {wordOption.label}
                     </Text>
@@ -318,21 +321,24 @@ const ex15 = StyleSheet.create({
     fontWeight: "700",
   },
   matchMediaWordImagesRow: {
-    width: "88%",
+    width: "94%",
+    maxWidth: 520,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
+    gap: 10,
     marginBottom: 10,
   },
   matchMediaWordImageCard: {
-    width: "47%",
-    height: 100,
+    flex: 1,
+    maxWidth: "48%",
+    minWidth: 0,
+    aspectRatio: 16 / 9,
     borderRadius: 12,
     borderWidth: 1.5,
     borderColor: "#D6E6F7",
     backgroundColor: CORES.WHITE,
     overflow: "hidden",
-    marginHorizontal: "1.5%",
     marginBottom: 10,
   },
   matchMediaWordImageCardSelected: {
@@ -351,20 +357,23 @@ const ex15 = StyleSheet.create({
   matchMediaWordImage: {
     width: "100%",
     height: "100%",
-    resizeMode: "contain",
+    resizeMode: "cover",
   },
   matchMediaWordOptionsRow: {
-    width: "88%",
+    width: "94%",
     flexDirection: "row",
     justifyContent: "center",
-    gap: 12,
+    gap: 8,
   },
   matchMediaWordOptionWrap: {
+    flex: 1,
+    maxWidth: "48%",
+    minWidth: 0,
     borderRadius: 18,
   },
   matchMediaWordOption: {
-    minWidth: 92,
-    minHeight: 38,
+    width: "100%",
+    minHeight: 42,
     borderRadius: 19,
     borderWidth: 1,
     borderColor: "#D6E6F7",
@@ -382,15 +391,18 @@ const ex15 = StyleSheet.create({
   },
   matchMediaWordOptionTouch: {
     flex: 1,
-    minHeight: 38,
+    minHeight: 42,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
   },
   matchMediaWordOptionText: {
     color: CORES.TEXT_DARK,
     fontSize: 14,
+    lineHeight: 18,
     textAlign: "center",
+    flexShrink: 1,
   },
   matchMediaWordOptionTextCorrect: {
     color: CORES.SUCCESS_DARK,

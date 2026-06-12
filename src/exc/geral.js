@@ -94,11 +94,12 @@ const geral = StyleSheet.create({
   },
   listenAnswerMediaWrapper: {
     width: "88%",
+    maxWidth: 520,
     marginBottom: 12,
   },
   listenAnswerMediaCard: {
     width: "100%",
-    height: 190,
+    aspectRatio: 16 / 9,
     backgroundColor: CORES.SURFACE_MUTED,
     borderTopLeftRadius: 18,
     borderTopRightRadius: 18,
@@ -107,7 +108,7 @@ const geral = StyleSheet.create({
   listenAnswerImage: {
     width: "100%",
     height: "100%",
-    resizeMode: "contain",
+    resizeMode: "cover",
   },
   listenAnswerAudioButton: {
     flexDirection: "row",

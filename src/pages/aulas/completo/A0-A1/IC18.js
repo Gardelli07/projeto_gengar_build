@@ -25,7 +25,7 @@ const LESSON_SLIDES = [
       answerOptions: ["Good morning", "Good night"],
       correctOption: "Good morning",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "Good morning" para cumprimentar de manha.',
+      feedbackMessage: 'Usamos "Good morning" para cumprimentar de manhã.',
     },
   },
   {
@@ -33,7 +33,7 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Dica Cultural: De manhá, os nativos costumam ser práticos.",
+        "Dica Cultural: De manhã, os nativos costumam ser práticos.",
         "Em situações informais, com amigos ou família, É muito comum eles cortarem o Good e dizerem apenas Morning!",
         "É como o nosso Dia! em vez de Bom dia!.",
       ],
@@ -96,7 +96,7 @@ const LESSON_SLIDES = [
   {
     component: "Exercise6",
     activity: {
-      prompt: "Voce chega no trabalho às 9 da manhá.",
+      prompt: "Você chega no trabalho às 9 da manhã.",
       words: ["morning,", "Good", "boss!"],
       correctOrder: ["Good", "morning,", "boss!"],
       successTitle: "Correto",
@@ -111,10 +111,10 @@ const LESSON_SLIDES = [
       image: ICA1.A18S2,
       audioText: "Good morning, everyone!",
       audioDurationMs: 1850,
-      answerOptions: ["Período da manhá", "Período da tarde"],
-      correctOption: "Período da manhá",
+      answerOptions: ["Período da manhã", "Período da tarde"],
+      correctOption: "Período da manhã",
       successTitle: "Correto",
-      feedbackMessage: '"Good morning" indica o período da manhá.',
+      feedbackMessage: '"Good morning" indica o período da manhã.',
     },
   },
   {
@@ -125,7 +125,7 @@ const LESSON_SLIDES = [
       image: ICA1.A18S4,
       audioText: "Good afternoon, sir.",
       audioDurationMs: 1400,
-      answerOptions: ["Período da manhá", "Período da tarde"],
+      answerOptions: ["Período da manhã", "Período da tarde"],
       correctOption: "Período da tarde",
       successTitle: "Correto",
       feedbackMessage: '"Good afternoon" indica o período da tarde.',

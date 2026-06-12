@@ -47,7 +47,7 @@ const LESSON_SLIDES = [
       pairs: [
         { en: "Goodbye", pt: "Adeus/Tchau (formal)" },
         { en: "Bye", pt: "Tchau" },
-        { en: "See you", pt: "A gente se v?" },
+        { en: "See you", pt: "A gente se vê" },
       ],
       successTitle: "Excelente",
       successMessage: "Você acertou todas as traduções.",

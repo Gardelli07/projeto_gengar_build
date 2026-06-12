@@ -122,7 +122,7 @@ Dica do Mestre: STILL no Present Perfect é quase sempre usado em frases negativ
     component: "Exercise8",
     activity: {
       prompt:
-        "David está na frente do computador, são 2h da manhá, e o projeto ainda não terminou. Qual frase melhor descreve a imagem?",
+        "David está na frente do computador, são 2h da manhã, e o projeto ainda não terminou. Qual frase melhor descreve a imagem?",
       image: ICB1.A2S5,
       options: [
         "David has just started working.",

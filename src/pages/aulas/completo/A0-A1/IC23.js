@@ -104,14 +104,14 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Conecte som à letra",
       pairs: [
-        { en: "ái", pt: "I" },
-        { en: "ái", pt: "A" },
+        { en: "Ái", pt: "I" },
+        { en: "Êi", pt: "A" },
         { en: "Ii", pt: "E" },
-        { en: "I?", pt: "U" },
-        { en: "áu", pt: "O" },
+        { en: "Iú", pt: "U" },
+        { en: "Ôu", pt: "O" },
       ],
       successTitle: "Excelente",
-      successMessage: "ái = I, ái = A, Ii = E, I? = U, áu = O.",
+      successMessage: "Ái = I, Êi = A, Ii = E, Iú = U, Ôu = O.",
     },
   },
   {

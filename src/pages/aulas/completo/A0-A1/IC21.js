@@ -40,7 +40,7 @@ const LESSON_SLIDES = [
       correctOption: "Top o' the mornin'!",
       successTitle: "Correto",
       feedbackMessage:
-        "Na Irlanda, essa é uma expressão clássica (embora um pouco antiga/clichá). Significa 'o melhor da manhá para você!'. É super charmoso!",
+        "\"Top o' the mornin'!\" é uma saudação irlandesa clássica. Significa algo como \"o melhor da manhã para você!\".",
     },
   },
   {
@@ -55,7 +55,7 @@ const LESSON_SLIDES = [
       correctOption: "G'day!",
       successTitle: "Correto",
       feedbackMessage:
-        "Na Austrália, o G'day (contração de Good Day) é usado desde o amanhecer até o sol se pâr. é a marca registrada dos australianos!",
+        "\"G'day!\" é uma saudação australiana informal. Vem de \"Good day\" e funciona como um \"oi\" ao longo do dia.",
     },
   },
   {
@@ -121,7 +121,7 @@ const LESSON_SLIDES = [
   {
     component: "Exercise6",
     activity: {
-      prompt: "Você está em Dublin (Irlanda) e quer saudar alguém de manhá.",
+      prompt: "Você está em Dublin (Irlanda) e quer saudar alguém de manhã.",
       words: ["the", "Top", "mornin'!", "o'"],
       correctOrder: ["Top", "o'", "the", "mornin'!"],
       successTitle: "Correto",

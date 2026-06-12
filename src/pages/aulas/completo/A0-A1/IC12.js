@@ -24,7 +24,7 @@ const LESSON_SLIDES = [
       answerOptions: ["Are you?", "You are"],
       correctOption: "Are you?",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "Are" para dizer "você".',
+      feedbackMessage: 'Usamos "Are you?" para perguntar "você é/está?".',
     },
   },
   {
@@ -38,7 +38,8 @@ const LESSON_SLIDES = [
       answerOptions: ["Are they?", "They are"],
       correctOption: "Are they?",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "Are they?" para dizer "eles/elas".',
+      feedbackMessage:
+        'Usamos "Are they?" para perguntar "eles/elas são/estão?".',
     },
   },
   {
@@ -47,8 +48,8 @@ const LESSON_SLIDES = [
       label: "Tip",
       content: [
         `O Camaleão ensina: Para perguntar, o ARE vira o líder e pula para o começo da frase! 
-  ? Afirmaíão: They are friends.
-  ? Pergunta: Are they friends? 
+  • Afirmaíão: They are friends.
+  • Pergunta: Are they friends? 
 Mude a ordem e você teré uma pergunta perfeita! `,
       ],
       continueLabel: "Continuar",
@@ -93,8 +94,8 @@ Mude a ordem e você teré uma pergunta perfeita! `,
       label: "Tip",
       content: [
         `Como responder? Você não precisa repetir tudo.
-  ? Yes, we are. / No, we aren't.
-  ? Yes, they are. / No, they aren't. 
+  • Yes, we are. / No, we aren't.
+  • Yes, they are. / No, they aren't. 
 Dica: Na resposta curta de 'Sim', nunca usamos a contração. É sempre 'Yes, I am' ou 'Yes, they are', nunca 'Yes, they're'.
 `,
       ],
@@ -112,7 +113,8 @@ Dica: Na resposta curta de 'Sim', nunca usamos a contração. É sempre 'Yes, I 
       answerOptions: ["Yes, we are", "Yes, we're"],
       correctOption: "Yes, we are",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "Yes, we are." para dizer "oi".',
+      feedbackMessage:
+        'Usamos "Yes, we are." para responder "sim, nós somos/estamos".',
     },
   },
   {
@@ -127,7 +129,7 @@ Dica: Na resposta curta de 'Sim', nunca usamos a contração. É sempre 'Yes, I 
       correctOption: "No, they aren't",
       successTitle: "Correto",
       feedbackMessage:
-        'Usamos "No, they aren\'t." para dizer "não, eles não são".',
+        'Usamos "No, they aren\'t." para responder "não, eles/elas não são/estão".',
     },
   },
   {

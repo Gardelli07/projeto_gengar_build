@@ -52,7 +52,7 @@ const LESSON_SLIDES = [
       answerOptions: ["K", "Q"],
       correctOption: "K",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta ? "K".',
+      feedbackMessage: 'A letra correta é "K".',
     },
   },
   {
@@ -66,7 +66,7 @@ const LESSON_SLIDES = [
       answerOptions: ["Q", "K"],
       correctOption: "Q",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta ? "Q".',
+      feedbackMessage: 'A letra correta é "Q".',
     },
   },
   {
@@ -80,7 +80,7 @@ const LESSON_SLIDES = [
       answerOptions: ["R", "I"],
       correctOption: "R",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta ? "R".',
+      feedbackMessage: 'A letra correta é "R".',
     },
   },
   {
@@ -94,7 +94,7 @@ const LESSON_SLIDES = [
       answerOptions: ["W", "U"],
       correctOption: "W",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta ? "W".',
+      feedbackMessage: 'A letra correta é "W".',
     },
   },
   {
@@ -152,13 +152,13 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Conecte a letra ao seu som",
       pairs: [
-        { en: "H", pt: "itch" },
-        { en: "J", pt: "Djái" },
-        { en: "W", pt: "Dábol-i?" },
+        { en: "H", pt: "Êitch " },
+        { en: "J", pt: "Djêi" },
+        { en: "W", pt: "Dâbol-iú" },
         { en: "Y", pt: "Uái" },
       ],
       successTitle: "Excelente",
-      successMessage: "H = itch, J = Djái, W = Dábol-i?, Y = Uái.",
+      successMessage: "H = Êitch, J = Djêi, W = Dâbol-iú, Y = Uái.",
     },
   },
   {
@@ -181,7 +181,7 @@ const LESSON_SLIDES = [
       helperText: "Diga o nome das letras em inglês.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
-      tipText: "itch - b? - áu",
+      tipText: "êitch - bí - ôu",
       recordLabel: "Speak",
       stopLabel: "Parar",
       playLabel: "Ouvir",
@@ -189,7 +189,7 @@ const LESSON_SLIDES = [
       rerecordLabel: "Regravar",
       submitLabel: "Enviar áudio",
       successTitle: "Correto",
-      successMessage: 'Resposta esperada: "itch - b? - áu".',
+      successMessage: 'Resposta esperada: "êitch - bí - ôu".',
     },
   },
   {

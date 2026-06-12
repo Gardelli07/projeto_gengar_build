@@ -83,8 +83,8 @@ const LESSON_SLIDES = [
       label: "Tip",
       content: [
         `Lembre-se da regra de ouro: 
-  ? Se você começou com 'Hello', feche com 'Goodbye' ou 'Bye'. 
-  ? Se começou com 'What's up', feche com 'See ya'. 
+  • Se você começou com 'Hello', feche com 'Goodbye' ou 'Bye'. 
+  • Se começou com 'What's up', feche com 'See ya'. 
 Mantenha o mesmo tom do início ao fim! `,
       ],
       continueLabel: "Continuar",
@@ -99,7 +99,8 @@ Mantenha o mesmo tom do início ao fim! `,
       options: ["What's up? Not much.", "A: What's up? B: Not much."],
       correctAnswer: "A: What's up? B: Not much.",
       successTitle: "Correto",
-      successMessage: 'A forma correta é "She takes the bus."',
+      successMessage:
+        'A forma correta é "A: What\'s up? B: Not much.", porque "Not much" é a resposta da outra pessoa.',
     },
   },
   {

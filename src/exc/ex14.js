@@ -536,11 +536,12 @@ export function Exercise14({
 const ex14 = StyleSheet.create({
   mediaWrapper: {
     width: "88%",
+    maxWidth: 520,
     marginBottom: 14,
   },
   mediaCard: {
     width: "100%",
-    height: 190,
+    aspectRatio: 16 / 9,
     backgroundColor: CORES.SURFACE_MUTED,
     borderTopLeftRadius: 18,
     borderTopRightRadius: 18,
@@ -549,7 +550,7 @@ const ex14 = StyleSheet.create({
   mediaImage: {
     width: "100%",
     height: "100%",
-    resizeMode: "contain",
+    resizeMode: "cover",
   },
   audioButton: {
     flexDirection: "row",
@@ -589,7 +590,8 @@ const ex14 = StyleSheet.create({
     backgroundColor: CORES.WHITE_SHORT,
   },
   resultBar: {
-    width: "56%",
+    width: "88%",
+    maxWidth: 520,
     minHeight: 46,
     alignItems: "center",
     justifyContent: "center",

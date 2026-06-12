@@ -9,7 +9,7 @@ const LESSON_SLIDES = [
       content: [
         ICA1.A27S1,
         ICA1.A27S1p2,
-        "Nomes americanos e britúnicos podem ser parecidos, mas a escrita muda. Você está pronto para ser um mestre da soletração?",
+        "Nomes americanos e britânicos podem ser parecidos, mas a escrita muda. Você está pronto para ser um mestre da soletração?",
       ],
       continueLabel: "Continuar",
     },
@@ -19,7 +19,7 @@ const LESSON_SLIDES = [
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha",
-      image: ICA1.A27S1,
+      image: ICA1.A27S1p2,
       audioSource: require("../../../../../mp3/IC/A0-A1/A27S2.mp3"),
       audioDurationMs: 1500,
       answerOptions: ["how thaté", "How do you spell thaté"],
@@ -34,7 +34,7 @@ const LESSON_SLIDES = [
       label: "Tip",
       content: [
         "Não importa se você está nos EUA ou na Inglaterra, se o nome soar difícil, peça: 'How do you spell thaté'.",
-        "Dica Cultural: Britúnicos costumam ser muito formais e educados, então eles vão adorar te ajudar se você perguntar com um sorriso!",
+        "Dica Cultural: Britânicos costumam ser muito formais e educados, então eles vão adorar te ajudar se você perguntar com um sorriso!",
       ],
       continueLabel: "Continuar",
     },
@@ -44,7 +44,7 @@ const LESSON_SLIDES = [
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha",
-      image: ICA1.A27S1,
+      image: ICA1.A27S1p2,
       audioSource: require("../../../../../mp3/IC/A0-A1/A27S4.mp3"),
       audioDurationMs: 2200,
       answerOptions: ["Jaxon", "Jackson"],
@@ -58,7 +58,7 @@ const LESSON_SLIDES = [
     needsSpeech: true,
     activity: {
       prompt: "Qual foi a última letra dita pelo hàspede?",
-      image: ICA1.A27S1p2,
+      image: ICA1.A27S1,
       audioSource: require("../../../../../mp3/IC/A0-A1/A27S5.mp3"),
       audioDurationMs: 3200,
       answerOptions: ["I", "E"],
@@ -72,13 +72,13 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Conecte nomes às soletrações",
       pairs: [
-        { en: "Sarah (US)", pt: "às-ái-âr-ái-itch" },
-        { en: "Oliver (UK)", pt: "áu-ál-ái-v?-?-âr" },
-        { en: "Hermione (UK)", pt: "itch-?-âr-âm-ái-áu-ân-?" },
+        { en: "Sarah (US)", pt: "Ôu-él-ái-ví-í-ár" },
+        { en: "Oliver (UK)", pt: "Éitch-í-ár-ém-ái-ôu-én-í" },
+        { en: "Hermione (UK)", pt: "És-êi-ár-êi-êitch" },
       ],
       successTitle: "Excelente",
       successMessage:
-        "Sarah = às-ái-âr-ái-itch, Oliver = áu-ál-ái-v?-?-âr, Hermione = itch-?-âr-âm-ái-áu-ân-?.",
+        "Sarah = Ôu-él-ái-ví-í-ár, Oliver = Éitch-í-ár-ém-ái-ôu-én-í, Hermione = És-êi-ár-êi-êitch.",
     },
   },
   {
@@ -100,7 +100,7 @@ const LESSON_SLIDES = [
         "Cuidado com a letra Z!",
         "Nos EUA, eles dizem: ZEE (rima com 'E').",
         "No Reino Unido, eles dizem: ZED.",
-        "Se você ouvir 'Zed', já sabe que está falando com um britúnico!",
+        "Se você ouvir 'Zed', já sabe que está falando com um britânico!",
       ],
       continueLabel: "Continuar",
     },
@@ -109,13 +109,12 @@ const LESSON_SLIDES = [
     component: "Exercise16",
     activity: {
       prompt: "Speaking",
-      instruction:
-        "Imagine que você é um barista no Starbucks em Nova York.",
+      instruction: "Imagine que você é um barista no Starbucks em Nova York.",
       helperText:
         "Pergunte ao cliente: 'What's your name?' e depois peça para ele soletrar: 'How do you spell thaté'.",
-      image: ICA1.A27S9,
+      image: Images.ex16,
       tipButtonLabel: "Tip",
-      tipText: "What's your name? / How do you spell thaté",
+      tipText: "What's your name? / How do you spell that",
       recordLabel: "Speak",
       stopLabel: "Parar",
       playLabel: "Ouvir",

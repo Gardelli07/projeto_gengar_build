@@ -279,7 +279,8 @@ const ex8 = StyleSheet.create({
   },
   imageChoiceMediaCard: {
     width: "88%",
-    height: 158,
+    maxWidth: 520,
+    aspectRatio: 16 / 9,
     borderRadius: 16,
     overflow: "hidden",
     marginBottom: 16,
@@ -290,7 +291,7 @@ const ex8 = StyleSheet.create({
   imageChoiceMedia: {
     width: "100%",
     height: "100%",
-    resizeMode: "contain",
+    resizeMode: "cover",
   },
   imageChoiceEmojiWrap: {
     flex: 1,

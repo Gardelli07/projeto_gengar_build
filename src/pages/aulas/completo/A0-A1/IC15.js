@@ -105,8 +105,8 @@ const LESSON_SLIDES = [
       label: "Tip",
       content: [
         "Responda rápido!",
-        "  ? Is she happy? -> Yes, she is. / No, she isn't.",
-        "  ? Are they ready? -> Yes, they are. / No, they aren't.",
+        "  • Is she happy? -> Yes, she is. / No, she isn't.",
+        "  • Are they ready? -> Yes, they are. / No, they aren't.",
         "Nunca use contração no Yes. Yes, she's está errado. Mantenha as palavras separadas no positivo!",
       ],
       continueLabel: "Continuar",
@@ -117,7 +117,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Corrija",
       image: ICA1.A15S10,
-      wrongSentence: "Como se pergunta: estou na listaí",
+      wrongSentence: "Como se pergunta: estou na lista?",
       options: ["Am I on the list?", "I am on the list?"],
       correctAnswer: "Am I on the list?",
       successTitle: "Correto",

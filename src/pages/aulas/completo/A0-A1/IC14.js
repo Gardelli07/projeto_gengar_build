@@ -24,7 +24,7 @@ const LESSON_SLIDES = [
       answerOptions: ["I'm not", "I am't"],
       correctOption: "I'm not",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "I\'m not" para dizer "oi".',
+      feedbackMessage: 'Usamos "I\'m not" para dizer "eu não sou/estou".',
     },
   },
   {
@@ -48,7 +48,7 @@ const LESSON_SLIDES = [
       answerOptions: ["She isn't", "She aren't"],
       correctOption: "She isn't",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "She isn\'t" para dizer "ela não ?".',
+      feedbackMessage: 'Usamos "She isn\'t" para dizer "ela não é/está".',
     },
   },
   {
@@ -98,7 +98,7 @@ const LESSON_SLIDES = [
       answerOptions: ["They aren't", "They isn't"],
       correctOption: "They aren't",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "They aren\'t" para dizer "oi".',
+      feedbackMessage: 'Usamos "They aren\'t" para dizer "eles/elas não são/estão".',
     },
   },
   {

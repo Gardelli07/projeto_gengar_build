@@ -8,7 +8,7 @@ const LESSON_SLIDES = [
       label: "Atividade 17",
       content: [
         ICA1.A16S1,
-        "Voce desbloqueou todos os poderes da identidade. Consegue usar o motor certo para cada situacao?",
+        "Você desbloqueou todos os poderes da identidade. Consegue usar o motor certo para cada situação?",
       ],
       continueLabel: "Continuar",
     },

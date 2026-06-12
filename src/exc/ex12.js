@@ -206,7 +206,8 @@ const ex12 = StyleSheet.create({
   },
   writeIntroImageFrame: {
     width: "88%",
-    aspectRatio: 2.35,
+    maxWidth: 520,
+    aspectRatio: 16 / 9,
     borderRadius: 8,
     overflow: "hidden",
     marginBottom: 10,
@@ -215,7 +216,7 @@ const ex12 = StyleSheet.create({
   writeIntroImage: {
     width: "100%",
     height: "100%",
-    resizeMode: "contain",
+    resizeMode: "cover",
   },
   writeIntroBox: {
     width: "88%",

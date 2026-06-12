@@ -24,7 +24,7 @@ const LESSON_SLIDES = [
       answerOptions: ["B", "D"],
       correctOption: "B",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta ? "B".',
+      feedbackMessage: 'A letra correta é "B".',
     },
   },
   {
@@ -38,7 +38,7 @@ const LESSON_SLIDES = [
       answerOptions: ["C", "S"],
       correctOption: "C",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta ? "C".',
+      feedbackMessage: 'A letra correta é "C".',
     },
   },
   {
@@ -52,7 +52,7 @@ const LESSON_SLIDES = [
       answerOptions: ["D", "T"],
       correctOption: "D",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta ? "D".',
+      feedbackMessage: 'A letra correta é "D".',
     },
   },
   {
@@ -80,7 +80,7 @@ const LESSON_SLIDES = [
       answerOptions: ["P", "B"],
       correctOption: "P",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta ? "P".',
+      feedbackMessage: 'A letra correta é "P".',
     },
   },
   {
@@ -94,7 +94,7 @@ const LESSON_SLIDES = [
       answerOptions: ["T", "D"],
       correctOption: "T",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta ? "T".',
+      feedbackMessage: 'A letra correta é "T".',
     },
   },
   {
@@ -108,7 +108,7 @@ const LESSON_SLIDES = [
       answerOptions: ["V", "F"],
       correctOption: "V",
       successTitle: "Correto",
-      feedbackMessage: 'A letra correta ? "V".',
+      feedbackMessage: 'A letra correta é "V".',
     },
   },
   {
@@ -144,7 +144,7 @@ const LESSON_SLIDES = [
       content: [
         "Cuidado com a pressão!",
         "O B é um som mais relaxado.",
-        "O P é um som explosivo, sinta o ar saindo da boca ao dizer P?!",
+        "O P é um som explosivo, sinta o ar saindo da boca ao dizer Pí!",
       ],
       continueLabel: "Continuar",
     },
@@ -154,13 +154,13 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Conecte a letra ao seu som",
       pairs: [
-        { en: "G", pt: "Djá" },
-        { en: "C", pt: "S?" },
-        { en: "Z", pt: "Z?" },
-        { en: "D", pt: "D?" },
+        { en: "G", pt: "Djí" },
+        { en: "C", pt: "Sí" },
+        { en: "Z", pt: "Zí" },
+        { en: "D", pt: "Dí" },
       ],
       successTitle: "Excelente",
-      successMessage: "G = Djá, C = S?, Z = Z?, D = D?.",
+      successMessage: "G = Djí, C = Sí, Z = Zí, D = Dí",
     },
   },
   {
@@ -171,7 +171,7 @@ const LESSON_SLIDES = [
       correctOrder: ["B", "C", "D", "E"],
       successTitle: "Correto",
       successMessage:
-        "A sequência correta ? B, C, D, E. Lembrando que o E também tem o som de ii.",
+        "A sequência correta é B, C, D, E. Lembrando que o E também tem o som de ii.",
     },
   },
   {
@@ -182,7 +182,7 @@ const LESSON_SLIDES = [
       helperText: "Grave dizendo o nome das letras em inglês.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
-      tipText: "T? - V?",
+      tipText: "Tí - Ví. Lembre-se de sorrir para o som ii no final!",
       recordLabel: "Speak",
       stopLabel: "Parar",
       playLabel: "Ouvir",
@@ -190,7 +190,7 @@ const LESSON_SLIDES = [
       rerecordLabel: "Regravar",
       submitLabel: "Enviar áudio",
       successTitle: "Correto",
-      successMessage: 'Resposta esperada: "T? - V?".',
+      successMessage: 'Resposta esperada: "Tí - Ví".',
     },
   },
   {

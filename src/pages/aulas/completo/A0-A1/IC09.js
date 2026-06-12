@@ -66,8 +66,8 @@ const LESSON_SLIDES = [
       content: [
         `Se alguém te perguntar 'Is he tall?', você pode responder apenas:
       
-  ? Sim: Yes, he is. 
-  ? Não: No, he isn't.
+  • Sim: Yes, he is. 
+  • Não: No, he isn't.
 
 Curto, grosso e natural! 
 `,
@@ -94,7 +94,7 @@ Curto, grosso e natural!
     component: "Exercise4",
     activity: {
       prompt: "Corrija",
-      image: ICA1.A8S12,
+      image: ICA1.A9S9,
       wrongSentence: "Perguntando se o café está quente.",
       options: ["Is it hot?", "It is hot?"],
       correctAnswer: "Is it hot?",

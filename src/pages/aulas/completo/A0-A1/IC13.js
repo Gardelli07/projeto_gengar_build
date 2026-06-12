@@ -50,10 +50,10 @@ const LESSON_SLIDES = [
       label: "Tip",
       content: [
         `Dica de Revisão: Guarde os times na memória:
-  ? I + AM (Sempre sozinho)
-  ? He / She / It + IS (O time do singular)
-  ? You / We / They + ARE (O time do plural) 
-Não misture os motores ou o carro não anda! ðŸ¦Ž
+  • I + AM (Sempre sozinho)
+  • He / She / It + IS (O time do singular)
+  • You / We / They + ARE (O time do plural) 
+Não misture os motores ou o carro não anda!
  `,
       ],
       continueLabel: "Continuar",
@@ -127,9 +127,9 @@ Não misture os motores ou o carro não anda! ðŸ¦Ž
       content: [
         `/blue{Lembre-se:} 
 Na vida real, o 'am, is, are' encurtam!
-  ? I am -> I'm
-  ? He is -> He's
-  ? They are -> They're 
+  • I am -> I'm
+  • He is -> He's
+  • They are -> They're 
 Pratique o som curto para soar como um nativo! 
 `,
       ],
