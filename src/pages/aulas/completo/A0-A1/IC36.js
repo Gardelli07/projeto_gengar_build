@@ -126,8 +126,7 @@ const LESSON_SLIDES = [
       answerOptions: ["What's you phone number?", "What number?"],
       correctOption: "What's you phone number?",
       successTitle: "Correto",
-      feedbackMessage:
-        "Essa foi a opção marcada no roteiro para esta atividade.",
+      feedbackMessage: 'A resposta correta é "What\'s your phone number?".',
     },
   },
   {

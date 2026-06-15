@@ -173,7 +173,7 @@ const LESSON_SLIDES = [
       words: ["This is my sister"],
       successTitle: "Correto",
       successMessage:
-        'A resposta esperada ? "This is my sister" ou "Meet my sister".',
+        'A resposta esperada é "This is my sister" ou "Meet my sister".',
     },
   },
   {

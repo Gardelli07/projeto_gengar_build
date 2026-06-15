@@ -86,10 +86,10 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "Você não entendeu o nome de um americano. Peça para ele soletrar.",
-      words: ["do", "you", "spell", "How", "thaté"],
-      correctOrder: ["How", "do", "you", "spell", "thaté"],
+      words: ["do", "you", "spell", "How", "that?"],
+      correctOrder: ["How", "do", "you", "spell", "that?"],
       successTitle: "Correto",
-      successMessage: 'A frase correta é "How do you spell thaté"',
+      successMessage: 'A frase correta é "How do you spell that?"',
     },
   },
   {
@@ -113,7 +113,7 @@ const LESSON_SLIDES = [
       helperText: "Diga cada letra com a pronúncia correta.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
-      tipText: "ál-ái-ân-Djii-I?-Ii-Tii-áu",
+      tipText: "Él-Ái-Én-Djii-Iú-Ii-Tii-Ôu",
       recordLabel: "Speak",
       stopLabel: "Parar",
       playLabel: "Ouvir",

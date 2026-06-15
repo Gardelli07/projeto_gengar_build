@@ -18,7 +18,7 @@ const LESSON_SLIDES = [
         },
         {
           image: Images.ex10,
-          question: 'Qual letra tem o som de "djii" (Time do EE)?',
+          question: 'Qual letra tem o som de "djí" (Time do EE)?',
           options: ["G", "J"],
           correctAnswer: "G",
         },
@@ -66,7 +66,7 @@ const LESSON_SLIDES = [
         },
         {
           image: Images.ex10,
-          question: 'Qual letra tem o mesmo som de "Why?" (Por qu?)?',
+          question: 'Qual letra tem o mesmo som de "Why?" (Por quê)?',
           options: ["Y", "I"],
           correctAnswer: "Y",
         },

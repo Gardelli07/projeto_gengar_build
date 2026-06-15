@@ -8,7 +8,7 @@ const LESSON_SLIDES = [
       label: "My name's / I'm",
       content: [
         ICA1.A39S1,
-        "O primeiro passo para conectar-se com alguém é dizer quem você ?. Vamos aprender as duas formas mais comuns de fazer isso!",
+        "O primeiro passo para conectar-se com alguém é dizer quem você é. Vamos aprender as duas formas mais comuns de fazer isso!",
       ],
       continueLabel: "Continuar",
     },
@@ -17,7 +17,7 @@ const LESSON_SLIDES = [
     component: "Exercise14",
     needsSpeech: true,
     activity: {
-      prompt: "Escute e escolha",
+      prompt: "Como Anna respondeu à apresentação de David?",
       image: ICA1.A39S2,
       audioSource: require("../../../../../mp3/IC/A0-A1/A39S2.mp3"),
       audioDurationMs: 3500,

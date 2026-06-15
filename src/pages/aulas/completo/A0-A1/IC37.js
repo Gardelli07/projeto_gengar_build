@@ -56,8 +56,8 @@ const LESSON_SLIDES = [
       content: [
         "Vocabulário de Câmbio:",
         "$ = Dollar no singular / Dollars no plural.",
-        "? = Cent no singular / Cents no plural.",
-        "Para valores menores que 1 dólar, dizemos apenas os centavos. Ex: 75? = Seventy-five cents.",
+        "¢ = Cent no singular / Cents no plural.",
+        "Para valores menores que 1 dólar, dizemos apenas os centavos. Ex: 75¢ = Seventy-five cents.",
       ],
       continueLabel: "Continuar",
     },
@@ -126,8 +126,7 @@ const LESSON_SLIDES = [
       options: ["It is five dollars.", "It has five dollars."],
       correctAnswer: "It is five dollars.",
       successTitle: "Correto",
-      successMessage:
-        'No preço, a coisa "?" o valor: "It is five dollars."',
+      successMessage: 'No preço, a coisa "é" o valor: "It is five dollars."',
     },
   },
   {

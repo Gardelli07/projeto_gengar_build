@@ -19,8 +19,8 @@ const LESSON_SLIDES = [
       label: "Tip",
       content: [
         "Dica de Mestre: Coloque um papel na frente da boca.",
-        "Ao dizer P (p?), o papel deve se mexer com o sopro!",
-        "Ao dizer B (b?), o papel quase não se mexe, mas você sente sua garganta vibrar.",
+        "Ao dizer P (pí), o papel deve se mexer com o sopro!",
+        "Ao dizer B (bí), o papel quase não se mexe, mas você sente sua garganta vibrar.",
       ],
       continueLabel: "Continuar",
     },
@@ -44,8 +44,8 @@ const LESSON_SLIDES = [
     activity: {
       label: "Tip",
       content: [
-        "Para o V (v?), encoste os dentes de cima no lábio de baixo, como um motorzinho: vvvvv.",
-        "Jé o W (dábol-i?) não usa os dentes!",
+        "Para o V (ví), encoste os dentes de cima no lábio de baixo, como um motorzinho: vvvvv.",
+        "Jé o W (dâbol-iú) não usa os dentes!",
         "Você faz um biquinho de 'u' e diz o nome longo dele.",
       ],
       continueLabel: "Continuar",
@@ -90,7 +90,7 @@ const LESSON_SLIDES = [
       letters: ["E", "B", "W"],
       correctWord: "WEB",
       successTitle: "Correto",
-      successMessage: 'A sequência correta ? "WEB".',
+      successMessage: 'A sequência correta é "WEB".',
     },
   },
   {
@@ -102,7 +102,7 @@ const LESSON_SLIDES = [
         "Cheque se você diferenciou bem a explosão do P e o motorzinho do V!",
       image: Images.ex16,
       tipButtonLabel: "Tip",
-      tipText: "b? - v? - p?",
+      tipText: "bí - ví - pí",
       recordLabel: "Speak",
       stopLabel: "Parar",
       playLabel: "Ouvir",
@@ -110,7 +110,7 @@ const LESSON_SLIDES = [
       rerecordLabel: "Regravar",
       submitLabel: "Enviar áudio",
       successTitle: "Correto",
-      successMessage: 'Resposta esperada: "b? - v? - p?".',
+      successMessage: 'Resposta esperada: "bí - ví - pí".',
     },
   },
   {

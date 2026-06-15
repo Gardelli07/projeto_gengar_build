@@ -48,7 +48,7 @@ const LESSON_SLIDES = [
         },
         {
           image: Images.ex10,
-          question: "Como você apresenta sua irm?, Sarahá",
+          question: "Como você apresenta sua irmã, Sarah?",
           options: ["This is my sister, Sarah.", "Meet she, Sarah."],
           correctAnswer: "This is my sister, Sarah.",
         },

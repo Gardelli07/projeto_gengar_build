@@ -81,11 +81,11 @@ const LESSON_SLIDES = [
       pairs: [
         { en: "How old are you?", pt: "I'm 28." },
         { en: "How old is he?", pt: "He is 12." },
-        { en: "How do you spell thaté", pt: "K-A-I-Q-U-E." },
+        { en: "How do you spell that?", pt: "K-A-I-Q-U-E." },
       ],
       successTitle: "Excelente",
       successMessage:
-        "How old are you? = I'm 28. | How old is he? = He is 12. | How do you spell thaté = K-A-I-Q-U-E.",
+        "How old are you? = I'm 28. | How old is he? = He is 12. | How do you spell that? = K-A-I-Q-U-E.",
     },
   },
   {

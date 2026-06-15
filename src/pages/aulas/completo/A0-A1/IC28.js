@@ -8,7 +8,7 @@ const LESSON_SLIDES = [
       label: "It's J-A...",
       content: [
         ICA1.A28S1,
-        "Em viagens, nomes diferentes precisam ser soletrados. Vamos praticar com nomes americanos e britúnicos?",
+        "Em viagens, nomes diferentes precisam ser soletrados. Vamos praticar com nomes americanos e britânicos?",
       ],
       continueLabel: "Continuar",
     },
@@ -38,7 +38,7 @@ const LESSON_SLIDES = [
       answerOptions: ["Poppy", "Popy"],
       correctOption: "Poppy",
       successTitle: "Correto",
-      feedbackMessage: "Atenção ao Y no final: a forma correta ? Poppy.",
+      feedbackMessage: "Atenção ao Y no final: a forma correta é Poppy.",
     },
   },
   {
@@ -46,13 +46,13 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Conecte nomes às soletrações",
       pairs: [
-        { en: "Ethan (US)", pt: "?-t?-itch-ái-ân" },
-        { en: "Harrison (UK)", pt: "itch-ái-âr-âr-ái-às-áu-ân" },
-        { en: "Imogen (UK)", pt: "ái-âm-áu-djii-?-ân" },
+        { en: "Ethan (US)", pt: "Í-têitch-êi-én" },
+        { en: "Harrison (UK)", pt: "Éitch-êi-ár-ár-ái-és-ôu-én" },
+        { en: "Imogen (UK)", pt: "Ái-ém-ôu-djí-í-én" },
       ],
       successTitle: "Excelente",
       successMessage:
-        "Ethan = ?-t?-itch-ái-ân, Harrison = itch-ái-âr-âr-ái-às-áu-ân, Imogen = ái-âm-áu-djii-?-ân.",
+        "Ethan = Í-têitch-êi-én, Harrison = Éitch-êi-ár-ár-ái-és-ôu-én, Imogen = Ái-ém-ôu-djí-í-én.",
     },
   },
   {
@@ -96,7 +96,7 @@ const LESSON_SLIDES = [
       label: "Tip",
       content: [
         "Sabe aquele traço que fica embaixo, o 'sublinhado'?",
-        "Em inglês ele se chama Underscore (Ander-scâr).",
+        "Em inglês ele se chama Underscore (Ander-scór).",
         "Pense em Under (embaixo) + Score (traço).",
       ],
       continueLabel: "Continuar",
@@ -122,7 +122,7 @@ const LESSON_SLIDES = [
       words: ["net", "travel", "_", ".", "world"],
       correctOrder: ["travel", "_", "world", ".", "net"],
       successTitle: "Correto",
-      successMessage: 'O endereço correto ? "travel_world.net".',
+      successMessage: 'O endereço correto é "travel_world.net".',
     },
   },
   {

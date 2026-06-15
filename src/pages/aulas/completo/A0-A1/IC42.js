@@ -8,7 +8,7 @@ const LESSON_SLIDES = [
       label: "Self introduction",
       content: [
         ICA1.A42S1,
-        "Agora que você sabe as peças do quebra-cabeça, vamos mont?-las! Uma apresentação curta e eficiente é a chave para começar qualquer conversa.",
+        "Agora que você sabe as peças do quebra-cabeça, vamos montá-las! Uma apresentação curta e eficiente é a chave para começar qualquer conversa.",
       ],
       continueLabel: "Continuar",
     },
@@ -50,7 +50,7 @@ const LESSON_SLIDES = [
       content: [
         "Dica Técnica: não tenha pressa.",
         "Faça uma pequena pausa após o seu nome antes de dizer Nice to meet you.",
-        "Isso ajuda a outra pessoa a processar quem você ?.",
+        "Isso ajuda a outra pessoa a processar quem você é.",
       ],
       continueLabel: "Continuar",
     },
@@ -73,8 +73,7 @@ const LESSON_SLIDES = [
       words: ["Nice to meet you!", "I'm Tom.", "Hello!"],
       correctOrder: ["Hello!", "I'm Tom.", "Nice to meet you!"],
       successTitle: "Correto",
-      successMessage:
-        'A ordem correta é "Hello! I\'m Tom. Nice to meet you!"',
+      successMessage: 'A ordem correta é "Hello! I\'m Tom. Nice to meet you!"',
     },
   },
   {
@@ -103,8 +102,7 @@ const LESSON_SLIDES = [
       helperText: "Faça sua apresentação em uma sequência natural.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
-      tipText:
-        "Hello! My name is [Nome]. Nice to meet you!",
+      tipText: "Hello! My name is [Nome]. Nice to meet you!",
       recordLabel: "Speak",
       stopLabel: "Parar",
       playLabel: "Ouvir",

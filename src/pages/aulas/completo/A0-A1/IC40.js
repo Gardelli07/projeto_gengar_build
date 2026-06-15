@@ -8,7 +8,7 @@ const LESSON_SLIDES = [
       label: "What's your name?",
       content: [
         ICA1.A40S1,
-        "Você já se apresentou, mas e agoraí Vamos aprender a perguntar o nome da outra pessoa e mostrar que foi um prazer conhecê-la!",
+        "Você já se apresentou, mas e agora? Vamos aprender a perguntar o nome da outra pessoa e mostrar que foi um prazer conhecê-la!",
       ],
       continueLabel: "Continuar",
     },
@@ -17,7 +17,7 @@ const LESSON_SLIDES = [
     component: "Exercise14",
     needsSpeech: true,
     activity: {
-      prompt: "Escute e escolha",
+      prompt: "O que a Pessoa A disse para retribuir a gentileza?",
       image: ICA1.A40S2,
       audioSource: require("../../../../../mp3/IC/A0-A1/A40S2.mp3"),
       audioDurationMs: 5500,
@@ -119,7 +119,7 @@ const LESSON_SLIDES = [
       ],
       successTitle: "Correto",
       successMessage:
-        'A ordem correta é: "Hi! I\'m Tom. What\'s your name?", "My name is Anna. Nice to meet you." e "Nice to meet you, Anna!".',
+        'A ordem correta é: "Hi! I\'m Tom. What\'s your name?" | "My name is Anna. Nice to meet you." | "Nice to meet you, Anna!".',
     },
   },
   {
@@ -132,7 +132,7 @@ const LESSON_SLIDES = [
       options: ["Much pleasure to meet you.", "Nice to meet you."],
       correctAnswer: "Nice to meet you.",
       successTitle: "Correto",
-      successMessage: 'A forma natural em inglês ? "Nice to meet you."',
+      successMessage: 'A forma natural em inglês é "Nice to meet you."',
     },
   },
   {
