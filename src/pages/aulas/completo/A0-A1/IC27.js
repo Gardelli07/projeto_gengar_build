@@ -57,7 +57,7 @@ const LESSON_SLIDES = [
     component: "Exercise14",
     needsSpeech: true,
     activity: {
-      prompt: "Qual foi a última letra dita pelo hàspede?",
+      prompt: "Escolha a opção de acordo com o áudio",
       image: ICA1.A27S1,
       audioSource: require("../../../../../mp3/IC/A0-A1/A27S5.mp3"),
       audioDurationMs: 3200,

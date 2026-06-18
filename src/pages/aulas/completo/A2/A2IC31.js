@@ -101,6 +101,7 @@ const LESSON_SLIDES = [
       correctAnswer: "I need a round-trip ticket.",
       successTitle: "Correto",
       successMessage: "I need a round-trip ticket.",
+      submitLabel: "Enviar",
     },
   },
   {
@@ -113,6 +114,7 @@ const LESSON_SLIDES = [
       correctAnswer: "What time is the departure?",
       successTitle: "Correto",
       successMessage: "What time is the departure?",
+      submitLabel: "Enviar",
     },
   },
   {
@@ -124,6 +126,7 @@ const LESSON_SLIDES = [
       correctAnswer: "The flight leaves from gate five.",
       successTitle: "Correto",
       successMessage: "The flight leaves from gate five.",
+      submitLabel: "Responder",
     },
   },
   {
@@ -135,6 +138,7 @@ const LESSON_SLIDES = [
       correctAnswer: "I would like to book a train to London.",
       successTitle: "Correto",
       successMessage: "I would like to book a train to London.",
+      submitLabel: "Responder",
     },
   },
   {

@@ -3,6 +3,25 @@ import { ICA2, Images } from "../../../../util/images";
 
 const LESSON_SLIDES = [
   {
+    key: "a2ic13s6",
+    component: "Exercise17",
+    activity: {
+      label: "MÓDULO 2 • AULA 13",
+      content: [
+        "/blue{I took a shower}",
+        "Chegou a hora de conhecer os rebeldes do inglês: os Verbos Irregulares.",
+        "",
+        "/blue{Por que Irregulares?}",
+        "Eles não terminam em -ed. Eles mudam de palavra.",
+        "Go → Went",
+        "Have → Had",
+        "Buy → Bought",
+        "Take → Took",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
     key: "a2ic13s1",
     component: "Exercise4",
     activity: {
@@ -77,25 +96,6 @@ const LESSON_SLIDES = [
       correctOption: "Went",
       feedbackMessage: "Go vira went no passado.",
       successTitle: "Correto",
-    },
-  },
-  {
-    key: "a2ic13s6",
-    component: "Exercise17",
-    activity: {
-      label: "MÓDULO 2 • AULA 13",
-      content: [
-        "/blue{I took a shower}",
-        "Chegou a hora de conhecer os rebeldes do inglês: os Verbos Irregulares.",
-        "",
-        "/blue{Por que Irregulares?}",
-        "Eles não terminam em -ed. Eles mudam de palavra.",
-        "Go → Went",
-        "Have → Had",
-        "Buy → Bought",
-        "Take → Took",
-      ],
-      continueLabel: "Continuar",
     },
   },
   {

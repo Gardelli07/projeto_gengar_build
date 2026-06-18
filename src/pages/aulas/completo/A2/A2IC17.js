@@ -102,9 +102,8 @@ const LESSON_SLIDES = [
     key: "a2ic17s7",
     component: "Exercise17",
     activity: {
-      label: "MÓDULO 2 • AULA 17",
+      label: "Tip",
       content: [
-        "/blue{I didn’t go!}",
         "/blue{Parabéns!}",
         "Você dominou as negativas. O didn't puxa o passado para ele e deixa o verbo principal no presente.",
       ],

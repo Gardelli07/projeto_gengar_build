@@ -171,6 +171,7 @@ const LESSON_SLIDES = [
       correctAnswer: "Health is the most important thing.",
       successTitle: "Correto",
       successMessage: "Health is the most important thing.",
+      submitLabel: "Responder",
     },
   },
   {
@@ -182,6 +183,7 @@ const LESSON_SLIDES = [
       correctAnswer: "This is the most comfortable sofa.",
       successTitle: "Correto",
       successMessage: "This is the most comfortable sofa.",
+      submitLabel: "Responder",
     },
   },
   {

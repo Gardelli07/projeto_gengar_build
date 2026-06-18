@@ -103,7 +103,7 @@ const LESSON_SLIDES = [
     needsSpeech: true,
     activity: {
       prompt: 'Organize as letras para formar "Aprovação".',
-      audioText: "Approval",
+      audioSource: require("../../../../../mp3/BU/B1/A18S8.mp3"),
       audioDurationMs: 1200,
       letters: ["P", "R", "P", "O", "V", "A", "L", "A"],
       correctWord: "APPROVAL",

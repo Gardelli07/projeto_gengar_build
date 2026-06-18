@@ -60,7 +60,7 @@ const LESSON_SLIDES = [
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha",
-      image: ICA1.A34S4,
+      image: ICA1.A34S5,
       audioSource: require("../../../../../mp3/IC/A0-A1/A34S5.mp3"),
       audioDurationMs: 1000,
       answerOptions: ["1000", "100"],

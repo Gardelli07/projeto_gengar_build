@@ -286,11 +286,12 @@ const ex20 = StyleSheet.create({
   },
   trueFalseImageMediaWrapper: {
     width: "88%",
+    maxWidth: 520,
     marginBottom: 14,
   },
   trueFalseImageMediaCard: {
     width: "100%",
-    height: 220,
+    aspectRatio: 16 / 9,
     backgroundColor: CORES.SURFACE_MUTED,
     borderRadius: 18,
     overflow: "hidden",
@@ -298,7 +299,7 @@ const ex20 = StyleSheet.create({
   trueFalseImage: {
     width: "100%",
     height: "100%",
-    resizeMode: "contain",
+    resizeMode: "cover",
   },
   trueFalseImageCommand: {
     width: "88%",

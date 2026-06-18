@@ -29,7 +29,8 @@ const LESSON_SLIDES = [
         "I need some prescription headphones, please.",
       ],
       correctAnswer: "I need some over-the-counter painkillers, please.",
-      successMessage: "Painkillers são analgésicos.",
+      feedbackMessage:
+        "Correto: painkillers são analgésicos, e over-the-counter indica que podem ser comprados sem receita.",
     },
   },
   {
@@ -44,7 +45,8 @@ const LESSON_SLIDES = [
         "Sorry, you need a charger for this antibiotic.",
       ],
       correctAnswer: "Sorry, you need a prescription for this antibiotic.",
-      successMessage: "Prescription é obrigatório para antibióticos.",
+      feedbackMessage:
+        "Muito bem: prescription é receita médica. Para antibióticos, normalmente ela é obrigatória.",
     },
   },
   {
@@ -55,7 +57,8 @@ const LESSON_SLIDES = [
       image: ICA2.A58S4,
       options: ["Prescription", "Pills", "Headphones", "Syrup"],
       correctAnswer: "Headphones",
-      successMessage: "Headphones é tecnologia, não item de farmácia.",
+      successMessage:
+        "Exato: headphones são fones de ouvido. Prescription, pills e syrup pertencem ao contexto de farmácia.",
     },
   },
   {
@@ -70,7 +73,8 @@ const LESSON_SLIDES = [
         "I have a terrible stomach today.",
       ],
       correctAnswer: "I have a terrible headache today.",
-      successMessage: "Headache significa dor de cabeça.",
+      feedbackMessage:
+        "Boa escuta: headache significa dor de cabeça. I have a terrible headache descreve um sintoma forte.",
     },
   },
   {
@@ -85,7 +89,8 @@ const LESSON_SLIDES = [
         "This cough pill tastes like cherry.",
       ],
       correctAnswer: "This cough syrup tastes like cherry.",
-      successMessage: "Cough syrup é xarope para tosse.",
+      feedbackMessage:
+        "Isso mesmo: cough syrup é xarope para tosse, um remédio líquido.",
     },
   },
   {
@@ -100,7 +105,8 @@ const LESSON_SLIDES = [
         "The doctor gave me painkillers for the screen.",
       ],
       correctAnswer: "The doctor gave me antibiotics for the infection.",
-      successMessage: "Antibiotics normalmente exigem prescription.",
+      feedbackMessage:
+        "Correto: antibiotics são usados para infecções e normalmente exigem prescription.",
     },
   },
   {
@@ -112,7 +118,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A58S8.mp3"),
       options: ["painkillers", "penkillers"],
       correctAnswer: "painkillers",
-      successMessage: "Pain + killers: matadores de dor.",
+      feedbackMessage:
+        "Perfeito: painkillers junta pain e killers, ou seja, remédios para aliviar dor.",
     },
   },
   {
@@ -124,7 +131,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A58S9.mp3"),
       options: ["You don't need a prescription.", "You need a prescription."],
       correctAnswer: "You don't need a prescription.",
-      successMessage: "OTC significa sem receita.",
+      feedbackMessage:
+        "Muito bem: OTC significa over-the-counter, remédio que você compra sem prescription.",
     },
   },
   {
@@ -135,12 +143,12 @@ const LESSON_SLIDES = [
       image: ICA2.A58S10,
       audioSource: require("../../../../../mp3/IC/A2/A58S10.mp3"),
       options: [
-        "Wait, I need to see your prescription first.",
+        "Wait, I need to see your prescription first",
         "Wait, I need to see your recipe first.",
       ],
-      correctAnswer: "Wait, I need to see your prescription first.",
-      successMessage:
-        "Para remédio, use prescription. Recipe é receita de comida.",
+      correctAnswer: "Wait, I need to see your prescription first",
+      feedbackMessage:
+        "Isso mesmo: para remédio, use prescription. Recipe é receita de comida.",
     },
   },
   {
@@ -154,7 +162,8 @@ const LESSON_SLIDES = [
         { en: "Infection", pt: "Needs a prescription" },
         { en: "OTC", pt: "No doctor's note needed" },
       ],
-      successMessage: "Contextos de farmácia associados.",
+      successMessage:
+        "Muito bem: headache combina com painkiller, cough com syrup, infection com prescription e OTC com sem receita.",
     },
   },
   {
@@ -167,7 +176,8 @@ const LESSON_SLIDES = [
         { en: "Infection", pt: "Prescription / Antibiotics" },
         { en: "Headache", pt: "OTC Painkillers" },
       ],
-      successMessage: "Problemas e remédios ligados corretamente.",
+      successMessage:
+        "Correto: tosse pede cough syrup, infecção costuma pedir prescription/antibiotics, e dor de cabeça pode usar OTC painkillers.",
     },
   },
   {
@@ -185,7 +195,8 @@ const LESSON_SLIDES = [
         "?",
       ],
       correctAnswer: "Do you have a prescription for this medicine?",
-      successMessage: "Pergunta perfeita para a farmácia.",
+      successMessage:
+        "Pergunta correta: Do you have a prescription for this medicine? é essencial quando o remédio pode exigir receita.",
     },
   },
   {
@@ -197,7 +208,8 @@ const LESSON_SLIDES = [
       sentenceEnd: "medicine?",
       options: ["OTC", "bad"],
       correctAnswer: "OTC",
-      successMessage: "OTC medicine: remédio sem receita.",
+      successMessage:
+        "Isso mesmo: OTC medicine é remédio sem receita, uma boa opção para sintomas comuns como resfriado.",
     },
   },
   {
@@ -211,8 +223,10 @@ const LESSON_SLIDES = [
         "You can buy prescription medicine without a doctor's note.",
       options: ["true", "false"],
       correctAnswer: "false",
-      successMessage: "Prescription medicine exige nota ou receita médica.",
-      feedbackMessage: "Prescription indica que a receita é obrigatória.",
+      successMessage:
+        "Correto: prescription medicine exige receita médica ou autorização do médico.",
+      feedbackMessage:
+        "Prescription indica que a receita médica é obrigatória; não é remédio de balcão.",
     },
   },
   {
@@ -224,7 +238,8 @@ const LESSON_SLIDES = [
       sentenceEnd: "every 8 hours with water.",
       options: ["OTC", "pills"],
       correctAnswer: "pills",
-      successMessage: "Take two pills every 8 hours.",
+      successMessage:
+        "Certo: Take two pills every 8 hours. Para comprimidos, usamos take, não drink.",
     },
   },
   {
@@ -247,9 +262,10 @@ const LESSON_SLIDES = [
       prompt: "Imagine que você está em uma farmácia em Londres.",
       instruction:
         "Escreva um pequeno diálogo com 3 frases pedindo um remédio para stomachache que seja over-the-counter.",
-      correctAnswer:
+      tipText:
         "Hello! Do you have medicine for a stomachache? Is it over-the-counter? Thank you.",
-      successMessage: "Diálogo registrado!",
+      successMessage:
+        "Muito bem: seu diálogo usa linguagem de farmácia para pedir um remédio OTC para stomachache.",
     },
   },
   {

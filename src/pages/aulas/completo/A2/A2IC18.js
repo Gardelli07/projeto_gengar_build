@@ -3,6 +3,21 @@ import { ICA2 } from "../../../../util/images";
 
 const LESSON_SLIDES = [
   {
+    key: "a2ic18s2",
+    component: "Exercise17",
+    activity: {
+      label: "MÓDULO 2 • AULA 18",
+      content: [
+        "/blue{Did you study?}",
+        "/blue{O Ajudante DID}",
+        "Para fazer perguntas no passado, colocamos DID na frente.",
+        "Ele avisa que a frase é passado, então o verbo principal fica no presente.",
+        "Did you go? Nunca: Did you went?",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
     key: "a2ic18s1",
     component: "Exercise2",
     activity: {
@@ -18,21 +33,6 @@ const LESSON_SLIDES = [
       ],
       successTitle: "Correto",
       successMessage: "Use Did + pessoa + verbo no presente.",
-    },
-  },
-  {
-    key: "a2ic18s2",
-    component: "Exercise17",
-    activity: {
-      label: "MÓDULO 2 • AULA 18",
-      content: [
-        "/blue{Did you study?}",
-        "/blue{O Ajudante DID}",
-        "Para fazer perguntas no passado, colocamos DID na frente.",
-        "Ele avisa que a frase é passado, então o verbo principal fica no presente.",
-        "Did you go? Nunca: Did you went?",
-      ],
-      continueLabel: "Continuar",
     },
   },
   {

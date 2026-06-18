@@ -27,7 +27,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A49S2.mp3"),
       options: ["He has to study.", "He has study."],
       correctAnswer: "He has to study.",
-      successMessage: "Com he, she e it, usamos has to.",
+      feedbackMessage:
+        "Correto: com he, she e it usamos has to. He has to study mostra uma obrigação dele.",
     },
   },
   {
@@ -39,7 +40,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A49S3.mp3"),
       options: ["I have to clean the floor.", "I has to clean the floor."],
       correctAnswer: "I have to clean the floor.",
-      successMessage: "Com I, usamos have to.",
+      feedbackMessage:
+        "Muito bem: com I usamos have to. I have to clean the floor significa que limpar o chão é necessário.",
     },
   },
   {
@@ -50,7 +52,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A49S4.mp3"),
       letters: ["H", "A", "V", "E", "T", "O"],
       correctWord: "HAVETO",
-      successMessage: "Have to indica obrigação.",
+      successMessage:
+        "Perfeito: have to indica obrigação ou necessidade, como uma regra que precisa ser seguida.",
     },
   },
   {
@@ -61,7 +64,8 @@ const LESSON_SLIDES = [
       words: ["You", "have to", "stop", "at the red light", "."],
       correctOrder: ["You", "have to", "stop", "at the red light", "."],
       correctAnswer: "You have to stop at the red light.",
-      successMessage: "Obrigação clara com have to.",
+      successMessage:
+        "Frase correta: You have to stop at the red light. Aqui have to mostra uma regra de trânsito.",
     },
   },
   {
@@ -73,7 +77,8 @@ const LESSON_SLIDES = [
       sentenceEnd: "wash her hands before dinner.",
       options: ["has to", "have to"],
       correctAnswer: "has to",
-      successMessage: "She has to wash her hands before dinner.",
+      successMessage:
+        "Isso mesmo: com She usamos has to. She has to wash her hands before dinner expressa uma obrigação.",
     },
   },
 ];

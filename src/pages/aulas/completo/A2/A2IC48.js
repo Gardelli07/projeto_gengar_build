@@ -61,7 +61,8 @@ const LESSON_SLIDES = [
     key: "a2ic48s5",
     component: "Exercise8",
     activity: {
-      prompt: "According to the image and the text, what is David doing to help his situation?",
+      prompt:
+        "According to the image and the text, what is David doing to help his situation?",
       image: ICA2.A48S5,
       options: [
         "He is eating in an expensive restaurant.",
@@ -78,16 +79,30 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Ajude o Camaleão a organizar os pensamentos do David:",
       paragraphs: [
-        {
-          text: "David is stressed. He (1) ______ wake up earlier. His friends say he (2) ______ stay home all weekend. Everything is expensive, so he asks: '(3) ______ cook at home to save money?' Yes, he should!",
-          blanks: [
-            { id: "1", options: ["should", "shouldn't"], correctAnswer: "should" },
-            { id: "2", options: ["should", "shouldn't"], correctAnswer: "shouldn't" },
-            { id: "3", options: ["Should I", "I should"], correctAnswer: "Should I" },
-          ],
-        },
+        [
+          "David is stressed. He",
+          {
+            id: "1",
+            options: ["should", "shouldn't"],
+            answer: "should",
+          },
+          "wake up earlier. His friends say he",
+          {
+            id: "2",
+            options: ["should", "shouldn't"],
+            answer: "shouldn't",
+          },
+          "stay home all weekend. Everything is expensive, so he asks:",
+          {
+            id: "3",
+            options: ["Should I", "I should"],
+            answer: "Should I",
+          },
+          "cook at home to save money? Yes, he should!",
+        ],
       ],
-      successMessage: "David should wake up earlier, shouldn't stay home all weekend and asks: Should I cook at home?",
+      successMessage:
+        "David should wake up earlier, shouldn't stay home all weekend and asks: Should I cook at home?",
     },
   },
   {
@@ -95,8 +110,10 @@ const LESSON_SLIDES = [
     component: "Exercise12",
     activity: {
       prompt: "Agora você é o consultor do David!",
-      instruction: "Escreva 5 conselhos para ele organizar melhor o novo emprego. Use pelo menos 3 vezes should e 2 vezes shouldn't.",
-      correctAnswer: "You should plan your day. You should wake up early. You should save money. You shouldn't eat out every day. You shouldn't work all night.",
+      instruction:
+        "Escreva 5 conselhos para ele organizar melhor o novo emprego. Use pelo menos 3 vezes should e 2 vezes shouldn't.",
+      tipText:
+        "You should plan your day. You should wake up early. You should save money. You shouldn't eat out every day. You shouldn't work all night.",
       successMessage: "Conselhos registrados!",
     },
   },

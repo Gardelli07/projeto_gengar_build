@@ -127,7 +127,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         'Organize as letras para formar a palavra que usamos em "Primary _________".',
-      audioText: "Objective",
+      audioSource: require("../../../../../mp3/BU/B1/A1S8.mp3"),
       audioDurationMs: 1200,
       letters: ["B", "J", "E", "C", "I", "O", "T", "V", "E"],
       correctWord: "OBJECTIVE",

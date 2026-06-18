@@ -72,8 +72,8 @@ Dica de Nativo:
     needsSpeech: true,
     activity: {
       prompt: "As letras estão bagunçadas! Escreva a palavra na ordem correta.",
-      audioText: "Work",
       audioDurationMs: 900,
+      audioSource: require("../../../../../mp3/BU/A1/A2S5.mp3"),
       letters: ["W", "O", "K", "R"],
       correctWord: "WORK",
       successTitle: "Correto",

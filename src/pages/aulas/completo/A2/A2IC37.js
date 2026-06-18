@@ -150,6 +150,7 @@ const LESSON_SLIDES = [
       correctAnswer: "Health is better than money.",
       successTitle: "Correto",
       successMessage: "Health is better than money.",
+      submitLabel: "Responder",
     },
   },
   {

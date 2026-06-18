@@ -233,10 +233,24 @@ export const inglesSampleLessons = [
   },
   {
     module: 1,
+    id: "63",
+    title: "Challenge 3",
+    type: "Aula",
+    screen: "A2IC63",
+  },
+  {
+    module: 1,
     id: "12",
     title: "I worked yesterday",
     type: "Aula",
     screen: "A2IC12",
+  },
+  {
+    module: 1,
+    id: "64",
+    title: "Challenge 4",
+    type: "Aula",
+    screen: "A2IC64",
   },
   {
     module: 1,
@@ -247,10 +261,24 @@ export const inglesSampleLessons = [
   },
   {
     module: 1,
+    id: "65",
+    title: "Challenge 5",
+    type: "Aula",
+    screen: "A2IC65",
+  },
+  {
+    module: 1,
     id: "14",
     title: "I took a shower",
     type: "Aula",
     screen: "A2IC14",
+  },
+  {
+    module: 1,
+    id: "66",
+    title: "Challenge 6",
+    type: "Aula",
+    screen: "A2IC66",
   },
   {
     module: 1,
@@ -261,10 +289,24 @@ export const inglesSampleLessons = [
   },
   {
     module: 1,
+    id: "67",
+    title: "Challenge 7",
+    type: "Aula",
+    screen: "A2IC67",
+  },
+  {
+    module: 1,
     id: "16",
     title: "I didn't study",
     type: "Aula",
     screen: "A2IC16",
+  },
+  {
+    module: 1,
+    id: "68",
+    title: "Challenge 8",
+    type: "Aula",
+    screen: "A2IC68",
   },
   {
     module: 1,
@@ -279,6 +321,13 @@ export const inglesSampleLessons = [
     title: "Did you study?",
     type: "Aula",
     screen: "A2IC18",
+  },
+  {
+    module: 1,
+    id: "69",
+    title: "Challenge 9",
+    type: "Aula",
+    screen: "A2IC69",
   },
   {
     module: 1,
@@ -317,10 +366,24 @@ export const inglesSampleLessons = [
   },
   {
     module: 2,
+    id: "70",
+    title: "Challenge 10",
+    type: "Aula",
+    screen: "A2IC70",
+  },
+  {
+    module: 2,
     id: "24",
     title: "You were working",
     type: "Aula",
     screen: "A2IC24",
+  },
+  {
+    module: 2,
+    id: "71",
+    title: "Challenge 11",
+    type: "Aula",
+    screen: "A2IC71",
   },
   {
     module: 2,
@@ -331,6 +394,13 @@ export const inglesSampleLessons = [
   },
   {
     module: 2,
+    id: "72",
+    title: "Challenge 12",
+    type: "Aula",
+    screen: "A2IC72",
+  },
+  {
+    module: 2,
     id: "26",
     title: "Was he sleeping?",
     type: "Aula",
@@ -338,10 +408,24 @@ export const inglesSampleLessons = [
   },
   {
     module: 2,
+    id: "73",
+    title: "Challenge 13",
+    type: "Aula",
+    screen: "A2IC73",
+  },
+  {
+    module: 2,
     id: "27",
     title: "Final combo",
     type: "Aula",
     screen: "A2IC27",
+  },
+  {
+    module: 2,
+    id: "74",
+    title: "Challenge 14",
+    type: "Aula",
+    screen: "A2IC74",
   },
   {
     module: 2,

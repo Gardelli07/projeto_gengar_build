@@ -3,21 +3,6 @@ import { ICA2 } from "../../../../util/images";
 
 const LESSON_SLIDES = [
   {
-    key: "a2ic16s1",
-    component: "Exercise14",
-    needsSpeech: true,
-    activity: {
-      prompt: "Escute e escolha.",
-      image: ICA2.A16S1,
-      audioSource: require("../../../../../mp3/IC/A2/A16S1.mp3"),
-      options: ["She didn't see me.", "She didn't saw me."],
-      correctAnswer: "She didn't see me.",
-      correctOption: "She didn't see me.",
-      feedbackMessage: "Com didn't, o verbo volta ao presente: see.",
-      successTitle: "Correto",
-    },
-  },
-  {
     key: "a2ic16s2",
     component: "Exercise17",
     activity: {
@@ -30,6 +15,21 @@ const LESSON_SLIDES = [
         "She saw → She didn't see",
       ],
       continueLabel: "Continuar",
+    },
+  },
+  {
+    key: "a2ic16s1",
+    component: "Exercise14",
+    needsSpeech: true,
+    activity: {
+      prompt: "Escute e escolha.",
+      image: ICA2.A16S1,
+      audioSource: require("../../../../../mp3/IC/A2/A16S1.mp3"),
+      options: ["She didn't see me.", "She didn't saw me."],
+      correctAnswer: "She didn't see me.",
+      correctOption: "She didn't see me.",
+      feedbackMessage: "Com didn't, o verbo volta ao presente: see.",
+      successTitle: "Correto",
     },
   },
   {

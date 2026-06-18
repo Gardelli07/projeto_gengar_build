@@ -61,9 +61,9 @@ const LESSON_SLIDES = [
     key: "a2ic21s5",
     component: "Exercise4",
     activity: {
-      prompt: "What did Mia do on her weekend?",
+      prompt: "Escolha a resposta correta:",
       image: ICA2.A21S5,
-      wrongSentence: "Choose the correct answer.",
+      wrongSentence: "What did Mia do on her weekend?",
       options: ["She went to a concert.", "She stayed home with her sister."],
       correctAnswer: "She stayed home with her sister.",
       successTitle: "Correto",
@@ -74,9 +74,9 @@ const LESSON_SLIDES = [
     key: "a2ic21s6",
     component: "Exercise4",
     activity: {
-      prompt: "Por que o Leo não atendeu o telefone às 21h?",
+      prompt: "Escolha a resposta correta:",
       image: ICA2.A21S6,
-      wrongSentence: "Choose the correct answer.",
+      wrongSentence: "Por que o Leo não atendeu o telefone às 21h?",
       options: ["Porque ele estava dormindo.", "Porque ele estava no show."],
       correctAnswer: "Porque ele estava no show.",
       successTitle: "Correto",
@@ -117,8 +117,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Part 2: The Invitation",
       image: ICA2.A21S10,
-      audioText:
-        "Mia: So, did you go to the concert alone? Leo: Yes, I did. I invited my brother, but he didn't want to go. Mia: That's strange! He loves that band. Did he have a problem? Leo: He didn't feel well yesterday. He had a headache, so he stayed in bed.",
+      audioSource: require("../../../../../mp3/IC/A2/A21S9.mp3"),
       transcript:
         "Mia: So, did you go to the concert alone?\nLeo: Yes, I did. I invited my brother, but he didn't want to go.\nMia: That's strange! He loves that band. Did he have a problem?\nLeo: He didn't feel well yesterday. He had a headache, so he stayed in bed.",
       continueLabel: "Continuar",
@@ -215,9 +214,9 @@ const LESSON_SLIDES = [
     key: "a2ic21s16",
     component: "Exercise4",
     activity: {
-      prompt: "Onde o Leo encontrou a Sarah?",
+      prompt: "Escolha a resposta correta:",
       image: ICA2.A21S16,
-      wrongSentence: "Choose the correct answer.",
+      wrongSentence: "Onde o Leo encontrou a Sarah?",
       options: ["Perto do palco.", "Na entrada do show."],
       correctAnswer: "Perto do palco.",
       successTitle: "Correto",

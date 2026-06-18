@@ -70,9 +70,13 @@ export function Exercise14({
   const answerOptions = activity.answerOptions || activity.options || [];
   const correctOption = activity.correctOption || activity.correctAnswer;
   const formattedPrompt = formatPrompt(activity.prompt);
-  const shouldStackOptions = answerOptions.some(
-    (option) => String(option).trim().length > 18,
+  const optionTextLengths = answerOptions.map(
+    (option) => String(option).trim().length,
   );
+  const shouldStackOptions =
+    activity.stackOptions ||
+    optionTextLengths.some((length) => length > 18) ||
+    optionTextLengths.reduce((sum, length) => sum + length, 0) > 32;
   const audioPromptText =
     activity.audioText || activity.spokenText || correctOption || "";
 
@@ -642,20 +646,25 @@ const ex14 = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: CORES.WHITE_SHORT,
     maxWidth: "100%",
+    flexShrink: 1,
   },
   optionPillStacked: {
     width: "100%",
+    alignSelf: "stretch",
   },
   optionPillTouch: {
     paddingHorizontal: 16,
     paddingVertical: 8,
     alignItems: "center",
     justifyContent: "center",
+    width: "100%",
   },
   optionText: {
     fontSize: 16,
     fontWeight: "500",
     color: "#333",
+    textAlign: "center",
+    flexShrink: 1,
   },
   optionTextStacked: {
     textAlign: "center",

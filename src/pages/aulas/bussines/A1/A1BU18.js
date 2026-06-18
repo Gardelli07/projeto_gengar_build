@@ -72,7 +72,7 @@ Nunca diga apenas "No" em negócios. Use sempre uma estrutura mais educada como:
     needsSpeech: true,
     activity: {
       prompt: "Organize a palavra.",
-      audioText: "Sorry",
+      audioSource: require("../../../../../mp3/BU/A1/A18S5.mp3"),
       audioDurationMs: 900,
       letters: ["S", "R", "O", "R", "Y"],
       correctWord: "SORRY",

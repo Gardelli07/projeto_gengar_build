@@ -107,6 +107,7 @@ const LESSON_SLIDES = [
       scrambledWords: ["cooking", "She", "was", "dinner", "."],
       words: ["cooking", "She", "was", "dinner", "."],
       correctAnswer: "She was cooking dinner.",
+      submitLabel: "Enviar",
       successTitle: "Correto",
       successMessage: "She was cooking dinner.",
     },
@@ -119,6 +120,7 @@ const LESSON_SLIDES = [
       scrambledWords: ["playing", "weren't", "They", "soccer", "."],
       words: ["playing", "weren't", "They", "soccer", "."],
       correctAnswer: "They weren't playing soccer.",
+      submitLabel: "Enviar",
       successTitle: "Correto",
       successMessage: "They weren't playing soccer.",
     },
@@ -131,6 +133,7 @@ const LESSON_SLIDES = [
       scrambledWords: ["he", "Was", "listening", "?"],
       words: ["he", "Was", "listening", "?"],
       correctAnswer: "Was he listening?",
+      submitLabel: "Enviar",
       successTitle: "Correto",
       successMessage: "Was he listening?",
     },
@@ -144,6 +147,7 @@ const LESSON_SLIDES = [
       correctAnswer: "I wasn't working yesterday morning.",
       successTitle: "Correto",
       successMessage: "I wasn't working yesterday morning.",
+      submitLabel: "Responder",
     },
   },
   {
@@ -155,6 +159,7 @@ const LESSON_SLIDES = [
       correctAnswer: "Were they dancing at the party?",
       successTitle: "Correto",
       successMessage: "Were they dancing at the party?",
+      submitLabel: "Responder",
     },
   },
   {
@@ -166,6 +171,7 @@ const LESSON_SLIDES = [
       correctAnswer: "She was wearing a green dress.",
       successTitle: "Correto",
       successMessage: "She was wearing a green dress.",
+      submitLabel: "Responder",
     },
   },
   {
@@ -203,11 +209,10 @@ const LESSON_SLIDES = [
     key: "a2ic27s15",
     component: "Exercise12",
     activity: {
-      prompt:
-        "Descreva uma cena de um filme que você gosta usando o Past Continuous.",
+      prompt: "Escreva sobre um filme.",
       instruction:
-        "Diga o que o herói estava fazendo e o que o vilão não estava fazendo.",
-      correctAnswer: "The hero was fighting. The villain wasn't winning.",
+        "Descreva uma cena de um filme que você gosta usando o Past Continuous. Diga o que o herói estava fazendo e o que o vilão não estava fazendo.",
+      tipText: "The hero was fighting. The villain wasn't winning.",
       successTitle: "Muito bem!",
       successMessage: "Cena registrada.",
     },

@@ -26,7 +26,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A55S2.mp3"),
       options: ["I want to post a photo.", "I want to print a photo."],
       correctAnswer: "I want to post a photo.",
-      successMessage: "Post significa publicar.",
+      feedbackMessage:
+        "Correto: post significa publicar. I want to post a photo é o jeito natural de dizer que você quer publicar uma foto.",
     },
   },
   {
@@ -38,7 +39,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A55S3.mp3"),
       options: ["Give it a like!", "Gave it a like!"],
       correctAnswer: "Give it a like!",
-      successMessage: "Like é curtir uma publicação.",
+      feedbackMessage:
+        "Muito bem: Give it a like! é um convite para curtir uma publicação.",
     },
   },
   {
@@ -50,7 +52,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A55S4.mp3"),
       options: ["Tare the video.", "Share this video."],
       correctAnswer: "Share this video.",
-      successMessage: "Share é compartilhar.",
+      feedbackMessage:
+        "Boa escuta: share significa compartilhar. Share this video é um comando direto e comum nas redes.",
     },
   },
   {
@@ -62,7 +65,8 @@ const LESSON_SLIDES = [
       wrongSentence: "Choose the best social media action.",
       options: ["I download the photo.", "I tag my friend in the photo."],
       correctAnswer: "I tag my friend in the photo.",
-      successMessage: "Tag é marcar alguém e chamar atenção para o post.",
+      successMessage:
+        "Isso mesmo: tag é marcar alguém para que essa pessoa veja ou seja ligada ao post.",
     },
   },
   {
@@ -73,7 +77,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A55S6.mp3"),
       letters: ["F", "O", "L", "L", "O", "W", "E", "R"],
       correctWord: "FOLLOWER",
-      successMessage: "Follower significa seguidor.",
+      successMessage:
+        "Perfeito: follower significa seguidor, a pessoa que acompanha seu perfil ou conteúdo.",
     },
   },
   {
@@ -84,7 +89,8 @@ const LESSON_SLIDES = [
       words: ["Please", "share", "this", "post", "."],
       correctOrder: ["Please", "share", "this", "post", "."],
       correctAnswer: "Please share this post.",
-      successMessage: "Pedido educado e natural.",
+      successMessage:
+        "Frase correta: Please share this post. Please deixa o pedido educado e share indica compartilhar.",
     },
   },
   {
@@ -96,7 +102,8 @@ const LESSON_SLIDES = [
       sentenceEnd: "on Instagram.",
       options: ["friends", "followers"],
       correctAnswer: "followers",
-      successMessage: "No plural: followers.",
+      successMessage:
+        "Certo: em redes sociais, muitas pessoas que acompanham um perfil são followers.",
     },
   },
   {
@@ -119,9 +126,10 @@ const LESSON_SLIDES = [
       prompt: "Fale sobre sua rede social favorita.",
       instruction:
         "Escreva 3 frases usando pelo menos 3 palavras da aula: post, like, share, tag ou follower.",
-      correctAnswer:
+      tipText:
         "I like to post photos. My friends like my photos. I share funny videos.",
-      successMessage: "Interações sociais registradas!",
+      successMessage:
+        "Muito bem: suas frases usam vocabulário real de redes sociais, como post, like, share, tag ou follower.",
     },
   },
   {

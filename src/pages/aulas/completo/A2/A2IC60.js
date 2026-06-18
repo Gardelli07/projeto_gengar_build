@@ -24,7 +24,8 @@ const LESSON_SLIDES = [
       image: ICA2.A60S2,
       options: ["Gym", "Pharmacy", "Library"],
       correctAnswer: "Pharmacy",
-      successMessage: "Também é comum ouvir drugstore ou chemist's.",
+      successMessage:
+        "Correto: David está em uma pharmacy. Também é comum ouvir drugstore ou chemist's para farmácia.",
     },
   },
   {
@@ -38,8 +39,10 @@ const LESSON_SLIDES = [
         "O cliente quer comprar remédio para dor de cabeça sem receita.",
       options: ["true", "false"],
       correctAnswer: "true",
-      successMessage: "OTC painkillers são analgésicos sem receita.",
-      feedbackMessage: "Ele pede OTC painkillers para headache.",
+      successMessage:
+        "Isso mesmo: ele pede OTC painkillers, analgésicos que podem ser comprados sem receita.",
+      feedbackMessage:
+        "Ele pede OTC painkillers para headache, ou seja, remédio sem receita para dor de cabeça.",
     },
   },
   {
@@ -52,8 +55,10 @@ const LESSON_SLIDES = [
       textOnScreen: "Ele não quer comprimidos.",
       options: ["true", "false"],
       correctAnswer: "false",
-      successMessage: "Ele escolhe tablets, ou seja, comprimidos.",
-      feedbackMessage: "Tablet significa comprimido.",
+      successMessage:
+        "Correto: a frase é falsa, porque ele escolhe tablets, ou seja, comprimidos.",
+      feedbackMessage:
+        "Tablet significa comprimido. Ele quer tablets, não outro formato de remédio.",
     },
   },
   {
@@ -66,8 +71,10 @@ const LESSON_SLIDES = [
       textOnScreen: "Ele pegou a receita com o farmacêutico.",
       options: ["true", "false"],
       correctAnswer: "false",
-      successMessage: "Ele entregou a receita ao farmacêutico.",
-      feedbackMessage: "He has this prescription for an antibiotic.",
+      successMessage:
+        "Muito bem: ele não pegou a receita com o farmacêutico; ele entregou a prescription para comprar o antibiótico.",
+      feedbackMessage:
+        "He has this prescription for an antibiotic indica que ele já tem a receita médica.",
     },
   },
   {
@@ -80,8 +87,10 @@ const LESSON_SLIDES = [
       textOnScreen: "É para tomar a cada 8 horas.",
       options: ["true", "false"],
       correctAnswer: "true",
-      successMessage: "Every 8 hours = a cada 8 horas.",
-      feedbackMessage: "O farmacêutico disse every 8 hours.",
+      successMessage:
+        "Exato: every 8 hours significa a cada 8 horas, uma instrução importante de dosagem.",
+      feedbackMessage:
+        "O farmacêutico disse every 8 hours para explicar quando David deve tomar os comprimidos.",
     },
   },
   {
@@ -92,7 +101,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A60S7.mp3"),
       letters: ["C", "A", "S", "H"],
       correctWord: "CASH",
-      successMessage: "Cash significa dinheiro em espécie.",
+      successMessage:
+        "Perfeito: cash significa dinheiro em espécie, uma forma comum de pagamento na farmácia.",
     },
   },
   {
@@ -115,9 +125,10 @@ const LESSON_SLIDES = [
       prompt: "Imagine que você está na farmácia.",
       instruction:
         "Você tem dor de estômago e quer uma pomada para as costas. Escreva 2 frases pedindo esses itens ao farmacêutico.",
-      correctAnswer:
+      tipText:
         "I have a stomachache. Do you have any pills for that? I also need an ointment for my back.",
-      successMessage: "Pedido na farmácia registrado!",
+      successMessage:
+        "Muito bem: seu pedido combina sintoma, remédio e atendimento de farmácia de forma clara.",
     },
   },
   {

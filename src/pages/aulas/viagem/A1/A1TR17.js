@@ -130,7 +130,7 @@ Sempre espere na porta. Procure uma placa que diz "Please wait to be seated". O 
     activity: {
       prompt:
         "O garçom passou perto da sua mesa. Escute com atenção e escreva exatamente a frase que o cliente usou para pedir o cardápio.",
-      audioText: "Can I have the menu?",
+      audioSource: require("../../../../../mp3/TR/A1/A17S9.mp3"),
       audioDurationMs: 1800,
       correctAnswer: "Can I have the menu?",
       placeholder: "Digite a frase",

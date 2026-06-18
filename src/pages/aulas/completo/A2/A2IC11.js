@@ -3,6 +3,24 @@ import { ICA2, Images } from "../../../../util/images";
 
 const LESSON_SLIDES = [
   {
+    key: "a2ic11s3",
+    component: "Exercise17",
+    activity: {
+      label: "MÓDULO 2 • AULA 11",
+      content: [
+        "/blue{I studied last night}",
+        "Você já sabe falar do presente, mas e se quiser contar uma história?",
+        "",
+        "/blue{A Regra do -ED}",
+        "Para transformar a maioria dos verbos em passado, basta adicionar -ed ao final.",
+        "Work → Worked",
+        "Play → Played",
+        "Watch → Watched",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
     key: "a2ic11s1",
     component: "Exercise4",
     activity: {
@@ -32,24 +50,6 @@ const LESSON_SLIDES = [
       correctOption: "Played",
       feedbackMessage: "Played é a forma no passado.",
       successTitle: "Correto",
-    },
-  },
-  {
-    key: "a2ic11s3",
-    component: "Exercise17",
-    activity: {
-      label: "MÓDULO 2 • AULA 11",
-      content: [
-        "/blue{I studied last night}",
-        "Você já sabe falar do presente, mas e se quiser contar uma história?",
-        "",
-        "/blue{A Regra do -ED}",
-        "Para transformar a maioria dos verbos em passado, basta adicionar -ed ao final.",
-        "Work → Worked",
-        "Play → Played",
-        "Watch → Watched",
-      ],
-      continueLabel: "Continuar",
     },
   },
   {

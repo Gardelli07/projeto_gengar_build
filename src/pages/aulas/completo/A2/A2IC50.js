@@ -27,7 +27,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A50S2.mp3"),
       options: ["You don't have to pay.", "You doesn't have to pay."],
       correctAnswer: "You don't have to pay.",
-      successMessage: "Don't have to pay = não é necessário pagar.",
+      feedbackMessage:
+        "Correto: com you usamos don't have to. You don't have to pay significa que pagar não é obrigatório.",
     },
   },
   {
@@ -38,7 +39,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A50S3.mp3"),
       options: ["She doesn't have to cook.", "She doesn't has to cook."],
       correctAnswer: "She doesn't have to cook.",
-      successMessage: "No negativo, has volta para have.",
+      feedbackMessage:
+        "Muito bem: no negativo com she usamos doesn't have to. O has volta para have depois de doesn't.",
     },
   },
   {
@@ -49,7 +51,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A50S4.mp3"),
       letters: ["D", "O", "N", "'", "T", "H", "A", "V", "E", "T", "O"],
       correctWord: "DON'THAVETO",
-      successMessage: "Don't have to significa não ter que.",
+      successMessage:
+        "Perfeito: don't have to significa não ter que. A ação pode acontecer, mas não é obrigatória.",
     },
   },
   {
@@ -61,7 +64,8 @@ const LESSON_SLIDES = [
       sentenceEnd: "go to work today.",
       options: ["doesn't have to", "don't have to"],
       correctAnswer: "don't have to",
-      successMessage: "We don't have to go to work today.",
+      successMessage:
+        "Isso mesmo: com We usamos don't have to. Como hoje é feriado, ir ao trabalho não é necessário.",
     },
   },
   {
@@ -98,29 +102,30 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Ajude o Camaleão a organizar as regras de David:",
       paragraphs: [
-        {
-          text: "In the office, David (1) ______ arrive on time. He (2) ______ wear a suit. He asks Sarah: '(3) ______ sign this contract?' Yes, he does.",
-          blanks: [
-            {
-              id: "1",
-      options: ["has to", "doesn't have to"],
-      correctAnswer: "has to",
-            },
-            {
-              id: "2",
-      options: ["has to", "doesn't have to"],
-      correctAnswer: "doesn't have to",
-            },
-            {
-              id: "3",
-      options: ["Do I have to", "Has to I"],
-      correctAnswer: "Do I have to",
-            },
-          ],
-        },
+        [
+          "In the office, David",
+          {
+            id: "1",
+            options: ["has to", "doesn't have to"],
+            answer: "has to",
+          },
+          "arrive on time. He",
+          {
+            id: "2",
+            options: ["has to", "doesn't have to"],
+            answer: "doesn't have to",
+          },
+          "wear a suit. He asks Sarah:",
+          {
+            id: "3",
+            options: ["Do I have to", "Has to I"],
+            answer: "Do I have to",
+          },
+          "sign this contract? Yes, he does.",
+        ],
       ],
       successMessage:
-        "David has to arrive on time, doesn't have to wear a suit and asks: Do I have to sign this contract?",
+        "Ótimo: David has to arrive on time, doesn't have to wear a suit e pergunta Do I have to sign this contract?",
     },
   },
   {
@@ -131,9 +136,10 @@ const LESSON_SLIDES = [
       image: ICA2.A50S9,
       instruction:
         "Conte 3 coisas que você tem que fazer na semana e 2 coisas que você não tem que fazer. Use have to e don't have to. Mínimo: 5 frases.",
-      correctAnswer:
+      tipText:
         "I have to work. I have to study. I have to clean my room. I don't have to cook today. I don't have to travel this week.",
-      successMessage: "Regras registradas!",
+      successMessage:
+        "Muito bem: você separou obrigações com have to e coisas não obrigatórias com don't have to.",
     },
   },
   {

@@ -24,7 +24,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A47S2.mp3"),
       letters: ["A", "D", "V", "I", "C", "E"],
       correctWord: "ADVICE",
-      successMessage: "Advice significa conselho.",
+      successMessage:
+        "Muito bem: advice significa conselho. É a palavra central desta aula sobre pedir ajuda e orientar alguém.",
     },
   },
   {
@@ -32,13 +33,14 @@ const LESSON_SLIDES = [
     component: "Exercise14",
     needsSpeech: true,
     activity: {
-      prompt: "Escute e complete",
+      prompt: "O que o Mark quer saber?",
       image: ICA2.A47S3,
       audioSource: require("../../../../../mp3/IC/A2/A47S3.mp3"),
       answerOptions: ["O que ele fez ontem", "O que ele deveria fazer"],
       correctOption: "O que ele deveria fazer",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "Hello" para dizer "oi".',
+      feedbackMessage:
+        "Isso mesmo: Mark está pedindo conselho. What should I do? significa O que eu deveria fazer?",
     },
   },
   {
@@ -46,13 +48,14 @@ const LESSON_SLIDES = [
     component: "Exercise14",
     needsSpeech: true,
     activity: {
-      prompt: "Escute e complete",
+      prompt: "Qual o primeiro conselho da Sarah?",
       image: ICA2.A47S4,
       audioSource: require("../../../../../mp3/IC/A2/A47S4.mp3"),
       answerOptions: ["Ir para a cama cedo", "Não ir para cama tão tarde"],
       correctOption: "Não ir para cama tão tarde",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "Hello" para dizer "oi".',
+      feedbackMessage:
+        "Correto: Sarah usa shouldn't para dizer que Mark não deveria ir dormir tão tarde.",
     },
   },
   {
@@ -60,13 +63,14 @@ const LESSON_SLIDES = [
     component: "Exercise14",
     needsSpeech: true,
     activity: {
-      prompt: "Escute e complete",
+      prompt: "O que Mark deve parar de beber?",
       image: ICA2.A47S5,
       audioSource: require("../../../../../mp3/IC/A2/A47S5.mp3"),
       answerOptions: ["Àgua", "Refrigerante"],
       correctOption: "Refrigerante",
       successTitle: "Correto",
-      feedbackMessage: 'Usamos "Hello" para dizer "oi".',
+      feedbackMessage:
+        "Boa escuta: Sarah aconselha Mark a parar de beber refrigerante e escolher hábitos mais saudáveis.",
     },
   },
   {
@@ -77,7 +81,8 @@ const LESSON_SLIDES = [
       words: ["You", "shouldn't", "go to bed", "so late", "."],
       correctOrder: ["You", "shouldn't", "go to bed", "so late", "."],
       correctAnswer: "You shouldn't go to bed so late.",
-      successMessage: "Ótimo conselho negativo.",
+      successMessage:
+        "Frase correta: You shouldn't go to bed so late. Shouldn't mostra que esse hábito não é uma boa ideia.",
     },
   },
   {
@@ -88,7 +93,8 @@ const LESSON_SLIDES = [
       words: ["You", "should", "drink", "more", "water"],
       correctOrder: ["You", "should", "drink", "more", "water"],
       correctAnswer: "You should drink more water",
-      successMessage: "You should drink more water.",
+      successMessage:
+        "Muito bem: You should drink more water é um conselho positivo para Mark cuidar melhor da saúde.",
     },
   },
   {
@@ -100,7 +106,8 @@ const LESSON_SLIDES = [
       sentenceEnd: "I exercise in the morning?",
       options: ["Should", "Shouldn't"],
       correctAnswer: "Should",
-      successMessage: "Should I exercise in the morning?",
+      successMessage:
+        "Perfeito: perguntas de conselho começam com Should. Should I exercise in the morning? pede uma opinião.",
     },
   },
   {
@@ -112,7 +119,8 @@ const LESSON_SLIDES = [
       sentenceEnd: "work on weekends. It's bad for you.",
       options: ["should", "shouldn't"],
       correctAnswer: "shouldn't",
-      successMessage: "You shouldn't work on weekends.",
+      successMessage:
+        "Certo: como trabalhar no fim de semana está fazendo mal, Sarah diz You shouldn't work on weekends.",
     },
   },
   {
@@ -122,11 +130,13 @@ const LESSON_SLIDES = [
       prompt: "Escute a dúvida do Mark e digite:",
       audioSource: require("../../../../../mp3/IC/A2/A47S10.mp3"),
       correctAnswer: "What should I do to be healthy?",
-      successMessage: "Ditado perfeito!",
+      successMessage:
+        "Ótimo ditado: What should I do to be healthy? junta a pergunta com should e o objetivo de ficar saudável.",
       placeholder: "What...",
       submitLabel: "Responder",
       successTitle: "Correto",
-      errorMessage: "A frase correta é: What should I do to be healthy?",
+      errorMessage:
+        "Ouça novamente e confira a ordem: What should I do to be healthy?",
     },
   },
   {
@@ -136,8 +146,9 @@ const LESSON_SLIDES = [
       prompt: "O Camaleão está com dor de dente.",
       instruction:
         "Escreva 2 conselhos usando should e shouldn't. Use verbos como go to the dentist e eat candies.",
-      correctAnswer: "You should go to the dentist. You shouldn't eat candies.",
-      successMessage: "Bons conselhos para dor de dente!",
+      tipText: "You should go to the dentist. You shouldn't eat candies.",
+      successMessage:
+        "Muito bem: para dor de dente, combine um conselho positivo com should e um alerta com shouldn't.",
     },
   },
   {
@@ -147,9 +158,10 @@ const LESSON_SLIDES = [
       prompt: "Grave sua resposta para o Mark:",
       image: Images.ex16,
       tipButtonLabel: "Tip",
-      phrase: "You shouldn't worry so much. You should relax!",
-      correctAnswer: "You shouldn't worry so much. You should relax!",
-      successMessage: "Muito bem!",
+      instruction: "You shouldn't worry so much. You should relax!",
+      tipText: "You shouldn't worry so much. You should relax!",
+      successMessage:
+        "Boa resposta: você usou shouldn't para reduzir a preocupação e should para dar um conselho positivo ao Mark.",
     },
   },
   {

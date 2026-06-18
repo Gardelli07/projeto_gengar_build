@@ -106,7 +106,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         'Organize as letras para formar a palavra que usamos para "elaborar/redigir" o contrato.',
-      audioText: "Draft",
+      audioSource: require("../../../../../mp3/BU/B1/A14S8.mp3"),
       audioDurationMs: 900,
       letters: ["F", "R", "A", "T", "D"],
       correctWord: "DRAFT",

@@ -128,7 +128,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         'Organize as letras para formar a palavra que representa "Acordo" ou "Negócio Fechado".',
-      audioText: "Deal",
+      audioSource: require("../../../../../mp3/BU/B1/A15S8.mp3"),
       audioDurationMs: 900,
       letters: ["E", "A", "L", "D"],
       correctWord: "DEAL",
@@ -147,7 +147,7 @@ const LESSON_SLIDES = [
           "Since we reached a ",
           {
             id: "blank-1",
-      options: ["deadlock", "deadline"],
+            options: ["deadlock", "deadline"],
             answer: "deadlock",
           },
           " on the price, let's find a ",
@@ -155,7 +155,7 @@ const LESSON_SLIDES = [
           " ground. I'll drop the price by 5%. To ",
           {
             id: "blank-3",
-      options: ["summarize", "surprise"],
+            options: ["summarize", "surprise"],
             answer: "summarize",
           },
           " our agreed terms: 5% discount and delivery in 30 days. Do we have a ",

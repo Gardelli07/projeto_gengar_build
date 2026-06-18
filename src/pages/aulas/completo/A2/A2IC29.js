@@ -238,9 +238,10 @@ const LESSON_SLIDES = [
     key: "a2ic29s18",
     component: "Exercise12",
     activity: {
-      prompt: "Resuma essa aventura do Camaleão.",
-      instruction: 'Tente usar: "He was ...ing when ...".',
-      correctAnswer: "He was hiking when he heard a noise.",
+      prompt: "Escreva um resumo",
+      instruction:
+        'Resuma essa aventura do Camaleão. Tente usar: "He was ...ing when ...".',
+      tipText: "He was hiking when he heard a noise.",
       successTitle: "Muito bem!",
       successMessage: "Resumo registrado.",
     },

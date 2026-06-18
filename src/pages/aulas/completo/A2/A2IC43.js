@@ -209,6 +209,7 @@ const LESSON_SLIDES = [
       correctAnswer: "January is the hottest month here.",
       successTitle: "Correto",
       successMessage: "January is the hottest month here.",
+      submitLabel: "Responder",
     },
   },
   {

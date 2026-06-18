@@ -87,8 +87,10 @@ const LESSON_SLIDES = [
     component: "Exercise12",
     activity: {
       prompt: "Agora o Camaleão quer conhecer o seu mundo.",
-      instruction: "Escreva sobre sua família ou seus amigos. Use pelo menos um comparativo com -er, um com more e a estrutura as... as.",
-      correctAnswer: "My best friend is taller than me. My family is more important than anything. My sister is as funny as my brother.",
+      instruction:
+        "Escreva sobre sua família ou seus amigos. Use pelo menos um comparativo com -er, um com more e a estrutura as... as.",
+      tipText:
+        "My best friend is taller than me. My family is more important than anything. My sister is as funny as my brother.",
       successTitle: "Muito bem!",
       successMessage: "Texto registrado.",
     },

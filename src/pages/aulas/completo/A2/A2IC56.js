@@ -25,7 +25,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A56S2.mp3"),
       options: ["My phone is dad.", "My phone is dead."],
       correctAnswer: "My phone is dead.",
-      successMessage: "Dead em tecnologia indica bateria zerada.",
+      feedbackMessage:
+        "Correto: em tecnologia, dead pode significar bateria zerada. My phone is dead quer dizer que o celular descarregou.",
     },
   },
   {
@@ -37,7 +38,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A56S3.mp3"),
       options: ["The Wi-Fi is low.", "The Wi-Fi is slow."],
       correctAnswer: "The Wi-Fi is slow.",
-      successMessage: "Slow indica baixa velocidade.",
+      feedbackMessage:
+        "Muito bem: slow indica baixa velocidade. The Wi-Fi is slow descreve uma internet lenta.",
     },
   },
   {
@@ -49,7 +51,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A56S4.mp3"),
       options: ["The screen is frozen.", "The screen is fresh."],
       correctAnswer: "The screen is frozen.",
-      successMessage: "Frozen é o termo para tela travada.",
+      feedbackMessage:
+        "Boa escuta: frozen é o termo para uma tela travada, quando nada responde ao toque ou clique.",
     },
   },
   {
@@ -61,7 +64,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A56S5.mp3"),
       options: ["There's no signal.", "Have no signal."],
       correctAnswer: "There's no signal.",
-      successMessage: "Signal é o sinal de rede ou conexão.",
+      feedbackMessage:
+        "Isso mesmo: There's no signal é a forma natural para dizer que não há sinal de rede ou conexão.",
     },
   },
   {
@@ -73,7 +77,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A56S6.mp3"),
       options: ["I have battery.", "I have low battery."],
       correctAnswer: "I have low battery.",
-      successMessage: "Low battery é bateria fraca.",
+      feedbackMessage:
+        "Correto: low battery significa bateria fraca, antes de o aparelho ficar totalmente dead.",
     },
   },
   {
@@ -84,7 +89,8 @@ const LESSON_SLIDES = [
       image: ICA2.A56S7,
       options: ["Frozen", "Slow Wi-Fi", "New Laptop", "No signal"],
       correctAnswer: "New Laptop",
-      successMessage: "New laptop é hardware novo, não um problema.",
+      successMessage:
+        "Exato: new laptop descreve um aparelho novo. Frozen, slow Wi-Fi e no signal são problemas técnicos.",
     },
   },
   {
@@ -99,8 +105,9 @@ const LESSON_SLIDES = [
       options: ["true", "false"],
       correctAnswer: "false",
       successMessage:
-        "Dead quer dizer que a bateria chegou a 0%. Você precisa de um carregador.",
-      feedbackMessage: "Dead não significa necessariamente quebrado.",
+        "Isso mesmo: dead quer dizer que a bateria chegou a 0%. Normalmente você precisa de um carregador, não de um celular novo.",
+      feedbackMessage:
+        "Dead não significa necessariamente quebrado; muitas vezes é só bateria em 0%.",
     },
   },
   {
@@ -112,7 +119,8 @@ const LESSON_SLIDES = [
       sentenceEnd: "is very slow today.",
       options: ["TV", "Wi-Fi"],
       correctAnswer: "Wi-Fi",
-      successMessage: "The Wi-Fi is very slow today.",
+      successMessage:
+        "Certo: em uma chamada no Zoom, The Wi-Fi is very slow today explica que a conexão está lenta.",
     },
   },
   {
@@ -127,7 +135,8 @@ const LESSON_SLIDES = [
         "Everything is working! I can click on anything!",
       ],
       correctAnswer: "Everything is frozen! I can't click on anything!",
-      successMessage: "Frozen descreve quando nada responde.",
+      feedbackMessage:
+        "Boa escolha: Everything is frozen! descreve uma tela travada, quando você não consegue clicar em nada.",
     },
   },
   {
@@ -138,7 +147,8 @@ const LESSON_SLIDES = [
       words: ["I", "have", "no signal", "in here", "."],
       correctOrder: ["I", "have", "no signal", "in here", "."],
       correctAnswer: "I have no signal in here.",
-      successMessage: "No signal = sem sinal.",
+      successMessage:
+        "Frase correta: I have no signal in here. Use no signal para falar de falta de rede ou conexão.",
     },
   },
   {
@@ -150,7 +160,8 @@ const LESSON_SLIDES = [
       sentenceEnd: ".",
       options: ["frozen", "melt"],
       correctAnswer: "frozen",
-      successMessage: "The screen is frozen.",
+      successMessage:
+        "Isso mesmo: The screen is frozen explica por que David não consegue rolar a página.",
     },
   },
   {
@@ -161,7 +172,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A56S13.mp3"),
       letters: ["W", "O", "L", "S"],
       correctWord: "SLOW",
-      successMessage: "Slow é lento.",
+      successMessage:
+        "Perfeito: slow significa lento, o oposto de fast em uma conexão ou sistema.",
     },
   },
   {
@@ -171,8 +183,9 @@ const LESSON_SLIDES = [
       prompt: "Sua internet caiu no meio da aula.",
       instruction:
         "Escreva uma mensagem curta para seu professor explicando o problema usando slow ou no signal.",
-      correctAnswer: "Sorry, teacher. My Wi-Fi is slow and I have no signal.",
-      successMessage: "Mensagem de suporte registrada!",
+      tipText: "Sorry, teacher. My Wi-Fi is slow and I have no signal.",
+      successMessage:
+        "Muito bem: sua mensagem explica o problema técnico com vocabulário claro, como slow ou no signal.",
     },
   },
   {

@@ -126,21 +126,6 @@ Mantenha o mesmo tom do início ao fim! `,
     },
   },
   {
-    component: "Exercise3",
-    needsSpeech: true,
-    activity: {
-      prompt: "Escute e responda",
-      image: ICA1.semimg,
-      audioSource: require("../../../../../mp3/IC/A0-A1/A4S9.mp3"),
-      audioDurationMs: 2000,
-      dialogue: "Este diálogo é entre dois melhores amigos em uma festa.",
-      options: ["true", "false"],
-      correctAnswer: "false",
-      successTitle: "Correto",
-      successMessage: 'Falso. O uso de "Sir" e "Hello" indica formalidade.',
-    },
-  },
-  {
     component: "Exercise11",
     activity: {
       prompt: "Escreva rápido",

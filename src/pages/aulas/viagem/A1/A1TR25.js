@@ -30,7 +30,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A25S2,
-      audioText: "I feel sick",
+      audioSource: require("../../../../../mp3/TR/A1/A25S2.mp3"),
       audioDurationMs: 1400,
       answerOptions: ["I feel sick", "I feel good"],
       correctOption: "I feel sick",
@@ -45,7 +45,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A25S3,
-      audioText: "Stomach ache",
+      audioSource: require("../../../../../mp3/TR/A1/A25S3.mp3"),
       audioDurationMs: 1500,
       answerOptions: ["Stomach ache", "Headache"],
       correctOption: "Stomach ache",
@@ -126,7 +126,7 @@ Back + ache = backache.
     activity: {
       prompt:
         "Ouça com atenção e escreva exatamente a frase que o turista usou para dizer que não está bem.",
-      audioText: "I feel sick.",
+      audioSource: require("../../../../../mp3/TR/A1/A25S2.mp3"),
       audioDurationMs: 1500,
       correctAnswer: "I feel sick.",
       placeholder: "Digite a frase",

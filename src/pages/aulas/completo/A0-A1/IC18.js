@@ -109,7 +109,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e identifique o cenario",
       image: ICA1.A18S2,
-      audioText: "Good morning, everyone!",
+      audioSource: require("../../../../../mp3/IC/A0-A1/A18S9.mp3"),
       audioDurationMs: 1850,
       answerOptions: ["Período da manhã", "Período da tarde"],
       correctOption: "Período da manhã",
@@ -123,7 +123,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e identifique o cenario",
       image: ICA1.A18S4,
-      audioText: "Good afternoon, sir.",
+      audioSource: require("../../../../../mp3/IC/A0-A1/A18S10.mp3"),
       audioDurationMs: 1400,
       answerOptions: ["Período da manhã", "Período da tarde"],
       correctOption: "Período da tarde",

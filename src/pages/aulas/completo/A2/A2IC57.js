@@ -25,7 +25,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A57S2.mp3"),
       options: ["Touch your head.", "Touch your hand."],
       correctAnswer: "Touch your head.",
-      successMessage: "Head é a cabeça.",
+      feedbackMessage:
+        "Correto: head é a cabeça. Touch your head é uma instrução para tocar a cabeça.",
     },
   },
   {
@@ -37,8 +38,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A57S3.mp3"),
       options: ["My stomach is fool.", "My stomach is full."],
       correctAnswer: "My stomach is full.",
-      successMessage:
-        "Stomach pode ser o órgão interno ou a região da barriga.",
+      feedbackMessage:
+        "Muito bem: stomach pode ser o estômago ou a região da barriga. Full significa cheio.",
     },
   },
   {
@@ -50,7 +51,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A57S4.mp3"),
       options: ["Lift your arm.", "Left your arm."],
       correctAnswer: "Lift your arm.",
-      successMessage: "Arm vai do ombro até o pulso.",
+      feedbackMessage:
+        "Boa escuta: arm é o braço, e lift your arm significa levante o braço.",
     },
   },
   {
@@ -62,7 +64,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A57S5.mp3"),
       options: ["He has long legs.", "He has long arms."],
       correctAnswer: "He has long legs.",
-      successMessage: "Legs são as pernas.",
+      feedbackMessage:
+        "Isso mesmo: legs são as pernas. He has long legs descreve pernas compridas.",
     },
   },
   {
@@ -74,7 +77,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A57S6.mp3"),
       options: ["My back hurts.", "My back hearts."],
       correctAnswer: "My back hurts.",
-      successMessage: "Back é a região das costas.",
+      feedbackMessage:
+        "Correto: back é a região das costas. My back hurts é usado para dizer que as costas estão doendo.",
     },
   },
   {
@@ -84,7 +88,8 @@ const LESSON_SLIDES = [
       prompt: "Qual destas palavras NÃO faz parte do corpo humano?",
       options: ["Leg", "Arm", "Laptop", "Back"],
       correctAnswer: "Laptop",
-      successMessage: "Laptop é hardware; as outras são partes do corpo.",
+      successMessage:
+        "Exato: laptop é um aparelho. Leg, arm e back são partes do corpo humano.",
     },
   },
   {
@@ -95,7 +100,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A57S8.mp3"),
       letters: ["S", "T", "O", "M", "A", "C", "H"],
       correctWord: "STOMACH",
-      successMessage: "Stomach significa estômago.",
+      successMessage:
+        "Perfeito: stomach significa estômago ou barriga, a parte ligada à comida e à digestão.",
     },
   },
   {
@@ -108,7 +114,8 @@ const LESSON_SLIDES = [
         { en: "Arm", pt: "To carry a heavy bag" },
         { en: "Head", pt: "To wear a hat" },
       ],
-      successMessage: "Partes do corpo associadas corretamente.",
+      successMessage:
+        "Muito bem: leg combina com andar e correr, arm com carregar, e head com usar um chapéu.",
     },
   },
   {
@@ -121,8 +128,10 @@ const LESSON_SLIDES = [
       textOnScreen: "Your back is on the front of your body.",
       options: ["true", "false"],
       correctAnswer: "false",
-      successMessage: "Back são as costas, na parte de trás do corpo.",
-      feedbackMessage: "A parte da frente é o chest.",
+      successMessage:
+        "Isso mesmo: back são as costas, a parte de trás do corpo.",
+      feedbackMessage:
+        "Back não fica na frente do corpo; a frente do tronco é chest.",
     },
   },
   {
@@ -133,7 +142,8 @@ const LESSON_SLIDES = [
       words: ["I", "have", "two arms", "and", "two legs", "."],
       correctOrder: ["I", "have", "two arms", "and", "two legs", "."],
       correctAnswer: "I have two arms and two legs.",
-      successMessage: "Frase corporal completa.",
+      successMessage:
+        "Frase correta: I have two arms and two legs. Arms e legs aparecem no plural porque são duas partes.",
     },
   },
   {
@@ -145,7 +155,8 @@ const LESSON_SLIDES = [
       sentenceEnd: "are very sore from running.",
       options: ["legs", "head"],
       correctAnswer: "legs",
-      successMessage: "Running deixa as legs doloridas.",
+      successMessage:
+        "Certo: depois de correr muito, as legs podem ficar sore, ou seja, doloridas.",
     },
   },
   {
@@ -168,9 +179,10 @@ const LESSON_SLIDES = [
       prompt: "Desenhe um monstro na sua mente.",
       instruction:
         "Escreva 3 frases em inglês descrevendo o corpo dele usando as palavras da aula.",
-      correctAnswer:
+      tipText:
         "My monster has four arms and three legs. His head is very big. His back is green.",
-      successMessage: "Monstro descrito!",
+      successMessage:
+        "Muito bem: sua descrição usa partes do corpo como arms, legs, head e back para criar uma imagem clara do monstro.",
     },
   },
   {

@@ -104,7 +104,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         'Organize as letras para formar a palavra em "Is there any ________ on the deadline?".',
-      audioText: "Flexibility",
+      audioSource: require("../../../../../mp3/BU/B1/A12S8.mp3"),
       audioDurationMs: 1400,
       letters: ["X", "E", "L", "F", "I", "B", "I", "I", "L", "Y", "T"],
       correctWord: "FLEXIBILITY",
@@ -122,7 +122,7 @@ const LESSON_SLIDES = [
           'Buyer: "Is there any ',
           {
             id: "blank-1",
-      options: ["flexibility", "possibility"],
+            options: ["flexibility", "possibility"],
             answer: "flexibility",
           },
           ' on the price?"\nSeller: "If you can ',
@@ -132,7 +132,7 @@ const LESSON_SLIDES = [
           " on the price. However, changing the delivery schedule is a ",
           {
             id: "blank-4",
-      options: ["dealmaker", "dealbreaker"],
+            options: ["dealmaker", "dealbreaker"],
             answer: "dealbreaker",
           },
           '."',

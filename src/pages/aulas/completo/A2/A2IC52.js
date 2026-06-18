@@ -52,7 +52,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A52S4.mp3"),
       options: ["Let's watch a movie.", "Why watch a movie."],
       correctAnswer: "Let's watch a movie.",
-      successMessage: "Let's watch = vamos assistir.",
+      feedbackMessage:
+        "Correto: Let's + verbo faz um convite direto. Let's watch a movie significa Vamos assistir a um filme.",
     },
   },
   {
@@ -64,8 +65,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A52S5.mp3"),
       options: ["Why don't we eat pizza?", "Let's don't eat pizza."],
       correctAnswer: "Why don't we eat pizza?",
-      successMessage:
-        "Why don't we...? abre espaço para a opinião da outra pessoa.",
+      feedbackMessage:
+        "Muito bem: Why don't we...? é uma sugestão em forma de pergunta e deixa espaço para a outra pessoa opinar.",
     },
   },
   {
@@ -76,7 +77,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A52S6.mp3"),
       letters: ["L", "E", "T", "'", "S"],
       correctWord: "LET'S",
-      successMessage: "Let's significa vamos.",
+      successMessage:
+        "Perfeito: let's significa vamos e vem antes do verbo para sugerir uma ação juntos.",
     },
   },
   {
@@ -87,7 +89,8 @@ const LESSON_SLIDES = [
       words: ["DON'T", "WHY", "WE"],
       correctOrder: ["WHY", "DON'T", "WE"],
       correctAnswer: "WHY DON'T WE",
-      successMessage: "Why don't we...?",
+      successMessage:
+        "Ordem correta: Why don't we...? Essa estrutura transforma a sugestão em uma pergunta gentil.",
     },
   },
   {
@@ -98,7 +101,8 @@ const LESSON_SLIDES = [
       words: ["Let's", "play", "soccer", "in the park", "."],
       correctOrder: ["Let's", "play", "soccer", "in the park", "."],
       correctAnswer: "Let's play soccer in the park.",
-      successMessage: "Sugestão direta com let's.",
+      successMessage:
+        "Frase certa: Let's play soccer in the park. Let's deixa o convite direto e animado.",
     },
   },
   {
@@ -117,7 +121,8 @@ const LESSON_SLIDES = [
         "?",
       ],
       correctAnswer: "Why don't we study together tomorrow?",
-      successMessage: "Pergunta perfeita com why don't we.",
+      successMessage:
+        "Muito bem: Why don't we study together tomorrow? sugere estudar juntos sem soar como ordem.",
     },
   },
   {
@@ -129,7 +134,8 @@ const LESSON_SLIDES = [
       sentenceEnd: "go to the beach!",
       options: ["Let's", "Shall we go"],
       correctAnswer: "Let's",
-      successMessage: "Let's go to the beach!",
+      successMessage:
+        "Isso mesmo: Let's go to the beach! é a forma direta para convidar alguém a ir à praia.",
     },
   },
   {
@@ -141,7 +147,8 @@ const LESSON_SLIDES = [
       sentenceEnd: "we drink some coffee?",
       options: ["Why don't", "Let's"],
       correctAnswer: "Why don't",
-      successMessage: "Why don't we drink some coffee?",
+      successMessage:
+        "Correto: Why don't we drink some coffee? faz a sugestão como pergunta, de um jeito mais gentil.",
     },
   },
   {
@@ -164,9 +171,10 @@ const LESSON_SLIDES = [
       prompt: "Agora é sua vez!",
       instruction:
         "O Camaleão quer sair. Dê 4 sugestões: 2 usando Let's e 2 usando Why don't we...?",
-      correctAnswer:
+      tipText:
         "Let's go to the park. Let's watch a movie. Why don't we eat pizza? Why don't we call Mark?",
-      successMessage: "Sugestões registradas!",
+      successMessage:
+        "Muito bem: suas sugestões combinaram convites diretos com Let's e perguntas gentis com Why don't we...?",
     },
   },
 ];

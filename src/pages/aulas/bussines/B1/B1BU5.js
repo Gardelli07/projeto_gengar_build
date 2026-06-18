@@ -131,7 +131,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         'Organize as letras para formar a palavra em "Let\'s focus on ________".',
-      audioText: "Solutions",
+      audioSource: require("../../../../../mp3/BU/B1/A5S8.mp3"),
       audioDurationMs: 1200,
       letters: ["O", "S", "U", "L", "I", "T", "N", "O", "S"],
       correctWord: "SOLUTIONS",
@@ -152,13 +152,13 @@ const LESSON_SLIDES = [
           " a step back and keep this ",
           {
             id: "blank-2",
-      options: ["constructive", "comfortable"],
+            options: ["constructive", "comfortable"],
             answer: "constructive",
           },
           ". I understand the ",
           {
             id: "blank-3",
-      options: ["frustration", "celebration"],
+            options: ["frustration", "celebration"],
             answer: "frustration",
           },
           ", but pointing fingers doesn't help. Let's focus on solutions.",

@@ -3,6 +3,24 @@ import { ICA2, Images } from "../../../../util/images";
 
 const LESSON_SLIDES = [
   {
+    key: "a2ic12s3",
+    component: "Exercise17",
+    activity: {
+      label: "MÓDULO 2 • AULA 12",
+      content: [
+        "/blue{I worked yesterday}",
+        "Você já sabe que o passado regular termina em -ed, mas às vezes dobramos a última letra.",
+        "",
+        "/blue{Quando o -ED ganha som de ID?}",
+        "Se o verbo termina com som de T ou D, o -ed vira uma sílaba extra com som de ID.",
+        "Want → Wanted",
+        "Need → Needed",
+        "Visit → Visited",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
     key: "a2ic12s1",
     component: "Exercise4",
     activity: {
@@ -32,24 +50,6 @@ const LESSON_SLIDES = [
       correctOption: "Wanted",
       feedbackMessage: "Wanted termina com som de ID.",
       successTitle: "Correto",
-    },
-  },
-  {
-    key: "a2ic12s3",
-    component: "Exercise17",
-    activity: {
-      label: "MÓDULO 2 • AULA 12",
-      content: [
-        "/blue{I worked yesterday}",
-        "Você já sabe que o passado regular termina em -ed, mas às vezes dobramos a última letra.",
-        "",
-        "/blue{Quando o -ED ganha som de ID?}",
-        "Se o verbo termina com som de T ou D, o -ed vira uma sílaba extra com som de ID.",
-        "Want → Wanted",
-        "Need → Needed",
-        "Visit → Visited",
-      ],
-      continueLabel: "Continuar",
     },
   },
   {

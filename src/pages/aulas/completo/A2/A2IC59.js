@@ -27,7 +27,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A59S2.mp3"),
       options: ["Take one tablet.", "Take two tablets."],
       correctAnswer: "Take one tablet.",
-      successMessage: "Tablet e pill são usados para comprimidos.",
+      feedbackMessage:
+        "Correto: tablet e pill podem significar comprimido. Take one tablet indica tomar apenas um comprimido.",
     },
   },
   {
@@ -42,7 +43,8 @@ const LESSON_SLIDES = [
         "There are ten chargers in this blister pack.",
       ],
       correctAnswer: "There are ten pills in this blister pack.",
-      successMessage: "Blister pack é a cartela de comprimidos.",
+      feedbackMessage:
+        "Muito bem: blister pack é a cartela onde os comprimidos ficam separados.",
     },
   },
   {
@@ -57,7 +59,8 @@ const LESSON_SLIDES = [
         "Drink the ointment with water.",
       ],
       correctAnswer: "Apply the ointment to your skin.",
-      successMessage: "Ointment se aplica na pele.",
+      feedbackMessage:
+        "Boa escolha: ointment é pomada. Para pomada, usamos apply, porque ela é aplicada na pele.",
     },
   },
   {
@@ -69,7 +72,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A59S5.mp3"),
       options: ["Use three drops in each eye.", "Use three pills in each eye."],
       correctAnswer: "Use three drops in each eye.",
-      successMessage: "Drops são gotas.",
+      feedbackMessage:
+        "Isso mesmo: drops são gotas. Para os olhos, dizemos use drops, não pills.",
     },
   },
   {
@@ -80,7 +84,8 @@ const LESSON_SLIDES = [
       image: ICA2.A59S6,
       options: ["Capsule", "Spray", "Charger", "Ointment"],
       correctAnswer: "Charger",
-      successMessage: "Charger é para o laptop.",
+      successMessage:
+        "Exato: charger é carregador de aparelho. Capsule, spray e ointment são formas de medicamento.",
     },
   },
   {
@@ -93,7 +98,8 @@ const LESSON_SLIDES = [
         { en: "Cream", pt: "Rub on the skin" },
         { en: "Spray", pt: "Use in the throat" },
       ],
-      successMessage: "Formas de uso associadas.",
+      successMessage:
+        "Muito bem: pills são engolidos com água, cream é passado na pele e spray pode ser usado na garganta.",
     },
   },
   {
@@ -104,7 +110,8 @@ const LESSON_SLIDES = [
       words: ["I", "need", "a", "blister pack", "of aspirin", "."],
       correctOrder: ["I", "need", "a", "blister pack", "of aspirin", "."],
       correctAnswer: "I need a blister pack of aspirin.",
-      successMessage: "Blister pack usado corretamente.",
+      successMessage:
+        "Frase correta: I need a blister pack of aspirin. Blister pack indica uma cartela de comprimidos.",
     },
   },
   {
@@ -117,8 +124,10 @@ const LESSON_SLIDES = [
       textOnScreen: "You drink an ointment to cure a headache.",
       options: ["true", "false"],
       correctAnswer: "false",
-      successMessage: "Você aplica ointment na pele; não bebe.",
-      feedbackMessage: "Use apply the ointment.",
+      successMessage:
+        "Correto: você aplica ointment na pele; não bebe pomada para tratar dor de cabeça.",
+      feedbackMessage:
+        "Use apply the ointment. Drink é para líquidos, não para pomadas.",
     },
   },
   {
@@ -129,7 +138,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A59S10.mp3"),
       letters: ["D", "R", "O", "P", "S"],
       correctWord: "DROPS",
-      successMessage: "Drops são gotas.",
+      successMessage:
+        "Perfeito: drops são gotas, como eye drops para os olhos ou nose drops para o nariz.",
     },
   },
   {
@@ -151,9 +161,10 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Descreva o que tem na sua bolsa de remédios.",
       instruction: "Escreva 3 frases usando pill, ointment ou spray.",
-      correctAnswer:
+      tipText:
         "I have a blister pack of pills in my bag. I have an ointment for my back. I have a nasal spray.",
-      successMessage: "Bolsa de remédios descrita!",
+      successMessage:
+        "Muito bem: sua descrição usa formatos de remédio da aula, como pills, ointment e spray.",
     },
   },
   {

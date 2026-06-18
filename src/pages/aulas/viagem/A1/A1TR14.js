@@ -123,7 +123,7 @@ Mas e se você só quiser pedir algo, como uma toalha extra? A forma mais fácil
     activity: {
       prompt:
         "Escute o áudio do hóspede fazendo um pedido na recepção e escreva exatamente o que ele disse.",
-      audioText: "I need a towel, please.",
+      audioSource: require("../../../../../mp3/TR/A1/A14S8.mp3"),
       audioDurationMs: 1900,
       correctAnswer: "I need a towel, please.",
       placeholder: "Digite a frase",

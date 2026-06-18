@@ -29,7 +29,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A26S2,
-      audioText: "Help!",
+      audioSource: require("../../../../../mp3/TR/A1/A26S2.mp3"),
       audioDurationMs: 900,
       answerOptions: ["Help!", "Hello!"],
       correctOption: "Help!",
@@ -44,7 +44,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A26S3,
-      audioText: "Call a doctor",
+      audioSource: require("../../../../../mp3/TR/A1/A26S3.mp3"),
       audioDurationMs: 1500,
       answerOptions: ["Call a doctor", "Call a taxi"],
       correctOption: "Call a doctor",
@@ -59,7 +59,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A26S4,
-      audioText: "Hospital",
+      audioSource: require("../../../../../mp3/TR/A1/A26S4.mp3"),
       audioDurationMs: 1100,
       answerOptions: ["Hospital", "Hotel"],
       correctOption: "Hospital",

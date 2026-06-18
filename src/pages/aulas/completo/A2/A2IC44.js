@@ -174,6 +174,7 @@ const LESSON_SLIDES = [
       correctAnswer: "You are the best student in the class.",
       successTitle: "Correto",
       successMessage: "You are the best student in the class.",
+      submitLabel: "Responder",
     },
   },
   {

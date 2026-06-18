@@ -103,7 +103,7 @@ const LESSON_SLIDES = [
     needsSpeech: true,
     activity: {
       prompt: 'Organize as letras para formar a palavra "Cifra/Número".',
-      audioText: "Figure",
+      audioSource: require("../../../../../mp3/BU/B1/A11S8.mp3"),
       audioDurationMs: 1000,
       letters: ["G", "U", "R", "I", "F", "E"],
       correctWord: "FIGURE",
@@ -122,19 +122,19 @@ const LESSON_SLIDES = [
           "Gentlemen, to start, our ",
           {
             id: "blank-1",
-      options: ["baseline", "sideline"],
+            options: ["baseline", "sideline"],
             answer: "baseline",
           },
           " proposal is $100k. We are ",
           {
             id: "blank-2",
-      options: ["pointed", "positioned"],
+            options: ["pointed", "positioned"],
             answer: "positioned",
           },
           " to offer full logistics support. The ",
           {
             id: "blank-3",
-      options: ["rationale", "national"],
+            options: ["rationale", "national"],
             answer: "rationale",
           },
           " behind this figure is the speed of delivery.",

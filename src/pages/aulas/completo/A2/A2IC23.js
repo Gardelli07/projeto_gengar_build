@@ -79,7 +79,7 @@ const LESSON_SLIDES = [
     key: "a2ic23s6",
     component: "Exercise4",
     activity: {
-      prompt: "Michael estava lendo um livro. Qual é a frase certa?",
+      prompt: "Qual é a frase certa?",
       image: ICA2.A23S6,
       wrongSentence: "Michael estava lendo um livro.",
       options: ["He was read a book.", "He was reading a book."],
@@ -119,6 +119,7 @@ const LESSON_SLIDES = [
       scrambledWords: ["was", "He", "sleeping", "."],
       words: ["was", "He", "sleeping", "."],
       correctAnswer: "He was sleeping.",
+      submitLabel: "Enviar",
       successTitle: "Correto",
       successMessage: "He was sleeping.",
     },
@@ -130,6 +131,7 @@ const LESSON_SLIDES = [
       prompt: "Escute e digite exatamente o que ouviu.",
       audioSource: require("../../../../../mp3/IC/A2/A23S10.mp3"),
       correctAnswer: "She was running.",
+      submitLabel: "Responder",
       successTitle: "Correto",
       successMessage: "She was running.",
     },
@@ -165,10 +167,11 @@ const LESSON_SLIDES = [
     key: "a2ic23s13",
     component: "Exercise12",
     activity: {
-      prompt:
+      prompt: "Escreva uma frase",
+      instruction:
         "Imagine que ontem às 20h você estava fazendo algo muito legal. O que era?",
-      instruction: 'Comece com "I was..." e adicione uma ação com ING.',
       correctAnswer: "I was watching a movie.",
+      tipText: 'Comece com "I was..." e adicione uma ação com ING.',
       successTitle: "Muito bem!",
       successMessage: "Resposta registrada.",
     },

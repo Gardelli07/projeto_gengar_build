@@ -25,7 +25,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A51S2.mp3"),
       options: ["It could rain tomorrow.", "It could to rain tomorrow."],
       correctAnswer: "It could rain tomorrow.",
-      successMessage: "Could rain indica uma possibilidade.",
+      feedbackMessage:
+        "Correto: depois de could usamos o verbo puro, sem to. It could rain tomorrow fala de uma possibilidade.",
     },
   },
   {
@@ -40,7 +41,8 @@ const LESSON_SLIDES = [
         "She might to travel this year.",
       ],
       correctAnswer: "She might travel this year.",
-      successMessage: "Might travel indica uma possibilidade incerta.",
+      feedbackMessage:
+        "Muito bem: might travel mostra uma possibilidade incerta. Depois de might, o verbo também vem sem to.",
     },
   },
   {
@@ -51,7 +53,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A51S4.mp3"),
       letters: ["M", "I", "G", "H", "T"],
       correctWord: "MIGHT",
-      successMessage: "Might significa talvez possa.",
+      successMessage:
+        "Perfeito: might ajuda a falar de algo possível, mas incerto, como talvez aconteça.",
     },
   },
   {
@@ -62,7 +65,8 @@ const LESSON_SLIDES = [
       words: ["They", "could", "arrive", "late", "."],
       correctOrder: ["They", "could", "arrive", "late", "."],
       correctAnswer: "They could arrive late.",
-      successMessage: "Could + verbo puro.",
+      successMessage:
+        "Frase correta: They could arrive late. Could vem antes do verbo arrive sem to.",
     },
   },
   {
@@ -74,7 +78,8 @@ const LESSON_SLIDES = [
       sentenceEnd: "go to the beach on Saturday.",
       options: ["might", "must"],
       correctAnswer: "might",
-      successMessage: "We might go to the beach on Saturday.",
+      successMessage:
+        "Isso mesmo: We might go to the beach on Saturday mostra um plano possível, mas ainda não confirmado.",
     },
   },
   {
@@ -89,7 +94,8 @@ const LESSON_SLIDES = [
         "Could I use your phone, please?",
       ],
       correctAnswer: "Could I use your phone, please?",
-      successMessage: "Could I...? é uma forma educada de pedir permissão.",
+      feedbackMessage:
+        "Boa escolha: Could I...? é uma forma educada de pedir permissão. Could I use your phone, please? soa mais gentil.",
     },
   },
   {
@@ -113,29 +119,36 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Organize as possibilidades do fim de semana:",
       paragraphs: [
-        {
-          text: "For the weekend, David and his family (1) ______ visit his grandparents. The weather (2) ______ sunny. He asks: '(3) ______ we go to the beach?' Maybe, but it (4) ______ be too cold.",
-          blanks: [
-            { id: "1", options: ["might", "could to"], correctAnswer: "might" },
-            {
-              id: "2",
-      options: ["could", "could be"],
-      correctAnswer: "could be",
-            },
-            {
-              id: "3",
-      options: ["Could", "Do we could"],
-      correctAnswer: "Could",
-            },
-            {
-              id: "4",
-      options: ["might", "could not be"],
-      correctAnswer: "might",
-            },
-          ],
-        },
+        [
+          "For the weekend, David and his family",
+          {
+            id: "1",
+            options: ["might", "could to"],
+            answer: "might",
+          },
+          "visit his grandparents. The weather",
+          {
+            id: "2",
+            options: ["could", "could be"],
+            answer: "could be",
+          },
+          "sunny. He asks:",
+          {
+            id: "3",
+            options: ["Could", "Do we could"],
+            answer: "Could",
+          },
+          "we go to the beach? Maybe, but it",
+          {
+            id: "4",
+            options: ["might", "could not be"],
+            answer: "might",
+          },
+          "be too cold.",
+        ],
       ],
-      successMessage: "Might e could mostram possibilidades.",
+      successMessage:
+        "Ótimo: você usou might para incerteza, could be para possibilidade no clima e Could we...? para sugerir uma ideia.",
     },
   },
   {
@@ -146,9 +159,10 @@ const LESSON_SLIDES = [
       image: ICA2.A51S10,
       instruction:
         "Conte o que você poderia ou talvez faria no próximo feriado. Escreva 5 frases sobre seus planos e a previsão do tempo.",
-      correctAnswer:
+      tipText:
         "I could travel to the beach. I might visit my family. It could rain. I might stay home. I could watch a movie.",
-      successMessage: "Possibilidades registradas!",
+      successMessage:
+        "Muito bem: suas frases usam could e might para falar de planos possíveis e incertezas sobre o feriado.",
     },
   },
   {

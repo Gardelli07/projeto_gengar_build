@@ -26,7 +26,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A46S2.mp3"),
       options: ["He should rest", "He should to rest"],
       correctAnswer: "He should rest",
-      successMessage: "Rest vira should rest: deveria descansar.",
+      feedbackMessage:
+        "Isso mesmo: depois de should usamos o verbo puro. He should rest significa que ele deveria descansar.",
     },
   },
   {
@@ -38,7 +39,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A46S3.mp3"),
       options: ["We should eat", "We should to eat"],
       correctAnswer: "We should eat",
-      successMessage: "Depois de should, usamos o verbo eat sem to.",
+      feedbackMessage:
+        "Muito bem: We should eat mantém eat sem to. Should já carrega a ideia de conselho.",
     },
   },
   {
@@ -49,7 +51,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A46S4.mp3"),
       letters: ["S", "H", "O", "U", "L", "D"],
       correctWord: "SHOULD",
-      successMessage: "Should significa deveria.",
+      successMessage:
+        "Perfeito: should é a palavra que usamos para dizer deveria e dar conselhos em inglês.",
     },
   },
   {
@@ -60,7 +63,8 @@ const LESSON_SLIDES = [
       words: ["You", "should", "drink", "water", "."],
       correctOrder: ["You", "should", "drink", "water", "."],
       correctAnswer: "You should drink water.",
-      successMessage: "Perfeito: pessoa + should + verbo.",
+      successMessage:
+        "Frase montada do jeito certo: pessoa + should + verbo. You should drink water é um bom conselho.",
     },
   },
   {
@@ -72,7 +76,8 @@ const LESSON_SLIDES = [
       sentenceEnd: "sleep more.",
       options: ["should", "shouldn't"],
       correctAnswer: "should",
-      successMessage: "Cam should sleep more.",
+      successMessage:
+        "Exato: como Cam está cansado, o conselho positivo é Cam should sleep more.",
     },
   },
   {
@@ -113,7 +118,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A46S9.mp3"),
       options: ["You shouldn't go", "You should go"],
       correctAnswer: "You shouldn't go",
-      successMessage: "Shouldn't indica que não é uma boa ideia.",
+      feedbackMessage:
+        "Correto: shouldn't mostra que a ação não é uma boa ideia. You shouldn't go significa que você não deveria ir.",
     },
   },
   {
@@ -125,7 +131,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A46S10.mp3"),
       options: ["They shouldn't worry", "They should worry"],
       correctAnswer: "They shouldn't worry",
-      successMessage: "Worry vira shouldn't worry: não deveriam se preocupar.",
+      feedbackMessage:
+        "Boa escolha: shouldn't worry dá um conselho negativo, dizendo que eles não deveriam se preocupar.",
     },
   },
   {
@@ -137,7 +144,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A46S11.mp3"),
       options: ["She shouldn't cry", "She should cry"],
       correctAnswer: "She shouldn't cry",
-      successMessage: "She shouldn't cry: ela não deveria chorar.",
+      feedbackMessage:
+        "Isso: She shouldn't cry usa shouldn't para aconselhar que ela não chore.",
     },
   },
   {
@@ -148,7 +156,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A46S12.mp3"),
       letters: ["S", "H", "O", "U", "L", "D", "N", "'", "T"],
       correctWord: "SHOULDN'T",
-      successMessage: "Shouldn't = should not.",
+      successMessage:
+        "Muito bem: shouldn't é a contração de should not e serve para dizer que algo não é recomendado.",
     },
   },
   {
@@ -159,7 +168,8 @@ const LESSON_SLIDES = [
       words: ["You", "shouldn't", "eat", "too much", "chocolate"],
       correctOrder: ["You", "shouldn't", "eat", "too much", "chocolate"],
       correctAnswer: "You shouldn't eat too much chocolate",
-      successMessage: "Boa! Shouldn't + eat.",
+      successMessage:
+        "Ordem correta: You shouldn't eat too much chocolate. Shouldn't vem antes do verbo eat.",
     },
   },
   {
@@ -171,7 +181,8 @@ const LESSON_SLIDES = [
       sentenceEnd: "cross the street now.",
       options: ["should", "shouldn't"],
       correctAnswer: "shouldn't",
-      successMessage: "You shouldn't cross the street now.",
+      successMessage:
+        "Certo: com o sinal vermelho, o conselho é negativo. You shouldn't cross the street now.",
     },
   },
   {
@@ -196,7 +207,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A46S16.mp3"),
       options: ["Should I stay?", "I should stay?"],
       correctAnswer: "Should I stay?",
-      successMessage: "Perguntas começam com should.",
+      feedbackMessage:
+        "Perfeito: em perguntas, should vem antes da pessoa. Should I stay? significa Eu deveria ficar?",
     },
   },
   {
@@ -208,7 +220,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A46S17.mp3"),
       options: ["Should we start?", "We should start?"],
       correctAnswer: "Should we start?",
-      successMessage: "Should we start? significa deveríamos começar?",
+      feedbackMessage:
+        "Isso mesmo: Should we start? coloca should no começo para pedir uma opinião ou conselho.",
     },
   },
   {
@@ -219,7 +232,8 @@ const LESSON_SLIDES = [
       words: ["What", "should", "I", "wear", "?"],
       correctOrder: ["What", "should", "I", "wear", "?"],
       correctAnswer: "What should I wear?",
-      successMessage: "Pergunta perfeita com what should I.",
+      successMessage:
+        "Pergunta montada corretamente: What should I wear? Use what + should + pessoa + verbo.",
     },
   },
   {
@@ -231,7 +245,8 @@ const LESSON_SLIDES = [
       sentenceEnd: "I call her tonight?",
       options: ["Should", "Shouldn't"],
       correctAnswer: "Should",
-      successMessage: "Should I call her tonight?",
+      successMessage:
+        "Muito bem: a pergunta começa com Should. Should I call her tonight? pede conselho sobre ligar hoje à noite.",
     },
   },
   {
@@ -266,29 +281,30 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Complete os conselhos do Dr. Cam:",
       paragraphs: [
-        {
-          text: "Julia (1) ______ relax. She (2) ______ drink coffee at night. She (3) ______ talk to her boss.",
-          blanks: [
-            {
-              id: "1",
-      options: ["should", "shouldn't"],
-      correctAnswer: "should",
-            },
-            {
-              id: "2",
-      options: ["should", "shouldn't"],
-      correctAnswer: "shouldn't",
-            },
-            {
-              id: "3",
-      options: ["should", "should to"],
-      correctAnswer: "should",
-            },
-          ],
-        },
+        [
+          "Julia",
+          {
+            id: "1",
+            options: ["should", "shouldn't"],
+            answer: "should",
+          },
+          "relax. She",
+          {
+            id: "2",
+            options: ["should", "shouldn't"],
+            answer: "shouldn't",
+          },
+          "drink coffee at night. She",
+          {
+            id: "3",
+            options: ["should", "should to"],
+            answer: "should",
+          },
+          "talk to her boss.",
+        ],
       ],
       successMessage:
-        "Julia should relax, shouldn't drink coffee and should talk to her boss.",
+        "Ótimo: você recuperou os conselhos do Dr. Cam. Julia should relax, shouldn't drink coffee and should talk to her boss.",
     },
   },
   {
@@ -297,9 +313,10 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "O Camaleão quer ser um aluno melhor.",
       instruction: "Escreva 5 conselhos usando should e shouldn't.",
-      correctAnswer:
+      tipText:
         "You should study every day. You shouldn't play video games all night.",
-      successMessage: "Conselhos registrados!",
+      successMessage:
+        "Muito bem: seus conselhos devem misturar boas ideias com should e alertas com shouldn't.",
     },
   },
   {
@@ -309,9 +326,10 @@ const LESSON_SLIDES = [
       prompt: "Grave esse conselho importante:",
       image: Images.ex16,
       tipButtonLabel: "Tip",
-      phrase: "You should always follow your dreams!",
-      correctAnswer: "You should always follow your dreams!",
-      successMessage: "Ótima pronúncia de should!",
+      instruction: "You should always follow your dreams!",
+      tipText: "You should always follow your dreams!",
+      successMessage:
+        "Excelente gravação: You should always follow your dreams! é um conselho positivo usando should antes do verbo.",
     },
   },
   {

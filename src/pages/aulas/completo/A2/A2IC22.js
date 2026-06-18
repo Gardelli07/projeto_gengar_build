@@ -146,9 +146,9 @@ const LESSON_SLIDES = [
     key: "a2ic22s11",
     component: "Exercise4",
     activity: {
-      prompt: "O que a pessoa fez logo depois de acordar?",
+      prompt: "Escolha a resposta correta:",
       image: ICA2.A22S11,
-      wrongSentence: "Choose the correct answer.",
+      wrongSentence: "O que a pessoa fez logo depois de acordar?",
       options: ["Tomou banho.", "Exercitou-se."],
       correctAnswer: "Exercitou-se.",
       successTitle: "Correto",
@@ -171,9 +171,9 @@ const LESSON_SLIDES = [
     key: "a2ic22s13",
     component: "Exercise4",
     activity: {
-      prompt: "Com quem a pessoa se encontrou no centro?",
+      prompt: "Escolha a resposta correta:",
       image: ICA2.A22S13,
-      wrongSentence: "Choose the correct answer.",
+      wrongSentence: "Com quem a pessoa se encontrou no centro?",
       options: ["Com seu melhor amigo.", "Com seu irmão."],
       correctAnswer: "Com seu melhor amigo.",
       successTitle: "Correto",

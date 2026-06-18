@@ -128,7 +128,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         'Organize as letras para formar a palavra essencial em "Let\'s ________ on".',
-      audioText: "Move",
+      audioSource: require("../../../../../mp3/BU/B1/A4S8.mp3"),
       audioDurationMs: 900,
       letters: ["E", "O", "M", "V"],
       correctWord: "MOVE",

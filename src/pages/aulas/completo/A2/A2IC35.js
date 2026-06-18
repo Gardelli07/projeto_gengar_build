@@ -96,6 +96,7 @@ const LESSON_SLIDES = [
       correctAnswer: "This watch is more expensive than that one.",
       successTitle: "Correto",
       successMessage: "This watch is more expensive than that one.",
+      submitLabel: "Enviar",
     },
   },
   {
@@ -116,6 +117,7 @@ const LESSON_SLIDES = [
       correctAnswer: "The sofa is more comfortable than the chair.",
       successTitle: "Correto",
       successMessage: "The sofa is more comfortable than the chair.",
+      submitLabel: "Enviar",
     },
   },
   {
@@ -135,6 +137,7 @@ const LESSON_SLIDES = [
       correctAnswer: "Paris is more beautiful than London.",
       successTitle: "Correto",
       successMessage: "Paris is more beautiful than London.",
+      submitLabel: "Enviar",
     },
   },
   {
@@ -218,6 +221,7 @@ const LESSON_SLIDES = [
       correctAnswer: "This movie is more interesting than the book.",
       successTitle: "Correto",
       successMessage: "This movie is more interesting than the book.",
+      submitLabel: "Responder",
     },
   },
   {
@@ -229,15 +233,17 @@ const LESSON_SLIDES = [
       correctAnswer: "Paris is more beautiful than London.",
       successTitle: "Correto",
       successMessage: "Paris is more beautiful than London.",
+      submitLabel: "Responder",
     },
   },
   {
     key: "a2ic35s16",
     component: "Exercise12",
     activity: {
-      prompt: 'Complete com sua opinião: "English is more important than..."',
-      instruction: "Escreva uma frase completa.",
-      correctAnswer: "English is more important than math.",
+      prompt: "Escreva uma frase completa.",
+      instruction:
+        'Complete com sua opinião: "English is more important than..."',
+      tipText: "English is more important than math.",
       successTitle: "Muito bem!",
       successMessage: "Opinião registrada.",
     },

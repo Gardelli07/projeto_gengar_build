@@ -30,7 +30,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A24S2,
-      audioText: "Painkiller",
+      audioSource: require("../../../../../mp3/TR/A1/A24S2.mp3"),
       audioDurationMs: 1200,
       answerOptions: ["Painkiller", "Passport"],
       correctOption: "Painkiller",
@@ -46,7 +46,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A24S3,
-      audioText: "Cold medicine",
+      audioSource: require("../../../../../mp3/TR/A1/A24S3.mp3"),
       audioDurationMs: 1500,
       answerOptions: ["Cold medicine", "Drip coffee"],
       correctOption: "Cold medicine",

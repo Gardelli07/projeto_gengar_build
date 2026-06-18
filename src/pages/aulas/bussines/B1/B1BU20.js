@@ -107,7 +107,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "Organize as letras para formar a palavra da reunião de balanço/análise.",
-      audioText: "Debrief",
+      audioSource: require("../../../../../mp3/BU/B1/A20S8.mp3"),
       audioDurationMs: 1000,
       letters: ["B", "E", "D", "R", "I", "E", "F"],
       correctWord: "DEBRIEF",
@@ -125,7 +125,7 @@ const LESSON_SLIDES = [
           "Overall, our last session was highly ",
           {
             id: "b1",
-      options: ["productive", "product"],
+            options: ["productive", "product"],
             answer: "productive",
           },
           ". It was clearly ",

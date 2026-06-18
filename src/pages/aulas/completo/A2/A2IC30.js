@@ -96,7 +96,7 @@ const LESSON_SLIDES = [
     component: "Exercise14",
     needsSpeech: true,
     activity: {
-      prompt: "Part 1: 8 PM. Leia enquanto ouve.",
+      prompt: "Part 1: 8 PM. Escute e escolha a frase correta.",
       image: ICA2.A30S7,
       audioSource: require("../../../../../mp3/IC/A2/A30S7.mp3"),
       options: ["Leo was studying.", "Leo was baking."],
@@ -129,6 +129,7 @@ const LESSON_SLIDES = [
       correctAnswer: "He was studying with his dog.",
       successTitle: "Correto",
       successMessage: "He was studying with his dog.",
+      submitLabel: "Enviar",
     },
   },
   {
@@ -136,7 +137,7 @@ const LESSON_SLIDES = [
     component: "Exercise14",
     needsSpeech: true,
     activity: {
-      prompt: "Part 2: 9 PM. Leia enquanto ouve.",
+      prompt: "Part 2: 9 PM. Escute e escolha a frase correta.",
       image: ICA2.A30S10,
       audioSource: require("../../../../../mp3/IC/A2/A30S10.mp3"),
       options: ["Sarah was baking a cake.", "Sarah was watching TV."],
@@ -153,7 +154,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "What was Sarah doing at 9 PM?",
       image: ICA2.A30S11,
-      audioText: "She was baking a cake.",
+      audioSource: require("../../../../../mp3/IC/A2/A30S11.mp3"),
       options: ["She was baking a cake.", "She was watching TV."],
       correctAnswer: "She was baking a cake.",
       correctOption: "She was baking a cake.",
@@ -195,6 +196,7 @@ const LESSON_SLIDES = [
       correctAnswer: "What were you doing at 10 PM?",
       successTitle: "Correto",
       successMessage: "What were you doing at 10 PM?",
+      submitLabel: "Responder",
     },
   },
   {

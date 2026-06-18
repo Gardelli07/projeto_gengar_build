@@ -198,6 +198,7 @@ const LESSON_SLIDES = [
       correctAnswer: "This is the cheapest phone in the store.",
       successTitle: "Correto",
       successMessage: "This is the cheapest phone in the store.",
+      submitLabel: "Responder",
     },
   },
   {
@@ -209,6 +210,7 @@ const LESSON_SLIDES = [
       correctAnswer: "Today is the shortest day of the year.",
       successTitle: "Correto",
       successMessage: "Today is the shortest day of the year.",
+      submitLabel: "Responder",
     },
   },
   {

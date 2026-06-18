@@ -54,6 +54,7 @@ const LESSON_SLIDES = [
       scrambledWords: ["studying", "were", "They", "together", "."],
       words: ["studying", "were", "They", "together", "."],
       correctAnswer: "They were studying together.",
+      submitLabel: "Enviar",
       successTitle: "Correto",
       successMessage: "They were studying together.",
     },
@@ -65,6 +66,7 @@ const LESSON_SLIDES = [
       prompt: "Escute e digite exatamente o que ouviu.",
       audioSource: require("../../../../../mp3/IC/A2/A24S5.mp3"),
       correctAnswer: "We were eating pizza.",
+      submitLabel: "Responder",
       successTitle: "Correto",
       successMessage: "We were eating pizza.",
     },
@@ -106,6 +108,7 @@ const LESSON_SLIDES = [
       instruction:
         "Grave um áudio contando o que seus amigos ou família estavam fazendo ontem à tarde.",
       helperText: 'Exemplo: "They were watching a movie."',
+      tipText: "They were watching a movie.",
       successTitle: "Muito bem!",
       successMessage: "Seu áudio foi gravado.",
     },

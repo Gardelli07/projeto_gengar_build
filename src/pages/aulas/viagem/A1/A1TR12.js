@@ -139,7 +139,7 @@ Não entre em pânico! Eles fazem isso como um deposit, uma caução de seguran�
     activity: {
       prompt:
         "Ouça o áudio com atenção e escreva exatamente a frase que o hóspede usou para falar da reserva.",
-      audioText: "I have a reservation.",
+      audioSource: require("../../../../../mp3/TR/A1/A12S9.mp3"),
       audioDurationMs: 1800,
       correctAnswer: "I have a reservation.",
       placeholder: "Digite a frase",

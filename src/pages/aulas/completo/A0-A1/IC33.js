@@ -61,7 +61,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e escolha",
       image: ICA1.A33S2,
-      audioText: "Thirteen",
+      audioSource: require("../../../../../mp3/IC/A0-A1/A33S5.mp3"),
       audioDurationMs: 1000,
       answerOptions: ["13", "3"],
       correctOption: "13",

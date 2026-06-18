@@ -3,6 +3,24 @@ import { ICA2, Images } from "../../../../util/images";
 
 const LESSON_SLIDES = [
   {
+    key: "a2ic14s7",
+    component: "Exercise17",
+    activity: {
+      label: "MÓDULO 2 • AULA 14",
+      content: [
+        "/blue{I took a shower}",
+        "A família dos irregulares é grande. Hoje vamos falar de comida, segredos e do que vimos por aí.",
+        "",
+        "/blue{Mudança de Vogal}",
+        "Muitos irregulares mudam apenas a vogal do meio.",
+        "Drink → Drank",
+        "Give → Gave",
+        "See → Saw",
+      ],
+      continueLabel: "Continuar",
+    },
+  },
+  {
     key: "a2ic14s1",
     component: "Exercise4",
     activity: {
@@ -92,24 +110,6 @@ const LESSON_SLIDES = [
       correctOption: "Gave",
       feedbackMessage: "Give vira gave no passado.",
       successTitle: "Correto",
-    },
-  },
-  {
-    key: "a2ic14s7",
-    component: "Exercise17",
-    activity: {
-      label: "MÓDULO 2 • AULA 14",
-      content: [
-        "/blue{I took a shower}",
-        "A família dos irregulares é grande. Hoje vamos falar de comida, segredos e do que vimos por aí.",
-        "",
-        "/blue{Mudança de Vogal}",
-        "Muitos irregulares mudam apenas a vogal do meio.",
-        "Drink → Drank",
-        "Give → Gave",
-        "See → Saw",
-      ],
-      continueLabel: "Continuar",
     },
   },
   {
@@ -266,18 +266,6 @@ const LESSON_SLIDES = [
       tipText: "Use saw para falar de algo que você viu.",
       successTitle: "Muito bem!",
       successMessage: "Seu áudio foi gravado.",
-    },
-  },
-  {
-    key: "a2ic14s20",
-    component: "Exercise17",
-    activity: {
-      label: "Desafio",
-      content: [
-        "/blue{Desafio de Escrita!}",
-        "Você verá um verbo no presente e terá 5 segundos para digitar a forma correta do passado.",
-      ],
-      continueLabel: "Começar",
     },
   },
   {

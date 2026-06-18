@@ -29,7 +29,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A20S2,
-      audioText: "Ticket",
+      audioSource: require("../../../../../mp3/TR/A1/A20S2.mp3"),
       audioDurationMs: 900,
       answerOptions: ["Ticket", "Passport"],
       correctOption: "Ticket",
@@ -44,7 +44,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A20S3,
-      audioText: "Adult",
+      audioSource: require("../../../../../mp3/TR/A1/A20S3.mp3"),
       audioDurationMs: 900,
       answerOptions: ["Adult", "Child"],
       correctOption: "Adult",
@@ -59,7 +59,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A20S4,
-      audioText: "Child",
+      audioSource: require("../../../../../mp3/TR/A1/A20S4.mp3"),
       audioDurationMs: 900,
       answerOptions: ["Child", "Adult"],
       correctOption: "Child",

@@ -125,8 +125,8 @@ const LESSON_SLIDES = [
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha",
-      image: ICA1.A19S8,
-      audioText: "Good night, honey.",
+      image: ICA1.A19S10,
+      audioSource: require("../../../../../mp3/IC/A0-A1/A19S10.mp3"),
       audioDurationMs: 1400,
       answerOptions: ["A pessoa chegou", "A pessoa vai dormir"],
       correctOption: "A pessoa vai dormir",

@@ -125,7 +125,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         'Organize as letras para formar a palavra que você usa em "________ we move on".',
-      audioText: "Before",
+      audioSource: require("../../../../../mp3/BU/B1/A7S8.mp3"),
       audioDurationMs: 1000,
       letters: ["F", "E", "B", "R", "O", "E"],
       correctWord: "BEFORE",

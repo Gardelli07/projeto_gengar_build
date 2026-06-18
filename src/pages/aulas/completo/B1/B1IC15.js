@@ -37,7 +37,8 @@ Hoje vamos aprender como os nativos mantém o assunto fluindo de forma natural!`
         { imageId: "awkward-img", wordId: "awkward-word" },
       ],
       successTitle: "Correto",
-      successMessage: "Você identificou conversa fluindo e silêncio desconfortável.",
+      successMessage:
+        "Você identificou conversa fluindo e silêncio desconfortável.",
     },
   },
   {
@@ -113,7 +114,8 @@ Isso mostra que você está prestando atenção.`,
       options: ["What", "Who"],
       correctAnswer: "What",
       successTitle: "Correto",
-      successMessage: 'Perguntamos "What was it about?" para saber sobre o assunto.',
+      successMessage:
+        'Perguntamos "What was it about?" para saber sobre o assunto.',
     },
   },
   {
@@ -131,8 +133,7 @@ Isso mostra que você está prestando atenção.`,
       ],
       correctAnswer: "Who did you go withá",
       successTitle: "Correto",
-      successMessage:
-        'Depois de "did", usamos o verbo base: go.',
+      successMessage: 'Depois de "did", usamos o verbo base: go.',
     },
   },
   {
@@ -176,7 +177,7 @@ Isso mostra que você está prestando atenção.`,
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e escreva a reação exata que você ouviu.",
-      audioText: "That is so interesting. Tell me more!",
+      audioSource: require("../../../../../mp3/IC/B1/A15S4.mp3"),
       audioDurationMs: 3000,
       correctAnswer: "That is so interesting. Tell me more!",
       placeholder: "Digite a reação",

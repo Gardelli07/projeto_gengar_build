@@ -126,6 +126,7 @@ const LESSON_SLIDES = [
       correctAnswer: "What's the best place to see the sunset?",
       successTitle: "Correto",
       successMessage: "What's the best place to see the sunset?",
+      submitLabel: "Enviar",
     },
   },
   {
@@ -138,6 +139,7 @@ const LESSON_SLIDES = [
       correctAnswer: "What's the best place to relax?",
       successTitle: "Correto",
       successMessage: "What's the best place to relax?",
+      submitLabel: "Enviar",
     },
   },
   {
@@ -149,6 +151,7 @@ const LESSON_SLIDES = [
       correctAnswer: "What's the best place to buy a camera?",
       successTitle: "Correto",
       successMessage: "What's the best place to buy a camera?",
+      submitLabel: "Responder",
     },
   },
   {
@@ -160,6 +163,7 @@ const LESSON_SLIDES = [
       correctAnswer: "What's the best place to eat sushi?",
       successTitle: "Correto",
       successMessage: "What's the best place to eat sushi?",
+      submitLabel: "Responder",
     },
   },
   {
@@ -169,7 +173,7 @@ const LESSON_SLIDES = [
       prompt: "Pense na sua cidade atual.",
       instruction:
         'Se um turista perguntasse "What\'s the best place to eat?", o que você responderia?',
-      correctAnswer: "The best place to eat is downtown.",
+      tipText: "The best place to eat is downtown.",
       successTitle: "Muito bem!",
       successMessage: "Resposta registrada.",
     },

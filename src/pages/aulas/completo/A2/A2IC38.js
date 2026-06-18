@@ -289,6 +289,7 @@ const LESSON_SLIDES = [
       correctAnswer: "Learning English is much easier than I thought.",
       successTitle: "Correto",
       successMessage: "Learning English is much easier than I thought.",
+      submitLabel: "Responder",
     },
   },
   {

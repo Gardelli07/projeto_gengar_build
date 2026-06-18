@@ -115,6 +115,7 @@ const LESSON_SLIDES = [
       correctAnswer: "I was sleeping when the phone rang.",
       successTitle: "Correto",
       successMessage: "I was sleeping when the phone rang.",
+      submitLabel: "Enviar",
     },
   },
   {
@@ -137,6 +138,7 @@ const LESSON_SLIDES = [
       correctAnswer: "Cam was eating when he saw a fly.",
       successTitle: "Correto",
       successMessage: "Cam was eating when he saw a fly.",
+      submitLabel: "Enviar",
     },
   },
   {
@@ -169,6 +171,7 @@ const LESSON_SLIDES = [
       correctAnswer: "They were walking when it started to snow.",
       successTitle: "Correto",
       successMessage: "They were walking when it started to snow.",
+      submitLabel: "Enviar",
     },
   },
   {
@@ -180,6 +183,7 @@ const LESSON_SLIDES = [
       correctAnswer: "She was singing when I entered the room.",
       successTitle: "Correto",
       successMessage: "She was singing when I entered the room.",
+      submitLabel: "Responder",
     },
   },
   {
@@ -191,6 +195,7 @@ const LESSON_SLIDES = [
       correctAnswer: "We were driving when the car broke down.",
       successTitle: "Correto",
       successMessage: "We were driving when the car broke down.",
+      submitLabel: "Responder",
     },
   },
   {
@@ -202,6 +207,7 @@ const LESSON_SLIDES = [
       correctAnswer: "Was he working when you called?",
       successTitle: "Correto",
       successMessage: "Was he working when you called?",
+      submitLabel: "Responder",
     },
   },
   {
@@ -276,9 +282,10 @@ const LESSON_SLIDES = [
     key: "a2ic28s18",
     component: "Exercise12",
     activity: {
-      prompt: "Conte algo que foi interrompido no seu dia de hoje.",
-      instruction: 'Exemplo: "I was drinking coffee when my boss called me."',
-      correctAnswer: "I was drinking coffee when my boss called me.",
+      prompt: "Escreva sobre seu dia",
+      instruction: "Conte algo que foi interrompido no seu dia de hoje. ",
+      helperText: 'Exemplo: "I was drinking coffee when my boss called me."',
+      tipText: "I was drinking coffee when my boss called me.",
       successTitle: "Muito bem!",
       successMessage: "História registrada.",
     },

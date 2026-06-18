@@ -101,6 +101,7 @@ const LESSON_SLIDES = [
       correctAnswer: "Where is the museum?",
       successTitle: "Correto",
       successMessage: "Where is the museum?",
+      submitLabel: "Enviar",
     },
   },
   {
@@ -113,6 +114,7 @@ const LESSON_SLIDES = [
       correctAnswer: "I want a guided tour.",
       successTitle: "Correto",
       successMessage: "I want a guided tour.",
+      submitLabel: "Enviar",
     },
   },
   {
@@ -124,6 +126,7 @@ const LESSON_SLIDES = [
       correctAnswer: "I bought a souvenir for my mom.",
       successTitle: "Correto",
       successMessage: "I bought a souvenir for my mom.",
+      submitLabel: "Responder",
     },
   },
   {
@@ -135,6 +138,7 @@ const LESSON_SLIDES = [
       correctAnswer: "Is there a landmark near here?",
       successTitle: "Correto",
       successMessage: "Is there a landmark near here?",
+      submitLabel: "Responder",
     },
   },
   {
@@ -155,7 +159,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Qual ponto turístico você mais quer visitar no mundo?",
       instruction: "Escreva uma frase curta contando o motivo.",
-      correctAnswer: "I want to visit the Louvre museum in Paris.",
+      tipText: "I want to visit the Louvre museum in Paris.",
       successTitle: "Muito bem!",
       successMessage: "Resposta registrada.",
     },

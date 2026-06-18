@@ -232,7 +232,10 @@ export const BUB1 = {
 };
 
 export const ICA1 = {
-  semimg: require("../../assets/IC/A0-A1/semimg.jpg"),
+  A34S5: require("../../assets/IC/A0-A1/A13S9.jpeg"),
+  A13S9: require("../../assets/IC/A0-A1/A13S9.jpeg"),
+  A13S7: require("../../assets/IC/A0-A1/A13S7.jpg"),
+  A19S10: require("../../assets/IC/A0-A1/A19S10.jpeg"),
   slide1: require("../../assets/IC/A0-A1/IC01 slide1.png"),
   slide6: require("../../assets/IC/A0-A1/IC01 slide6.png"),
   slide6p2: require("../../assets/IC/A0-A1/IC01 slide6p2.png"),

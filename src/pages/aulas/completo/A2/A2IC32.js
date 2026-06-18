@@ -101,6 +101,7 @@ const LESSON_SLIDES = [
       correctAnswer: "The AC isn't working.",
       successTitle: "Correto",
       successMessage: "The AC isn't working.",
+      submitLabel: "Enviar",
     },
   },
   {
@@ -113,6 +114,7 @@ const LESSON_SLIDES = [
       correctAnswer: "I need an extra bed.",
       successTitle: "Correto",
       successMessage: "I need an extra bed.",
+      submitLabel: "Enviar",
     },
   },
   {
@@ -124,6 +126,7 @@ const LESSON_SLIDES = [
       correctAnswer: "Could I have some fresh towels?",
       successTitle: "Correto",
       successMessage: "Could I have some fresh towels?",
+      submitLabel: "Responder",
     },
   },
   {
@@ -135,6 +138,7 @@ const LESSON_SLIDES = [
       correctAnswer: "The remote control is broken.",
       successTitle: "Correto",
       successMessage: "The remote control is broken.",
+      submitLabel: "Responder",
     },
   },
   {
@@ -176,8 +180,8 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escreva uma mensagem curta para o WhatsApp do hotel.",
       instruction:
-        'Peça um secador de cabelo e toalhas novas. Use "I need..." ou "Could I have...?"',
-      correctAnswer: "Could I have a hairdryer and some fresh towels?",
+        'Escreva uma mensagem curta para o WhatsApp do hotel. Peça um secador de cabelo e toalhas novas. Use "I need..." ou "Could I have...?"',
+      tipText: "Could I have a hairdryer and some fresh towels?",
       successTitle: "Muito bem!",
       successMessage: "Mensagem registrada.",
     },

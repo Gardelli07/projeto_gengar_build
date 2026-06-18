@@ -45,7 +45,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A22S3,
-      audioText: "Credit card or cash?",
+      audioSource: require("../../../../../mp3/TR/A1/A22S3.mp3"),
       audioDurationMs: 1800,
       answerOptions: ["Credit card or cash?", "Table for two?"],
       correctOption: "Credit card or cash?",

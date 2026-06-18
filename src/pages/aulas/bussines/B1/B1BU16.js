@@ -104,7 +104,7 @@ const LESSON_SLIDES = [
     needsSpeech: true,
     activity: {
       prompt: 'Organize as letras para formar a palavra "Consenso".',
-      audioText: "Consensus",
+      audioSource: require("../../../../../mp3/BU/B1/A16S8.mp3"),
       audioDurationMs: 1300,
       letters: ["S", "N", "S", "O", "C", "N", "E", "S", "U"],
       correctWord: "CONSENSUS",
@@ -128,7 +128,7 @@ const LESSON_SLIDES = [
           ", we are spending too much on software. So, the key ",
           {
             id: "b4",
-      options: ["consensus", "consequence"],
+            options: ["consensus", "consequence"],
             answer: "consensus",
           },
           " is to freeze new purchases.",

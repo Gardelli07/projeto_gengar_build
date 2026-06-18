@@ -29,7 +29,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
       image: TRA1.A23S2,
-      audioText: "Souvenir",
+      audioSource: require("../../../../../mp3/TR/A1/A23S2.mp3"),
       audioDurationMs: 1200,
       answerOptions: ["Souvenir", "Ticket"],
       correctOption: "Souvenir",

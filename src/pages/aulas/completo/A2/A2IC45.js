@@ -83,13 +83,29 @@ const LESSON_SLIDES = [
       paragraphs: [
         [
           "The talent show was ",
-          { id: "b1", answer: "the best", options: ["the best", "the goodest"] },
+          {
+            id: "b1",
+            answer: "the best",
+            options: ["the best", "the goodest"],
+          },
           " event ever! My friend Sarah has ",
-          { id: "b2", answer: "the most beautiful", options: ["the most beautiful", "the beautifulest"] },
+          {
+            id: "b2",
+            answer: "the most beautiful",
+            options: ["the most beautiful", "the beautifulest"],
+          },
           " voice. I have ",
-          { id: "b3", answer: "the biggest", options: ["the bigest", "the biggest"] },
+          {
+            id: "b3",
+            answer: "the biggest",
+            options: ["the bigest", "the biggest"],
+          },
           " smile. It was ",
-          { id: "b4", answer: "the most exciting", options: ["the most exciting", "the excitingest"] },
+          {
+            id: "b4",
+            answer: "the most exciting",
+            options: ["the most exciting", "the excitingest"],
+          },
           " day of my life!",
         ],
       ],
@@ -102,8 +118,10 @@ const LESSON_SLIDES = [
     component: "Exercise12",
     activity: {
       prompt: "Quem são os recordistas do seu mundo?",
-      instruction: "Escreva 5 frases usando superlativos sobre seus amigos, família ou hobbies. Use pelo menos um the most, um -est/-iest e o irregular the best.",
-      correctAnswer: "My mom is the best cook. My dog is the fastest animal I know. My friend is the most intelligent person in class.",
+      instruction:
+        "Escreva 5 frases usando superlativos sobre seus amigos, família ou hobbies. Use pelo menos um the most, um -est/-iest e o irregular the best.",
+      tipText:
+        "My mom is the best cook. My dog is the fastest animal I know. My friend is the most intelligent person in class.",
       successTitle: "Muito bem!",
       successMessage: "Texto registrado.",
     },

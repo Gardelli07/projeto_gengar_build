@@ -105,7 +105,7 @@ const LESSON_SLIDES = [
     needsSpeech: true,
     activity: {
       prompt: 'Organize as letras para formar "Andamento" ou "Situação Atual".',
-      audioText: "Status",
+      audioSource: require("../../../../../mp3/BU/B1/A19S8.mp3"),
       audioDurationMs: 900,
       letters: ["S", "A", "U", "T", "S", "T"],
       correctWord: "STATUS",

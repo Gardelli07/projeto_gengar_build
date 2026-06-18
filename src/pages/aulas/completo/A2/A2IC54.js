@@ -26,7 +26,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A54S2.mp3"),
       options: ["Click on the link.", "Scroll on the link."],
       correctAnswer: "Click on the link.",
-      successMessage: "Click significa clicar.",
+      feedbackMessage:
+        "Correto: click significa clicar. Click on the link é o comando para abrir um link.",
     },
   },
   {
@@ -38,7 +39,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A54S3.mp3"),
       options: ["Scroll down the page.", "Scroll up the page."],
       correctAnswer: "Scroll down the page.",
-      successMessage: "Scroll down é rolar para baixo.",
+      feedbackMessage:
+        "Muito bem: scroll down significa rolar a página para baixo para ver mais conteúdo.",
     },
   },
   {
@@ -50,7 +52,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A54S4.mp3"),
       options: ["I have to download the file.", "I have to upload the file."],
       correctAnswer: "I have to download the file.",
-      successMessage: "Download é baixar da internet para o seu dispositivo.",
+      feedbackMessage:
+        "Boa escuta: download é baixar um arquivo da internet para o seu dispositivo.",
     },
   },
   {
@@ -62,7 +65,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A54S5.mp3"),
       options: ["upload", "loaded"],
       correctAnswer: "upload",
-      successMessage: "Upload é enviar do seu dispositivo para a internet.",
+      feedbackMessage:
+        "Isso mesmo: upload é enviar um arquivo do seu dispositivo para a internet ou para outra pessoa.",
     },
   },
   {
@@ -73,7 +77,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A54S6.mp3"),
       letters: ["S", "C", "R", "O", "L", "L"],
       correctWord: "SCROLL",
-      successMessage: "Scroll significa rolar a página.",
+      successMessage:
+        "Perfeito: scroll é a ação de rolar a página para encontrar mais informações.",
     },
   },
   {
@@ -84,7 +89,8 @@ const LESSON_SLIDES = [
       audioSource: require("../../../../../mp3/IC/A2/A54S7.mp3"),
       letters: ["U", "P", "L", "O", "A", "D"],
       correctWord: "UPLOAD",
-      successMessage: "Upload é enviar.",
+      successMessage:
+        "Muito bem: upload é enviar um arquivo do seu aparelho para a internet, como um relatório ou uma foto.",
     },
   },
   {
@@ -95,7 +101,8 @@ const LESSON_SLIDES = [
       words: ["Click", "on", "the", "green", "button", "."],
       correctOrder: ["Click", "on", "the", "green", "button", "."],
       correctAnswer: "Click on the green button.",
-      successMessage: "Comando digital correto.",
+      successMessage:
+        "Frase correta: Click on the green button. Use click on para indicar onde a pessoa deve clicar.",
     },
   },
   {
@@ -107,7 +114,8 @@ const LESSON_SLIDES = [
       sentenceEnd: "down to read the text.",
       options: ["scroll", "put"],
       correctAnswer: "scroll",
-      successMessage: "I need to scroll down.",
+      successMessage:
+        "Certo: para ver o restante da página, você precisa dizer I need to scroll down.",
     },
   },
   {
@@ -129,9 +137,9 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "O que você faz no seu site favorito?",
       instruction: "Escreva 3 frases usando click, scroll, download ou upload.",
-      correctAnswer:
-        "I scroll down the page. I click on a video. I download a file.",
-      successMessage: "Ações digitais registradas!",
+      tipText: "I scroll down the page. I click on a video. I download a file.",
+      successMessage:
+        "Muito bem: suas frases descrevem ações reais da navegação online usando click, scroll, download ou upload.",
     },
   },
   {

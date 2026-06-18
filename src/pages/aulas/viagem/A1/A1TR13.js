@@ -142,7 +142,7 @@ Para saber o horário do café, não use "What time is it?", que pergunta que ho
     activity: {
       prompt:
         "Ouça com atenção e escreva exatamente a pergunta que o hóspede fez para o recepcionista.",
-      audioText: "What time is breakfast?",
+      audioSource: require("../../../../../mp3/TR/A1/A13S9.mp3"),
       audioDurationMs: 1800,
       correctAnswer: "What time is breakfast?",
       placeholder: "Digite a pergunta",

@@ -190,6 +190,7 @@ const LESSON_SLIDES = [
       correctAnswer: "This book is as interesting as the movie.",
       successTitle: "Correto",
       successMessage: "This book is as interesting as the movie.",
+      submitLabel: "Responder",
     },
   },
   {

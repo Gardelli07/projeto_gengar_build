@@ -133,7 +133,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         'Organize as letras para formar a palavra elegante que substitui o assustador "Problem".',
-      audioText: "Issue",
+      audioSource: require("../../../../../mp3/BU/B1/A6S8.mp3"),
       audioDurationMs: 1000,
       letters: ["S", "S", "I", "E", "U"],
       correctWord: "ISSUE",
@@ -155,7 +155,7 @@ const LESSON_SLIDES = [
           " with the budget. Because of this, it might be worth ",
           {
             id: "blank-3",
-      options: ["to consider", "considering"],
+            options: ["to consider", "considering"],
             answer: "considering",
           },
           " a different approach.",
