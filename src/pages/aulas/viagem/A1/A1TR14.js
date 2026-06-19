@@ -110,6 +110,7 @@ Mas e se você só quiser pedir algo, como uma toalha extra? A forma mais fácil
     activity: {
       prompt:
         'Como se escreve a palavra que salva o seu banho no hotel? Clique nas letras na ordem correta para formar a palavra "toalha" em inglês.',
+      audioSource: require("../../../../../mp3/TR/A1/A14S2.mp3"),
       letters: ["e", "l", "t", "o", "w"],
       correctWord: "TOWEL",
       successTitle: "Correto",

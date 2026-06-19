@@ -130,6 +130,7 @@ Para saber o horário do café, não use "What time is it?", que pergunta que ho
       prompt:
         'Coloque as letras na ordem para descobrir como se escreve a palavra que usamos para "senha" em inglês.',
       letters: ["p", "a", "s", "s", "w", "o", "r", "d"],
+      audioSource: require("../../../../../mp3/TR/A1/A13S8.mpeg"),
       correctWord: "PASSWORD",
       successTitle: "Correto",
       successMessage: "Password significa senha.",

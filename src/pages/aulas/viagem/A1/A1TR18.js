@@ -95,7 +95,8 @@ Exemplo: "I'd like the chicken, please." Treine esse som para soar mais natural.
       prompt:
         'O garçom quer saber se você está pronto para "pedir". Coloque as letras na ordem certa.',
       letters: ["o", "r", "d", "e", "r"],
-      correctWord: "ORDER",
+      audioSource: require("../../../../../mp3/TR/A1/A18S6.mpeg"),
+      correctWord: "order",
       successTitle: "Correto",
       successMessage: "Order significa pedir/fazer o pedido.",
     },

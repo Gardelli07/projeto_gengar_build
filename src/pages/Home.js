@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Svg, { Circle, Text as SvgText } from "react-native-svg";
+import Svg, { Circle, Text as SvgText, TSpan } from "react-native-svg";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import CORES from "../util/cores";
 import { LESSON_STREAK_STORAGE_KEY } from "../util/lessonPerformance";
@@ -161,7 +161,7 @@ async function loadProgress(storageKey) {
   }
 }
 
-function ProgressCircle({ percent, size = 62, strokeWidth = 4 }) {
+function ProgressCircle({ percent, size = 70, strokeWidth = 4 }) {
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference * (1 - percent / 100);
@@ -194,9 +194,10 @@ function ProgressCircle({ percent, size = 62, strokeWidth = 4 }) {
         textAnchor="middle"
         fill={THEME.textStrong}
         fontWeight="800"
-        fontSize={17}
+        fontSize={16}
       >
-        {Math.round(percent)}%
+        {Math.round(percent)}
+        <TSpan dx={-1.5}>%</TSpan>
       </SvgText>
     </Svg>
   );

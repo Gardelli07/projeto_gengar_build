@@ -72,8 +72,8 @@ Se você estiver com uma peça na mão e quiser saber se pode experimentar, apon
     activity: {
       prompt: "Combine a etiqueta com o tamanho correto em inglês.",
       images: [
-        { id: "small-img", image: TRA1.A21S2 },
-        { id: "large-img", image: TRA1.A21S10 },
+        { id: "small-img", image: TRA1.A21S5 },
+        { id: "large-img", image: TRA1.A21S5p2 },
       ],
       words: [
         { id: "small-word", label: "Small" },

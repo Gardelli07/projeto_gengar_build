@@ -118,7 +118,8 @@ Sempre espere na porta. Procure uma placa que diz "Please wait to be seated". O 
       prompt:
         'Você sentou, mas a mesa está vazia. Clique nas letras na ordem correta para formar a palavra "Cardápio" em inglês.',
       letters: ["u", "e", "n", "m"],
-      correctWord: "MENU",
+      audioSource: require("../../../../../mp3/TR/A1/A17S3.mp3"),
+      correctWord: "menu",
       successTitle: "Correto",
       successMessage: "Menu significa cardápio.",
     },

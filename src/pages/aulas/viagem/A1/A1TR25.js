@@ -98,7 +98,8 @@ Back + ache = backache.
       prompt:
         'Você quer dizer que está "doente" ou "passando mal". Clique nas letras na ordem correta para formar essa palavra.',
       letters: ["i", "c", "s", "k"],
-      correctWord: "SICK",
+      audioSource: require("../../../../../mp3/TR/A1/A25S2.mp3"),
+      correctWord: "sick",
       successTitle: "Correto",
       successMessage: "Sick significa doente ou passando mal.",
     },

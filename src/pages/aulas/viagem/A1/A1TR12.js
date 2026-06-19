@@ -95,8 +95,9 @@ Não entre em pânico! Eles fazem isso como um deposit, uma caução de seguran�
     activity: {
       prompt:
         'O recepcionista está prestes a te entregar o acesso ao quarto. Coloque as letras na ordem para formar a palavra "chave" em inglês.',
+      audioSource: require("../../../../../mp3/TR/A1/A12S3.mp3"),
       letters: ["y", "k", "e"],
-      correctWord: "KEY",
+      correctWord: "key",
       successTitle: "Correto",
       successMessage: "Key significa chave.",
     },

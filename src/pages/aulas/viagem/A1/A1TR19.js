@@ -85,7 +85,7 @@ Se não estiver, você deve adicionar o tip na hora de pagar com o cartão ou de
         { imageId: "tip-img", wordId: "tip-word" },
       ],
       successTitle: "Correto",
-      successMessage: "The check é a conta; tip é gorjeta.",
+      successMessage: "The check é a conta, tip é gorjeta.",
     },
   },
   {

@@ -93,7 +93,8 @@ const LESSON_SLIDES = [
       prompt:
         'Você quer pagar com "dinheiro vivo". Clique nas letras na ordem correta para formar essa palavra em inglês.',
       letters: ["s", "h", "a", "c"],
-      correctWord: "CASH",
+      audioSource: require("../../../../../mp3/TR/A1/A22S6.mpeg"),
+      correctWord: "cash",
       successTitle: "Correto",
       successMessage: "Cash significa dinheiro vivo.",
     },

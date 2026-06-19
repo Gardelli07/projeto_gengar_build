@@ -1,4 +1,6 @@
 export const TRA1 = {
+  A21S5: require("../../assets/TR/A1/A21S5.jpeg"),
+  A21S5p2: require("../../assets/TR/A1/A21S5p2.jpeg"),
   A10S2: require("../../assets/TR/A1/A10S2.jpg"),
   A10S3: require("../../assets/TR/A1/A10S3.jpg"),
   A10S5: require("../../assets/TR/A1/A10S5.jpg"),
