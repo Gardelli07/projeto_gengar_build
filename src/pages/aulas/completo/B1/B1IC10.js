@@ -26,7 +26,7 @@ Legacy: o impacto duradouro deixado por alguém.`,
     needsSpeech: true,
     activity: {
       prompt: "Escolha a definição correta",
-      image: ICB1.A14S4,
+      image: ICB1.A10S1,
       audioSource: require("../../../../../mp3/IC/B1/A10S1.mp3"),
       audioDurationMs: 3000,
       answerOptions: [
@@ -44,7 +44,7 @@ Legacy: o impacto duradouro deixado por alguém.`,
     needsSpeech: true,
     activity: {
       prompt: "Escolha a definição correta",
-      image: ICB1.A15S2,
+      image: ICB1.A10S2,
       audioSource: require("../../../../../mp3/IC/B1/A10S2.mp3"),
       audioDurationMs: 3200,
       answerOptions: [
@@ -63,7 +63,7 @@ Legacy: o impacto duradouro deixado por alguém.`,
     needsSpeech: true,
     activity: {
       prompt: "Escolha a definição correta",
-      image: ICB1.A15S3,
+      image: ICB1.A10S3,
       audioSource: require("../../../../../mp3/IC/B1/A10S3.mp3"),
       audioDurationMs: 3200,
       answerOptions: [
@@ -72,7 +72,7 @@ Legacy: o impacto duradouro deixado por alguém.`,
       ],
       correctOption: "Featuring new methods; advanced and original.",
       successTitle: "Correto",
-      feedbackMessage: "Pronúncia: ?-no-vei-tiv.",
+      feedbackMessage: "Pronúncia: í-no-vei-tiv.",
     },
   },
   {
@@ -81,7 +81,7 @@ Legacy: o impacto duradouro deixado por alguém.`,
     needsSpeech: true,
     activity: {
       prompt: "Escolha a definição correta",
-      image: ICB1.A15S6,
+      image: ICB1.A10S4,
       audioSource: require("../../../../../mp3/IC/B1/A10S4.mp3"),
       audioDurationMs: 3400,
       answerOptions: [
@@ -90,7 +90,7 @@ Legacy: o impacto duradouro deixado por alguém.`,
       ],
       correctOption: "The long-lasting impact or reputation left by someone.",
       successTitle: "Correto",
-      feedbackMessage: "Pronúncia: L?-ga-si.",
+      feedbackMessage: "Pronúncia: LÉ-ga-si.",
     },
   },
   {
@@ -111,7 +111,7 @@ He led the creation of innovative products that changed the world, such as the M
     component: "Exercise4",
     activity: {
       prompt: "Com base no texto, escolha a opção correta:",
-      image: ICB1.A15S7,
+      image: ICB1.A10S7,
       wrongSentence: "Jobs and Wozniak started Apple in...",
       options: ["a garage", "a professional studio"],
       correctAnswer: "a garage",
@@ -124,7 +124,7 @@ He led the creation of innovative products that changed the world, such as the M
     component: "Exercise4",
     activity: {
       prompt: "Com base no texto, escolha a opção correta:",
-      image: ICB1.A16S2,
+      image: ICB1.A10S8,
       wrongSentence: "Jobs believed technology should be...",
       options: [
         "It should be only functional",
@@ -141,7 +141,7 @@ He led the creation of innovative products that changed the world, such as the M
     component: "Exercise4",
     activity: {
       prompt: "Com base no texto, escolha a opção correta:",
-      image: ICB1.A16S3,
+      image: ICB1.A10S9,
       wrongSentence: "Which product is mentioned in the text?",
       options: ["The iPhone", "The electric guitar"],
       correctAnswer: "The iPhone",
@@ -154,7 +154,7 @@ He led the creation of innovative products that changed the world, such as the M
     component: "Exercise4",
     activity: {
       prompt: "Com base no texto, escolha a opção correta:",
-      image: ICB1.A16S5,
+      image: ICB1.A10S10,
       wrongSentence: "What lives on today?",
       options: ["Steve Jobs' legacy", "The first Apple garage"],
       correctAnswer: "Steve Jobs' legacy",
@@ -200,7 +200,6 @@ He led the creation of innovative products that changed the world, such as the M
       instruction: "Tema: Your Future Legacy.",
       helperText:
         "Escreva 3 frases: imagine que você é founder de algo novo, use innovative para descrever sua ideia e diga qual legacy quer deixar.",
-      image: ICB1.A16S6,
       placeholder:
         "I am the founder of a new language app. My idea is innovative because it mixes AI and real practice. I want to leave a legacy for future developers.",
       tipText:

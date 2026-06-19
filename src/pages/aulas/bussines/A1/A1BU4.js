@@ -111,7 +111,7 @@ Sem enrolação, os chefes gringos amam direto ao ponto.`,
     activity: {
       prompt:
         "Olhe para a imagem. Como dizemos que uma tarefa está terminada em inglês?",
-      emoji: "✓",
+      image: BUA1.A4S7,
       options: ["Done", "Working"],
       correctAnswer: "Done",
       successTitle: "Correto",

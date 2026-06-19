@@ -45,7 +45,6 @@ Both express prohibition, but mustn't tends to be more formal or rules-based.`,
       options: [
         { id: "prohibited", image: ICB1.A22S6 },
         { id: "library", image: ICB1.A22S5 },
-        { id: "question", image: Images.tip },
       ],
       successTitle: "Correct",
       successMessage: 'The no-smoking sign represents "prohibited".',

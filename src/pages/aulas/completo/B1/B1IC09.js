@@ -27,7 +27,7 @@ Recharge: recarregar as energias.`,
     needsSpeech: true,
     activity: {
       prompt: "Escolha a melhor interpretação",
-      image: ICB1.A11S5,
+      image: ICB1.A9S1,
       audioSource: require("../../../../../mp3/IC/B1/A9S1.mp3"),
       audioDurationMs: 3400,
       answerOptions: [
@@ -47,7 +47,7 @@ Recharge: recarregar as energias.`,
     needsSpeech: true,
     activity: {
       prompt: "Escolha a definição correta",
-      image: ICB1.A11S6,
+      image: ICB1.A9S2,
       audioSource: require("../../../../../mp3/IC/B1/A9S2.mp3"),
       audioDurationMs: 3000,
       answerOptions: [
@@ -65,7 +65,7 @@ Recharge: recarregar as energias.`,
     needsSpeech: true,
     activity: {
       prompt: "Escolha a definição correta",
-      image: ICB1.A11S7,
+      image: ICB1.A9S3,
       audioSource: require("../../../../../mp3/IC/B1/A9S3.mp3"),
       audioDurationMs: 3200,
       answerOptions: [
@@ -154,7 +154,7 @@ However, he soon faced Burnout. He couldn't code, he couldn't play his guitar, a
     component: "Exercise4",
     activity: {
       prompt: "Com base no texto, escolha a resposta correta:",
-      image: ICB1.A12S2,
+      image: ICB1.A9S8,
       wrongSentence: "Why did David face Burnout?",
       options: [
         "Because he worked too much.",
@@ -170,7 +170,7 @@ However, he soon faced Burnout. He couldn't code, he couldn't play his guitar, a
     component: "Exercise4",
     activity: {
       prompt: "Com base no texto, escolha a resposta correta:",
-      image: ICB1.A12S3,
+      image: ICB1.A9S9,
       wrongSentence: "What did David do to recoverá",
       options: ["He quit his job.", "He set strict boundaries."],
       correctAnswer: "He set strict boundaries.",
@@ -184,7 +184,7 @@ However, he soon faced Burnout. He couldn't code, he couldn't play his guitar, a
     component: "Exercise4",
     activity: {
       prompt: "Com base no texto, escolha a resposta correta:",
-      image: ICB1.A13S4,
+      image: ICB1.A9S10,
       wrongSentence: "What happened to David's app?",
       options: [
         "It became better and more creative.",
@@ -231,7 +231,7 @@ However, he soon faced Burnout. He couldn't code, he couldn't play his guitar, a
     component: "Exercise20",
     activity: {
       prompt: "Verdadeiro ou falso?",
-      image: ICB1.A14S2,
+      image: ICB1.A9S11,
       dialogue:
         'According to the text, "recharging" your battery makes your code worse because you lose time.',
       options: ["True", "False"],
@@ -249,7 +249,6 @@ However, he soon faced Burnout. He couldn't code, he couldn't play his guitar, a
       instruction: "Tema: Your Work-life Balance.",
       helperText:
         "Escreva 3 frases: diga se já sentiu Burnout, use Boundaries para um limite atual e use Unplug para seu tempo livre.",
-      image: ICB1.A14S3,
       placeholder:
         "I've felt burnout before. I set boundaries by closing my laptop at night. I unplug by playing guitar.",
       tipText:
@@ -263,7 +262,7 @@ However, he soon faced Burnout. He couldn't code, he couldn't play his guitar, a
     key: "balance-conclusion",
     component: "Exercise17",
     activity: {
-      label: "Equilíbrio ? Tudo!",
+      label: "Equilíbrio é Tudo!",
       content: [
         `Você aprendeu a identificar os perigos da correria excessiva e como falar sobre isso em inglês.
 

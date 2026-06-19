@@ -35,7 +35,7 @@ Essas estruturas sempre vâm acompanhadas do verbo no particípio!`,
       correctAnswer: "false",
       successTitle: "Correto",
       feedbackMessage:
-        "Must have é uma especulaíão forte, não uma certeza visual.",
+        "Must have é uma especulação forte, não uma certeza visual.",
     },
   },
   {

@@ -65,8 +65,7 @@ A tela é conectada.`,
       options: ["are produced", "is produced"],
       correctAnswer: "are produced",
       successTitle: "Correto",
-      successMessage:
-        "Components está no plural, então usamos are produced.",
+      successMessage: "Components está no plural, então usamos are produced.",
     },
   },
   {
@@ -83,15 +82,15 @@ A tela é conectada.`,
       ],
       correctAnswer: "The smartphone is packed carefully.",
       successTitle: "Correto",
-      successMessage:
-        "Smartphone é singular, então usamos is packed.",
+      successMessage: "Smartphone é singular, então usamos is packed.",
     },
   },
   {
     key: "participle-match",
     component: "Exercise1",
     activity: {
-      prompt: "Conecte o particípio com sua tradução no contexto de fabricação.",
+      prompt:
+        "Conecte o particípio com sua tradução no contexto de fabricação.",
       pairs: [
         { en: "Attached", pt: "Conectado / Anexado" },
         { en: "Tested", pt: "Testado" },
@@ -105,7 +104,8 @@ A tela é conectada.`,
     key: "smartphone-process",
     component: "Exercise7",
     activity: {
-      prompt: "Coloque o processo de fabricação do smartphone na ordem correta.",
+      prompt:
+        "Coloque o processo de fabricação do smartphone na ordem correta.",
       options: [
         "First, the internal components are produced.",
         "Next, the screen is attached to the body.",
@@ -132,7 +132,8 @@ A tela é conectada.`,
       submitLabel: "Enviar",
       errorTitle: "Incorreto",
       successTitle: "Correto",
-      successMessage: "A frase correta é: The device is shipped around the world.",
+      successMessage:
+        "A frase correta é: The device is shipped around the world.",
     },
   },
   {
@@ -144,11 +145,8 @@ A tela é conectada.`,
         "Descreva brevemente o processo de um prato que você sabe cozinhar.",
       helperText:
         'Use pelo menos uma frase na voz passiva. Ex: "The eggs are fried in butter."',
-      image: ICB1.A30S5,
-      placeholder:
-        "The eggs are fried in butter. Then, the cheese is added.",
-      tipText:
-        "Use objeto + is/are + past participle.",
+      placeholder: "The eggs are fried in butter. Then, the cheese is added.",
+      tipText: "Use objeto + is/are + past participle.",
       minLength: 20,
       successTitle: "Correto",
       successMessage: "Ótimo! Você descreveu um processo com voz passiva.",

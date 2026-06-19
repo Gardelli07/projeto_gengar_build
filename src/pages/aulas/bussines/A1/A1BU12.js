@@ -16,7 +16,7 @@ const LESSON_SLIDES = [
     activity: {
       label: "Any questions?",
       content: [
-        `Chegou o momento da apresentação que muitos temem: perguntas e respostas. Mas calma — você vai aprender frases simples para lidar com isso com confiança.
+        `Chegou o momento da apresentação que muitos temem: perguntas e respostas. Mas calma você vai aprender frases simples para lidar com isso com confiança.
 
 Dica de Nativo:
 Sempre compre tempo! Diga: "That is a good question." Isso soa educado e te dá alguns segundos para pensar.`,
@@ -64,13 +64,13 @@ Sempre compre tempo! Diga: "That is a good question." Isso soa educado e te dá 
           "Do you have any ",
           {
             id: "blank-1",
-      options: ["questions", "question"],
+            options: ["questions", "question"],
             answer: "questions",
           },
           "? Yes, that is a good ",
           {
             id: "blank-2",
-      options: ["question", "questions"],
+            options: ["question", "questions"],
             answer: "question",
           },
           ".",

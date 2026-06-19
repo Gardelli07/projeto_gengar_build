@@ -23,7 +23,7 @@ const LESSON_SLIDES = [
     activity: {
       label: "Preparado para o desafio?",
       content: [
-        "A seguir, uma palavra do mundo dos negócios aparecerá na tela. Você terÉ exatamente 5 segundos para digitá-la corretamente. Prepare os dedos!",
+        "A seguir, uma palavra do mundo dos negócios aparecerá na tela. Você terá exatamente 5 segundos para digitá-la corretamente. Prepare os dedos!",
       ],
       continueLabel: "Começar",
     },

@@ -78,7 +78,7 @@ Não misture os motores ou o carro não anda!
     activity: {
       prompt: "Escute e complete",
       image: ICA1.A13S7,
-      audioSource: require("../../../../../mp3/IC/A0-A1/hello.mp3"),
+      audioSource: require("../../../../../mp3/IC/A0-A1/A13S6.mpeg"),
       audioDurationMs: 824,
       answerOptions: ["It is", "It am"],
       correctOption: "It is",
@@ -102,7 +102,7 @@ Não misture os motores ou o carro não anda!
     activity: {
       prompt: "Escute e complete",
       image: ICA1.A13S9,
-      audioSource: require("../../../../../mp3/IC/A0-A1/hello.mp3"),
+      audioSource: require("../../../../../mp3/IC/A0-A1/A13S8.mpeg"),
       audioDurationMs: 824,
       answerOptions: ["You are", "You is"],
       correctOption: "You are",

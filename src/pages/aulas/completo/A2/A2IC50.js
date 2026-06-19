@@ -36,6 +36,7 @@ const LESSON_SLIDES = [
     component: "Exercise14",
     activity: {
       prompt: "Ouça a frase.",
+      image: ICA2.A50S3,
       audioSource: require("../../../../../mp3/IC/A2/A50S3.mp3"),
       options: ["She doesn't have to cook.", "She doesn't has to cook."],
       correctAnswer: "She doesn't have to cook.",

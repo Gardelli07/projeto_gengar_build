@@ -35,7 +35,7 @@ Vamos aprender a fazer essas perguntas!`,
       letters: ["D", "L", "U", "O", "W"],
       correctWord: "WOULD",
       successTitle: "Correto",
-      successMessage: 'A palavra essencial ? "WOULD".',
+      successMessage: 'A palavra essencial é "WOULD".',
     },
   },
   {
@@ -76,7 +76,7 @@ Vamos aprender a fazer essas perguntas!`,
     component: "Exercise4",
     activity: {
       prompt: "Qual é a forma correta de fazer a perguntaí",
-      image: ICB1.A19S2p1,
+      image: ICB1.A13S4,
       wrongSentence: "What if...",
       options: [
         "What you would do if you found a wallet?",
@@ -85,8 +85,7 @@ Vamos aprender a fazer essas perguntas!`,
       ],
       correctAnswer: "What would you do if you found a wallet?",
       successTitle: "Correto",
-      successMessage:
-        "Em perguntas, usamos What + would + sujeito + verbo.",
+      successMessage: "Em perguntas, usamos What + would + sujeito + verbo.",
     },
   },
   {
@@ -112,13 +111,9 @@ Vamos aprender a fazer essas perguntas!`,
       prompt: "Pergunta criativa",
       instruction:
         'Faça uma pergunta para mim usando a estrutura "What would you do if...".',
-      helperText:
-        "Pode ser sobre qualquer coisa maluca ou interessante.",
-      image: ICB1.A19S2p2,
-      placeholder:
-        "What would you do if you could travel to Mars tomorrow?",
-      tipText:
-        "Use What would you do if + sujeito + verbo no passado.",
+      helperText: "Pode ser sobre qualquer coisa maluca ou interessante.",
+      placeholder: "What would you do if you could travel to Mars tomorrow?",
+      tipText: "Use What would you do if + sujeito + verbo no passado.",
       minLength: 15,
       successTitle: "Correto",
       successMessage: "Ótimo! Você criou uma pergunta imaginária.",

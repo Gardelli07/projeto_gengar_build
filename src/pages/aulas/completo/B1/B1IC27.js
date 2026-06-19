@@ -129,7 +129,6 @@ Together: "It was raining when she walked in. She had forgotten her umbrella."`,
         "Write a short story (4-6 sentences) about a time something unexpected happened. Use at least one Simple Past, one Past Continuous, and one Past Perfect.",
       helperText:
         'Example: "I was walking to school when I realised I had left my bag at home."',
-      image: ICB1.A27S5,
       placeholder: "I was...\nThen...\nI realised I had...",
       tipText:
         "Use Past Continuous for the background, Simple Past for the main event, and Past Perfect for an earlier action.",

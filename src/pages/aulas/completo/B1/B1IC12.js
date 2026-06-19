@@ -27,7 +27,7 @@ Let's practice!`,
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e escolha a palavra correta.",
-      image: ICB1.A20S2,
+      image: ICB1.A12S2,
       audioSource: require("../../../../../mp3/IC/B1/A12S2.mp3"),
       audioDurationMs: 900,
       answerOptions: ["Advice", "Advise"],

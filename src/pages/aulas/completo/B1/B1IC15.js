@@ -25,8 +25,8 @@ Hoje vamos aprender como os nativos mantém o assunto fluindo de forma natural!`
     activity: {
       prompt: "Clique na imagem e na palavra que a descreve perfeitamente.",
       images: [
-        { id: "chatting-img", image: ICB1.A20S10 },
-        { id: "awkward-img", image: ICB1.A20S2 },
+        { id: "chatting-img", image: ICB1.A15S2 },
+        { id: "awkward-img", image: ICB1.A15S2p2 },
       ],
       words: [
         { id: "chatting-word", label: "Chatting" },
@@ -47,7 +47,7 @@ Hoje vamos aprender como os nativos mantém o assunto fluindo de forma natural!`
     needsSpeech: true,
     activity: {
       prompt: "Escute e responda",
-      image: ICB1.A20S3,
+      image: ICB1.A15S3,
       audioSource: require("../../../../../mp3/IC/B1/A15S3.mp3"),
       audioDurationMs: 7800,
       dialogue: "Person B killed the conversation.",
@@ -124,14 +124,14 @@ Isso mostra que você está prestando atenção.`,
     activity: {
       prompt:
         'Alguém disse: "I traveled to Miami." Qual é a melhor follow-up question?',
-      image: ICB1.A20S7,
+      image: ICB1.A15S7,
       wrongSentence: "Follow-up question",
       options: [
-        "Who did you went withá",
-        "Who did you go withá",
-        "Who you go withá",
+        "Who did you went with?",
+        "Who did you go with?",
+        "Who you go with?",
       ],
-      correctAnswer: "Who did you go withá",
+      correctAnswer: "Who did you go with?",
       successTitle: "Correto",
       successMessage: 'Depois de "did", usamos o verbo base: go.',
     },

@@ -11,7 +11,7 @@ const LESSON_SLIDES = [
         `Nativos não apenas listam adjetivos; eles vendem resultados.
 
 /blue{Strengths}
-Use adjetivos de ação como proactive, resourceful ou adaptable. Sempre dé um exemplo curto de um resultado que você alcanãou.
+Use adjetivos de ação como proactive, resourceful ou adaptable. Sempre dé um exemplo curto de um resultado que você alcançou.
 
 /blue{Weaknesses}
 O segredo não é esconder o erro, mas mostrar a solução.
@@ -41,7 +41,7 @@ Nunca diga que não tem fraquezas. Isso soa arrogante ou mentiroso. Escolha algo
         },
         {
           en: "Proactive",
-          pt: "Age antes que o problema aconteça; tem iniciativa.",
+          pt: "Age antes que o problema aconteça, tem iniciativa.",
         },
         {
           en: "Detail-oriented",
@@ -58,7 +58,7 @@ Nunca diga que não tem fraquezas. Isso soa arrogante ou mentiroso. Escolha algo
     needsSpeech: true,
     activity: {
       prompt: "Escolha a melhor interpretação",
-      image: ICB1.A8S3,
+      image: ICB1.A2S11,
       audioSource: require("../../../../../mp3/IC/B1/A6S2.mp3"),
       audioDurationMs: 7200,
       answerOptions: [
@@ -136,7 +136,7 @@ Nunca diga que não tem fraquezas. Isso soa arrogante ou mentiroso. Escolha algo
       ],
       correctWord: "PROBLEM-SOLVER",
       successTitle: "Correto",
-      successMessage: 'A força ? "PROBLEM-SOLVER".',
+      successMessage: 'A forma é "PROBLEM-SOLVER".',
     },
   },
   {
@@ -144,7 +144,7 @@ Nunca diga que não tem fraquezas. Isso soa arrogante ou mentiroso. Escolha algo
     component: "Exercise8",
     activity: {
       prompt: "Qual ponto forte essa postura comunica ao recrutador?",
-      image: ICB1.A8S4,
+      image: ICB1.A6S5,
       options: [
         "David is distracted and wants to leave.",
         "David is confident and engaged in the conversation.",
@@ -201,7 +201,6 @@ Nunca diga que não tem fraquezas. Isso soa arrogante ou mentiroso. Escolha algo
       instruction:
         'Escreva sua "strength" mais forte e uma "weakness" que você está resolvendo.',
       helperText: 'Use "I\'ve been working on..." para a fraqueza.',
-      image: ICB1.A8S6,
       placeholder:
         "My main strength is that I'm resourceful. I struggle with public speaking, but I've been working on it.",
       tipText:

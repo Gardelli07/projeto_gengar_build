@@ -32,7 +32,7 @@ Nunca use "Yo" ou "Hey" para quem você quer que te contrate!`,
     component: "Exercise4",
     activity: {
       prompt: "Escolha a melhor análise do e-mail",
-      image: ICB1.A8S8,
+      image: ICB1.A7S1,
       wrongSentence:
         "Hi Alex, thanks for the meeting earlier. I've sent the files you requested. Kind regards, David.",
       options: [
@@ -75,7 +75,7 @@ Nunca use "Yo" ou "Hey" para quem você quer que te contrate!`,
     component: "Exercise20",
     activity: {
       prompt: "Verdadeiro ou falso?",
-      image: ICB1.A9S1,
+      image: ICB1.A7S3,
       dialogue:
         'You should use "Sincerely" when closing an email to a close teammate.',
       options: ["True", "False"],
@@ -101,7 +101,7 @@ Nunca use "Yo" ou "Hey" para quem você quer que te contrate!`,
     component: "Exercise8",
     activity: {
       prompt: "Qual destas palavras NÃO é um fechamento de e-mail?",
-      image: ICB1.A9S2,
+      image: ICB1.A7S5,
       options: ["Sincerely,", "Best regards,", "Attachment", "Thanks,"],
       correctAnswer: "Attachment",
       successTitle: "Correto",
@@ -141,7 +141,7 @@ Nunca use "Yo" ou "Hey" para quem você quer que te contrate!`,
       letters: ["I", "N", "Q", "U", "I", "R", "E"],
       correctWord: "INQUIRE",
       successTitle: "Correto",
-      successMessage: 'A palavra ? "INQUIRE".',
+      successMessage: 'A palavra é "INQUIRE".',
     },
   },
   {
@@ -163,8 +163,7 @@ Nunca use "Yo" ou "Hey" para quem você quer que te contrate!`,
       instruction:
         "Você é o desenvolvedor do Lingueto. Escreva um e-mail para Mr. Anderson pedindo uma reunião.",
       helperText:
-        'Inclua saudação formal, "I am writing to inquire about your availability for a meeting.", menão ao anexo, fechamento formal e assinatura.',
-      image: ICB1.A9S3,
+        'Inclua saudação formal, "I am writing to inquire about your availability for a meeting.", menção ao anexo, fechamento formal e assinatura.',
       placeholder:
         "Dear Mr. Anderson,\nI am writing to inquire about your availability for a meeting. Please find the project overview attached.\nSincerely,\nKaique",
       tipText: "Para tom formal, use Dear, attached e Sincerely.",

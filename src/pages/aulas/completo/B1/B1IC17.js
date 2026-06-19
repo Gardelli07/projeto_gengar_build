@@ -27,7 +27,7 @@ Use:
     needsSpeech: true,
     activity: {
       prompt: "Escute a palavra-chave e escolha a alternativa correta.",
-      image: ICB1.A18S2,
+      image: ICB1.A17S2,
       audioSource: require("../../../../../mp3/IC/B1/A17S2.mp3"),
       audioDurationMs: 1000,
       answerOptions: ["Clarify", "Classify"],
@@ -42,7 +42,7 @@ Use:
     activity: {
       prompt:
         "Como você confirma se entendeu o ponto da pessoa de forma formal e educadaí",
-      image: ICB1.A18S3,
+      image: ICB1.A17S3,
       wrongSentence: "Clarifying",
       options: [
         "If I understood you good, we need more time.",
@@ -51,8 +51,7 @@ Use:
       ],
       correctAnswer: "If I understand correctly, we need more time.",
       successTitle: "Correto",
-      successMessage:
-        'A estrutura natural ? "If I understand correctly...".',
+      successMessage: 'A estrutura natural é "If I understand correctly...".',
     },
   },
   {
@@ -65,7 +64,7 @@ Use:
 
 Na próxima tela, você terá 5 segundos para digitar termos essenciais para esclarecer ideias.
 
-Atenção é ortografia!`,
+Atenção á ortografia!`,
       ],
       continueLabel: "Continuar",
     },
@@ -140,11 +139,9 @@ Isso mostra que você está prestando atenção e garante que não haverá falha
         "Seu chefe falou por 5 minutos sobre reduzir custos. Você entendeu que o orçamento da sua equipe vai cair pela metade.",
       helperText:
         'Escreva uma frase começando com "If I understand correctly..."',
-      image: ICB1.A18S5,
       placeholder:
         "If I understand correctly, our team's budget will be cut in half.",
-      tipText:
-        "Use essa estrutura para confirmar informação sem soar perdido.",
+      tipText: "Use essa estrutura para confirmar informação sem soar perdido.",
       minLength: 20,
       successTitle: "Correto",
       successMessage: "Ótimo! Você confirmou a informação com clareza.",
@@ -155,8 +152,7 @@ Isso mostra que você está prestando atenção e garante que não haverá falha
     component: "Exercise16",
     activity: {
       prompt: "Speaking",
-      instruction:
-        "Você acabou de explicar uma ideia longa para um colega.",
+      instruction: "Você acabou de explicar uma ideia longa para um colega.",
       helperText:
         'Mande um áudio usando "Does that make sense?" e pergunte se ele quer que você repita ou esclareça algo.',
       image: Images.ex16,

@@ -10,10 +10,10 @@ const LESSON_SLIDES = [
       content: [
         `Esqueça a tradução "fazer". A regra nativa é:
 
-? DO: usado para tarefas, trabalhos, obrigações ou ações genâricas.
+- DO: usado para tarefas, trabalhos, obrigações ou ações genâricas.
 Exemplos: do a favor, do business, do your best.
 
-? MAKE: usado para criar, produzir, construir ou causar algo.
+- MAKE: usado para criar, produzir, construir ou causar algo.
 Exemplos: make money, make a decision, make a mistake.`,
       ],
       continueLabel: "Começar",
@@ -54,7 +54,7 @@ Exemplos: make money, make a decision, make a mistake.`,
       ],
       correctAnswer: "We need to do business with them.",
       successTitle: "Correto",
-      successMessage: 'A collocation natural ? "do business".',
+      successMessage: 'A collocation natural é "do business".',
     },
   },
   {
@@ -67,7 +67,7 @@ Exemplos: make money, make a decision, make a mistake.`,
       options: ["made", "did"],
       correctAnswer: "made",
       successTitle: "Correto",
-      successMessage: 'Dizemos "make a mistake"; no passado, "made a mistake".',
+      successMessage: 'Dizemos "make a mistake", no passado, "made a mistake".',
     },
   },
   {
@@ -125,7 +125,7 @@ Exemplos: make money, make a decision, make a mistake.`,
       placeholder: "Digite a frase",
       submitLabel: "Responder",
       successTitle: "Correto",
-      successMessage: 'A collocation ? "do me a favor".',
+      successMessage: 'A collocation é "do me a favor".',
       errorMessage: 'Confira a frase: "Could you do me a favor?"',
     },
   },

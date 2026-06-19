@@ -8,7 +8,7 @@ const LESSON_SLIDES = [
     activity: {
       label: "I wish...",
       content: [
-        `Sabe quando você pensa: "Quem me dera ter mais dinheiro" ou "Eu queria saber tocar aquele violáo bege na parede"?
+        `Sabe quando você pensa: "Quem me dera ter mais dinheiro" ou "Eu queria saber tocar aquele violão bege na parede"?
 
 Em inglês, não traduzimos isso literalmente.
 
@@ -31,8 +31,7 @@ I wish I had more time.`,
       options: ["could", "can"],
       correctAnswer: "could",
       successTitle: "Correto",
-      successMessage:
-        'Depois de "I wish", usamos uma forma no passado: could.',
+      successMessage: 'Depois de "I wish", usamos uma forma no passado: could.',
     },
   },
   {
@@ -41,8 +40,8 @@ I wish I had more time.`,
     activity: {
       prompt: 'Combine a situação com o "Wish" correto.',
       images: [
-        { id: "rain-img", image: ICB1.A19S2p4 },
-        { id: "rich-img", image: ICB1.A20S4 },
+        { id: "rain-img", image: ICB1.A14S3 },
+        { id: "rich-img", image: ICB1.A14S3p2 },
       ],
       words: [
         { id: "umbrella-word", label: "I wish I had an umbrella." },
@@ -62,7 +61,7 @@ I wish I had more time.`,
     needsSpeech: true,
     activity: {
       prompt: "Escute e responda",
-      image: ICB1.A20S7,
+      image: ICB1.A14S4,
       audioSource: require("../../../../../mp3/IC/B1/A14S4.mp3"),
       audioDurationMs: 3200,
       dialogue: "The person is happy with their car.",
@@ -79,8 +78,16 @@ I wish I had more time.`,
     activity: {
       prompt: "Complete o desabafo com as palavras corretas.",
       paragraphs: [
-        ["Today is Monday and I am at work. It's raining outside. I", { id: "b1", answer: "wish", options: ["wish", "hope"] }, "I was on a beach in Hawaii right now."],
-        ["I wish I", { id: "b2", answer: "had", options: ["had", "have"] }, "a cold drink in my hand instead of this pen!"],
+        [
+          "Today is Monday and I am at work. It's raining outside. I",
+          { id: "b1", answer: "wish", options: ["wish", "hope"] },
+          "I was on a beach in Hawaii right now.",
+        ],
+        [
+          "I wish I",
+          { id: "b2", answer: "had", options: ["had", "have"] },
+          "a cold drink in my hand instead of this pen!",
+        ],
       ],
       successTitle: "Correto",
       successMessage: "A sequência correta é: wish / had.",
@@ -93,12 +100,10 @@ I wish I had more time.`,
       prompt: "Speaking",
       instruction:
         "Pense em algo que você gostaria que fosse diferente na sua vida agora mesmo.",
-      helperText:
-        'Mande um áudio começando com: "I wish I..."',
+      helperText: 'Mande um áudio começando com: "I wish I..."',
       image: Images.ex16,
       tipButtonLabel: "Tip",
-      tipText:
-        "I wish I could speak French. / I wish I had more free time.",
+      tipText: "I wish I could speak French. / I wish I had more free time.",
       recordLabel: "Speak",
       stopLabel: "Parar",
       successTitle: "Correto",

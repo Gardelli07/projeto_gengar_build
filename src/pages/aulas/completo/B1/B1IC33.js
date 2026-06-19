@@ -11,7 +11,7 @@ const LESSON_SLIDES = [
         `Expressões idiomáticas (Idioms) são o segredo para você não soar como um robô.
 
 - Time flies: o tempo voa. Usamos quando o tempo passa muito rápido, geralmente quando estamos nos divertindo.
-É Break the bank: custar uma fortuna. Geralmente usado na negativa: "It won't break the bank" (não vai te falir / é barato).`,
+- Break the bank: custar uma fortuna. Geralmente usado na negativa: "It won't break the bank" (não vai te falir / é barato).`,
       ],
       continueLabel: "Começar",
     },
@@ -36,6 +36,7 @@ const LESSON_SLIDES = [
     activity: {
       prompt: "Qual frase soa mais natural usando as expressões aprendidas?",
       wrongSentence: "Idioms",
+      image: ICB1.A33S3,
       options: [
         "Buying this car will time flies.",
         "This vacation is beautiful, it breaks the bank time.",
@@ -89,7 +90,7 @@ const LESSON_SLIDES = [
       letters: ["K", "N", "A", "B"],
       correctWord: "BANK",
       successTitle: "Correto",
-      successMessage: 'A expressão completa ? "Break the bank".',
+      successMessage: 'A expressão completa é "Break the bank".',
     },
   },
   {

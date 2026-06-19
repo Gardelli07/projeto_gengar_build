@@ -32,7 +32,7 @@ I've had it with...: "não aguento mais", "cheguei no meu limite".
     needsSpeech: true,
     activity: {
       prompt: "Escolha a melhor interpretação",
-      image: ICB1.A5S5,
+      image: ICB1.A4S1,
       audioSource: require("../../../../../mp3/IC/B1/A4S1.mp3"),
       audioDurationMs: 3200,
       answerOptions: [
@@ -52,13 +52,14 @@ I've had it with...: "não aguento mais", "cheguei no meu limite".
     needsSpeech: true,
     activity: {
       prompt: "Escolha a melhor interpretação",
-      image: ICB1.A6S2,
+      image: ICB1.A4S2,
       audioSource: require("../../../../../mp3/IC/B1/A4S2.mp3"),
       audioDurationMs: 3400,
       answerOptions: [
         "The speaker is frustrated and has reached his limit.",
         "The speaker just received a new gift.",
       ],
+      stackOptions: true,
       correctOption: "The speaker is frustrated and has reached his limit.",
       successTitle: "Correto",
       feedbackMessage:
@@ -88,7 +89,7 @@ I've had it with...: "não aguento mais", "cheguei no meu limite".
     activity: {
       prompt:
         "Qual dessas frases um nativo dificilmente diria em uma conversa informal no café",
-      image: ICB1.A7S1,
+      image: ICB1.A4S4,
       options: [
         "I've been around.",
         "I have been a teacher for ten years.",
@@ -163,7 +164,6 @@ I've had it with...: "não aguento mais", "cheguei no meu limite".
       instruction:
         'Escreva 2 frases: uma usando "What\'ve you been up to?" e outra usando "Been there, done that".',
       helperText: "Use as expressões em uma situação da sua vida.",
-      image: ICB1.A7S3,
       placeholder:
         "Hey Kaique, what've you been up to? Learning React Native? Been there, done that!",
       tipText:

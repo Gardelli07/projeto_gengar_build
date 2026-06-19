@@ -77,6 +77,22 @@ export function Exercise14({
     activity.stackOptions ||
     optionTextLengths.some((length) => length > 18) ||
     optionTextLengths.reduce((sum, length) => sum + length, 0) > 32;
+  const stackedOptionsRowStyle = shouldStackOptions
+    ? {
+        flexDirection: "column",
+        flexWrap: "nowrap",
+        alignItems: "stretch",
+        width: "88%",
+      }
+    : null;
+  const stackedOptionPillStyle = shouldStackOptions
+    ? {
+        width: "100%",
+        maxWidth: "100%",
+        alignSelf: "stretch",
+      }
+    : null;
+  const stackedOptionTouchStyle = shouldStackOptions ? { width: "100%" } : null;
   const audioPromptText =
     activity.audioText || activity.spokenText || correctOption || "";
 
@@ -411,6 +427,7 @@ export function Exercise14({
         style={[
           styles.optionsRow,
           shouldStackOptions && styles.optionsRowStacked,
+          stackedOptionsRowStyle,
         ]}
       >
         {answerOptions.map((option) => {
@@ -424,6 +441,7 @@ export function Exercise14({
               style={[
                 styles.optionPill,
                 shouldStackOptions && styles.optionPillStacked,
+                stackedOptionPillStyle,
                 optionIsCorrect && styles.optionCorrect,
                 optionIsWrong && isWrong && styles.optionBlinkWrong,
                 optionIsWrong &&
@@ -431,7 +449,7 @@ export function Exercise14({
               ]}
             >
               <TouchableOpacity
-                style={styles.optionPillTouch}
+                style={[styles.optionPillTouch, stackedOptionTouchStyle]}
                 onPress={() => handleSelect(option)}
                 disabled={isCorrect || isWrong}
               >
@@ -639,6 +657,7 @@ const ex14 = StyleSheet.create({
   optionsRowStacked: {
     flexDirection: "column",
     alignItems: "stretch",
+    width: "88%",
   },
   optionPill: {
     borderWidth: 1,
@@ -651,6 +670,7 @@ const ex14 = StyleSheet.create({
   optionPillStacked: {
     width: "100%",
     alignSelf: "stretch",
+    maxWidth: "100%",
   },
   optionPillTouch: {
     paddingHorizontal: 16,

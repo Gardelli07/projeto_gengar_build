@@ -8,7 +8,7 @@ const LESSON_SLIDES = [
     activity: {
       label: 'Beyond "How are you?"',
       content: [
-        `Quebrar o gelo não é apenas sobre falar; é sobre observar o ambiente.
+        `Quebrar o gelo não é apenas sobre falar, é sobre observar o ambiente.
 
 Um bom icebreaker foca em algo que você e a outra pessoa compartilham no momento: a comida, a música do evento ou até o clima.
 
@@ -30,10 +30,10 @@ Evite perguntas muito pessoais logo de cara!`,
       question: "AWKWARD",
       correctOptionId: "awkward",
       options: [
-        { id: "laughing", image: ICB1.A19S2p2 },
-        { id: "awkward", image: ICB1.A19S2p3 },
-        { id: "handshake", image: ICB1.A19S2p4 },
-        { id: "dancing", image: ICB1.A19S4 },
+        { id: "handshake", image: ICB1.A19S2p2 },
+        { id: "dancing", image: ICB1.A19S2p3 },
+        { id: "awkward", image: ICB1.A19S2p4 },
+        { id: "laughing", image: ICB1.A19S2p1 },
       ],
       successTitle: "Correto",
       successMessage:
@@ -59,7 +59,7 @@ Note o uso de question tags, como "wasn't it?", para convidar o outro para a con
     component: "Exercise20",
     activity: {
       prompt: "De acordo com o texto anterior, responda:",
-      image: ICB1.A19S5,
+      image: ICB1.A19S4,
       dialogue:
         "The text suggests that asking for opinions about a shared experience is a good strategy.",
       options: ["True", "False"],
@@ -74,14 +74,14 @@ Note o uso de question tags, como "wasn't it?", para convidar o outro para a con
     component: "Exercise20",
     activity: {
       prompt: "De acordo com o texto anterior, responda:",
-      image: ICB1.A20S2,
+      image: ICB1.A19S5,
       dialogue:
         "You should talk about politics to make the conversation more interesting.",
       options: ["True", "False"],
       correctAnswer: "False",
       successTitle: "Correto",
       successMessage:
-        "O texto diz para evitar tÉpicos controversos, como polática ou religião.",
+        "O texto diz para evitar tópicos controversos, como política ou religião.",
     },
   },
   {
@@ -122,9 +122,15 @@ Let's go!`,
     activity: {
       prompt: "Complete a dica de escrita.",
       paragraphs: [
-        ["When you want to", { id: "b1", answer: "break", options: ["break", "crack"] }, "the ice, try to be"],
+        [
+          "When you want to",
+          { id: "b1", answer: "break", options: ["break", "crack"] },
+          "the ice, try to be",
+        ],
         [{ id: "b2", answer: "genuine", options: ["fake", "genuine"] }, "."],
-        ["People can tell when you are not being yourself, and it makes the situation feel forced."],
+        [
+          "People can tell when you are not being yourself, and it makes the situation feel forced.",
+        ],
       ],
       successTitle: "Correto",
       successMessage: "A sequência correta é: break / genuine.",
@@ -134,14 +140,15 @@ Let's go!`,
     key: "type-speech-question",
     component: "Exercise18",
     activity: {
-      prompt: "Digite a frase corretamente para formar um excelente icebreaker.",
+      prompt:
+        "Digite a frase corretamente para formar um excelente icebreaker.",
       scrambledSentence: "/ speech / What / think / you / did / of / the / ? /",
-      correctAnswer: "What did you think of the speechá",
+      correctAnswer: "What did you think of the speech?",
       placeholder: "Digite a pergunta",
       submitLabel: "Enviar",
       errorTitle: "Incorreto",
       successTitle: "Correto",
-      successMessage: "A pergunta correta é: What did you think of the speechá",
+      successMessage: "A pergunta correta é: What did you think of the speech?",
     },
   },
   {
@@ -156,8 +163,7 @@ Let's go!`,
       image: ICB1.A20S3,
       placeholder:
         "The talk about AI was really insightful, wasn't it? What did you think of the speaker's ideas?",
-      tipText:
-        "Use uma observação compartilhada + uma pergunta aberta.",
+      tipText: "Use uma observação compartilhada + uma pergunta aberta.",
       minLength: 25,
       successTitle: "Correto",
       successMessage: "Ótimo icebreaker escrito.",
@@ -168,8 +174,7 @@ Let's go!`,
     component: "Exercise16",
     activity: {
       prompt: "Speaking",
-      instruction:
-        "Imagine que a pessoa respondeu e a conversa começou.",
+      instruction: "Imagine que a pessoa respondeu e a conversa começou.",
       helperText:
         "Mande um áudio de 15 segundos praticando sua entonação ao dizer a frase que escreveu.",
       image: Images.ex16,

@@ -283,7 +283,7 @@ const ex9 = StyleSheet.create({
   },
   imageGridOption: {
     width: "100%",
-    height: 86,
+    aspectRatio: 16 / 9,
     borderRadius: 14,
     borderWidth: 1.5,
     borderColor: "#7BA9D6",
@@ -296,7 +296,7 @@ const ex9 = StyleSheet.create({
   imageGridOptionImage: {
     width: "100%",
     height: "100%",
-    resizeMode: "contain",
+    resizeMode: "cover",
   },
   imageGridOptionCorrect: {
     borderColor: CORES.SUCCESS,

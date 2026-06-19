@@ -190,8 +190,17 @@ const LESSON_SLIDES = [
     activity: {
       prompt:
         "Clique nas palavras na ordem correta para sugerir polidamente que a equipe analise o plano B.",
-      words: ["worth", "be", "might", "it", ",", "B", "considering", "plan"],
-      correctOrder: ["it", "might", "be", "worth", "considering", "plan", "B"],
+      words: ["worth", "be", "might", "it", ".", "B", "considering", "plan"],
+      correctOrder: [
+        "it",
+        "might",
+        "be",
+        "worth",
+        "considering",
+        "plan",
+        "B",
+        ".",
+      ],
       successTitle: "Correto",
       successMessage: "It might be worth considering plan B.",
     },

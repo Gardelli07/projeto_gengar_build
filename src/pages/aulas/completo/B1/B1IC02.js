@@ -119,15 +119,16 @@ Dica do Mestre: STILL no Present Perfect é quase sempre usado em frases negativ
   },
   {
     key: "david-still-not-finished",
-    component: "Exercise8",
+    component: "Exercise4",
     activity: {
       prompt:
-        "David está na frente do computador, são 2h da manhã, e o projeto ainda não terminou. Qual frase melhor descreve a imagem?",
+        "David está na frente do computador, são 2h da manhã, e o projeto ainda não terminou.",
       image: ICB1.A2S5,
+      wrongSentence: "Qual frase melhor descreve a imagem?",
       options: [
-        "David has just started working.",
-        "David already finished the project.",
         "David still hasn't finished the project.",
+        "David already finished the project.",
+        "David has just started working.",
       ],
       correctAnswer: "David still hasn't finished the project.",
       successTitle: "Correto",
@@ -140,7 +141,7 @@ Dica do Mestre: STILL no Present Perfect é quase sempre usado em frases negativ
     component: "Exercise14",
     needsSpeech: true,
     activity: {
-      prompt: "O café caiu hÉ muito tempo?",
+      prompt: "O café caiu há muito tempo?",
       image: ICB1.A2S6,
       audioSource: require("../../../../../mp3/IC/B1/A2S6.mp3"),
       audioDurationMs: 3600,
@@ -243,7 +244,6 @@ Dica do Mestre: STILL no Present Perfect é quase sempre usado em frases negativ
       prompt: "Sua lista de hoje",
       instruction: "Pense na sua lista de tarefas de hoje.",
       helperText: "Escreva 3 frases usando already, yet e just.",
-      image: ICB1.A3S3,
       placeholder:
         "I've already checked my emails. I haven't had lunch yet. I've just finished a task.",
       tipText:

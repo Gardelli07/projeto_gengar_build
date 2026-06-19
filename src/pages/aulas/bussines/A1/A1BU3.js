@@ -42,7 +42,7 @@ Quando um cliente chega, nós nunca perguntamos "What do you want?". Isso soa mu
         { imageId: "product-img", wordId: "product-word" },
       ],
       successTitle: "Correto",
-      successMessage: "Price é preço; product é produto.",
+      successMessage: "Price é preço e product é produto.",
     },
   },
   {

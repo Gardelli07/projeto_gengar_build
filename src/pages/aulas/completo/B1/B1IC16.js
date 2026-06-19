@@ -27,7 +27,7 @@ Em reuniões, expressões como "I see your point" ou "I hear what you're saying"
       prompt: "Combine a imagem com a atitude correta.",
       images: [
         { id: "common-img", image: ICB1.A16S2 },
-        { id: "polite-img", image: ICB1.A16S3 },
+        { id: "polite-img", image: ICB1.A16S2p2 },
       ],
       words: [
         { id: "common-word", label: "Finding common ground" },
@@ -47,7 +47,7 @@ Em reuniões, expressões como "I see your point" ou "I hear what you're saying"
     needsSpeech: true,
     activity: {
       prompt: "Escute e responda",
-      image: ICB1.A16S5,
+      image: ICB1.A16S3,
       audioSource: require("../../../../../mp3/IC/B1/A16S3.mp3"),
       audioDurationMs: 6500,
       dialogue: "The speaker completely agrees with the deadline.",
@@ -91,7 +91,7 @@ Em reuniões, expressões como "I see your point" ou "I hear what you're saying"
     component: "Exercise4",
     activity: {
       prompt: "Qual frase demonstra uma discordância educada profissional?",
-      image: ICB1.A17S2,
+      image: ICB1.A16S6,
       wrongSentence: "Professional disagreement",
       options: [
         "You are wrong about the budget.",
@@ -116,8 +116,7 @@ Em reuniões, expressões como "I see your point" ou "I hear what you're saying"
       submitLabel: "Enviar",
       errorTitle: "Incorreto",
       successTitle: "Correto",
-      successMessage:
-        "A frase correta é: I see where you are coming from but",
+      successMessage: "A frase correta é: I see where you are coming from but",
     },
   },
   {
@@ -166,7 +165,6 @@ Em reuniões, expressões como "I see your point" ou "I hear what you're saying"
         'Contexto: alguém diz que "Trabalhar em casa é ruim para a criatividade".',
       helperText:
         'Use "I see where you\'re coming from, but..." e dé um motivo curto.',
-      image: ICB1.A17S3,
       placeholder:
         "I see where you're coming from, but I think remote work can make people more focused and creative.",
       tipText:

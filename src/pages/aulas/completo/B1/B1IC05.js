@@ -10,7 +10,7 @@ const LESSON_SLIDES = [
       content: [
         `No nível avançado, a gramática é uma ferramenta de ênfase.
 
-/blue{Present Perfect Simple: O Qu?}
+/blue{Present Perfect Simple: O Quê}
 Foco: resultado final ou quantidade.
 Fórmula: Subject + have/has + Past Participle
 Uso: quando você quer dizer "missão cumprida" ou "fiz X vezes".
@@ -67,7 +67,7 @@ Ex: I've been building the login screen. (Ainda estou nela, que trabalho!)`,
     needsSpeech: true,
     activity: {
       prompt: "Escolha a melhor interpretação",
-      image: ICB1.A7S5,
+      image: ICB1.A5S2,
       audioSource: require("../../../../../mp3/IC/B1/A5S2.mp3"),
       audioDurationMs: 3400,
       answerOptions: [
@@ -127,7 +127,7 @@ Ex: I've been building the login screen. (Ainda estou nela, que trabalho!)`,
     component: "Exercise8",
     activity: {
       prompt: "Qual frase descreve o progresso atual?",
-      image: ICB1.A8S1,
+      image: ICB1.A5S5,
       options: [
         "David has been drawing 5 chameleons.",
         "David has drawn 5 chameleons so far.",
@@ -158,7 +158,6 @@ Ex: I've been building the login screen. (Ainda estou nela, que trabalho!)`,
       instruction: "O Camaleão quer ver se você entendeu a diferença.",
       helperText:
         "Escreva 2 frases sobre o seu projeto atual: uma com Continuous para dizer há quanto tempo você está nele e outra com Simple para dizer algo específico que já terminou.",
-      image: ICB1.A8S2,
       placeholder:
         "I've been working on my app for months. I've finished the login screen.",
       tipText:
@@ -177,7 +176,7 @@ Ex: I've been building the login screen. (Ainda estou nela, que trabalho!)`,
         `Você agora sabe alternar entre o processo e o resultado como um verdadeiro nativo.
 
 Dica final:
-Se tem número ou quantidade, vé de Simple.
+Se tem número ou quantidade, vá de Simple.
 Se tem "all day" ou "since", considere o Continuous!
 
 Continue praticando essa diferença. Ela muda a intenção da frase.`,

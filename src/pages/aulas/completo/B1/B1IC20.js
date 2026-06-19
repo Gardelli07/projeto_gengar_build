@@ -25,7 +25,7 @@ Faça sons como "Uh-huh", "Wow" ou "No way!" para mostrar que está acompanhando
     component: "Exercise8",
     activity: {
       prompt: "Look at the image. What is happening in this scene?",
-      image: ICB1.A20S10,
+      image: ICB1.A20S2,
       options: [
         "The animals are sleeping deeply in a barn.",
         "Energetic goats are eating red berries.",
@@ -43,14 +43,13 @@ Faça sons como "Uh-huh", "Wow" ou "No way!" para mostrar que está acompanhando
     needsSpeech: true,
     activity: {
       prompt: "Escute a palavra-chave e escolha a correta.",
-      image: ICB1.A20S2,
+      image: ICB1.A20S3,
       audioSource: require("../../../../../mp3/IC/B1/A20S3.mp3"),
       audioDurationMs: 1000,
       answerOptions: ["Shepherd", "Sheep"],
       correctOption: "Shepherd",
       successTitle: "Correto",
-      feedbackMessage:
-        "Shepherd é a pessoa que cuida de ovelhas ou cabras.",
+      feedbackMessage: "Shepherd é a pessoa que cuida de ovelhas ou cabras.",
     },
   },
   {
@@ -58,7 +57,7 @@ Faça sons como "Uh-huh", "Wow" ou "No way!" para mostrar que está acompanhando
     component: "Exercise20",
     activity: {
       prompt: "Observe e responda.",
-      image: ICB1.A20S3,
+      image: ICB1.A20S4,
       dialogue:
         "The goats became very tired and sleepy after eating the red berries.",
       options: ["True", "False"],
@@ -103,7 +102,7 @@ Faça sons como "Uh-huh", "Wow" ou "No way!" para mostrar que está acompanhando
     component: "Exercise4",
     activity: {
       prompt: "Qual frase resume corretamente o final do áudio?",
-      image: ICB1.A20S4,
+      image: ICB1.A20S7,
       wrongSentence: "Coffee legend",
       options: [
         "Monks used the berries to sleep better at night.",
@@ -150,7 +149,7 @@ Focus!`,
     needsSpeech: true,
     activity: {
       prompt: "A história continua. Escute e responda.",
-      image: ICB1.A20S7,
+      image: ICB1.A20S10,
       audioSource: require("../../../../../mp3/IC/B1/A20S10.mp3"),
       audioDurationMs: 10500,
       dialogue:
@@ -168,8 +167,20 @@ Focus!`,
     activity: {
       prompt: "Complete a transcrião.",
       paragraphs: [
-        ["The word espresso means", { id: "b1", answer: "pressed", options: ["pressed", "pushed"] }, "out."],
-        ["The machine uses high", { id: "b2", answer: "pressure", options: ["temperature", "pressure"] }, "to force hot water through the coffee."],
+        [
+          "The word espresso means",
+          { id: "b1", answer: "pressed", options: ["pressed", "pushed"] },
+          "out.",
+        ],
+        [
+          "The machine uses high",
+          {
+            id: "b2",
+            answer: "pressure",
+            options: ["temperature", "pressure"],
+          },
+          "to force hot water through the coffee.",
+        ],
       ],
       successTitle: "Correto",
       successMessage: "A sequência correta é: pressed / pressure.",
@@ -183,11 +194,9 @@ Focus!`,
       instruction:
         'Explique a "lenda do café e das cabras" para um amigo em inglês.',
       helperText: "Use suas próprias palavras em 2 frases curtas.",
-      image: ICB1.A19S5,
       placeholder:
         "Coffee was discovered by a shepherd named Kaldi. His goats became energetic after eating red berries.",
-      tipText:
-        "Use discovered, shepherd, goats, berries e energetic.",
+      tipText: "Use discovered, shepherd, goats, berries e energetic.",
       minLength: 25,
       successTitle: "Correto",
       successMessage: "Ótimo resumo da história.",
@@ -198,8 +207,7 @@ Focus!`,
     component: "Exercise16",
     activity: {
       prompt: "Now it's personal!",
-      instruction:
-        "Todo mundo tem uma bebida favorita para dar energia.",
+      instruction: "Todo mundo tem uma bebida favorita para dar energia.",
       helperText:
         "Mande um áudio contando qual é sua bebida indispensável e por que precisa dela no seu dia.",
       image: Images.ex16,

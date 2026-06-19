@@ -36,7 +36,7 @@ Ex: Eu tenho andado lendo este livro.`,
     needsSpeech: true,
     activity: {
       prompt: "Escolha a melhor interpretação",
-      image: ICB1.A3S5,
+      image: ICB1.A3S1,
       audioSource: require("../../../../../mp3/IC/B1/A3S1.mp3"),
       audioDurationMs: 3800,
       answerOptions: [
@@ -56,7 +56,7 @@ Ex: Eu tenho andado lendo este livro.`,
     needsSpeech: true,
     activity: {
       prompt: "Escolha a melhor interpretação",
-      image: ICB1.A3S7,
+      image: ICB1.A3S2,
       audioSource: require("../../../../../mp3/IC/B1/A3S2.mp3"),
       audioDurationMs: 3800,
       answerOptions: [
@@ -75,7 +75,7 @@ Ex: Eu tenho andado lendo este livro.`,
     needsSpeech: true,
     activity: {
       prompt: "Escolha a melhor interpretação",
-      image: ICB1.A3S9,
+      image: ICB1.A3S3,
       audioSource: require("../../../../../mp3/IC/B1/A3S3.mp3"),
       audioDurationMs: 3600,
       answerOptions: [
@@ -111,7 +111,7 @@ Ex: Eu tenho andado lendo este livro.`,
     component: "Exercise8",
     activity: {
       prompt: "Qual frase melhor descreve a situação de David?",
-      image: ICB1.A4S2,
+      image: ICB1.A3S5,
       options: [
         "David has finished his exam.",
         "David has been studying since morning.",
@@ -144,7 +144,7 @@ Ex: Eu tenho andado lendo este livro.`,
     activity: {
       prompt:
         "Qual frase foca na conclusão (resultado) e não na atividade contínuaí",
-      image: ICB1.A4S4,
+      image: ICB1.A3S7,
       options: [
         "I've been playing the guitar.",
         "I've played three songs.",
@@ -189,7 +189,7 @@ Ex: Eu tenho andado lendo este livro.`,
     activity: {
       prompt:
         "David: \"I've ____ working out every morning. I've ____ doing this for three months now.\"",
-      image: ICB1.A4S5,
+      image: ICB1.A3S9,
       options: ["been / been", "being / been", "been / be"],
       correctAnswer: "been / been",
       successTitle: "Correto",
@@ -215,7 +215,6 @@ Ex: Eu tenho andado lendo este livro.`,
       instruction:
         "Pense no que você tem feito ultimamente para melhorar seu inglês ou sua carreira.",
       helperText: "Escreva 3 frases usando o Present Perfect Continuous.",
-      image: ICB1.A5S2,
       placeholder:
         "I've been watching series in English. I've been studying every night. I've been practicing speaking.",
       tipText:

@@ -161,6 +161,7 @@ const LESSON_SLIDES = [
         "Organize as palavras abaixo e escreva a frase correta para iniciar a conclusão do seu e-mail.",
       words: ["forward", "moving", ",", "we", "budget", "need", "the"],
       correctAnswer: "Moving forward, we need the budget.",
+      submitLabel: "Enviar",
       successTitle: "Correto",
       successMessage: "Moving forward, we need the budget.",
     },

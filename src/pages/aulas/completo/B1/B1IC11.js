@@ -23,8 +23,8 @@ Ready?`,
     activity: {
       prompt: "Clique na imagem e na palavra que a descreve.",
       images: [
-        { id: "ticket-img", image: ICB1.A17S2 },
-        { id: "mansion-img", image: ICB1.A17S3 },
+        { id: "ticket-img", image: ICB1.A11S2 },
+        { id: "mansion-img", image: ICB1.A11S2p2 },
       ],
       words: [
         { id: "ticket-word", label: "Lottery ticket" },
@@ -44,7 +44,7 @@ Ready?`,
     needsSpeech: true,
     activity: {
       prompt: "Escute e responda",
-      image: ICB1.A18S2,
+      image: ICB1.A11S3,
       audioSource: require("../../../../../mp3/IC/B1/A11S3.mp3"),
       audioDurationMs: 5200,
       dialogue: "The person would buy a new car.",
@@ -98,8 +98,7 @@ No inglês falado e informal, você vai ouvir muito nativo dizendo "If I was you
       options: ["were", "am"],
       correctAnswer: "were",
       successTitle: "Correto",
-      successMessage:
-        'Para conselho, a forma padrão ? "If I were you...".',
+      successMessage: 'Para conselho, a forma padrão é "If I were you...".',
     },
   },
   {
@@ -107,7 +106,7 @@ No inglês falado e informal, você vai ouvir muito nativo dizendo "If I was you
     component: "Exercise4",
     activity: {
       prompt: "Qual é a frase escrita corretamente?",
-      image: ICB1.A19S4,
+      image: ICB1.A11S7,
       wrongSentence: "2nd Conditional",
       options: [
         "If I win the lottery, I would bought a house.",
@@ -168,8 +167,16 @@ I wish I had more time.
     activity: {
       prompt: "Complete o texto com as opções corretas.",
       paragraphs: [
-        ["I love my life, but sometimes I dream. I wish I", { id: "b1", answer: "had", options: ["had", "have"] }, "a bigger apartment."],
-        ["If I had more space, I", { id: "b2", answer: "would", options: ["will", "would"] }, "invite my whole family for a big Sunday dinner!"],
+        [
+          "I love my life, but sometimes I dream. I wish I",
+          { id: "b1", answer: "had", options: ["had", "have"] },
+          "a bigger apartment.",
+        ],
+        [
+          "If I had more space, I",
+          { id: "b2", answer: "would", options: ["will", "would"] },
+          "invite my whole family for a big Sunday dinner!",
+        ],
       ],
       successTitle: "Correto",
       successMessage: "A sequência correta é: had / would.",
@@ -182,11 +189,9 @@ I wish I had more time.
       prompt: "Imaginative Scenario",
       instruction: "What would you do if you won the lottery?",
       helperText: "Escreva pelo menos duas coisas que você faria.",
-      image: ICB1.A19S5,
       placeholder:
         "If I won the lottery, I would buy a house and I would travel to Japan.",
-      tipText:
-        "Use: If I won the lottery, I would... / I would also...",
+      tipText: "Use: If I won the lottery, I would... / I would also...",
       minLength: 20,
       successTitle: "Correto",
       successMessage: "Ótimo! Você escreveu sobre uma situação imaginária.",
@@ -203,8 +208,7 @@ I wish I had more time.
         'Mande um áudio dando um conselho começando com: "If I were you, I would..."',
       image: Images.ex16,
       tipButtonLabel: "Tip",
-      tipText:
-        "If I were you, I would start with small lessons every day.",
+      tipText: "If I were you, I would start with small lessons every day.",
       recordLabel: "Speak",
       stopLabel: "Parar",
       successTitle: "Correto",
@@ -217,7 +221,7 @@ I wish I had more time.
     activity: {
       label: "Speed Typing Challenge!",
       content: [
-        `Você está quase l?! Agora, vamos testar sua agilidade e precisão.
+        `Você está quase lá! Agora, vamos testar sua agilidade e precisão.
 
 Você terá 5 segundos para digitar cada uma das 5 palavras-chave que usamos para falar de sonhos e conselhos.
 

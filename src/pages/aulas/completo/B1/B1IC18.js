@@ -87,7 +87,8 @@ ou
       options: ["in", "on"],
       correctAnswer: "in",
       successTitle: "Correto",
-      successMessage: 'Usamos "in" para áreas de atuação: in digital marketing.',
+      successMessage:
+        'Usamos "in" para áreas de atuação: in digital marketing.',
     },
   },
   {
@@ -157,8 +158,16 @@ Você tem 5 segundos para cada palavra. Prepare-se!`,
     activity: {
       prompt: "Complete o pitch de apresentação.",
       paragraphs: [
-        ['"Hello! I\'m David. I am a', { id: "b1", answer: "content", options: ["content", "happy"] }, "creator."],
-        ["I focus on creating English lessons for mobile apps. What do you", { id: "b2", answer: "do", options: ["make", "do"] }, 'for a living?"'],
+        [
+          "\"Hello! I'm David. I am a",
+          { id: "b1", answer: "content", options: ["content", "happy"] },
+          "creator.",
+        ],
+        [
+          "I focus on creating English lessons for mobile apps. What do you",
+          { id: "b2", answer: "do", options: ["make", "do"] },
+          'for a living?"',
+        ],
       ],
       successTitle: "Correto",
       successMessage: "A sequência correta é: content / do.",
@@ -183,15 +192,12 @@ Você tem 5 segundos para cada palavra. Prepare-se!`,
     component: "Exercise12",
     activity: {
       prompt: "The Elevator Pitch!",
-      instruction:
-        "Imagine que você está em uma conferência internacional.",
+      instruction: "Imagine que você está em uma conferência internacional.",
       helperText:
         'Escreva 2 ou 3 frases se apresentando. Use "I specialize in..." ou "I focus on...".',
-      image: ICB1.A19S2p1,
       placeholder:
         "Hi, I'm David. I'm in EdTech and I focus on creating English lessons for mobile apps.",
-      tipText:
-        "Diga nome, área e o valor que você entrega.",
+      tipText: "Diga nome, área e o valor que você entrega.",
       minLength: 25,
       successTitle: "Correto",
       successMessage: "Ótimo elevator pitch!",
@@ -205,7 +211,7 @@ Você tem 5 segundos para cada palavra. Prepare-se!`,
       instruction:
         "Mande um áudio como se estivesse abordando alguém no coffee break.",
       helperText:
-        'Use "Hi, I don\'t think we\'ve met...", apresente-se e termine com uma pergunta profissional.',
+        "Use \"Hi, I don't think we've met...\", apresente-se e termine com uma pergunta profissional.",
       image: Images.ex16,
       tipButtonLabel: "Tip",
       tipText:

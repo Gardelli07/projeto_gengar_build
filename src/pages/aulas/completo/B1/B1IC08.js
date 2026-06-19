@@ -31,7 +31,7 @@ O prazo final. Em startups, perder um deadline pode custar caro!`,
     needsSpeech: true,
     activity: {
       prompt: "Escolha a definição correta",
-      image: ICB1.A9S11,
+      image: ICB1.A8S1,
       audioSource: require("../../../../../mp3/IC/B1/A8S1.mp3"),
       audioDurationMs: 2200,
       answerOptions: [
@@ -50,7 +50,7 @@ O prazo final. Em startups, perder um deadline pode custar caro!`,
     needsSpeech: true,
     activity: {
       prompt: "Escolha a definição correta",
-      image: ICB1.A10S1,
+      image: ICB1.A8S2,
       audioSource: require("../../../../../mp3/IC/B1/A8S2.mp3"),
       audioDurationMs: 2800,
       answerOptions: [
@@ -69,7 +69,7 @@ O prazo final. Em startups, perder um deadline pode custar caro!`,
     needsSpeech: true,
     activity: {
       prompt: "Escolha a definição correta",
-      image: ICB1.A10S2,
+      image: ICB1.A8S3,
       audioSource: require("../../../../../mp3/IC/B1/A8S3.mp3"),
       audioDurationMs: 3000,
       answerOptions: [
@@ -87,7 +87,7 @@ O prazo final. Em startups, perder um deadline pode custar caro!`,
     needsSpeech: true,
     activity: {
       prompt: "Escolha a definição correta",
-      image: ICB1.A10S3,
+      image: ICB1.A8S4,
       audioSource: require("../../../../../mp3/IC/B1/A8S4.mp3"),
       audioDurationMs: 3200,
       answerOptions: [
@@ -130,7 +130,7 @@ O prazo final. Em startups, perder um deadline pode custar caro!`,
     component: "Exercise20",
     activity: {
       prompt: "Verdadeiro ou falso?",
-      image: ICB1.A10S4,
+      image: ICB1.A8S6,
       dialogue:
         "If you miss a deadline, it means you finished the task on time.",
       options: ["True", "False"],
@@ -157,7 +157,7 @@ O prazo final. Em startups, perder um deadline pode custar caro!`,
     activity: {
       prompt:
         "Qual destas palavras NÃO faz parte do mundo dos negócios e startups?",
-      image: ICB1.A11S2,
+      image: ICB1.A8S8,
       options: ["VC", "Pitch", "Pineapple", "Deadline"],
       correctAnswer: "Pineapple",
       successTitle: "Correto",
@@ -200,7 +200,7 @@ O prazo final. Em startups, perder um deadline pode custar caro!`,
       letters: ["P", "I", "T", "C", "H"],
       correctWord: "PITCH",
       successTitle: "Correto",
-      successMessage: 'A palavra ? "PITCH".',
+      successMessage: 'A palavra é "PITCH".',
     },
   },
   {
@@ -223,7 +223,6 @@ O prazo final. Em startups, perder um deadline pode custar caro!`,
         "Você está em um elevador com um investidor bilionário. Você tem 30 segundos para falar do seu app.",
       helperText:
         "Escreva 2 frases: diga que seu projeto está pronto para scale e peça uma reunião para fazer o seu pitch.",
-      image: ICB1.A11S3,
       placeholder:
         "My app is ready to scale globally. Could we schedule a meeting so I can present my pitchá",
       tipText: "Use scale como verbo e pitch como apresentação de venda.",

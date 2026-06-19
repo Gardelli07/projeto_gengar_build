@@ -102,6 +102,7 @@ export const TRA1 = {
 };
 
 export const BUA1 = {
+  A4S7: require("../../assets/Bussines/A1/A4S7.jpg"),
   A10S2: require("../../assets/Bussines/A1/A10S2.jpg"),
   A11S2p1: require("../../assets/Bussines/A1/A11S2p1.jpeg"),
   A11S2p2: require("../../assets/Bussines/A1/A11S2p2.jpeg"),
@@ -418,6 +419,7 @@ export const ICA1 = {
 };
 
 export const ICA2 = {
+  A50S3: require("../../assets/IC/A2/A50S3.jpeg"),
   A10S1: require("../../assets/IC/A2/A10S1.png"),
   A10S2: require("../../assets/IC/A2/A10S2.png"),
   A10S5: require("../../assets/IC/A2/A10S5.jpg"),
@@ -746,6 +748,15 @@ export const ICA2 = {
 };
 
 export const ICB1 = {
+  A10S7: require("../../assets/IC/B1/A10S7.jpeg"),
+  A10S8: require("../../assets/IC/B1/A10S8.jpeg"),
+  A10S9: require("../../assets/IC/B1/A10S9.jpeg"),
+  A10S10: require("../../assets/IC/B1/A10S10.jpeg"),
+  A9S8: require("../../assets/IC/B1/A9S8.jpeg"),
+  A9S9: require("../../assets/IC/B1/A9S9.jpeg"),
+  A9S10: require("../../assets/IC/B1/A9S10.jpeg"),
+  A33S3: require("../../assets/IC/B1/A33S3.png"),
+  A35S2: require("../../assets/IC/B1/A35S2.jpg"),
   A10S1: require("../../assets/IC/B1/A10S1.jpeg"),
   A10S2: require("../../assets/IC/B1/A10S2.jpeg"),
   A10S3: require("../../assets/IC/B1/A10S3.jpeg"),
