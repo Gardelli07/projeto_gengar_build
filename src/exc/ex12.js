@@ -28,6 +28,8 @@ export function Exercise12({
   const [result, setResult] = useState(null);
 
   const isCorrect = result === "correct";
+  const hasTip =
+    typeof activity?.tipText === "string" && activity.tipText.trim().length > 0;
   const canSubmit = text.trim().length >= (activity.minLength || 1);
 
   useEffect(() => {
@@ -108,15 +110,17 @@ export function Exercise12({
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity
-          style={styles.writeIntroTipButton}
-          onPress={() => setShowTip((current) => !current)}
-          activeOpacity={0.9}
-        >
-          <Image source={Images.tip} style={styles.writeIntroTipButtonImage} />
-        </TouchableOpacity>
+        {hasTip && (
+          <TouchableOpacity
+            style={styles.writeIntroTipButton}
+            onPress={() => setShowTip((current) => !current)}
+            activeOpacity={0.9}
+          >
+            <Image source={Images.tip} style={styles.writeIntroTipButtonImage} />
+          </TouchableOpacity>
+        )}
 
-        {showTip && (
+        {hasTip && showTip && (
           <View style={styles.writeIntroTipCard}>
             <Text style={styles.writeIntroTipText}>{activity.tipText}</Text>
           </View>

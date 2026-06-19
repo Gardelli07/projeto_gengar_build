@@ -55,6 +55,8 @@ export function Exercise16({
   const [result, setResult] = useState(null);
 
   const isCorrect = result === "correct";
+  const hasTip =
+    typeof activity?.tipText === "string" && activity.tipText.trim().length > 0;
   const hasRecordedAudio = Boolean(audioUri) && !isRecording;
 
   const wrongBackground = blinkAnim.interpolate({
@@ -380,16 +382,18 @@ export function Exercise16({
             <Image source={activity.image} style={styles.sendAudioAvatar} />
           </View>
 
-          <TouchableOpacity
-            style={styles.sendAudioTipButton}
-            onPress={() => setShowTip((current) => !current)}
-          >
-            <Text style={styles.sendAudioTipButtonText}>
-              {activity.tipButtonLabel}
-            </Text>
-          </TouchableOpacity>
+          {hasTip && (
+            <TouchableOpacity
+              style={styles.sendAudioTipButton}
+              onPress={() => setShowTip((current) => !current)}
+            >
+              <Text style={styles.sendAudioTipButtonText}>
+                {activity.tipButtonLabel}
+              </Text>
+            </TouchableOpacity>
+          )}
 
-          {showTip && (
+          {hasTip && showTip && (
             <View style={styles.sendAudioTipCard}>
               <Text style={styles.sendAudioTipText}>{activity.tipText}</Text>
             </View>
