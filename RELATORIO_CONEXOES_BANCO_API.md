@@ -1,3 +1,7 @@
+Você poderia projetar estruturas de dados do meu app, eu criei esse relatorio e o meu banco já em MYSQL poderia validar se eles batem e verificar se acha algum erro na estrutura? Se precisar de mais informações minhas, me faça 1-2 perguntas-chave imediatamente. Se achar que devo fornecer mais contexto ou fazer upload de algo para ajudá-lo a fazer um trabalho melhor, me avise. Use quaisquer ferramentas que você tenha acesso—como Google Drive, busca na web, etc.—se elas ajudarem.
+
+Se fizer sentido, crie algo que possamos ver juntos—como um visual, uma lista de verificação ou algo interativo. Obrigado pela ajuda!
+
 # Relatorio de conexoes com banco e API
 
 Data do levantamento: 23/06/2026
@@ -6,20 +10,32 @@ Data do levantamento: 23/06/2026
 
 O app vai ter dois tipos principais de acesso:
 
-1. Usuario comum: compra/assinatura pela Apple Store ou Play Store. Esse usuario nao entra com login e senha tradicional apenas com suas contas apple/play Store.
+1. Usuario comum: login obrigatorio pela conta Apple no iOS ou pela conta Google/Play Store no Android. Esse usuario nao entra com login e senha tradicional.
 2. Usuario de parceria/empresa: contas criadas manualmente, com login e senha, exemplo Santander.
 
-Tambem havera planos de assinatura por nivel de acesso, por exemplo:
+Fluxo geral do usuario comum:
 
-- assinatura `base`: libera um conjunto X de cursos/aulas.
-- assinatura `plus`: libera mais conteudo.
-- assinatura futura/premium: pode liberar tudo, comunidade avancada, trilhas extras etc.
+1. Pessoa baixa o app.
+2. Na primeira abertura, precisa logar obrigatoriamente com conta Apple ou Google.
+3. Como e o primeiro acesso, faz o placement test.
+4. Depois do placement test, entra na Home.
+5. Enquanto nao assinar, ve apenas algumas aulas gratuitas de modulos separados para testar o app.
+6. Para liberar todos os cursos e niveis existentes hoje, assina o plano unico `base`.
+7. O pagamento acontece pela carteira/checkout da App Store ou Play Store.
+8. Depois do pagamento, a API valida a assinatura e libera todos os cursos e niveis disponiveis no app hoje.
+9. Progresso de aula, nivel, XP, streak, placement e assinatura ficam salvos no backend para continuar funcionando se desinstalar o app ou trocar de celular.
+
+Na versao teste/lancamento inicial, havera apenas uma assinatura:
+
+- assinatura `base`: libera todos os cursos e niveis que o app ja tem hoje.
+
+Planos `plus`, `premium` ou outros podem existir no futuro, mas nao precisam ser prioridade agora.
 
 Com isso, o banco/API precisa controlar quatro coisas centrais:
 
-1. Quem e o usuario ou instalacao ativa.
+1. Quem e o usuario logado pela Apple/Google ou pela conta corporativa.
 2. Qual assinatura/compra esta valida.
-3. Qual conteudo cada plano libera.
+3. Qual conteudo esta liberado gratuitamente e qual conteudo depende do plano `base`.
 4. Qual progresso, post, audio e interacao pertence a cada usuario.
 
 ## 1. Identidade e acesso
@@ -44,21 +60,24 @@ Modelo recomendado:
 
 - Remover login/senha para usuario comum.
 - Manter login/senha apenas para `corporate_user`.
-- Para usuario comum, criar uma identidade interna no backend quando ele abre o app, faz placement, compra ou restaura assinatura.
-- Essa identidade interna pode ser ligada a:
+- Para usuario comum, exigir login com Apple ou Google logo na primeira abertura.
+- Depois do login Apple/Google, criar ou recuperar um `user_id` interno no backend.
+- Esse `user_id` interno sera a chave para salvar placement, progresso, assinatura, comunidade, audios e tentativas.
+- A assinatura deve ser ligada ao mesmo usuario interno e tambem aos identificadores da loja:
   - `app_store_original_transaction_id` no iOS.
   - `play_store_purchase_token` ou identificador de assinatura no Android.
-  - um `anonymous_installation_id` salvo no app para uso antes da compra.
 
 Importante:
 
-- Apple/Play Store vendem e renovam a assinatura, mas o seu backend precisa validar recibos/tokens e transformar isso em permissao dentro do app.
-- Mesmo sem login/senha, o backend precisa ter um `user_id` interno para salvar progresso, comunidade, audio e compras.
-- Se quiser sincronizar progresso entre celulares diferentes, sera necessario algum tipo de identificacao recuperavel, como Sign in with Apple/Google, email magic link ou restauracao de compra. Se nao fizer isso, o progresso pode ficar preso ao aparelho/instalacao.
+- App Store/Play Store vendem e renovam a assinatura, mas o backend precisa validar recibos/tokens e transformar isso em permissao dentro do app.
+- Como o login Apple/Google e obrigatorio, o progresso pode ser recuperado ao trocar de celular ou reinstalar o app, desde que o usuario entre com a mesma conta.
+- O backend deve guardar tanto a identidade Apple/Google quanto o historico da assinatura.
+- Login corporativo continua separado, porque empresas como Santander terao contas manuais.
 
 Endpoints sugeridos para usuario comum:
 
-- `POST /app/installations` cria/recupera uma instalacao anonima.
+- `POST /auth/apple` valida credencial Apple e cria/recupera usuario.
+- `POST /auth/google` valida credencial Google e cria/recupera usuario.
 - `GET /me` retorna usuario, plano ativo e permissoes.
 - `POST /purchases/ios/validate` valida recibo/transaction da App Store.
 - `POST /purchases/android/validate` valida purchase token da Play Store.
@@ -77,7 +96,7 @@ Endpoints para parceria/empresa:
 Tabelas sugeridas:
 
 - `users`
-- `installations`
+- `user_identities`
 - `corporate_accounts`
 - `companies`
 - `company_members`
@@ -87,11 +106,24 @@ Campos importantes em `users`:
 
 - `id`
 - `display_name`
-- `avatar_url`
+- `foto_arquivo_id`
 - `user_type` (`consumer`, `corporate`)
+- `placement_completed`
+- `first_login_at`
 - `status` (`active`, `blocked`, `deleted`)
 - `created_at`
 - `updated_at`
+
+Campos importantes em `user_identities`:
+
+- `id`
+- `user_id`
+- `provider` (`apple`, `google`)
+- `provider_user_id`
+- `email`
+- `email_verified`
+- `created_at`
+- `last_login_at`
 
 Campos importantes em `corporate_accounts`:
 
@@ -103,16 +135,6 @@ Campos importantes em `corporate_accounts`:
 - `role` (`admin`, `usuario`)
 - `created_manually`
 - `created_at`
-
-Campos importantes em `installations`:
-
-- `id`
-- `user_id`
-- `platform` (`ios`, `android`)
-- `installation_token`
-- `device_label`
-- `created_at`
-- `last_seen_at`
 
 ## 2. Assinaturas, planos e liberacao de conteudo
 
@@ -132,10 +154,21 @@ Estado atual:
 Conexao necessaria:
 
 - Saber qual plano o usuario tem ativo.
-- Validar assinatura com Apple Store/Play Store.
+- Validar assinatura com App Store/Play Store.
 - Guardar historico de compras/renovacoes/cancelamentos.
-- Liberar ou bloquear cursos, niveis, modulos e aulas conforme o plano.
+- Liberar algumas aulas gratuitas para usuario sem assinatura.
+- Liberar todos os cursos e niveis atuais para usuario com assinatura `base` ativa.
 - Permitir planos corporativos por empresa, sem depender de compra nas lojas.
+
+Regra da versao teste:
+
+- So existira uma assinatura comercial: `base`.
+- `base` libera todos os cursos e niveis que existem hoje no app.
+- Usuario sem assinatura fica em modo gratuito/degustacao.
+- Modo gratuito deve liberar apenas aulas especificas de modulos separados, escolhidas por voce.
+- O botao/fluxo de pagamento deve chamar o checkout/carteira da App Store ou Play Store.
+- Depois do pagamento, o app envia o recibo/token para a API validar.
+- A API atualiza a assinatura e devolve os acessos liberados.
 
 Endpoints sugeridos:
 
@@ -161,7 +194,7 @@ Tabelas sugeridas:
 Campos importantes em `plans`:
 
 - `id`
-- `code` (`base`, `plus`, `premium`, `corporate_santander`)
+- `code` (`free`, `base`, `corporate_santander`)
 - `name`
 - `description`
 - `is_active`
@@ -203,11 +236,14 @@ Campos importantes em `plan_entitlements`:
 Exemplo de liberacao:
 
 ```txt
-base -> Ingles Completo Starter, Viagem A1
-plus -> base + Ingles Completo A2/B1 + Business A1
-premium -> plus + Business B1 + recursos futuros
+free -> poucas aulas demonstrativas espalhadas por modulos/cursos
+base -> todos os cursos e niveis existentes hoje no app
 corporate_santander -> trilhas Santander + cursos definidos no contrato
 ```
+
+Observacao:
+
+- Mesmo com apenas uma assinatura agora, vale manter `plans` e `plan_entitlements` porque isso deixa o app pronto para criar `plus` ou `premium` no futuro sem refazer o banco.
 
 ## 3. Comunidade
 
@@ -219,15 +255,15 @@ Estado atual:
 
 - A tela usa `cards` fixos no proprio arquivo.
 - Existem cards de texto e audio.
-- Existem botoes "Muito Bom!" e "Sugerir Correcao", mas sem acao real.
+- A comunidade deve ter posts, comentarios e uma reacao tipo like.
 
 Conexao necessaria:
 
 - Carregar feed vindo do backend.
 - Permitir post manual apenas de texto.
 - Exibir posts enviados pelos exercicios 12 e 16.
-- Registrar curtidas/reacoes.
-- Registrar sugestoes de correcao.
+- Registrar likes.
+- Registrar comentarios nos posts.
 - Tocar audio por URL salva no backend/storage.
 
 Regra importante:
@@ -242,17 +278,17 @@ Endpoints sugeridos:
 - `POST /community/posts`
 - `PATCH /community/posts/:id`
 - `DELETE /community/posts/:id`
-- `POST /community/posts/:id/reactions`
-- `DELETE /community/posts/:id/reactions`
-- `POST /community/posts/:id/corrections`
-- `GET /community/posts/:id/corrections`
+- `POST /community/posts/:id/likes`
+- `DELETE /community/posts/:id/likes`
+- `POST /community/posts/:id/comments`
+- `GET /community/posts/:id/comments`
 
 Tabelas sugeridas:
 
 - `community_posts`
-- `community_reactions`
-- `community_corrections`
-- `community_comments` se quiser comentarios livres depois
+- `posts_comunidade`
+- `reacoes_comunidade`
+- `comentarios_comunidade`
 
 Campos importantes em `community_posts`:
 
@@ -354,7 +390,7 @@ Fluxo recomendado:
 2. App envia `multipart/form-data` para API.
 3. API valida sessao/assinatura/permissao.
 4. API salva audio em storage externo.
-5. API grava metadados em `media_files`.
+5. API grava URL e metadados na tabela central `arquivos`.
 6. API salva tentativa em `exercise_attempts`.
 7. API cria post em `community_posts`.
 
@@ -376,19 +412,24 @@ Exemplo de payload multipart:
 Tabelas sugeridas:
 
 - `exercise_attempts`
-- `media_files`
+- `arquivos`
 - `community_posts`
 
-Campos importantes em `media_files`:
+Campos importantes em `arquivos`:
 
 - `id`
 - `user_id`
-- `kind` (`audio`)
+- `tipo` (`audio`, `imagem`)
+- `origem` (`usuario`, `sistema`, `conteudo`, `comunidade`, `exercicio`)
 - `storage_provider`
 - `url`
+- `nome_original`
 - `mime_type`
 - `size_bytes`
 - `duration_seconds`
+- `largura_px`
+- `altura_px`
+- `texto_alternativo`
 - `created_at`
 
 ## 6. Progresso das aulas, XP e streak
@@ -433,10 +474,7 @@ Endpoints sugeridos:
 
 Tabelas sugeridas:
 
-- `courses`
-- `levels`
-- `modules`
-- `lessons`
+- `conteudos`
 - `lesson_completions`
 - `user_xp_events`
 - `user_streaks`
@@ -470,7 +508,6 @@ Conexao necessaria:
 - Salvar tentativas por exercicio para historico, revisao de erros e analytics.
 - Para Exercise12, salvar texto.
 - Para Exercise16, salvar audio.
-- Ligar tentativa ao plano/assinatura vigente na data, para auditoria.
 
 Endpoints sugeridos:
 
@@ -485,17 +522,15 @@ Tabela sugerida:
 Campos importantes:
 
 - `id`
-- `user_id`
-- `lesson_id`
-- `slide_key`
-- `exercise_type`
-- `is_correct`
-- `answer_text`
-- `answer_json`
-- `media_file_id`
-- `accuracy`
-- `subscription_id`
-- `created_at`
+- `usuario_id`
+- `conteudo_id`
+- `chave_slide`
+- `tipo_exercicio`
+- `correta`
+- `resposta_texto`
+- `resposta_json`
+- `arquivo_id`
+- `criado_em`
 
 ## 8. Placement test
 
@@ -511,12 +546,14 @@ Estado atual:
 
 Conexao necessaria:
 
+- Rodar obrigatoriamente no primeiro login Apple/Google.
 - Salvar curso escolhido.
 - Salvar nivel escolhido/recomendado.
 - Salvar respostas e pontuacao.
 - Usar resultado para personalizar Home.
-- Para usuario sem assinatura, pode salvar resultado atrelado a `installation_id`.
-- Depois da compra, vincular resultado ao `user_id`.
+- Marcar `placement_completed = true` no usuario.
+- Se o usuario desinstalar e reinstalar, ao logar com a mesma conta Apple/Google, a API deve informar que o placement ja foi feito.
+- Se quiser permitir refazer teste depois, criar uma nova tentativa sem apagar o historico antigo.
 
 Endpoints sugeridos:
 
@@ -527,7 +564,6 @@ Endpoints sugeridos:
 Tabelas sugeridas:
 
 - `placement_tests`
-- `placement_answers`
 - `user_preferences`
 
 ## 9. Santander e outras parcerias empresariais
@@ -561,7 +597,6 @@ Endpoints sugeridos:
 - `GET /companies/:companyId/courses`
 - `GET /companies/:companyId/users`
 - `POST /companies/:companyId/users`
-- `GET /companies/:companyId/reports`
 
 Tabelas sugeridas:
 
@@ -570,7 +605,6 @@ Tabelas sugeridas:
 - `corporate_accounts`
 - `company_contracts`
 - `company_entitlements`
-- `company_progress_reports`
 
 Campos importantes em `company_contracts`:
 
@@ -582,7 +616,7 @@ Campos importantes em `company_contracts`:
 - `max_users`
 - `status`
 
-## 10. Conteudo de cursos, aulas e assets
+## 10. Conteudo de cursos, niveis, modulos, aulas e assets
 
 Arquivos envolvidos:
 
@@ -599,46 +633,48 @@ Estado atual:
 
 Conexao recomendada para assinaturas:
 
-- Mesmo que as aulas continuem hardcoded no app, o backend precisa ter um catalogo minimo de cursos/niveis/modulos/aulas para decidir o que cada plano libera.
+- Mesmo que as aulas continuem hardcoded no app, o backend precisa ter um catalogo minimo para decidir o que cada plano libera.
 - Exemplo: o app pode ter todos os arquivos, mas a API responde se o usuario pode abrir ou nao.
 
-Tabelas recomendadas:
+Tabela recomendada para o MVP:
+
+- `conteudos`: uma linha por aula, contendo tambem `curso_codigo`, `curso_nome`, `nivel_codigo`, `nivel_nome`, `modulo_codigo`, `modulo_nome`, `aula_codigo`, `aula_titulo`, `nome_tela`, `gratuita` e `ativa`.
+- `features`
+
+Tabelas futuras, se o catalogo crescer muito ou virar CMS:
 
 - `courses`
 - `levels`
 - `modules`
 - `lessons`
-- `features`
-
-Tabelas futuras, se quiser editar conteudo sem atualizar o app:
-
 - `lesson_slides`
 - `assets`
 - `lesson_assets`
 
 ## Ordem recomendada para implementar a API
 
-1. Criar `users` e `installations` para usuario comum sem login/senha.
-2. Criar `plans`, `store_products` e `plan_entitlements`.
-3. Criar validacao de compra/assinatura App Store e Play Store.
-4. Criar `subscriptions` e `purchase_events`.
-5. Criar `GET /me` e `GET /me/entitlements`.
-6. Criar catalogo minimo de cursos/aulas e bloqueio por plano.
-7. Criar login corporativo separado: `corporate_accounts`, `companies`, `company_members`.
-8. Criar feed real da comunidade.
-9. Conectar Exercise12 ao backend como texto.
-10. Conectar Exercise16 ao backend como upload de audio.
-11. Criar reacoes e sugestoes de correcao.
-12. Criar progresso, XP e streak no backend.
-13. Criar tentativas dos exercicios.
-14. Criar placement test persistido.
-15. Criar relatorios para empresas/parcerias.
+1. Criar `users`, `user_identities` e login obrigatorio com Apple/Google.
+2. Criar `GET /me` para saber usuario, placement, assinatura e acessos.
+3. Criar `placement_tests` e obrigar placement no primeiro login.
+4. Criar catalogo minimo na tabela unica `conteudos`.
+5. Criar plano `free` para aulas demonstrativas e plano `base` para liberar tudo.
+6. Criar `plans`, `store_products` e `plan_entitlements`.
+7. Criar validacao de compra/assinatura App Store e Play Store.
+8. Criar `subscriptions` e `purchase_events`.
+9. Criar bloqueio/liberacao de aulas na Home conforme assinatura.
+10. Criar progresso, nivel, XP e streak no backend.
+11. Criar login corporativo separado: `corporate_accounts`, `companies`, `company_members`.
+12. Criar feed real da comunidade.
+13. Conectar Exercise12 ao backend como texto.
+14. Conectar Exercise16 ao backend como upload de audio.
+15. Criar likes e comentarios nos posts.
+16. Criar tentativas dos exercicios.
 
 ## Modelo minimo de banco para comecar
 
 ```sql
 users
-installations
+user_identities
 plans
 store_products
 plan_entitlements
@@ -649,14 +685,11 @@ corporate_accounts
 company_members
 company_contracts
 company_entitlements
-courses
-levels
-modules
-lessons
+conteudos
 community_posts
-community_reactions
-community_corrections
-media_files
+reacoes_comunidade
+comentarios_comunidade
+arquivos
 lesson_completions
 exercise_attempts
 user_streaks
@@ -666,14 +699,21 @@ placement_tests
 ## Regras importantes
 
 - Usuario comum nao usa login/senha.
+- Usuario comum precisa logar obrigatoriamente com Apple ou Google antes de usar o app.
+- Primeiro login deve levar para o placement test.
+- Placement test concluido deve ficar salvo no backend.
+- Usuario sem assinatura acessa apenas aulas gratuitas/demonstrativas escolhidas.
+- Na versao teste, a assinatura unica `base` libera todos os cursos e niveis existentes hoje.
+- Pagamento da assinatura deve acontecer pela carteira/checkout da App Store ou Play Store.
 - Login/senha fica apenas para contas corporativas criadas manualmente.
-- A assinatura da Apple Store/Play Store deve ser validada no backend.
+- A assinatura da App Store/Play Store deve ser validada no backend.
 - O backend deve ser a fonte da verdade para dizer se o plano esta ativo.
 - O app nao deve confiar apenas no estado local para liberar aula paga.
 - Cada curso/aula/modulo precisa estar ligado a um plano ou entitlement.
+- Progresso de aula, nivel, XP, streak e placement devem ficar ligados ao `user_id`, nao apenas ao aparelho.
+- Ao reinstalar o app ou trocar de celular, o usuario deve recuperar assinatura e progresso ao logar com a mesma conta Apple/Google e restaurar compra se necessario.
 - Audio da comunidade so pode entrar pelo Exercise16.
 - Post manual na comunidade deve ser apenas texto.
 - Exercise12 e Exercise16 precisam enviar contexto da aula junto da resposta.
 - Audio deve ir para storage externo; no banco fica URL/metadados.
 - `AsyncStorage` pode continuar como cache, mas progresso real deve ficar no backend.
-- Para sincronizar progresso entre aparelhos, sera necessario algum mecanismo de restauracao/identificacao, mesmo sem senha tradicional.
