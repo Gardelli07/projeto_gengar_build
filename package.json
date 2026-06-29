@@ -22,7 +22,6 @@
     "expo-clipboard": "~8.0.8",
     "expo-image-picker": "~17.0.10",
     "expo-speech": "~14.0.8",
-    "expo-sqlite": "~16.0.10",
     "expo-status-bar": "~3.0.9",
     "lucide-react": "^0.563.0",
     "lucide-react-native": "^0.562.0",

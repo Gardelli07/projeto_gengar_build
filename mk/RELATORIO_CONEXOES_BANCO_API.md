@@ -42,7 +42,6 @@ Com isso, o banco/API precisa controlar quatro coisas centrais:
 
 Arquivos envolvidos:
 
-- `bd.js`
 - `src/pages/Login.js`
 - `src/context/AuthContext.js`
 - `src/routes/TabsNavigator.js`
@@ -50,8 +49,7 @@ Arquivos envolvidos:
 
 Estado atual:
 
-- `bd.js` cria uma tabela local SQLite chamada `Usuario`.
-- `Login.js` faz login local com usuario e senha.
+- `Login.js` envia o login corporativo para `POST /corporate/auth/login`.
 - `AuthContext.js` guarda o usuario apenas em memoria.
 - `TabsNavigator.js` mostra aba Santander quando `user.empresa === "santander"`.
 - Santander diferencia admin por `user.tipo === "admin"`.

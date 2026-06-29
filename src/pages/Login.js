@@ -14,8 +14,8 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import getDB from "../../bd";
 import { useAuth } from "../context/AuthContext";
+import api, { setAccessToken } from "../services/api";
 import CORES from "../util/cores";
 
 const { width } = Dimensions.get("window");
@@ -43,29 +43,39 @@ export default function LoginScreen({ navigation }) {
     }
 
     try {
-      const db = await getDB();
-
-      const result = await db.getFirstAsync(
-        "SELECT * FROM Usuario WHERE login = ? AND senha = ?",
-        [email, senha],
+      const response = await api.post(
+        "/corporate/auth/login",
+        {
+          login: email.trim(),
+          senha,
+        },
+        { authenticated: false },
       );
 
-      if (!result) {
-        Alert.alert("Erro", "Usuário ou senha inválidos");
-        return;
-      }
+      const payload = response?.dados || response?.data || response;
+      const userData = payload?.usuario || payload?.user || payload;
+      const token = payload?.access_token || payload?.token;
+      const company =
+        userData?.empresa?.codigo ||
+        userData?.empresa_codigo ||
+        userData?.empresa;
+      const empresa =
+        typeof company === "string" ? company.toLowerCase() : company;
+
+      if (token) await setAccessToken(token);
 
       // 🔐 salva no contexto
       signIn({
-        login: result.login,
-        tipo: result.tipo,
-        empresa: result.empresa,
+        ...userData,
+        login: userData?.login || email.trim(),
+        tipo: userData?.perfil || userData?.tipo,
+        empresa,
       });
 
       // 🎯 rota dinâmica por empresa
-      const homeRoute = getHomeRouteByEmpresa(result.empresa);
+      const homeRoute = getHomeRouteByEmpresa(empresa);
 
-      Alert.alert("Sucesso", `Bem-vindo ${result.login}`);
+      Alert.alert("Sucesso", `Bem-vindo ${userData?.login || email.trim()}`);
 
       // 🔁 reset (não volta pro login)
       navigation.reset({
@@ -81,7 +91,7 @@ export default function LoginScreen({ navigation }) {
       });
     } catch (error) {
       console.error(error);
-      Alert.alert("Erro", "Erro ao realizar login");
+      Alert.alert("Erro", error.message || "Erro ao realizar login");
     }
   }
 
