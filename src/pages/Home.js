@@ -13,6 +13,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Svg, { Circle, Text as SvgText, TSpan } from "react-native-svg";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { useAuth } from "../context/AuthContext";
+import { API_URL } from "../services/api";
 import CORES from "../util/cores";
 import { LESSON_STREAK_STORAGE_KEY } from "../util/lessonPerformance";
 import { getLevelProgress, XP_PER_LESSON } from "../util/xp";
@@ -204,6 +206,13 @@ function ProgressCircle({ percent, size = 70, strokeWidth = 4 }) {
 }
 
 export default function Inglescompleto({ navigation, route }) {
+  const { user } = useAuth();
+  const displayName = user?.nome_exibicao?.trim() || user?.login || "Usuário";
+  const firstName = displayName.split(" ")[0];
+  const avatarSource = user?.foto_url
+    ? { uri: `${API_URL}${user.foto_url}` }
+    : KAIQUE_PHOTO;
+
   const autoOpenLessonId = route?.params?.autoOpenLessonId;
   const initialCourse = route?.params?.initialCourse ?? null;
   const initialLevel = route?.params?.initialLevel ?? "Starter";
@@ -437,13 +446,13 @@ export default function Inglescompleto({ navigation, route }) {
       >
         <View style={styles.greetingRow}>
           <View style={styles.avatar}>
-            <Image source={KAIQUE_PHOTO} style={styles.avatarImage} />
+            <Image source={avatarSource} style={styles.avatarImage} />
             <View style={styles.onlineDot} />
           </View>
 
           <View>
             <Text style={styles.hello}>Hello,</Text>
-            <Text style={styles.userName}>Kaique</Text>
+            <Text style={styles.userName}>{firstName}</Text>
           </View>
 
           <View style={styles.statsArea}>

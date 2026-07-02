@@ -8,3 +8,5 @@ Verificar as imagens em util/images const ICA2
 verificar audios em mp3/IC/A2
 
 use A2LessonScreen como base para os arquivos e referencie apenas const LESSON_SLIDES = [ com as atividades em cada um dos arquivos
+
+npx.cmd expo run:android

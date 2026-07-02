@@ -1,39 +1,88 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
-
-# dependencies
+# Dependencias
 node_modules/
+.npm/
+.pnpm-store/
+.yarn/cache/
+.yarn/unplugged/
 
-# Expo
+# Expo e bundles gerados
 .expo/
+.expo-shared/
 dist/
 web-build/
 expo-env.d.ts
 
-# Native
-.kotlin/
-*.orig.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-*.md
-
-# Metro
+# Caches e resultados de testes
+.cache/
+.parcel-cache/
+.eslintcache
+.nyc_output/
+coverage/
+*.tsbuildinfo
 .metro-health-check*
 
-# debug
-npm-debug.*
-yarn-debug.*
-yarn-error.*
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# macOS
-.DS_Store
-*.pem
+# Android: arquivos locais e artefatos de compilacao
+android/.gradle/
+android/.idea/
+android/.kotlin/
+android/build/
+android/app/build/
+android/app/.cxx/
+android/local.properties
+.kotlin/
+*.iml
+*.hprof
+*.jsbundle
+*.apk
+*.aab
 
-# local env files
+# iOS: dependencias e artefatos de compilacao
+ios/Pods/
+ios/build/
+ios/DerivedData/
+ios/.xcode.env.local
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcuserstate
+*.ipa
+
+# Variaveis de ambiente e configuracoes locais
 .env
-.env*.local
+.env.*
+!.env.example
+.claude/settings.local.json
 
-# typescript
-*.tsbuildinfo
+# Chaves, certificados e perfis de assinatura
+*.jks
+*.keystore
+*.p8
+*.p12
+*.pem
+*.key
+*.mobileprovision
+android/app/debug.keystore
+
+# Editores e sistema operacional
+.idea/
+.vscode/
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+
+# Arquivos temporarios e de patch
+*.orig
+*.orig.*
+*.rej
+*.tmp
+*.temp
