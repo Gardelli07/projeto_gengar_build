@@ -8,7 +8,7 @@ import CORES from "../util/cores";
 
 import Home from "../pages/Home";
 import Comunidade from "../pages/Comunidade";
-import Login from "../pages/Login";
+import Profile from "../pages/Profile";
 import HomeSantander from "../pages/santander";
 
 import { useAuth } from "../context/AuthContext";
@@ -68,7 +68,7 @@ export default function TabsNavigator() {
           const icons = {
             Home: "home",
             Comunidade: "comment",
-            Login: "login",
+            Perfil: "account",
           };
 
           if (!icons[route.name]) return null;
@@ -85,7 +85,7 @@ export default function TabsNavigator() {
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Comunidade" component={Comunidade} />
-      <Tab.Screen name="Login" component={Login} />
+      <Tab.Screen name="Perfil" component={Profile} />
 
       {isSantander && (
         <Tab.Screen

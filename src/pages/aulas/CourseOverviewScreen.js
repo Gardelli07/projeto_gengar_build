@@ -11,15 +11,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import CORES from "../../util/cores";
-
-const THEME = {
-  bg: "#F5F5F5",
-  white: "#FFFFFF",
-  textStrong: "#1B2233",
-  textSoft: "#7C8292",
-  border: "#E8DDD0",
-  shadow: "#000000",
-};
+import { fetchAulaAccessMap } from "../../services/conteudos";
 
 async function loadProgress(storageKey) {
   try {
@@ -42,6 +34,7 @@ export default function CourseOverviewScreen({
   const openedRef = useRef(false);
   const [progressMap, setProgressMap] = useState({});
   const [openModuleId, setOpenModuleId] = useState(0);
+  const [aulaAccessMap, setAulaAccessMap] = useState(null);
 
   useEffect(() => {
     const sub = navigation.addListener("focus", async () => {
@@ -54,6 +47,18 @@ export default function CourseOverviewScreen({
   useEffect(() => {
     loadProgress(storageKey).then((progress) => setProgressMap(progress));
   }, [storageKey]);
+
+  useEffect(() => {
+    let active = true;
+    fetchAulaAccessMap()
+      .then((map) => {
+        if (active) setAulaAccessMap(map);
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, []);
 
   useEffect(() => {
     if (!autoOpenLessonId || openedRef.current) return;
@@ -172,7 +177,12 @@ export default function CourseOverviewScreen({
                 <View style={styles.lessonContainer}>
                   {moduleLessons.map((lesson, index) => {
                     const done = !!progressMap[lesson.id];
-                    const isPlayable = !!lesson.screen;
+                    const hasScreen = !!lesson.screen;
+                    const isFree = aulaAccessMap
+                      ? aulaAccessMap[lesson.screen] !== false
+                      : true;
+                    const isLocked = hasScreen && !isFree;
+                    const isPlayable = hasScreen && isFree;
                     const isLast = index === moduleLessons.length - 1;
 
                     return (
@@ -216,7 +226,13 @@ export default function CourseOverviewScreen({
                         </View>
 
                         <MaterialCommunityIcons
-                          name={done ? "check-circle" : "chevron-right"}
+                          name={
+                            done
+                              ? "check-circle"
+                              : isLocked
+                                ? "lock-outline"
+                                : "chevron-right"
+                          }
                           size={18}
                           color={
                             done
@@ -242,11 +258,11 @@ export default function CourseOverviewScreen({
 const styles = StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: THEME.bg,
+    backgroundColor: CORES.BACKGROUND,
   },
   scroll: {
     flex: 1,
-    backgroundColor: THEME.bg,
+    backgroundColor: CORES.BACKGROUND,
   },
   content: {
     flexGrow: 1,
@@ -258,7 +274,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   courseName: {
-    color: THEME.textStrong,
+    color: CORES.COURSE_TEXT_STRONG,
     fontSize: 31,
     fontWeight: "800",
   },
@@ -266,15 +282,15 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   moduleCard: {
-    backgroundColor: THEME.white,
+    backgroundColor: CORES.WHITE,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: THEME.border,
+    borderColor: CORES.COURSE_BORDER,
     paddingHorizontal: 14,
     paddingVertical: 16,
     flexDirection: "row",
     alignItems: "center",
-    shadowColor: THEME.shadow,
+    shadowColor: CORES.BLACK,
     shadowOpacity: 0.08,
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 3 },
@@ -300,7 +316,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   moduleTitle: {
-    color: THEME.textStrong,
+    color: CORES.COURSE_TEXT_STRONG,
     fontSize: 18,
     fontWeight: "800",
   },
@@ -321,10 +337,10 @@ const styles = StyleSheet.create({
   },
   lessonContainer: {
     marginTop: 8,
-    backgroundColor: THEME.white,
+    backgroundColor: CORES.WHITE,
     borderRadius: 18,
     borderWidth: 1,
-    borderColor: THEME.border,
+    borderColor: CORES.COURSE_BORDER,
     overflow: "hidden",
   },
   lessonButton: {
@@ -368,7 +384,7 @@ const styles = StyleSheet.create({
     paddingRight: 12,
   },
   lessonTitle: {
-    color: THEME.textStrong,
+    color: CORES.COURSE_TEXT_STRONG,
     fontSize: 15,
     fontWeight: "400",
   },

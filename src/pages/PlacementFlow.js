@@ -11,21 +11,9 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { useAuth } from "../context/AuthContext";
+import api from "../services/api";
 import CORES from "../util/cores";
-
-const THEME = {
-  bg: "#F5F5F5",
-  primary: CORES.PRIMARY,
-  blue: "#173B6E",
-  text: "#233041",
-  muted: "#8FA0B7",
-  card: "#FFFFFF",
-  accent: "#26BA86",
-  danger: "#EF6A62",
-  border: "#E6ECF3",
-  track: "#DFE5ED",
-  success: "#22B573",
-};
 
 const COURSES = [
   {
@@ -540,6 +528,7 @@ function getPreviousAvailableLevel(courseId, levelId) {
 }
 
 export default function PlacementFlow({ navigation }) {
+  const { updateUser } = useAuth();
   const [step, setStep] = useState("intro");
   const [course, setCourse] = useState(null);
   const [level, setLevel] = useState(null);
@@ -660,9 +649,23 @@ export default function PlacementFlow({ navigation }) {
     };
   }, [course, level, score]);
 
-  const goToRecommendedCourse = () => {
+  const goToRecommendedCourse = async () => {
     const targetLevel =
       result && result.recommendedLevel ? result.recommendedLevel : level;
+
+    try {
+      await api.post("/nivelamento/concluir", {
+        curso_escolhido_codigo: course.id,
+        nivel_escolhido_codigo: level.id,
+        curso_recomendado_codigo: course.id,
+        nivel_recomendado_codigo: targetLevel?.id,
+        pontuacao: score,
+        total_perguntas: questions.length,
+      });
+      updateUser({ teste_nivelamento_concluido: true });
+    } catch (error) {
+      console.error(error);
+    }
 
     navigation.replace("Tabs", {
       screen: "Home",
@@ -687,7 +690,7 @@ export default function PlacementFlow({ navigation }) {
 
   return (
     <SafeAreaView style={styles.safe}>
-      <StatusBar barStyle="dark-content" backgroundColor={THEME.bg} />
+      <StatusBar barStyle="dark-content" backgroundColor={CORES.BACKGROUND} />
       {step === "intro" && (
         <View style={styles.centerScreen}>
           <Text style={styles.heroTitle}>
@@ -761,7 +764,7 @@ export default function PlacementFlow({ navigation }) {
               <MaterialCommunityIcons
                 name="arrow-left"
                 size={21}
-                color={THEME.blue}
+                color={CORES.PLACEMENT_BLUE}
               />
             </TouchableOpacity>
 
@@ -973,7 +976,7 @@ export default function PlacementFlow({ navigation }) {
 const styles = StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: THEME.bg,
+    backgroundColor: CORES.BACKGROUND,
   },
   centerScreen: {
     flex: 1,
@@ -1007,7 +1010,7 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   heroTitle: {
-    color: THEME.blue,
+    color: CORES.PLACEMENT_BLUE,
     fontSize: 28,
     lineHeight: 34,
     fontWeight: "900",
@@ -1028,8 +1031,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: THEME.primary,
-    shadowColor: THEME.primary,
+    backgroundColor: CORES.PRIMARY,
+    shadowColor: CORES.PRIMARY,
     shadowOpacity: 0.22,
     shadowRadius: 12,
     shadowOffset: { width: 0, height: 6 },
@@ -1074,9 +1077,9 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 13,
-    backgroundColor: THEME.card,
+    backgroundColor: CORES.WHITE,
     borderWidth: 1,
-    borderColor: THEME.border,
+    borderColor: CORES.PLACEMENT_BORDER,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -1098,13 +1101,13 @@ const styles = StyleSheet.create({
     marginRight: 7,
   },
   selectedCourseText: {
-    color: THEME.blue,
+    color: CORES.PLACEMENT_BLUE,
     fontSize: 13,
     fontWeight: "900",
     flexShrink: 1,
   },
   screenTitle: {
-    color: THEME.blue,
+    color: CORES.PLACEMENT_BLUE,
     fontSize: 23,
     lineHeight: 29,
     fontWeight: "900",
@@ -1112,7 +1115,7 @@ const styles = StyleSheet.create({
   },
   screenSubtitle: {
     marginTop: 8,
-    color: THEME.muted,
+    color: CORES.PLACEMENT_MUTED,
     fontSize: 13,
     fontWeight: "700",
     textAlign: "center",
@@ -1124,9 +1127,9 @@ const styles = StyleSheet.create({
   optionCard: {
     minHeight: 68,
     borderRadius: 15,
-    backgroundColor: THEME.card,
+    backgroundColor: CORES.WHITE,
     borderWidth: 1,
-    borderColor: THEME.border,
+    borderColor: CORES.PLACEMENT_BORDER,
     paddingHorizontal: 18,
     paddingVertical: 14,
     flexDirection: "row",
@@ -1142,7 +1145,7 @@ const styles = StyleSheet.create({
     marginLeft: 14,
   },
   optionTitle: {
-    color: THEME.blue,
+    color: CORES.PLACEMENT_BLUE,
     fontSize: 15,
     fontWeight: "900",
   },
@@ -1167,22 +1170,22 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 9,
     borderRadius: 999,
-    backgroundColor: THEME.track,
+    backgroundColor: CORES.PLACEMENT_TRACK,
     overflow: "hidden",
   },
   progressFill: {
     height: "100%",
     borderRadius: 999,
-    backgroundColor: THEME.primary,
+    backgroundColor: CORES.PRIMARY,
   },
   xpText: {
-    color: THEME.primary,
+    color: CORES.PRIMARY,
     fontSize: 13,
     fontWeight: "900",
   },
   questionCounter: {
     minWidth: 34,
-    color: THEME.primary,
+    color: CORES.PRIMARY,
     fontSize: 13,
     fontWeight: "900",
     textAlign: "right",
@@ -1190,15 +1193,15 @@ const styles = StyleSheet.create({
   questionCard: {
     marginTop: 18,
     borderRadius: 16,
-    backgroundColor: THEME.card,
+    backgroundColor: CORES.WHITE,
     borderWidth: 1,
-    borderColor: THEME.border,
+    borderColor: CORES.PLACEMENT_BORDER,
     paddingHorizontal: 20,
     paddingTop: 24,
     paddingBottom: 20,
   },
   questionTitle: {
-    color: THEME.blue,
+    color: CORES.PLACEMENT_BLUE,
     fontSize: 21,
     lineHeight: 27,
     fontWeight: "900",
@@ -1281,12 +1284,12 @@ const styles = StyleSheet.create({
     marginTop: 14,
     minHeight: 48,
     borderRadius: 13,
-    backgroundColor: THEME.primary,
+    backgroundColor: CORES.PRIMARY,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     gap: 8,
-    shadowColor: THEME.primary,
+    shadowColor: CORES.PRIMARY,
     shadowOpacity: 0.22,
     shadowRadius: 12,
     shadowOffset: { width: 0, height: 6 },
@@ -1301,13 +1304,13 @@ const styles = StyleSheet.create({
     width: 84,
     height: 84,
     borderRadius: 24,
-    backgroundColor: THEME.accent,
+    backgroundColor: CORES.PLACEMENT_ACCENT,
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 24,
   },
   resultIconHonest: {
-    backgroundColor: THEME.danger,
+    backgroundColor: CORES.PLACEMENT_DANGER,
   },
   resultMessage: {
     marginTop: 16,
@@ -1319,7 +1322,7 @@ const styles = StyleSheet.create({
   },
   resultMeta: {
     marginTop: 18,
-    color: THEME.blue,
+    color: CORES.PLACEMENT_BLUE,
     fontSize: 13,
     fontWeight: "900",
     textAlign: "center",

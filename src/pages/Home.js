@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Alert,
   Image,
@@ -15,155 +15,59 @@ import Svg, { Circle, Text as SvgText, TSpan } from "react-native-svg";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useAuth } from "../context/AuthContext";
 import { API_URL } from "../services/api";
-import CORES from "../util/cores";
 import { LESSON_STREAK_STORAGE_KEY } from "../util/lessonPerformance";
 import { getLevelProgress, XP_PER_LESSON } from "../util/xp";
+import CORES from "../util/cores";
 import {
-  BUSSINES_STORAGE_KEY,
+  COURSE_OPTIONS,
+  LEVEL_OPTIONS,
+  LEVEL_CONFIG,
+  COURSE_CONFIG,
+  BUSINESS_LEVEL_CONFIG,
+  TRAVEL_LEVEL_CONFIG,
+  COURSE_LEVEL_AVAILABILITY,
+  getCourseLevelConfig,
+  loadProgress,
+} from "../util/courseCatalog";
+import {
   bussinesModuleDefs,
   bussinesSampleLessons,
 } from "./aulas/bussines";
 import {
-  BUSSINES_B1_STORAGE_KEY,
   bussinesB1ModuleDefs,
   bussinesB1SampleLessons,
 } from "./aulas/bussines/B1";
 import {
-  INGLES_COMPLETO_STORAGE_KEY,
   inglesModuleDefs,
   inglesSampleLessons,
 } from "./aulas/completo/A0-A1";
 import {
-  INGLES_COMPLETO_STORAGE_KEY as INGLES_COMPLETO_A2_STORAGE_KEY,
   inglesModuleDefs as inglesA2ModuleDefs,
   inglesSampleLessons as inglesA2SampleLessons,
 } from "./aulas/completo/A2";
 import {
-  INGLES_COMPLETO_STORAGE_KEY as INGLES_COMPLETO_B1_STORAGE_KEY,
   inglesModuleDefs as inglesB1ModuleDefs,
   inglesSampleLessons as inglesB1SampleLessons,
 } from "./aulas/completo/B1";
 import {
-  TRAVEL_STORAGE_KEY,
   travelModuleDefs,
   travelSampleLessons,
 } from "./aulas/viagem/A1";
 
-const KAIQUE_PHOTO = require("../../assets/Foto kaique.jpeg");
-
-const THEME = {
-  bg: "#F5F5F5",
-  white: "#FFFFFF",
-  textStrong: "#173B6E",
-  textSoft: "#7E8DA3",
-  green: "#26BA86",
-  lightBar: "#DFE5ED",
-  border: "#E6ECF3",
+const LEVEL_ACCENT = {
+  Starter: "#2E9E6B",
+  Elementary: "#3E6FB8",
+  Intermediate: "#7A5BC0",
+  Advanced: "#1E97A8",
 };
 
-export const COURSE_OPTIONS = [
-  "Ingles Completo",
-  "Bussines English",
-  "Ingles para viagem",
-];
-export const LEVEL_OPTIONS = ["Starter", "Elementary", "Intermediate", "Advanced"];
-
-const LEVEL_CONFIG = {
-  Starter: {
-    folder: "A0-A1",
-    routeName: "Inglescompleto",
-    storageKey: INGLES_COMPLETO_STORAGE_KEY,
-    moduleDefs: inglesModuleDefs,
-    lessons: inglesSampleLessons,
-    available: true,
-  },
-  Elementary: {
-    folder: "A2",
-    routeName: "InglescompletoA2",
-    storageKey: INGLES_COMPLETO_A2_STORAGE_KEY,
-    moduleDefs: inglesA2ModuleDefs,
-    lessons: inglesA2SampleLessons,
-    available: true,
-  },
-  Intermediate: {
-    folder: "B1",
-    routeName: "InglescompletoB1",
-    storageKey: INGLES_COMPLETO_B1_STORAGE_KEY,
-    moduleDefs: inglesB1ModuleDefs,
-    lessons: inglesB1SampleLessons,
-    available: true,
-  },
-  Advanced: {
-    folder: "C1-C2",
-    routeName: null,
-    storageKey: "@progesso_ingles_completo_C1-C2",
-    moduleDefs: [],
-    lessons: [],
-    available: false,
-  },
+const COURSE_ACCENT = {
+  "Ingles Completo": "#2E9E6B",
+  "Bussines English": "#2F4A78",
+  "Ingles para viagem": "#1E97A8",
 };
 
-const COURSE_CONFIG = {
-  "Ingles Completo": {
-    courseId: "ingles_completo",
-    defaultLevel: "Starter",
-  },
-  "Bussines English": {
-    courseId: "bussines",
-    defaultLevel: "Starter",
-  },
-  "Ingles para viagem": {
-    courseId: "travel",
-    defaultLevel: "Starter",
-  },
-};
-
-const BUSINESS_LEVEL_CONFIG = {
-  Starter: {
-    folder: "A1",
-    routeName: "Bussines",
-    storageKey: BUSSINES_STORAGE_KEY,
-    moduleDefs: bussinesModuleDefs,
-    lessons: bussinesSampleLessons,
-    available: true,
-  },
-  Intermediate: {
-    folder: "B1",
-    routeName: "BussinesB1",
-    storageKey: BUSSINES_B1_STORAGE_KEY,
-    moduleDefs: bussinesB1ModuleDefs,
-    lessons: bussinesB1SampleLessons,
-    available: true,
-  },
-};
-
-const TRAVEL_LEVEL_CONFIG = {
-  Starter: {
-    folder: "A1",
-    routeName: "TravelEnglish",
-    storageKey: TRAVEL_STORAGE_KEY,
-    moduleDefs: travelModuleDefs,
-    lessons: travelSampleLessons,
-    available: true,
-  },
-};
-
-const COURSE_LEVEL_AVAILABILITY = {
-  "Ingles Completo": ["Starter", "Elementary", "Intermediate"],
-  "Bussines English": ["Starter", "Intermediate"],
-  "Ingles para viagem": ["Starter"],
-};
-
-async function loadProgress(storageKey) {
-  try {
-    const raw = await AsyncStorage.getItem(storageKey);
-    return raw ? JSON.parse(raw) : {};
-  } catch {
-    return {};
-  }
-}
-
-function ProgressCircle({ percent, size = 70, strokeWidth = 4 }) {
+function ProgressCircle({ percent, size = 70, strokeWidth = 8 }) {
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference * (1 - percent / 100);
@@ -171,7 +75,7 @@ function ProgressCircle({ percent, size = 70, strokeWidth = 4 }) {
   return (
     <Svg width={size} height={size}>
       <Circle
-        stroke="#EAEFF5"
+        stroke={CORES.HOME_BORDER}
         cx={size / 2}
         cy={size / 2}
         r={radius}
@@ -179,7 +83,7 @@ function ProgressCircle({ percent, size = 70, strokeWidth = 4 }) {
         fill="none"
       />
       <Circle
-        stroke={CORES.PRIMARY}
+        stroke={CORES.HOME_PRIMARY}
         cx={size / 2}
         cy={size / 2}
         r={radius}
@@ -194,7 +98,7 @@ function ProgressCircle({ percent, size = 70, strokeWidth = 4 }) {
         x={size / 2}
         y={size / 2 + 6}
         textAnchor="middle"
-        fill={THEME.textStrong}
+        fill={CORES.HOME_NAVY}
         fontWeight="800"
         fontSize={16}
       >
@@ -205,13 +109,96 @@ function ProgressCircle({ percent, size = 70, strokeWidth = 4 }) {
   );
 }
 
+function QuickAction({ icon, label, primary, onPress }) {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={0.85}
+      style={[styles.qa, primary ? styles.qaPrimary : styles.qaPlain]}
+    >
+      {icon}
+      <Text style={[styles.qaLabel, { color: primary ? CORES.WHITE : CORES.HOME_NAVY }]}>
+        {label}
+      </Text>
+    </TouchableOpacity>
+  );
+}
+
+function CourseCard({ title, sub, tagLabel, started, percent, color, onPress }) {
+  return (
+    <TouchableOpacity onPress={onPress} style={styles.course} activeOpacity={0.9}>
+      <View style={[styles.courseIcon, { backgroundColor: color }]}>
+        <MaterialCommunityIcons name="book-open-variant" size={20} color={CORES.WHITE} />
+      </View>
+      <View style={{ flex: 1, minWidth: 0 }}>
+        <View style={styles.row}>
+          <Text style={styles.courseName} numberOfLines={1}>
+            {title}
+          </Text>
+          <View style={[styles.tag, started ? styles.tagOn : styles.tagOff]}>
+            <Text style={[styles.tagTxt, { color: started ? CORES.HOME_GREEN : CORES.HOME_FAINT }]}>
+              {started ? "Em curso" : "Novo"}
+            </Text>
+          </View>
+        </View>
+        <Text style={styles.courseSub} numberOfLines={1}>
+          {sub}
+        </Text>
+        <View style={styles.progressRow}>
+          <View style={styles.track}>
+            <View
+              style={[
+                styles.fill,
+                { width: `${started ? percent : 0}%`, backgroundColor: color },
+              ]}
+            />
+          </View>
+          <Text style={styles.meta}>{started ? `${percent}%` : tagLabel}</Text>
+        </View>
+      </View>
+      <MaterialCommunityIcons name="chevron-right" size={20} color="#B7C3D4" />
+    </TouchableOpacity>
+  );
+}
+
+function ActivityRow({ item }) {
+  const map = {
+    done: {
+      bg: "#E5F3EC",
+      icon: "check",
+      color: CORES.HOME_GREEN,
+    },
+    streak: {
+      bg: "#FDF1DF",
+      icon: "fire",
+      color: CORES.HOME_AMBER,
+    },
+  }[item.type];
+  return (
+    <View style={styles.activity}>
+      <View style={[styles.activityIcon, { backgroundColor: map.bg }]}>
+        <MaterialCommunityIcons name={map.icon} size={17} color={map.color} />
+      </View>
+      <View style={{ flex: 1, minWidth: 0 }}>
+        <Text style={styles.activityTitle} numberOfLines={1}>
+          {item.title}
+        </Text>
+        <Text style={styles.activityMeta} numberOfLines={1}>
+          {item.meta}
+        </Text>
+      </View>
+      <Text style={[styles.activityValue, { color: map.color }]}>{item.value}</Text>
+    </View>
+  );
+}
+
 export default function Inglescompleto({ navigation, route }) {
   const { user } = useAuth();
   const displayName = user?.nome_exibicao?.trim() || user?.login || "Usuário";
   const firstName = displayName.split(" ")[0];
   const avatarSource = user?.foto_url
     ? { uri: `${API_URL}${user.foto_url}` }
-    : KAIQUE_PHOTO;
+    : null;
 
   const autoOpenLessonId = route?.params?.autoOpenLessonId;
   const initialCourse = route?.params?.initialCourse ?? null;
@@ -220,9 +207,14 @@ export default function Inglescompleto({ navigation, route }) {
 
   const [progressMap, setProgressMap] = useState({});
   const [openModuleId, setOpenModuleId] = useState(0);
-  const [isSectionMenuOpen, setIsSectionMenuOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(initialCourse);
   const [selectedLevel, setSelectedLevel] = useState(initialLevel ?? "Starter");
+  const [courseFilter, setCourseFilter] = useState("todos");
+  const [levelFilter, setLevelFilter] = useState("todos");
+  const [levelMenuOpen, setLevelMenuOpen] = useState(false);
+  const [streak, setStreak] = useState(0);
+  const [courseStatsMap, setCourseStatsMap] = useState({});
+
   const activeLevel = selectedLevel ?? "Starter";
   const activeLevelConfig = LEVEL_CONFIG[activeLevel] ?? LEVEL_CONFIG.Starter;
   const activeBusinessLevelConfig =
@@ -277,13 +269,28 @@ export default function Inglescompleto({ navigation, route }) {
       activeLevelConfig,
     ],
   );
-  const availableCourseOptions = useMemo(
-    () =>
-      COURSE_OPTIONS.filter((courseName) =>
-        COURSE_LEVEL_AVAILABILITY[courseName]?.includes(activeLevel),
-      ),
-    [activeLevel],
-  );
+
+  const loadAllCourseStats = useCallback(async () => {
+    const entries = {};
+    for (const level of LEVEL_OPTIONS) {
+      const courses = COURSE_OPTIONS.filter((courseName) =>
+        COURSE_LEVEL_AVAILABILITY[courseName]?.includes(level),
+      );
+      for (const courseName of courses) {
+        const config = getCourseLevelConfig(courseName, level);
+        if (!config.available) continue;
+        const progress = await loadProgress(config.storageKey);
+        const total = config.lessons.length;
+        const completed = config.lessons.filter((l) => progress[l.id]).length;
+        entries[`${courseName}__${level}`] = {
+          total,
+          completed,
+          percent: total > 0 ? Math.round((completed / total) * 100) : 0,
+        };
+      }
+    }
+    setCourseStatsMap(entries);
+  }, []);
 
   useEffect(() => {
     const sub = navigation.addListener("focus", async () => {
@@ -297,6 +304,17 @@ export default function Inglescompleto({ navigation, route }) {
     loadProgress(activeStorageKey).then((p) => setProgressMap(p));
     setOpenModuleId(0);
   }, [activeStorageKey]);
+
+  useEffect(() => {
+    async function loadExtras() {
+      const streakRaw = await AsyncStorage.getItem(LESSON_STREAK_STORAGE_KEY);
+      setStreak(streakRaw ? Number(streakRaw) || 0 : 0);
+      await loadAllCourseStats();
+    }
+    loadExtras();
+    const sub = navigation.addListener("focus", loadExtras);
+    return sub;
+  }, [navigation, loadAllCourseStats]);
 
   useEffect(() => {
     if (route?.params?.initialCourse !== undefined) {
@@ -356,6 +374,87 @@ export default function Inglescompleto({ navigation, route }) {
   const firstPendingLesson =
     activeLessons.find((item) => !progressMap[item.id]) || activeLessons[0];
 
+  const recentActivity = useMemo(() => {
+    const items = [];
+    if (streak > 0) {
+      items.push({
+        id: "streak",
+        type: "streak",
+        title: `Sequência de ${streak} dia${streak > 1 ? "s" : ""}`,
+        meta: "continue hoje!",
+        value: "🔥",
+      });
+    }
+    activeLessons
+      .filter((lesson) => progressMap[lesson.id])
+      .slice(-3)
+      .reverse()
+      .forEach((lesson) => {
+        items.push({
+          id: `done-${lesson.id}`,
+          type: "done",
+          title: `Concluiu "${lesson.title}"`,
+          meta: selectedCourse ? `${selectedCourse} · ${activeLevel}` : "Inglês Completo",
+          value: `+${XP_PER_LESSON} XP`,
+        });
+      });
+    return items.slice(0, 4);
+  }, [streak, activeLessons, progressMap, selectedCourse, activeLevel]);
+
+  // agrupado por curso, cada curso listando todos os seus níveis disponíveis
+  const courseGroups = useMemo(() => {
+    return COURSE_OPTIONS.map((courseName) => {
+      const levels = (COURSE_LEVEL_AVAILABILITY[courseName] || []).map((level) => {
+        const config = getCourseLevelConfig(courseName, level);
+        const stats = courseStatsMap[`${courseName}__${level}`];
+        return {
+          level,
+          folder: config.folder,
+          total: stats?.total ?? config.lessons.length,
+          completed: stats?.completed ?? 0,
+          percent: stats?.percent ?? 0,
+        };
+      });
+      return { courseName, color: COURSE_ACCENT[courseName] || CORES.HOME_PRIMARY, levels };
+    }).filter((group) => group.levels.length > 0);
+  }, [courseStatsMap]);
+
+  const visibleCourseGroups =
+    courseFilter === "todos"
+      ? courseGroups
+      : courseGroups.filter((group) => group.courseName === courseFilter);
+
+  // filtrado por nível: lista plana só com os cursos disponíveis naquele nível
+  const levelCourses = useMemo(() => {
+    if (levelFilter === "todos") return [];
+    return COURSE_OPTIONS.filter((courseName) =>
+      COURSE_LEVEL_AVAILABILITY[courseName]?.includes(levelFilter),
+    ).map((courseName) => {
+      const config = getCourseLevelConfig(courseName, levelFilter);
+      const stats = courseStatsMap[`${courseName}__${levelFilter}`];
+      return {
+        courseName,
+        folder: config.folder,
+        total: stats?.total ?? config.lessons.length,
+        completed: stats?.completed ?? 0,
+        percent: stats?.percent ?? 0,
+      };
+    });
+  }, [levelFilter, courseStatsMap]);
+
+  const isLevelFilterMode = levelFilter !== "todos";
+
+  const selectCourseChip = (key) => {
+    setCourseFilter(key);
+    setLevelFilter("todos");
+  };
+
+  const selectLevelFilter = (level) => {
+    setLevelFilter(level);
+    setCourseFilter("todos");
+    setLevelMenuOpen(false);
+  };
+
   const goToLesson = (lesson) => {
     if (!lesson?.screen) return;
     navigation.navigate(lesson.screen, {
@@ -369,71 +468,37 @@ export default function Inglescompleto({ navigation, route }) {
     setOpenModuleId((prev) => (prev === moduleItem.id ? null : moduleItem.id));
   };
 
-  const resetAllCompletedLessons = () => {
-    Alert.alert(
-      "Resetar progresso",
-      "Isso vai limpar as aulas concluídas e zerar a sequência. Continuar?",
-      [
-        { text: "Cancelar", style: "cancel" },
-        {
-          text: "Resetar",
-          style: "destructive",
-          onPress: async () => {
-            await Promise.all([
-              AsyncStorage.removeItem(INGLES_COMPLETO_STORAGE_KEY),
-              AsyncStorage.removeItem(INGLES_COMPLETO_A2_STORAGE_KEY),
-              AsyncStorage.removeItem(INGLES_COMPLETO_B1_STORAGE_KEY),
-              AsyncStorage.removeItem(BUSSINES_STORAGE_KEY),
-              AsyncStorage.removeItem(BUSSINES_B1_STORAGE_KEY),
-              AsyncStorage.removeItem(TRAVEL_STORAGE_KEY),
-              AsyncStorage.removeItem(LESSON_STREAK_STORAGE_KEY),
-            ]);
+  const openCourseFromViewAll = (courseName, level) => {
+    const targetLevel = level ?? activeLevel;
 
-            setProgressMap({});
-          },
-        },
-      ],
-    );
-  };
-
-  const sectionButtonLabel =
-    selectedCourse ? `${selectedCourse} - ${activeLevel}` : activeLevel;
-
-  const openCourseFromViewAll = (courseName) => {
-    if (!COURSE_LEVEL_AVAILABILITY[courseName]?.includes(activeLevel)) {
+    if (!COURSE_LEVEL_AVAILABILITY[courseName]?.includes(targetLevel)) {
       Alert.alert(
         "Curso em breve",
-        `${courseName} ainda nao esta disponivel em ${activeLevel}.`,
+        `${courseName} ainda nao esta disponivel em ${targetLevel}.`,
       );
       return;
     }
 
-    const routeName =
-      courseName === "Ingles Completo"
-        ? activeLevelConfig.routeName
-        : courseName === "Bussines English"
-          ? activeBusinessLevelConfig.routeName
-          : activeTravelLevelConfig.routeName;
+    const levelConfig = getCourseLevelConfig(courseName, targetLevel);
 
-    if (courseName === "Ingles Completo" && !activeLevelConfig.available) {
+    if (!levelConfig.available) {
       Alert.alert(
         "Nivel em breve",
-        `${activeLevel} (${activeLevelConfig.folder}) ainda nao tem aulas cadastradas.`,
+        `${targetLevel} (${levelConfig.folder}) ainda nao tem aulas cadastradas.`,
       );
       return;
     }
 
-    if (routeName) {
-      navigation.navigate(routeName, {
+    if (levelConfig.routeName) {
+      navigation.navigate(levelConfig.routeName, {
         initialCourse: courseName,
-        initialLevel: activeLevel,
+        initialLevel: targetLevel,
       });
       return;
     }
 
     setSelectedCourse(courseName);
-    setSelectedLevel(activeLevel);
-    setIsSectionMenuOpen(false);
+    setSelectedLevel(targetLevel);
   };
 
   return (
@@ -446,143 +511,181 @@ export default function Inglescompleto({ navigation, route }) {
       >
         <View style={styles.greetingRow}>
           <View style={styles.avatar}>
-            <Image source={avatarSource} style={styles.avatarImage} />
+            {avatarSource ? (
+              <Image source={avatarSource} style={styles.avatarImage} />
+            ) : (
+              <Text style={styles.avatarInitial}>{firstName.charAt(0).toUpperCase()}</Text>
+            )}
             <View style={styles.onlineDot} />
           </View>
 
-          <View>
-            <Text style={styles.hello}>Hello,</Text>
+          <View style={{ flex: 1, minWidth: 0, marginLeft: 12 }}>
+            <Text style={styles.hello}>Olá,</Text>
             <Text style={styles.userName}>{firstName}</Text>
           </View>
 
           <View style={styles.statsArea}>
-            <View style={styles.statRow}>
-              <MaterialCommunityIcons
-                name="star"
-                size={14}
-                color={CORES.PRIMARY}
-              />
-              <Text style={styles.statText}>{totalXp.toLocaleString()}</Text>
-              <Text style={styles.statLabel}>XP</Text>
+            <View style={styles.topRightRow}>
+              <View style={styles.streak}>
+                <MaterialCommunityIcons name="fire" size={14} color={CORES.HOME_AMBER} />
+                <Text style={styles.streakTxt}>{streak}</Text>
+              </View>
+            </View>
+            <Text style={styles.xp}>
+              {totalXp.toLocaleString()}
+              <Text style={styles.xpUnit}> XP</Text>
+            </Text>
+            <View style={styles.levelBadge}>
+              <Text style={styles.levelBadgeTxt}>Nível {levelProgress.currentLevel}</Text>
             </View>
           </View>
         </View>
 
-        <View style={styles.levelRow}>
-          <View style={styles.levelBadge}>
-            <Text style={styles.levelBadgeText}>
-              {levelProgress.currentLevel}
+        <View style={styles.card}>
+          <View style={[styles.row, { justifyContent: "space-between", marginBottom: 9 }]}>
+            <Text style={styles.cardLabel}>Progresso do nível</Text>
+            <Text style={styles.cardHint}>
+              {levelProgress.xpInsideLevel} / {levelProgress.levelRange} XP para o
+              Nível {levelProgress.nextLevel}
             </Text>
           </View>
-          <Text style={styles.levelText}>
-            Level {levelProgress.currentLevel}
-          </Text>
+          <View style={styles.bigTrack}>
+            <View
+              style={[
+                styles.bigFill,
+                { width: `${Math.max(levelProgress.levelPercent, 4)}%` },
+              ]}
+            />
+          </View>
         </View>
 
-        <View style={styles.progressTrack}>
-          <View
-            style={[
-              styles.progressFill,
-              { width: `${Math.max(levelProgress.levelPercent, 8)}%` },
-            ]}
+        <View style={styles.quickRow}>
+          <QuickAction
+            primary
+            label="Praticar"
+            icon={<MaterialCommunityIcons name="lightning-bolt" size={20} color={CORES.WHITE} />}
+            onPress={() => goToLesson(firstPendingLesson)}
+          />
+          <QuickAction
+            label="Revisar cursos"
+            icon={<MaterialCommunityIcons name="refresh" size={20} color={CORES.HOME_PRIMARY} />}
+            onPress={() => setSelectedCourse(null)}
+          />
+          <QuickAction
+            label="Metas"
+            icon={<MaterialCommunityIcons name="target" size={20} color={CORES.HOME_PRIMARY} />}
+            onPress={() => {}}
           />
         </View>
-        <Text style={styles.xpText}>
-          {levelProgress.xpInsideLevel} / {levelProgress.levelRange} XP para o
-          Nivel {levelProgress.nextLevel}
-        </Text>
 
-        <TouchableOpacity
-          style={styles.resetProgressButton}
-          onPress={resetAllCompletedLessons}
-          activeOpacity={0.85}
-        >
-          <MaterialCommunityIcons
-            name="restore"
-            size={15}
-            color="#C25757"
-          />
-          <Text style={styles.resetProgressButtonText}>
-            Resetar aulas concluídas
-          </Text>
-        </TouchableOpacity>
-
-        <View style={styles.continueCard}>
-          <ProgressCircle percent={percent} />
-          <View style={styles.continueTextArea}>
-            <Text style={styles.continueLabel}>Continue learning</Text>
-            <Text style={styles.continueTitle}>
-              {firstPendingLesson
-                ? firstPendingLesson.title
-                : "All lessons done"}
-            </Text>
-            <Text style={styles.continueMeta}>8 min + {XP_PER_LESSON} XP</Text>
+        <View style={styles.hero}>
+          <View style={[styles.row, { marginBottom: 15 }]}>
+            <ProgressCircle percent={percent} />
+            <View style={{ flex: 1, minWidth: 0, marginLeft: 15 }}>
+              <Text style={styles.heroKicker}>CONTINUE DE ONDE PAROU</Text>
+              <Text style={styles.heroTitle} numberOfLines={2}>
+                {firstPendingLesson ? firstPendingLesson.title : "Tudo concluído"}
+              </Text>
+              <View style={[styles.row, { marginTop: 5 }]}>
+                <Text style={styles.heroMeta}>⏱ 8 min</Text>
+                <Text style={[styles.heroMeta, { color: CORES.HOME_PRIMARY, marginLeft: 10 }]}>
+                  +{XP_PER_LESSON} XP
+                </Text>
+              </View>
+            </View>
           </View>
           <TouchableOpacity
-            style={styles.continueButton}
+            style={styles.primaryBtn}
             onPress={() => goToLesson(firstPendingLesson)}
             activeOpacity={0.9}
           >
-            <Text style={styles.continueButtonText}>Continue</Text>
-            <MaterialCommunityIcons name="arrow-right" size={16} color="#fff" />
+            <Text style={styles.primaryBtnTxt}>Continuar</Text>
+            <MaterialCommunityIcons name="arrow-right" size={19} color={CORES.WHITE} />
           </TouchableOpacity>
         </View>
 
-        <View style={styles.dailyGoal}>
-          <MaterialCommunityIcons
-            name="check-circle-outline"
-            size={16}
-            color={THEME.green}
-          />
-          <View style={styles.dailyGoalTextWrap}>
-            <Text style={styles.dailyGoalTitle}>Daily Goal</Text>
-            <Text style={styles.dailyGoalText}>2 of 3 lessons completed</Text>
+        <View style={styles.daily}>
+          <View style={styles.dailyIcon}>
+            <MaterialCommunityIcons name="check-circle-outline" size={20} color={CORES.HOME_GREEN} />
           </View>
-          <View style={styles.dailyDots}>
-            <View style={[styles.dot, styles.dotActive]} />
-            <View style={styles.dot} />
+          <View style={{ flex: 1, minWidth: 0 }}>
+            <Text style={styles.dailyTitle}>Meta diária</Text>
+            <Text style={styles.dailySub}>2 de 3 lições concluídas</Text>
+            <View style={styles.dailyTrack}>
+              <View style={styles.dailyFill} />
+            </View>
           </View>
         </View>
 
-        <View style={styles.sectionRow}>
-          <Text style={styles.sectionTitle}>Cursos</Text>
-          <View style={styles.sectionMenuWrap}>
+        {recentActivity.length > 0 && (
+          <>
+            <View style={styles.sectionHead}>
+              <Text style={styles.h2}>Atividade recente</Text>
+            </View>
+            <View style={{ gap: 9, marginBottom: 24 }}>
+              {recentActivity.map((item) => (
+                <ActivityRow key={item.id} item={item} />
+              ))}
+            </View>
+          </>
+        )}
+
+        <View style={styles.sectionHead}>
+          <Text style={[styles.h2, { fontSize: 21 }]}>Cursos</Text>
+          <View style={styles.levelFilterWrap}>
             <TouchableOpacity
-              style={styles.sectionMenuButton}
-              onPress={() => {
-                if (isSectionMenuOpen) {
-                  setIsSectionMenuOpen(false);
-                  return;
-                }
-                setIsSectionMenuOpen(true);
-              }}
+              style={[
+                styles.levelFilterButton,
+                isLevelFilterMode && styles.levelFilterButtonOn,
+              ]}
+              onPress={() => setLevelMenuOpen((v) => !v)}
               activeOpacity={0.85}
             >
-              <Text style={styles.sectionAction}>{sectionButtonLabel}</Text>
+              <Text
+                style={[
+                  styles.levelFilterTxt,
+                  isLevelFilterMode && styles.levelFilterTxtOn,
+                ]}
+              >
+                {isLevelFilterMode ? levelFilter : "Por nível"}
+              </Text>
               <MaterialCommunityIcons
-                name={isSectionMenuOpen ? "chevron-up" : "chevron-down"}
+                name={levelMenuOpen ? "chevron-up" : "chevron-down"}
                 size={16}
-                color={CORES.PRIMARY}
+                color={isLevelFilterMode ? CORES.WHITE : CORES.HOME_PRIMARY}
               />
             </TouchableOpacity>
 
-            {isSectionMenuOpen && (
-              <View style={styles.sectionMenuDropdown}>
+            {levelMenuOpen && (
+              <View style={styles.levelFilterDropdown}>
+                <TouchableOpacity
+                  style={styles.levelFilterItem}
+                  onPress={() => {
+                    setLevelFilter("todos");
+                    setLevelMenuOpen(false);
+                  }}
+                  activeOpacity={0.85}
+                >
+                  <Text
+                    style={[
+                      styles.levelFilterItemTxt,
+                      !isLevelFilterMode && styles.levelFilterItemTxtActive,
+                    ]}
+                  >
+                    Todos os níveis
+                  </Text>
+                </TouchableOpacity>
                 {LEVEL_OPTIONS.map((level) => (
                   <TouchableOpacity
                     key={level}
-                    style={styles.sectionMenuItem}
-                    onPress={() => {
-                      setSelectedLevel(level);
-                      setSelectedCourse(null);
-                      setIsSectionMenuOpen(false);
-                    }}
+                    style={styles.levelFilterItem}
+                    onPress={() => selectLevelFilter(level)}
                     activeOpacity={0.85}
                   >
                     <Text
                       style={[
-                        styles.sectionMenuText,
-                        activeLevel === level ? styles.sectionMenuTextActive : null,
+                        styles.levelFilterItemTxt,
+                        levelFilter === level && styles.levelFilterItemTxtActive,
                       ]}
                     >
                       {level}
@@ -594,63 +697,101 @@ export default function Inglescompleto({ navigation, route }) {
           </View>
         </View>
 
-        {isCourseList
-          ? availableCourseOptions.length > 0
-            ? availableCourseOptions.map((courseName) => (
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ gap: 8, paddingVertical: 2 }}
+          style={{ marginBottom: 16 }}
+        >
+          {[{ key: "todos", label: "Todos" }, ...COURSE_OPTIONS.map((c) => ({ key: c, label: c }))].map(
+            (chip) => {
+              const on = !isLevelFilterMode && chip.key === courseFilter;
+              return (
                 <TouchableOpacity
-                  key={courseName}
-                  style={styles.moduleButton}
-                  onPress={() => openCourseFromViewAll(courseName)}
-                  activeOpacity={0.9}
+                  key={chip.key}
+                  onPress={() => selectCourseChip(chip.key)}
+                  activeOpacity={0.85}
+                  style={[styles.chip, on ? styles.chipOn : styles.chipOff]}
                 >
-                  <View
-                    style={[
-                      styles.moduleIconWrap,
-                      {
-                        backgroundColor:
-                          courseName === "Bussines English"
-                            ? "#4A9CFF"
-                            : courseName === "Ingles para viagem"
-                              ? "#26BA86"
-                            : THEME.green,
-                      },
-                    ]}
-                  >
-                    <MaterialCommunityIcons
-                      name="book-open-variant"
-                      size={16}
-                      color="#FFFFFF"
-                    />
-                  </View>
-
-                  <View style={styles.moduleTextArea}>
-                    <Text style={styles.moduleTitle}>{courseName}</Text>
-                    <Text style={styles.moduleSubtitle}>
-                      {courseName === "Ingles Completo"
-                        ? `${activeLevel} - ${activeLevelConfig.folder}`
-                        : courseName === "Bussines English"
-                          ? `${activeLevel} - ${activeBusinessLevelConfig.folder}`
-                          : `${activeLevel} - ${activeTravelLevelConfig.folder}`}
-                    </Text>
-                  </View>
-
-                  <View style={styles.moduleRight}>
-                    <MaterialCommunityIcons
-                      name="chevron-right"
-                      size={20}
-                      color="#8A97AA"
-                    />
-                  </View>
-                </TouchableOpacity>
-              ))
-            : (
-                <View style={styles.emptyCourses}>
-                  <Text style={styles.emptyLessonText}>
-                    Nenhum curso disponivel em {activeLevel}.
+                  <Text style={[styles.chipTxt, { color: on ? CORES.WHITE : "#3A557A" }]}>
+                    {chip.label}
                   </Text>
+                </TouchableOpacity>
+              );
+            },
+          )}
+        </ScrollView>
+
+        {isCourseList ? (
+          isLevelFilterMode ? (
+            levelCourses.length > 0 ? (
+              <View style={{ gap: 10 }}>
+                {levelCourses.map((course) => (
+                  <CourseCard
+                    key={course.courseName}
+                    title={course.courseName}
+                    sub={`${levelFilter} · ${course.folder}`}
+                    tagLabel={`${course.total} lições`}
+                    started={course.completed > 0}
+                    percent={course.percent}
+                    color={LEVEL_ACCENT[levelFilter] || CORES.HOME_PRIMARY}
+                    onPress={() => openCourseFromViewAll(course.courseName, levelFilter)}
+                  />
+                ))}
+              </View>
+            ) : (
+              <View style={styles.emptyCourses}>
+                <Text style={styles.emptyLessonText}>
+                  Nenhum curso disponível em {levelFilter}.
+                </Text>
+              </View>
+            )
+          ) : visibleCourseGroups.length > 0 ? (
+            <View style={{ gap: 20 }}>
+              {visibleCourseGroups.map((group) => (
+                <View key={group.courseName}>
+                  <View style={[styles.row, { marginBottom: 10, paddingLeft: 2 }]}>
+                    <Text style={styles.groupGoal}>{group.courseName}</Text>
+                    <View style={styles.groupBadge}>
+                      <Text style={styles.groupBadgeTxt}>
+                        {group.levels.length} nível{group.levels.length > 1 ? "eis" : ""}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={{ gap: 10 }}>
+                    {group.levels.map((lvl) => (
+                      <CourseCard
+                        key={lvl.level}
+                        title={lvl.level}
+                        sub={`${group.courseName} · ${lvl.folder}`}
+                        tagLabel={`${lvl.total} lições`}
+                        started={lvl.completed > 0}
+                        percent={lvl.percent}
+                        color={group.color}
+                        onPress={() => openCourseFromViewAll(group.courseName, lvl.level)}
+                      />
+                    ))}
+                  </View>
                 </View>
-              )
-          : activeModuleDefs.map((moduleItem) => {
+              ))}
+            </View>
+          ) : (
+            <View style={styles.emptyCourses}>
+              <Text style={styles.emptyLessonText}>Nenhum curso disponível.</Text>
+            </View>
+          )
+        ) : (
+          <View>
+            <TouchableOpacity
+              style={styles.backRow}
+              onPress={() => setSelectedCourse(null)}
+              activeOpacity={0.8}
+            >
+              <MaterialCommunityIcons name="chevron-left" size={18} color={CORES.HOME_PRIMARY} />
+              <Text style={styles.backRowTxt}>Voltar aos cursos</Text>
+            </TouchableOpacity>
+
+            {activeModuleDefs.map((moduleItem) => {
               const moduleLessons = lessonsByModule[moduleItem.id] || [];
               const moduleCompleted = moduleLessons.filter(
                 (l) => progressMap[l.id],
@@ -667,9 +808,7 @@ export default function Inglescompleto({ navigation, route }) {
                     style={[
                       styles.moduleButton,
                       isOpen && {
-                        borderColor: moduleItem.locked
-                          ? THEME.border
-                          : CORES.PRIMARY,
+                        borderColor: moduleItem.locked ? CORES.HOME_BORDER : CORES.HOME_PRIMARY,
                       },
                       moduleItem.locked && styles.lockedModule,
                     ]}
@@ -689,24 +828,18 @@ export default function Inglescompleto({ navigation, route }) {
                       <MaterialCommunityIcons
                         name={moduleItem.icon}
                         size={16}
-                        color="#FFFFFF"
+                        color={CORES.WHITE}
                       />
                     </View>
 
                     <View style={styles.moduleTextArea}>
                       <Text
-                        style={[
-                          styles.moduleTitle,
-                          moduleItem.locked && styles.lockedText,
-                        ]}
+                        style={[styles.moduleTitle, moduleItem.locked && styles.lockedText]}
                       >
                         {moduleItem.name}
                       </Text>
                       <Text
-                        style={[
-                          styles.moduleSubtitle,
-                          moduleItem.locked && styles.lockedText,
-                        ]}
+                        style={[styles.moduleSubtitle, moduleItem.locked && styles.lockedText]}
                       >
                         {moduleItem.subtitle}
                       </Text>
@@ -714,10 +847,7 @@ export default function Inglescompleto({ navigation, route }) {
 
                     <View style={styles.moduleRight}>
                       <Text
-                        style={[
-                          styles.modulePercent,
-                          moduleItem.locked && styles.lockedText,
-                        ]}
+                        style={[styles.modulePercent, moduleItem.locked && styles.lockedText]}
                       >
                         {moduleItem.locked ? "0%" : `${modulePercent}%`}
                       </Text>
@@ -734,7 +864,7 @@ export default function Inglescompleto({ navigation, route }) {
                       {moduleLessons.length === 0 && (
                         <View style={styles.emptyLesson}>
                           <Text style={styles.emptyLessonText}>
-                            No lessons available.
+                            Nenhuma aula disponível.
                           </Text>
                         </View>
                       )}
@@ -751,15 +881,11 @@ export default function Inglescompleto({ navigation, route }) {
                           >
                             <View style={styles.lessonLeft}>
                               <MaterialCommunityIcons
-                                name={
-                                  done ? "check-circle" : "play-circle-outline"
-                                }
+                                name={done ? "check-circle" : "play-circle-outline"}
                                 size={18}
-                                color={done ? THEME.green : CORES.PRIMARY}
+                                color={done ? CORES.HOME_GREEN : CORES.HOME_PRIMARY}
                               />
-                              <Text style={styles.lessonText}>
-                                {lesson.title}
-                              </Text>
+                              <Text style={styles.lessonText}>{lesson.title}</Text>
                             </View>
                             <MaterialCommunityIcons
                               name="chevron-right"
@@ -774,36 +900,39 @@ export default function Inglescompleto({ navigation, route }) {
                 </View>
               );
             })}
+          </View>
+        )}
       </ScrollView>
+
     </SafeAreaView>
   );
 }
 
+/* -------------------------------- styles --------------------------------- */
 const styles = StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: THEME.bg,
+    backgroundColor: CORES.HOME_BG,
   },
   content: {
     paddingHorizontal: 16,
-    paddingTop: 8,
-    paddingBottom: 24,
+    paddingTop: 12,
+    paddingBottom: 28,
   },
+  row: { flexDirection: "row", alignItems: "center" },
+
   greetingRow: {
     flexDirection: "row",
     alignItems: "center",
+    marginBottom: 14,
   },
   avatar: {
-    width: 46,
-    height: 46,
-    borderRadius: 13,
-    borderWidth: 1.5,
-    borderColor: CORES.PRIMARY,
+    width: 56,
+    height: 56,
+    borderRadius: 18,
+    backgroundColor: CORES.HOME_PRIMARY,
     alignItems: "center",
     justifyContent: "center",
-    marginRight: 12,
-    position: "relative",
-    backgroundColor: THEME.white,
     overflow: "hidden",
   },
   avatarImage: {
@@ -811,266 +940,296 @@ const styles = StyleSheet.create({
     height: "100%",
     resizeMode: "cover",
   },
+  avatarInitial: {
+    color: CORES.WHITE,
+    fontWeight: "900",
+    fontSize: 22,
+  },
   onlineDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 99,
-    backgroundColor: THEME.green,
-    borderWidth: 1.8,
-    borderColor: THEME.white,
     position: "absolute",
-    right: -1,
     bottom: -1,
+    right: -1,
+    width: 15,
+    height: 15,
+    borderRadius: 8,
+    backgroundColor: CORES.HOME_GREEN,
+    borderWidth: 2.5,
+    borderColor: CORES.HOME_BG,
   },
-  hello: {
-    fontSize: 12,
-    color: "#8FA0B7",
-    fontWeight: "600",
-  },
-  userName: {
-    fontSize: 25,
-    color: THEME.textStrong,
-    fontWeight: "800",
-    marginTop: -2,
-  },
-  statsArea: {
-    marginLeft: "auto",
+  hello: { color: CORES.HOME_MUTED, fontWeight: "700", fontSize: 14 },
+  userName: { color: CORES.HOME_NAVY, fontWeight: "900", fontSize: 25 },
+  statsArea: { alignItems: "flex-end" },
+  topRightRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 14,
+    gap: 8,
+    marginBottom: 6,
   },
-  statRow: {
+  streak: {
     flexDirection: "row",
     alignItems: "center",
     gap: 4,
+    backgroundColor: "#FDF1DF",
+    paddingHorizontal: 9,
+    paddingVertical: 5,
+    borderRadius: 99,
   },
-  statText: {
-    color: THEME.textStrong,
-    fontWeight: "800",
-    fontSize: 13,
-  },
-  statLabel: {
-    color: "#9AA5B6",
-    fontSize: 11,
-    fontWeight: "700",
-  },
-  levelRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 20,
-  },
+  streakTxt: { color: "#B4791E", fontWeight: "800", fontSize: 12.5 },
+  xp: { color: CORES.HOME_NAVY, fontWeight: "900", fontSize: 16 },
+  xpUnit: { color: CORES.HOME_MUTED, fontWeight: "800", fontSize: 12 },
   levelBadge: {
-    width: 24,
-    height: 24,
-    borderRadius: 8,
-    backgroundColor: THEME.textStrong,
+    backgroundColor: CORES.HOME_NAVY,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    borderRadius: 99,
+    marginTop: 5,
+  },
+  levelBadgeTxt: { color: CORES.WHITE, fontWeight: "800", fontSize: 12 },
+
+  card: {
+    backgroundColor: CORES.WHITE,
+    borderRadius: 18,
+    padding: 16,
+    marginBottom: 18,
+    borderWidth: 1,
+    borderColor: CORES.HOME_BORDER,
+  },
+  cardLabel: { color: CORES.HOME_NAVY, fontWeight: "800", fontSize: 14 },
+  cardHint: { color: CORES.HOME_MUTED, fontWeight: "700", fontSize: 12.5 },
+  bigTrack: {
+    height: 10,
+    borderRadius: 99,
+    backgroundColor: "#E6ECF4",
+    overflow: "hidden",
+  },
+  bigFill: { height: "100%", borderRadius: 99, backgroundColor: CORES.HOME_PRIMARY },
+
+  quickRow: { flexDirection: "row", gap: 10, marginBottom: 18 },
+  qa: {
+    flex: 1,
+    borderRadius: 16,
+    padding: 13,
+    gap: 8,
+    alignItems: "flex-start",
+  },
+  qaPrimary: { backgroundColor: CORES.HOME_PRIMARY },
+  qaPlain: { backgroundColor: CORES.WHITE, borderWidth: 1, borderColor: "#E4EAF3" },
+  qaLabel: { fontWeight: "800", fontSize: 13 },
+
+  hero: {
+    backgroundColor: CORES.WHITE,
+    borderRadius: 22,
+    padding: 18,
+    marginBottom: 14,
+    borderWidth: 1,
+    borderColor: CORES.HOME_BORDER,
+  },
+  heroKicker: {
+    color: CORES.HOME_MUTED,
+    fontWeight: "800",
+    fontSize: 11,
+    letterSpacing: 0.4,
+  },
+  heroTitle: { color: CORES.HOME_NAVY, fontWeight: "900", fontSize: 20, marginTop: 3 },
+  heroMeta: { color: CORES.HOME_MUTED, fontWeight: "700", fontSize: 13 },
+  primaryBtn: {
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginRight: 7,
+    gap: 8,
+    backgroundColor: CORES.HOME_PRIMARY,
+    borderRadius: 14,
+    paddingVertical: 14,
   },
-  levelBadgeText: {
-    color: "#FFFFFF",
-    fontSize: 12,
-    fontWeight: "800",
-  },
-  levelText: {
-    color: THEME.textStrong,
-    fontWeight: "700",
-    fontSize: 14,
-  },
-  progressTrack: {
-    width: "100%",
-    height: 5,
-    borderRadius: 8,
-    backgroundColor: THEME.lightBar,
-    overflow: "hidden",
-    marginTop: 10,
-  },
-  progressFill: {
-    height: "100%",
-    borderRadius: 8,
-    backgroundColor: CORES.PRIMARY,
-  },
-  xpText: {
-    alignSelf: "flex-end",
-    marginTop: 7,
-    color: "#8998AB",
-    fontSize: 12,
-    fontWeight: "600",
-  },
-  resetProgressButton: {
-    marginTop: 14,
-    alignSelf: "flex-start",
+  primaryBtnTxt: { color: CORES.WHITE, fontWeight: "800", fontSize: 16 },
+
+  daily: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 6,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 999,
-    borderWidth: 1,
-    borderColor: "#F1CACA",
-    backgroundColor: "#FFF5F5",
+    gap: 13,
+    backgroundColor: "#E7EFFA",
+    borderRadius: 18,
+    padding: 16,
+    marginBottom: 22,
   },
-  resetProgressButtonText: {
-    fontSize: 12,
-    fontWeight: "700",
-    color: "#C25757",
-  },
-  continueCard: {
-    marginTop: 18,
-    backgroundColor: THEME.white,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: "#F1E5DB",
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 15,
-  },
-  continueTextArea: {
-    flex: 1,
-    marginLeft: 12,
-  },
-  continueLabel: {
-    color: "#A0ABC0",
-    fontSize: 12,
-    fontWeight: "600",
-  },
-  continueTitle: {
-    color: THEME.textStrong,
-    fontSize: 19,
-    fontWeight: "800",
-    marginTop: -1,
-  },
-  continueMeta: {
-    color: "#8D9DB2",
-    fontSize: 12,
-    marginTop: 3,
-    fontWeight: "600",
-  },
-  continueButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+  dailyIcon: {
+    width: 40,
+    height: 40,
     borderRadius: 13,
-    backgroundColor: CORES.PRIMARY,
-  },
-  continueButtonText: {
-    color: "#FFFFFF",
-    fontSize: 13,
-    fontWeight: "800",
-  },
-  dailyGoal: {
-    marginTop: 14,
-    borderRadius: 12,
-    backgroundColor: "#E8EDF3",
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    flexDirection: "row",
+    backgroundColor: CORES.WHITE,
     alignItems: "center",
+    justifyContent: "center",
   },
-  dailyGoalTextWrap: {
-    marginLeft: 10,
-  },
-  dailyGoalTitle: {
-    color: THEME.textStrong,
-    fontSize: 13,
+  dailyTitle: { color: CORES.HOME_NAVY, fontWeight: "900", fontSize: 15 },
+  dailySub: {
+    color: "#5B6E88",
     fontWeight: "700",
+    fontSize: 13,
+    marginBottom: 7,
   },
-  dailyGoalText: {
-    marginTop: 2,
-    color: "#8C99AE",
-    fontSize: 12,
-    fontWeight: "600",
+  dailyTrack: {
+    height: 7,
+    borderRadius: 99,
+    backgroundColor: "#CDDDF0",
+    overflow: "hidden",
   },
-  dailyDots: {
-    marginLeft: "auto",
-    flexDirection: "row",
-    gap: 6,
+  dailyFill: {
+    height: "100%",
+    width: "66%",
+    borderRadius: 99,
+    backgroundColor: CORES.HOME_GREEN,
   },
-  dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 10,
-    backgroundColor: "#BFC8D4",
-  },
-  dotActive: {
-    backgroundColor: CORES.PRIMARY,
-  },
-  sectionRow: {
-    marginTop: 16,
-    marginBottom: 6,
+
+  sectionHead: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    marginBottom: 11,
   },
-  sectionTitle: {
-    color: THEME.textStrong,
-    fontSize: 24,
-    fontWeight: "800",
-  },
-  sectionAction: {
-    color: CORES.PRIMARY,
-    fontSize: 13,
-    fontWeight: "700",
-  },
-  sectionMenuWrap: {
-    position: "relative",
-  },
-  sectionMenuButton: {
+  h2: { color: CORES.HOME_NAVY, fontWeight: "900", fontSize: 19 },
+  subtle: { color: CORES.HOME_FAINT, fontWeight: "800", fontSize: 13 },
+
+  levelFilterWrap: { position: "relative" },
+  levelFilterButton: {
     flexDirection: "row",
     alignItems: "center",
     gap: 4,
-    borderWidth: 1,
-    borderColor: CORES.PRIMARY,
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
+    borderWidth: 1.5,
+    borderColor: CORES.HOME_PRIMARY,
+    borderRadius: 99,
+    paddingHorizontal: 12,
+    paddingVertical: 7,
     backgroundColor: "#EEF4FF",
   },
-  sectionMenuDropdown: {
+  levelFilterButtonOn: {
+    backgroundColor: CORES.HOME_NAVY,
+    borderColor: CORES.HOME_NAVY,
+  },
+  levelFilterTxt: { color: CORES.HOME_PRIMARY, fontWeight: "800", fontSize: 13 },
+  levelFilterTxtOn: { color: CORES.WHITE },
+  levelFilterDropdown: {
     position: "absolute",
-    top: 40,
+    top: 38,
     right: 0,
-    width: 220,
-    backgroundColor: THEME.white,
-    borderRadius: 10,
+    width: 200,
+    backgroundColor: CORES.WHITE,
+    borderRadius: 12,
     borderWidth: 1,
-    borderColor: THEME.border,
+    borderColor: CORES.HOME_BORDER,
     overflow: "hidden",
     zIndex: 20,
     elevation: 4,
   },
-  sectionMenuItem: {
-    paddingHorizontal: 10,
-    paddingVertical: 9,
+  levelFilterItem: {
+    paddingHorizontal: 12,
+    paddingVertical: 11,
   },
-  sectionMenuText: {
-    color: THEME.textStrong,
-    fontSize: 13,
-    fontWeight: "600",
-  },
-  sectionMenuTextActive: {
-    color: CORES.PRIMARY,
-    fontWeight: "700",
-  },
-  sectionMenuBackText: {
-    color: CORES.PRIMARY,
-    fontSize: 13,
-    fontWeight: "700",
-  },
-  sectionMenuBackRow: {
+  levelFilterItemTxt: { color: CORES.HOME_NAVY, fontSize: 13.5, fontWeight: "700" },
+  levelFilterItemTxtActive: { color: CORES.HOME_PRIMARY, fontWeight: "900" },
+
+  activity: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
+    gap: 12,
+    backgroundColor: CORES.WHITE,
+    borderRadius: 14,
+    padding: 11,
+    borderWidth: 1,
+    borderColor: "#EDF1F7",
   },
+  activityIcon: {
+    width: 34,
+    height: 34,
+    borderRadius: 11,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  activityTitle: { color: CORES.HOME_NAVY, fontWeight: "800", fontSize: 13.5 },
+  activityMeta: { color: CORES.HOME_FAINT, fontWeight: "700", fontSize: 12 },
+  activityValue: { fontWeight: "900", fontSize: 13 },
+
+  chip: { paddingHorizontal: 15, paddingVertical: 9, borderRadius: 99 },
+  chipOn: { backgroundColor: CORES.HOME_NAVY, borderWidth: 1.5, borderColor: CORES.HOME_NAVY },
+  chipOff: {
+    backgroundColor: CORES.WHITE,
+    borderWidth: 1.5,
+    borderColor: "#DCE5EF",
+  },
+  chipTxt: { fontWeight: "800", fontSize: 13 },
+
+  groupGoal: { color: CORES.HOME_NAVY, fontWeight: "900", fontSize: 15, marginRight: 9 },
+  groupBadge: {
+    backgroundColor: "#DDE7F4",
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 99,
+  },
+  groupBadgeTxt: { color: CORES.HOME_PRIMARY, fontWeight: "800", fontSize: 11 },
+
+  course: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 13,
+    backgroundColor: CORES.WHITE,
+    borderRadius: 16,
+    padding: 13,
+    borderWidth: 1,
+    borderColor: CORES.HOME_BORDER,
+  },
+  courseIcon: {
+    width: 46,
+    height: 46,
+    borderRadius: 14,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  courseName: {
+    color: CORES.HOME_NAVY,
+    fontWeight: "900",
+    fontSize: 15.5,
+    marginRight: 7,
+    flexShrink: 1,
+  },
+  courseSub: {
+    color: CORES.HOME_FAINT,
+    fontWeight: "700",
+    fontSize: 12.5,
+    marginVertical: 2,
+  },
+  progressRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 9,
+    marginTop: 6,
+  },
+  track: {
+    flex: 1,
+    height: 6,
+    borderRadius: 99,
+    backgroundColor: "#EAEFF6",
+    overflow: "hidden",
+  },
+  fill: { height: "100%", borderRadius: 99 },
+  meta: { color: CORES.HOME_MUTED, fontWeight: "800", fontSize: 11.5 },
+  tag: { paddingHorizontal: 7, paddingVertical: 2, borderRadius: 99 },
+  tagOn: { backgroundColor: "#E5F3EC" },
+  tagOff: { backgroundColor: CORES.HOME_BG },
+  tagTxt: { fontWeight: "800", fontSize: 10.5 },
+
+  backRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 12,
+    gap: 2,
+  },
+  backRowTxt: { color: CORES.HOME_PRIMARY, fontWeight: "800", fontSize: 13.5 },
+
   moduleButton: {
     marginTop: 10,
     borderRadius: 15,
     borderWidth: 1,
-    borderColor: THEME.border,
-    backgroundColor: THEME.white,
+    borderColor: CORES.HOME_BORDER,
+    backgroundColor: CORES.WHITE,
     paddingHorizontal: 12,
     paddingVertical: 11,
     flexDirection: "row",
@@ -1088,14 +1247,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginRight: 10,
   },
-  moduleTextArea: {
-    flex: 1,
-  },
-  moduleTitle: {
-    color: THEME.textStrong,
-    fontSize: 14,
-    fontWeight: "800",
-  },
+  moduleTextArea: { flex: 1 },
+  moduleTitle: { color: CORES.HOME_NAVY, fontSize: 14, fontWeight: "800" },
   moduleSubtitle: {
     color: "#7D8CA1",
     fontSize: 12,
@@ -1110,15 +1263,13 @@ const styles = StyleSheet.create({
   modulePercent: {
     fontSize: 13,
     fontWeight: "800",
-    color: CORES.PRIMARY,
+    color: CORES.HOME_PRIMARY,
     marginBottom: 2,
   },
-  lockedText: {
-    color: "#B4BFCC",
-  },
+  lockedText: { color: "#B4BFCC" },
   dropdown: {
     marginTop: 8,
-    backgroundColor: THEME.white,
+    backgroundColor: CORES.WHITE,
     borderRadius: 12,
     borderWidth: 1,
     borderColor: "#E8EDF4",
@@ -1132,8 +1283,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: THEME.border,
-    backgroundColor: THEME.white,
+    borderColor: CORES.HOME_BORDER,
+    backgroundColor: CORES.WHITE,
     paddingHorizontal: 12,
     paddingVertical: 14,
   },

@@ -10,6 +10,7 @@ import TabsNavigator from "./TabsNavigator";
 /* ===== PÁGINAS ===== */
 // padrão
 import SplashScreen from "../pages/SplashScreen";
+import Login from "../pages/Login";
 import PlacementFlow from "../pages/PlacementFlow";
 import InglesCompletoHome, { lessonScreens as inglesCompletoA0A1LessonScreens } from "../pages/aulas/completo/A0-A1";
 import InglesCompletoA2Home, { lessonScreens as inglesCompletoA2LessonScreens } from "../pages/aulas/completo/A2";
@@ -203,7 +204,13 @@ export default function Routes() {
           }}
         />
 
-        {/* ===== SPLASH ===== */}
+        {/* ===== AUTENTICAÇÃO ===== */}
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{ headerShown: false }}
+        />
+
         <Stack.Screen
           name="PlacementFlow"
           component={PlacementFlow}

@@ -42,6 +42,7 @@ import {
   LESSON_STREAK_STORAGE_KEY,
 } from "../../util/lessonPerformance";
 import { getLevelProgress, XP_PER_LESSON } from "../../util/xp";
+import { concluirAula } from "../../services/progresso";
 
 const SlideNavContext = React.createContext(null);
 
@@ -747,6 +748,9 @@ export default function createLessonScreen(
             saveProgress({ ...progress, [lesson.id]: true }),
             AsyncStorage.setItem(LESSON_STREAK_STORAGE_KEY, String(nextStreak)),
           ]);
+          // Sincroniza com o backend em segundo plano: o progresso local ja
+          // esta salvo, entao uma falha de rede aqui nao deve travar o app.
+          concluirAula(lesson.id, lessonAccuracy).catch(() => {});
         }
       }
 
@@ -757,6 +761,7 @@ export default function createLessonScreen(
       lessonAlreadyCompleted,
       lessonMetaLoaded,
       nextStreak,
+      lessonAccuracy,
     ]);
 
     const findNextLesson = () => {

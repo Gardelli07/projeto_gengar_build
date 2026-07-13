@@ -9,10 +9,11 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  Dimensions,
   Alert,
+  LayoutAnimation,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons, AntDesign } from "@expo/vector-icons";
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
 import * as AppleAuthentication from "expo-apple-authentication";
@@ -23,7 +24,14 @@ import CORES from "../util/cores";
 
 WebBrowser.maybeCompleteAuthSession();
 
-const { width } = Dimensions.get("window");
+// paleta do redesign
+const BLUE = "#7ba0c4";
+const MINT = CORES.SECONDARY || "#86c7a4";
+const MINT_DARK = "#4f9271";
+const BG = "#ececec";
+const INK = "#26323d";
+const MUTED = "#7b8794";
+const BORDER = "#cfd6dd";
 
 function getHomeRouteByEmpresa(empresa) {
   if (!empresa) return "Home";
@@ -37,6 +45,8 @@ export default function LoginScreen({ navigation }) {
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [showSenha, setShowSenha] = useState(false);
+  const [corpOpen, setCorpOpen] = useState(false);
 
   const [googleRequest, googleResponse, googlePromptAsync] =
     Google.useAuthRequest({
@@ -55,6 +65,32 @@ export default function LoginScreen({ navigation }) {
       }
     }
   }, [googleResponse]);
+
+  function toggleCorp() {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setCorpOpen((v) => !v);
+  }
+
+  function goToNextScreen(userData, empresa) {
+    if (userData?.teste_nivelamento_concluido) {
+      const homeRoute = getHomeRouteByEmpresa(empresa);
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name: "Tabs",
+            state: { routes: [{ name: homeRoute }] },
+          },
+        ],
+      });
+      return;
+    }
+
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "PlacementFlow" }],
+    });
+  }
 
   async function handleSocialLogin(provider, tokenPayload) {
     try {
@@ -81,16 +117,7 @@ export default function LoginScreen({ navigation }) {
         empresa,
       });
 
-      const homeRoute = getHomeRouteByEmpresa(empresa);
-      navigation.reset({
-        index: 0,
-        routes: [
-          {
-            name: "Tabs",
-            state: { routes: [{ name: homeRoute }] },
-          },
-        ],
-      });
+      goToNextScreen(userData, empresa);
     } catch (error) {
       Alert.alert("Erro", error.message || "Erro ao realizar login social");
     }
@@ -116,7 +143,7 @@ export default function LoginScreen({ navigation }) {
 
   async function handleSignIn() {
     if (!email.trim() || !senha.trim()) {
-      Alert.alert("Atenção", "Preencha email e senha.");
+      Alert.alert("Atenção", "Preencha o login e a senha corporativos.");
       return;
     }
 
@@ -150,21 +177,7 @@ export default function LoginScreen({ navigation }) {
         empresa,
       });
 
-      const homeRoute = getHomeRouteByEmpresa(empresa);
-
-      Alert.alert("Sucesso", `Bem-vindo ${userData?.login || email.trim()}`);
-
-      navigation.reset({
-        index: 0,
-        routes: [
-          {
-            name: "Tabs",
-            state: {
-              routes: [{ name: homeRoute }],
-            },
-          },
-        ],
-      });
+      goToNextScreen(userData, empresa);
     } catch (error) {
       console.error(error);
       Alert.alert("Erro", error.message || "Erro ao realizar login");
@@ -172,7 +185,7 @@ export default function LoginScreen({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={styles.safe} edges={["left", "right"]}>
+    <SafeAreaView style={styles.safe} edges={["left", "right", "bottom"]}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         style={{ flex: 1 }}
@@ -180,88 +193,148 @@ export default function LoginScreen({ navigation }) {
         <ScrollView
           contentContainerStyle={styles.container}
           keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
         >
-          <Image
-            source={require("../../assets/logo.png")}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-
-          <Text style={styles.title}>LOGIN</Text>
-
-          <View style={styles.fieldWrap}>
-            <Text style={styles.label}>Email</Text>
-            <TextInput
-              value={email}
-              onChangeText={setEmail}
-              placeholder="seu@email.com"
-              placeholderTextColor="#999"
-              style={styles.input}
-              keyboardType="email-address"
-              autoCapitalize="none"
+          {/* Logo em círculo */}
+          <View style={styles.logoCircle}>
+            <Image
+              source={require("../../assets/logo.png")}
+              style={styles.logo}
+              resizeMode="contain"
             />
           </View>
 
-          <View style={styles.fieldWrap}>
-            <Text style={styles.label}>Senha</Text>
-            <TextInput
-              value={senha}
-              onChangeText={setSenha}
-              placeholder="••••••••"
-              placeholderTextColor="#999"
-              style={styles.input}
-              secureTextEntry
-            />
-          </View>
+          <Text style={styles.title}>Bem-vindo</Text>
+          <Text style={styles.subtitle}>
+            Entre para continuar aprendendo{"\n"}com a Lingueto
+          </Text>
 
+          {/* Google */}
           <TouchableOpacity
-            style={styles.button}
-            onPress={handleSignIn}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.buttonText}>Entrar</Text>
-          </TouchableOpacity>
-
-          <View style={styles.dividerRow}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>OU</Text>
-            <View style={styles.dividerLine} />
-          </View>
-
-          <TouchableOpacity
-            style={[styles.socialButton, styles.googleButton]}
+            style={styles.googleButton}
             onPress={() => googlePromptAsync()}
             disabled={!googleRequest}
-            activeOpacity={0.8}
+            activeOpacity={0.85}
           >
-            <Text style={styles.googleIcon}>G</Text>
-            <Text style={styles.googleButtonText}>Entrar com Google</Text>
+            <AntDesign name="google" size={20} color="#4285F4" />
+            <Text style={styles.googleText}>Continuar com Google</Text>
           </TouchableOpacity>
 
-          {Platform.OS === "ios" && (
+          {/* Apple (nativo no iOS, fallback no Android) */}
+          {Platform.OS === "ios" ? (
             <AppleAuthentication.AppleAuthenticationButton
               buttonType={
-                AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN
+                AppleAuthentication.AppleAuthenticationButtonType.CONTINUE
               }
               buttonStyle={
                 AppleAuthentication.AppleAuthenticationButtonStyle.BLACK
               }
-              cornerRadius={4}
-              style={styles.appleButton}
+              cornerRadius={15}
+              style={styles.appleNativeButton}
               onPress={handleAppleSignIn}
             />
+          ) : (
+            <TouchableOpacity
+              style={styles.appleButton}
+              onPress={handleAppleSignIn}
+              activeOpacity={0.85}
+            >
+              <AntDesign name="apple" size={20} color="#fff" />
+              <Text style={styles.appleText}>Continuar com Apple</Text>
+            </TouchableOpacity>
           )}
 
-          <View style={styles.signUpWrap}>
-            <Text style={styles.noAccount}>Não tem uma conta?</Text>
-            <TouchableOpacity
-              onPress={() =>
-                Alert.alert("Cadastro", "Tela de cadastro em breve")
-              }
-            >
-              <Text style={styles.signUpText}>Cadastre-se</Text>
-            </TouchableOpacity>
+          {/* Divisor corporativo */}
+          <View style={styles.dividerRow}>
+            <View style={styles.dividerLine} />
+            <Text style={styles.dividerText}>CONTA CORPORATIVA</Text>
+            <View style={styles.dividerLine} />
           </View>
+
+          {/* Toggle de acesso corporativo */}
+          <TouchableOpacity
+            style={styles.corpToggle}
+            onPress={toggleCorp}
+            activeOpacity={0.8}
+          >
+            <Ionicons name="business-outline" size={18} color={MINT_DARK} />
+            <Text style={styles.corpToggleText}>
+              {corpOpen
+                ? "Ocultar acesso corporativo"
+                : "Sou colaborador de uma empresa"}
+            </Text>
+            <Ionicons
+              name={corpOpen ? "chevron-up" : "chevron-down"}
+              size={18}
+              color={MINT_DARK}
+            />
+          </TouchableOpacity>
+
+          {/* Campos corporativos - só aparecem ao abrir */}
+          {corpOpen && (
+            <View style={styles.corpFields}>
+              <Text style={styles.label}>Login corporativo</Text>
+              <TextInput
+                value={email}
+                onChangeText={setEmail}
+                placeholder="usuario@empresa.com"
+                placeholderTextColor="#a6afba"
+                style={styles.input}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+
+              <Text style={[styles.label, { marginTop: 16 }]}>Senha</Text>
+              <View style={styles.senhaWrap}>
+                <TextInput
+                  value={senha}
+                  onChangeText={setSenha}
+                  placeholder="••••••••"
+                  placeholderTextColor="#a6afba"
+                  style={[styles.input, { paddingRight: 48 }]}
+                  secureTextEntry={!showSenha}
+                />
+                <TouchableOpacity
+                  style={styles.eyeButton}
+                  onPress={() => setShowSenha((v) => !v)}
+                  hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                >
+                  <Ionicons
+                    name={showSenha ? "eye-off-outline" : "eye-outline"}
+                    size={20}
+                    color="#9aa5b1"
+                  />
+                </TouchableOpacity>
+              </View>
+
+              <TouchableOpacity
+                style={styles.entrarButton}
+                onPress={handleSignIn}
+                activeOpacity={0.85}
+              >
+                <Text style={styles.entrarText}>Entrar</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() =>
+                  Alert.alert("Recuperar senha", "Em breve.")
+                }
+              >
+                <Text style={styles.forgot}>
+                  Esqueceu a senha? <Text style={styles.forgotLink}>Recuperar</Text>
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
+
+          <TouchableOpacity
+            style={styles.signUpWrap}
+            onPress={() => Alert.alert("Cadastro", "Tela de cadastro em breve")}
+          >
+            <Text style={styles.noAccount}>
+              Não tem uma conta? <Text style={styles.signUpText}>Cadastre-se</Text>
+            </Text>
+          </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -271,116 +344,211 @@ export default function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: "#e8e8e8",
+    backgroundColor: BG,
   },
   container: {
     alignItems: "center",
-    paddingVertical: 20,
-    paddingHorizontal: 24,
+    paddingVertical: 34,
+    paddingHorizontal: 26,
+    flexGrow: 1,
+    justifyContent: "center",
+  },
+  logoCircle: {
+    width: 112,
+    height: 112,
+    borderRadius: 56,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+    borderWidth: 4,
+    borderColor: "#fff",
+    shadowColor: "#5a7896",
+    shadowOpacity: 0.22,
+    shadowRadius: 26,
+    shadowOffset: { width: 0, height: 10 },
+    elevation: 6,
   },
   logo: {
-    width: width,
-    height: 250,
+    width: 96,
+    height: 96,
+    transform: [{ translateY: 4 }],
   },
   title: {
-    fontSize: 30,
-    fontWeight: "800",
-    marginBottom: 18,
-    letterSpacing: 2,
-    color: "#000",
+    marginTop: 22,
+    fontSize: 26,
+    fontWeight: "900",
+    color: INK,
+    letterSpacing: 0.5,
+  },
+  subtitle: {
+    marginTop: 4,
+    marginBottom: 30,
+    fontSize: 15,
+    fontWeight: "600",
+    color: MUTED,
     textAlign: "center",
+    lineHeight: 21,
   },
-  fieldWrap: {
+  googleButton: {
     width: "100%",
-    marginBottom: 18,
-  },
-  label: {
-    fontSize: 20,
-    fontWeight: "700",
-    marginBottom: 6,
-    color: "#111",
-  },
-  input: {
-    height: 70,
+    height: 56,
+    borderRadius: 15,
+    borderWidth: 1.5,
+    borderColor: "#dce1e6",
     backgroundColor: "#fff",
-    borderWidth: 4,
-    borderColor: CORES.SECONDARY,
-    paddingHorizontal: 12,
-    fontSize: 18,
-    borderRadius: 4,
-  },
-  button: {
-    backgroundColor: CORES.SECONDARY,
-    paddingVertical: 10,
-    marginTop: 10,
-    borderRadius: 2,
+    flexDirection: "row",
     alignItems: "center",
-    width: 200,
+    justifyContent: "center",
+    gap: 12,
+    shadowColor: "#5a7896",
+    shadowOpacity: 0.08,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 2,
   },
-  buttonText: {
-    color: "#fff",
-    fontSize: 20,
+  googleText: {
+    fontSize: 16,
     fontWeight: "800",
+    color: "#3c4653",
+  },
+  appleButton: {
+    width: "100%",
+    height: 56,
+    marginTop: 13,
+    borderRadius: 15,
+    backgroundColor: "#101418",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 11,
+  },
+  appleNativeButton: {
+    width: "100%",
+    height: 56,
+    marginTop: 13,
+  },
+  appleText: {
+    fontSize: 16,
+    fontWeight: "800",
+    color: "#fff",
   },
   dividerRow: {
     flexDirection: "row",
     alignItems: "center",
     width: "100%",
-    marginVertical: 20,
+    marginTop: 26,
+    marginBottom: 6,
+    gap: 14,
   },
   dividerLine: {
     flex: 1,
-    height: 2,
-    backgroundColor: "#bbb",
+    height: 1.5,
+    backgroundColor: BORDER,
   },
   dividerText: {
-    marginHorizontal: 12,
-    fontSize: 14,
-    fontWeight: "700",
-    color: "#666",
+    fontSize: 12,
+    fontWeight: "800",
+    color: "#9aa5b1",
+    letterSpacing: 1,
   },
-  socialButton: {
+  corpToggle: {
+    width: "100%",
+    height: 48,
+    marginTop: 12,
+    borderRadius: 15,
+    borderWidth: 1.5,
+    borderStyle: "dashed",
+    borderColor: MINT,
+    backgroundColor: "rgba(134,199,164,0.12)",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    gap: 8,
+  },
+  corpToggleText: {
+    fontSize: 15,
+    fontWeight: "800",
+    color: MINT_DARK,
+  },
+  corpFields: {
+    width: "100%",
+    marginTop: 16,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: "800",
+    color: "#3c4653",
+    marginBottom: 7,
+    marginLeft: 2,
+  },
+  input: {
     width: "100%",
     height: 54,
-    borderRadius: 4,
-    marginBottom: 12,
-  },
-  googleButton: {
-    backgroundColor: "#fff",
+    borderRadius: 14,
     borderWidth: 2,
-    borderColor: "#ddd",
-  },
-  googleIcon: {
-    fontSize: 20,
-    fontWeight: "900",
-    color: "#4285F4",
-    marginRight: 10,
-  },
-  googleButtonText: {
+    borderColor: BORDER,
+    backgroundColor: "#fff",
+    paddingHorizontal: 16,
     fontSize: 16,
-    fontWeight: "700",
-    color: "#333",
+    fontWeight: "600",
+    color: INK,
   },
-  appleButton: {
+  senhaWrap: {
+    position: "relative",
+    justifyContent: "center",
+  },
+  eyeButton: {
+    position: "absolute",
+    right: 10,
+    height: 36,
+    width: 36,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  entrarButton: {
     width: "100%",
     height: 54,
-    marginBottom: 12,
+    marginTop: 20,
+    borderRadius: 14,
+    backgroundColor: MINT,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: MINT,
+    shadowOpacity: 0.4,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 4,
+  },
+  entrarText: {
+    fontSize: 17,
+    fontWeight: "900",
+    color: "#fff",
+    letterSpacing: 0.5,
+  },
+  forgot: {
+    textAlign: "center",
+    marginTop: 14,
+    fontSize: 13,
+    fontWeight: "700",
+    color: "#9aa5b1",
+  },
+  forgotLink: {
+    color: MINT_DARK,
+    textDecorationLine: "underline",
   },
   signUpWrap: {
-    marginTop: 14,
-    alignItems: "center",
+    marginTop: 22,
   },
   noAccount: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "700",
-    marginBottom: 6,
+    color: MUTED,
+    textAlign: "center",
   },
   signUpText: {
-    fontSize: 20,
-    fontWeight: "800",
+    color: MINT_DARK,
+    fontWeight: "900",
     textDecorationLine: "underline",
   },
 });
