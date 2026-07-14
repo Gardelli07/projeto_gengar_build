@@ -18,6 +18,7 @@ import { API_URL } from "../services/api";
 import { LESSON_STREAK_STORAGE_KEY } from "../util/lessonPerformance";
 import { getLevelProgress, XP_PER_LESSON } from "../util/xp";
 import CORES from "../util/cores";
+import { fetchAulaAccessMap } from "../services/conteudos";
 import {
   COURSE_OPTIONS,
   LEVEL_OPTIONS,
@@ -214,6 +215,21 @@ export default function Inglescompleto({ navigation, route }) {
   const [levelMenuOpen, setLevelMenuOpen] = useState(false);
   const [streak, setStreak] = useState(0);
   const [courseStatsMap, setCourseStatsMap] = useState({});
+  const [aulaAccessMap, setAulaAccessMap] = useState(null);
+
+  useEffect(() => {
+    let active = true;
+    fetchAulaAccessMap()
+      .then((map) => {
+        if (active) setAulaAccessMap(map);
+      })
+      .catch(() => {
+        if (active) setAulaAccessMap({});
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const activeLevel = selectedLevel ?? "Starter";
   const activeLevelConfig = LEVEL_CONFIG[activeLevel] ?? LEVEL_CONFIG.Starter;
@@ -327,6 +343,7 @@ export default function Inglescompleto({ navigation, route }) {
 
   useEffect(() => {
     if (!autoOpenLessonId || openedRef.current) return;
+    if (aulaAccessMap === null) return;
 
     const lesson = activeLessons.find(
       (item) => String(item.id) === String(autoOpenLessonId),
@@ -334,7 +351,8 @@ export default function Inglescompleto({ navigation, route }) {
       (item) => String(item.id) === String(autoOpenLessonId),
     );
 
-    if (!lesson) return;
+    if (!lesson?.screen) return;
+    if (aulaAccessMap[lesson.screen] === false) return;
 
     openedRef.current = true;
     navigation.setParams({ autoOpenLessonId: null });
@@ -352,7 +370,7 @@ export default function Inglescompleto({ navigation, route }) {
         lessons: lessonList,
       });
     });
-  }, [autoOpenLessonId, navigation, allLessons, activeLessons]);
+  }, [autoOpenLessonId, navigation, allLessons, activeLessons, aulaAccessMap]);
 
   const totalLessons = activeLessons.length;
   const completedCount = activeLessons.filter(
@@ -457,6 +475,10 @@ export default function Inglescompleto({ navigation, route }) {
 
   const goToLesson = (lesson) => {
     if (!lesson?.screen) return;
+    if (aulaAccessMap && aulaAccessMap[lesson.screen] === false) {
+      Alert.alert("Aula bloqueada", "Esta aula ainda não está disponível.");
+      return;
+    }
     navigation.navigate(lesson.screen, {
       lesson,
       lessons: activeLessons,
@@ -564,7 +586,7 @@ export default function Inglescompleto({ navigation, route }) {
             primary
             label="Praticar"
             icon={<MaterialCommunityIcons name="lightning-bolt" size={20} color={CORES.WHITE} />}
-            onPress={() => goToLesson(firstPendingLesson)}
+            onPress={() => navigation.navigate("SelfIntroLesson")}
           />
           <QuickAction
             label="Revisar cursos"
@@ -871,27 +893,52 @@ export default function Inglescompleto({ navigation, route }) {
 
                       {moduleLessons.map((lesson) => {
                         const done = !!progressMap[lesson.id];
+                        const isLocked =
+                          !!aulaAccessMap &&
+                          aulaAccessMap[lesson.screen] === false;
 
                         return (
                           <TouchableOpacity
                             key={lesson.id}
                             style={styles.lessonButton}
                             onPress={() => goToLesson(lesson)}
+                            disabled={isLocked}
                             activeOpacity={0.85}
                           >
                             <View style={styles.lessonLeft}>
                               <MaterialCommunityIcons
-                                name={done ? "check-circle" : "play-circle-outline"}
+                                name={
+                                  done
+                                    ? "check-circle"
+                                    : isLocked
+                                      ? "lock-outline"
+                                      : "play-circle-outline"
+                                }
                                 size={18}
-                                color={done ? CORES.HOME_GREEN : CORES.HOME_PRIMARY}
+                                color={
+                                  done
+                                    ? CORES.HOME_GREEN
+                                    : isLocked
+                                      ? "#B4BFCC"
+                                      : CORES.HOME_PRIMARY
+                                }
                               />
-                              <Text style={styles.lessonText}>{lesson.title}</Text>
+                              <Text
+                                style={[
+                                  styles.lessonText,
+                                  isLocked && styles.lockedText,
+                                ]}
+                              >
+                                {lesson.title}
+                              </Text>
                             </View>
-                            <MaterialCommunityIcons
-                              name="chevron-right"
-                              size={18}
-                              color="#8A97AA"
-                            />
+                            {!isLocked && (
+                              <MaterialCommunityIcons
+                                name="chevron-right"
+                                size={18}
+                                color="#8A97AA"
+                              />
+                            )}
                           </TouchableOpacity>
                         );
                       })}

@@ -18,6 +18,7 @@ import InglesCompletoB1Home, { lessonScreens as inglesCompletoB1LessonScreens } 
 import BussinesHome, { lessonScreens as bussinesA1LessonScreens } from "../pages/aulas/bussines/A1";
 import BussinesB1Home, { lessonScreens as bussinesB1LessonScreens } from "../pages/aulas/bussines/B1";
 import TravelHome, { lessonScreens as travelA1LessonScreens } from "../pages/aulas/viagem/A1";
+import { lessonScreens as aulasPlusLessonScreens } from "../pages/aulas/aulasplus";
 
 // Business
 
@@ -172,6 +173,9 @@ export default function Routes() {
         {renderLessonScreens(inglesCompletoA2LessonScreens)}
 
         {renderLessonScreens(inglesCompletoA0A1LessonScreens)}
+
+        {/* ===== AULAS PLUS ===== */}
+        {renderLessonScreens(aulasPlusLessonScreens)}
 
         {/* ===== SANTANDER ===== */}
         <Stack.Screen

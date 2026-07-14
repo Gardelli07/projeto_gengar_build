@@ -54,7 +54,9 @@ export default function CourseOverviewScreen({
       .then((map) => {
         if (active) setAulaAccessMap(map);
       })
-      .catch(() => {});
+      .catch(() => {
+        if (active) setAulaAccessMap({});
+      });
     return () => {
       active = false;
     };
@@ -62,12 +64,14 @@ export default function CourseOverviewScreen({
 
   useEffect(() => {
     if (!autoOpenLessonId || openedRef.current) return;
+    if (aulaAccessMap === null) return;
 
     const lesson = lessons.find(
       (item) => String(item.id) === String(autoOpenLessonId),
     );
 
     if (!lesson?.screen) return;
+    if (aulaAccessMap[lesson.screen] === false) return;
 
     openedRef.current = true;
     navigation.setParams({ autoOpenLessonId: null });
@@ -78,7 +82,7 @@ export default function CourseOverviewScreen({
         lessons,
       });
     });
-  }, [autoOpenLessonId, lessons, navigation]);
+  }, [autoOpenLessonId, lessons, navigation, aulaAccessMap]);
 
   const lessonsByModule = useMemo(() => {
     return moduleDefs.reduce((acc, moduleItem) => {
@@ -91,6 +95,7 @@ export default function CourseOverviewScreen({
 
   const goToLesson = (lesson) => {
     if (!lesson?.screen) return;
+    if (aulaAccessMap && aulaAccessMap[lesson.screen] === false) return;
 
     navigation.navigate(lesson.screen, {
       lesson,

@@ -11,5 +11,4 @@ use A2LessonScreen como base para os arquivos e referencie apenas const LESSON_S
 
 npx.cmd expo run:android
 
-bloquear as aulas nos botões de continuar também 
 guardar exclusivamente progresso pela conta logada
