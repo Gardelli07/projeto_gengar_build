@@ -10,13 +10,13 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Svg, { Path, Circle } from "react-native-svg";
 import { useAuth } from "../context/AuthContext";
 import { API_URL } from "../services/api";
-import { LESSON_STREAK_STORAGE_KEY } from "../util/lessonPerformance";
 import { getLevelProgress, XP_PER_LESSON } from "../util/xp";
 import { loadGlobalProgressStats } from "../util/courseCatalog";
+import { fetchResumoProgresso } from "../services/progresso";
+import { hasFullAccess } from "../util/plans";
 import CORES from "../util/cores";
 
 /* ---------- ícones ---------- */
@@ -103,7 +103,8 @@ function Row({ icon, label, right, isLast, onPress }) {
 const comingSoon = (title) => () => Alert.alert(title, "Em breve.");
 
 export default function ProfileScreen({ navigation }) {
-  const { user, signOut } = useAuth();
+  const { user, signOut, upgradeToFullAccessPlan, downgradeToFreePlan } = useAuth();
+  const fullAccess = hasFullAccess(user);
 
   const displayName = user?.nome_exibicao?.trim() || user?.login || "Usuário";
   const email = user?.email || user?.login || "";
@@ -114,17 +115,42 @@ export default function ProfileScreen({ navigation }) {
 
   useFocusRefresh(
     useCallback(async () => {
-      const [stats, streakRaw] = await Promise.all([
+      const [stats, resumo] = await Promise.all([
         loadGlobalProgressStats(),
-        AsyncStorage.getItem(LESSON_STREAK_STORAGE_KEY),
+        fetchResumoProgresso().catch(() => null),
       ]);
       setTotalXp(stats.completed * XP_PER_LESSON);
-      setStreak(streakRaw ? Number(streakRaw) || 0 : 0);
+      if (resumo) setStreak(resumo.streakAtual);
     }, []),
     navigation,
   );
 
   const levelProgress = getLevelProgress(totalXp);
+
+  // As lojas ainda nao estao configuradas, entao essa troca de plano e so
+  // local (AsyncStorage), pra permitir testar o app com tudo liberado antes
+  // da integracao real de compra existir.
+  const handlePlanAction = () => {
+    if (fullAccess) {
+      Alert.alert(
+        "Voltar para o Gratuito",
+        "A integração com as lojas ainda não está pronta — isso só troca o plano localmente, para teste. Deseja continuar?",
+        [
+          { text: "Cancelar", style: "cancel" },
+          { text: "Voltar", onPress: downgradeToFreePlan },
+        ],
+      );
+      return;
+    }
+    Alert.alert(
+      "Assinatura Premium",
+      "A compra pelas lojas ainda não está configurada — isso só ativa o plano com tudo liberado localmente, para teste. Deseja continuar?",
+      [
+        { text: "Cancelar", style: "cancel" },
+        { text: "Ativar", onPress: upgradeToFullAccessPlan },
+      ],
+    );
+  };
 
   const handleLogout = () => {
     Alert.alert("Sair da conta", "Tem certeza que deseja sair?", [
@@ -192,13 +218,19 @@ export default function ProfileScreen({ navigation }) {
           <View style={styles.planBlob} />
           <View style={styles.planTitleRow}>
             <IconCrown />
-            <Text style={styles.planTitle}>Plano Gratuito</Text>
+            <Text style={styles.planTitle}>
+              {fullAccess ? "Plano Base (tudo liberado)" : "Plano Gratuito"}
+            </Text>
           </View>
           <Text style={styles.planDesc}>
-            Desbloqueie lições ilimitadas, correções prioritárias na comunidade e sem anúncios.
+            {fullAccess
+              ? "Todas as lições, cursos e níveis estão liberados neste plano de teste."
+              : "Desbloqueie lições ilimitadas, correções prioritárias na comunidade e sem anúncios."}
           </Text>
-          <Pressable style={styles.planBtn} onPress={comingSoon("Assinatura Premium")}>
-            <Text style={styles.planBtnText}>Assinar o Premium</Text>
+          <Pressable style={styles.planBtn} onPress={handlePlanAction}>
+            <Text style={styles.planBtnText}>
+              {fullAccess ? "Voltar para o Gratuito" : "Assinar o Premium"}
+            </Text>
             <IconArrow />
           </Pressable>
         </View>

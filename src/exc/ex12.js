@@ -11,6 +11,8 @@ import {
 } from "react-native";
 import CORES from "../util/cores";
 import { Images } from "../util/images";
+import { criarPost } from "../services/comunidade";
+import { getSlidePostId, markSlidePosted } from "../util/exercisePosts";
 
 export function Exercise12({
   activity,
@@ -18,6 +20,7 @@ export function Exercise12({
   HeaderComponent,
   next,
   onAttempt,
+  slideKey,
 }) {
   const bottomSafeSpace = 3;
   const alertTranslateY = useRef(new Animated.Value(64)).current;
@@ -57,9 +60,33 @@ export function Exercise12({
   }, [isCorrect, alertOpacity, alertTranslateY]);
 
   const handleSubmit = () => {
-    if (!canSubmit) return;
+    if (!canSubmit || result) return;
     onAttempt?.({ isCorrect: true });
     setResult("correct");
+    postAnswerToCommunity();
+  };
+
+  const postAnswerToCommunity = async () => {
+    try {
+      const jaPostado = await getSlidePostId(slideKey);
+      if (jaPostado) return;
+
+      const aulaPrompt = [activity.instruction, activity.helperText]
+        .filter((parte) => typeof parte === "string" && parte.trim().length > 0)
+        .join("\n")
+        .slice(0, 1000);
+      const novo = await criarPost(text.trim(), { aulaPrompt });
+      if (novo?.id != null) {
+        await markSlidePosted(slideKey, novo.id);
+      }
+    } catch (error) {
+      console.error(
+        "[ex12] falha ao publicar resposta na comunidade:",
+        error?.status,
+        error?.message,
+        error
+      );
+    }
   };
 
   return (

@@ -20,6 +20,9 @@ import {
 } from "expo-audio";
 import CORES from "../util/cores";
 import { Images } from "../util/images";
+import { enviarArquivo } from "../services/arquivos";
+import { criarPostAudio } from "../services/comunidade";
+import { getSlidePostId, markSlidePosted } from "../util/exercisePosts";
 
 function formatDuration(totalSeconds) {
   const minutes = Math.floor(totalSeconds / 60).toString();
@@ -34,6 +37,7 @@ export function Exercise16({
   HeaderComponent,
   next,
   onAttempt,
+  slideKey,
 }) {
   const bottomSafeSpace = 3;
   const recorder = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
@@ -360,6 +364,42 @@ export function Exercise16({
 
     onAttempt?.({ isCorrect: true });
     setResult("correct");
+    postAudioToCommunity(audioUri, recordingSeconds);
+  };
+
+  const postAudioToCommunity = async (uri, duracaoSegundos) => {
+    try {
+      const jaPostado = await getSlidePostId(slideKey);
+      if (jaPostado) return;
+
+      const arquivo = await enviarArquivo(uri, {
+        tipo: "audio",
+        mimeType: "audio/m4a",
+        duracaoSegundos,
+      });
+      if (!arquivo?.id) {
+        throw new Error("Upload de audio nao retornou um id.");
+      }
+
+      const aulaPrompt = [activity.instruction, activity.helperText]
+        .filter((parte) => typeof parte === "string" && parte.trim().length > 0)
+        .join("\n")
+        .slice(0, 1000);
+      const novo = await criarPostAudio(arquivo.id, {
+        origem: "exercicio16",
+        aulaPrompt,
+      });
+      if (novo?.id != null) {
+        await markSlidePosted(slideKey, novo.id);
+      }
+    } catch (error) {
+      console.error(
+        "[ex16] falha ao publicar audio na comunidade:",
+        error?.status,
+        error?.message,
+        error
+      );
+    }
   };
 
   return (

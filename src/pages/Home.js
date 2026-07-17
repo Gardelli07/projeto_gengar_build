@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   Alert,
   Image,
@@ -10,15 +16,15 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Svg, { Circle, Text as SvgText, TSpan } from "react-native-svg";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useAuth } from "../context/AuthContext";
 import { API_URL } from "../services/api";
-import { LESSON_STREAK_STORAGE_KEY } from "../util/lessonPerformance";
 import { getLevelProgress, XP_PER_LESSON } from "../util/xp";
 import CORES from "../util/cores";
 import { fetchAulaAccessMap } from "../services/conteudos";
+import { fetchResumoProgresso } from "../services/progresso";
+import { hasFullAccess } from "../util/plans";
 import {
   COURSE_OPTIONS,
   LEVEL_OPTIONS,
@@ -30,18 +36,12 @@ import {
   getCourseLevelConfig,
   loadProgress,
 } from "../util/courseCatalog";
-import {
-  bussinesModuleDefs,
-  bussinesSampleLessons,
-} from "./aulas/bussines";
+import { bussinesModuleDefs, bussinesSampleLessons } from "./aulas/bussines";
 import {
   bussinesB1ModuleDefs,
   bussinesB1SampleLessons,
 } from "./aulas/bussines/B1";
-import {
-  inglesModuleDefs,
-  inglesSampleLessons,
-} from "./aulas/completo/A0-A1";
+import { inglesModuleDefs, inglesSampleLessons } from "./aulas/completo/A0-A1";
 import {
   inglesModuleDefs as inglesA2ModuleDefs,
   inglesSampleLessons as inglesA2SampleLessons,
@@ -50,10 +50,7 @@ import {
   inglesModuleDefs as inglesB1ModuleDefs,
   inglesSampleLessons as inglesB1SampleLessons,
 } from "./aulas/completo/B1";
-import {
-  travelModuleDefs,
-  travelSampleLessons,
-} from "./aulas/viagem/A1";
+import { travelModuleDefs, travelSampleLessons } from "./aulas/viagem/A1";
 
 const LEVEL_ACCENT = {
   Starter: "#2E9E6B",
@@ -118,18 +115,39 @@ function QuickAction({ icon, label, primary, onPress }) {
       style={[styles.qa, primary ? styles.qaPrimary : styles.qaPlain]}
     >
       {icon}
-      <Text style={[styles.qaLabel, { color: primary ? CORES.WHITE : CORES.HOME_NAVY }]}>
+      <Text
+        style={[
+          styles.qaLabel,
+          { color: primary ? CORES.WHITE : CORES.HOME_NAVY },
+        ]}
+      >
         {label}
       </Text>
     </TouchableOpacity>
   );
 }
 
-function CourseCard({ title, sub, tagLabel, started, percent, color, onPress }) {
+function CourseCard({
+  title,
+  sub,
+  tagLabel,
+  started,
+  percent,
+  color,
+  onPress,
+}) {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.course} activeOpacity={0.9}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={styles.course}
+      activeOpacity={0.9}
+    >
       <View style={[styles.courseIcon, { backgroundColor: color }]}>
-        <MaterialCommunityIcons name="book-open-variant" size={20} color={CORES.WHITE} />
+        <MaterialCommunityIcons
+          name="book-open-variant"
+          size={20}
+          color={CORES.WHITE}
+        />
       </View>
       <View style={{ flex: 1, minWidth: 0 }}>
         <View style={styles.row}>
@@ -137,7 +155,12 @@ function CourseCard({ title, sub, tagLabel, started, percent, color, onPress }) 
             {title}
           </Text>
           <View style={[styles.tag, started ? styles.tagOn : styles.tagOff]}>
-            <Text style={[styles.tagTxt, { color: started ? CORES.HOME_GREEN : CORES.HOME_FAINT }]}>
+            <Text
+              style={[
+                styles.tagTxt,
+                { color: started ? CORES.HOME_GREEN : CORES.HOME_FAINT },
+              ]}
+            >
               {started ? "Em curso" : "Novo"}
             </Text>
           </View>
@@ -188,13 +211,16 @@ function ActivityRow({ item }) {
           {item.meta}
         </Text>
       </View>
-      <Text style={[styles.activityValue, { color: map.color }]}>{item.value}</Text>
+      <Text style={[styles.activityValue, { color: map.color }]}>
+        {item.value}
+      </Text>
     </View>
   );
 }
 
 export default function Inglescompleto({ navigation, route }) {
   const { user } = useAuth();
+  const fullAccess = hasFullAccess(user);
   const displayName = user?.nome_exibicao?.trim() || user?.login || "Usuário";
   const firstName = displayName.split(" ")[0];
   const avatarSource = user?.foto_url
@@ -216,6 +242,9 @@ export default function Inglescompleto({ navigation, route }) {
   const [streak, setStreak] = useState(0);
   const [courseStatsMap, setCourseStatsMap] = useState({});
   const [aulaAccessMap, setAulaAccessMap] = useState(null);
+
+  const isLessonUnlocked = (screenName) =>
+    fullAccess || !aulaAccessMap || aulaAccessMap[screenName] !== false;
 
   useEffect(() => {
     let active = true;
@@ -257,7 +286,7 @@ export default function Inglescompleto({ navigation, route }) {
       ? activeBusinessLevelConfig.storageKey
       : activeCourseId === "travel"
         ? activeTravelLevelConfig.storageKey
-      : activeLevelConfig.storageKey;
+        : activeLevelConfig.storageKey;
   const activeModuleDefs = useMemo(() => {
     if (activeCourseId === "bussines") {
       return activeBusinessLevelConfig.moduleDefs;
@@ -272,19 +301,16 @@ export default function Inglescompleto({ navigation, route }) {
     activeTravelLevelConfig,
     activeLevelConfig,
   ]);
-  const activeLessons = useMemo(
-    () => {
-      if (activeCourseId === "bussines") return activeBusinessLevelConfig.lessons;
-      if (activeCourseId === "travel") return activeTravelLevelConfig.lessons;
-      return activeLevelConfig.lessons;
-    },
-    [
-      activeCourseId,
-      activeBusinessLevelConfig,
-      activeTravelLevelConfig,
-      activeLevelConfig,
-    ],
-  );
+  const activeLessons = useMemo(() => {
+    if (activeCourseId === "bussines") return activeBusinessLevelConfig.lessons;
+    if (activeCourseId === "travel") return activeTravelLevelConfig.lessons;
+    return activeLevelConfig.lessons;
+  }, [
+    activeCourseId,
+    activeBusinessLevelConfig,
+    activeTravelLevelConfig,
+    activeLevelConfig,
+  ]);
 
   const loadAllCourseStats = useCallback(async () => {
     const entries = {};
@@ -323,8 +349,8 @@ export default function Inglescompleto({ navigation, route }) {
 
   useEffect(() => {
     async function loadExtras() {
-      const streakRaw = await AsyncStorage.getItem(LESSON_STREAK_STORAGE_KEY);
-      setStreak(streakRaw ? Number(streakRaw) || 0 : 0);
+      const resumo = await fetchResumoProgresso().catch(() => null);
+      if (resumo) setStreak(resumo.streakAtual);
       await loadAllCourseStats();
     }
     loadExtras();
@@ -345,14 +371,14 @@ export default function Inglescompleto({ navigation, route }) {
     if (!autoOpenLessonId || openedRef.current) return;
     if (aulaAccessMap === null) return;
 
-    const lesson = activeLessons.find(
-      (item) => String(item.id) === String(autoOpenLessonId),
-    ) || allLessons.find(
-      (item) => String(item.id) === String(autoOpenLessonId),
-    );
+    const lesson =
+      activeLessons.find(
+        (item) => String(item.id) === String(autoOpenLessonId),
+      ) ||
+      allLessons.find((item) => String(item.id) === String(autoOpenLessonId));
 
     if (!lesson?.screen) return;
-    if (aulaAccessMap[lesson.screen] === false) return;
+    if (!isLessonUnlocked(lesson.screen)) return;
 
     openedRef.current = true;
     navigation.setParams({ autoOpenLessonId: null });
@@ -412,7 +438,9 @@ export default function Inglescompleto({ navigation, route }) {
           id: `done-${lesson.id}`,
           type: "done",
           title: `Concluiu "${lesson.title}"`,
-          meta: selectedCourse ? `${selectedCourse} · ${activeLevel}` : "Inglês Completo",
+          meta: selectedCourse
+            ? `${selectedCourse} · ${activeLevel}`
+            : "Inglês Completo",
           value: `+${XP_PER_LESSON} XP`,
         });
       });
@@ -422,18 +450,24 @@ export default function Inglescompleto({ navigation, route }) {
   // agrupado por curso, cada curso listando todos os seus níveis disponíveis
   const courseGroups = useMemo(() => {
     return COURSE_OPTIONS.map((courseName) => {
-      const levels = (COURSE_LEVEL_AVAILABILITY[courseName] || []).map((level) => {
-        const config = getCourseLevelConfig(courseName, level);
-        const stats = courseStatsMap[`${courseName}__${level}`];
-        return {
-          level,
-          folder: config.folder,
-          total: stats?.total ?? config.lessons.length,
-          completed: stats?.completed ?? 0,
-          percent: stats?.percent ?? 0,
-        };
-      });
-      return { courseName, color: COURSE_ACCENT[courseName] || CORES.HOME_PRIMARY, levels };
+      const levels = (COURSE_LEVEL_AVAILABILITY[courseName] || []).map(
+        (level) => {
+          const config = getCourseLevelConfig(courseName, level);
+          const stats = courseStatsMap[`${courseName}__${level}`];
+          return {
+            level,
+            folder: config.folder,
+            total: stats?.total ?? config.lessons.length,
+            completed: stats?.completed ?? 0,
+            percent: stats?.percent ?? 0,
+          };
+        },
+      );
+      return {
+        courseName,
+        color: COURSE_ACCENT[courseName] || CORES.HOME_PRIMARY,
+        levels,
+      };
     }).filter((group) => group.levels.length > 0);
   }, [courseStatsMap]);
 
@@ -475,7 +509,7 @@ export default function Inglescompleto({ navigation, route }) {
 
   const goToLesson = (lesson) => {
     if (!lesson?.screen) return;
-    if (aulaAccessMap && aulaAccessMap[lesson.screen] === false) {
+    if (!isLessonUnlocked(lesson.screen)) {
       Alert.alert("Aula bloqueada", "Esta aula ainda não está disponível.");
       return;
     }
@@ -536,7 +570,9 @@ export default function Inglescompleto({ navigation, route }) {
             {avatarSource ? (
               <Image source={avatarSource} style={styles.avatarImage} />
             ) : (
-              <Text style={styles.avatarInitial}>{firstName.charAt(0).toUpperCase()}</Text>
+              <Text style={styles.avatarInitial}>
+                {firstName.charAt(0).toUpperCase()}
+              </Text>
             )}
             <View style={styles.onlineDot} />
           </View>
@@ -549,7 +585,11 @@ export default function Inglescompleto({ navigation, route }) {
           <View style={styles.statsArea}>
             <View style={styles.topRightRow}>
               <View style={styles.streak}>
-                <MaterialCommunityIcons name="fire" size={14} color={CORES.HOME_AMBER} />
+                <MaterialCommunityIcons
+                  name="fire"
+                  size={14}
+                  color={CORES.HOME_AMBER}
+                />
                 <Text style={styles.streakTxt}>{streak}</Text>
               </View>
             </View>
@@ -558,17 +598,24 @@ export default function Inglescompleto({ navigation, route }) {
               <Text style={styles.xpUnit}> XP</Text>
             </Text>
             <View style={styles.levelBadge}>
-              <Text style={styles.levelBadgeTxt}>Nível {levelProgress.currentLevel}</Text>
+              <Text style={styles.levelBadgeTxt}>
+                Nível {levelProgress.currentLevel}
+              </Text>
             </View>
           </View>
         </View>
 
         <View style={styles.card}>
-          <View style={[styles.row, { justifyContent: "space-between", marginBottom: 9 }]}>
+          <View
+            style={[
+              styles.row,
+              { justifyContent: "space-between", marginBottom: 9 },
+            ]}
+          >
             <Text style={styles.cardLabel}>Progresso do nível</Text>
             <Text style={styles.cardHint}>
-              {levelProgress.xpInsideLevel} / {levelProgress.levelRange} XP para o
-              Nível {levelProgress.nextLevel}
+              {levelProgress.xpInsideLevel} / {levelProgress.levelRange} XP para
+              o Nível {levelProgress.nextLevel}
             </Text>
           </View>
           <View style={styles.bigTrack}>
@@ -585,17 +632,35 @@ export default function Inglescompleto({ navigation, route }) {
           <QuickAction
             primary
             label="Praticar"
-            icon={<MaterialCommunityIcons name="lightning-bolt" size={20} color={CORES.WHITE} />}
+            icon={
+              <MaterialCommunityIcons
+                name="lightning-bolt"
+                size={20}
+                color={CORES.WHITE}
+              />
+            }
             onPress={() => navigation.navigate("SelfIntroLesson")}
           />
           <QuickAction
             label="Revisar cursos"
-            icon={<MaterialCommunityIcons name="refresh" size={20} color={CORES.HOME_PRIMARY} />}
+            icon={
+              <MaterialCommunityIcons
+                name="refresh"
+                size={20}
+                color={CORES.HOME_PRIMARY}
+              />
+            }
             onPress={() => setSelectedCourse(null)}
           />
           <QuickAction
             label="Metas"
-            icon={<MaterialCommunityIcons name="target" size={20} color={CORES.HOME_PRIMARY} />}
+            icon={
+              <MaterialCommunityIcons
+                name="target"
+                size={20}
+                color={CORES.HOME_PRIMARY}
+              />
+            }
             onPress={() => {}}
           />
         </View>
@@ -606,11 +671,18 @@ export default function Inglescompleto({ navigation, route }) {
             <View style={{ flex: 1, minWidth: 0, marginLeft: 15 }}>
               <Text style={styles.heroKicker}>CONTINUE DE ONDE PAROU</Text>
               <Text style={styles.heroTitle} numberOfLines={2}>
-                {firstPendingLesson ? firstPendingLesson.title : "Tudo concluído"}
+                {firstPendingLesson
+                  ? firstPendingLesson.title
+                  : "Tudo concluído"}
               </Text>
               <View style={[styles.row, { marginTop: 5 }]}>
                 <Text style={styles.heroMeta}>⏱ 8 min</Text>
-                <Text style={[styles.heroMeta, { color: CORES.HOME_PRIMARY, marginLeft: 10 }]}>
+                <Text
+                  style={[
+                    styles.heroMeta,
+                    { color: CORES.HOME_PRIMARY, marginLeft: 10 },
+                  ]}
+                >
                   +{XP_PER_LESSON} XP
                 </Text>
               </View>
@@ -622,13 +694,21 @@ export default function Inglescompleto({ navigation, route }) {
             activeOpacity={0.9}
           >
             <Text style={styles.primaryBtnTxt}>Continuar</Text>
-            <MaterialCommunityIcons name="arrow-right" size={19} color={CORES.WHITE} />
+            <MaterialCommunityIcons
+              name="arrow-right"
+              size={19}
+              color={CORES.WHITE}
+            />
           </TouchableOpacity>
         </View>
 
         <View style={styles.daily}>
           <View style={styles.dailyIcon}>
-            <MaterialCommunityIcons name="check-circle-outline" size={20} color={CORES.HOME_GREEN} />
+            <MaterialCommunityIcons
+              name="check-circle-outline"
+              size={20}
+              color={CORES.HOME_GREEN}
+            />
           </View>
           <View style={{ flex: 1, minWidth: 0 }}>
             <Text style={styles.dailyTitle}>Meta diária</Text>
@@ -707,7 +787,8 @@ export default function Inglescompleto({ navigation, route }) {
                     <Text
                       style={[
                         styles.levelFilterItemTxt,
-                        levelFilter === level && styles.levelFilterItemTxtActive,
+                        levelFilter === level &&
+                          styles.levelFilterItemTxtActive,
                       ]}
                     >
                       {level}
@@ -725,23 +806,29 @@ export default function Inglescompleto({ navigation, route }) {
           contentContainerStyle={{ gap: 8, paddingVertical: 2 }}
           style={{ marginBottom: 16 }}
         >
-          {[{ key: "todos", label: "Todos" }, ...COURSE_OPTIONS.map((c) => ({ key: c, label: c }))].map(
-            (chip) => {
-              const on = !isLevelFilterMode && chip.key === courseFilter;
-              return (
-                <TouchableOpacity
-                  key={chip.key}
-                  onPress={() => selectCourseChip(chip.key)}
-                  activeOpacity={0.85}
-                  style={[styles.chip, on ? styles.chipOn : styles.chipOff]}
+          {[
+            { key: "todos", label: "Todos" },
+            ...COURSE_OPTIONS.map((c) => ({ key: c, label: c })),
+          ].map((chip) => {
+            const on = !isLevelFilterMode && chip.key === courseFilter;
+            return (
+              <TouchableOpacity
+                key={chip.key}
+                onPress={() => selectCourseChip(chip.key)}
+                activeOpacity={0.85}
+                style={[styles.chip, on ? styles.chipOn : styles.chipOff]}
+              >
+                <Text
+                  style={[
+                    styles.chipTxt,
+                    { color: on ? CORES.WHITE : "#3A557A" },
+                  ]}
                 >
-                  <Text style={[styles.chipTxt, { color: on ? CORES.WHITE : "#3A557A" }]}>
-                    {chip.label}
-                  </Text>
-                </TouchableOpacity>
-              );
-            },
-          )}
+                  {chip.label}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
         </ScrollView>
 
         {isCourseList ? (
@@ -757,7 +844,9 @@ export default function Inglescompleto({ navigation, route }) {
                     started={course.completed > 0}
                     percent={course.percent}
                     color={LEVEL_ACCENT[levelFilter] || CORES.HOME_PRIMARY}
-                    onPress={() => openCourseFromViewAll(course.courseName, levelFilter)}
+                    onPress={() =>
+                      openCourseFromViewAll(course.courseName, levelFilter)
+                    }
                   />
                 ))}
               </View>
@@ -772,11 +861,14 @@ export default function Inglescompleto({ navigation, route }) {
             <View style={{ gap: 20 }}>
               {visibleCourseGroups.map((group) => (
                 <View key={group.courseName}>
-                  <View style={[styles.row, { marginBottom: 10, paddingLeft: 2 }]}>
+                  <View
+                    style={[styles.row, { marginBottom: 10, paddingLeft: 2 }]}
+                  >
                     <Text style={styles.groupGoal}>{group.courseName}</Text>
                     <View style={styles.groupBadge}>
                       <Text style={styles.groupBadgeTxt}>
-                        {group.levels.length} nível{group.levels.length > 1 ? "eis" : ""}
+                        {group.levels.length} nível
+                        {group.levels.length > 1 ? "eis" : ""}
                       </Text>
                     </View>
                   </View>
@@ -790,7 +882,9 @@ export default function Inglescompleto({ navigation, route }) {
                         started={lvl.completed > 0}
                         percent={lvl.percent}
                         color={group.color}
-                        onPress={() => openCourseFromViewAll(group.courseName, lvl.level)}
+                        onPress={() =>
+                          openCourseFromViewAll(group.courseName, lvl.level)
+                        }
                       />
                     ))}
                   </View>
@@ -799,7 +893,9 @@ export default function Inglescompleto({ navigation, route }) {
             </View>
           ) : (
             <View style={styles.emptyCourses}>
-              <Text style={styles.emptyLessonText}>Nenhum curso disponível.</Text>
+              <Text style={styles.emptyLessonText}>
+                Nenhum curso disponível.
+              </Text>
             </View>
           )
         ) : (
@@ -809,7 +905,11 @@ export default function Inglescompleto({ navigation, route }) {
               onPress={() => setSelectedCourse(null)}
               activeOpacity={0.8}
             >
-              <MaterialCommunityIcons name="chevron-left" size={18} color={CORES.HOME_PRIMARY} />
+              <MaterialCommunityIcons
+                name="chevron-left"
+                size={18}
+                color={CORES.HOME_PRIMARY}
+              />
               <Text style={styles.backRowTxt}>Voltar aos cursos</Text>
             </TouchableOpacity>
 
@@ -830,7 +930,9 @@ export default function Inglescompleto({ navigation, route }) {
                     style={[
                       styles.moduleButton,
                       isOpen && {
-                        borderColor: moduleItem.locked ? CORES.HOME_BORDER : CORES.HOME_PRIMARY,
+                        borderColor: moduleItem.locked
+                          ? CORES.HOME_BORDER
+                          : CORES.HOME_PRIMARY,
                       },
                       moduleItem.locked && styles.lockedModule,
                     ]}
@@ -856,12 +958,18 @@ export default function Inglescompleto({ navigation, route }) {
 
                     <View style={styles.moduleTextArea}>
                       <Text
-                        style={[styles.moduleTitle, moduleItem.locked && styles.lockedText]}
+                        style={[
+                          styles.moduleTitle,
+                          moduleItem.locked && styles.lockedText,
+                        ]}
                       >
                         {moduleItem.name}
                       </Text>
                       <Text
-                        style={[styles.moduleSubtitle, moduleItem.locked && styles.lockedText]}
+                        style={[
+                          styles.moduleSubtitle,
+                          moduleItem.locked && styles.lockedText,
+                        ]}
                       >
                         {moduleItem.subtitle}
                       </Text>
@@ -869,7 +977,10 @@ export default function Inglescompleto({ navigation, route }) {
 
                     <View style={styles.moduleRight}>
                       <Text
-                        style={[styles.modulePercent, moduleItem.locked && styles.lockedText]}
+                        style={[
+                          styles.modulePercent,
+                          moduleItem.locked && styles.lockedText,
+                        ]}
                       >
                         {moduleItem.locked ? "0%" : `${modulePercent}%`}
                       </Text>
@@ -893,9 +1004,7 @@ export default function Inglescompleto({ navigation, route }) {
 
                       {moduleLessons.map((lesson) => {
                         const done = !!progressMap[lesson.id];
-                        const isLocked =
-                          !!aulaAccessMap &&
-                          aulaAccessMap[lesson.screen] === false;
+                        const isLocked = !isLessonUnlocked(lesson.screen);
 
                         return (
                           <TouchableOpacity
@@ -950,7 +1059,6 @@ export default function Inglescompleto({ navigation, route }) {
           </View>
         )}
       </ScrollView>
-
     </SafeAreaView>
   );
 }
@@ -1049,7 +1157,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#E6ECF4",
     overflow: "hidden",
   },
-  bigFill: { height: "100%", borderRadius: 99, backgroundColor: CORES.HOME_PRIMARY },
+  bigFill: {
+    height: "100%",
+    borderRadius: 99,
+    backgroundColor: CORES.HOME_PRIMARY,
+  },
 
   quickRow: { flexDirection: "row", gap: 10, marginBottom: 18 },
   qa: {
@@ -1060,7 +1172,11 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   qaPrimary: { backgroundColor: CORES.HOME_PRIMARY },
-  qaPlain: { backgroundColor: CORES.WHITE, borderWidth: 1, borderColor: "#E4EAF3" },
+  qaPlain: {
+    backgroundColor: CORES.WHITE,
+    borderWidth: 1,
+    borderColor: "#E4EAF3",
+  },
   qaLabel: { fontWeight: "800", fontSize: 13 },
 
   hero: {
@@ -1077,7 +1193,12 @@ const styles = StyleSheet.create({
     fontSize: 11,
     letterSpacing: 0.4,
   },
-  heroTitle: { color: CORES.HOME_NAVY, fontWeight: "900", fontSize: 20, marginTop: 3 },
+  heroTitle: {
+    color: CORES.HOME_NAVY,
+    fontWeight: "900",
+    fontSize: 20,
+    marginTop: 3,
+  },
   heroMeta: { color: CORES.HOME_MUTED, fontWeight: "700", fontSize: 13 },
   primaryBtn: {
     flexDirection: "row",
@@ -1152,7 +1273,11 @@ const styles = StyleSheet.create({
     backgroundColor: CORES.HOME_NAVY,
     borderColor: CORES.HOME_NAVY,
   },
-  levelFilterTxt: { color: CORES.HOME_PRIMARY, fontWeight: "800", fontSize: 13 },
+  levelFilterTxt: {
+    color: CORES.HOME_PRIMARY,
+    fontWeight: "800",
+    fontSize: 13,
+  },
   levelFilterTxtOn: { color: CORES.WHITE },
   levelFilterDropdown: {
     position: "absolute",
@@ -1171,7 +1296,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 11,
   },
-  levelFilterItemTxt: { color: CORES.HOME_NAVY, fontSize: 13.5, fontWeight: "700" },
+  levelFilterItemTxt: {
+    color: CORES.HOME_NAVY,
+    fontSize: 13.5,
+    fontWeight: "700",
+  },
   levelFilterItemTxtActive: { color: CORES.HOME_PRIMARY, fontWeight: "900" },
 
   activity: {
@@ -1196,7 +1325,11 @@ const styles = StyleSheet.create({
   activityValue: { fontWeight: "900", fontSize: 13 },
 
   chip: { paddingHorizontal: 15, paddingVertical: 9, borderRadius: 99 },
-  chipOn: { backgroundColor: CORES.HOME_NAVY, borderWidth: 1.5, borderColor: CORES.HOME_NAVY },
+  chipOn: {
+    backgroundColor: CORES.HOME_NAVY,
+    borderWidth: 1.5,
+    borderColor: CORES.HOME_NAVY,
+  },
   chipOff: {
     backgroundColor: CORES.WHITE,
     borderWidth: 1.5,
@@ -1204,7 +1337,12 @@ const styles = StyleSheet.create({
   },
   chipTxt: { fontWeight: "800", fontSize: 13 },
 
-  groupGoal: { color: CORES.HOME_NAVY, fontWeight: "900", fontSize: 15, marginRight: 9 },
+  groupGoal: {
+    color: CORES.HOME_NAVY,
+    fontWeight: "900",
+    fontSize: 15,
+    marginRight: 9,
+  },
   groupBadge: {
     backgroundColor: "#DDE7F4",
     paddingHorizontal: 8,

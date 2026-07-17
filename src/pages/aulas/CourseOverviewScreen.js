@@ -12,10 +12,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import CORES from "../../util/cores";
 import { fetchAulaAccessMap } from "../../services/conteudos";
+import { scopedKey } from "../../util/userScope";
+import { useAuth } from "../../context/AuthContext";
+import { hasFullAccess } from "../../util/plans";
 
 async function loadProgress(storageKey) {
   try {
-    const raw = await AsyncStorage.getItem(storageKey);
+    const raw = await AsyncStorage.getItem(await scopedKey(storageKey));
     return raw ? JSON.parse(raw) : {};
   } catch {
     return {};
@@ -30,11 +33,17 @@ export default function CourseOverviewScreen({
   moduleDefs,
   lessons,
 }) {
+  const { user } = useAuth();
+  const fullAccess = hasFullAccess(user);
+
   const autoOpenLessonId = route?.params?.autoOpenLessonId;
   const openedRef = useRef(false);
   const [progressMap, setProgressMap] = useState({});
   const [openModuleId, setOpenModuleId] = useState(0);
   const [aulaAccessMap, setAulaAccessMap] = useState(null);
+
+  const isLessonUnlocked = (screenName) =>
+    fullAccess || !aulaAccessMap || aulaAccessMap[screenName] !== false;
 
   useEffect(() => {
     const sub = navigation.addListener("focus", async () => {
@@ -71,7 +80,7 @@ export default function CourseOverviewScreen({
     );
 
     if (!lesson?.screen) return;
-    if (aulaAccessMap[lesson.screen] === false) return;
+    if (!isLessonUnlocked(lesson.screen)) return;
 
     openedRef.current = true;
     navigation.setParams({ autoOpenLessonId: null });
@@ -95,7 +104,7 @@ export default function CourseOverviewScreen({
 
   const goToLesson = (lesson) => {
     if (!lesson?.screen) return;
-    if (aulaAccessMap && aulaAccessMap[lesson.screen] === false) return;
+    if (!isLessonUnlocked(lesson.screen)) return;
 
     navigation.navigate(lesson.screen, {
       lesson,
@@ -183,9 +192,7 @@ export default function CourseOverviewScreen({
                   {moduleLessons.map((lesson, index) => {
                     const done = !!progressMap[lesson.id];
                     const hasScreen = !!lesson.screen;
-                    const isFree = aulaAccessMap
-                      ? aulaAccessMap[lesson.screen] !== false
-                      : true;
+                    const isFree = isLessonUnlocked(lesson.screen);
                     const isLocked = hasScreen && !isFree;
                     const isPlayable = hasScreen && isFree;
                     const isLast = index === moduleLessons.length - 1;

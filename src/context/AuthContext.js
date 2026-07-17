@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { removeAccessToken } from "../services/api";
+import { setActiveUser } from "../util/userScope";
+import { PLAN_FREE, PLAN_FULL_ACCESS } from "../util/plans";
 
 const AuthContext = createContext(null);
 const USER_STORAGE_KEY = "@lingueto:user";
@@ -12,20 +14,26 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     AsyncStorage.getItem(USER_STORAGE_KEY)
       .then((raw) => {
-        if (raw) setUser(JSON.parse(raw));
+        const parsed = raw ? JSON.parse(raw) : null;
+        if (parsed) setUser(parsed);
+        setActiveUser(parsed);
       })
-      .catch(() => {})
+      .catch(() => {
+        setActiveUser(null);
+      })
       .finally(() => setCarregando(false));
   }, []);
 
   function signIn(userData) {
     setUser(userData);
+    setActiveUser(userData);
     AsyncStorage.setItem(USER_STORAGE_KEY, JSON.stringify(userData));
   }
 
   function updateUser(dadosParciais) {
     setUser((prev) => {
       const next = { ...prev, ...dadosParciais };
+      setActiveUser(next);
       AsyncStorage.setItem(USER_STORAGE_KEY, JSON.stringify(next));
       return next;
     });
@@ -33,13 +41,34 @@ export function AuthProvider({ children }) {
 
   function signOut() {
     setUser(null);
+    setActiveUser(null);
     AsyncStorage.removeItem(USER_STORAGE_KEY);
     removeAccessToken();
   }
 
+  // Ate a compra pelas lojas (App Store / Play Store) ser configurada, a
+  // troca de plano acontece so localmente, para permitir testar o app com
+  // tudo liberado. Quando a integracao com as lojas existir, o plano deve
+  // passar a vir do backend (usuario.plano) apos confirmar a compra.
+  function upgradeToFullAccessPlan() {
+    updateUser({ plano: PLAN_FULL_ACCESS });
+  }
+
+  function downgradeToFreePlan() {
+    updateUser({ plano: PLAN_FREE });
+  }
+
   return (
     <AuthContext.Provider
-      value={{ user, carregando, signIn, updateUser, signOut }}
+      value={{
+        user,
+        carregando,
+        signIn,
+        updateUser,
+        signOut,
+        upgradeToFullAccessPlan,
+        downgradeToFreePlan,
+      }}
     >
       {children}
     </AuthContext.Provider>

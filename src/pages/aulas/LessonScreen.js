@@ -39,10 +39,10 @@ import { Images } from "../../util/images";
 import {
   calculateLessonAccuracy,
   LESSON_STREAK_MIN_ACCURACY,
-  LESSON_STREAK_STORAGE_KEY,
 } from "../../util/lessonPerformance";
 import { getLevelProgress, XP_PER_LESSON } from "../../util/xp";
-import { concluirAula } from "../../services/progresso";
+import { concluirAula, fetchResumoProgresso } from "../../services/progresso";
+import { scopedKey } from "../../util/userScope";
 
 const SlideNavContext = React.createContext(null);
 
@@ -529,6 +529,7 @@ function LessonSlideRenderer({
       HeaderComponent={SlideHeader}
       next={next}
       onAttempt={onAttempt}
+      slideKey={slideInstanceKey}
       {...(slide.needsSpeech ? { speak } : {})}
     />
   );
@@ -568,12 +569,12 @@ export default function createLessonScreen(
   ).length;
 
   const loadProgress = async () => {
-    const raw = await AsyncStorage.getItem(storageKey);
+    const raw = await AsyncStorage.getItem(await scopedKey(storageKey));
     return raw ? JSON.parse(raw) : {};
   };
 
   const saveProgress = async (progress) => {
-    await AsyncStorage.setItem(storageKey, JSON.stringify(progress));
+    await AsyncStorage.setItem(await scopedKey(storageKey), JSON.stringify(progress));
   };
 
   function LessonScreen({ route, navigation }) {
@@ -591,6 +592,7 @@ export default function createLessonScreen(
     });
     const [completedLessonsCount, setCompletedLessonsCount] = useState(0);
     const [currentStreak, setCurrentStreak] = useState(0);
+    const [confirmedNextStreak, setConfirmedNextStreak] = useState(null);
     const [lessonAlreadyCompleted, setLessonAlreadyCompleted] =
       useState(false);
     const [lessonMetaLoaded, setLessonMetaLoaded] = useState(false);
@@ -622,11 +624,14 @@ export default function createLessonScreen(
         )
       : calculateLessonAccuracy(lessonStats.correct, lessonStats.total);
     const earnedXp = lessonAlreadyCompleted ? 0 : XP_PER_LESSON;
-    const nextStreak = lessonAlreadyCompleted
+    // Estimativa otimista para exibir na hora, antes da confirmacao do
+    // backend (fonte da verdade para a sequencia, ver commitLessonCompletion).
+    const optimisticNextStreak = lessonAlreadyCompleted
       ? currentStreak
       : lessonAccuracy >= LESSON_STREAK_MIN_ACCURACY
         ? currentStreak + 1
         : 0;
+    const nextStreak = confirmedNextStreak ?? optimisticNextStreak;
     const totalXpAfterLesson = completedLessonsCount * XP_PER_LESSON + earnedXp;
     const levelProgress = getLevelProgress(totalXpAfterLesson);
 
@@ -634,9 +639,9 @@ export default function createLessonScreen(
       let active = true;
 
       async function loadLessonMeta() {
-        const [progress, streakRaw] = await Promise.all([
+        const [progress, resumo] = await Promise.all([
           loadProgress(),
-          AsyncStorage.getItem(LESSON_STREAK_STORAGE_KEY),
+          fetchResumoProgresso().catch(() => null),
         ]);
 
         if (!active) return;
@@ -647,11 +652,10 @@ export default function createLessonScreen(
         const alreadyCompleted = Boolean(
           lesson && lesson.id != null && progress && progress[lesson.id],
         );
-        const streak = streakRaw ? Number(streakRaw) || 0 : 0;
 
         setCompletedLessonsCount(completedCount);
         setLessonAlreadyCompleted(alreadyCompleted);
-        setCurrentStreak(streak);
+        setCurrentStreak(resumo?.streakAtual ?? 0);
         setLessonMetaLoaded(true);
       }
 
@@ -744,13 +748,17 @@ export default function createLessonScreen(
       async function commitLessonCompletion() {
         if (lesson && lesson.id != null) {
           const progress = await loadProgress();
-          await Promise.all([
-            saveProgress({ ...progress, [lesson.id]: true }),
-            AsyncStorage.setItem(LESSON_STREAK_STORAGE_KEY, String(nextStreak)),
-          ]);
-          // Sincroniza com o backend em segundo plano: o progresso local ja
-          // esta salvo, entao uma falha de rede aqui nao deve travar o app.
-          concluirAula(lesson.id, lessonAccuracy).catch(() => {});
+          await saveProgress({ ...progress, [lesson.id]: true });
+          // A sequencia (streak) e calculada e armazenada no backend, que e a
+          // fonte da verdade; so atualizamos a estimativa otimista quando a
+          // confirmacao chega.
+          try {
+            const resultado = await concluirAula(lesson.id, lessonAccuracy);
+            const sequenciaAtual = resultado?.sequencia?.sequencia_atual;
+            if (typeof sequenciaAtual === "number") {
+              setConfirmedNextStreak(sequenciaAtual);
+            }
+          } catch {}
         }
       }
 
@@ -760,7 +768,6 @@ export default function createLessonScreen(
       lesson && lesson.id,
       lessonAlreadyCompleted,
       lessonMetaLoaded,
-      nextStreak,
       lessonAccuracy,
     ]);
 

@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { fetchAulasConcluidas } from "../services/progresso";
+import { scopedKey } from "./userScope";
 import {
   BUSSINES_STORAGE_KEY,
   bussinesModuleDefs,
@@ -141,7 +142,7 @@ export function getCourseLevelConfig(courseName, level) {
 
 export async function loadProgress(storageKey) {
   try {
-    const raw = await AsyncStorage.getItem(storageKey);
+    const raw = await AsyncStorage.getItem(await scopedKey(storageKey));
     return raw ? JSON.parse(raw) : {};
   } catch {
     return {};
@@ -164,7 +165,7 @@ async function mergeCompletedLessonsIntoStorage(storageKey, lessons, completedId
     }
   }
   if (changed) {
-    await AsyncStorage.setItem(storageKey, JSON.stringify(next));
+    await AsyncStorage.setItem(await scopedKey(storageKey), JSON.stringify(next));
   }
 }
 
