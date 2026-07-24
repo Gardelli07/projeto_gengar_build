@@ -12,13 +12,18 @@ import TabsNavigator from "./TabsNavigator";
 import SplashScreen from "../pages/SplashScreen";
 import Login from "../pages/Login";
 import PlacementFlow from "../pages/PlacementFlow";
+import MeusErros from "../pages/MeusErros";
+import PaywallScreen from "../pages/PaywallScreen";
 import InglesCompletoHome, { lessonScreens as inglesCompletoA0A1LessonScreens } from "../pages/aulas/completo/A0-A1";
 import InglesCompletoA2Home, { lessonScreens as inglesCompletoA2LessonScreens } from "../pages/aulas/completo/A2";
 import InglesCompletoB1Home, { lessonScreens as inglesCompletoB1LessonScreens } from "../pages/aulas/completo/B1";
 import BussinesHome, { lessonScreens as bussinesA1LessonScreens } from "../pages/aulas/bussines/A1";
 import BussinesB1Home, { lessonScreens as bussinesB1LessonScreens } from "../pages/aulas/bussines/B1";
 import TravelHome, { lessonScreens as travelA1LessonScreens } from "../pages/aulas/viagem/A1";
-import { lessonScreens as aulasPlusLessonScreens } from "../pages/aulas/aulasplus";
+import AulasPlusHome, {
+  lessonScreens as aulasPlusLessonScreens,
+} from "../pages/aulas/aulasplus";
+import AulasPlusSeriesDetail from "../pages/aulas/aulasplus/AulasPlusSeriesDetail";
 
 // Business
 
@@ -175,6 +180,16 @@ export default function Routes() {
         {renderLessonScreens(inglesCompletoA0A1LessonScreens)}
 
         {/* ===== AULAS PLUS ===== */}
+        <Stack.Screen
+          name="AulasPlusHome"
+          component={AulasPlusHome}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AulasPlusSeriesDetail"
+          component={AulasPlusSeriesDetail}
+          options={{ headerShown: false }}
+        />
         {renderLessonScreens(aulasPlusLessonScreens)}
 
         {/* ===== SANTANDER ===== */}
@@ -219,6 +234,22 @@ export default function Routes() {
           name="PlacementFlow"
           component={PlacementFlow}
           options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="MeusErros"
+          component={MeusErros}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="Paywall"
+          component={PaywallScreen}
+          options={{
+            headerShown: false,
+            presentation: "modal",
+            animation: "slide_from_bottom",
+          }}
         />
 
         <Stack.Screen

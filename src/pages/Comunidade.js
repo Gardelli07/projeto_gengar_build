@@ -20,6 +20,7 @@ import {
   Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useFocusEffect } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import { createAudioPlayer } from "expo-audio";
 import CORES from "../util/cores";
@@ -530,9 +531,14 @@ export default function CommunityScreen() {
     }
   }, [withOwnAvatar]);
 
-  useEffect(() => {
-    carregarPosts(1);
-  }, [carregarPosts]);
+  // Recarrega o feed sempre que a aba Comunidade ganha foco (nao so na
+  // primeira montagem), ja que o React Navigation mantem a tela montada ao
+  // trocar de aba e o useEffect de montagem sozinho nao dispararia de novo.
+  useFocusEffect(
+    useCallback(() => {
+      carregarPosts(1);
+    }, [carregarPosts]),
+  );
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);

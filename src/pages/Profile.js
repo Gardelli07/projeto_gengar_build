@@ -103,7 +103,7 @@ function Row({ icon, label, right, isLast, onPress }) {
 const comingSoon = (title) => () => Alert.alert(title, "Em breve.");
 
 export default function ProfileScreen({ navigation }) {
-  const { user, signOut, upgradeToFullAccessPlan, downgradeToFreePlan } = useAuth();
+  const { user, signOut, downgradeToFreePlan } = useAuth();
   const fullAccess = hasFullAccess(user);
 
   const displayName = user?.nome_exibicao?.trim() || user?.login || "Usuário";
@@ -142,14 +142,7 @@ export default function ProfileScreen({ navigation }) {
       );
       return;
     }
-    Alert.alert(
-      "Assinatura Premium",
-      "A compra pelas lojas ainda não está configurada — isso só ativa o plano com tudo liberado localmente, para teste. Deseja continuar?",
-      [
-        { text: "Cancelar", style: "cancel" },
-        { text: "Ativar", onPress: upgradeToFullAccessPlan },
-      ],
-    );
+    navigation.navigate("Paywall");
   };
 
   const handleLogout = () => {

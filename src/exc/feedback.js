@@ -17,6 +17,8 @@ export default function Feedback({
   xpAtCurrentLevel = 0,
   xpAtNextLevel = 0,
   lessonAlreadyCompleted = false,
+  reviewLabel,
+  onReview,
 }) {
   const streakMaintained =
     !lessonAlreadyCompleted && accuracy >= LESSON_STREAK_MIN_ACCURACY;
@@ -125,6 +127,16 @@ export default function Feedback({
         >
           <Text style={styles.primaryButtonText}>{continueLabel}</Text>
         </TouchableOpacity>
+
+        {onReview && reviewLabel && (
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={styles.reviewButton}
+            onPress={onReview}
+          >
+            <Text style={styles.reviewButtonText}>{reviewLabel}</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -336,5 +348,16 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 16,
     fontWeight: "800",
+  },
+  reviewButton: {
+    marginTop: 4,
+    paddingVertical: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  reviewButtonText: {
+    color: "#7C8597",
+    fontSize: 14,
+    fontWeight: "700",
   },
 });

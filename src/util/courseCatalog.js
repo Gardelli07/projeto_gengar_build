@@ -199,6 +199,21 @@ export async function syncCourseProgressFromServer() {
   );
 }
 
+export function findLessonByScreen(screen) {
+  for (const courseName of COURSE_OPTIONS) {
+    for (const level of LEVEL_OPTIONS) {
+      if (!COURSE_LEVEL_AVAILABILITY[courseName]?.includes(level)) continue;
+      const config = getCourseLevelConfig(courseName, level);
+      if (!config.available) continue;
+      const lesson = config.lessons.find((item) => item.screen === screen);
+      if (lesson) {
+        return { lesson, lessons: config.lessons, courseName, level };
+      }
+    }
+  }
+  return null;
+}
+
 export async function loadGlobalProgressStats() {
   let completed = 0;
   let total = 0;

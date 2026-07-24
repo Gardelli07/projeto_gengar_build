@@ -510,7 +510,7 @@ export default function Inglescompleto({ navigation, route }) {
   const goToLesson = (lesson) => {
     if (!lesson?.screen) return;
     if (!isLessonUnlocked(lesson.screen)) {
-      Alert.alert("Aula bloqueada", "Esta aula ainda não está disponível.");
+      navigation.navigate("Paywall");
       return;
     }
     navigation.navigate(lesson.screen, {
@@ -639,18 +639,18 @@ export default function Inglescompleto({ navigation, route }) {
                 color={CORES.WHITE}
               />
             }
-            onPress={() => navigation.navigate("SelfIntroLesson")}
+            onPress={() => navigation.navigate("AulasPlusHome")}
           />
           <QuickAction
-            label="Revisar cursos"
+            label="Revisar erros"
             icon={
               <MaterialCommunityIcons
-                name="refresh"
+                name="alert-circle-outline"
                 size={20}
                 color={CORES.HOME_PRIMARY}
               />
             }
-            onPress={() => setSelectedCourse(null)}
+            onPress={() => navigation.navigate("MeusErros")}
           />
           <QuickAction
             label="Metas"
@@ -1011,7 +1011,6 @@ export default function Inglescompleto({ navigation, route }) {
                             key={lesson.id}
                             style={styles.lessonButton}
                             onPress={() => goToLesson(lesson)}
-                            disabled={isLocked}
                             activeOpacity={0.85}
                           >
                             <View style={styles.lessonLeft}>

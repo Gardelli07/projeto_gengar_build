@@ -42,6 +42,8 @@ import {
 } from "../../util/lessonPerformance";
 import { getLevelProgress, XP_PER_LESSON } from "../../util/xp";
 import { concluirAula, fetchResumoProgresso } from "../../services/progresso";
+import { registrarTentativaExercicio } from "../../services/erros";
+import { getSlideHint } from "../../util/erroReview";
 import { scopedKey } from "../../util/userScope";
 
 const SlideNavContext = React.createContext(null);
@@ -95,6 +97,17 @@ const COMPONENTS = {
   Exercise19,
   Exercise20,
 };
+
+// Esses tipos de exercicio nao entram no registro de tentativas/erros
+// (Exercise1, Exercise2 e Exercise7 disparam onAttempt varias vezes por
+// slide de um jeito que nao reflete "acertar ou errar" de forma util pra
+// revisao; Exercise10 ja tem bloqueio proprio de 24h apos responder).
+const EXERCISE_TYPES_WITHOUT_TRACKING = new Set([
+  "Exercise1",
+  "Exercise2",
+  "Exercise7",
+  "Exercise10",
+]);
 
 function useSpeech() {
   const speak = ({ text, stopBefore = true, ...speechOptions }) => {
@@ -477,14 +490,64 @@ function ListenOnlySlide({ activity, next, speak, onAttempt }) {
 }
 
 function LessonFinishSlide({ onPressNextLesson, feedbackProps }) {
+  return <Feedback onContinue={onPressNextLesson} {...feedbackProps} />;
+}
+
+function ReviewFinishSlide({ onFinish, accuracy }) {
   return (
-    <Feedback
-      onContinue={onPressNextLesson}
-      reviewLabel="Revisar erros ->"
-      {...feedbackProps}
-    />
+    <SafeAreaView style={reviewFinishStyles.safeArea}>
+      <View style={reviewFinishStyles.container}>
+        <Text style={reviewFinishStyles.emoji}>✅</Text>
+        <Text style={reviewFinishStyles.title}>Revisão concluída!</Text>
+        <Text style={reviewFinishStyles.subtitle}>
+          Você acertou {accuracy}% dos exercícios revisados agora.
+        </Text>
+        <TouchableOpacity
+          style={reviewFinishStyles.button}
+          onPress={onFinish}
+          activeOpacity={0.9}
+        >
+          <Text style={reviewFinishStyles.buttonText}>
+            Voltar para Meus erros
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 }
+
+const reviewFinishStyles = {
+  safeArea: { flex: 1, backgroundColor: "#FFFFFF" },
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 24,
+  },
+  emoji: { fontSize: 48, marginBottom: 16 },
+  title: {
+    fontSize: 20,
+    fontWeight: "800",
+    color: "#16305C",
+    marginBottom: 8,
+    textAlign: "center",
+  },
+  subtitle: {
+    fontSize: 14,
+    color: "#7C8597",
+    textAlign: "center",
+    marginBottom: 28,
+  },
+  button: {
+    width: "100%",
+    height: 54,
+    borderRadius: 14,
+    backgroundColor: "#356FF1",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonText: { color: "#FFFFFF", fontSize: 16, fontWeight: "800" },
+};
 
 function LessonSlideRenderer({
   slide,
@@ -492,6 +555,7 @@ function LessonSlideRenderer({
   next,
   speak,
   onPressNextLesson,
+  onFinishReview,
   onAttempt,
   feedbackProps,
 }) {
@@ -500,6 +564,15 @@ function LessonSlideRenderer({
       <LessonFinishSlide
         onPressNextLesson={onPressNextLesson}
         feedbackProps={feedbackProps}
+      />
+    );
+  }
+
+  if (slide.type === "reviewFinish") {
+    return (
+      <ReviewFinishSlide
+        onFinish={onFinishReview}
+        accuracy={feedbackProps?.accuracy ?? 0}
       />
     );
   }
@@ -535,6 +608,73 @@ function LessonSlideRenderer({
   );
 }
 
+function HintOverlay({ visible, hintText, showHint, onToggle }) {
+  if (!visible) return null;
+
+  return (
+    <View style={hintStyles.footer}>
+      {showHint && (
+        <View style={hintStyles.card}>
+          <Text style={hintStyles.cardText}>{hintText}</Text>
+        </View>
+      )}
+      <TouchableOpacity
+        style={hintStyles.button}
+        onPress={onToggle}
+        activeOpacity={0.8}
+      >
+        <Text style={hintStyles.buttonText}>
+          {showHint ? "Ocultar dica" : "Mostrar dica"}
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+// Segue o mesmo visual do "Tip" do ex16.js (sendAudioTipCard/sendAudioTipButton)
+// pra ficar consistente com o resto do app, e fica como rodape fixo abaixo do
+// ScrollView (em vez de flutuar sobre o conteudo) pra nunca cobrir nem
+// disputar espaco com os botoes do proprio exercicio.
+const hintStyles = {
+  footer: {
+    paddingHorizontal: 20,
+    paddingTop: 10,
+    paddingBottom: 14,
+    borderTopWidth: 1,
+    borderTopColor: "#E6ECF3",
+    backgroundColor: "#FFFFFF",
+  },
+  button: {
+    alignSelf: "center",
+    minWidth: 150,
+    minHeight: 40,
+    borderRadius: 20,
+    borderWidth: 1.5,
+    borderColor: "#7BA9D6",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 18,
+  },
+  buttonText: {
+    color: "#3F6FA8",
+    fontWeight: "700",
+    fontSize: 14,
+  },
+  card: {
+    backgroundColor: "#F3F8FE",
+    borderWidth: 1,
+    borderColor: "#D6E6F7",
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 10,
+  },
+  cardText: {
+    color: "#111827",
+    fontSize: 14,
+    lineHeight: 20,
+  },
+};
+
 function buildSlideKey(lesson, index) {
   const screenName = lesson && lesson.screen ? String(lesson.screen) : "lesson";
   return `${screenName}S${index + 1}`;
@@ -543,6 +683,35 @@ function buildSlideKey(lesson, index) {
 function buildSlideInstanceKey(lesson, slide, index) {
   const slideKey = slide && slide.key ? String(slide.key) : buildSlideKey(lesson, index);
   return `${buildSlideKey(lesson, index)}:${slideKey}`;
+}
+
+const REVIEW_FINISH_SLIDE = { key: "review-finish", type: "reviewFinish" };
+
+// Cada item guarda o slide junto com o indice original dele em
+// `lessonSlides` - o indice original e o que entra no chave_slide
+// (buildSlideInstanceKey), entao precisa ser preservado mesmo quando so um
+// subconjunto de slides esta sendo exibido (modo de revisao de erros).
+function buildActiveSlides(lessonSlides, reviewMode, reviewSlideIndices) {
+  if (reviewMode && Array.isArray(reviewSlideIndices) && reviewSlideIndices.length > 0) {
+    const filtered = reviewSlideIndices
+      .filter(
+        (index) =>
+          Number.isInteger(index) &&
+          index >= 0 &&
+          index < lessonSlides.length &&
+          lessonSlides[index].type !== "finish",
+      )
+      .map((originalIndex) => ({
+        slide: lessonSlides[originalIndex],
+        originalIndex,
+      }));
+
+    if (filtered.length > 0) {
+      return [...filtered, { slide: REVIEW_FINISH_SLIDE, originalIndex: -1 }];
+    }
+  }
+
+  return lessonSlides.map((slide, index) => ({ slide, originalIndex: index }));
 }
 
 export default function createLessonScreen(
@@ -563,10 +732,6 @@ export default function createLessonScreen(
           type: "finish",
         },
       ];
-  const slideCount = lessonSlides.length;
-  const exerciseSlideCount = lessonSlides.filter(
-    (slide) => slide.type !== "finish",
-  ).length;
 
   const loadProgress = async () => {
     const raw = await AsyncStorage.getItem(await scopedKey(storageKey));
@@ -580,9 +745,23 @@ export default function createLessonScreen(
   function LessonScreen({ route, navigation }) {
     const lesson = route && route.params ? route.params.lesson : undefined;
     const lessons = route && route.params ? route.params.lessons : undefined;
+    const reviewSlideIndices =
+      route && route.params ? route.params.reviewSlideIndices : undefined;
+    const reviewMode = Boolean(route && route.params && route.params.reviewMode);
     const { speak } = useSpeech();
 
+    const activeSlides = buildActiveSlides(
+      lessonSlides,
+      reviewMode,
+      reviewSlideIndices,
+    );
+    const slideCount = activeSlides.length;
+    const exerciseSlideCount = activeSlides.filter(
+      ({ slide }) => slide.type !== "finish" && slide.type !== "reviewFinish",
+    ).length;
+
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+    const [showHint, setShowHint] = useState(false);
     const progressAnim = useRef(new Animated.Value(1 / slideCount)).current;
     const [lessonStats, setLessonStats] = useState({
       correct: 0,
@@ -610,11 +789,12 @@ export default function createLessonScreen(
       onSlideWillChange: stopActiveMedia,
     });
 
-    const currentSlide = lessonSlides[currentSlideIndex];
+    const currentSlideEntry = activeSlides[currentSlideIndex];
+    const currentSlide = currentSlideEntry && currentSlideEntry.slide;
     const currentSlideInstanceKey = buildSlideInstanceKey(
       lesson,
       currentSlide,
-      currentSlideIndex,
+      currentSlideEntry ? currentSlideEntry.originalIndex : currentSlideIndex,
     );
     const completedExerciseScores = Object.values(lessonStats.exerciseScores);
     const lessonAccuracy = completedExerciseScores.length
@@ -667,6 +847,7 @@ export default function createLessonScreen(
     }, [lesson && lesson.id]);
 
     useEffect(() => {
+      setShowHint(false);
       return () => {
         stopActiveMedia();
       };
@@ -689,6 +870,23 @@ export default function createLessonScreen(
       } = {},
       attemptedSlideKey = currentSlideInstanceKey,
     ) => {
+      const tipoExercicio =
+        (currentSlide && (currentSlide.component || currentSlide.type)) ||
+        "desconhecido";
+
+      if (
+        lesson &&
+        lesson.id != null &&
+        !EXERCISE_TYPES_WITHOUT_TRACKING.has(tipoExercicio)
+      ) {
+        registrarTentativaExercicio({
+          conteudoId: lesson.id,
+          chaveSlide: attemptedSlideKey,
+          tipoExercicio,
+          correta: isCorrect,
+        }).catch(() => {});
+      }
+
       setLessonStats((current) => {
         const nextCorrect =
           current.correct +
@@ -787,6 +985,17 @@ export default function createLessonScreen(
       });
     };
 
+    const goToMeusErros = () => {
+      stopActiveMedia();
+      navigation.navigate("MeusErros");
+    };
+
+    const showHintOverlay =
+      reviewMode &&
+      currentSlide &&
+      currentSlide.type !== "finish" &&
+      currentSlide.type !== "reviewFinish";
+
     return (
       <SafeAreaView style={{ flex: 1 }} edges={["top", "bottom"]}>
         <SlideNavContext.Provider
@@ -800,6 +1009,7 @@ export default function createLessonScreen(
           }}
         >
           <ScrollView
+            style={{ flex: 1 }}
             contentContainerStyle={{ flexGrow: 1 }}
             keyboardShouldPersistTaps="handled"
           >
@@ -810,6 +1020,7 @@ export default function createLessonScreen(
               next={slideNav.next}
               speak={speak}
               onPressNextLesson={goToNextLesson}
+              onFinishReview={goToMeusErros}
               onAttempt={(attempt) =>
                 handleAttempt(attempt, currentSlideInstanceKey)
               }
@@ -819,10 +1030,19 @@ export default function createLessonScreen(
                 streak: nextStreak,
                 totalXp: totalXpAfterLesson,
                 lessonAlreadyCompleted,
+                reviewLabel: "Revisar erros ->",
+                onReview: goToMeusErros,
                 ...levelProgress,
               }}
             />
           </ScrollView>
+
+          <HintOverlay
+            visible={showHintOverlay}
+            hintText={getSlideHint(currentSlide)}
+            showHint={showHint}
+            onToggle={() => setShowHint((current) => !current)}
+          />
         </SlideNavContext.Provider>
       </SafeAreaView>
     );

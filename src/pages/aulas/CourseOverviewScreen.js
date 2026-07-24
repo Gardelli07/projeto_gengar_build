@@ -104,7 +104,10 @@ export default function CourseOverviewScreen({
 
   const goToLesson = (lesson) => {
     if (!lesson?.screen) return;
-    if (!isLessonUnlocked(lesson.screen)) return;
+    if (!isLessonUnlocked(lesson.screen)) {
+      navigation.navigate("Paywall");
+      return;
+    }
 
     navigation.navigate(lesson.screen, {
       lesson,
@@ -205,7 +208,7 @@ export default function CourseOverviewScreen({
                           !isLast && styles.lessonDivider,
                         ]}
                         onPress={() => goToLesson(lesson)}
-                        disabled={!isPlayable}
+                        disabled={!hasScreen}
                         activeOpacity={0.85}
                       >
                         <View style={styles.lessonLeft}>
