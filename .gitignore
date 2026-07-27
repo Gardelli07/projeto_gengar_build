@@ -86,3 +86,9 @@ Desktop.ini
 *.rej
 *.tmp
 *.temp
+
+# Material de apoio/backend que nao faz parte do build do app
+banco/
+mk/
+contextoapi.md
+util.txt
