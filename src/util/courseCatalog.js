@@ -199,6 +199,23 @@ export async function syncCourseProgressFromServer() {
   );
 }
 
+// Apaga o progresso local (aulas marcadas como concluidas) de todos os
+// cursos/niveis para o usuario ativo. Usado pelo botao "Resetar aulas" do
+// perfil - o backend e limpo separadamente via resetarProgresso().
+export async function clearAllLocalProgress() {
+  const configs = [
+    ...Object.values(LEVEL_CONFIG),
+    ...Object.values(BUSINESS_LEVEL_CONFIG),
+    ...Object.values(TRAVEL_LEVEL_CONFIG),
+  ].filter((config) => config.available);
+
+  await Promise.all(
+    configs.map(async (config) => {
+      await AsyncStorage.removeItem(await scopedKey(config.storageKey));
+    }),
+  );
+}
+
 export function findLessonByScreen(screen) {
   for (const courseName of COURSE_OPTIONS) {
     for (const level of LEVEL_OPTIONS) {

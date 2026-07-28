@@ -14,8 +14,9 @@ import Svg, { Path, Circle } from "react-native-svg";
 import { useAuth } from "../context/AuthContext";
 import { API_URL } from "../services/api";
 import { getLevelProgress, XP_PER_LESSON } from "../util/xp";
-import { loadGlobalProgressStats } from "../util/courseCatalog";
-import { fetchResumoProgresso } from "../services/progresso";
+import { clearAllLocalProgress, loadGlobalProgressStats } from "../util/courseCatalog";
+import { fetchResumoProgresso, resetarProgresso } from "../services/progresso";
+import { resetarNivelamento } from "../services/nivelamento";
 import { hasFullAccess } from "../util/plans";
 import CORES from "../util/cores";
 
@@ -82,6 +83,15 @@ const IconCheck = ({ size = 19, color = CORES.PROFILE_GREEN }) => (
   </Svg>
 );
 
+const IconRefresh = ({ size = 19, color = CORES.PROFILE_DANGER }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <Path d="M3 12a9 9 0 0 1 15.5-6.3L21 8" />
+    <Path d="M21 3v5h-5" />
+    <Path d="M21 12a9 9 0 0 1-15.5 6.3L3 16" />
+    <Path d="M3 21v-5h5" />
+  </Svg>
+);
+
 /* ---------- linha da seção Conta ---------- */
 function Row({ icon, label, right, isLast, onPress }) {
   return (
@@ -103,7 +113,7 @@ function Row({ icon, label, right, isLast, onPress }) {
 const comingSoon = (title) => () => Alert.alert(title, "Em breve.");
 
 export default function ProfileScreen({ navigation }) {
-  const { user, signOut, downgradeToFreePlan } = useAuth();
+  const { user, signOut, downgradeToFreePlan, updateUser } = useAuth();
   const fullAccess = hasFullAccess(user);
 
   const displayName = user?.nome_exibicao?.trim() || user?.login || "Usuário";
@@ -143,6 +153,52 @@ export default function ProfileScreen({ navigation }) {
       return;
     }
     navigation.navigate("Paywall");
+  };
+
+  const handleResetLessons = () => {
+    Alert.alert(
+      "Resetar aulas concluídas",
+      "Isso vai apagar todo o seu progresso de aulas, XP e sequência. Essa ação não pode ser desfeita. Deseja continuar?",
+      [
+        { text: "Cancelar", style: "cancel" },
+        {
+          text: "Resetar",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await resetarProgresso();
+              await clearAllLocalProgress();
+              setTotalXp(0);
+              setStreak(0);
+            } catch {
+              Alert.alert("Erro", "Não foi possível resetar as aulas. Tente novamente.");
+            }
+          },
+        },
+      ],
+    );
+  };
+
+  const handleResetNivelamento = () => {
+    Alert.alert(
+      "Refazer teste de nivelamento",
+      "Isso vai apagar a tentativa registrada do teste de nivelamento. Você poderá refazer o teste na próxima vez que abrir o app. Deseja continuar?",
+      [
+        { text: "Cancelar", style: "cancel" },
+        {
+          text: "Apagar",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await resetarNivelamento();
+              updateUser({ teste_nivelamento_concluido: false });
+            } catch {
+              Alert.alert("Erro", "Não foi possível apagar a tentativa. Tente novamente.");
+            }
+          },
+        },
+      ],
+    );
   };
 
   const handleLogout = () => {
@@ -260,6 +316,24 @@ export default function ProfileScreen({ navigation }) {
             right={<IconChevron />}
             isLast
             onPress={comingSoon("Privacidade e segurança")}
+          />
+        </View>
+
+        {/* zona de risco */}
+        <Text style={styles.sectionLabel}>ZONA DE RISCO</Text>
+        <View style={styles.accountCard}>
+          <Row
+            icon={<IconRefresh />}
+            label="Resetar aulas concluídas"
+            right={<IconChevron />}
+            onPress={handleResetLessons}
+          />
+          <Row
+            icon={<IconRefresh />}
+            label="Refazer teste de nivelamento"
+            right={<IconChevron />}
+            isLast
+            onPress={handleResetNivelamento}
           />
         </View>
 

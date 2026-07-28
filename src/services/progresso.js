@@ -20,3 +20,7 @@ export async function fetchResumoProgresso() {
     xpTotal: resposta?.xp_total ?? 0,
   };
 }
+
+export function resetarProgresso() {
+  return api.delete("/progresso/resetar");
+}

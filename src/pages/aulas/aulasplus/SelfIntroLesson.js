@@ -228,14 +228,26 @@ export default function SelfIntroLesson({ navigation }) {
   const recorder = useAudioRecorder({ ...RecordingPresets.HIGH_QUALITY, isMeteringEnabled: true });
   const recorderState = useAudioRecorderState(recorder, 120);
   const [recKey, setRecKey] = useState(null);
+  // own stopwatch for the live counter: native durationMillis polling doesn't tick
+  // smoothly in real time on all devices, so we track elapsed time in JS instead.
+  const [recElapsedMs, setRecElapsedMs] = useState(0);
+  const recStartRef = useRef(0);
   const up = useCallback((patch) => setSt((p) => ({ ...p, ...(typeof patch === 'function' ? patch(p) : patch) })), []);
   const after = useCallback((ms, fn) => { const t = setTimeout(fn, ms); timers.current.push(t); }, []);
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
   useEffect(() => () => stopPlayback(), []);
   useEffect(() => () => { recorder.stop().catch(() => {}); }, []);
+  // ticks recElapsedMs every 200ms for as long as a recording is active
+  useEffect(() => {
+    if (!recKey) return undefined;
+    recStartRef.current = Date.now();
+    setRecElapsedMs(0);
+    const id = setInterval(() => setRecElapsedMs(Date.now() - recStartRef.current), 200);
+    return () => clearInterval(id);
+  }, [recKey]);
   const toggleTr = (k) => up((p) => ({ tr: { ...p.tr, [k]: !p.tr[k] } }));
   const goBack = () => navigation.goBack();
-  const liveSeconds = Math.floor((recorderState.durationMillis || 0) / 1000);
+  const liveSeconds = Math.floor(recElapsedMs / 1000);
 
   // stops and releases whatever is currently playing, if anything
   const stopPlayback = () => {
@@ -268,9 +280,13 @@ export default function SelfIntroLesson({ navigation }) {
 
   // real microphone recording for the "Hold to record" practice prompts
   const startRecording = async (key) => {
+    // flip the UI on immediately so the recording indicator (and the stopwatch
+    // effect keyed on recKey) don't wait on the native setup round trip below
+    setRecKey(key);
     try {
       const { granted } = await requestRecordingPermissionsAsync();
       if (!granted) {
+        setRecKey(null);
         Alert.alert('Permissão necessária', 'Permita o uso do microfone para gravar sua voz.');
         return;
       }
@@ -278,14 +294,16 @@ export default function SelfIntroLesson({ navigation }) {
       await setAudioModeAsync({ allowsRecording: true, playsInSilentMode: true });
       await recorder.prepareToRecordAsync();
       recorder.record();
-      setRecKey(key);
     } catch (e) {
+      setRecKey(null);
       Alert.alert('Erro', 'Não foi possível iniciar a gravação.');
     }
   };
   const stopRecording = async (onDone) => {
-    // durationMillis resets once stop() resolves, so read it beforehand
-    const durationMillis = recorder.getStatus().durationMillis || recorderState.durationMillis || 0;
+    // durationMillis resets once stop() resolves, so read it beforehand;
+    // our own stopwatch (computed live, not from the last tick) is the reliable source
+    const durationMillis = (recStartRef.current ? Date.now() - recStartRef.current : 0)
+      || recorder.getStatus().durationMillis || recorderState.durationMillis || 0;
     try {
       await recorder.stop();
       await setAudioModeAsync({ allowsRecording: false, playsInSilentMode: true });
@@ -452,7 +470,7 @@ export default function SelfIntroLesson({ navigation }) {
                   onPress={record2}
                   style={{ borderRadius: 999, paddingHorizontal: 26, alignSelf: 'center', backgroundColor: recKey === 's2' ? C.red : C.green }}
                 />
-                {recKey === 's2' && <RecMeter metering={recorderState.metering} tick={recorderState.durationMillis} />}
+                {recKey === 's2' && <RecMeter metering={recorderState.metering} tick={recElapsedMs} />}
                 <Text style={s.hint}>Say: "{userPhrase}"</Text>
               </Enter>
             )}
@@ -613,7 +631,7 @@ export default function SelfIntroLesson({ navigation }) {
                   onPress={record5}
                   style={{ borderRadius: 999, paddingHorizontal: 24, alignSelf: 'center', backgroundColor: recKey === 's5' ? C.red : C.green }}
                 />
-                {recKey === 's5' && <RecMeter metering={recorderState.metering} tick={recorderState.durationMillis} />}
+                {recKey === 's5' && <RecMeter metering={recorderState.metering} tick={recElapsedMs} />}
               </Enter>
             )}
             {st.s5_recorded && (
@@ -660,7 +678,7 @@ export default function SelfIntroLesson({ navigation }) {
                   onPress={record6}
                   style={{ borderRadius: 999, paddingHorizontal: 24, alignSelf: 'center', backgroundColor: recKey === 's6' ? C.red : C.green }}
                 />
-                {recKey === 's6' && <RecMeter metering={recorderState.metering} tick={recorderState.durationMillis} />}
+                {recKey === 's6' && <RecMeter metering={recorderState.metering} tick={recElapsedMs} />}
               </Enter>
             )}
             {st.s6_recorded && (
@@ -740,7 +758,7 @@ export default function SelfIntroLesson({ navigation }) {
                 big
                 style={{ width: '100%', backgroundColor: recKey === 's8' ? C.red : C.green }}
               />
-              {recKey === 's8' && <RecMeter metering={recorderState.metering} tick={recorderState.durationMillis} />}
+              {recKey === 's8' && <RecMeter metering={recorderState.metering} tick={recElapsedMs} />}
               <Text style={[s.hint, { textAlign: 'center', marginTop: 8 }]}>Speak clearly - take your time</Text>
             </Dock>
           )}

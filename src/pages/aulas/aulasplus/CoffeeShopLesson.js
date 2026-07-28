@@ -1,9 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ScrollView, View, Text, Image, Pressable, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, Image, Pressable, StyleSheet, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Speech from 'expo-speech';
 import * as ImagePicker from 'expo-image-picker';
-import { createAudioPlayer, setAudioModeAsync } from 'expo-audio';
+import {
+  createAudioPlayer,
+  setAudioModeAsync,
+  RecordingPresets,
+  requestRecordingPermissionsAsync,
+  useAudioRecorder,
+} from 'expo-audio';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { scopedKey } from '../../../util/userScope';
@@ -12,6 +18,7 @@ import { scopedKey } from '../../../util/userScope';
 const ITEM_IMAGES = {
   espresso: require('../../../../assets/Aula Cafeteria/img-espresso.jpg'),
   americano: require('../../../../assets/Aula Cafeteria/img-americano.jpg'),
+  cappuccino: require('../../../../assets/Aula Cafeteria/img-cappuccino.jpg'),
   latte: require('../../../../assets/Aula Cafeteria/img-latte.jpg'),
   mocha: require('../../../../assets/Aula Cafeteria/img-mocha.jpg'),
   coldbrew: require('../../../../assets/Aula Cafeteria/img-coldbrew.jpg'),
@@ -22,6 +29,7 @@ const ITEM_IMAGES = {
   chamomile: require('../../../../assets/Aula Cafeteria/img-chamomile.jpg'),
   croissant: require('../../../../assets/Aula Cafeteria/img-croissant.jpg'),
   muffin: require('../../../../assets/Aula Cafeteria/img-muffin.jpg'),
+  cinnamonroll: require('../../../../assets/Aula Cafeteria/img-cinnamonRoll.jpg'),
   cookie: require('../../../../assets/Aula Cafeteria/img-cookie.jpg'),
   brownie: require('../../../../assets/Aula Cafeteria/img-brownie.jpg'),
   bananabread: require('../../../../assets/Aula Cafeteria/img-bananabread.jpg'),
@@ -34,6 +42,9 @@ const IMAGES = {
   diningHere: require('../../../../assets/Aula Cafeteria/img-diningHere.jpeg'),
   diningTogo: require('../../../../assets/Aula Cafeteria/img-diningTogo.jpeg'),
   cashBill: require('../../../../assets/Aula Cafeteria/img-cashBill.jpg'),
+  baristaTakingOrder: require('../../../../assets/Aula Cafeteria/img-barista-talking-an-order.jpeg'),
+  paymentCash: require('../../../../assets/Aula Cafeteria/img-cash.jpeg'),
+  paymentCard: require('../../../../assets/Aula Cafeteria/img-card.jpeg'),
 };
 
 const VIDEOS = {
@@ -41,6 +52,7 @@ const VIDEOS = {
   anythingElse: require('../../../../assets/Aula Cafeteria/video-anythingElse.mp4'),
   tap: require('../../../../assets/Aula Cafeteria/video-tap.mp4'),
   goodbye: require('../../../../assets/Aula Cafeteria/video-goodbye.mp4'),
+  baristaAsking: require('../../../../assets/Aula Cafeteria/video-barista-asking.mp4'),
 };
 
 const FOLLOWUP_VIDEOS = {
@@ -183,6 +195,12 @@ function translate(text) {
 function speak(text) {
   Speech.stop();
   Speech.speak(text, { language: 'en-US', rate: 0.95 });
+}
+
+function formatDuration(totalSeconds) {
+  const m = Math.floor(totalSeconds / 60);
+  const sec = totalSeconds % 60;
+  return `${m}:${String(sec).padStart(2, '0')}`;
 }
 
 let currentPlayer = null;
@@ -342,6 +360,7 @@ export default function CoffeeShopLesson({ navigation }) {
   const [paymentMethod, setPaymentMethod] = useState(null);
   const [recording, setRecording] = useState(false);
   const [recordedOk, setRecordedOk] = useState(false);
+  const [recordedUri, setRecordedUri] = useState(null);
   const [tapConfirmed, setTapConfirmed] = useState(false);
   const [tapQuizCorrect, setTapQuizCorrect] = useState(false);
   const [tapQuizWrong, setTapQuizWrong] = useState(null);
@@ -360,7 +379,12 @@ export default function CoffeeShopLesson({ navigation }) {
   const [showTranslation, setShowTranslation] = useState(false);
   const [goodbyeChunkPt, setGoodbyeChunkPt] = useState({});
   const [showChangePt, setShowChangePt] = useState(false);
-  const recTimer = useRef(null);
+  const recorder = useAudioRecorder({ ...RecordingPresets.HIGH_QUALITY, isMeteringEnabled: true });
+  // own stopwatch for the live counter: native durationMillis polling doesn't tick
+  // smoothly in real time on all devices, so we track elapsed time in JS instead.
+  const [recElapsedMs, setRecElapsedMs] = useState(0);
+  const recStartRef = useRef(0);
+  const liveSeconds = Math.floor(recElapsedMs / 1000);
 
   useEffect(() => {
     (async () => {
@@ -371,8 +395,18 @@ export default function CoffeeShopLesson({ navigation }) {
     return () => {
       Speech.stop();
       if (currentPlayer) { try { currentPlayer.remove(); } catch (e) {} }
+      recorder.stop().catch(() => {});
     };
   }, []);
+
+  // ticks recElapsedMs every 200ms for as long as a recording is active
+  useEffect(() => {
+    if (!recording) return undefined;
+    recStartRef.current = Date.now();
+    setRecElapsedMs(0);
+    const id = setInterval(() => setRecElapsedMs(Date.now() - recStartRef.current), 200);
+    return () => clearInterval(id);
+  }, [recording]);
 
   function goToStage(next, extraState = {}) {
     Speech.stop();
@@ -511,15 +545,64 @@ export default function CoffeeShopLesson({ navigation }) {
 
   function chooseOrderPhrase(key, label) { setOrderPhrase(key); goToStage('speakOrder'); logTurn('learner', label); addXp(10); }
 
-  function toggleRecord() {
-    if (recording) return;
-    setRecording(true); setRecordedOk(false);
-    clearTimeout(recTimer.current);
-    recTimer.current = setTimeout(() => {
+  // real microphone recording for the "Record" practice prompts
+  async function toggleRecord() {
+    if (recording) {
+      try {
+        await recorder.stop();
+        await setAudioModeAsync({ allowsRecording: false, playsInSilentMode: true });
+        const status = recorder.getStatus();
+        const uri = recorder.uri ?? status.url;
+        setRecordedUri(uri || null);
+      } catch (e) {}
       setRecording(false); setRecordedOk(true);
       setRecordSuccesses(n => { const next = n + 1; if (next >= 2) unlockBadge('speakingStar'); return next; });
       addXp(20);
-    }, 1600);
+      return;
+    }
+    // flip the UI on immediately so the recording indicator (and the stopwatch
+    // effect keyed on `recording`) don't wait on the native setup round trip below
+    setRecording(true); setRecordedOk(false); setRecordedUri(null);
+    try {
+      const { granted } = await requestRecordingPermissionsAsync();
+      if (!granted) {
+        setRecording(false);
+        Alert.alert('Permissão necessária', 'Permita o uso do microfone para gravar sua voz.');
+        return;
+      }
+      Speech.stop();
+      if (currentPlayer) {
+        const toRemove = currentPlayer;
+        currentPlayer = null;
+        try { toRemove.pause(); } catch (e) {}
+        try { toRemove.remove(); } catch (e) {}
+      }
+      await setAudioModeAsync({ allowsRecording: true, playsInSilentMode: true });
+      await recorder.prepareToRecordAsync();
+      recorder.record();
+    } catch (e) {
+      setRecording(false);
+      Alert.alert('Erro', 'Não foi possível iniciar a gravação.');
+    }
+  }
+
+  function playMyRecording() {
+    if (recordedUri) playRecordedAudio({ uri: recordedUri });
+  }
+
+  function RecordControl() {
+    return (
+      <>
+        <Pressable onPress={toggleRecord} style={[styles.recordButton, recordedOk && styles.recordButtonDone]}>
+          <Text style={styles.recordButtonText}>{recording ? `⏺ Recording...  ${formatDuration(liveSeconds)}` : recordedOk ? '✓ Recorded' : '🎙️ Record'}</Text>
+        </Pressable>
+        {recordedOk && !!recordedUri && (
+          <Pressable onPress={playMyRecording} style={styles.playbackButton}>
+            <Text style={styles.playbackButtonText}>▶ Play my recording</Text>
+          </Pressable>
+        )}
+      </>
+    );
   }
 
   function makeYourOrder() {
@@ -610,9 +693,10 @@ export default function CoffeeShopLesson({ navigation }) {
   }
 
   function practiceAgain() {
+    if (recording) recorder.stop().catch(() => {});
     setStage('welcome'); setStageHistory([]); setSelectedItems([]); setActiveCategory('coffee'); setActiveDraft(null);
     setCartOpen(false); setPostMenuDestination('orderPhrase'); setOrderPhrase(null); setPriceSaying(null);
-    setDiningOption(null); setPaymentMethod(null); setRecording(false); setRecordedOk(false); setTapConfirmed(false);
+    setDiningOption(null); setPaymentMethod(null); setRecording(false); setRecordedOk(false); setRecordedUri(null); setTapConfirmed(false);
     setTapQuizCorrect(false); setTapQuizWrong(null); setGoodbyeQuizCorrect(false); setGoodbyeQuizWrong(null);
     setXp(0); setTranscript([]); setVisitedCategories(['coffee']); setListenCount(0); setRecordSuccesses(0);
   }
@@ -747,7 +831,7 @@ export default function CoffeeShopLesson({ navigation }) {
       case 'orderPhrase':
         return (
           <View style={styles.section}>
-            <MediaSlot uri={media.orderPhraseImage} onPick={u => setMedia(m => ({ ...m, orderPhraseImage: u }))} placeholder="Image (e.g. barista taking an order)" />
+            <MediaImage asset={IMAGES.baristaTakingOrder} aspectRatio={16 / 9} />
             <Text style={styles.bodyTextCenter}>Três maneiras de fazer o pedido em inglês. Escute e escolha a que você mais gosta.</Text>
             {ORDER_PHRASES.map(p => (
               <View key={p.key} style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
@@ -776,9 +860,7 @@ export default function CoffeeShopLesson({ navigation }) {
           <View style={[styles.section, { alignItems: 'center' }]}>
             <View style={styles.sentenceBox}><Text style={styles.sentenceText}>{sentence}</Text></View>
             <ListenButton text={sentence} size={52} />
-            <Pressable onPress={toggleRecord} style={[styles.recordButton, recordedOk && styles.recordButtonDone]}>
-              <Text style={styles.recordButtonText}>{recording ? '⏺ Recording...' : recordedOk ? '✓ Recorded' : '🎙️ Record'}</Text>
-            </Pressable>
+            <RecordControl />
             <PrimaryButton label="Make Your Order" onPress={makeYourOrder} disabled={!recordedOk} />
           </View>
         );
@@ -787,7 +869,7 @@ export default function CoffeeShopLesson({ navigation }) {
       case 'addonOffer':
         return (
           <View style={styles.section}>
-            <MediaSlot uri={media.addonOfferVideo} onPick={u => setMedia(m => ({ ...m, addonOfferVideo: u }))} placeholder="Video of the barista asking" />
+            <MediaVideo asset={VIDEOS.baristaAsking} />
             <BaristaBubble text="Anything to drink with that?" showTranslation={showTranslation} />
             <OptionButton label="No thanks." onPress={addonNo} />
             <OptionButton label="Yes, see the menu again." onPress={addonYes} />
@@ -803,10 +885,8 @@ export default function CoffeeShopLesson({ navigation }) {
             <Text style={styles.hintText}>🎙️ Now it's your turn — record yourself saying it.</Text>
             <View style={{ flexDirection: 'row', gap: 12, alignItems: 'center' }}>
               <ListenButton text="No, that's all." />
-              <Pressable onPress={toggleRecord} style={[styles.recordButton, recordedOk && styles.recordButtonDone]}>
-                <Text style={styles.recordButtonText}>{recording ? '⏺ Recording...' : recordedOk ? '✓ Recorded' : '🎙️ Record'}</Text>
-              </Pressable>
             </View>
+            <RecordControl />
             <PrimaryButton label="Continue" onPress={continueToDining} />
           </View>
         );
@@ -854,9 +934,7 @@ export default function CoffeeShopLesson({ navigation }) {
               <View style={{ alignItems: 'center', gap: 12, width: '100%' }}>
                 <View style={styles.sentenceBox}><Text style={styles.sentenceText}>{sentence}</Text></View>
                 <ListenButton text={sentence} size={52} />
-                <Pressable onPress={toggleRecord} style={[styles.recordButton, recordedOk && styles.recordButtonDone]}>
-                  <Text style={styles.recordButtonText}>{recording ? '⏺ Recording...' : recordedOk ? '✓ Recorded' : '🎙️ Record'}</Text>
-                </Pressable>
+                <RecordControl />
                 <PrimaryButton label="Continue" onPress={continueAfterPrice} disabled={!recordedOk} />
               </View>
             )}
@@ -870,11 +948,11 @@ export default function CoffeeShopLesson({ navigation }) {
             <BaristaBubble text="Cash or card?" showTranslation={showTranslation} />
             <View style={{ flexDirection: 'row', gap: 14 }}>
               <Pressable onPress={() => choosePayment('cash')} style={styles.choiceCard}>
-                <MediaSlot uri={media.paymentCash} onPick={u => setMedia(m => ({ ...m, paymentCash: u }))} placeholder="Photo" aspectRatio={1} />
+                <MediaImage asset={IMAGES.paymentCash} aspectRatio={1} />
                 <Text style={styles.choiceCardLabel}>Cash</Text>
               </Pressable>
               <Pressable onPress={() => choosePayment('card')} style={styles.choiceCard}>
-                <MediaSlot uri={media.paymentCard} onPick={u => setMedia(m => ({ ...m, paymentCard: u }))} placeholder="Photo" aspectRatio={1} />
+                <MediaImage asset={IMAGES.paymentCard} aspectRatio={1} />
                 <Text style={styles.choiceCardLabel}>Card</Text>
               </Pressable>
             </View>
@@ -972,9 +1050,7 @@ export default function CoffeeShopLesson({ navigation }) {
               </View>
               {showChangePt && <Text style={styles.hintTextPt}>"Aqui está seu troco, {fmt(change)}."</Text>}
             </View>
-            <Pressable onPress={toggleRecord} style={[styles.recordButton, recordedOk && styles.recordButtonDone]}>
-              <Text style={styles.recordButtonText}>{recording ? '⏺ Recording...' : recordedOk ? '✓ Recorded' : '🎙️ Record'}</Text>
-            </Pressable>
+            <RecordControl />
             <PrimaryButton label="Continue" onPress={cashContinue} />
           </View>
         );
@@ -1000,7 +1076,7 @@ export default function CoffeeShopLesson({ navigation }) {
             <Text style={styles.eyebrow}>Your Order</Text>
             {cartItems.map(ci => <View key={ci.uid} style={styles.receiptRowFull}><Text>{ci.label}</Text><Text style={styles.receiptMuted}>{ci.priceLabel}</Text></View>)}
             <PrimaryButton label="Practice Again" onPress={practiceAgain} />
-            <PrimaryButton label="Try Another Café Scenario" onPress={() => {}} style={{ backgroundColor: 'transparent', borderWidth: 2, borderColor: COLORS.border }} textStyle={{ color: COLORS.primary }} />
+            <PrimaryButton label="Voltar" onPress={() => navigation.goBack()} style={{ backgroundColor: 'transparent', borderWidth: 2, borderColor: COLORS.border }} textStyle={{ color: COLORS.primary }} />
           </ScrollView>
         );
 
@@ -1090,6 +1166,8 @@ const styles = StyleSheet.create({
   recordButton: { paddingHorizontal: 20, height: 56, borderRadius: 99, backgroundColor: COLORS.red, alignItems: 'center', justifyContent: 'center' },
   recordButtonDone: { backgroundColor: COLORS.green },
   recordButtonText: { color: '#fff', fontWeight: '700', fontSize: 15 },
+  playbackButton: { height: 40, paddingHorizontal: 18, borderRadius: 99, borderWidth: 1, borderColor: COLORS.border, backgroundColor: COLORS.card, alignItems: 'center', justifyContent: 'center' },
+  playbackButtonText: { fontWeight: '700', fontSize: 13, color: COLORS.primary },
   choiceCard: { flex: 1, borderWidth: 2, borderColor: COLORS.border, borderRadius: 18, padding: 14, gap: 10, alignItems: 'center' },
   choiceCardLabel: { fontWeight: '700', fontSize: 15 },
   receiptBox: { width: '100%', backgroundColor: COLORS.card, borderWidth: 1.5, borderColor: COLORS.border, borderStyle: 'dashed', borderRadius: 14, padding: 16, gap: 8 },

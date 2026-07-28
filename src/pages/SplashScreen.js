@@ -1,17 +1,34 @@
 import React, { useEffect } from "react";
-import { View, Image, StyleSheet, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { useVideoPlayer, VideoView } from "expo-video";
 import CORES from "../util/cores";
 import { useAuth } from "../context/AuthContext";
 import { syncCourseProgressFromServer } from "../util/courseCatalog";
 
+const splashVideo = require("../../assets/splash.mp4");
+
 export default function SplashScreen({ navigation }) {
   const { user, carregando } = useAuth();
+  const player = useVideoPlayer(splashVideo, (p) => {
+    p.muted = true;
+    p.play();
+  });
 
   useEffect(() => {
     if (carregando) return;
 
     let cancelled = false;
-    const minDelay = new Promise((resolve) => setTimeout(resolve, 1500));
+    // Espera o video de abertura tocar ate o fim antes de navegar, com um
+    // teto de tempo como rede de seguranca caso ele falhe ao carregar.
+    const videoDone = Promise.race([
+      new Promise((resolve) => {
+        const subscription = player.addListener("playToEnd", () => {
+          subscription.remove();
+          resolve();
+        });
+      }),
+      new Promise((resolve) => setTimeout(resolve, 15000)),
+    ]);
     // Espera o progresso salvo no backend chegar antes de navegar (com um
     // teto de tempo) para as telas de curso ja abrirem com os dados certos.
     const progressSync = user
@@ -21,7 +38,7 @@ export default function SplashScreen({ navigation }) {
         ])
       : Promise.resolve();
 
-    Promise.all([minDelay, progressSync]).then(() => {
+    Promise.all([videoDone, progressSync]).then(() => {
       if (cancelled) return;
       if (!user) {
         navigation.replace("Login");
@@ -35,14 +52,17 @@ export default function SplashScreen({ navigation }) {
     return () => {
       cancelled = true;
     };
-  }, [navigation, carregando, user]);
+  }, [navigation, carregando, user, player]);
 
   return (
     <View style={styles.container}>
-      <Image source={require("../../assets/logo.png")} style={styles.logo} />
-      <Text
-        style={{ color: "#000000", fontSize: 24, fontWeight: "bold" }}
-      ></Text>
+      <VideoView
+        player={player}
+        style={styles.video}
+        contentFit="cover"
+        nativeControls={false}
+        allowsPictureInPicture={false}
+      />
     </View>
   );
 }
@@ -51,13 +71,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: CORES.PRIMARY,
-    justifyContent: "center",
-    alignItems: "center",
   },
-  logo: {
-    width: 300,
-    height: 300,
-    marginBottom: 20,
-    resizeMode: "contain",
+  video: {
+    flex: 1,
   },
 });
