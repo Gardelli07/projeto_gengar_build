@@ -316,7 +316,7 @@ function CommentsSheet({ post, comments, loading, error, sending, currentUserId,
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
       <Pressable style={styles.scrim} onPress={onClose} />
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.sheetWrap}
         pointerEvents="box-none"
       >
@@ -421,7 +421,7 @@ function NewPostSheet({ visible, text, sending, onChangeText, onClose, onSubmit 
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
       <Pressable style={styles.scrim} onPress={onClose} />
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.sheetWrap}
         pointerEvents="box-none"
       >

@@ -39,7 +39,15 @@
       "expo-web-browser",
       "expo-apple-authentication",
       "expo-font",
-      "expo-video"
+      "expo-video",
+      "expo-asset",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/LogoIcon.png",
+          "color": "#3E6FB8"
+        }
+      ]
     ]
   }
 }

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { removeAccessToken } from "../services/api";
+import { clearTokens, setOnAuthFailure } from "../services/api";
 import { setActiveUser } from "../util/userScope";
 import { PLAN_FREE, PLAN_FULL_ACCESS } from "../util/plans";
 
@@ -43,8 +43,14 @@ export function AuthProvider({ children }) {
     setUser(null);
     setActiveUser(null);
     AsyncStorage.removeItem(USER_STORAGE_KEY);
-    removeAccessToken();
+    clearTokens();
   }
+
+  // Registra o signOut para que api.js possa deslogar o usuario quando o
+  // access_token expirar e o refresh_token tambem falhar (expirado/revogado).
+  useEffect(() => {
+    setOnAuthFailure(signOut);
+  }, []);
 
   // Ate a compra pelas lojas (App Store / Play Store) ser configurada, a
   // troca de plano acontece so localmente, para permitir testar o app com

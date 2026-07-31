@@ -1,6 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Platform } from "react-native";
 
 const ACCESS_TOKEN_KEY = "@lingueto:access_token";
+const REFRESH_TOKEN_KEY = "@lingueto:refresh_token";
 const LAST_GOOD_API_URL_KEY = "@lingueto:api_url";
 const DEFAULT_TIMEOUT = 15000;
 
@@ -44,6 +46,31 @@ export function getAccessToken() {
 
 export function removeAccessToken() {
   return AsyncStorage.removeItem(ACCESS_TOKEN_KEY);
+}
+
+export async function setTokens({ access_token, refresh_token } = {}) {
+  await Promise.all([
+    access_token ? setAccessToken(access_token) : Promise.resolve(),
+    refresh_token
+      ? AsyncStorage.setItem(REFRESH_TOKEN_KEY, refresh_token)
+      : Promise.resolve(),
+  ]);
+}
+
+export function getRefreshToken() {
+  return AsyncStorage.getItem(REFRESH_TOKEN_KEY);
+}
+
+export function clearTokens() {
+  return AsyncStorage.multiRemove([ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY]);
+}
+
+// Chamado pelo AuthContext para poder deslogar o usuario quando o
+// refresh_token tambem falhar (expirado/revogado). Evita import
+// circular entre api.js e AuthContext.js.
+let onAuthFailure = null;
+export function setOnAuthFailure(callback) {
+  onAuthFailure = callback;
 }
 
 function buildUrl(base, endpoint, params) {
@@ -115,6 +142,43 @@ async function attempt(base, endpoint, { method, data, params, headers, token, i
   }
 }
 
+// So pode existir um refresh em andamento por vez: como o backend rotaciona
+// o refresh_token a cada uso, duas chamadas concorrentes fariam a segunda
+// tentar usar um refresh_token que a primeira ja revogou.
+let refreshPromise = null;
+
+async function refreshAccessToken(base) {
+  if (!refreshPromise) {
+    refreshPromise = (async () => {
+      const refresh_token = await getRefreshToken();
+      if (!refresh_token) {
+        throw new ApiError("Sessão expirada.", 401);
+      }
+
+      const response = await attempt(base, "/auth/refresh", {
+        method: "POST",
+        data: { refresh_token, plataforma: Platform.OS },
+        headers: {},
+        token: null,
+        isFormData: false,
+        timeout: DEFAULT_TIMEOUT,
+      });
+
+      const payload = response?.dados || response?.data || response;
+      if (!payload?.access_token || !payload?.refresh_token) {
+        throw new ApiError("Não foi possível renovar a sessão.", 401);
+      }
+
+      await setTokens(payload);
+      return payload.access_token;
+    })().finally(() => {
+      refreshPromise = null;
+    });
+  }
+
+  return refreshPromise;
+}
+
 async function request(
   endpoint,
   {
@@ -124,6 +188,7 @@ async function request(
     headers = {},
     authenticated = true,
     timeout = DEFAULT_TIMEOUT,
+    _isRetry = false,
   } = {},
 ) {
   if (API_URL_CANDIDATES.length === 0) {
@@ -167,7 +232,34 @@ async function request(
       return responseData;
     } catch (error) {
       // Erro HTTP real (a API respondeu) — nao adianta tentar outro host.
-      if (error instanceof ApiError) throw error;
+      if (error instanceof ApiError) {
+        // Access token expirado/invalido: tenta renovar via refresh_token
+        // e refazer a requisicao original uma unica vez.
+        if (
+          error.status === 401 &&
+          authenticated &&
+          !_isRetry &&
+          endpoint !== "/auth/refresh"
+        ) {
+          try {
+            await refreshAccessToken(base);
+            return request(endpoint, {
+              method,
+              data,
+              params,
+              headers,
+              authenticated,
+              timeout,
+              _isRetry: true,
+            });
+          } catch {
+            await clearTokens();
+            onAuthFailure?.();
+          }
+        }
+
+        throw error;
+      }
 
       lastError = error;
       // Falha de rede/conexao — tenta o proximo host candidato.

@@ -36,6 +36,12 @@ import {
   getCourseLevelConfig,
   loadProgress,
 } from "../util/courseCatalog";
+import StudyTimeModal from "../components/StudyTimeModal";
+import {
+  enableDailyReminder,
+  hasPromptedStudyTime,
+  markStudyTimePrompted,
+} from "../services/notifications";
 import { bussinesModuleDefs, bussinesSampleLessons } from "./aulas/bussines";
 import {
   bussinesB1ModuleDefs,
@@ -242,6 +248,37 @@ export default function Inglescompleto({ navigation, route }) {
   const [streak, setStreak] = useState(0);
   const [courseStatsMap, setCourseStatsMap] = useState({});
   const [aulaAccessMap, setAulaAccessMap] = useState(null);
+  const [studyTimeModalVisible, setStudyTimeModalVisible] = useState(false);
+
+  // Pergunta o horario de estudo uma unica vez, logo na primeira Home apos o
+  // login (a flag fica salva no dispositivo independente do usuario decidir
+  // ativar ou pular).
+  useEffect(() => {
+    let active = true;
+    hasPromptedStudyTime().then((prompted) => {
+      if (active && !prompted) setStudyTimeModalVisible(true);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const handleConfirmStudyTime = async (hour, minute) => {
+    setStudyTimeModalVisible(false);
+    await markStudyTimePrompted();
+    const granted = await enableDailyReminder(hour, minute);
+    if (!granted) {
+      Alert.alert(
+        "Permissão necessária",
+        "Você pode ativar os lembretes depois em Perfil > Notificações.",
+      );
+    }
+  };
+
+  const handleSkipStudyTime = async () => {
+    setStudyTimeModalVisible(false);
+    await markStudyTimePrompted();
+  };
 
   const isLessonUnlocked = (screenName) =>
     fullAccess || !aulaAccessMap || aulaAccessMap[screenName] !== false;
@@ -1058,6 +1095,12 @@ export default function Inglescompleto({ navigation, route }) {
           </View>
         )}
       </ScrollView>
+
+      <StudyTimeModal
+        visible={studyTimeModalVisible}
+        onConfirm={handleConfirmStudyTime}
+        onCancel={handleSkipStudyTime}
+      />
     </SafeAreaView>
   );
 }

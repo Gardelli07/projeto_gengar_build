@@ -2,10 +2,12 @@ import React, { useCallback, useState } from "react";
 import {
   Alert,
   Image,
+  Linking,
   Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
+  Switch,
   Text,
   View,
 } from "react-native";
@@ -18,6 +20,15 @@ import { clearAllLocalProgress, loadGlobalProgressStats } from "../util/courseCa
 import { fetchResumoProgresso, resetarProgresso } from "../services/progresso";
 import { resetarNivelamento } from "../services/nivelamento";
 import { hasFullAccess } from "../util/plans";
+import {
+  DEFAULT_REMINDER_HOUR,
+  DEFAULT_REMINDER_MINUTE,
+  disableDailyReminder,
+  enableDailyReminder,
+  getReminderSettings,
+} from "../services/notifications";
+import StudyTimeModal from "../components/StudyTimeModal";
+import EditProfileModal from "../components/EditProfileModal";
 import CORES from "../util/cores";
 
 /* ---------- ícones ---------- */
@@ -122,18 +133,68 @@ export default function ProfileScreen({ navigation }) {
 
   const [totalXp, setTotalXp] = useState(0);
   const [streak, setStreak] = useState(0);
+  const [reminderEnabled, setReminderEnabled] = useState(false);
+  const [reminderHour, setReminderHour] = useState(DEFAULT_REMINDER_HOUR);
+  const [reminderMinute, setReminderMinute] = useState(DEFAULT_REMINDER_MINUTE);
+  const [timeModalVisible, setTimeModalVisible] = useState(false);
+  const [editProfileVisible, setEditProfileVisible] = useState(false);
 
   useFocusRefresh(
     useCallback(async () => {
-      const [stats, resumo] = await Promise.all([
+      const [stats, resumo, reminder] = await Promise.all([
         loadGlobalProgressStats(),
         fetchResumoProgresso().catch(() => null),
+        getReminderSettings(),
       ]);
       setTotalXp(stats.completed * XP_PER_LESSON);
       if (resumo) setStreak(resumo.streakAtual);
+      setReminderEnabled(reminder.enabled);
+      setReminderHour(reminder.hour);
+      setReminderMinute(reminder.minute);
     }, []),
     navigation,
   );
+
+  const handleToggleReminder = async (value) => {
+    if (!value) {
+      await disableDailyReminder();
+      setReminderEnabled(false);
+      return;
+    }
+
+    const granted = await enableDailyReminder(reminderHour, reminderMinute);
+    if (!granted) {
+      Alert.alert(
+        "Permissão necessária",
+        "Ative as notificações do Lingueto nas configurações do sistema para receber lembretes diários.",
+        [
+          { text: "Cancelar", style: "cancel" },
+          { text: "Abrir configurações", onPress: () => Linking.openSettings() },
+        ],
+      );
+      return;
+    }
+    setReminderEnabled(true);
+  };
+
+  const handleConfirmReminderTime = async (hour, minute) => {
+    setTimeModalVisible(false);
+    const granted = await enableDailyReminder(hour, minute);
+    if (!granted) {
+      Alert.alert(
+        "Permissão necessária",
+        "Ative as notificações do Lingueto nas configurações do sistema para receber lembretes diários.",
+        [
+          { text: "Cancelar", style: "cancel" },
+          { text: "Abrir configurações", onPress: () => Linking.openSettings() },
+        ],
+      );
+      return;
+    }
+    setReminderEnabled(true);
+    setReminderHour(hour);
+    setReminderMinute(minute);
+  };
 
   const levelProgress = getLevelProgress(totalXp);
 
@@ -239,7 +300,7 @@ export default function ProfileScreen({ navigation }) {
               </View>
             </View>
           </View>
-          <Pressable style={styles.editBtn} onPress={comingSoon("Editar perfil")}>
+          <Pressable style={styles.editBtn} onPress={() => setEditProfileVisible(true)}>
             <IconEdit />
             <Text style={styles.editBtnText}>Editar perfil</Text>
           </Pressable>
@@ -298,7 +359,22 @@ export default function ProfileScreen({ navigation }) {
           />
           {!!email && <Text style={styles.emailUnder}>{email}</Text>}
 
-          <Row icon={<IconBell />} label="Notificações" right={<IconChevron />} onPress={comingSoon("Notificações")} />
+          <Row
+            icon={<IconBell />}
+            label="Notificações"
+            right={
+              <View style={styles.rightPair}>
+                {reminderEnabled && (
+                  <Pressable onPress={() => setTimeModalVisible(true)} hitSlop={8}>
+                    <Text style={styles.rightValue}>
+                      {String(reminderHour).padStart(2, "0")}:{String(reminderMinute).padStart(2, "0")}
+                    </Text>
+                  </Pressable>
+                )}
+                <Switch value={reminderEnabled} onValueChange={handleToggleReminder} />
+              </View>
+            }
+          />
           <Row
             icon={<IconGlobe />}
             label="Idioma do app"
@@ -345,6 +421,24 @@ export default function ProfileScreen({ navigation }) {
 
         <Text style={styles.version}>Lingueto · versão 1.0.4</Text>
       </ScrollView>
+
+      <StudyTimeModal
+        visible={timeModalVisible}
+        initialHour={reminderHour}
+        initialMinute={reminderMinute}
+        title="Horário do lembrete"
+        description="Escolha o horário em que quer receber o lembrete diário de estudo."
+        confirmLabel="Salvar horário"
+        onConfirm={handleConfirmReminderTime}
+        onCancel={() => setTimeModalVisible(false)}
+      />
+
+      <EditProfileModal
+        visible={editProfileVisible}
+        user={user}
+        onClose={() => setEditProfileVisible(false)}
+        onSaved={updateUser}
+      />
     </SafeAreaView>
   );
 }

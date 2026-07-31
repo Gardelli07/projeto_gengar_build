@@ -11,6 +11,7 @@ import {
   Platform,
   Alert,
   LayoutAnimation,
+  ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
@@ -19,7 +20,8 @@ import * as WebBrowser from "expo-web-browser";
 import * as AppleAuthentication from "expo-apple-authentication";
 
 import { useAuth } from "../context/AuthContext";
-import api, { setAccessToken } from "../services/api";
+import api, { setTokens } from "../services/api";
+import { requestNotificationPermission } from "../services/notifications";
 import CORES from "../util/cores";
 
 WebBrowser.maybeCompleteAuthSession();
@@ -47,6 +49,7 @@ export default function LoginScreen({ navigation }) {
   const [senha, setSenha] = useState("");
   const [showSenha, setShowSenha] = useState(false);
   const [corpOpen, setCorpOpen] = useState(false);
+  const [socialLoading, setSocialLoading] = useState(false);
 
   const [googleRequest, googleResponse, googlePromptAsync] =
     Google.useAuthRequest({
@@ -61,10 +64,26 @@ export default function LoginScreen({ navigation }) {
       if (idToken) {
         handleSocialLogin("google", { idToken, plataforma: Platform.OS });
       } else {
+        setSocialLoading(false);
         Alert.alert("Erro", "Não foi possível obter o token do Google.");
       }
+    } else if (googleResponse) {
+      // usuário cancelou ou o provider retornou erro antes de chegar no backend
+      setSocialLoading(false);
     }
   }, [googleResponse]);
+
+  async function handleGooglePress() {
+    setSocialLoading(true);
+    try {
+      const result = await googlePromptAsync();
+      if (result?.type !== "success") {
+        setSocialLoading(false);
+      }
+    } catch (error) {
+      setSocialLoading(false);
+    }
+  }
 
   function toggleCorp() {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -102,6 +121,7 @@ export default function LoginScreen({ navigation }) {
       const payload = response?.dados || response?.data || response;
       const userData = payload?.usuario || payload?.user || payload;
       const token = payload?.access_token || payload?.token;
+      const refreshToken = payload?.refresh_token;
       const company =
         userData?.empresa?.codigo ||
         userData?.empresa_codigo ||
@@ -109,21 +129,27 @@ export default function LoginScreen({ navigation }) {
       const empresa =
         typeof company === "string" ? company.toLowerCase() : company;
 
-      if (token) await setAccessToken(token);
+      if (token) {
+        await setTokens({ access_token: token, refresh_token: refreshToken });
+      }
 
       signIn({
         ...userData,
         tipo: userData?.perfil || userData?.tipo,
         empresa,
       });
+      requestNotificationPermission().catch(() => {});
 
       goToNextScreen(userData, empresa);
     } catch (error) {
       Alert.alert("Erro", error.message || "Erro ao realizar login social");
+    } finally {
+      setSocialLoading(false);
     }
   }
 
   async function handleAppleSignIn() {
+    setSocialLoading(true);
     try {
       const credential = await AppleAuthentication.signInAsync({
         requestedScopes: [
@@ -136,6 +162,7 @@ export default function LoginScreen({ navigation }) {
         plataforma: Platform.OS,
       });
     } catch (error) {
+      setSocialLoading(false);
       if (error.code === "ERR_REQUEST_CANCELED") return;
       Alert.alert("Erro", error.message || "Erro ao realizar login com Apple");
     }
@@ -161,6 +188,7 @@ export default function LoginScreen({ navigation }) {
       const payload = response?.dados || response?.data || response;
       const userData = payload?.usuario || payload?.user || payload;
       const token = payload?.access_token || payload?.token;
+      const refreshToken = payload?.refresh_token;
       const company =
         userData?.empresa?.codigo ||
         userData?.empresa_codigo ||
@@ -168,7 +196,9 @@ export default function LoginScreen({ navigation }) {
       const empresa =
         typeof company === "string" ? company.toLowerCase() : company;
 
-      if (token) await setAccessToken(token);
+      if (token) {
+        await setTokens({ access_token: token, refresh_token: refreshToken });
+      }
 
       signIn({
         ...userData,
@@ -176,6 +206,7 @@ export default function LoginScreen({ navigation }) {
         tipo: userData?.perfil || userData?.tipo,
         empresa,
       });
+      requestNotificationPermission().catch(() => {});
 
       goToNextScreen(userData, empresa);
     } catch (error) {
@@ -212,8 +243,8 @@ export default function LoginScreen({ navigation }) {
           {/* Google */}
           <TouchableOpacity
             style={styles.googleButton}
-            onPress={() => googlePromptAsync()}
-            disabled={!googleRequest}
+            onPress={handleGooglePress}
+            disabled={!googleRequest || socialLoading}
             activeOpacity={0.85}
           >
             <AntDesign name="google" size={20} color="#4285F4" />
@@ -337,6 +368,12 @@ export default function LoginScreen({ navigation }) {
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
+
+      {socialLoading && (
+        <View style={styles.loadingOverlay}>
+          <ActivityIndicator size="large" color="#fff" />
+        </View>
+      )}
     </SafeAreaView>
   );
 }
@@ -345,6 +382,12 @@ const styles = StyleSheet.create({
   safe: {
     flex: 1,
     backgroundColor: BG,
+  },
+  loadingOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(38,50,61,0.45)",
+    alignItems: "center",
+    justifyContent: "center",
   },
   container: {
     alignItems: "center",
