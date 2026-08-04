@@ -127,7 +127,7 @@ export default function MeusErrosScreen({ navigation }) {
 
       <View style={styles.header}>
         <Pressable
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate("Tabs", { screen: "Home" })}
           style={styles.headerButton}
         >
           <Image source={BACK_IMAGE} style={styles.headerBackImage} />

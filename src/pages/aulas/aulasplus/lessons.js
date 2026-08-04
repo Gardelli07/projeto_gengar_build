@@ -11,6 +11,7 @@ export const aulasPlusLessons = [
     icon: "account-voice",
     tag: "Novo",
     colors: ["#3A4BC7", "#5B6EF5"],
+    image: require("../../../../assets/aulasplus/SelfIntroLesson.jpeg"),
     screen: "SelfIntroLesson",
   },
   {
@@ -21,6 +22,7 @@ export const aulasPlusLessons = [
     icon: "coffee",
     tag: "Novo",
     colors: ["#B0742F", "#F2A93B"],
+    image: require("../../../../assets/aulasplus/CoffeeShopLesson.jpeg"),
     screen: "CoffeeShopLesson",
   },
 ];

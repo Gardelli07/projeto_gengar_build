@@ -3,6 +3,7 @@ import {
   Animated,
   Dimensions,
   FlatList,
+  ImageBackground,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -44,6 +45,26 @@ function PulsingBadge({ children, style }) {
     ).start();
   }, [scale]);
   return <Animated.View style={[style, { transform: [{ scale }] }]}>{children}</Animated.View>;
+}
+
+function CardBg({ image, colors, style, children }) {
+  if (image) {
+    return (
+      <ImageBackground
+        source={image}
+        style={[style, styles.cardBgClip]}
+        imageStyle={{ width: style.width, height: style.height }}
+        resizeMode="cover"
+      >
+        {children}
+      </ImageBackground>
+    );
+  }
+  return (
+    <LinearGradient colors={colors} style={style}>
+      {children}
+    </LinearGradient>
+  );
 }
 
 function WaveBars() {
@@ -175,11 +196,11 @@ export default function AulasPlusHome({ navigation }) {
             ItemSeparatorComponent={() => <View style={{ width: 14 }} />}
             renderItem={({ item }) => (
               <View style={styles.continueCard}>
-                <LinearGradient colors={item.colors} style={styles.continueThumb}>
+                <CardBg image={item.image} colors={item.colors} style={styles.continueThumb}>
                   <View style={styles.playBadge}>
                     <MaterialCommunityIcons name="play" size={11} color="#fff" />
                   </View>
-                </LinearGradient>
+                </CardBg>
                 <View style={{ padding: 12 }}>
                   <Text style={styles.cardTitle} numberOfLines={1}>{item.title}</Text>
                   <Text style={styles.cardSub}>{item.sub}</Text>
@@ -203,6 +224,7 @@ export default function AulasPlusHome({ navigation }) {
                 meta: `${l.subtitle} · ${l.duration}`,
                 tag: l.tag,
                 colors: l.colors,
+                image: l.image,
                 lesson: l,
               })),
               ...comingSoonCourses,
@@ -218,13 +240,13 @@ export default function AulasPlusHome({ navigation }) {
                 disabled={!item.lesson}
                 onPress={() => item.lesson && goToLesson(item.lesson)}
               >
-                <LinearGradient colors={item.colors} style={styles.courseThumb}>
+                <CardBg image={item.image} colors={item.colors} style={styles.courseThumb}>
                   {item.tag ? (
                     <View style={styles.tagChip}>
                       <Text style={styles.tagChipText}>{item.tag}</Text>
                     </View>
                   ) : null}
-                </LinearGradient>
+                </CardBg>
                 <View style={{ padding: 13 }}>
                   <Text style={[styles.cardTitle, !item.lesson && styles.textMutedTitle]} numberOfLines={1}>
                     {item.title}
@@ -343,6 +365,8 @@ const CARD_RADIUS = 16;
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: COLORS.bg3 },
 
+  cardBgClip: { overflow: "hidden" },
+
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -425,7 +449,7 @@ const styles = StyleSheet.create({
   carouselPad: { paddingHorizontal: 20, paddingBottom: 8 },
 
   continueCard: { width: 190, borderRadius: CARD_RADIUS, backgroundColor: COLORS.card, borderWidth: 1, borderColor: COLORS.cardBorder, overflow: "hidden" },
-  continueThumb: { height: 100, justifyContent: "flex-end", alignItems: "flex-end", padding: 8 },
+  continueThumb: { width: 190, height: 106, justifyContent: "flex-end", alignItems: "flex-end", padding: 8 },
   playBadge: { width: 30, height: 30, borderRadius: 15, backgroundColor: "rgba(0,0,0,0.5)", alignItems: "center", justifyContent: "center" },
   cardTitle: { color: COLORS.text, fontFamily: FONTS.bodyBold, fontSize: 13.5, marginBottom: 4 },
   textMutedTitle: { color: COLORS.textMuted },
@@ -436,7 +460,7 @@ const styles = StyleSheet.create({
   progressFill: { height: "100%", borderRadius: 100, backgroundColor: COLORS.primary },
 
   courseCard: { width: 230, borderRadius: 18, backgroundColor: COLORS.card, borderWidth: 1, borderColor: COLORS.cardBorder, overflow: "hidden" },
-  courseThumb: { height: 130 },
+  courseThumb: { width: 230, height: 128 },
   tagChip: { position: "absolute", top: 10, left: 10, backgroundColor: COLORS.gold, paddingHorizontal: 9, paddingVertical: 3, borderRadius: 100 },
   tagChipText: { color: "#241a00", fontFamily: FONTS.bodyBold, fontSize: 10.5 },
 

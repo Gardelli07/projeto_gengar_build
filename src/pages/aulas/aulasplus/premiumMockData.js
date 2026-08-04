@@ -4,8 +4,8 @@
 // catalogo de Aulas Plus crescer. Os itens aqui NAO navegam para nenhuma
 // tela — sao apenas a previa visual do layout.
 export const continueItems = [
-  { id: "c1", title: "Is he nice?", sub: "Conversação • Nível 3", progress: 19, minutesLeft: 8, colors: ["#3A4BC7", "#5B6EF5"] },
-  { id: "c2", title: "Ordering coffee", sub: "Viagem • Nível 2", progress: 62, minutesLeft: 4, colors: ["#B0742F", "#F2A93B"] },
+  { id: "c1", title: "Telemarketer Intro", sub: "Conversação • Nível 3", progress: 19, minutesLeft: 8, colors: ["#3A4BC7", "#5B6EF5"], image: require("../../../../assets/aulasplus/TelemarketerIntro.jpeg") },
+  { id: "c2", title: "Airplane Vocab", sub: "Viagem • Nível 2", progress: 62, minutesLeft: 4, colors: ["#B0742F", "#F2A93B"], image: require("../../../../assets/aulasplus/AirplaneVocab.jpeg") },
   { id: "c3", title: "Job interview intro", sub: "Trabalho • Nível 4", progress: 45, minutesLeft: 6, colors: ["#2C7A6B", "#3FAF98"] },
 ];
 

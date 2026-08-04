@@ -199,6 +199,35 @@ function CourseCard({
   );
 }
 
+function PremiumBanner({ onPress }) {
+  return (
+    <TouchableOpacity
+      style={styles.premiumBanner}
+      onPress={onPress}
+      activeOpacity={0.9}
+    >
+      <View style={styles.premiumIconWrap}>
+        <MaterialCommunityIcons
+          name="crown"
+          size={22}
+          color={CORES.HOME_AMBER}
+        />
+      </View>
+      <View style={{ flex: 1, minWidth: 0, marginLeft: 12 }}>
+        <Text style={styles.premiumTitle}>Premium Classes</Text>
+        <Text style={styles.premiumSub}>
+          Para quem quer dominar o inglês de vez
+        </Text>
+      </View>
+      <MaterialCommunityIcons
+        name="chevron-right"
+        size={20}
+        color="#B4791E"
+      />
+    </TouchableOpacity>
+  );
+}
+
 function ActivityRow({ item }) {
   const map = {
     done: {
@@ -245,6 +274,8 @@ export default function Inglescompleto({ navigation, route }) {
   const initialCourse = route?.params?.initialCourse ?? null;
   const initialLevel = route?.params?.initialLevel ?? "Starter";
   const openedRef = useRef(false);
+  const scrollViewRef = useRef(null);
+  const coursesSectionY = useRef(0);
 
   const [progressMap, setProgressMap] = useState({});
   const [openModuleId, setOpenModuleId] = useState(0);
@@ -611,6 +642,7 @@ export default function Inglescompleto({ navigation, route }) {
       <StatusBar barStyle="dark-content" />
 
       <ScrollView
+        ref={scrollViewRef}
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
@@ -688,7 +720,12 @@ export default function Inglescompleto({ navigation, route }) {
                 color={CORES.WHITE}
               />
             }
-            onPress={() => navigation.navigate("AulasPlusHome")}
+            onPress={() =>
+              scrollViewRef.current?.scrollTo({
+                y: coursesSectionY.current,
+                animated: true,
+              })
+            }
           />
           <QuickAction
             label="Revisar erros"
@@ -750,6 +787,10 @@ export default function Inglescompleto({ navigation, route }) {
             />
           </TouchableOpacity>
         </View>
+
+        <PremiumBanner
+          onPress={() => navigation.navigate("AulasPlusHome")}
+        />
 
         {dailyGoalsState.goals.length > 0 && (
           <View style={styles.daily}>
@@ -854,7 +895,12 @@ export default function Inglescompleto({ navigation, route }) {
           </>
         )}
 
-        <View style={styles.sectionHead}>
+        <View
+          style={styles.sectionHead}
+          onLayout={(e) => {
+            coursesSectionY.current = e.nativeEvent.layout.y;
+          }}
+        >
           <Text style={[styles.h2, { fontSize: 21 }]}>Cursos</Text>
           <View style={styles.levelFilterWrap}>
             <TouchableOpacity
@@ -1337,6 +1383,32 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
   },
   primaryBtnTxt: { color: CORES.WHITE, fontWeight: "800", fontSize: 16 },
+
+  premiumBanner: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#FDF6E3",
+    borderRadius: 18,
+    padding: 14,
+    marginBottom: 18,
+    borderWidth: 1.5,
+    borderColor: "#F2D896",
+  },
+  premiumIconWrap: {
+    width: 42,
+    height: 42,
+    borderRadius: 13,
+    backgroundColor: "#FBEBC2",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  premiumTitle: { color: CORES.HOME_NAVY, fontWeight: "900", fontSize: 15 },
+  premiumSub: {
+    color: "#8A6D2C",
+    fontWeight: "700",
+    fontSize: 12.5,
+    marginTop: 2,
+  },
 
   daily: {
     backgroundColor: "#E7EFFA",

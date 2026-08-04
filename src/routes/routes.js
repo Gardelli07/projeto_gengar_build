@@ -60,7 +60,7 @@ export default function Routes() {
   React.useEffect(() => {
     const onBackPress = () => {
       const current = navigationRef.current?.getCurrentRoute?.();
-      if (current?.name === "Bussines") {
+      if (current?.name === "Bussines" || current?.name === "MeusErros") {
         navigationRef.current.navigate("Tabs", { screen: "Home" });
         return true;
       }
@@ -91,22 +91,20 @@ export default function Routes() {
                   onPress={() =>
                     navigation.navigate("Tabs", { screen: "Home" })
                   }
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
                 >
                   <Image
-                    source={require("../../assets/logo.png")}
-                    style={{ width: 45, height: 45 }}
+                    source={require("../../assets/lingueto-wordmark-white.png")}
+                    style={{
+                      width: 128,
+                      height: 34,
+                    }}
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
-
-                <Appbar.Content
-                  title="Lingueto"
-                  titleStyle={{
-                    color: "#ffffff",
-                    fontWeight: "bold",
-                    paddingHorizontal: 5,
-                  }}
-                />
               </Appbar.Header>
             ),
           })}
