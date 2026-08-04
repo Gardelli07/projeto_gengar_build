@@ -6,7 +6,9 @@
     "start": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "badwords:demo": "tsx badwords/src/demo.ts",
+    "badwords:build": "tsc -p badwords/tsconfig.json"
   },
   "dependencies": {
     "@expo-google-fonts/inter": "^0.4.2",
@@ -49,7 +51,9 @@
     "react-native-worklets": "0.5.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "typescript": "^5.5.4",
+    "tsx": "^4.16.2"
   },
   "private": true
 }

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   Animated,
+  AppState,
   Image,
   ScrollView,
   Text,
@@ -45,6 +46,9 @@ import { concluirAula, fetchResumoProgresso } from "../../services/progresso";
 import { registrarTentativaExercicio } from "../../services/erros";
 import { getSlideHint } from "../../util/erroReview";
 import { scopedKey } from "../../util/userScope";
+import * as dailyGoals from "../../util/dailyGoals";
+
+const CORRECT_SOUND_SOURCE = require("../../../assets/sounds/correct.wav");
 
 const SlideNavContext = React.createContext(null);
 
@@ -776,6 +780,31 @@ export default function createLessonScreen(
       useState(false);
     const [lessonMetaLoaded, setLessonMetaLoaded] = useState(false);
     const lessonCommitRef = useRef(false);
+    const reviewCommitRef = useRef(false);
+    const correctSoundPlayerRef = useRef(null);
+    const studySegmentStartRef = useRef(null);
+
+    const playCorrectSound = () => {
+      try {
+        if (!correctSoundPlayerRef.current) {
+          correctSoundPlayerRef.current = createAudioPlayer(
+            CORRECT_SOUND_SOURCE,
+          );
+        }
+        const player = correctSoundPlayerRef.current;
+        player.seekTo(0);
+        player.play();
+      } catch (error) {
+        // Falha ao tocar o som de acerto nao deve interromper a licao.
+      }
+    };
+
+    useEffect(() => {
+      return () => {
+        correctSoundPlayerRef.current?.remove();
+        correctSoundPlayerRef.current = null;
+      };
+    }, []);
 
     useEffect(() => {
       updateProgress(progressAnim, currentSlideIndex, slideCount);
@@ -861,6 +890,36 @@ export default function createLessonScreen(
       }, []),
     );
 
+    const flushStudySegment = () => {
+      if (!studySegmentStartRef.current) return;
+      const elapsed = Date.now() - studySegmentStartRef.current;
+      studySegmentStartRef.current = null;
+      if (elapsed > 0) {
+        dailyGoals.addStudyMillis(elapsed).catch(() => {});
+      }
+    };
+
+    // Acumula minutos de estudo enquanto a tela da licao esta em foco e o
+    // app em primeiro plano; pausa ao sair da tela ou ir para background.
+    useFocusEffect(
+      useCallback(() => {
+        studySegmentStartRef.current = Date.now();
+
+        const subscription = AppState.addEventListener("change", (nextState) => {
+          if (nextState === "active") {
+            studySegmentStartRef.current = Date.now();
+          } else {
+            flushStudySegment();
+          }
+        });
+
+        return () => {
+          subscription.remove();
+          flushStudySegment();
+        };
+      }, []),
+    );
+
     const handleAttempt = (
       {
         isCorrect,
@@ -870,9 +929,17 @@ export default function createLessonScreen(
       } = {},
       attemptedSlideKey = currentSlideInstanceKey,
     ) => {
+      if (isCorrect) {
+        playCorrectSound();
+      }
+
       const tipoExercicio =
         (currentSlide && (currentSlide.component || currentSlide.type)) ||
         "desconhecido";
+
+      dailyGoals
+        .recordExerciseAttempt({ isCorrect, exerciseType: tipoExercicio })
+        .catch(() => {});
 
       if (
         lesson &&
@@ -947,6 +1014,9 @@ export default function createLessonScreen(
         if (lesson && lesson.id != null) {
           const progress = await loadProgress();
           await saveProgress({ ...progress, [lesson.id]: true });
+          dailyGoals
+            .recordLessonCompleted({ xp: XP_PER_LESSON, accuracy: lessonAccuracy })
+            .catch(() => {});
           // A sequencia (streak) e calculada e armazenada no backend, que e a
           // fonte da verdade; so atualizamos a estimativa otimista quando a
           // confirmacao chega.
@@ -968,6 +1038,14 @@ export default function createLessonScreen(
       lessonMetaLoaded,
       lessonAccuracy,
     ]);
+
+    useEffect(() => {
+      if (!currentSlide || currentSlide.type !== "reviewFinish") return;
+      if (reviewCommitRef.current) return;
+
+      reviewCommitRef.current = true;
+      dailyGoals.recordReviewCompleted().catch(() => {});
+    }, [currentSlide && currentSlide.type]);
 
     const findNextLesson = () => {
       if (!lessons || !lesson) return null;

@@ -13,6 +13,7 @@ import CORES from "../util/cores";
 import { Images } from "../util/images";
 import { criarPost } from "../services/comunidade";
 import { getSlidePostId, markSlidePosted } from "../util/exercisePosts";
+import { isOffensive } from "../util/profanityFilter";
 
 export function Exercise12({
   activity,
@@ -71,11 +72,14 @@ export function Exercise12({
       const jaPostado = await getSlidePostId(slideKey);
       if (jaPostado) return;
 
+      const respostaTexto = text.trim();
+      if (isOffensive(respostaTexto)) return;
+
       const aulaPrompt = [activity.instruction, activity.helperText]
         .filter((parte) => typeof parte === "string" && parte.trim().length > 0)
         .join("\n")
         .slice(0, 1000);
-      const novo = await criarPost(text.trim(), { aulaPrompt });
+      const novo = await criarPost(respostaTexto, { aulaPrompt });
       if (novo?.id != null) {
         await markSlidePosted(slideKey, novo.id);
       }

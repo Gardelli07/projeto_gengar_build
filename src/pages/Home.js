@@ -24,6 +24,7 @@ import { getLevelProgress, XP_PER_LESSON } from "../util/xp";
 import CORES from "../util/cores";
 import { fetchAulaAccessMap } from "../services/conteudos";
 import { fetchResumoProgresso } from "../services/progresso";
+import * as dailyGoals from "../util/dailyGoals";
 import { hasFullAccess } from "../util/plans";
 import {
   COURSE_OPTIONS,
@@ -69,6 +70,13 @@ const COURSE_ACCENT = {
   "Ingles Completo": "#2E9E6B",
   "Bussines English": "#2F4A78",
   "Ingles para viagem": "#1E97A8",
+};
+
+const DIFFICULTY_LABEL = { facil: "Fácil", normal: "Normal", dificil: "Difícil" };
+const DIFFICULTY_COLOR = {
+  facil: CORES.HOME_GREEN,
+  normal: CORES.HOME_AMBER,
+  dificil: CORES.HOME_DANGER,
 };
 
 function ProgressCircle({ percent, size = 70, strokeWidth = 8 }) {
@@ -249,6 +257,7 @@ export default function Inglescompleto({ navigation, route }) {
   const [courseStatsMap, setCourseStatsMap] = useState({});
   const [aulaAccessMap, setAulaAccessMap] = useState(null);
   const [studyTimeModalVisible, setStudyTimeModalVisible] = useState(false);
+  const [dailyGoalsState, setDailyGoalsState] = useState({ goals: [] });
 
   // Pergunta o horario de estudo uma unica vez, logo na primeira Home apos o
   // login (a flag fica salva no dispositivo independente do usuario decidir
@@ -388,6 +397,8 @@ export default function Inglescompleto({ navigation, route }) {
     async function loadExtras() {
       const resumo = await fetchResumoProgresso().catch(() => null);
       if (resumo) setStreak(resumo.streakAtual);
+      const goals = await dailyGoals.getTodayGoals().catch(() => null);
+      if (goals) setDailyGoalsState(goals);
       await loadAllCourseStats();
     }
     loadExtras();
@@ -440,7 +451,8 @@ export default function Inglescompleto({ navigation, route }) {
     (item) => progressMap[item.id],
   ).length;
   const percent = totalLessons > 0 ? (completedCount / totalLessons) * 100 : 0;
-  const totalXp = completedCount * XP_PER_LESSON;
+  const totalXp =
+    completedCount * XP_PER_LESSON + (dailyGoalsState.lifetimeBonusXp || 0);
   const levelProgress = useMemo(() => getLevelProgress(totalXp), [totalXp]);
 
   const lessonsByModule = useMemo(() => {
@@ -739,22 +751,95 @@ export default function Inglescompleto({ navigation, route }) {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.daily}>
-          <View style={styles.dailyIcon}>
-            <MaterialCommunityIcons
-              name="check-circle-outline"
-              size={20}
-              color={CORES.HOME_GREEN}
-            />
-          </View>
-          <View style={{ flex: 1, minWidth: 0 }}>
-            <Text style={styles.dailyTitle}>Meta diária</Text>
-            <Text style={styles.dailySub}>2 de 3 lições concluídas</Text>
-            <View style={styles.dailyTrack}>
-              <View style={styles.dailyFill} />
+        {dailyGoalsState.goals.length > 0 && (
+          <View style={styles.daily}>
+            <Text style={styles.dailyTitle}>Metas de hoje</Text>
+            <View style={{ gap: 12, marginTop: 10 }}>
+              {dailyGoalsState.goals.map((goal) => {
+                const percent = Math.min(
+                  100,
+                  (goal.progress / goal.target) * 100,
+                );
+                return (
+                  <View key={goal.id} style={styles.dailyGoalRow}>
+                    <View
+                      style={[
+                        styles.dailyIcon,
+                        goal.completed && styles.dailyIconDone,
+                      ]}
+                    >
+                      <MaterialCommunityIcons
+                        name={goal.completed ? "check" : goal.icon}
+                        size={18}
+                        color={goal.completed ? CORES.WHITE : CORES.HOME_PRIMARY}
+                      />
+                    </View>
+                    <View style={{ flex: 1, minWidth: 0 }}>
+                      <View
+                        style={[
+                          styles.row,
+                          { justifyContent: "space-between" },
+                        ]}
+                      >
+                        <Text style={styles.dailyGoalLabel} numberOfLines={1}>
+                          {goal.label}
+                        </Text>
+                        <Text style={styles.dailyGoalCount}>
+                          {goal.progress}/{goal.target}
+                        </Text>
+                      </View>
+                      <View style={styles.dailyTrack}>
+                        <View
+                          style={[
+                            styles.dailyFill,
+                            {
+                              width: `${percent}%`,
+                              backgroundColor: goal.completed
+                                ? CORES.HOME_GREEN
+                                : CORES.HOME_PRIMARY,
+                            },
+                          ]}
+                        />
+                      </View>
+                      <View
+                        style={[
+                          styles.row,
+                          { justifyContent: "space-between", marginTop: 5 },
+                        ]}
+                      >
+                        <View
+                          style={[
+                            styles.difficultyPill,
+                            {
+                              backgroundColor: `${DIFFICULTY_COLOR[goal.difficulty]}1F`,
+                            },
+                          ]}
+                        >
+                          <Text
+                            style={[
+                              styles.difficultyPillTxt,
+                              { color: DIFFICULTY_COLOR[goal.difficulty] },
+                            ]}
+                          >
+                            {DIFFICULTY_LABEL[goal.difficulty]}
+                          </Text>
+                        </View>
+                        <Text
+                          style={[
+                            styles.dailyGoalReward,
+                            goal.rewarded && { color: CORES.HOME_GREEN },
+                          ]}
+                        >
+                          {goal.rewarded ? "✓ " : ""}+{goal.rewardXp} XP
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                );
+              })}
             </View>
           </View>
-        </View>
+        )}
 
         {recentActivity.length > 0 && (
           <>
@@ -1254,13 +1339,15 @@ const styles = StyleSheet.create({
   primaryBtnTxt: { color: CORES.WHITE, fontWeight: "800", fontSize: 16 },
 
   daily: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 13,
     backgroundColor: "#E7EFFA",
     borderRadius: 18,
     padding: 16,
     marginBottom: 22,
+  },
+  dailyGoalRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 13,
   },
   dailyIcon: {
     width: 40,
@@ -1270,22 +1357,45 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  dailyIconDone: {
+    backgroundColor: CORES.HOME_GREEN,
+  },
   dailyTitle: { color: CORES.HOME_NAVY, fontWeight: "900", fontSize: 15 },
-  dailySub: {
-    color: "#5B6E88",
+  dailyGoalLabel: {
+    color: CORES.HOME_NAVY,
     fontWeight: "700",
     fontSize: 13,
-    marginBottom: 7,
+    flexShrink: 1,
+    marginRight: 8,
+  },
+  dailyGoalCount: {
+    color: "#5B6E88",
+    fontWeight: "700",
+    fontSize: 12,
+  },
+  difficultyPill: {
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 99,
+  },
+  difficultyPillTxt: {
+    fontWeight: "800",
+    fontSize: 10,
+  },
+  dailyGoalReward: {
+    color: "#7C8AA0",
+    fontWeight: "800",
+    fontSize: 11,
   },
   dailyTrack: {
     height: 7,
     borderRadius: 99,
     backgroundColor: "#CDDDF0",
     overflow: "hidden",
+    marginTop: 6,
   },
   dailyFill: {
     height: "100%",
-    width: "66%",
     borderRadius: 99,
     backgroundColor: CORES.HOME_GREEN,
   },

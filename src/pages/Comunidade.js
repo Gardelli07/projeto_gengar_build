@@ -37,6 +37,7 @@ import {
   deletarComentario,
 } from "../services/comunidade";
 import { unmarkSlideByPostId } from "../util/exercisePosts";
+import { isOffensive } from "../util/profanityFilter";
 
 const WAVE = [8, 16, 10, 22, 14, 26, 12, 18, 9, 20, 15, 24, 11, 17, 13, 21, 10, 19, 14, 23, 12, 16, 8, 18, 15, 22, 11, 20, 13, 25, 10, 17, 14, 19];
 
@@ -308,6 +309,13 @@ function CommentsSheet({ post, comments, loading, error, sending, currentUserId,
   const handleSend = () => {
     const t = draft.trim();
     if (!t || sending) return;
+    if (isOffensive(t)) {
+      Alert.alert(
+        "Comentário bloqueado",
+        "Seu comentário contém linguagem inadequada. Revise o texto antes de enviar."
+      );
+      return;
+    }
     onSend(post.id, t);
     setDraft("");
   };
@@ -692,6 +700,13 @@ export default function CommunityScreen() {
   const submitComposer = useCallback(async () => {
     const texto = composerText.trim();
     if (!texto) return;
+    if (isOffensive(texto)) {
+      Alert.alert(
+        "Post bloqueado",
+        "Seu post contém linguagem inadequada. Revise o texto antes de publicar."
+      );
+      return;
+    }
     setComposerSending(true);
     try {
       const novo = await criarPost(texto);

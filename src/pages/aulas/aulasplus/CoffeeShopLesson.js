@@ -203,6 +203,19 @@ function formatDuration(totalSeconds) {
   return `${m}:${String(sec).padStart(2, '0')}`;
 }
 
+const CORRECT_SOUND_SOURCE = require('../../../../assets/sounds/correct.wav');
+let correctSoundPlayer = null;
+
+function playCorrectSound() {
+  try {
+    if (!correctSoundPlayer) {
+      correctSoundPlayer = createAudioPlayer(CORRECT_SOUND_SOURCE);
+    }
+    correctSoundPlayer.seekTo(0);
+    correctSoundPlayer.play();
+  } catch (e) {}
+}
+
 let currentPlayer = null;
 
 function playRecordedAudio(asset) {
@@ -432,7 +445,7 @@ export default function CoffeeShopLesson({ navigation }) {
   }
 
   function logTurn(speaker, text) { setTranscript(t => [...t, { speaker, text }]); }
-  function addXp(n) { setXp(x => x + n); }
+  function addXp(n) { playCorrectSound(); setXp(x => x + n); }
 
   function unlockBadge(id) {
     if (badges[id]) return;
