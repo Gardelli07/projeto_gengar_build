@@ -1,21 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { BUB1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "interruptions-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Como Interromper sem ser Rude",
       content: [
@@ -26,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "jump-in-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt:
         "Conecte as partes da nossa nova expressão de interrupção com suas traduções correspondentes.",
@@ -40,7 +29,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "jump-in-image-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Clique na imagem e na expressão exata que a descreve.",
       images: [
@@ -61,7 +50,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "jump-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "O diretor está falando, mas você teve uma ideia brilhante e precisa interromper.",
@@ -76,7 +65,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "quick-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Ouça a palavra isolada e escolha a alternativa correta.",
@@ -91,7 +80,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "quick-point-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: 'O "Ponto Rápido" e o "Antes de Avançarmos"',
       content: [
@@ -102,7 +91,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "quick-point-correct",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         'Você quer dizer que tem um "ponto rápido" a adicionar. Qual é a frase escrita corretamente?',
@@ -120,7 +109,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "before-spell",
-    component: Exercise13,
+    component: "Exercise13",
     needsSpeech: true,
     activity: {
       prompt:
@@ -135,7 +124,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "interruption-dialog-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt: "Leia o diálogo e preencha as lacunas.",
       paragraphs: [
@@ -155,7 +144,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "budget-interruption-audio",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt:
@@ -174,7 +163,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "jump-in-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt:
         "Clique nas palavras na ordem correta para se inserir na conversa.",
@@ -186,7 +175,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "client-detail-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:
@@ -205,7 +194,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "interruptions-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "O Mestre do Timing!",
       content: [

@@ -1,18 +1,10 @@
-﻿import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise17 } from "../../../../exc/ex17";
-import { Exercise18 } from "../../../../exc/ex18";
-import { BUA1 } from "../../../../util/images";
+﻿import { BUA1 } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "counter-offers-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "How about this?",
       content: [
@@ -26,7 +18,7 @@ Em negociações, ao invés de dizer "expensive", nativos preferem algo mais dip
   },
   {
     key: "high-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -41,7 +33,7 @@ Em negociações, ao invés de dizer "expensive", nativos preferem algo mais dip
   },
   {
     key: "counter-offer-vocab",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte as palavras com suas traduções.",
       pairs: [
@@ -55,7 +47,7 @@ Em negociações, ao invés de dizer "expensive", nativos preferem algo mais dip
   },
   {
     key: "too-high-how-about",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt: "Complete a frase.",
       paragraphs: [
@@ -74,7 +66,7 @@ Em negociações, ao invés de dizer "expensive", nativos preferem algo mais dip
   },
   {
     key: "price-too-high",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt: "Complete a frase.",
       sentenceStart: "That price is too",
@@ -87,7 +79,7 @@ Em negociações, ao invés de dizer "expensive", nativos preferem algo mais dip
   },
   {
     key: "how-about-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "How about...?",
       content: [
@@ -98,7 +90,7 @@ Em negociações, ao invés de dizer "expensive", nativos preferem algo mais dip
   },
   {
     key: "how-about-correct",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt: "Escolha a forma mais educada.",
       image: BUA1.A16S7,
@@ -115,7 +107,7 @@ Em negociações, ao invés de dizer "expensive", nativos preferem algo mais dip
   },
   {
     key: "how-about-fifty-order",
-    component: Exercise18,
+    component: "Exercise18",
     activity: {
       prompt: "Organize a frase.",
       scrambledSentence: "about / How / dollars / fifty / ?",
@@ -128,7 +120,7 @@ Em negociações, ao invés de dizer "expensive", nativos preferem algo mais dip
   },
   {
     key: "counter-offer-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction: "Escreva: diga que o preço está alto e sugira outro.",
@@ -141,7 +133,7 @@ Em negociações, ao invés de dizer "expensive", nativos preferem algo mais dip
   },
   {
     key: "counter-offer-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Counter-offer sent!",
       content: [

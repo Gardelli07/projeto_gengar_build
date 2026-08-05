@@ -1,20 +1,10 @@
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise7 } from "../../../../exc/ex7";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { Exercise18 } from "../../../../exc/ex18";
-import { Exercise19 } from "../../../../exc/ex19";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "sickness-symptoms-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Sickness & Symptoms",
       content: [
@@ -25,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "feel-sick-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -40,7 +30,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "stomach-ache-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -55,7 +45,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "ache-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -71,7 +61,7 @@ Back + ache = backache.
   },
   {
     key: "sickness-dialogue-order",
-    component: Exercise7,
+    component: "Exercise7",
     activity: {
       prompt:
         "Você está conversando com o recepcionista do hotel sobre o seu mal-estar. Organize o diálogo.",
@@ -93,7 +83,7 @@ Back + ache = backache.
   },
   {
     key: "sick-letters",
-    component: Exercise13,
+    component: "Exercise13",
     activity: {
       prompt:
         'Você quer dizer que está "doente" ou "passando mal". Clique nas letras na ordem correta para formar essa palavra.',
@@ -106,7 +96,7 @@ Back + ache = backache.
   },
   {
     key: "stomach-ache-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -122,7 +112,7 @@ Back + ache = backache.
   },
   {
     key: "feel-sick-listen-write",
-    component: Exercise19,
+    component: "Exercise19",
     needsSpeech: true,
     activity: {
       prompt:
@@ -139,7 +129,7 @@ Back + ache = backache.
   },
   {
     key: "stomach-ache-write-order",
-    component: Exercise18,
+    component: "Exercise18",
     activity: {
       prompt:
         "Não clique, digite! Coloque as palavras na ordem correta para dizer que você está com dor de estômago.",
@@ -153,7 +143,7 @@ Back + ache = backache.
   },
   {
     key: "headache-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "Você acordou com muita dor de cabeça no hotel. O que você diz para o seu acompanhante ou para o médico?",
@@ -167,7 +157,7 @@ Back + ache = backache.
   },
   {
     key: "stomach-ache-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -182,7 +172,7 @@ Back + ache = backache.
   },
   {
     key: "feel-sick-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

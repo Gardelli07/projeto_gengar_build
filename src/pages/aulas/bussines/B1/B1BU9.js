@@ -1,21 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { BUB1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "disagreement-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: 'A Arte de Dizer "Não" com Elegância',
       content: [
@@ -26,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "disagreement-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt:
         "Conecte as expressões da discordância diplomática com suas traduções correspondentes no português.",
@@ -43,7 +32,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "disagreement-image-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Clique na imagem e na expressão exata que a descreve.",
       images: [
@@ -64,7 +53,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "slightly-differently-correct",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "O CEO propôs um plano que vai atrasar a entrega. Você precisa discordar com máxima educação. Qual frase está correta?",
@@ -82,7 +71,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "however-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: 'Ouça a palavra isolada. Ela é a versão profissional de "but".',
@@ -97,7 +86,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "feedback-sandwich-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: 'O "Sanduíche" do Feedback',
       content: [
@@ -108,7 +97,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "however-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "Seu colega teve uma boa ideia, mas a empresa não tem dinheiro para isso no momento.",
@@ -122,7 +111,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "however-spell",
-    component: Exercise13,
+    component: "Exercise13",
     needsSpeech: true,
     activity: {
       prompt:
@@ -137,7 +126,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "client-response-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt: "Leia a resposta ao cliente e preencha as lacunas.",
       paragraphs: [
@@ -161,7 +150,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "weekend-policy-audio",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt:
@@ -180,7 +169,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "see-your-point-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt:
         "Clique nas palavras na ordem correta para validar a visão do cliente antes da má notícia.",
@@ -192,7 +181,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "budget-defense-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:
@@ -211,7 +200,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "disagreement-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Você tem a voz de um líder!",
       content: [

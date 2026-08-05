@@ -1,21 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { BUB1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "clarifying-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "A Arte de Pedir para Repetir (Com Classe)",
       content: [
@@ -26,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "clarifying-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt:
         "Conecte as expressões de alinhamento em inglês com os seus significados em português.",
@@ -47,7 +36,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "clarifying-image-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Clique na imagem e na expressão exata que a descreve.",
       images: [
@@ -69,7 +58,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "following-correct",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "O cliente usou um termo técnico que você não pegou. Qual é a frase avançada escrita corretamente?",
@@ -88,7 +77,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "exactly-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Ouça a palavra isolada e escolha a alternativa correta.",
@@ -103,7 +92,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "probing-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Sondagem: Indo Direto ao Ponto",
       content: [
@@ -114,7 +103,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "exactly-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "O fornecedor fez uma proposta muito confusa. Como você foca a conversa de forma incisiva, mas diplomática?",
@@ -128,7 +117,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "exactly-spell",
-    component: Exercise13,
+    component: "Exercise13",
     needsSpeech: true,
     activity: {
       prompt:
@@ -143,7 +132,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "clarifying-dialog-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt: "Leia o diálogo e preencha as lacunas.",
       paragraphs: [
@@ -151,7 +140,7 @@ const LESSON_SLIDES = [
           'Boss: "We need to optimize the global synergy of our assets."\nYou: "Okay, just to make sure I\'m ',
           {
             id: "blank-1",
-      options: ["following", "going"],
+            options: ["following", "going"],
             answer: "following",
           },
           "... could you ",
@@ -167,7 +156,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "server-risk-audio",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt:
@@ -186,7 +175,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "following-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt:
         "Clique nas palavras na ordem correta para garantir que você está acompanhando o raciocínio.",
@@ -198,7 +187,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "fees-plan-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:
@@ -217,7 +206,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "clarifying-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Você no Controle da Informação!",
       content: [

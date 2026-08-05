@@ -1,21 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { BUB1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "virtual-nuance-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Superando Barreiras e Garantindo Alinhamento",
       content: [
@@ -26,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "global-communication-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt:
         "Conecte as expressões de comunicação global com as suas traduções no português corporativo.",
@@ -46,7 +35,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "global-image-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Clique na imagem e na expressão exata que a descreve.",
       images: [
@@ -67,7 +56,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "aligned-correct",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "A ligação está ruim e o time parece confuso. Qual é a frase escrita corretamente?",
@@ -85,7 +74,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "mindful-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Ouça a palavra isolada e escolha a alternativa correta.",
@@ -100,7 +89,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "mindful-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: 'Sendo "Mindful" (Consciente e Respeitoso)',
       content: [
@@ -111,7 +100,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "time-zones-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "A equipe de Londres já passou do horário de expediente. Como você demonstra consciência dessa diferença?",
@@ -126,7 +115,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "mindful-spell",
-    component: Exercise13,
+    component: "Exercise13",
     needsSpeech: true,
     activity: {
       prompt:
@@ -141,7 +130,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "global-call-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt:
         "Leia a mensagem de encerramento da videochamada e preencha as lacunas.",
@@ -171,7 +160,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "bridge-gap-audio",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt:
@@ -190,7 +179,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "mindful-time-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt:
         "Clique nas palavras na ordem correta para sugerir o fim da chamada de forma diplomática.",
@@ -202,7 +191,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "global-call-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:
@@ -221,7 +210,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "virtual-nuance-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Você Chegou ao Nível Global!",
       content: [

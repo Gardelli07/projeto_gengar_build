@@ -1,18 +1,10 @@
-﻿import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise7 } from "../../../../exc/ex7";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { Exercise19 } from "../../../../exc/ex19";
-import { BUA1, Images } from "../../../../util/images";
+﻿import { BUA1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "sales-inquiries-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Can I help you?",
       content: [
@@ -26,7 +18,7 @@ Quando um cliente chega, nós nunca perguntamos "What do you want?". Isso soa mu
   },
   {
     key: "price-product-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Clique na imagem e na palavra que a descreve.",
       images: [
@@ -47,7 +39,7 @@ Quando um cliente chega, nós nunca perguntamos "What do you want?". Isso soa mu
   },
   {
     key: "how-much-listen-write",
-    component: Exercise19,
+    component: "Exercise19",
     needsSpeech: true,
     activity: {
       prompt:
@@ -64,7 +56,7 @@ Quando um cliente chega, nós nunca perguntamos "What do you want?". Isso soa mu
   },
   {
     key: "sales-dialogue-order",
-    component: Exercise7,
+    component: "Exercise7",
     activity: {
       prompt: "Coloque o diálogo na ordem correta clicando nas frases.",
       options: [
@@ -85,7 +77,7 @@ Quando um cliente chega, nós nunca perguntamos "What do you want?". Isso soa mu
   },
   {
     key: "how-much-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt: "Complete a frase.",
       sentenceStart: "How",
@@ -98,7 +90,7 @@ Quando um cliente chega, nós nunca perguntamos "What do you want?". Isso soa mu
   },
   {
     key: "would-like-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "I want vs. I would like",
       content: [
@@ -117,7 +109,7 @@ Vendedor:
   },
   {
     key: "how-can-i-help-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras para escrever a frase na ordem correta.",
       words: ["help", "you", "I", "can", "How", "?"],
@@ -128,7 +120,7 @@ Vendedor:
   },
   {
     key: "twenty-dollars-correct",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt: "Qual é a forma correta e educada de dizer o preço?",
       image: BUA1.A3S8,
@@ -145,7 +137,7 @@ Vendedor:
   },
   {
     key: "seller-audio",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:
@@ -162,7 +154,7 @@ Vendedor:
   },
   {
     key: "sales-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Sold! (Vendido!)",
       content: [

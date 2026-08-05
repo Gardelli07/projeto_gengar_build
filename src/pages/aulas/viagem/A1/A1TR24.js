@@ -1,20 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise8 } from "../../../../exc/ex8";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "pharmacy-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "At the Pharmacy",
       content: [
@@ -25,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "painkiller-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -41,7 +31,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "cold-medicine-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -56,7 +46,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "drugstore-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -67,7 +57,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "medicine-image-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Combine o sintoma com o que você deve comprar.",
       images: [
@@ -88,7 +78,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "pharmacy-object",
-    component: Exercise8,
+    component: "Exercise8",
     activity: {
       prompt:
         "Você está procurando o lugar que vende remédios no aeroporto. Qual palavra você deve procurar na placa?",
@@ -101,7 +91,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "painkiller-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -117,7 +107,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "cold-medicine-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt: "Você está resfriado e entra na farmácia. Você diz ao atendente:",
       sentenceStart: "I need",
@@ -130,7 +120,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "pharmacy-vocab",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte os itens de farmácia com suas utilidades.",
       pairs: [
@@ -144,7 +134,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "painkiller-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "Como você pede um remédio para dor de forma educada para o farmacêutico?",
@@ -162,7 +152,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "nearest-pharmacy-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt: "Você quer saber onde fica a farmácia mais próxima. Complete:",
       paragraphs: [
@@ -178,7 +168,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "painkiller-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

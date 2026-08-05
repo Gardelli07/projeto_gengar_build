@@ -1,20 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise7 } from "../../../../exc/ex7";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { Exercise18 } from "../../../../exc/ex18";
-import { Exercise19 } from "../../../../exc/ex19";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "requests-problems-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Making Requests & Solving Problems",
       content: [
@@ -25,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "towel-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -40,7 +30,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "not-working-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -56,7 +46,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "need-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -69,7 +59,7 @@ Mas e se você só quiser pedir algo, como uma toalha extra? A forma mais fácil
   },
   {
     key: "towel-dialogue-order",
-    component: Exercise7,
+    component: "Exercise7",
     activity: {
       prompt:
         "Você ligou da cama para a recepção do hotel para pedir uma toalha. Clique nas frases para organizar o diálogo.",
@@ -91,7 +81,7 @@ Mas e se você só quiser pedir algo, como uma toalha extra? A forma mais fácil
   },
   {
     key: "problems-vocab",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt:
         "Conecte o vocabulário para resolver os seus problemas no quarto.",
@@ -106,7 +96,7 @@ Mas e se você só quiser pedir algo, como uma toalha extra? A forma mais fácil
   },
   {
     key: "towel-letters",
-    component: Exercise13,
+    component: "Exercise13",
     activity: {
       prompt:
         'Como se escreve a palavra que salva o seu banho no hotel? Clique nas letras na ordem correta para formar a palavra "toalha" em inglês.',
@@ -119,7 +109,7 @@ Mas e se você só quiser pedir algo, como uma toalha extra? A forma mais fácil
   },
   {
     key: "towel-listen-write",
-    component: Exercise19,
+    component: "Exercise19",
     needsSpeech: true,
     activity: {
       prompt:
@@ -136,7 +126,7 @@ Mas e se você só quiser pedir algo, como uma toalha extra? A forma mais fácil
   },
   {
     key: "tv-not-working-write-order",
-    component: Exercise18,
+    component: "Exercise18",
     activity: {
       prompt:
         "Não clique, digite! As palavras da sua reclamação estão bagunçadas. Digite a frase na ordem correta para avisar que a TV quebrou.",
@@ -150,7 +140,7 @@ Mas e se você só quiser pedir algo, como uma toalha extra? A forma mais fácil
   },
   {
     key: "shower-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "O chuveiro da sua suíte está com a água gelada. Como você avisa a recepção de forma correta?",
@@ -168,7 +158,7 @@ Mas e se você só quiser pedir algo, como uma toalha extra? A forma mais fácil
   },
   {
     key: "ac-not-working-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -183,7 +173,7 @@ Mas e se você só quiser pedir algo, como uma toalha extra? A forma mais fácil
   },
   {
     key: "towel-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

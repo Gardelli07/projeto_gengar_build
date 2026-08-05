@@ -1,18 +1,10 @@
-﻿import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise7 } from "../../../../exc/ex7";
-import { Exercise8 } from "../../../../exc/ex8";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { Exercise19 } from "../../../../exc/ex19";
-import { BUA1, Images } from "../../../../util/images";
+﻿import { BUA1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "agreements-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "We have a deal!",
       content: [
@@ -26,7 +18,7 @@ Em inglês, usamos muito a palavra "deal" no dia a dia corporativo. Em vez de "a
   },
   {
     key: "accept-deal-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Clique na imagem e na palavra correta.",
       images: [
@@ -47,7 +39,7 @@ Em inglês, usamos muito a palavra "deal" no dia a dia corporativo. Em vez de "a
   },
   {
     key: "deal-listen-write",
-    component: Exercise19,
+    component: "Exercise19",
     needsSpeech: true,
     activity: {
       prompt: "Digite exatamente o que você ouviu.",
@@ -63,7 +55,7 @@ Em inglês, usamos muito a palavra "deal" no dia a dia corporativo. Em vez de "a
   },
   {
     key: "agreement-vocab",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte as palavras com as traduções.",
       pairs: [
@@ -77,7 +69,7 @@ Em inglês, usamos muito a palavra "deal" no dia a dia corporativo. Em vez de "a
   },
   {
     key: "accept-offer-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt: "Complete a frase.",
       sentenceStart: "Great! I",
@@ -90,7 +82,7 @@ Em inglês, usamos muito a palavra "deal" no dia a dia corporativo. Em vez de "a
   },
   {
     key: "deal-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Deal!",
       content: [
@@ -101,7 +93,7 @@ Em inglês, usamos muito a palavra "deal" no dia a dia corporativo. Em vez de "a
   },
   {
     key: "deal-dialogue-order",
-    component: Exercise7,
+    component: "Exercise7",
     activity: {
       prompt: "Organize o diálogo.",
       options: [
@@ -122,7 +114,7 @@ Em inglês, usamos muito a palavra "deal" no dia a dia corporativo. Em vez de "a
   },
   {
     key: "deal-image-choice",
-    component: Exercise8,
+    component: "Exercise8",
     activity: {
       prompt: "Qual palavra descreve isso?",
       image: BUA1.A17S2p2,
@@ -134,7 +126,7 @@ Em inglês, usamos muito a palavra "deal" no dia a dia corporativo. Em vez de "a
   },
   {
     key: "accept-deal-audio",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction: 'Grave um áudio dizendo: "I accept. We have a deal."',
@@ -150,7 +142,7 @@ Em inglês, usamos muito a palavra "deal" no dia a dia corporativo. Em vez de "a
   },
   {
     key: "agreements-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Deal closed!",
       content: [

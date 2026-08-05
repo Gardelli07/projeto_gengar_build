@@ -1,18 +1,10 @@
-﻿import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise7 } from "../../../../exc/ex7";
-import { Exercise8 } from "../../../../exc/ex8";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { Exercise19 } from "../../../../exc/ex19";
-import { BUA1, Images } from "../../../../util/images";
+﻿import { BUA1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "problem-solving-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Houston, we have a problem.",
       content: [
@@ -26,7 +18,7 @@ Nativos evitam soar desesperados. Quando algo dá errado, eles dizem calmamente 
   },
   {
     key: "problem-fix-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Clique na imagem e na palavra que a descreve.",
       images: [
@@ -47,7 +39,7 @@ Nativos evitam soar desesperados. Quando algo dá errado, eles dizem calmamente 
   },
   {
     key: "problem-listen-write",
-    component: Exercise19,
+    component: "Exercise19",
     needsSpeech: true,
     activity: {
       prompt:
@@ -64,7 +56,7 @@ Nativos evitam soar desesperados. Quando algo dá errado, eles dizem calmamente 
   },
   {
     key: "problem-dialogue-order",
-    component: Exercise7,
+    component: "Exercise7",
     activity: {
       prompt: "Coloque o diálogo na ordem correta clicando nas frases.",
       options: [
@@ -85,7 +77,7 @@ Nativos evitam soar desesperados. Quando algo dá errado, eles dizem calmamente 
   },
   {
     key: "fix-problem-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt: "Complete a frase.",
       sentenceStart: "Don't worry, I can",
@@ -98,7 +90,7 @@ Nativos evitam soar desesperados. Quando algo dá errado, eles dizem calmamente 
   },
   {
     key: "fix-solve-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Fix vs. Solve",
       content: [
@@ -117,7 +109,7 @@ No ambiente de trabalho do dia a dia, "fix" é o mais usado para situações rá
   },
   {
     key: "i-can-fix-it-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras para escrever a frase na ordem correta.",
       words: ["fix", "I", "can", "it"],
@@ -128,7 +120,7 @@ No ambiente de trabalho do dia a dia, "fix" é o mais usado para situações rá
   },
   {
     key: "problem-image-choice",
-    component: Exercise8,
+    component: "Exercise8",
     activity: {
       prompt:
         "Olhe para a imagem. O que nós temos aqui no contexto de negócios?",
@@ -141,7 +133,7 @@ No ambiente de trabalho do dia a dia, "fix" é o mais usado para situações rá
   },
   {
     key: "report-problem-audio",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:
@@ -158,7 +150,7 @@ No ambiente de trabalho do dia a dia, "fix" é o mais usado para situações rá
   },
   {
     key: "problem-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Problem solved!",
       content: [

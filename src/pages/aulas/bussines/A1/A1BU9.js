@@ -1,18 +1,10 @@
-﻿import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise17 } from "../../../../exc/ex17";
-import { BUA1 } from "../../../../util/images";
+﻿import { BUA1 } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "professional-emails-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "You've got mail!",
       content: [
@@ -26,7 +18,7 @@ Dica de Nativo:
   },
   {
     key: "attached-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute a palavra e escolha a alternativa correta.",
@@ -41,7 +33,7 @@ Dica de Nativo:
   },
   {
     key: "email-parts-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte as partes do e-mail com suas traduções.",
       pairs: [
@@ -55,7 +47,7 @@ Dica de Nativo:
   },
   {
     key: "email-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt: "Complete o texto do e-mail com as alternativas.",
       paragraphs: [
@@ -77,7 +69,7 @@ Dica de Nativo:
   },
   {
     key: "read-document",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt: "Complete a frase.",
       sentenceStart: "Please",
@@ -90,7 +82,7 @@ Dica de Nativo:
   },
   {
     key: "attached-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "O Rei dos E-mails",
       content: [
@@ -101,7 +93,7 @@ Dica de Nativo:
   },
   {
     key: "professional-attachment-correct",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt: "Qual é a forma profissional de enviar um arquivo?",
       image: BUA1.A9S2,
@@ -119,7 +111,7 @@ Dica de Nativo:
   },
   {
     key: "spell-email",
-    component: Exercise13,
+    component: "Exercise13",
     needsSpeech: true,
     activity: {
       prompt: "As letras estão bagunçadas! Escreva a palavra na ordem correta.",
@@ -132,7 +124,7 @@ Dica de Nativo:
   },
   {
     key: "email-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -146,7 +138,7 @@ Dica de Nativo:
   },
   {
     key: "email-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Message sent!",
       content: [

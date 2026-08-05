@@ -1,20 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { Exercise18 } from "../../../../exc/ex18";
-import { Exercise19 } from "../../../../exc/ex19";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "checking-in-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Checking In",
       content: [
@@ -25,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "reservation-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -41,7 +31,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "key-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -57,7 +47,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "credit-card-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -70,7 +60,7 @@ Não entre em pânico! Eles fazem isso como um deposit, uma caução de seguran�
   },
   {
     key: "reservation-complete-text",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt:
         "Você chegou ao balcão, entregou seu passaporte e agora precisa avisar sobre a sua estadia. Complete a frase:",
@@ -91,7 +81,7 @@ Não entre em pânico! Eles fazem isso como um deposit, uma caução de seguran�
   },
   {
     key: "key-letters",
-    component: Exercise13,
+    component: "Exercise13",
     activity: {
       prompt:
         'O recepcionista está prestes a te entregar o acesso ao quarto. Coloque as letras na ordem para formar a palavra "chave" em inglês.',
@@ -104,7 +94,7 @@ Não entre em pânico! Eles fazem isso como um deposit, uma caução de seguran�
   },
   {
     key: "key-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -121,7 +111,7 @@ Não entre em pânico! Eles fazem isso como um deposit, uma caução de seguran�
   },
   {
     key: "reservation-write-order",
-    component: Exercise18,
+    component: "Exercise18",
     activity: {
       prompt:
         "Não clique, digite! As palavras da sua frase principal estão bagunçadas. Digite a frase na ordem correta para garantir o seu quarto.",
@@ -135,7 +125,7 @@ Não entre em pânico! Eles fazem isso como um deposit, uma caução de seguran�
   },
   {
     key: "reservation-listen-write",
-    component: Exercise19,
+    component: "Exercise19",
     needsSpeech: true,
     activity: {
       prompt:
@@ -152,7 +142,7 @@ Não entre em pânico! Eles fazem isso como um deposit, uma caução de seguran�
   },
   {
     key: "reservation-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         'O recepcionista sorri e diz "Good evening". Qual é a forma correta e natural de responder dizendo que você tem uma reserva?',
@@ -170,7 +160,7 @@ Não entre em pânico! Eles fazem isso como um deposit, uma caução de seguran�
   },
   {
     key: "check-in-vocab",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte o vocabulário de check-in com as suas traduções.",
       pairs: [
@@ -184,7 +174,7 @@ Não entre em pânico! Eles fazem isso como um deposit, uma caução de seguran�
   },
   {
     key: "reservation-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

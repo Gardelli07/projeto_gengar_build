@@ -1,19 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "numbers-money-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Numbers & Money",
       content: [
@@ -24,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "how-much-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -40,7 +31,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "basic-numbers-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte os números em inglês com suas traduções.",
       pairs: [
@@ -54,7 +45,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "teen-ty-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -71,7 +62,7 @@ Exemplo clássico: 15 é Fifteen. 50 é Fifty. O som no final muda tudo na hora 
   },
   {
     key: "fifty-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -87,7 +78,7 @@ Exemplo clássico: 15 é Fifteen. 50 é Fifty. O som no final muda tudo na hora 
   },
   {
     key: "how-much-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "Você pegou um ímã de geladeira na loja de souvenirs e quer saber o preço. Como você completa a pergunta?",
@@ -101,7 +92,7 @@ Exemplo clássico: 15 é Fifteen. 50 é Fifty. O som no final muda tudo na hora 
   },
   {
     key: "twenty-dollars-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -117,7 +108,7 @@ Exemplo clássico: 15 é Fifteen. 50 é Fifty. O som no final muda tudo na hora 
   },
   {
     key: "dollars-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -133,7 +124,7 @@ Exemplo clássico: 15 é Fifteen. 50 é Fifty. O som no final muda tudo na hora 
   },
   {
     key: "how-much-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras para escrever a frase na ordem correta.",
       words: ["it", "How", "is", "much", "?"],
@@ -144,7 +135,7 @@ Exemplo clássico: 15 é Fifteen. 50 é Fifty. O som no final muda tudo na hora 
   },
   {
     key: "price-question-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "Você quer comprar uma garrafa de água no aeroporto. Qual é a maneira correta de perguntar o preço?",
@@ -158,7 +149,7 @@ Exemplo clássico: 15 é Fifteen. 50 é Fifty. O som no final muda tudo na hora 
   },
   {
     key: "how-much-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -173,7 +164,7 @@ Exemplo clássico: 15 é Fifteen. 50 é Fifty. O som no final muda tudo na hora 
   },
   {
     key: "how-much-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

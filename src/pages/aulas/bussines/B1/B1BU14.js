@@ -1,20 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { BUB1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "vendor-scenario-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Especificações Técnicas (Specs)",
       content: [
@@ -25,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "specs-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt:
         "Conecte o vocabulário técnico de negociação com as suas traduções.",
@@ -43,7 +33,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "requirements-correct",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "O comprador perguntou se a manta de fibra atende ao padrão orgânico. Qual resposta está correta?",
@@ -61,7 +51,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "align-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Ouça a palavra isolada e escolha a alternativa correta.",
@@ -76,7 +66,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "draft-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Alinhamento e Minuta de Contrato",
       content: [
@@ -87,7 +77,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "align-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "Vocês fecharam as especificações técnicas. Agora precisam concordar com as datas.",
@@ -101,7 +91,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "draft-spell",
-    component: Exercise13,
+    component: "Exercise13",
     needsSpeech: true,
     activity: {
       prompt:
@@ -116,7 +106,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "final-negotiation-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt: "Leia a transcrição da negociação final e preencha as lacunas.",
       paragraphs: [
@@ -138,7 +128,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "contract-audio",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt:
@@ -157,7 +147,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "draft-contract-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt:
         "Clique nas palavras na ordem correta para dizer que o setor jurídico vai preparar o documento.",
@@ -177,7 +167,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "closing-contract-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:
@@ -196,7 +186,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "vendor-scenario-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Negócio Fechado (Deal Closed)!",
       content: [

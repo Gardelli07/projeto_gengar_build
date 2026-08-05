@@ -1,19 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "magic-words-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "The Magic Words",
       content: [
@@ -24,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "dont-understand-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -39,7 +30,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "speak-slowly-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -58,7 +49,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "rescue-phrases-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -75,7 +66,7 @@ Isso resolve 90% dos problemas de comunicação!`,
   },
   {
     key: "understand-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "O fiscal do aeroporto fez uma pergunta muito rápida e você não compreendeu. O que você diz?",
@@ -89,7 +80,7 @@ Isso resolve 90% dos problemas de comunicação!`,
   },
   {
     key: "portuguese-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -105,7 +96,7 @@ Isso resolve 90% dos problemas de comunicação!`,
   },
   {
     key: "portuguese-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras para escrever a frase na ordem correta.",
       image: TRA1.A2S6,
@@ -117,7 +108,7 @@ Isso resolve 90% dos problemas de comunicação!`,
   },
   {
     key: "speak-slowly-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -133,7 +124,7 @@ Isso resolve 90% dos problemas de comunicação!`,
   },
   {
     key: "survival-vocabulary-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte o vocabulário de sobrevivência com suas traduções.",
       pairs: [
@@ -147,7 +138,7 @@ Isso resolve 90% dos problemas de comunicação!`,
   },
   {
     key: "speak-slowly-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "Qual é a maneira correta e educada de pedir para o recepcionista do hotel falar mais devagar?",
@@ -165,7 +156,7 @@ Isso resolve 90% dos problemas de comunicação!`,
   },
   {
     key: "portuguese-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -180,7 +171,7 @@ Isso resolve 90% dos problemas de comunicação!`,
   },
   {
     key: "dont-understand-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

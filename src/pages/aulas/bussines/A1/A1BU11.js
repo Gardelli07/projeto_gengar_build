@@ -1,18 +1,10 @@
-﻿import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise17 } from "../../../../exc/ex17";
-import { BUA1 } from "../../../../util/images";
+﻿import { BUA1 } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "charts-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Let's look at the numbers!",
       content: [
@@ -26,7 +18,7 @@ Não complique! Use "go up" (subir) e "go down" (descer). Até executivos usam i
   },
   {
     key: "go-up-down-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Clique na imagem correta.",
       images: [
@@ -47,7 +39,7 @@ Não complique! Use "go up" (subir) e "go down" (descer). Até executivos usam i
   },
   {
     key: "chart-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escolha a alternativa correta.",
@@ -62,7 +54,7 @@ Não complique! Use "go up" (subir) e "go down" (descer). Até executivos usam i
   },
   {
     key: "chart-vocab-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte as palavras.",
       pairs: [
@@ -76,7 +68,7 @@ Não complique! Use "go up" (subir) e "go down" (descer). Até executivos usam i
   },
   {
     key: "sales-go-up",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt: "Complete a frase.",
       sentenceStart: "The sales go",
@@ -89,7 +81,7 @@ Não complique! Use "go up" (subir) e "go down" (descer). Até executivos usam i
   },
   {
     key: "look-at-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Look at vs See",
       content: [
@@ -100,7 +92,7 @@ Não complique! Use "go up" (subir) e "go down" (descer). Até executivos usam i
   },
   {
     key: "sales-down-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Verdadeiro ou falso?",
@@ -116,7 +108,7 @@ Não complique! Use "go up" (subir) e "go down" (descer). Até executivos usam i
   },
   {
     key: "look-at-correct",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt: "Escolha a frase correta.",
       image: BUA1.A11S3,
@@ -129,7 +121,7 @@ Não complique! Use "go up" (subir) e "go down" (descer). Até executivos usam i
   },
   {
     key: "chart-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -143,7 +135,7 @@ Não complique! Use "go up" (subir) e "go down" (descer). Até executivos usam i
   },
   {
     key: "charts-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Numbers don't lie!",
       content: [

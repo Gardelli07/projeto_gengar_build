@@ -1,20 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { Exercise18 } from "../../../../exc/ex18";
 import { BUB1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Abertura Formal: Referenciando a Reunião",
       content: [
@@ -25,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt:
         "Conecte as expressões de escrita corporativa com as suas traduções em português.",
@@ -42,7 +32,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "correct",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "Você precisa apresentar as decisões da reunião no e-mail. Qual frase está correta?",
@@ -60,7 +50,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "pending-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Ouça a palavra isolada e escolha a alternativa correta.",
@@ -75,7 +65,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "pending-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Condições e Próximos Passos",
       content: [
@@ -86,7 +76,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "pending-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt: "O cronograma está parado esperando o Diretor dar o OK final.",
       sentenceStart: "We will begin writing the software code,",
@@ -99,7 +89,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "approval-spell",
-    component: Exercise13,
+    component: "Exercise13",
     needsSpeech: true,
     activity: {
       prompt: 'Organize as letras para formar "Aprovação".',
@@ -113,7 +103,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "email-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt:
         "Leia a mensagem e preencha as lacunas com as expressões corretas.",
@@ -136,7 +126,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "dictation-audio",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt:
@@ -155,7 +145,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "typing",
-    component: Exercise18,
+    component: "Exercise18",
     activity: {
       prompt:
         "Organize as palavras abaixo e escreva a frase correta para iniciar a conclusão do seu e-mail.",
@@ -168,7 +158,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:
@@ -187,7 +177,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Escrita de Alto Impacto!",
       content: [

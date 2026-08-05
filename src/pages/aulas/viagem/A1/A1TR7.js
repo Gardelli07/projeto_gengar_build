@@ -1,19 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "on-airplane-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "On the Airplane",
       content: [
@@ -24,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "water-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -39,7 +30,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "chicken-pasta-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -54,7 +45,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "can-i-have-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Ouro",
       content: [
@@ -71,7 +62,7 @@ Exemplo perfeito: "Can I have water, please?"`,
   },
   {
     key: "coffee-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -87,7 +78,7 @@ Exemplo perfeito: "Can I have water, please?"`,
   },
   {
     key: "can-i-have-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "O carrinho chegou! Você quer pedir uma água para o comissário usando a frase coringa super educada. Complete:",
@@ -101,7 +92,7 @@ Exemplo perfeito: "Can I have water, please?"`,
   },
   {
     key: "chicken-please-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -118,7 +109,7 @@ Exemplo perfeito: "Can I have water, please?"`,
   },
   {
     key: "airplane-service-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte as palavras do serviço de bordo com suas traduções.",
       pairs: [
@@ -132,7 +123,7 @@ Exemplo perfeito: "Can I have water, please?"`,
   },
   {
     key: "can-i-have-water-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras para escrever a frase na ordem correta.",
       words: ["have", "water", "I", "Can", "?"],
@@ -143,7 +134,7 @@ Exemplo perfeito: "Can I have water, please?"`,
   },
   {
     key: "water-polite-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "O comissário de bordo pergunta o que você quer beber. Qual é a forma correta e educada de pedir água?",
@@ -161,7 +152,7 @@ Exemplo perfeito: "Can I have water, please?"`,
   },
   {
     key: "chicken-please-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -176,7 +167,7 @@ Exemplo perfeito: "Can I have water, please?"`,
   },
   {
     key: "coffee-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

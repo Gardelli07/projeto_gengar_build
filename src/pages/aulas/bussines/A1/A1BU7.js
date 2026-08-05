@@ -1,18 +1,10 @@
-﻿import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise17 } from "../../../../exc/ex17";
-import { Exercise18 } from "../../../../exc/ex18";
-import { BUA1 } from "../../../../util/images";
+﻿import { BUA1 } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "updates-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Good News or Bad News?",
       content: [
@@ -26,7 +18,7 @@ No mundo dos negócios, nativos adoram a palavra "Step". Quando terminam de apre
   },
   {
     key: "news-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute a palavra e escolha a alternativa correta.",
@@ -41,7 +33,7 @@ No mundo dos negócios, nativos adoram a palavra "Step". Quando terminam de apre
   },
   {
     key: "news-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte as expressões em inglês com suas traduções.",
       pairs: [
@@ -55,7 +47,7 @@ No mundo dos negócios, nativos adoram a palavra "Step". Quando terminam de apre
   },
   {
     key: "good-news-step-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt: "Complete o texto com as alternativas.",
       paragraphs: [
@@ -73,7 +65,7 @@ No mundo dos negócios, nativos adoram a palavra "Step". Quando terminam de apre
   },
   {
     key: "next-step",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt: "Complete a frase com a palavra correta.",
       sentenceStart: "What is the next",
@@ -86,7 +78,7 @@ No mundo dos negócios, nativos adoram a palavra "Step". Quando terminam de apre
   },
   {
     key: "news-singular-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "News: Singular ou Plural?",
       content: [
@@ -105,7 +97,7 @@ Esse detalhe separa alunos básicos de profissionais fluentes!`,
   },
   {
     key: "good-news-correct",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt: "Qual das frases abaixo está escrita corretamente?",
       image: BUA1.A7S7,
@@ -118,7 +110,7 @@ Esse detalhe separa alunos básicos de profissionais fluentes!`,
   },
   {
     key: "good-news-order",
-    component: Exercise18,
+    component: "Exercise18",
     activity: {
       prompt: "As palavras estão bagunçadas. Digite a frase corretamente.",
       scrambledSentence: "news / have / I / good",
@@ -131,7 +123,7 @@ Esse detalhe separa alunos básicos de profissionais fluentes!`,
   },
   {
     key: "good-news-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -145,7 +137,7 @@ Esse detalhe separa alunos básicos de profissionais fluentes!`,
   },
   {
     key: "update-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Update Complete!",
       content: [

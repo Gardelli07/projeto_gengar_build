@@ -1,19 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "time-days-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Time & Days",
       content: [
@@ -24,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "what-time-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -40,7 +31,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "today-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -56,7 +47,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "tomorrow-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -72,7 +63,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "am-pm-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -89,7 +80,7 @@ Se o seu voo é às 20h, no painel estará: 8:00 PM. Muito cuidado para não con
   },
   {
     key: "what-time-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "Você chegou na recepção e quer confirmar a hora do seu check-out. Como você pergunta as horas?",
@@ -103,7 +94,7 @@ Se o seu voo é às 20h, no painel estará: 8:00 PM. Muito cuidado para não con
   },
   {
     key: "flight-am-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -119,7 +110,7 @@ Se o seu voo é às 20h, no painel estará: 8:00 PM. Muito cuidado para não con
   },
   {
     key: "time-words-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt:
         "Conecte as palavras de tempo com suas traduções corretas para não perder sua reserva.",
@@ -134,7 +125,7 @@ Se o seu voo é às 20h, no painel estará: 8:00 PM. Muito cuidado para não con
   },
   {
     key: "what-time-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras para escrever a frase na ordem correta.",
       words: ["it", "time", "What", "is", "?"],
@@ -145,7 +136,7 @@ Se o seu voo é às 20h, no painel estará: 8:00 PM. Muito cuidado para não con
   },
   {
     key: "what-time-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         'Qual é a maneira correta de perguntar "Que horas são?" em inglês?',
@@ -159,7 +150,7 @@ Se o seu voo é às 20h, no painel estará: 8:00 PM. Muito cuidado para não con
   },
   {
     key: "what-time-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -174,7 +165,7 @@ Se o seu voo é às 20h, no painel estará: 8:00 PM. Muito cuidado para não con
   },
   {
     key: "what-time-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

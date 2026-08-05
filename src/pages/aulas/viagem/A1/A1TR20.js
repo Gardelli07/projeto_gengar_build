@@ -1,19 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "buying-tickets-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Buying Tickets",
       content: [
@@ -24,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "ticket-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -39,7 +30,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "adult-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -54,7 +45,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "child-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -69,7 +60,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "tickets-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -83,7 +74,7 @@ Se estiver com um filho pequeno: "One adult and one child, please." Simples e di
   },
   {
     key: "tickets-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "Você chegou na bilheteria do museu e quer dois ingressos. Complete a frase:",
@@ -97,7 +88,7 @@ Se estiver com um filho pequeno: "One adult and one child, please." Simples e di
   },
   {
     key: "adult-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -114,7 +105,7 @@ Se estiver com um filho pequeno: "One adult and one child, please." Simples e di
   },
   {
     key: "ticket-vocab",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte o vocabulário de passeio com as traduções corretas.",
       pairs: [
@@ -128,7 +119,7 @@ Se estiver com um filho pequeno: "One adult and one child, please." Simples e di
   },
   {
     key: "two-tickets-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras para escrever a frase na ordem correta.",
       words: ["tickets", "please", "Two", ","],
@@ -139,7 +130,7 @@ Se estiver com um filho pequeno: "One adult and one child, please." Simples e di
   },
   {
     key: "adult-ticket-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "Como você pede um ingresso de adulto de forma educada e correta na bilheteria?",
@@ -157,7 +148,7 @@ Se estiver com um filho pequeno: "One adult and one child, please." Simples e di
   },
   {
     key: "two-tickets-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -172,7 +163,7 @@ Se estiver com um filho pequeno: "One adult and one child, please." Simples e di
   },
   {
     key: "ticket-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

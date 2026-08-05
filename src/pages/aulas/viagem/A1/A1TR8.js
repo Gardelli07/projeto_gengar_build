@@ -1,19 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "immigration-customs-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Immigration & Customs",
       content: [
@@ -24,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "tourism-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -40,7 +31,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "business-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -56,7 +47,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "immigration-short-answer-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -73,7 +64,7 @@ Responda apenas o que foi perguntado. Respostas curtas, precisas e confiantes fu
   },
   {
     key: "hotel-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -89,7 +80,7 @@ Responda apenas o que foi perguntado. Respostas curtas, precisas e confiantes fu
   },
   {
     key: "here-for-tourism-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "Você chegou na cabine de imigração. O oficial pergunta o motivo da viagem. Você está de férias, então completa:",
@@ -103,7 +94,7 @@ Responda apenas o que foi perguntado. Respostas curtas, precisas e confiantes fu
   },
   {
     key: "ten-days-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -120,7 +111,7 @@ Responda apenas o que foi perguntado. Respostas curtas, precisas e confiantes fu
   },
   {
     key: "immigration-vocab-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt:
         "Conecte o vocabulário de sobrevivência da imigração com as traduções.",
@@ -135,7 +126,7 @@ Responda apenas o que foi perguntado. Respostas curtas, precisas e confiantes fu
   },
   {
     key: "here-for-tourism-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras para escrever a frase na ordem correta.",
       words: ["here", "am", "I", "tourism", "for"],
@@ -146,7 +137,7 @@ Responda apenas o que foi perguntado. Respostas curtas, precisas e confiantes fu
   },
   {
     key: "seven-days-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         'O oficial pergunta: "How long are you staying?" Como você responde de forma correta se for ficar uma semana?',
@@ -160,7 +151,7 @@ Responda apenas o que foi perguntado. Respostas curtas, precisas e confiantes fu
   },
   {
     key: "business-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -175,7 +166,7 @@ Responda apenas o que foi perguntado. Respostas curtas, precisas e confiantes fu
   },
   {
     key: "tourism-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

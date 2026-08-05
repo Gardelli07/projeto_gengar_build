@@ -1,19 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "help-emergencies-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Help & Emergencies",
       content: [
@@ -24,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "help-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -39,7 +30,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "call-doctor-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -54,7 +45,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "hospital-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -69,7 +60,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "emergency-number-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -80,7 +71,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "doctor-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "Você vê alguém passando muito mal na rua e grita para as pessoas ao redor:",
@@ -94,7 +85,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "hospital-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -110,7 +101,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "emergency-vocab",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte as palavras de emergência com suas situações.",
       pairs: [
@@ -124,7 +115,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "call-doctor-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras para escrever a frase na ordem correta.",
       words: ["a", "Call", ",", "doctor", "please"],
@@ -135,7 +126,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "hospital-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "Como você pergunta a alguém na rua onde fica o hospital mais próximo de forma rápida e clara?",
@@ -153,7 +144,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "help-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -168,7 +159,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "call-doctor-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

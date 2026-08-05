@@ -1,19 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { Exercise18 } from "../../../../exc/ex18";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "cafe-fast-food-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "At the Café / Fast Food",
       content: [
@@ -24,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "espresso-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -39,7 +30,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "drip-coffee-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -54,7 +45,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "for-here-to-go-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -70,7 +61,7 @@ Decore isso, você vai ouvir todos os dias!`,
   },
   {
     key: "to-go-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -85,7 +76,7 @@ Decore isso, você vai ouvir todos os dias!`,
   },
   {
     key: "drip-coffee-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt:
         "Você chegou na cafeteria logo de manhã. Você prefere um café coado. Complete o seu pedido usando a nossa frase coringa:",
@@ -106,7 +97,7 @@ Decore isso, você vai ouvir todos os dias!`,
   },
   {
     key: "for-here-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -123,7 +114,7 @@ Decore isso, você vai ouvir todos os dias!`,
   },
   {
     key: "coffee-letters",
-    component: Exercise13,
+    component: "Exercise13",
     activity: {
       prompt:
         'Vamos garantir a escrita da bebida mais pedida do mundo. Clique nas letras na ordem certa para escrever "café" em inglês.',
@@ -136,7 +127,7 @@ Decore isso, você vai ouvir todos os dias!`,
   },
   {
     key: "cafe-vocab",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte o vocabulário da cafeteria com as traduções corretas.",
       pairs: [
@@ -150,7 +141,7 @@ Decore isso, você vai ouvir todos os dias!`,
   },
   {
     key: "to-go-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         'Você comprou um lanche no balcão e o caixa perguntou: "For here or to go?". Você quer comer no quarto do seu hotel. Como você responde corretamente?',
@@ -164,7 +155,7 @@ Decore isso, você vai ouvir todos os dias!`,
   },
   {
     key: "drip-coffee-to-go-write",
-    component: Exercise18,
+    component: "Exercise18",
     activity: {
       prompt:
         "Não clique, digite! As palavras estão bagunçadas. Escreva a frase na ordem certa para pedir o seu café coado para levar.",
@@ -178,7 +169,7 @@ Decore isso, você vai ouvir todos os dias!`,
   },
   {
     key: "espresso-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

@@ -1,18 +1,10 @@
-﻿import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { Exercise18 } from "../../../../exc/ex18";
-import { BUA1, Images } from "../../../../util/images";
+﻿import { BUA1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "closing-deal-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Sign here, please!",
       content: [
@@ -26,7 +18,7 @@ Para soar mais moderno e profissional, use "partnership" ao invés de apenas "co
   },
   {
     key: "contract-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -41,7 +33,7 @@ Para soar mais moderno e profissional, use "partnership" ao invés de apenas "co
   },
   {
     key: "sign-partner-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Clique na imagem e na palavra correta.",
       images: [
@@ -62,7 +54,7 @@ Para soar mais moderno e profissional, use "partnership" ao invés de apenas "co
   },
   {
     key: "contract-vocab",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte as palavras com suas traduções.",
       pairs: [
@@ -76,7 +68,7 @@ Para soar mais moderno e profissional, use "partnership" ao invés de apenas "co
   },
   {
     key: "sign-contract-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt: "Complete a frase.",
       paragraphs: [
@@ -98,7 +90,7 @@ Para soar mais moderno e profissional, use "partnership" ao invés de apenas "co
   },
   {
     key: "sign-signature-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Sign vs. Signature",
       content: [
@@ -109,7 +101,7 @@ Para soar mais moderno e profissional, use "partnership" ao invés de apenas "co
   },
   {
     key: "please-sign-correct",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt: "Escolha a forma correta.",
       image: BUA1.A19S7,
@@ -126,7 +118,7 @@ Para soar mais moderno e profissional, use "partnership" ao invés de apenas "co
   },
   {
     key: "please-sign-order",
-    component: Exercise18,
+    component: "Exercise18",
     activity: {
       prompt: "Organize a frase.",
       scrambledSentence: "contract / Please / the / sign",
@@ -139,7 +131,7 @@ Para soar mais moderno e profissional, use "partnership" ao invés de apenas "co
   },
   {
     key: "sign-contract-audio",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction: 'Grave um áudio dizendo: "Please sign the contract."',
@@ -155,7 +147,7 @@ Para soar mais moderno e profissional, use "partnership" ao invés de apenas "co
   },
   {
     key: "closing-deal-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Contract signed!",
       content: [

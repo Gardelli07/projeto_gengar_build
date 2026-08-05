@@ -1,20 +1,10 @@
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { Exercise18 } from "../../../../exc/ex18";
-import { Exercise19 } from "../../../../exc/ex19";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "booking-table-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Booking a Table & Sitting Down",
       content: [
@@ -25,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "table-for-two-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -40,7 +30,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "menu-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -55,7 +45,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "wait-to-be-seated-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -68,7 +58,7 @@ Sempre espere na porta. Procure uma placa que diz "Please wait to be seated". O 
   },
   {
     key: "table-for-two-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras para escrever a frase na ordem correta.",
       words: ["two", "table", "A", ",", "for", "please"],
@@ -79,7 +69,7 @@ Sempre espere na porta. Procure uma placa que diz "Please wait to be seated". O 
   },
   {
     key: "table-for-two-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt:
         'O host vem até você na entrada do restaurante e diz: "Good evening! How many?". Você está com a sua esposa. Como você responde?',
@@ -96,7 +86,7 @@ Sempre espere na porta. Procure uma placa que diz "Please wait to be seated". O 
   },
   {
     key: "table-for-four-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -113,7 +103,7 @@ Sempre espere na porta. Procure uma placa que diz "Please wait to be seated". O 
   },
   {
     key: "menu-letters",
-    component: Exercise13,
+    component: "Exercise13",
     activity: {
       prompt:
         'Você sentou, mas a mesa está vazia. Clique nas letras na ordem correta para formar a palavra "Cardápio" em inglês.',
@@ -126,7 +116,7 @@ Sempre espere na porta. Procure uma placa que diz "Please wait to be seated". O 
   },
   {
     key: "menu-listen-write",
-    component: Exercise19,
+    component: "Exercise19",
     needsSpeech: true,
     activity: {
       prompt:
@@ -143,7 +133,7 @@ Sempre espere na porta. Procure uma placa que diz "Please wait to be seated". O 
   },
   {
     key: "table-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "Qual é a maneira correta, educada e natural de pedir uma mesa para duas pessoas assim que você chega no restaurante?",
@@ -161,7 +151,7 @@ Sempre espere na porta. Procure uma placa que diz "Please wait to be seated". O 
   },
   {
     key: "menu-write-order",
-    component: Exercise18,
+    component: "Exercise18",
     activity: {
       prompt:
         'Não clique, digite! Você já sabe usar o "Can I have". Digite a frase na ordem correta para pedir o cardápio ao garçom.',
@@ -175,7 +165,7 @@ Sempre espere na porta. Procure uma placa que diz "Please wait to be seated". O 
   },
   {
     key: "table-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

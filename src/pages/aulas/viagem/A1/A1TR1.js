@@ -1,17 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "travel-politeness-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Greetings & Politeness",
       content: [
@@ -22,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "good-morning-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -38,7 +31,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "good-evening-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -54,7 +47,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "evening-night-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -69,7 +62,7 @@ Está indo embora do restaurante ou indo dormir no hotel? Diga "Good night". Nun
   },
   {
     key: "hotel-evening-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "Você acabou de chegar ao balcão do hotel às 20h para o check-in. Como você cumprimenta o recepcionista?",
@@ -83,7 +76,7 @@ Está indo embora do restaurante ou indo dormir no hotel? Diga "Good night". Nun
   },
   {
     key: "excuse-me-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -99,7 +92,7 @@ Está indo embora do restaurante ou indo dormir no hotel? Diga "Good night". Nun
   },
   {
     key: "sorry-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -115,7 +108,7 @@ Está indo embora do restaurante ou indo dormir no hotel? Diga "Good night". Nun
   },
   {
     key: "excuse-me-sorry-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Excuse me vs. Sorry",
       content: [
@@ -130,7 +123,7 @@ Pisou no pé de alguém sem querer? Use "Sorry".
   },
   {
     key: "good-morning-excuse-me-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras para escrever a frase na ordem correta.",
       words: ["morning", "Good", ",", "me", "excuse"],
@@ -141,7 +134,7 @@ Pisou no pé de alguém sem querer? Use "Sorry".
   },
   {
     key: "magic-words-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte as palavras mágicas com suas traduções.",
       pairs: [
@@ -155,7 +148,7 @@ Pisou no pé de alguém sem querer? Use "Sorry".
   },
   {
     key: "good-evening-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -170,7 +163,7 @@ Pisou no pé de alguém sem querer? Use "Sorry".
   },
   {
     key: "excuse-me-good-morning-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

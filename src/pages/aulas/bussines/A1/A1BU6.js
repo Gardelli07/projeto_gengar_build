@@ -1,18 +1,10 @@
-﻿import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { BUA1, Images } from "../../../../util/images";
+﻿import { BUA1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "meeting-participation-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Speaking Up!",
       content: [
@@ -26,7 +18,7 @@ Para pedir a palavra, você não precisa levantar a mão e gritar. Uma das forma
   },
   {
     key: "agree-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute a palavra e escolha a alternativa correta.",
@@ -41,7 +33,7 @@ Para pedir a palavra, você não precisa levantar a mão e gritar. Uma das forma
   },
   {
     key: "meeting-email-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Clique na imagem e na palavra que a descreve.",
       images: [
@@ -62,7 +54,7 @@ Para pedir a palavra, você não precisa levantar a mão e gritar. Uma das forma
   },
   {
     key: "meeting-expressions-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte as expressões em inglês com suas traduções.",
       pairs: [
@@ -76,7 +68,7 @@ Para pedir a palavra, você não precisa levantar a mão e gritar. Uma das forma
   },
   {
     key: "agree-with-you",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt: "Complete a frase com a palavra correta.",
       sentenceStart: "I",
@@ -89,7 +81,7 @@ Para pedir a palavra, você não precisa levantar a mão e gritar. Uma das forma
   },
   {
     key: "i-am-agree-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: 'O Erro Clássico do "I am agree"',
       content: [
@@ -106,7 +98,7 @@ Nada de verb to be no meio!`,
   },
   {
     key: "question-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda se a frase é verdadeira ou falsa.",
@@ -123,7 +115,7 @@ Nada de verb to be no meio!`,
   },
   {
     key: "agree-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras para escrever a frase na ordem correta.",
       words: ["agree", "I", "you", "with"],
@@ -134,7 +126,7 @@ Nada de verb to be no meio!`,
   },
   {
     key: "meeting-audio",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:
@@ -151,7 +143,7 @@ Nada de verb to be no meio!`,
   },
   {
     key: "meeting-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Great participation!",
       content: [

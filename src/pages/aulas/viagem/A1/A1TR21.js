@@ -1,20 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise8 } from "../../../../exc/ex8";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "store-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "At the Store",
       content: [
@@ -25,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "sizes-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -40,7 +30,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "fitting-room-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -55,7 +45,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "try-on-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -68,7 +58,7 @@ Se você estiver com uma peça na mão e quiser saber se pode experimentar, apon
   },
   {
     key: "size-image-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Combine a etiqueta com o tamanho correto em inglês.",
       images: [
@@ -89,7 +79,7 @@ Se você estiver com uma peça na mão e quiser saber se pode experimentar, apon
   },
   {
     key: "fitting-room-image-choice",
-    component: Exercise8,
+    component: "Exercise8",
     activity: {
       prompt:
         "Olhe a imagem. Como chamamos esse lugar da loja onde você experimenta as roupas?",
@@ -102,7 +92,7 @@ Se você estiver com uma peça na mão e quiser saber se pode experimentar, apon
   },
   {
     key: "fitting-room-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -119,7 +109,7 @@ Se você estiver com uma peça na mão e quiser saber se pode experimentar, apon
   },
   {
     key: "fitting-room-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "Você achou uma camiseta linda, mas precisa provar. Você pergunta ao vendedor:",
@@ -133,7 +123,7 @@ Se você estiver com uma peça na mão e quiser saber se pode experimentar, apon
   },
   {
     key: "sizes-vocab",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt:
         "Conecte os tamanhos internacionais com as traduções para não errar na mala.",
@@ -148,7 +138,7 @@ Se você estiver com uma peça na mão e quiser saber se pode experimentar, apon
   },
   {
     key: "try-on-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "Como você pergunta ao vendedor se pode experimentar a peça de roupa que está na sua mão?",
@@ -162,7 +152,7 @@ Se você estiver com uma peça na mão e quiser saber se pode experimentar, apon
   },
   {
     key: "medium-size-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt: "Você está na arara de roupas e quer o tamanho médio. Complete:",
       paragraphs: [
@@ -178,7 +168,7 @@ Se você estiver com uma peça na mão e quiser saber se pode experimentar, apon
   },
   {
     key: "fitting-room-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

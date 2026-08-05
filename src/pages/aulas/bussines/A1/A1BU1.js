@@ -1,18 +1,10 @@
-﻿import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { BUA1, Images } from "../../../../util/images";
+﻿import { BUA1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "business-greetings-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Welcome to the Business World!",
       content: [
@@ -26,7 +18,7 @@ No dia a dia corporativo, a gente raramente usa aquele "How do you do?" dos livr
   },
   {
     key: "hello-good-morning-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute a palavra e escolha a alternativa que você ouviu.",
@@ -41,7 +33,7 @@ No dia a dia corporativo, a gente raramente usa aquele "How do you do?" dos livr
   },
   {
     key: "morning-evening-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Clique na imagem e na palavra que descreve ela.",
       images: [
@@ -62,7 +54,7 @@ No dia a dia corporativo, a gente raramente usa aquele "How do you do?" dos livr
   },
   {
     key: "intro-expression-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte as expressões em inglês com suas traduções.",
       pairs: [
@@ -76,7 +68,7 @@ No dia a dia corporativo, a gente raramente usa aquele "How do you do?" dos livr
   },
   {
     key: "my-name-is",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt: "Complete a frase com a palavra correta.",
       sentenceStart: "Hello,",
@@ -89,7 +81,7 @@ No dia a dia corporativo, a gente raramente usa aquele "How do you do?" dos livr
   },
   {
     key: "formal-informal-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Formal vs. Informal",
       content: [
@@ -108,7 +100,7 @@ Não chegue mandando um "Hey" pro CEO na primeira reunião, beleza?`,
   },
   {
     key: "sarah-afternoon-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda se a frase é verdadeira ou falsa.",
@@ -124,7 +116,7 @@ Não chegue mandando um "Hey" pro CEO na primeira reunião, beleza?`,
   },
   {
     key: "nice-to-meet-you-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras para escrever a frase na ordem correta.",
       words: ["meet", "to", "Nice", "you"],
@@ -135,7 +127,7 @@ Não chegue mandando um "Hey" pro CEO na primeira reunião, beleza?`,
   },
   {
     key: "professional-introduction-audio",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:
@@ -152,7 +144,7 @@ Não chegue mandando um "Hey" pro CEO na primeira reunião, beleza?`,
   },
   {
     key: "greetings-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Great job!",
       content: [

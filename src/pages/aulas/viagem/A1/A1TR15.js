@@ -1,19 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "checking-out-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Checking Out",
       content: [
@@ -24,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "check-out-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -40,7 +31,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "bill-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -55,7 +46,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "leave-bags-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -68,7 +59,7 @@ Aponte para a sua mala e pergunte: "Can I leave my bags here?" Leave significa "
   },
   {
     key: "leave-my-bags-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -83,7 +74,7 @@ Aponte para a sua mala e pergunte: "Can I leave my bags here?" Leave significa "
   },
   {
     key: "check-out-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "Você chegou na recepção no seu último dia de manhã, entregou a chave e disse:",
@@ -97,7 +88,7 @@ Aponte para a sua mala e pergunte: "Can I leave my bags here?" Leave significa "
   },
   {
     key: "leave-bags-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -115,7 +106,7 @@ Aponte para a sua mala e pergunte: "Can I leave my bags here?" Leave significa "
   },
   {
     key: "check-out-vocab",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte o vocabulário final de hospedagem com suas traduções.",
       pairs: [
@@ -129,7 +120,7 @@ Aponte para a sua mala e pergunte: "Can I leave my bags here?" Leave significa "
   },
   {
     key: "check-out-word-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras para escrever a frase na ordem correta.",
       words: ["out", "like", "to", "I", "would", "check"],
@@ -140,7 +131,7 @@ Aponte para a sua mala e pergunte: "Can I leave my bags here?" Leave significa "
   },
   {
     key: "bill-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "O recepcionista avisa que está tudo certo com a saída. Você quer dar uma olhada na conta para conferir. Como você pede isso de forma educada?",
@@ -158,7 +149,7 @@ Aponte para a sua mala e pergunte: "Can I leave my bags here?" Leave significa "
   },
   {
     key: "leave-bags-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -173,7 +164,7 @@ Aponte para a sua mala e pergunte: "Can I leave my bags here?" Leave significa "
   },
   {
     key: "check-out-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

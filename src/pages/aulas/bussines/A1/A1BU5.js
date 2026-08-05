@@ -1,18 +1,10 @@
-﻿import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise7 } from "../../../../exc/ex7";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { BUA1, Images } from "../../../../util/images";
+﻿import { BUA1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "business-trip-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Business Trip!",
       content: [
@@ -26,7 +18,7 @@ No balcão do aeroporto ou hotel, você vai ouvir muito a palavra "Here" quando 
   },
   {
     key: "passport-room-key-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Clique na imagem e na palavra que a descreve.",
       images: [
@@ -47,7 +39,7 @@ No balcão do aeroporto ou hotel, você vai ouvir muito a palavra "Here" quando 
   },
   {
     key: "ticket-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute a palavra e escolha a alternativa correta.",
@@ -62,7 +54,7 @@ No balcão do aeroporto ou hotel, você vai ouvir muito a palavra "Here" quando 
   },
   {
     key: "hotel-checkin-order",
-    component: Exercise7,
+    component: "Exercise7",
     activity: {
       prompt:
         "Coloque o diálogo de check-in na ordem correta clicando nas frases.",
@@ -84,7 +76,7 @@ No balcão do aeroporto ou hotel, você vai ouvir muito a palavra "Here" quando 
   },
   {
     key: "passport-correct",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt: "Qual é a frase correta para entregar o seu passaporte?",
       image: BUA1.A5S5,
@@ -101,7 +93,7 @@ No balcão do aeroporto ou hotel, você vai ouvir muito a palavra "Here" quando 
   },
   {
     key: "reservation-booking-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Reservation vs Booking",
       content: [
@@ -112,7 +104,7 @@ No balcão do aeroporto ou hotel, você vai ouvir muito a palavra "Here" quando 
   },
   {
     key: "reservation-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras para escrever a frase corretamente.",
       words: ["reservation", "a", "have", "I"],
@@ -123,7 +115,7 @@ No balcão do aeroporto ou hotel, você vai ouvir muito a palavra "Here" quando 
   },
   {
     key: "ticket-passport-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt:
@@ -140,7 +132,7 @@ No balcão do aeroporto ou hotel, você vai ouvir muito a palavra "Here" quando 
   },
   {
     key: "hotel-reception-audio",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:
@@ -157,7 +149,7 @@ No balcão do aeroporto ou hotel, você vai ouvir muito a palavra "Here" quando 
   },
   {
     key: "travel-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Safe Travels!",
       content: [

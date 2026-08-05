@@ -1,18 +1,10 @@
-﻿import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise8 } from "../../../../exc/ex8";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise17 } from "../../../../exc/ex17";
-import { Exercise18 } from "../../../../exc/ex18";
-import { BUA1 } from "../../../../util/images";
+﻿import { BUA1 } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "meeting-update-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Status Update!",
       content: [
@@ -26,7 +18,7 @@ Nativos adoram usar o Present Continuous nas reuniões para dar foco no que est�
   },
   {
     key: "working-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute a palavra e escolha a alternativa correta.",
@@ -41,7 +33,7 @@ Nativos adoram usar o Present Continuous nas reuniões para dar foco no que est�
   },
   {
     key: "working-well-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt: "Complete o texto com as alternativas.",
       paragraphs: [
@@ -59,7 +51,7 @@ Nativos adoram usar o Present Continuous nas reuniões para dar foco no que est�
   },
   {
     key: "status-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte o status ao seu significado.",
       pairs: [
@@ -73,7 +65,7 @@ Nativos adoram usar o Present Continuous nas reuniões para dar foco no que est�
   },
   {
     key: "presentation-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt:
@@ -90,7 +82,7 @@ Nativos adoram usar o Present Continuous nas reuniões para dar foco no que est�
   },
   {
     key: "in-progress-done-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "In Progress vs. Done",
       content: [
@@ -107,7 +99,7 @@ Sem enrolação, os chefes gringos amam direto ao ponto.`,
   },
   {
     key: "done-image-choice",
-    component: Exercise8,
+    component: "Exercise8",
     activity: {
       prompt:
         "Olhe para a imagem. Como dizemos que uma tarefa está terminada em inglês?",
@@ -120,7 +112,7 @@ Sem enrolação, os chefes gringos amam direto ao ponto.`,
   },
   {
     key: "working-on-project",
-    component: Exercise18,
+    component: "Exercise18",
     activity: {
       prompt: "As palavras estão bagunçadas. Digite a frase na ordem certa.",
       scrambledSentence: "project / am / I / on / the / working",
@@ -133,7 +125,7 @@ Sem enrolação, os chefes gringos amam direto ao ponto.`,
   },
   {
     key: "update-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -147,7 +139,7 @@ Sem enrolação, os chefes gringos amam direto ao ponto.`,
   },
   {
     key: "meeting-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Meeting Adjourned! (Reunião encerrada!)",
       content: [

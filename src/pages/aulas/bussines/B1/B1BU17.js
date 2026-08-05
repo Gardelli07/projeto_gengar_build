@@ -1,20 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { BUB1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: 'O Fim do "Homework": Action Items e Deliverables',
       content: [
@@ -25,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt:
         "Conecte o vocabulário de tarefas com os seus significados no mundo real.",
@@ -39,7 +29,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "correct",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "Você precisa definir o que cada um vai fazer na prática amanhã. Qual frase está correta?",
@@ -57,7 +47,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "ownership-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Ouça a palavra isolada e escolha a alternativa correta.",
@@ -72,7 +62,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "ownership-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: 'O "Dono" do Projeto e o Prazo',
       content: [
@@ -83,7 +73,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "ownership-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "Você precisa que alguém seja o responsável final por essa missão.",
@@ -97,7 +87,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "ownership-spell",
-    component: Exercise13,
+    component: "Exercise13",
     needsSpeech: true,
     activity: {
       prompt:
@@ -112,7 +102,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt: "Leia a ata final da reunião e preencha as lacunas.",
       paragraphs: [
@@ -142,7 +132,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "audio",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt:
@@ -161,7 +151,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt:
         "Clique nas palavras na ordem correta para exigir que alguém assuma a responsabilidade.",
@@ -173,7 +163,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:
@@ -192,7 +182,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Líder que Delega, Líder que Cresce!",
       content: [

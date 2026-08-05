@@ -1,20 +1,10 @@
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise8 } from "../../../../exc/ex8";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { Exercise18 } from "../../../../exc/ex18";
-import { Exercise19 } from "../../../../exc/ex19";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "hotel-amenities-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Hotel Amenities",
       content: [
@@ -25,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "breakfast-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -41,7 +31,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "wifi-password-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -56,7 +46,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "amenities-question-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -70,7 +60,7 @@ Para saber o horário do café, não use "What time is it?", que pergunta que ho
   },
   {
     key: "amenities-image-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Clique na imagem e depois na palavra que a descreve.",
       images: [
@@ -92,7 +82,7 @@ Para saber o horário do café, não use "What time is it?", que pergunta que ho
   },
   {
     key: "breakfast-image-choice",
-    component: Exercise8,
+    component: "Exercise8",
     activity: {
       prompt: "Olhe para a placa do hotel na imagem. Que refeição é essa?",
       image: TRA1.A13S2,
@@ -104,7 +94,7 @@ Para saber o horário do café, não use "What time is it?", que pergunta que ho
   },
   {
     key: "wifi-password-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt: "Complete o pequeno diálogo na recepção do hotel:",
       paragraphs: [
@@ -125,7 +115,7 @@ Para saber o horário do café, não use "What time is it?", que pergunta que ho
   },
   {
     key: "password-letters",
-    component: Exercise13,
+    component: "Exercise13",
     activity: {
       prompt:
         'Coloque as letras na ordem para descobrir como se escreve a palavra que usamos para "senha" em inglês.',
@@ -138,7 +128,7 @@ Para saber o horário do café, não use "What time is it?", que pergunta que ho
   },
   {
     key: "breakfast-listen-write",
-    component: Exercise19,
+    component: "Exercise19",
     needsSpeech: true,
     activity: {
       prompt:
@@ -155,7 +145,7 @@ Para saber o horário do café, não use "What time is it?", que pergunta que ho
   },
   {
     key: "wifi-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "Você pegou a sua chave e quer pedir a senha da internet. Qual é a pergunta correta e educada?",
@@ -173,7 +163,7 @@ Para saber o horário do café, não use "What time is it?", que pergunta que ho
   },
   {
     key: "breakfast-write-order",
-    component: Exercise18,
+    component: "Exercise18",
     activity: {
       prompt:
         "Não clique, digite! As palavras da pergunta abaixo estão bagunçadas. Digite a frase na ordem correta para perguntar o horário do café.",
@@ -187,7 +177,7 @@ Para saber o horário do café, não use "What time is it?", que pergunta que ho
   },
   {
     key: "wifi-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

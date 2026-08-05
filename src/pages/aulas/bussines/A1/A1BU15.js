@@ -1,18 +1,10 @@
-﻿import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { BUA1, Images } from "../../../../util/images";
+﻿import { BUA1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "making-offers-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Let's make a deal!",
       content: [
@@ -26,7 +18,7 @@ No mundo dos negócios, nativos raramente dizem "I give you a price". O mais pro
   },
   {
     key: "offer-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute a palavra e escolha a alternativa correta.",
@@ -41,7 +33,7 @@ No mundo dos negócios, nativos raramente dizem "I give you a price". O mais pro
   },
   {
     key: "price-deal-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Clique na imagem e na palavra que a descreve.",
       images: [
@@ -62,7 +54,7 @@ No mundo dos negócios, nativos raramente dizem "I give you a price". O mais pro
   },
   {
     key: "offer-vocab-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte as palavras com suas traduções.",
       pairs: [
@@ -76,7 +68,7 @@ No mundo dos negócios, nativos raramente dizem "I give you a price". O mais pro
   },
   {
     key: "offer-price-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt: "Complete a frase.",
       sentenceStart: "We can",
@@ -89,7 +81,7 @@ No mundo dos negócios, nativos raramente dizem "I give you a price". O mais pro
   },
   {
     key: "we-vs-i-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "We vs. I",
       content: [
@@ -100,7 +92,7 @@ No mundo dos negócios, nativos raramente dizem "I give you a price". O mais pro
   },
   {
     key: "offer-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Verdadeiro ou falso?",
@@ -116,7 +108,7 @@ No mundo dos negócios, nativos raramente dizem "I give you a price". O mais pro
   },
   {
     key: "offer-good-price-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Organize a frase.",
       words: ["offer", "can", "We", "price", "a", "good"],
@@ -127,7 +119,7 @@ No mundo dos negócios, nativos raramente dizem "I give you a price". O mais pro
   },
   {
     key: "offer-audio-practice",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction: 'Grave um áudio dizendo: "We can offer a good price."',
@@ -143,7 +135,7 @@ No mundo dos negócios, nativos raramente dizem "I give you a price". O mais pro
   },
   {
     key: "making-offers-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Good Offer!",
       content: [

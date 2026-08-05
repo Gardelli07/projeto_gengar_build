@@ -1,21 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { BUB1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "timeboxing-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: 'A Arte do "Timeboxing"',
       content: [
@@ -26,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "timeboxing-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt:
         "Conecte as expressões de controle de tempo com os seus significados em português.",
@@ -43,7 +32,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "timebox-short-image-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Clique na imagem e na expressão exata que a descreve.",
       images: [
@@ -64,7 +53,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "timebox-to-correct",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "Você precisa impor um limite de tempo. Qual é a estrutura escrita corretamente?",
@@ -82,7 +71,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "wrap-up-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt:
@@ -98,7 +87,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "wrap-up-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: 'O "Wrap-up" e a Transição',
       content: [
@@ -109,7 +98,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "wrap-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         'Qual é a palavra certa para convidar a equipe a "amarrar" e concluir o assunto?',
@@ -123,7 +112,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "move-spell",
-    component: Exercise13,
+    component: "Exercise13",
     needsSpeech: true,
     activity: {
       prompt:
@@ -138,7 +127,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "timeboxing-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt:
         "Leia a fala do líder e preencha as lacunas com as alternativas corretas de controle de tempo.",
@@ -159,7 +148,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "wrap-move-audio-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt:
@@ -178,7 +167,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "wrap-move-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt:
         "Clique nas palavras na ordem correta para concluir um assunto e passar para o próximo.",
@@ -216,7 +205,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "timeboxing-audio-practice",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:
@@ -235,7 +224,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "timeboxing-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Você é o dono do relógio!",
       content: [

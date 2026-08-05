@@ -1,18 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise20 } from "../../../../exc/ex20";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "check-in-desk-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "At the Check-in Desk",
       content: [
@@ -23,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "passport-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -39,7 +31,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "bag-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -55,7 +47,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "seat-battle-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -72,7 +64,7 @@ Atenção: "Aisle" se pronuncia "ÁIL". O "S" é mudo!`,
   },
   {
     key: "window-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -87,7 +79,7 @@ Atenção: "Aisle" se pronuncia "ÁIL". O "S" é mudo!`,
   },
   {
     key: "aisle-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -102,7 +94,7 @@ Atenção: "Aisle" se pronuncia "ÁIL". O "S" é mudo!`,
   },
   {
     key: "here-is-passport-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         'O atendente do aeroporto diz "Hello! Passport, please?". Você entrega o documento e diz:',
@@ -116,7 +108,7 @@ Atenção: "Aisle" se pronuncia "ÁIL". O "S" é mudo!`,
   },
   {
     key: "aisle-please-true-false",
-    component: Exercise20,
+    component: "Exercise20",
     activity: {
       prompt: "Observe e responda: verdadeiro ou falso?",
       image: TRA1.A5S8,
@@ -129,7 +121,7 @@ Atenção: "Aisle" se pronuncia "ÁIL". O "S" é mudo!`,
   },
   {
     key: "check-in-vocab-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte o vocabulário de check-in com as traduções.",
       pairs: [
@@ -143,7 +135,7 @@ Atenção: "Aisle" se pronuncia "ÁIL". O "S" é mudo!`,
   },
   {
     key: "here-is-passport-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras para escrever a frase na ordem correta.",
       words: ["my", "Here", "is", "passport"],
@@ -154,7 +146,7 @@ Atenção: "Aisle" se pronuncia "ÁIL". O "S" é mudo!`,
   },
   {
     key: "window-please-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -169,7 +161,7 @@ Atenção: "Aisle" se pronuncia "ÁIL". O "S" é mudo!`,
   },
   {
     key: "here-is-passport-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

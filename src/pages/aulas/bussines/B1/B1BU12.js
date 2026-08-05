@@ -1,20 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { BUB1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "concessions-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "A Regra de Ouro: Nunca Ceda de Graça",
       content: [
@@ -25,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "concessions-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt:
         "Conecte as expressões de troca (trade-offs) com os seus significados em português corporativo.",
@@ -40,7 +30,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "commit-concede-correct",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "O cliente pediu frete grátis. Você só vai dar o frete se ele comprar 500 unidades. Qual estrutura está correta?",
@@ -59,7 +49,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "dealbreaker-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Ouça a palavra isolada e escolha a alternativa correta.",
@@ -74,7 +64,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "limits-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Impondo Limites e Testando a Flexibilidade",
       content: [
@@ -85,7 +75,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "dealbreaker-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "O fornecedor quer aumentar o preço em 40%. Complete a frase para impor seu limite final.",
@@ -99,7 +89,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "flexibility-spell",
-    component: Exercise13,
+    component: "Exercise13",
     needsSpeech: true,
     activity: {
       prompt:
@@ -114,7 +104,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "tradeoff-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt: "Leia a negociação completa e preencha as lacunas.",
       paragraphs: [
@@ -144,7 +134,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "counter-offer-audio",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt:
@@ -162,7 +152,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "flexibility-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt:
         "Clique nas palavras na ordem correta para testar se há margem no prazo.",
@@ -192,7 +182,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "discount-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:
@@ -211,7 +201,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "concessions-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Você não cede, você Negocia!",
       content: [

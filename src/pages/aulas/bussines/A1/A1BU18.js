@@ -1,18 +1,10 @@
-﻿import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise17 } from "../../../../exc/ex17";
-import { BUA1 } from "../../../../util/images";
+﻿import { BUA1 } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "disagreements-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Saying NO politely.",
       content: [
@@ -26,7 +18,7 @@ Nunca diga apenas "No" em negócios. Use sempre uma estrutura mais educada como:
   },
   {
     key: "cannot-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -41,7 +33,7 @@ Nunca diga apenas "No" em negócios. Use sempre uma estrutura mais educada como:
   },
   {
     key: "polite-no-vocab",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte as palavras com suas traduções.",
       pairs: [
@@ -55,7 +47,7 @@ Nunca diga apenas "No" em negócios. Use sempre uma estrutura mais educada como:
   },
   {
     key: "sorry-but-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt: "Complete a frase.",
       sentenceStart: "I am sorry,",
@@ -68,7 +60,7 @@ Nunca diga apenas "No" em negócios. Use sempre uma estrutura mais educada como:
   },
   {
     key: "spell-sorry",
-    component: Exercise13,
+    component: "Exercise13",
     needsSpeech: true,
     activity: {
       prompt: "Organize a palavra.",
@@ -82,7 +74,7 @@ Nunca diga apenas "No" em negócios. Use sempre uma estrutura mais educada como:
   },
   {
     key: "sorry-but-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "I am sorry, but...",
       content: [
@@ -93,7 +85,7 @@ Nunca diga apenas "No" em negócios. Use sempre uma estrutura mais educada como:
   },
   {
     key: "cannot-accept-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Verdadeiro ou falso?",
@@ -109,7 +101,7 @@ Nunca diga apenas "No" em negócios. Use sempre uma estrutura mais educada como:
   },
   {
     key: "cannot-accept-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Organize a frase.",
       words: ["cannot", "We", "accept", "offer", "the"],
@@ -120,7 +112,7 @@ Nunca diga apenas "No" em negócios. Use sempre uma estrutura mais educada como:
   },
   {
     key: "polite-refusal-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction: "Escreva uma recusa educada.",
@@ -133,7 +125,7 @@ Nunca diga apenas "No" em negócios. Use sempre uma estrutura mais educada como:
   },
   {
     key: "disagreements-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Professional No!",
       content: [

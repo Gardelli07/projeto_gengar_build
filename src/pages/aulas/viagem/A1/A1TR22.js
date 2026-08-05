@@ -1,20 +1,10 @@
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise7 } from "../../../../exc/ex7";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { Exercise18 } from "../../../../exc/ex18";
-import { Exercise19 } from "../../../../exc/ex19";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "price-paying-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Price & Paying",
       content: [
@@ -25,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "how-much-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -40,7 +30,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "card-or-cash-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -55,7 +45,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "sales-tax-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -66,7 +56,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "payment-dialogue-order",
-    component: Exercise7,
+    component: "Exercise7",
     activity: {
       prompt:
         "Você está no caixa para pagar. Organize o diálogo na ordem correta.",
@@ -88,7 +78,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "cash-letters",
-    component: Exercise13,
+    component: "Exercise13",
     activity: {
       prompt:
         'Você quer pagar com "dinheiro vivo". Clique nas letras na ordem correta para formar essa palavra em inglês.',
@@ -101,7 +91,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "how-much-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -117,7 +107,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "how-much-listen-write",
-    component: Exercise19,
+    component: "Exercise19",
     needsSpeech: true,
     activity: {
       prompt:
@@ -134,7 +124,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "how-much-write-order",
-    component: Exercise18,
+    component: "Exercise18",
     activity: {
       prompt:
         "Não clique, digite! Coloque as palavras na ordem correta para perguntar o preço.",
@@ -148,7 +138,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "credit-card-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "Na hora de pagar, você quer usar o seu cartão de crédito. O que você diz para o vendedor?",
@@ -162,7 +152,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "how-much-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -177,7 +167,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "how-much-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

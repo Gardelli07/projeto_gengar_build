@@ -1,18 +1,10 @@
-﻿import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { BUA1, Images } from "../../../../util/images";
+﻿import { BUA1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "closing-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "The Grand Finale!",
       content: [
@@ -26,7 +18,7 @@ Nunca termine com "That's it". Use sempre: "Thank you for your time."`,
   },
   {
     key: "time-finish-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Clique na imagem correta.",
       images: [
@@ -47,7 +39,7 @@ Nunca termine com "That's it". Use sempre: "Thank you for your time."`,
   },
   {
     key: "closing-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte as palavras.",
       pairs: [
@@ -61,7 +53,7 @@ Nunca termine com "That's it". Use sempre: "Thank you for your time."`,
   },
   {
     key: "finish-time-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt: "Complete o texto.",
       paragraphs: [
@@ -79,7 +71,7 @@ Nunca termine com "That's it". Use sempre: "Thank you for your time."`,
   },
   {
     key: "thank-you-for-time",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt: "Complete a frase.",
       sentenceStart: "Thank you",
@@ -92,7 +84,7 @@ Nunca termine com "That's it". Use sempre: "Thank you for your time."`,
   },
   {
     key: "professional-expression-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Expressão profissional",
       content: [
@@ -103,7 +95,7 @@ Nunca termine com "That's it". Use sempre: "Thank you for your time."`,
   },
   {
     key: "finish-good-news-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Verdadeiro ou falso?",
@@ -119,7 +111,7 @@ Nunca termine com "That's it". Use sempre: "Thank you for your time."`,
   },
   {
     key: "thank-you-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Organize a frase.",
       words: ["for", "Thank", "you", "time", "your"],
@@ -130,7 +122,7 @@ Nunca termine com "That's it". Use sempre: "Thank you for your time."`,
   },
   {
     key: "closing-audio",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction: "Grave um áudio encerrando sua apresentação.",
@@ -146,7 +138,7 @@ Nunca termine com "That's it". Use sempre: "Thank you for your time."`,
   },
   {
     key: "closing-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Standing Ovation!",
       content: [

@@ -1,20 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { BUB1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: 'A Cobrança Educada: "Touching Base"',
       content: [
@@ -25,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt:
         "Conecte as expressões de checagem com suas traduções correspondentes no português corporativo.",
@@ -42,7 +32,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "correct",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "Você precisa saber o progresso do projeto de TI sem pressionar demais. Qual pergunta está correta?",
@@ -60,7 +50,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "loop-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Ouça a palavra isolada e escolha a alternativa correta.",
@@ -75,7 +65,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "loop-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: 'Mantendo todos no "Circuito"',
       content: [
@@ -86,7 +76,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "loop-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "O Diretor vai viajar, mas quer continuar recebendo notícias sobre a negociação.",
@@ -101,7 +91,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "status-spell",
-    component: Exercise13,
+    component: "Exercise13",
     needsSpeech: true,
     activity: {
       prompt: 'Organize as letras para formar "Andamento" ou "Situação Atual".',
@@ -115,7 +105,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt: "Leia a mensagem da gerente e preencha as lacunas.",
       paragraphs: [
@@ -137,7 +127,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "audio",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt:
@@ -155,7 +145,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras na ordem correta para cobrar gentilmente.",
       words: ["stand", "where", "we", "do", "project", "the", "on", "?"],
@@ -166,7 +156,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:
@@ -185,7 +175,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Comunicação Transparente!",
       content: [

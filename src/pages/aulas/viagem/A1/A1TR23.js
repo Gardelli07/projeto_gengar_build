@@ -1,19 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "souvenirs-gifts-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Souvenirs & Gifts",
       content: [
@@ -24,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "souvenir-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -39,7 +30,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "gift-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -54,7 +45,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "for-a-gift-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -69,7 +60,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "gift-receipt-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -80,7 +71,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "gift-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "Você está escolhendo um perfume para sua esposa e diz para o vendedor:",
@@ -94,7 +85,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "gift-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -111,7 +102,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "souvenir-vocab",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte o vocabulário de compras finais com suas traduções.",
       pairs: [
@@ -125,7 +116,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "for-a-gift-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras para escrever a frase na ordem correta.",
       words: ["gift", "please", "For", "a", ","],
@@ -136,7 +127,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "for-a-gift-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "Você comprou uma camiseta para um amigo e quer que ela seja embrulhada. O que você diz ao caixa?",
@@ -150,7 +141,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "souvenir-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -165,7 +156,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "gift-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

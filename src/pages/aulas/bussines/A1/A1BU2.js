@@ -1,18 +1,10 @@
-﻿import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise17 } from "../../../../exc/ex17";
-import { Exercise18 } from "../../../../exc/ex18";
-import { BUA1 } from "../../../../util/images";
+﻿import { BUA1 } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "work-duties-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "What do you do?",
       content: [
@@ -26,7 +18,7 @@ Dica de Nativo:
   },
   {
     key: "manager-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute a palavra e escolha a alternativa correta.",
@@ -41,7 +33,7 @@ Dica de Nativo:
   },
   {
     key: "i-am-developer",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt: "Complete a frase com a palavra correta.",
       sentenceStart: "I",
@@ -54,7 +46,7 @@ Dica de Nativo:
   },
   {
     key: "jobs-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte as palavras em inglês com suas traduções.",
       pairs: [
@@ -68,7 +60,7 @@ Dica de Nativo:
   },
   {
     key: "spell-work",
-    component: Exercise13,
+    component: "Exercise13",
     needsSpeech: true,
     activity: {
       prompt: "As letras estão bagunçadas! Escreva a palavra na ordem correta.",
@@ -82,7 +74,7 @@ Dica de Nativo:
   },
   {
     key: "work-as-for-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "I work AS a... vs I work FOR...",
       content: [
@@ -103,7 +95,7 @@ Nunca diga "I work of manager", isso entrega na hora que você não é fluente!`
   },
   {
     key: "work-as-manager",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt: "Qual das frases abaixo está escrita corretamente?",
       image: BUA1.A2S7,
@@ -120,7 +112,7 @@ Nunca diga "I work of manager", isso entrega na hora que você não é fluente!`
   },
   {
     key: "work-for-lingueto",
-    component: Exercise18,
+    component: "Exercise18",
     activity: {
       prompt: "As palavras estão bagunçadas. Digite a frase corretamente.",
       scrambledSentence: "for / I / Lingueto / work",
@@ -133,7 +125,7 @@ Nunca diga "I work of manager", isso entrega na hora que você não é fluente!`
   },
   {
     key: "profession-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -147,7 +139,7 @@ Nunca diga "I work of manager", isso entrega na hora que você não é fluente!`
   },
   {
     key: "duties-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "You nailed it!",
       content: [

@@ -1,20 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise8 } from "../../../../exc/ex8";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "paying-bill-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Paying the Bill",
       content: [
@@ -25,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "check-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -41,7 +31,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "tip-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -56,7 +46,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "service-included-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -69,7 +59,7 @@ Se não estiver, você deve adicionar o tip na hora de pagar com o cartão ou de
   },
   {
     key: "check-tip-image-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Combine a imagem com a palavra correta.",
       images: [
@@ -90,7 +80,7 @@ Se não estiver, você deve adicionar o tip na hora de pagar com o cartão ou de
   },
   {
     key: "credit-card-image-choice",
-    component: Exercise8,
+    component: "Exercise8",
     activity: {
       prompt:
         "O garçom pergunta como você quer pagar. Olhe a imagem e responda o que o turista está usando.",
@@ -103,7 +93,7 @@ Se não estiver, você deve adicionar o tip na hora de pagar com o cartão ou de
   },
   {
     key: "check-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -120,7 +110,7 @@ Se não estiver, você deve adicionar o tip na hora de pagar com o cartão ou de
   },
   {
     key: "check-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "Você terminou o seu café espresso e quer ir embora. Você chama o atendente e diz:",
@@ -134,7 +124,7 @@ Se não estiver, você deve adicionar o tip na hora de pagar com o cartão ou de
   },
   {
     key: "payment-vocab",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt:
         "Conecte os termos de pagamento com as traduções para não errar na saída.",
@@ -149,7 +139,7 @@ Se não estiver, você deve adicionar o tip na hora de pagar com o cartão ou de
   },
   {
     key: "check-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "Como você pede a conta de forma educada em um restaurante internacional?",
@@ -163,7 +153,7 @@ Se não estiver, você deve adicionar o tip na hora de pagar com o cartão ou de
   },
   {
     key: "tip-complete-text",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt: "Complete a regra de etiqueta nos EUA:",
       paragraphs: [
@@ -180,7 +170,7 @@ Se não estiver, você deve adicionar o tip na hora de pagar com o cartão ou de
   },
   {
     key: "check-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

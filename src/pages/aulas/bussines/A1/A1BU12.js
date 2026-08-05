@@ -1,18 +1,10 @@
-﻿import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise7 } from "../../../../exc/ex7";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { Exercise19 } from "../../../../exc/ex19";
-import { Images } from "../../../../util/images";
+﻿import { Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "qa-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Any questions?",
       content: [
@@ -26,7 +18,7 @@ Sempre compre tempo! Diga: "That is a good question." Isso soa educado e te dá 
   },
   {
     key: "any-questions-listen",
-    component: Exercise19,
+    component: "Exercise19",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escreva exatamente o que você ouviu.",
@@ -42,7 +34,7 @@ Sempre compre tempo! Diga: "That is a good question." Isso soa educado e te dá 
   },
   {
     key: "qa-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte as palavras.",
       pairs: [
@@ -56,7 +48,7 @@ Sempre compre tempo! Diga: "That is a good question." Isso soa educado e te dá 
   },
   {
     key: "questions-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt: "Complete o texto.",
       paragraphs: [
@@ -82,7 +74,7 @@ Sempre compre tempo! Diga: "That is a good question." Isso soa educado e te dá 
   },
   {
     key: "good-question",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt: "Complete a frase.",
       sentenceStart: "That is a",
@@ -95,7 +87,7 @@ Sempre compre tempo! Diga: "That is a good question." Isso soa educado e te dá 
   },
   {
     key: "let-me-check-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Let me check",
       content: [
@@ -106,7 +98,7 @@ Sempre compre tempo! Diga: "That is a good question." Isso soa educado e te dá 
   },
   {
     key: "qa-dialogue-order",
-    component: Exercise7,
+    component: "Exercise7",
     activity: {
       prompt: "Organize o diálogo.",
       options: [
@@ -127,7 +119,7 @@ Sempre compre tempo! Diga: "That is a good question." Isso soa educado e te dá 
   },
   {
     key: "good-question-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Organize a frase.",
       words: ["is", "a", "That", "question", "good"],
@@ -138,7 +130,7 @@ Sempre compre tempo! Diga: "That is a good question." Isso soa educado e te dá 
   },
   {
     key: "qa-audio",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:
@@ -155,7 +147,7 @@ Sempre compre tempo! Diga: "That is a good question." Isso soa educado e te dá 
   },
   {
     key: "qa-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Great Answer!",
       content: [

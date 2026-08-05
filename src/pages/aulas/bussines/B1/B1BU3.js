@@ -1,21 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { Exercise18 } from "../../../../exc/ex18";
 import { BUB1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "silencing-dominators-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: 'Trazendo os "Quietinhos" para a Conversa',
       content: [
@@ -26,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "bring-take-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt:
         "Conecte as expressões avançadas de liderança com seus significados no português.",
@@ -41,7 +30,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "bring-sarah-correct",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "Você quer ouvir o que a Sarah tem a dizer sobre o projeto. Qual é a frase escrita corretamente?",
@@ -59,7 +48,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "take-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         'Complete a frase usando uma alternativa mais nativa que "opinion".',
@@ -73,7 +62,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "hold-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt:
@@ -89,7 +78,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "hold-thought-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: 'Cortando o "Tagarela" com Classe',
       content: [
@@ -100,7 +89,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "hold-room-image-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Clique na imagem e na expressão exata que a descreve.",
       images: [
@@ -122,7 +111,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "dominators-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt: 'Complete as lacunas para interromper o "tagarela".',
       paragraphs: [
@@ -142,7 +131,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "dominators-audio-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt:
@@ -161,7 +150,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "hold-mark-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt:
         "Clique nas palavras na ordem correta para segurar o pensamento dele e convidar o Mark.",
@@ -195,7 +184,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "take-on-this-type",
-    component: Exercise18,
+    component: "Exercise18",
     activity: {
       prompt:
         "Escreva a frase na ordem correta para perguntar a visão do time.",
@@ -209,7 +198,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "silencing-audio-practice",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:
@@ -228,7 +217,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "silencing-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Autoridade e Empatia",
       content: [

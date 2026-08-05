@@ -1,18 +1,10 @@
-﻿import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise17 } from "../../../../exc/ex17";
-import { Exercise18 } from "../../../../exc/ex18";
-import { BUA1 } from "../../../../util/images";
+﻿import { BUA1 } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "audience-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Eye Contact!",
       content: [
@@ -26,7 +18,7 @@ Use "As you can see..." para conectar o público ao slide sem perder contato vis
   },
   {
     key: "smile-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -41,7 +33,7 @@ Use "As you can see..." para conectar o público ao slide sem perder contato vis
   },
   {
     key: "body-language-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte as palavras.",
       pairs: [
@@ -55,7 +47,7 @@ Use "As you can see..." para conectar o público ao slide sem perder contato vis
   },
   {
     key: "as-you-can-see",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt: "Complete a frase.",
       sentenceStart: "As you can",
@@ -68,7 +60,7 @@ Use "As you can see..." para conectar o público ao slide sem perder contato vis
   },
   {
     key: "spell-smile",
-    component: Exercise13,
+    component: "Exercise13",
     needsSpeech: true,
     activity: {
       prompt: "Organize a palavra.",
@@ -82,7 +74,7 @@ Use "As you can see..." para conectar o público ao slide sem perder contato vis
   },
   {
     key: "can-without-to-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: 'Can sem "to"',
       content: [
@@ -93,7 +85,7 @@ Use "As you can see..." para conectar o público ao slide sem perder contato vis
   },
   {
     key: "can-see-correct",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt: "Escolha a frase correta.",
       image: BUA1.A13S7,
@@ -110,7 +102,7 @@ Use "As you can see..." para conectar o público ao slide sem perder contato vis
   },
   {
     key: "as-you-can-see-order",
-    component: Exercise18,
+    component: "Exercise18",
     activity: {
       prompt: "Organize a frase.",
       scrambledSentence: "see / you / As / can",
@@ -123,7 +115,7 @@ Use "As you can see..." para conectar o público ao slide sem perder contato vis
   },
   {
     key: "audience-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -137,7 +129,7 @@ Use "As you can see..." para conectar o público ao slide sem perder contato vis
   },
   {
     key: "audience-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "You have their attention!",
       content: [

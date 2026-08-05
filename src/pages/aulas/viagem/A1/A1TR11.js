@@ -1,19 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "directions-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Where is...? (Directions)",
       content: [
@@ -24,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "right-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -40,7 +31,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "left-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -55,7 +46,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "turn-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -72,7 +63,7 @@ Mas e se for para continuar andando reto na mesma rua? Vamos ver no próximo sli
   },
   {
     key: "go-straight-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -87,7 +78,7 @@ Mas e se for para continuar andando reto na mesma rua? Vamos ver no próximo sli
   },
   {
     key: "turn-left-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "Você perguntou onde fica o supermercado e a pessoa apontou para a esquina dizendo para você virar à esquerda. Complete a frase que ela disse:",
@@ -101,7 +92,7 @@ Mas e se for para continuar andando reto na mesma rua? Vamos ver no próximo sli
   },
   {
     key: "turn-right-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -117,7 +108,7 @@ Mas e se for para continuar andando reto na mesma rua? Vamos ver no próximo sli
   },
   {
     key: "directions-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte os comandos de direção com as suas traduções.",
       pairs: [
@@ -131,7 +122,7 @@ Mas e se for para continuar andando reto na mesma rua? Vamos ver no próximo sli
   },
   {
     key: "turn-right-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras para escrever a frase na ordem correta.",
       words: ["right", "Turn", ",", "please"],
@@ -142,7 +133,7 @@ Mas e se for para continuar andando reto na mesma rua? Vamos ver no próximo sli
   },
   {
     key: "go-straight-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "Você perguntou onde é o hotel e o recepcionista disse que é só seguir reto na mesma rua. Qual frase ele usou?",
@@ -156,7 +147,7 @@ Mas e se for para continuar andando reto na mesma rua? Vamos ver no próximo sli
   },
   {
     key: "turn-left-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -171,7 +162,7 @@ Mas e se for para continuar andando reto na mesma rua? Vamos ver no próximo sli
   },
   {
     key: "go-straight-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction: 'Aperte o botão e grave a frase: "Go straight" (Vá reto).',

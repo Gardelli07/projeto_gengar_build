@@ -1,18 +1,10 @@
-﻿import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise7 } from "../../../../exc/ex7";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { BUA1, Images } from "../../../../util/images";
+﻿import { BUA1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "talk-structure-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "The Perfect Structure",
       content: [
@@ -26,7 +18,7 @@ Nativos adoram apresentações organizadas. Use: First, Then, Finally para guiar
   },
   {
     key: "first-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -41,7 +33,7 @@ Nativos adoram apresentações organizadas. Use: First, Then, Finally para guiar
   },
   {
     key: "structure-words-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte as palavras com as traduções.",
       pairs: [
@@ -55,7 +47,7 @@ Nativos adoram apresentações organizadas. Use: First, Then, Finally para guiar
   },
   {
     key: "first-then-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt: "Complete o texto.",
       paragraphs: [
@@ -73,7 +65,7 @@ Nativos adoram apresentações organizadas. Use: First, Then, Finally para guiar
   },
   {
     key: "finally-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt: "Complete a frase.",
       sentenceStart: "",
@@ -86,7 +78,7 @@ Nativos adoram apresentações organizadas. Use: First, Then, Finally para guiar
   },
   {
     key: "today-talk-about-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Today I will talk about...",
       content: [
@@ -97,7 +89,7 @@ Nativos adoram apresentações organizadas. Use: First, Then, Finally para guiar
   },
   {
     key: "presentation-dialogue-order",
-    component: Exercise7,
+    component: "Exercise7",
     activity: {
       prompt: "Organize o diálogo.",
       options: [
@@ -118,7 +110,7 @@ Nativos adoram apresentações organizadas. Use: First, Then, Finally para guiar
   },
   {
     key: "will-talk-about-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Organize a frase.",
       words: ["talk", "I", "about", "will", "sales"],
@@ -129,7 +121,7 @@ Nativos adoram apresentações organizadas. Use: First, Then, Finally para guiar
   },
   {
     key: "talk-about-sales-audio",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:
@@ -146,7 +138,7 @@ Nativos adoram apresentações organizadas. Use: First, Then, Finally para guiar
   },
   {
     key: "structure-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Great Start!",
       content: [

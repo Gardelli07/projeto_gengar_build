@@ -1,21 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise2 } from "../../../../exc/ex2";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise15 } from "../../../../exc/ex15";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { BUB1, Images } from "../../../../util/images";
 import createBusinessLessonScreen from "./BusinessLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "parking-lot-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: 'O famoso "Estacionamento" das Reuniões',
       content: [
@@ -26,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "parking-expressions-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt:
         "Conecte as expressões de controle de narrativa com seus significados no mundo corporativo.",
@@ -40,7 +29,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "park-reel-image-match",
-    component: Exercise15,
+    component: "Exercise15",
     activity: {
       prompt: "Clique na imagem e na expressão exata que a descreve.",
       images: [
@@ -61,7 +50,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "reel-budget-correct",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "Qual é a frase escrita corretamente para puxar o assunto de volta para a pauta?",
@@ -79,7 +68,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "interest-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt:
@@ -95,7 +84,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "interest-of-time-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: 'A desculpa de ouro: "In the interest of time"',
       content: [
@@ -106,7 +95,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "interest-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         'O tempo está acabando. Qual é a palavra certa para usar a "desculpa de ouro"?',
@@ -120,7 +109,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "interest-spell",
-    component: Exercise13,
+    component: "Exercise13",
     needsSpeech: true,
     activity: {
       prompt:
@@ -135,7 +124,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "parking-dialogue-complete",
-    component: Exercise2,
+    component: "Exercise2",
     activity: {
       prompt:
         "Leia o diálogo da reunião e complete as lacunas com as expressões que aprendemos hoje.",
@@ -160,7 +149,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "parking-audio-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt:
@@ -179,7 +168,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "interest-park-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt:
         "Clique nas palavras na ordem correta para montar a frase perfeita de controle de reunião.",
@@ -213,7 +202,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "parking-audio-practice",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:
@@ -232,7 +221,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "parking-feedback",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Você é o mestre da pauta!",
       content: [

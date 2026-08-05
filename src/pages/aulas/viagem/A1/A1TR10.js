@@ -1,19 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "getting-city-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Getting to the City",
       content: [
@@ -24,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "train-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -39,7 +30,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "taxi-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -55,7 +46,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "take-me-to-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Ouro",
       content: [
@@ -70,7 +61,7 @@ Exemplo: "Take me to this address, please".`,
   },
   {
     key: "address-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -86,7 +77,7 @@ Exemplo: "Take me to this address, please".`,
   },
   {
     key: "address-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         'Você entrou no táxi, mostrou o celular com o nome da rua para o motorista e disse: "Take me to this ______, please."',
@@ -100,7 +91,7 @@ Exemplo: "Take me to this address, please".`,
   },
   {
     key: "take-me-hotel-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -117,7 +108,7 @@ Exemplo: "Take me to this address, please".`,
   },
   {
     key: "transport-vocab-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte as palavras de transporte para não se perder.",
       pairs: [
@@ -131,7 +122,7 @@ Exemplo: "Take me to this address, please".`,
   },
   {
     key: "take-me-hotel-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras para escrever a frase na ordem correta.",
       words: ["me", "the", "to", "Take", "hotel"],
@@ -142,7 +133,7 @@ Exemplo: "Take me to this address, please".`,
   },
   {
     key: "take-address-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         'Qual é a frase perfeita e educada para dizer ao motorista do táxi "Me leve para este endereço, por favor"?',
@@ -160,7 +151,7 @@ Exemplo: "Take me to this address, please".`,
   },
   {
     key: "take-me-hotel-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -175,7 +166,7 @@ Exemplo: "Take me to this address, please".`,
   },
   {
     key: "take-address-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

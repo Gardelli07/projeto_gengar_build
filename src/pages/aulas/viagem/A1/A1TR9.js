@@ -1,19 +1,10 @@
-import { Exercise1 } from "../../../../exc/ex1";
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise5 } from "../../../../exc/ex5";
-import { Exercise6 } from "../../../../exc/ex6";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "baggage-claim-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Baggage Claim & Exiting",
       content: [
@@ -24,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "baggage-claim-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -39,7 +30,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "exit-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -54,7 +45,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "lost-bag-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Sobrevivência",
       content: [
@@ -69,7 +60,7 @@ Eles vão te dar um formulário e cuidar de tudo. Lembre-se: "Lost" = perdido.`,
   },
   {
     key: "lost-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -84,7 +75,7 @@ Eles vão te dar um formulário e cuidar de tudo. Lembre-se: "Lost" = perdido.`,
   },
   {
     key: "bag-lost-complete",
-    component: Exercise5,
+    component: "Exercise5",
     activity: {
       prompt:
         "A esteira parou, todo mundo foi embora e sua mala não chegou. Você vai ao balcão e diz:",
@@ -98,7 +89,7 @@ Eles vão te dar um formulário e cuidar de tudo. Lembre-se: "Lost" = perdido.`,
   },
   {
     key: "baggage-claim-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -115,7 +106,7 @@ Eles vão te dar um formulário e cuidar de tudo. Lembre-se: "Lost" = perdido.`,
   },
   {
     key: "airport-exit-vocab-match",
-    component: Exercise1,
+    component: "Exercise1",
     activity: {
       prompt: "Conecte o vocabulário de saída do aeroporto com as traduções.",
       pairs: [
@@ -129,7 +120,7 @@ Eles vão te dar um formulário e cuidar de tudo. Lembre-se: "Lost" = perdido.`,
   },
   {
     key: "where-exit-order",
-    component: Exercise6,
+    component: "Exercise6",
     activity: {
       prompt: "Clique nas palavras para escrever a frase na ordem correta.",
       words: ["the", "is", "Where", "exit", "?"],
@@ -140,7 +131,7 @@ Eles vão te dar um formulário e cuidar de tudo. Lembre-se: "Lost" = perdido.`,
   },
   {
     key: "where-exit-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt:
         "Você pegou a sua mala e quer saber para que lado fica a saída do aeroporto. Qual é a forma correta de perguntar?",
@@ -154,7 +145,7 @@ Eles vão te dar um formulário e cuidar de tudo. Lembre-se: "Lost" = perdido.`,
   },
   {
     key: "my-bag-is-lost-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -169,7 +160,7 @@ Eles vão te dar um formulário e cuidar de tudo. Lembre-se: "Lost" = perdido.`,
   },
   {
     key: "where-exit-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:

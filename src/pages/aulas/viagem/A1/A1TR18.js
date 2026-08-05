@@ -1,20 +1,10 @@
-import { Exercise3 } from "../../../../exc/ex3";
-import { Exercise4 } from "../../../../exc/ex4";
-import { Exercise7 } from "../../../../exc/ex7";
-import { Exercise12 } from "../../../../exc/ex12";
-import { Exercise13 } from "../../../../exc/ex13";
-import { Exercise14 } from "../../../../exc/ex14";
-import { Exercise16 } from "../../../../exc/ex16";
-import { Exercise17 } from "../../../../exc/ex17";
-import { Exercise18 } from "../../../../exc/ex18";
-import { Exercise19 } from "../../../../exc/ex19";
 import { Images, TRA1 } from "../../../../util/images";
 import createTravelLessonScreen from "./TravelLessonTemplate";
 
 const LESSON_SLIDES = [
   {
     key: "ordering-food-intro",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Ordering Food",
       content: [
@@ -25,7 +15,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "ready-to-order-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -40,7 +30,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "would-like-audio",
-    component: Exercise14,
+    component: "Exercise14",
     needsSpeech: true,
     activity: {
       prompt: "Escute e escolha a alternativa correta.",
@@ -56,7 +46,7 @@ const LESSON_SLIDES = [
   },
   {
     key: "id-like-tip",
-    component: Exercise17,
+    component: "Exercise17",
     activity: {
       label: "Dica de Nativo",
       content: [
@@ -69,7 +59,7 @@ Exemplo: "I'd like the chicken, please." Treine esse som para soar mais natural.
   },
   {
     key: "ordering-dialogue-order",
-    component: Exercise7,
+    component: "Exercise7",
     activity: {
       prompt: "O garçom chegou. Organize o diálogo na ordem correta.",
       options: [
@@ -90,7 +80,7 @@ Exemplo: "I'd like the chicken, please." Treine esse som para soar mais natural.
   },
   {
     key: "order-letters",
-    component: Exercise13,
+    component: "Exercise13",
     activity: {
       prompt:
         'O garçom quer saber se você está pronto para "pedir". Coloque as letras na ordem certa.',
@@ -103,7 +93,7 @@ Exemplo: "I'd like the chicken, please." Treine esse som para soar mais natural.
   },
   {
     key: "chicken-true-false",
-    component: Exercise3,
+    component: "Exercise3",
     needsSpeech: true,
     activity: {
       prompt: "Escute o áudio e responda: verdadeiro ou falso?",
@@ -119,7 +109,7 @@ Exemplo: "I'd like the chicken, please." Treine esse som para soar mais natural.
   },
   {
     key: "chicken-listen-write",
-    component: Exercise19,
+    component: "Exercise19",
     needsSpeech: true,
     activity: {
       prompt: "Ouça com atenção e escreva exatamente o que o cliente pediu.",
@@ -135,7 +125,7 @@ Exemplo: "I'd like the chicken, please." Treine esse som para soar mais natural.
   },
   {
     key: "chicken-write-order",
-    component: Exercise18,
+    component: "Exercise18",
     activity: {
       prompt:
         "Não clique, digite! Coloque as palavras na ordem correta para pedir o frango.",
@@ -149,7 +139,7 @@ Exemplo: "I'd like the chicken, please." Treine esse som para soar mais natural.
   },
   {
     key: "pasta-correct-sentence",
-    component: Exercise4,
+    component: "Exercise4",
     activity: {
       prompt: "Qual é a maneira mais educada de pedir um prato de macarrão?",
       image: TRA1.A18S10,
@@ -166,7 +156,7 @@ Exemplo: "I'd like the chicken, please." Treine esse som para soar mais natural.
   },
   {
     key: "fish-writing",
-    component: Exercise12,
+    component: "Exercise12",
     activity: {
       prompt: "Writing",
       instruction:
@@ -181,7 +171,7 @@ Exemplo: "I'd like the chicken, please." Treine esse som para soar mais natural.
   },
   {
     key: "pasta-speaking",
-    component: Exercise16,
+    component: "Exercise16",
     activity: {
       prompt: "Speaking",
       instruction:
