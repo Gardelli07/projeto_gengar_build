@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Animated,
   Dimensions,
@@ -17,22 +17,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { COLORS, FONTS } from "./premiumTheme";
 import { aulasPlusLessons } from "./lessons";
-import { benefits, comingSoonCourses, continueItems, series, trending } from "./premiumMockData";
+import { benefits, comingSoonCourses, series } from "./premiumMockData";
+import EmptyShelfCard from "./EmptyShelfCard";
+import { fetchAulasPlusRanking } from "../../../services/aulasPlus";
+import { getPendingAulasPlusLessons, loadAulasPlusProgress } from "./progress";
 
 const { width: SCREEN_W } = Dimensions.get("window");
-
-function ProgressBar({ progress }) {
-  const anim = useRef(new Animated.Value(0)).current;
-  useEffect(() => {
-    Animated.timing(anim, { toValue: progress, duration: 900, useNativeDriver: false }).start();
-  }, [anim, progress]);
-  const widthPct = anim.interpolate({ inputRange: [0, 100], outputRange: ["0%", "100%"] });
-  return (
-    <View style={styles.progressTrack}>
-      <Animated.View style={[styles.progressFill, { width: widthPct }]} />
-    </View>
-  );
-}
 
 function PulsingBadge({ children, style }) {
   const scale = useRef(new Animated.Value(1)).current;
@@ -98,10 +88,55 @@ function WaveBars() {
 }
 
 export default function AulasPlusHome({ navigation }) {
-  const goToLesson = (lesson) => navigation.navigate(lesson.screen);
+  const goToLesson = (lesson) => navigation.navigate(lesson.screen, { lesson });
   const goToSeries = (s) => navigation.navigate("AulasPlusSeriesDetail", { seriesId: s.id });
   const goToPaywall = () => navigation.navigate("Paywall");
   const goHome = () => navigation.navigate("Tabs", { screen: "Home" });
+
+  const [ranking, setRanking] = useState({ trending: [], destaque: [] });
+  const [aulasPlusProgress, setAulasPlusProgress] = useState({});
+
+  useEffect(() => {
+    let active = true;
+    fetchAulasPlusRanking()
+      .then((data) => {
+        if (active) setRanking(data);
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    loadAulasPlusProgress().then(setAulasPlusProgress);
+    const sub = navigation.addListener("focus", () => {
+      loadAulasPlusProgress().then(setAulasPlusProgress);
+    });
+    return sub;
+  }, [navigation]);
+
+  const lessonsByCodigo = useMemo(() => {
+    const map = new Map();
+    aulasPlusLessons.forEach((lesson) => map.set(lesson.id, lesson));
+    return map;
+  }, []);
+
+  // O backend manda ordem/contagens; o catalogo local (lessonsByCodigo)
+  // fornece titulo/imagem/cores para exibir. Itens sem par local (aula
+  // desativada, por exemplo) sao descartados silenciosamente.
+  const trendingCards = ranking.trending
+    .map((item, index) => {
+      const lesson = lessonsByCodigo.get(item.codigo);
+      return lesson ? { ...lesson, rank: index + 1, concluidasSemana: item.concluidas_7d } : null;
+    })
+    .filter(Boolean);
+
+  const destaqueLessonCards = ranking.destaque
+    .map((item) => lessonsByCodigo.get(item.codigo))
+    .filter(Boolean);
+
+  const pendingLessons = getPendingAulasPlusLessons(aulasPlusProgress);
 
   return (
     <View style={styles.screen}>
@@ -182,20 +217,66 @@ export default function AulasPlusHome({ navigation }) {
             </View>
           </View>
 
-          {/* Continue Learning */}
+          {/* Trending */}
           <View style={styles.sectionHeaderRow}>
-            <Text style={styles.sectionTitle}>Continue de onde parou</Text>
-            <Text style={styles.link}>Ver tudo</Text>
+            <Text style={styles.sectionTitle}>🔥 Em alta essa semana</Text>
           </View>
           <FlatList
             horizontal
-            data={continueItems}
+            data={trendingCards}
             keyExtractor={(i) => i.id}
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.carouselPad}
             ItemSeparatorComponent={() => <View style={{ width: 14 }} />}
+            ListEmptyComponent={
+              <EmptyShelfCard
+                icon="chart-line"
+                message="Ainda não há alunos suficientes essa semana. Volte em breve!"
+              />
+            }
             renderItem={({ item }) => (
-              <View style={styles.continueCard}>
+              <TouchableOpacity
+                style={styles.trendWrap}
+                activeOpacity={0.85}
+                onPress={() => goToLesson(item)}
+              >
+                <Text style={styles.rankNumeral}>{item.rank}</Text>
+                <View style={styles.trendCard}>
+                  <CardBg image={item.image} colors={item.colors} style={styles.trendThumb} />
+                  <View style={{ padding: 10 }}>
+                    <Text style={styles.cardTitleSm} numberOfLines={1}>{item.title}</Text>
+                    <Text style={styles.cardFaint}>
+                      {item.concluidasSemana} aluno{item.concluidasSemana === 1 ? "" : "s"} essa semana
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            )}
+          />
+
+          {/* Continue Learning */}
+          <View style={styles.sectionHeaderRow}>
+            <Text style={styles.sectionTitle}>Continue de onde parou</Text>
+          </View>
+          <FlatList
+            horizontal
+            data={pendingLessons}
+            keyExtractor={(i) => i.id}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.carouselPad}
+            ItemSeparatorComponent={() => <View style={{ width: 14 }} />}
+            ListEmptyComponent={
+              <EmptyShelfCard
+                icon="check-circle-outline"
+                message="Você concluiu todas as aulas Plus disponíveis. Volte em breve para mais!"
+              />
+            }
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                style={styles.continueCard}
+                activeOpacity={0.85}
+                onPress={() => goToLesson(item)}
+              >
                 <CardBg image={item.image} colors={item.colors} style={styles.continueThumb}>
                   <View style={styles.playBadge}>
                     <MaterialCommunityIcons name="play" size={11} color="#fff" />
@@ -203,11 +284,10 @@ export default function AulasPlusHome({ navigation }) {
                 </CardBg>
                 <View style={{ padding: 12 }}>
                   <Text style={styles.cardTitle} numberOfLines={1}>{item.title}</Text>
-                  <Text style={styles.cardSub}>{item.sub}</Text>
-                  <ProgressBar progress={item.progress} />
-                  <Text style={styles.cardFaint}>{item.minutesLeft} min restantes</Text>
+                  <Text style={styles.cardSub}>{item.subtitle}</Text>
+                  <Text style={styles.cardFaint}>{item.duration}</Text>
                 </View>
-              </View>
+              </TouchableOpacity>
             )}
           />
 
@@ -218,7 +298,7 @@ export default function AulasPlusHome({ navigation }) {
           <FlatList
             horizontal
             data={[
-              ...aulasPlusLessons.map((l) => ({
+              ...destaqueLessonCards.map((l) => ({
                 id: l.id,
                 title: l.title,
                 meta: `${l.subtitle} · ${l.duration}`,
@@ -262,43 +342,28 @@ export default function AulasPlusHome({ navigation }) {
             <Text style={styles.sectionTitle}>Séries de aprendizado</Text>
             <Text style={styles.sectionSubtitle}>Organizadas em temporadas e episódios</Text>
           </View>
-          <View style={{ paddingHorizontal: 20, gap: 12 }}>
-            {series.map((s) => (
-              <TouchableOpacity key={s.id} style={styles.seriesRow} onPress={() => goToSeries(s)} activeOpacity={0.85}>
-                <LinearGradient colors={s.colors} style={styles.seriesThumb} />
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.cardTitle}>{s.title}</Text>
-                  <Text style={styles.cardSub}>Temporada 1 · {s.episodes} episódios</Text>
-                </View>
-                <MaterialCommunityIcons name="chevron-right" size={18} color={COLORS.textFaint} />
-              </TouchableOpacity>
-            ))}
-          </View>
-
-          {/* Trending */}
-          <View style={styles.sectionHeaderRow}>
-            <Text style={styles.sectionTitle}>🔥 Em alta essa semana</Text>
-          </View>
-          <FlatList
-            horizontal
-            data={trending}
-            keyExtractor={(i) => i.id}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.carouselPad}
-            ItemSeparatorComponent={() => <View style={{ width: 14 }} />}
-            renderItem={({ item }) => (
-              <View style={styles.trendWrap}>
-                <Text style={styles.rankNumeral}>{item.rank}</Text>
-                <View style={styles.trendCard}>
-                  <LinearGradient colors={item.colors} style={styles.trendThumb} />
-                  <View style={{ padding: 10 }}>
-                    <Text style={styles.cardTitleSm} numberOfLines={1}>{item.title}</Text>
-                    <Text style={styles.cardFaint}>{item.plays} alunos</Text>
+          {series.length > 0 ? (
+            <View style={{ paddingHorizontal: 20, gap: 12 }}>
+              {series.map((s) => (
+                <TouchableOpacity key={s.id} style={styles.seriesRow} onPress={() => goToSeries(s)} activeOpacity={0.85}>
+                  <LinearGradient colors={s.colors} style={styles.seriesThumb} />
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.cardTitle}>{s.title}</Text>
+                    <Text style={styles.cardSub}>Temporada 1 · {s.episodes} episódios</Text>
                   </View>
-                </View>
-              </View>
-            )}
-          />
+                  <MaterialCommunityIcons name="chevron-right" size={18} color={COLORS.textFaint} />
+                </TouchableOpacity>
+              ))}
+            </View>
+          ) : (
+            <View style={{ paddingHorizontal: 20 }}>
+              <EmptyShelfCard
+                icon="movie-open-outline"
+                message="Novas séries chegando em breve."
+                width="100%"
+              />
+            </View>
+          )}
 
           {/* AI Coach */}
           <View style={styles.aiCard}>
@@ -445,7 +510,6 @@ const styles = StyleSheet.create({
   },
   sectionTitle: { color: COLORS.text, fontFamily: FONTS.heading, fontSize: 17 },
   sectionSubtitle: { color: COLORS.textMuted, fontFamily: FONTS.body, fontSize: 12.5, marginTop: 2 },
-  link: { color: COLORS.textMuted, fontFamily: FONTS.body, fontSize: 12.5 },
   carouselPad: { paddingHorizontal: 20, paddingBottom: 8 },
 
   continueCard: { width: 190, borderRadius: CARD_RADIUS, backgroundColor: COLORS.card, borderWidth: 1, borderColor: COLORS.cardBorder, overflow: "hidden" },
@@ -456,8 +520,6 @@ const styles = StyleSheet.create({
   cardTitleSm: { color: COLORS.text, fontFamily: FONTS.bodyBold, fontSize: 12.5, marginBottom: 3 },
   cardSub: { color: COLORS.textMuted, fontFamily: FONTS.body, fontSize: 11.5, marginBottom: 8 },
   cardFaint: { color: COLORS.textFaint, fontFamily: FONTS.body, fontSize: 10.5 },
-  progressTrack: { height: 5, borderRadius: 100, backgroundColor: "rgba(255,255,255,0.08)", overflow: "hidden", marginBottom: 6 },
-  progressFill: { height: "100%", borderRadius: 100, backgroundColor: COLORS.primary },
 
   courseCard: { width: 230, borderRadius: 18, backgroundColor: COLORS.card, borderWidth: 1, borderColor: COLORS.cardBorder, overflow: "hidden" },
   courseThumb: { width: 230, height: 128 },
@@ -486,7 +548,7 @@ const styles = StyleSheet.create({
     color: "rgba(255,255,255,0.09)",
   },
   trendCard: { borderRadius: 14, overflow: "hidden", backgroundColor: COLORS.card, borderWidth: 1, borderColor: COLORS.cardBorder },
-  trendThumb: { height: 90 },
+  trendThumb: { width: 142, height: 90 },
 
   aiCard: { marginHorizontal: 20, marginBottom: 26, borderRadius: 22, padding: 24, overflow: "hidden" },
   aiHeaderRow: { flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 14 },

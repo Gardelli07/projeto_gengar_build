@@ -17,6 +17,11 @@ import { useAuth } from "../context/AuthContext";
 import { API_URL } from "../services/api";
 import { getLevelProgress, XP_PER_LESSON } from "../util/xp";
 import { clearAllLocalProgress, loadGlobalProgressStats } from "../util/courseCatalog";
+import {
+  clearAllAulasPlusProgress,
+  getAulasPlusXpTotal,
+  loadAulasPlusProgress,
+} from "./aulas/aulasplus/progress";
 import { fetchResumoProgresso, resetarProgresso } from "../services/progresso";
 import { resetarNivelamento } from "../services/nivelamento";
 import { hasFullAccess } from "../util/plans";
@@ -141,12 +146,15 @@ export default function ProfileScreen({ navigation }) {
 
   useFocusRefresh(
     useCallback(async () => {
-      const [stats, resumo, reminder] = await Promise.all([
+      const [stats, resumo, reminder, aulasPlusProgress] = await Promise.all([
         loadGlobalProgressStats(),
         fetchResumoProgresso().catch(() => null),
         getReminderSettings(),
+        loadAulasPlusProgress(),
       ]);
-      setTotalXp(stats.completed * XP_PER_LESSON);
+      setTotalXp(
+        stats.completed * XP_PER_LESSON + getAulasPlusXpTotal(aulasPlusProgress),
+      );
       if (resumo) setStreak(resumo.streakAtual);
       setReminderEnabled(reminder.enabled);
       setReminderHour(reminder.hour);
@@ -229,6 +237,7 @@ export default function ProfileScreen({ navigation }) {
             try {
               await resetarProgresso();
               await clearAllLocalProgress();
+              await clearAllAulasPlusProgress();
               setTotalXp(0);
               setStreak(0);
             } catch {

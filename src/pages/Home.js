@@ -58,6 +58,10 @@ import {
   inglesSampleLessons as inglesB1SampleLessons,
 } from "./aulas/completo/B1";
 import { travelModuleDefs, travelSampleLessons } from "./aulas/viagem/A1";
+import {
+  getAulasPlusXpTotal,
+  loadAulasPlusProgress,
+} from "./aulas/aulasplus/progress";
 
 const LEVEL_ACCENT = {
   Starter: "#2E9E6B",
@@ -289,6 +293,7 @@ export default function Inglescompleto({ navigation, route }) {
   const [aulaAccessMap, setAulaAccessMap] = useState(null);
   const [studyTimeModalVisible, setStudyTimeModalVisible] = useState(false);
   const [dailyGoalsState, setDailyGoalsState] = useState({ goals: [] });
+  const [aulasPlusProgress, setAulasPlusProgress] = useState({});
 
   // Pergunta o horario de estudo uma unica vez, logo na primeira Home apos o
   // login (a flag fica salva no dispositivo independente do usuario decidir
@@ -430,6 +435,8 @@ export default function Inglescompleto({ navigation, route }) {
       if (resumo) setStreak(resumo.streakAtual);
       const goals = await dailyGoals.getTodayGoals().catch(() => null);
       if (goals) setDailyGoalsState(goals);
+      const aulasPlusProgressData = await loadAulasPlusProgress().catch(() => null);
+      if (aulasPlusProgressData) setAulasPlusProgress(aulasPlusProgressData);
       await loadAllCourseStats();
     }
     loadExtras();
@@ -483,7 +490,9 @@ export default function Inglescompleto({ navigation, route }) {
   ).length;
   const percent = totalLessons > 0 ? (completedCount / totalLessons) * 100 : 0;
   const totalXp =
-    completedCount * XP_PER_LESSON + (dailyGoalsState.lifetimeBonusXp || 0);
+    completedCount * XP_PER_LESSON +
+    (dailyGoalsState.lifetimeBonusXp || 0) +
+    getAulasPlusXpTotal(aulasPlusProgress);
   const levelProgress = useMemo(() => getLevelProgress(totalXp), [totalXp]);
 
   const lessonsByModule = useMemo(() => {

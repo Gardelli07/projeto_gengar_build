@@ -13,6 +13,9 @@ export const aulasPlusLessons = [
     colors: ["#3A4BC7", "#5B6EF5"],
     image: require("../../../../assets/aulasplus/SelfIntroLesson.jpeg"),
     screen: "SelfIntroLesson",
+    // Valor de referencia/exibicao E o valor real creditado - esta aula nao
+    // calcula XP proprio internamente (ver CoffeeShopLesson pra contraste).
+    xpReward: 50,
   },
   {
     id: "coffee-shop",
@@ -24,5 +27,8 @@ export const aulasPlusLessons = [
     colors: ["#B0742F", "#F2A93B"],
     image: require("../../../../assets/aulasplus/CoffeeShopLesson.jpeg"),
     screen: "CoffeeShopLesson",
+    // So o valor de referencia/exibicao (ex: cards "~150 XP"). O valor real
+    // creditado vem do contador `xp` ao vivo da propria aula ao concluir.
+    xpReward: 150,
   },
 ];

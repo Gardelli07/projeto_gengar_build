@@ -26,6 +26,13 @@ import {
   useAudioRecorderState,
 } from "expo-audio";
 import { Images } from "../../../util/images";
+import { aulasPlusLessons } from "./lessons";
+import {
+  loadAulasPlusLessonState,
+  saveAulasPlusLessonState,
+  clearAulasPlusLessonState,
+  recordAulasPlusLessonCompletion,
+} from "./progress";
 
 // ---------- recorded audio (ElevenLabs) ----------
 const AUDIO = {
@@ -425,7 +432,10 @@ const INITIAL = {
   picker: null,
 };
 
-export default function SelfIntroLesson({ navigation }) {
+export default function SelfIntroLesson({ navigation, route }) {
+  const lesson =
+    route?.params?.lesson ||
+    aulasPlusLessons.find((item) => item.screen === "SelfIntroLesson");
   const [st, setSt] = useState(INITIAL);
   const timers = useRef([]);
   const audioPlayerRef = useRef(null);
@@ -435,6 +445,8 @@ export default function SelfIntroLesson({ navigation }) {
   });
   const [recKey, setRecKey] = useState(null);
   const recStartRef = useRef(0);
+  const hasLoadedStateRef = useRef(false);
+  const completionCommitRef = useRef(false);
   const up = useCallback(
     (patch) =>
       setSt((p) => ({
@@ -461,6 +473,38 @@ export default function SelfIntroLesson({ navigation }) {
   useEffect(() => {
     if (recKey) recStartRef.current = Date.now();
   }, [recKey]);
+
+  // Retomar de onde parou: carrega o estado salvo uma unica vez ao montar.
+  // O guard hasLoadedStateRef evita que o efeito de salvar (abaixo) rode
+  // antes desse carregamento terminar e sobrescreva o progresso salvo com o
+  // estado inicial.
+  useEffect(() => {
+    if (!lesson) return undefined;
+    let active = true;
+    loadAulasPlusLessonState(lesson.id).then((saved) => {
+      if (!active) return;
+      if (saved) setSt(saved);
+      hasLoadedStateRef.current = true;
+    });
+    return () => {
+      active = false;
+    };
+  }, [lesson]);
+
+  useEffect(() => {
+    if (!lesson || !hasLoadedStateRef.current) return;
+    saveAulasPlusLessonState(lesson.id, st).catch(() => {});
+  }, [lesson, st]);
+
+  // Registra a conclusao (XP + progresso) quando a licao chega na cena
+  // final ("LESSON COMPLETE"). Nao ha calculo de XP proprio nesta aula, entao
+  // usa o valor de referencia do catalogo.
+  useEffect(() => {
+    if (st.scene !== 9 || completionCommitRef.current || !lesson) return;
+    completionCommitRef.current = true;
+    recordAulasPlusLessonCompletion(lesson, lesson.xpReward).catch(() => {});
+  }, [st.scene, lesson]);
+
   const toggleTr = (k) => up((p) => ({ tr: { ...p.tr, [k]: !p.tr[k] } }));
   const goBack = () => navigation.goBack();
 
@@ -765,6 +809,7 @@ export default function SelfIntroLesson({ navigation }) {
     if (recKey) recorder.stop().catch(() => {});
     setRecKey(null);
     setSt(INITIAL);
+    if (lesson) clearAulasPlusLessonState(lesson.id).catch(() => {});
   };
 
   const choiceEn =

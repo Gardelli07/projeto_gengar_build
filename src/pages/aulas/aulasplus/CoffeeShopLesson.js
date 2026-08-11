@@ -13,6 +13,13 @@ import {
 import { useVideoPlayer, VideoView } from 'expo-video';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { scopedKey } from '../../../util/userScope';
+import { aulasPlusLessons } from './lessons';
+import {
+  loadAulasPlusLessonState,
+  saveAulasPlusLessonState,
+  clearAulasPlusLessonState,
+  recordAulasPlusLessonCompletion,
+} from './progress';
 
 // ---------- Bundled lesson assets ----------
 const ITEM_IMAGES = {
@@ -359,7 +366,12 @@ function BadgeModal({ badge, onDismiss }) {
 }
 
 // ---------- Main App ----------
-export default function CoffeeShopLesson({ navigation }) {
+export default function CoffeeShopLesson({ navigation, route }) {
+  const lesson =
+    route?.params?.lesson ||
+    aulasPlusLessons.find((item) => item.screen === 'CoffeeShopLesson');
+  const hasLoadedStateRef = useRef(false);
+  const completionCommitRef = useRef(false);
   const [stage, setStage] = useState('welcome');
   const [stageHistory, setStageHistory] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -420,6 +432,67 @@ export default function CoffeeShopLesson({ navigation }) {
     const id = setInterval(() => setRecElapsedMs(Date.now() - recStartRef.current), 200);
     return () => clearInterval(id);
   }, [recording]);
+
+  // Retomar de onde parou: restaura, uma unica vez ao montar, o subconjunto
+  // de estado que representa progresso real da tentativa atual (nao inclui
+  // estado de UI momentaneo como "modal aberto" ou "gravando agora"). O
+  // guard hasLoadedStateRef evita que o efeito de salvar (abaixo) rode antes
+  // desse carregamento terminar e sobrescreva o progresso salvo.
+  useEffect(() => {
+    if (!lesson) return undefined;
+    let active = true;
+    const setters = {
+      stage: setStage, stageHistory: setStageHistory, selectedItems: setSelectedItems,
+      activeCategory: setActiveCategory, postMenuDestination: setPostMenuDestination,
+      orderPhrase: setOrderPhrase, priceSaying: setPriceSaying, diningOption: setDiningOption,
+      paymentMethod: setPaymentMethod, recordedOk: setRecordedOk, recordedUri: setRecordedUri,
+      tapConfirmed: setTapConfirmed, tapQuizCorrect: setTapQuizCorrect,
+      goodbyeQuizCorrect: setGoodbyeQuizCorrect, xp: setXp, badges: setBadges,
+      visitedCategories: setVisitedCategories, listenCount: setListenCount,
+      recordSuccesses: setRecordSuccesses, transcript: setTranscript, media: setMedia,
+      showTranslation: setShowTranslation, goodbyeChunkPt: setGoodbyeChunkPt,
+      showChangePt: setShowChangePt,
+    };
+    loadAulasPlusLessonState(lesson.id).then((saved) => {
+      if (!active) return;
+      if (saved) {
+        Object.entries(saved).forEach(([key, value]) => {
+          setters[key]?.(value);
+        });
+      }
+      hasLoadedStateRef.current = true;
+    });
+    return () => {
+      active = false;
+    };
+  }, [lesson]);
+
+  useEffect(() => {
+    if (!lesson || !hasLoadedStateRef.current) return;
+    saveAulasPlusLessonState(lesson.id, {
+      stage, stageHistory, selectedItems, activeCategory, postMenuDestination,
+      orderPhrase, priceSaying, diningOption, paymentMethod, recordedOk, recordedUri,
+      tapConfirmed, tapQuizCorrect, goodbyeQuizCorrect, xp, badges, visitedCategories,
+      listenCount, recordSuccesses, transcript, media, showTranslation, goodbyeChunkPt,
+      showChangePt,
+    }).catch(() => {});
+  }, [
+    lesson, stage, stageHistory, selectedItems, activeCategory, postMenuDestination,
+    orderPhrase, priceSaying, diningOption, paymentMethod, recordedOk, recordedUri,
+    tapConfirmed, tapQuizCorrect, goodbyeQuizCorrect, xp, badges, visitedCategories,
+    listenCount, recordSuccesses, transcript, media, showTranslation, goodbyeChunkPt,
+    showChangePt,
+  ]);
+
+  // Registra a conclusao quando a licao chega na tela final ("review"), so
+  // alcancavel depois de acertar os dois quizzes (ver goodbyeSaid). Usa o
+  // valor AO VIVO do contador de XP desta aula (nao um valor fixo do
+  // catalogo) - e o mesmo numero que a tela final mostra pro aluno.
+  useEffect(() => {
+    if (stage !== 'review' || completionCommitRef.current || !lesson) return;
+    completionCommitRef.current = true;
+    recordAulasPlusLessonCompletion(lesson, xp).catch(() => {});
+  }, [stage, lesson, xp]);
 
   function goToStage(next, extraState = {}) {
     Speech.stop();
@@ -712,6 +785,7 @@ export default function CoffeeShopLesson({ navigation }) {
     setDiningOption(null); setPaymentMethod(null); setRecording(false); setRecordedOk(false); setRecordedUri(null); setTapConfirmed(false);
     setTapQuizCorrect(false); setTapQuizWrong(null); setGoodbyeQuizCorrect(false); setGoodbyeQuizWrong(null);
     setXp(0); setTranscript([]); setVisitedCategories(['coffee']); setListenCount(0); setRecordSuccesses(0);
+    if (lesson) clearAulasPlusLessonState(lesson.id).catch(() => {});
   }
 
   const STAGE_PROGRESS = { welcome: 0, menuIntro: 5, menuBrowse: 20, itemFollowup: 20, anythingElseChoice: 22, orderPhrase: 40, speakOrder: 50, addonOffer: 55, anythingElseFinal: 62, diningChoice: 72, totalCheck: 82, paymentChoice: 90, cardTap: 94, cardGoodbye: 97, cashPaid: 94, cashGoodbye: 97, review: 100 };

@@ -1,14 +1,12 @@
 // Conteudo de demonstracao para as secoes do design "Lingueto Premium
-// Classes" que ainda nao tem dados reais no backend (cursos, series e
-// trending). Substitua cada lista por dados vindos da API assim que o
-// catalogo de Aulas Plus crescer. Os itens aqui NAO navegam para nenhuma
-// tela — sao apenas a previa visual do layout.
-export const continueItems = [
-  { id: "c1", title: "Telemarketer Intro", sub: "Conversação • Nível 3", progress: 19, minutesLeft: 8, colors: ["#3A4BC7", "#5B6EF5"], image: require("../../../../assets/aulasplus/TelemarketerIntro.jpeg") },
-  { id: "c2", title: "Airplane Vocab", sub: "Viagem • Nível 2", progress: 62, minutesLeft: 4, colors: ["#B0742F", "#F2A93B"], image: require("../../../../assets/aulasplus/AirplaneVocab.jpeg") },
-  { id: "c3", title: "Job interview intro", sub: "Trabalho • Nível 4", progress: 45, minutesLeft: 6, colors: ["#2C7A6B", "#3FAF98"] },
-];
-
+// Classes" que ainda nao tem dados reais no backend (cursos futuros e
+// series). Substitua cada lista por dados vindos da API assim que o
+// catalogo de Aulas Plus crescer nessas frentes. Os itens aqui NAO navegam
+// para nenhuma tela — sao apenas a previa visual do layout.
+//
+// "Continue de onde parou" e "Em alta essa semana" ja usam dado real (ver
+// AulasPlusHome.js: getPendingAulasPlusLessons / fetchAulasPlusRanking) e
+// por isso saíram deste arquivo.
 export const comingSoonCourses = [
   { id: "f1", title: "English for Travel", meta: "Em breve • Iniciante", colors: ["#1E5FA8", "#4C9FE0"] },
   { id: "f2", title: "Business English", meta: "Em breve • Intermediário", colors: ["#2C7A6B", "#3FAF98"] },
@@ -29,13 +27,6 @@ export const series = [
     duration: `${6 + (n % 5) * 2} min`,
   })),
 }));
-
-export const trending = [
-  { id: "t1", rank: 1, title: "Lost in New York", plays: "12.4k", colors: ["#3A4BC7", "#5B6EF5"] },
-  { id: "t2", rank: 2, title: "Ordering dinner", plays: "9.8k", colors: ["#B0742F", "#F2A93B"] },
-  { id: "t3", rank: 3, title: "Airport English", plays: "8.1k", colors: ["#1E5FA8", "#4C9FE0"] },
-  { id: "t4", rank: 4, title: "Salary negotiation", plays: "6.5k", colors: ["#2C7A6B", "#3FAF98"] },
-];
 
 // Beneficios reais do app (nao inventados) — refletem o que ja existe hoje:
 // Aulas Plus, revisao de erros, e os planos pagos definidos em

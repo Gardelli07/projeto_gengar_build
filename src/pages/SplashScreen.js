@@ -4,6 +4,7 @@ import { useVideoPlayer, VideoView } from "expo-video";
 import CORES from "../util/cores";
 import { useAuth } from "../context/AuthContext";
 import { syncCourseProgressFromServer } from "../util/courseCatalog";
+import { syncAulasPlusProgressFromServer } from "./aulas/aulasplus/progress";
 
 const splashVideo = require("../../assets/splash.mp4");
 
@@ -33,7 +34,10 @@ export default function SplashScreen({ navigation }) {
     // teto de tempo) para as telas de curso ja abrirem com os dados certos.
     const progressSync = user
       ? Promise.race([
-          syncCourseProgressFromServer().catch(() => {}),
+          Promise.all([
+            syncCourseProgressFromServer(),
+            syncAulasPlusProgressFromServer(),
+          ]).catch(() => {}),
           new Promise((resolve) => setTimeout(resolve, 4000)),
         ])
       : Promise.resolve();
