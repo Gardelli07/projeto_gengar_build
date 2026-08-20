@@ -15,14 +15,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Svg, { Path, Circle } from "react-native-svg";
 import { useAuth } from "../context/AuthContext";
 import { API_URL } from "../services/api";
-import { getLevelProgress, XP_PER_LESSON } from "../util/xp";
-import { clearAllLocalProgress, loadGlobalProgressStats } from "../util/courseCatalog";
-import {
-  clearAllAulasPlusProgress,
-  getAulasPlusXpTotal,
-  loadAulasPlusProgress,
-} from "./aulas/aulasplus/progress";
+import { getLevelProgress } from "../util/xp";
+import { clearAllLocalProgress } from "../util/courseCatalog";
+import { clearAllAulasPlusProgress } from "./aulas/aulasplus/progress";
 import { fetchResumoProgresso, resetarProgresso } from "../services/progresso";
+import { fetchEstatisticasDesafios } from "../services/desafios";
 import { resetarNivelamento } from "../services/nivelamento";
 import { hasFullAccess } from "../util/plans";
 import {
@@ -34,6 +31,7 @@ import {
 } from "../services/notifications";
 import StudyTimeModal from "../components/StudyTimeModal";
 import EditProfileModal from "../components/EditProfileModal";
+import NotificationBell from "../components/NotificationBell";
 import CORES from "../util/cores";
 
 /* ---------- ícones ---------- */
@@ -54,6 +52,15 @@ const IconArrow = ({ size = 17, color = "#16305C" }) => (
 const IconChevron = ({ size = 18, color = CORES.PROFILE_ARROW }) => (
   <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
     <Path d="M9 18l6-6-6-6" />
+  </Svg>
+);
+
+const IconUsers = ({ size = 19, color = CORES.PROFILE_BLUE }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <Path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+    <Circle cx={9} cy={7} r={4} />
+    <Path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+    <Path d="M16 3.13a4 4 0 0 1 0 7.75" />
   </Svg>
 );
 
@@ -138,6 +145,7 @@ export default function ProfileScreen({ navigation }) {
 
   const [totalXp, setTotalXp] = useState(0);
   const [streak, setStreak] = useState(0);
+  const [desafiosStats, setDesafiosStats] = useState({ total: 0, vitorias: 0, percentualVitorias: 0 });
   const [reminderEnabled, setReminderEnabled] = useState(false);
   const [reminderHour, setReminderHour] = useState(DEFAULT_REMINDER_HOUR);
   const [reminderMinute, setReminderMinute] = useState(DEFAULT_REMINDER_MINUTE);
@@ -146,16 +154,19 @@ export default function ProfileScreen({ navigation }) {
 
   useFocusRefresh(
     useCallback(async () => {
-      const [stats, resumo, reminder, aulasPlusProgress] = await Promise.all([
-        loadGlobalProgressStats(),
+      const [resumo, reminder, desafiosStatsResp] = await Promise.all([
         fetchResumoProgresso().catch(() => null),
         getReminderSettings(),
-        loadAulasPlusProgress(),
+        fetchEstatisticasDesafios().catch(() => null),
       ]);
-      setTotalXp(
-        stats.completed * XP_PER_LESSON + getAulasPlusXpTotal(aulasPlusProgress),
-      );
-      if (resumo) setStreak(resumo.streakAtual);
+      // Xp_total e a fonte unica (backend), pra bater com o que aparece no
+      // perfil visitado por amigos. So atualiza em caso de sucesso, mantendo
+      // o ultimo valor bom se a rede falhar (mesmo padrao do streak).
+      if (resumo) {
+        setTotalXp(resumo.xpTotal);
+        setStreak(resumo.streakAtual);
+      }
+      if (desafiosStatsResp) setDesafiosStats(desafiosStatsResp);
       setReminderEnabled(reminder.enabled);
       setReminderHour(reminder.hour);
       setReminderMinute(reminder.minute);
@@ -272,7 +283,7 @@ export default function ProfileScreen({ navigation }) {
   };
 
   const handleLogout = () => {
-    Alert.alert("Sair da conta", "Tem certeza que deseja sair?", [
+    Alert.alert("Sair da conta", "Tem certeza de que deseja sair?", [
       { text: "Cancelar", style: "cancel" },
       {
         text: "Sair",
@@ -308,6 +319,7 @@ export default function ProfileScreen({ navigation }) {
                 <Text style={styles.levelBadgeText}>Nível {levelProgress.currentLevel}</Text>
               </View>
             </View>
+            <NotificationBell />
           </View>
           <Pressable style={styles.editBtn} onPress={() => setEditProfileVisible(true)}>
             <IconEdit />
@@ -329,6 +341,34 @@ export default function ProfileScreen({ navigation }) {
             <Text style={[styles.statNum, { color: CORES.PROFILE_AMBER }]}>{streak} 🔥</Text>
             <Text style={styles.statLabel}>Sequência</Text>
           </View>
+        </View>
+
+        {/* stats de desafios */}
+        <View style={styles.statsRow}>
+          <View style={styles.statCard}>
+            <Text style={[styles.statNum, { color: CORES.PROFILE_NAVY }]}>{desafiosStats.total}</Text>
+            <Text style={styles.statLabel}>Desafios</Text>
+          </View>
+          <View style={styles.statCard}>
+            <Text style={[styles.statNum, { color: CORES.PROFILE_GOLD }]}>{desafiosStats.vitorias}</Text>
+            <Text style={styles.statLabel}>Vitórias</Text>
+          </View>
+          <View style={styles.statCard}>
+            <Text style={[styles.statNum, { color: CORES.PROFILE_GREEN }]}>{desafiosStats.percentualVitorias}%</Text>
+            <Text style={styles.statLabel}>Aproveitamento</Text>
+          </View>
+        </View>
+
+        {/* comunidade */}
+        <Text style={styles.sectionLabel}>COMUNIDADE</Text>
+        <View style={styles.accountCard}>
+          <Row
+            icon={<IconUsers />}
+            label="Amigos"
+            right={<IconChevron />}
+            isLast
+            onPress={() => navigation.navigate("Amigos")}
+          />
         </View>
 
         {/* assinatura */}

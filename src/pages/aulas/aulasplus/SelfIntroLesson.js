@@ -11,8 +11,8 @@ import {
   StyleSheet,
   Animated,
   Platform,
-  KeyboardAvoidingView,
   StatusBar as RNStatusBar,
+  AppState,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
@@ -25,6 +25,10 @@ import {
   useAudioRecorder,
   useAudioRecorderState,
 } from "expo-audio";
+import { File } from "expo-file-system";
+import { KeyboardAvoidingView } from "react-native-keyboard-controller";
+import { useSharedValue, useFrameCallback } from "react-native-reanimated";
+import { runOnJS } from "react-native-worklets";
 import { Images } from "../../../util/images";
 import { aulasPlusLessons } from "./lessons";
 import {
@@ -66,6 +70,7 @@ const C = {
   red: "#c0392b",
 };
 const DELAY = 3500; // ms - pacing for timed reveals
+const MAX_RECORDING_MS = 60000;
 
 // ---------- countries ----------
 const COUNTRIES = [
@@ -104,6 +109,16 @@ function formatDuration(totalSeconds) {
   const m = Math.floor(totalSeconds / 60);
   const sec = totalSeconds % 60;
   return `${m}:${String(sec).padStart(2, "0")}`;
+}
+
+// removes a superseded recording's temp file so re-recording repeatedly
+// doesn't quietly accumulate audio files on the device
+function deleteRecordingFile(uri) {
+  if (!uri) return;
+  try {
+    const file = new File(uri);
+    if (file.exists) file.delete();
+  } catch (e) {}
 }
 
 // ---------- small components ----------
@@ -199,91 +214,158 @@ function Dock({ children }) {
   );
 }
 
-// live visual confirmation that the mic is picking up the user's voice
-function RecMeter({ metering, tick }) {
-  const pulse = useRef(new Animated.Value(0)).current;
+const WAVE_BARS = 24;
+
+// rolls incoming metering readings into a fixed-length trailing history so
+// the bars show a real waveform of the last couple seconds (like a voice
+// message) instead of every bar reacting to the same instantaneous volume
+function useLevelHistory(metering) {
+  const [levels, setLevels] = useState(() => new Array(WAVE_BARS).fill(0.06));
   useEffect(() => {
-    const loop = Animated.loop(
-      Animated.sequence([
-        Animated.timing(pulse, {
-          toValue: 1,
-          duration: 450,
-          useNativeDriver: true,
-        }),
-        Animated.timing(pulse, {
-          toValue: 0,
-          duration: 450,
-          useNativeDriver: true,
-        }),
-      ]),
-    );
-    loop.start();
-    return () => loop.stop();
-  }, []);
-  const dotOpacity = pulse.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0.4, 1],
-  });
-  const hasMetering = typeof metering === "number" && isFinite(metering);
-  const bars = [0.4, 0.65, 1, 0.65, 0.4];
+    const hasMetering = typeof metering === "number" && isFinite(metering);
+    const level = hasMetering
+      ? Math.max(0.06, Math.min(1, (metering + 50) / 50))
+      : 0.06 + Math.random() * 0.4; // gentle wiggle if metering isn't supported
+    setLevels((prev) => [...prev.slice(1), level]);
+  }, [metering]);
+  return levels;
+}
+
+function Waveform({ levels }) {
   return (
-    <View style={s.recMeterRow}>
-      <Animated.View style={[s.recDot, { opacity: dotOpacity }]} />
-      <View style={s.recBarsRow}>
-        {bars.map((base, i) => {
-          const level = hasMetering
-            ? Math.max(0.12, Math.min(1, (metering + 50) / 50))
-            : Math.abs(Math.sin((tick || 0) / 180 + i));
-          return (
-            <View
-              key={i}
-              style={[s.recBar, { height: 6 + base * 16 * level }]}
-            />
-          );
-        })}
-      </View>
-      <Text style={s.recListening}>Ouvindo...</Text>
+    <View style={s.waveRow}>
+      {levels.map((lvl, i) => (
+        <View
+          key={i}
+          style={[
+            s.waveBar,
+            {
+              height: Math.max(3, lvl * 26),
+              opacity: 0.35 + (i / levels.length) * 0.65,
+            },
+          ]}
+        />
+      ))}
     </View>
   );
 }
 
-// record button + live meter, self-contained: the recorder polling (120ms)
-// and the elapsed-time stopwatch (200ms) both live here so re-renders while
-// recording stay local to this widget instead of re-rendering the whole
-// lesson (all scenes, tip modal, picker sheet) on every tick.
-function RecordButton({ recorder, active, onPress, idleLabel, big, btnStyle }) {
-  const recorderState = useAudioRecorderState(recorder, 120);
-  const [elapsedMs, setElapsedMs] = useState(0);
-  const startRef = useRef(0);
+// polls the native recorder for metering (100ms) purely to drive the live
+// waveform - isolated into its own leaf so it only exists (and only pays for
+// the bridge poll) while actually recording, not for the whole idle "Hold to
+// record" period, and so it can't compete with the button label's own tick
+function RecordWaveformLive({ recorder }) {
+  const recorderState = useAudioRecorderState(recorder, 100);
+  const levels = useLevelHistory(recorderState.metering);
+  return <Waveform levels={levels} />;
+}
+
+// expanding "sonar ping" ring behind the record circle while active - the
+// classic recording affordance
+function PulseRing({ active, size }) {
+  const a = useRef(new Animated.Value(0)).current;
   useEffect(() => {
-    if (!active) return undefined;
-    startRef.current = Date.now();
-    setElapsedMs(0);
-    const id = setInterval(
-      () => setElapsedMs(Date.now() - startRef.current),
-      200,
+    if (!active) return;
+    a.setValue(0);
+    const loop = Animated.loop(
+      Animated.timing(a, {
+        toValue: 1,
+        duration: 1400,
+        useNativeDriver: true,
+      }),
     );
-    return () => clearInterval(id);
+    loop.start();
+    return () => loop.stop();
   }, [active]);
+  if (!active) return null;
+  const scale = a.interpolate({ inputRange: [0, 1], outputRange: [1, 1.9] });
+  const opacity = a.interpolate({ inputRange: [0, 1], outputRange: [0.35, 0] });
   return (
-    <>
-      <GreenBtn
-        label={
-          active
-            ? `⏹ Tap to stop  ${formatDuration(Math.floor(elapsedMs / 1000))}`
-            : idleLabel
-        }
-        onPress={onPress}
-        big={big}
-        style={[
-          { alignSelf: "center", backgroundColor: active ? C.red : C.green },
-          btnStyle,
-        ]}
-      />
-      {active && (
-        <RecMeter metering={recorderState.metering} tick={elapsedMs} />
-      )}
-    </>
+    <Animated.View
+      pointerEvents="none"
+      style={[
+        s.recRing,
+        { width: size, height: size, opacity, transform: [{ scale }] },
+      ]}
+    />
+  );
+}
+
+// record/stop circle + elapsed-time stopwatch, driven by Reanimated's UI
+// thread (useFrameCallback) instead of a JS setInterval. During this lesson
+// the JS thread gets busy enough (typing, autosave, scene transitions) that
+// a JS timer visibly lagged or froze the counter on screen; the UI thread
+// keeps its own clock regardless of JS thread load, and only calls back
+// into JS once per second - exactly when the displayed number needs to
+// change - via runOnJS.
+function RecordButton({ recorder, active, onPress, idleLabel, big, btnStyle }) {
+  const startTime = useSharedValue(0);
+  const lastSecond = useSharedValue(-1);
+  const [displaySeconds, setDisplaySeconds] = useState(0);
+  // always call the latest onPress - avoids a stale closure
+  const onPressRef = useRef(onPress);
+  onPressRef.current = onPress;
+
+  const handleTick = useCallback((sec) => {
+    setDisplaySeconds(sec);
+    if (sec * 1000 >= MAX_RECORDING_MS) onPressRef.current();
+  }, []);
+
+  const frameCallback = useFrameCallback(() => {
+    "worklet";
+    const elapsedSec = Math.floor((Date.now() - startTime.value) / 1000);
+    if (elapsedSec !== lastSecond.value) {
+      lastSecond.value = elapsedSec;
+      runOnJS(handleTick)(elapsedSec);
+    }
+  }, false);
+
+  useEffect(() => {
+    if (active) {
+      startTime.value = Date.now();
+      lastSecond.value = -1;
+      setDisplaySeconds(0);
+      frameCallback.setActive(true);
+    } else {
+      frameCallback.setActive(false);
+    }
+  }, [active]);
+
+  const circleSize = big ? 64 : 56;
+  const idleCaption = idleLabel.replace(/^🎤\s*/, "");
+
+  return (
+    <View style={[s.recWrap, big && s.recWrapBig, btnStyle]}>
+      <View style={{ width: circleSize, height: circleSize }}>
+        <PulseRing active={active} size={circleSize} />
+        <TouchableOpacity
+          onPress={onPress}
+          activeOpacity={0.85}
+          style={[
+            s.recCircle,
+            {
+              width: circleSize,
+              height: circleSize,
+              backgroundColor: active ? C.red : C.green,
+            },
+          ]}
+        >
+          <Text style={[s.recCircleIcon, big && { fontSize: 26 }]}>
+            {active ? "⏹" : "🎤"}
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View style={s.recInfo}>
+        {active ? (
+          <>
+            <Text style={s.recTimer}>{formatDuration(displaySeconds)}</Text>
+            <RecordWaveformLive recorder={recorder} />
+          </>
+        ) : (
+          <Text style={s.recIdleLabel}>{idleCaption}</Text>
+        )}
+      </View>
+    </View>
   );
 }
 
@@ -351,7 +433,7 @@ function PickerSheet({ visible, mode, onPick, onClose }) {
             <Text style={s.sheetTitle}>
               {mode === "nat"
                 ? "Escolha sua nacionalidade"
-                : "Escolha seu pais"}
+                : "Escolha seu país"}
             </Text>
             <TouchableOpacity onPress={onClose} style={s.closeBtn}>
               <Text style={{ color: C.mut, fontSize: 16 }}>✕</Text>
@@ -445,6 +527,9 @@ export default function SelfIntroLesson({ navigation, route }) {
   });
   const [recKey, setRecKey] = useState(null);
   const recStartRef = useRef(0);
+  // guards startRecording/stopRecording against overlapping calls (e.g. a
+  // fast double-tap firing a start and a stop before either one settles)
+  const isRecordActionBusyRef = useRef(false);
   const hasLoadedStateRef = useRef(false);
   const completionCommitRef = useRef(false);
   const up = useCallback(
@@ -464,6 +549,12 @@ export default function SelfIntroLesson({ navigation, route }) {
   useEffect(
     () => () => {
       recorder.stop().catch(() => {});
+      // in case the screen is left mid-recording, don't leave the device's
+      // audio session stuck in recording mode for whatever screen comes next
+      setAudioModeAsync({
+        allowsRecording: false,
+        playsInSilentMode: true,
+      }).catch(() => {});
     },
     [],
   );
@@ -493,7 +584,14 @@ export default function SelfIntroLesson({ navigation, route }) {
 
   useEffect(() => {
     if (!lesson || !hasLoadedStateRef.current) return;
-    saveAulasPlusLessonState(lesson.id, st).catch(() => {});
+    // debounced: without this, every keystroke in a text field (name,
+    // surname, age) would JSON.stringify the whole lesson state and hit
+    // AsyncStorage on every character, congesting the JS thread enough to
+    // visibly delay the keyboard-avoiding animation
+    const id = setTimeout(() => {
+      saveAulasPlusLessonState(lesson.id, st).catch(() => {});
+    }, 600);
+    return () => clearTimeout(id);
   }, [lesson, st]);
 
   // Registra a conclusao (XP + progresso) quando a licao chega na cena
@@ -542,13 +640,17 @@ export default function SelfIntroLesson({ navigation, route }) {
   };
   const playClip = (key, fallbackText) =>
     playSource(key && AUDIO[key], fallbackText);
-  const playRecording = (uri) => uri && playSource({ uri });
 
-  // real microphone recording for the "Hold to record" practice prompts
+  // real microphone recording for the "Hold to record" practice prompts.
+  // isRecordActionBusyRef makes start/stop atomic against a fast double-tap
+  // (which would otherwise fire overlapping native start/stop calls).
   const startRecording = async (key) => {
+    if (isRecordActionBusyRef.current) return;
+    isRecordActionBusyRef.current = true;
     // flip the UI on immediately so the recording indicator (and the stopwatch
     // effect keyed on recKey) don't wait on the native setup round trip below
     setRecKey(key);
+    let audioModeSet = false;
     try {
       const { granted } = await requestRecordingPermissionsAsync();
       if (!granted) {
@@ -564,14 +666,26 @@ export default function SelfIntroLesson({ navigation, route }) {
         allowsRecording: true,
         playsInSilentMode: true,
       });
+      audioModeSet = true;
       await recorder.prepareToRecordAsync();
       recorder.record();
     } catch (e) {
       setRecKey(null);
+      // don't leave the audio session stuck in recording mode if setup failed midway
+      if (audioModeSet) {
+        setAudioModeAsync({
+          allowsRecording: false,
+          playsInSilentMode: true,
+        }).catch(() => {});
+      }
       Alert.alert("Erro", "Não foi possível iniciar a gravação.");
+    } finally {
+      isRecordActionBusyRef.current = false;
     }
   };
   const stopRecording = async (onDone) => {
+    if (isRecordActionBusyRef.current) return;
+    isRecordActionBusyRef.current = true;
     // durationMillis resets once stop() resolves, so read it beforehand;
     // our own stopwatch (computed live, not from the last tick) is the reliable source
     const durationMillis =
@@ -579,23 +693,38 @@ export default function SelfIntroLesson({ navigation, route }) {
       recorder.getStatus().durationMillis ||
       0;
     try {
-      await recorder.stop();
+      let uri = null;
+      try {
+        await recorder.stop();
+        const status = recorder.getStatus();
+        uri = recorder.uri ?? status.url ?? null;
+      } catch (e) {}
       await setAudioModeAsync({
         allowsRecording: false,
         playsInSilentMode: true,
-      });
-      const status = recorder.getStatus();
-      const uri = recorder.uri ?? status.url;
+      }).catch(() => {});
       const seconds = Math.max(1, Math.round(durationMillis / 1000));
       setRecKey(null);
-      if (uri) onDone(uri, seconds);
-    } catch (e) {
-      setRecKey(null);
+      if (uri) {
+        onDone(uri, seconds);
+      } else {
+        // nothing was actually captured - don't advance, let the learner retry
+        Alert.alert("Erro", "Não foi possível salvar sua gravação. Tente novamente.");
+      }
+    } finally {
+      isRecordActionBusyRef.current = false;
     }
   };
   // clears a finished recording and reopens the record button for that scene
   const reRecord = (key) => {
     stopPlayback();
+    const staleUris = {
+      s2: st.s2_audioUri,
+      s5: st.s5_audioUri,
+      s6: st.s6_audioUri,
+      s8: st.s8_audioUri,
+    };
+    deleteRecordingFile(staleUris[key]); // about to be replaced by a new take
     if (key === "s2")
       up({
         s2_recorded: false,
@@ -626,6 +755,42 @@ export default function SelfIntroLesson({ navigation, route }) {
       });
   };
 
+  // a *_audioUri restored from a previous app session may point to a file
+  // the OS already evicted from cache; if playback never actually loads,
+  // treat the recording as gone and reopen the record button for that scene
+  const handleMissingRecording = (key) => {
+    Alert.alert(
+      "Gravação indisponível",
+      "Essa gravação não está mais disponível. Grave novamente.",
+    );
+    reRecord(key);
+  };
+  const playMyRecording = (key, uri) => {
+    if (!uri) return;
+    try {
+      Speech.stop();
+    } catch (e) {}
+    stopPlayback();
+    let player;
+    try {
+      player = createAudioPlayer({ uri });
+      audioPlayerRef.current = player;
+      player.play();
+    } catch (e) {
+      handleMissingRecording(key);
+      return;
+    }
+    setTimeout(() => {
+      if (audioPlayerRef.current === player && !player.isLoaded) {
+        try {
+          player.remove();
+        } catch (e) {}
+        if (audioPlayerRef.current === player) audioPlayerRef.current = null;
+        handleMissingRecording(key);
+      }
+    }, 900);
+  };
+
   // ---- transitions ----
   const start = () => {
     up({ scene: 2 });
@@ -640,9 +805,9 @@ export default function SelfIntroLesson({ navigation, route }) {
         title: "How are you?",
         items: [
           "I'm fine  -  Estou bem",
-          "I'm great  -  Estou otimo(a)",
+          "I'm great  -  Estou ótimo(a)",
           "I'm ok, thanks  -  Estou bem, obrigado(a)",
-          "and you?  -  e voce?",
+          "and you?  -  e você?",
         ],
       },
     });
@@ -725,7 +890,7 @@ export default function SelfIntroLesson({ navigation, route }) {
   const ageTip = () => ({
     ctx: "age",
     title: "Talking about age",
-    items: ["How old are you?  -  Quantos anos voce tem?"],
+    items: ["How old are you?  -  Quantos anos você tem?"],
     example: "In English, say \"I'm\" + age.\nEx: I'm 34 years old.",
     warn: 'Never say "I have 34 years". ❌',
   });
@@ -802,12 +967,44 @@ export default function SelfIntroLesson({ navigation, route }) {
       startRecording("s8");
     }
   };
+
+  // if the app is backgrounded mid-recording (call, notification, app
+  // switch), the OS may kill the native recording session while our UI
+  // keeps showing "recording..." forever; auto-stop so it reflects reality
+  const recKeyRef = useRef(recKey);
+  recKeyRef.current = recKey;
+  const stopHandlersRef = useRef();
+  stopHandlersRef.current = {
+    s2: record2,
+    s5: record5,
+    s6: record6,
+    s8: recordPresentation,
+  };
+  useEffect(() => {
+    const sub = AppState.addEventListener("change", (nextState) => {
+      const key = recKeyRef.current;
+      if (nextState === "background" && key) {
+        stopHandlersRef.current[key]?.();
+      }
+    });
+    return () => sub.remove();
+  }, []);
+
   const goFinal = () => up({ scene: 9 });
   const restart = () => {
     timers.current.forEach(clearTimeout);
     timers.current = [];
-    if (recKey) recorder.stop().catch(() => {});
+    if (recKey) {
+      recorder.stop().catch(() => {});
+      setAudioModeAsync({
+        allowsRecording: false,
+        playsInSilentMode: true,
+      }).catch(() => {});
+    }
     setRecKey(null);
+    [st.s2_audioUri, st.s5_audioUri, st.s6_audioUri, st.s8_audioUri].forEach(
+      deleteRecordingFile,
+    );
     setSt(INITIAL);
     if (lesson) clearAulasPlusLessonState(lesson.id).catch(() => {});
   };
@@ -825,10 +1022,13 @@ export default function SelfIntroLesson({ navigation, route }) {
   return (
     <SafeAreaView style={s.root} edges={["top"]}>
       <StatusBar style="dark" />
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
+      {/* edge-to-edge is enabled on Android (gradle.properties), which means
+          adjustResize no longer shrinks the window on its own - the keyboard
+          must be compensated for here in JS on both platforms. "height" used
+          to be the Android default, but it locks in an explicit height that
+          doesn't always release cleanly when the keyboard closes (needing a
+          manual scroll to "unstick"); "padding" avoids that failure mode. */}
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
       {/* SCENE 1 */}
       {st.scene === 1 && (
         <Enter style={{ flex: 1 }}>
@@ -930,7 +1130,7 @@ export default function SelfIntroLesson({ navigation, route }) {
             {st.s2_recorded && (
               <Enter style={[s.rowEnd, { gap: 10 }]}>
                 <TouchableOpacity
-                  onPress={() => playRecording(st.s2_audioUri)}
+                  onPress={() => playMyRecording("s2", st.s2_audioUri)}
                   style={s.sent}
                 >
                   <Text style={s.sentTxt}>
@@ -986,7 +1186,7 @@ export default function SelfIntroLesson({ navigation, route }) {
                 <Pill label="🌐 Translate" onPress={() => toggleTr("fine")} />
               </View>
               {st.tr.fine && (
-                <Text style={s.trTxt}>Eu tambem estou bem, obrigada.</Text>
+                <Text style={s.trTxt}>Eu também estou bem, obrigada.</Text>
               )}
             </Enter>
             {st.s3_continue && (
@@ -1006,7 +1206,7 @@ export default function SelfIntroLesson({ navigation, route }) {
                   />
                   <Pill label="🌐 Translate" onPress={() => toggleTr("name")} />
                 </View>
-                {st.tr.name && <Text style={s.trTxt}>Qual e o seu nome?</Text>}
+                {st.tr.name && <Text style={s.trTxt}>Qual é o seu nome?</Text>}
               </Enter>
             )}
             {st.nameConfirmed && (
@@ -1099,8 +1299,8 @@ export default function SelfIntroLesson({ navigation, route }) {
                 />
                 {st.tr.ageClar && (
                   <Text style={s.trTxt}>
-                    Quero dizer a sua idade - por exemplo, eu tenho 34 anos. E
-                    voce?
+                    Quero dizer a sua idade, por exemplo, eu tenho 34 anos. E
+                    você?
                   </Text>
                 )}
               </Enter>
@@ -1124,7 +1324,7 @@ export default function SelfIntroLesson({ navigation, route }) {
               </View>
               {st.tr.understand && (
                 <Text style={[s.trTxt, { marginBottom: 8 }]}>
-                  Voce entende a pergunta?
+                  Você entende a pergunta?
                 </Text>
               )}
               <View style={{ flexDirection: "row", gap: 10 }}>
@@ -1210,7 +1410,7 @@ export default function SelfIntroLesson({ navigation, route }) {
                 />
                 <Pill label="🌐 Translate" onPress={() => toggleTr("where")} />
               </View>
-              {st.tr.where && <Text style={s.trTxt}>De onde voce e?</Text>}
+              {st.tr.where && <Text style={s.trTxt}>De onde você é?</Text>}
             </Enter>
             {st.country && (
               <Enter style={[s.rowEnd, { gap: 8 }]}>
@@ -1251,7 +1451,7 @@ export default function SelfIntroLesson({ navigation, route }) {
             {st.s5_recorded && (
               <Enter style={[s.rowEnd, { gap: 10 }]}>
                 <TouchableOpacity
-                  onPress={() => playRecording(st.s5_audioUri)}
+                  onPress={() => playMyRecording("s5", st.s5_audioUri)}
                   style={s.sent}
                 >
                   <Text style={s.sentTxt}>
@@ -1302,7 +1502,7 @@ export default function SelfIntroLesson({ navigation, route }) {
                 <Pill label="🌐 Translate" onPress={() => toggleTr("nat")} />
               </View>
               {st.tr.nat && (
-                <Text style={s.trTxt}>Qual e a sua nacionalidade?</Text>
+                <Text style={s.trTxt}>Qual é a sua nacionalidade?</Text>
               )}
             </Enter>
             {st.nationality && (
@@ -1339,7 +1539,7 @@ export default function SelfIntroLesson({ navigation, route }) {
             {st.s6_recorded && (
               <Enter style={[s.rowEnd, { gap: 10 }]}>
                 <TouchableOpacity
-                  onPress={() => playRecording(st.s6_audioUri)}
+                  onPress={() => playMyRecording("s6", st.s6_audioUri)}
                   style={s.sent}
                 >
                   <Text style={s.sentTxt}>
@@ -1432,8 +1632,8 @@ export default function SelfIntroLesson({ navigation, route }) {
               </View>
               {st.tr.present && (
                 <Text style={s.trTxt}>
-                  Agora e a sua vez! Apresente-se dizendo seu nome, sobrenome,
-                  idade e de onde voce e.
+                  Agora é a sua vez! Apresente-se dizendo seu nome, sobrenome,
+                  idade e de onde você é.
                 </Text>
               )}
             </Enter>
@@ -1454,7 +1654,7 @@ export default function SelfIntroLesson({ navigation, route }) {
             {st.s8_recorded && (
               <Enter style={{ alignItems: "center", gap: 12, marginTop: 6 }}>
                 <TouchableOpacity
-                  onPress={() => playRecording(st.s8_audioUri)}
+                  onPress={() => playMyRecording("s8", st.s8_audioUri)}
                   style={[s.sent, { paddingHorizontal: 18 }]}
                 >
                   <Text style={s.sentTxt}>
@@ -1524,7 +1724,7 @@ export default function SelfIntroLesson({ navigation, route }) {
               ]}
             >
               <Text style={[s.restartTxt, { color: "#fff" }]}>
-                Voltar para o inicio
+                Voltar para o início
               </Text>
             </TouchableOpacity>
           </ScrollView>
@@ -1569,8 +1769,12 @@ function RepeatChip({ label, onPress }) {
   );
 }
 function InputDock({ prefix, placeholder, value, onChange, onSend }) {
+  // plain View here, not Dock/Enter: this field autoFocuses, so the keyboard
+  // opens the instant it mounts - animating a fade/slide-in at the same time
+  // as the keyboard's own native show animation is what was causing the
+  // "double motion" / ghosting look reported on Android
   return (
-    <Dock>
+    <View style={s.dock}>
       <Text style={s.dockLabel}>Type your answer</Text>
       <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
         <Text style={s.inPrefix}>{prefix}</Text>
@@ -1588,7 +1792,7 @@ function InputDock({ prefix, placeholder, value, onChange, onSend }) {
           <Text style={s.sendTxt}>→</Text>
         </TouchableOpacity>
       </View>
-    </Dock>
+    </View>
   );
 }
 function ConfirmRow({ k, v, last }) {
@@ -1778,24 +1982,52 @@ const s = StyleSheet.create({
     paddingHorizontal: 15,
   },
   sentTxt: { color: "#fff", fontSize: 14, fontWeight: "700" },
-  recMeterRow: {
+  recWrap: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
-    backgroundColor: "#fdecea",
+    gap: 14,
+    backgroundColor: C.white,
     borderRadius: 999,
-    paddingVertical: 6,
+    borderWidth: 1,
+    borderColor: C.border,
+    paddingVertical: 10,
     paddingHorizontal: 14,
+    alignSelf: "center",
+    minWidth: 250,
   },
-  recDot: { width: 9, height: 9, borderRadius: 5, backgroundColor: C.red },
-  recBarsRow: {
-    flexDirection: "row",
-    alignItems: "flex-end",
-    gap: 3,
-    height: 22,
+  recWrapBig: {
+    alignSelf: "stretch",
+    minWidth: undefined,
+    paddingVertical: 14,
+    paddingHorizontal: 16,
   },
-  recBar: { width: 4, borderRadius: 2, backgroundColor: C.red },
-  recListening: { fontSize: 12, fontWeight: "700", color: C.red },
+  recCircle: {
+    borderRadius: 999,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.18,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 4,
+  },
+  recCircleIcon: { fontSize: 22, color: "#fff" },
+  recRing: {
+    position: "absolute",
+    borderRadius: 999,
+    borderWidth: 2,
+    borderColor: C.red,
+  },
+  recInfo: { flex: 1, gap: 4 },
+  recIdleLabel: { color: C.ink, fontSize: 15, fontWeight: "600" },
+  recTimer: {
+    color: C.ink,
+    fontSize: 16,
+    fontWeight: "700",
+    fontVariant: ["tabular-nums"],
+  },
+  waveRow: { flexDirection: "row", alignItems: "center", gap: 3, height: 26 },
+  waveBar: { width: 3, borderRadius: 2, backgroundColor: C.red },
   tapContinue: {
     alignSelf: "center",
     height: 34,

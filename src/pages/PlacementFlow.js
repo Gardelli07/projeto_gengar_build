@@ -27,7 +27,7 @@ const COURSES = [
   {
     id: "travel",
     title: "Viagens",
-    subtitle: "Fale com confianca em aeroportos, hoteis e passeios",
+    subtitle: "Fale com confiança em aeroportos, hotéis e passeios",
     icon: "airplane",
     emoji: "✈️",
     homeName: "Ingles para viagem",
@@ -46,7 +46,7 @@ const LEVELS = [
   {
     id: "beginner",
     title: "Iniciante",
-    subtitle: "0-20% - voce esta comecando uma jornada incrivel.",
+    subtitle: "0-20% - você está começando uma jornada incrível.",
     icon: "sprout",
     homeLevel: "Starter",
   },
@@ -261,12 +261,12 @@ const questionBank = {
       q(
         "What does 'boarding pass' mean?",
         [
-          "Cartao de embarque",
+          "Cartão de embarque",
           "Chave do quarto",
           "Conta do restaurante",
           "Seguro viagem",
         ],
-        "Cartao de embarque",
+        "Cartão de embarque",
       ),
       q(
         "Choose the correct request.",
@@ -312,7 +312,7 @@ const questionBank = {
       ),
       q(
         "What does 'round trip' mean?",
-        ["Ida e volta", "Somente ida", "Atraso", "Conexao"],
+        ["Ida e volta", "Somente ida", "Atraso", "Conexão"],
         "Ida e volta",
       ),
       q(
@@ -335,12 +335,12 @@ const questionBank = {
       q(
         "What does 'layover' mean?",
         [
-          "Conexao longa entre voos",
+          "Conexão longa entre voos",
           "Reserva cancelada",
           "Taxa de bagagem",
-          "Portao de embarque",
+          "Portão de embarque",
         ],
-        "Conexao longa entre voos",
+        "Conexão longa entre voos",
       ),
       q(
         "Complete: Had I known the museum was closed, I ___ earlier.",
@@ -372,7 +372,7 @@ const questionBank = {
   business: {
     beginner: [
       q(
-        "What is 'reuniao' in English?",
+        "What is 'reunião' in English?",
         ["Meeting", "Market", "Meal", "Month"],
         "Meeting",
       ),
@@ -411,7 +411,7 @@ const questionBank = {
       ),
       q(
         "What does 'deadline' mean?",
-        ["Prazo final", "Salario", "Escritorio", "Contrato"],
+        ["Prazo final", "Salário", "Escritório", "Contrato"],
         "Prazo final",
       ),
       q(
@@ -465,7 +465,7 @@ const questionBank = {
         "What is a 'stakeholder'?",
         [
           "Parte interessada",
-          "Funcionario temporario",
+          "Funcionário temporário",
           "Produto novo",
           "Pagamento",
         ],
@@ -505,7 +505,7 @@ const questionBank = {
       ),
       q(
         "What does 'bottom line' often refer to?",
-        ["Resultado final", "Primeira etapa", "Linha do rodape", "Assinatura"],
+        ["Resultado final", "Primeira etapa", "Linha do rodapé", "Assinatura"],
         "Resultado final",
       ),
     ],

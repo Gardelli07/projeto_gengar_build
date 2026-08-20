@@ -58,10 +58,7 @@ import {
   inglesSampleLessons as inglesB1SampleLessons,
 } from "./aulas/completo/B1";
 import { travelModuleDefs, travelSampleLessons } from "./aulas/viagem/A1";
-import {
-  getAulasPlusXpTotal,
-  loadAulasPlusProgress,
-} from "./aulas/aulasplus/progress";
+import NotificationBell from "../components/NotificationBell";
 
 const LEVEL_ACCENT = {
   Starter: "#2E9E6B",
@@ -293,7 +290,7 @@ export default function Inglescompleto({ navigation, route }) {
   const [aulaAccessMap, setAulaAccessMap] = useState(null);
   const [studyTimeModalVisible, setStudyTimeModalVisible] = useState(false);
   const [dailyGoalsState, setDailyGoalsState] = useState({ goals: [] });
-  const [aulasPlusProgress, setAulasPlusProgress] = useState({});
+  const [xpTotal, setXpTotal] = useState(0);
 
   // Pergunta o horario de estudo uma unica vez, logo na primeira Home apos o
   // login (a flag fica salva no dispositivo independente do usuario decidir
@@ -431,12 +428,16 @@ export default function Inglescompleto({ navigation, route }) {
 
   useEffect(() => {
     async function loadExtras() {
+      // Xp_total e a fonte unica (backend), pra bater com o que aparece no
+      // perfil visitado por amigos. So atualiza em caso de sucesso, mantendo
+      // o ultimo valor bom se a rede falhar.
       const resumo = await fetchResumoProgresso().catch(() => null);
-      if (resumo) setStreak(resumo.streakAtual);
+      if (resumo) {
+        setStreak(resumo.streakAtual);
+        setXpTotal(resumo.xpTotal);
+      }
       const goals = await dailyGoals.getTodayGoals().catch(() => null);
       if (goals) setDailyGoalsState(goals);
-      const aulasPlusProgressData = await loadAulasPlusProgress().catch(() => null);
-      if (aulasPlusProgressData) setAulasPlusProgress(aulasPlusProgressData);
       await loadAllCourseStats();
     }
     loadExtras();
@@ -489,10 +490,7 @@ export default function Inglescompleto({ navigation, route }) {
     (item) => progressMap[item.id],
   ).length;
   const percent = totalLessons > 0 ? (completedCount / totalLessons) * 100 : 0;
-  const totalXp =
-    completedCount * XP_PER_LESSON +
-    (dailyGoalsState.lifetimeBonusXp || 0) +
-    getAulasPlusXpTotal(aulasPlusProgress);
+  const totalXp = xpTotal + (dailyGoalsState.lifetimeBonusXp || 0);
   const levelProgress = useMemo(() => getLevelProgress(totalXp), [totalXp]);
 
   const lessonsByModule = useMemo(() => {
@@ -619,7 +617,7 @@ export default function Inglescompleto({ navigation, route }) {
     if (!COURSE_LEVEL_AVAILABILITY[courseName]?.includes(targetLevel)) {
       Alert.alert(
         "Curso em breve",
-        `${courseName} ainda nao esta disponivel em ${targetLevel}.`,
+        `${courseName} ainda não está disponível em ${targetLevel}.`,
       );
       return;
     }
@@ -628,8 +626,8 @@ export default function Inglescompleto({ navigation, route }) {
 
     if (!levelConfig.available) {
       Alert.alert(
-        "Nivel em breve",
-        `${targetLevel} (${levelConfig.folder}) ainda nao tem aulas cadastradas.`,
+        "Nível em breve",
+        `${targetLevel} (${levelConfig.folder}) ainda não tem aulas cadastradas.`,
       );
       return;
     }
@@ -674,6 +672,7 @@ export default function Inglescompleto({ navigation, route }) {
 
           <View style={styles.statsArea}>
             <View style={styles.topRightRow}>
+              <NotificationBell color={CORES.HOME_NAVY} />
               <View style={styles.streak}>
                 <MaterialCommunityIcons
                   name="fire"
@@ -748,15 +747,15 @@ export default function Inglescompleto({ navigation, route }) {
             onPress={() => navigation.navigate("MeusErros")}
           />
           <QuickAction
-            label="Metas"
+            label="Desafiar"
             icon={
               <MaterialCommunityIcons
-                name="target"
+                name="sword-cross"
                 size={20}
                 color={CORES.HOME_PRIMARY}
               />
             }
-            onPress={() => {}}
+            onPress={() => navigation.navigate("Desafios")}
           />
         </View>
 
@@ -1044,8 +1043,7 @@ export default function Inglescompleto({ navigation, route }) {
                     <Text style={styles.groupGoal}>{group.courseName}</Text>
                     <View style={styles.groupBadge}>
                       <Text style={styles.groupBadgeTxt}>
-                        {group.levels.length} nível
-                        {group.levels.length > 1 ? "eis" : ""}
+                        {group.levels.length} {group.levels.length > 1 ? "níveis" : "nível"}
                       </Text>
                     </View>
                   </View>

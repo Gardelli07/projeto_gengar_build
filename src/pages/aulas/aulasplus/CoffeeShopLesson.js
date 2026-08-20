@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ScrollView, View, Text, Image, Pressable, StyleSheet, Alert } from 'react-native';
+import { ScrollView, View, Text, Image, Pressable, StyleSheet, Alert, AppState } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Speech from 'expo-speech';
 import * as ImagePicker from 'expo-image-picker';
@@ -11,6 +11,7 @@ import {
   useAudioRecorder,
 } from 'expo-audio';
 import { useVideoPlayer, VideoView } from 'expo-video';
+import { File } from 'expo-file-system';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { scopedKey } from '../../../util/userScope';
 import { aulasPlusLessons } from './lessons';
@@ -210,6 +211,16 @@ function formatDuration(totalSeconds) {
   return `${m}:${String(sec).padStart(2, '0')}`;
 }
 
+// removes a superseded recording's temp file so re-recording repeatedly
+// doesn't quietly accumulate audio files on the device
+function deleteRecordingFile(uri) {
+  if (!uri) return;
+  try {
+    const file = new File(uri);
+    if (file.exists) file.delete();
+  } catch (e) {}
+}
+
 const CORRECT_SOUND_SOURCE = require('../../../../assets/sounds/correct.wav');
 let correctSoundPlayer = null;
 
@@ -235,6 +246,7 @@ function playRecordedAudio(asset) {
   const player = createAudioPlayer(asset);
   currentPlayer = player;
   player.play();
+  return player;
 }
 
 function listenTo(text, audioKey) {
@@ -350,6 +362,45 @@ function FeedbackModal({ feedback, onDismiss }) {
   );
 }
 
+const MAX_RECORDING_MS = 60000;
+
+// record button + live stopwatch, self-contained: the 200ms tick lives here
+// (not in the lesson's own state) so re-renders while recording stay local
+// to this widget instead of re-rendering the whole lesson (header, menu
+// grid, etc.) five times a second.
+function RecordControl({ recording, recordedOk, recordedUri, onToggle, onPlay }) {
+  const [elapsedMs, setElapsedMs] = useState(0);
+  const startRef = useRef(0);
+  // always call the latest onToggle - avoids a stale closure without having
+  // to restart (and visually reset) the interval when the parent re-renders
+  const onToggleRef = useRef(onToggle);
+  onToggleRef.current = onToggle;
+  useEffect(() => {
+    if (!recording) return undefined;
+    startRef.current = Date.now();
+    setElapsedMs(0);
+    const id = setInterval(() => {
+      const ms = Date.now() - startRef.current;
+      setElapsedMs(ms);
+      if (ms >= MAX_RECORDING_MS) onToggleRef.current();
+    }, 200);
+    return () => clearInterval(id);
+  }, [recording]);
+  const liveSeconds = Math.floor(elapsedMs / 1000);
+  return (
+    <>
+      <Pressable onPress={onToggle} style={[styles.recordButton, recordedOk && styles.recordButtonDone]}>
+        <Text style={styles.recordButtonText}>{recording ? `⏺ Recording...  ${formatDuration(liveSeconds)}` : recordedOk ? '✓ Recorded' : '🎙️ Record'}</Text>
+      </Pressable>
+      {recordedOk && !!recordedUri && (
+        <Pressable onPress={onPlay} style={styles.playbackButton}>
+          <Text style={styles.playbackButtonText}>▶ Play my recording</Text>
+        </Pressable>
+      )}
+    </>
+  );
+}
+
 function BadgeModal({ badge, onDismiss }) {
   if (!badge) return null;
   return (
@@ -372,6 +423,9 @@ export default function CoffeeShopLesson({ navigation, route }) {
     aulasPlusLessons.find((item) => item.screen === 'CoffeeShopLesson');
   const hasLoadedStateRef = useRef(false);
   const completionCommitRef = useRef(false);
+  // guards toggleRecord against overlapping calls (e.g. a fast double-tap on
+  // the record button firing a start and a stop before either one settles)
+  const isTogglingRecordRef = useRef(false);
   const [stage, setStage] = useState('welcome');
   const [stageHistory, setStageHistory] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -405,11 +459,6 @@ export default function CoffeeShopLesson({ navigation, route }) {
   const [goodbyeChunkPt, setGoodbyeChunkPt] = useState({});
   const [showChangePt, setShowChangePt] = useState(false);
   const recorder = useAudioRecorder({ ...RecordingPresets.HIGH_QUALITY, isMeteringEnabled: true });
-  // own stopwatch for the live counter: native durationMillis polling doesn't tick
-  // smoothly in real time on all devices, so we track elapsed time in JS instead.
-  const [recElapsedMs, setRecElapsedMs] = useState(0);
-  const recStartRef = useRef(0);
-  const liveSeconds = Math.floor(recElapsedMs / 1000);
 
   useEffect(() => {
     (async () => {
@@ -419,19 +468,29 @@ export default function CoffeeShopLesson({ navigation, route }) {
     setAudioModeAsync({ playsInSilentMode: true }).catch(() => {});
     return () => {
       Speech.stop();
-      if (currentPlayer) { try { currentPlayer.remove(); } catch (e) {} }
+      if (currentPlayer) { try { currentPlayer.remove(); } catch (e) {} currentPlayer = null; }
       recorder.stop().catch(() => {});
+      // in case the screen is left mid-recording, don't leave the device's
+      // audio session stuck in recording mode for whatever screen comes next
+      setAudioModeAsync({ allowsRecording: false, playsInSilentMode: true }).catch(() => {});
     };
   }, []);
 
-  // ticks recElapsedMs every 200ms for as long as a recording is active
+  // if the app is backgrounded mid-recording (call, notification, app switch),
+  // the OS may kill the native recording session while our UI keeps showing
+  // "recording..." forever; auto-stop so the screen reflects reality
+  const recordingRef = useRef(recording);
+  recordingRef.current = recording;
+  const toggleRecordRef = useRef(toggleRecord);
+  toggleRecordRef.current = toggleRecord;
   useEffect(() => {
-    if (!recording) return undefined;
-    recStartRef.current = Date.now();
-    setRecElapsedMs(0);
-    const id = setInterval(() => setRecElapsedMs(Date.now() - recStartRef.current), 200);
-    return () => clearInterval(id);
-  }, [recording]);
+    const sub = AppState.addEventListener('change', (nextState) => {
+      if (nextState === 'background' && recordingRef.current) {
+        toggleRecordRef.current();
+      }
+    });
+    return () => sub.remove();
+  }, []);
 
   // Retomar de onde parou: restaura, uma unica vez ao montar, o subconjunto
   // de estado que representa progresso real da tentativa atual (nao inclui
@@ -469,13 +528,19 @@ export default function CoffeeShopLesson({ navigation, route }) {
 
   useEffect(() => {
     if (!lesson || !hasLoadedStateRef.current) return;
-    saveAulasPlusLessonState(lesson.id, {
-      stage, stageHistory, selectedItems, activeCategory, postMenuDestination,
-      orderPhrase, priceSaying, diningOption, paymentMethod, recordedOk, recordedUri,
-      tapConfirmed, tapQuizCorrect, goodbyeQuizCorrect, xp, badges, visitedCategories,
-      listenCount, recordSuccesses, transcript, media, showTranslation, goodbyeChunkPt,
-      showChangePt,
-    }).catch(() => {});
+    // debounced so a burst of quick state changes (e.g. tapping through
+    // menu items) doesn't hit AsyncStorage with a JSON.stringify on every
+    // single update
+    const id = setTimeout(() => {
+      saveAulasPlusLessonState(lesson.id, {
+        stage, stageHistory, selectedItems, activeCategory, postMenuDestination,
+        orderPhrase, priceSaying, diningOption, paymentMethod, recordedOk, recordedUri,
+        tapConfirmed, tapQuizCorrect, goodbyeQuizCorrect, xp, badges, visitedCategories,
+        listenCount, recordSuccesses, transcript, media, showTranslation, goodbyeChunkPt,
+        showChangePt,
+      }).catch(() => {});
+    }, 600);
+    return () => clearTimeout(id);
   }, [
     lesson, stage, stageHistory, selectedItems, activeCategory, postMenuDestination,
     orderPhrase, priceSaying, diningOption, paymentMethod, recordedOk, recordedUri,
@@ -631,64 +696,94 @@ export default function CoffeeShopLesson({ navigation, route }) {
 
   function chooseOrderPhrase(key, label) { setOrderPhrase(key); goToStage('speakOrder'); logTurn('learner', label); addXp(10); }
 
-  // real microphone recording for the "Record" practice prompts
+  // real microphone recording for the "Record" practice prompts.
+  // isTogglingRecordRef makes start/stop atomic against a fast double-tap
+  // (which would otherwise fire overlapping native start/stop calls).
   async function toggleRecord() {
-    if (recording) {
-      try {
-        await recorder.stop();
-        await setAudioModeAsync({ allowsRecording: false, playsInSilentMode: true });
-        const status = recorder.getStatus();
-        const uri = recorder.uri ?? status.url;
-        setRecordedUri(uri || null);
-      } catch (e) {}
-      setRecording(false); setRecordedOk(true);
-      setRecordSuccesses(n => { const next = n + 1; if (next >= 2) unlockBadge('speakingStar'); return next; });
-      addXp(20);
-      return;
-    }
-    // flip the UI on immediately so the recording indicator (and the stopwatch
-    // effect keyed on `recording`) don't wait on the native setup round trip below
-    setRecording(true); setRecordedOk(false); setRecordedUri(null);
+    if (isTogglingRecordRef.current) return;
+    isTogglingRecordRef.current = true;
     try {
-      const { granted } = await requestRecordingPermissionsAsync();
-      if (!granted) {
+      if (recording) {
+        let uri = null;
+        try {
+          await recorder.stop();
+          const status = recorder.getStatus();
+          uri = recorder.uri ?? status.url ?? null;
+        } catch (e) {}
+        await setAudioModeAsync({ allowsRecording: false, playsInSilentMode: true }).catch(() => {});
         setRecording(false);
-        Alert.alert('Permissão necessária', 'Permita o uso do microfone para gravar sua voz.');
+        if (uri) {
+          setRecordedUri(uri);
+          setRecordedOk(true);
+          setRecordSuccesses(n => { const next = n + 1; if (next >= 2) unlockBadge('speakingStar'); return next; });
+          addXp(20);
+        } else {
+          // nothing was actually captured - don't reward it, let the learner retry
+          setRecordedUri(null);
+          setRecordedOk(false);
+          Alert.alert('Erro', 'Não foi possível salvar sua gravação. Tente novamente.');
+        }
         return;
       }
-      Speech.stop();
-      if (currentPlayer) {
-        const toRemove = currentPlayer;
-        currentPlayer = null;
-        try { toRemove.pause(); } catch (e) {}
-        try { toRemove.remove(); } catch (e) {}
+      // flip the UI on immediately so the recording indicator (and the stopwatch
+      // effect inside RecordControl) don't wait on the native setup round trip below
+      deleteRecordingFile(recordedUri); // about to be replaced by this new take
+      setRecording(true); setRecordedOk(false); setRecordedUri(null);
+      let audioModeSet = false;
+      try {
+        const { granted } = await requestRecordingPermissionsAsync();
+        if (!granted) {
+          setRecording(false);
+          Alert.alert('Permissão necessária', 'Permita o uso do microfone para gravar sua voz.');
+          return;
+        }
+        Speech.stop();
+        if (currentPlayer) {
+          const toRemove = currentPlayer;
+          currentPlayer = null;
+          try { toRemove.pause(); } catch (e) {}
+          try { toRemove.remove(); } catch (e) {}
+        }
+        await setAudioModeAsync({ allowsRecording: true, playsInSilentMode: true });
+        audioModeSet = true;
+        await recorder.prepareToRecordAsync();
+        recorder.record();
+      } catch (e) {
+        setRecording(false);
+        // don't leave the audio session stuck in recording mode if setup failed midway
+        if (audioModeSet) setAudioModeAsync({ allowsRecording: false, playsInSilentMode: true }).catch(() => {});
+        Alert.alert('Erro', 'Não foi possível iniciar a gravação.');
       }
-      await setAudioModeAsync({ allowsRecording: true, playsInSilentMode: true });
-      await recorder.prepareToRecordAsync();
-      recorder.record();
-    } catch (e) {
-      setRecording(false);
-      Alert.alert('Erro', 'Não foi possível iniciar a gravação.');
+    } finally {
+      isTogglingRecordRef.current = false;
     }
+  }
+
+  // a recordedUri restored from a previous app session may point to a file
+  // the OS already evicted from cache; if playback never actually loads,
+  // treat the recording as gone and let the learner record again
+  function handleMissingRecording() {
+    setRecordedOk(false);
+    setRecordedUri(null);
+    Alert.alert('Gravação indisponível', 'Essa gravação não está mais disponível. Grave novamente.');
   }
 
   function playMyRecording() {
-    if (recordedUri) playRecordedAudio({ uri: recordedUri });
-  }
-
-  function RecordControl() {
-    return (
-      <>
-        <Pressable onPress={toggleRecord} style={[styles.recordButton, recordedOk && styles.recordButtonDone]}>
-          <Text style={styles.recordButtonText}>{recording ? `⏺ Recording...  ${formatDuration(liveSeconds)}` : recordedOk ? '✓ Recorded' : '🎙️ Record'}</Text>
-        </Pressable>
-        {recordedOk && !!recordedUri && (
-          <Pressable onPress={playMyRecording} style={styles.playbackButton}>
-            <Text style={styles.playbackButtonText}>▶ Play my recording</Text>
-          </Pressable>
-        )}
-      </>
-    );
+    if (!recordedUri) return;
+    let player;
+    try {
+      player = playRecordedAudio({ uri: recordedUri });
+    } catch (e) {
+      handleMissingRecording();
+      return;
+    }
+    setTimeout(() => {
+      if (currentPlayer === player && !player.isLoaded) {
+        try { player.remove(); } catch (e) {}
+        if (currentPlayer === player) currentPlayer = null;
+        handleMissingRecording();
+      }
+    }, 900);
   }
 
   function makeYourOrder() {
@@ -779,7 +874,11 @@ export default function CoffeeShopLesson({ navigation, route }) {
   }
 
   function practiceAgain() {
-    if (recording) recorder.stop().catch(() => {});
+    if (recording) {
+      recorder.stop().catch(() => {});
+      setAudioModeAsync({ allowsRecording: false, playsInSilentMode: true }).catch(() => {});
+    }
+    deleteRecordingFile(recordedUri);
     setStage('welcome'); setStageHistory([]); setSelectedItems([]); setActiveCategory('coffee'); setActiveDraft(null);
     setCartOpen(false); setPostMenuDestination('orderPhrase'); setOrderPhrase(null); setPriceSaying(null);
     setDiningOption(null); setPaymentMethod(null); setRecording(false); setRecordedOk(false); setRecordedUri(null); setTapConfirmed(false);
@@ -947,7 +1046,7 @@ export default function CoffeeShopLesson({ navigation, route }) {
           <View style={[styles.section, { alignItems: 'center' }]}>
             <View style={styles.sentenceBox}><Text style={styles.sentenceText}>{sentence}</Text></View>
             <ListenButton text={sentence} size={52} />
-            <RecordControl />
+            <RecordControl recording={recording} recordedOk={recordedOk} recordedUri={recordedUri} onToggle={toggleRecord} onPlay={playMyRecording} />
             <PrimaryButton label="Make Your Order" onPress={makeYourOrder} disabled={!recordedOk} />
           </View>
         );
@@ -973,7 +1072,7 @@ export default function CoffeeShopLesson({ navigation, route }) {
             <View style={{ flexDirection: 'row', gap: 12, alignItems: 'center' }}>
               <ListenButton text="No, that's all." />
             </View>
-            <RecordControl />
+            <RecordControl recording={recording} recordedOk={recordedOk} recordedUri={recordedUri} onToggle={toggleRecord} onPlay={playMyRecording} />
             <PrimaryButton label="Continue" onPress={continueToDining} />
           </View>
         );
@@ -1021,7 +1120,7 @@ export default function CoffeeShopLesson({ navigation, route }) {
               <View style={{ alignItems: 'center', gap: 12, width: '100%' }}>
                 <View style={styles.sentenceBox}><Text style={styles.sentenceText}>{sentence}</Text></View>
                 <ListenButton text={sentence} size={52} />
-                <RecordControl />
+                <RecordControl recording={recording} recordedOk={recordedOk} recordedUri={recordedUri} onToggle={toggleRecord} onPlay={playMyRecording} />
                 <PrimaryButton label="Continue" onPress={continueAfterPrice} disabled={!recordedOk} />
               </View>
             )}
@@ -1137,7 +1236,7 @@ export default function CoffeeShopLesson({ navigation, route }) {
               </View>
               {showChangePt && <Text style={styles.hintTextPt}>"Aqui está seu troco, {fmt(change)}."</Text>}
             </View>
-            <RecordControl />
+            <RecordControl recording={recording} recordedOk={recordedOk} recordedUri={recordedUri} onToggle={toggleRecord} onPlay={playMyRecording} />
             <PrimaryButton label="Continue" onPress={cashContinue} />
           </View>
         );

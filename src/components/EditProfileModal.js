@@ -11,7 +11,7 @@ import {
   TextInput,
   View,
 } from "react-native";
-import * as ImagePicker from "expo-image-picker";
+import ImagePicker from "react-native-image-crop-picker";
 import Svg, { Path } from "react-native-svg";
 import CORES from "../util/cores";
 import { API_URL } from "../services/api";
@@ -43,29 +43,35 @@ export default function EditProfileModal({ visible, user, onClose, onSaved }) {
   }, [visible, displayName]);
 
   const handlePickPhoto = async () => {
-    const perm = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!perm.granted) {
-      Alert.alert(
-        "Permissão necessária",
-        "Ative o acesso às fotos nas configurações do sistema para trocar a foto de perfil.",
-        [
-          { text: "Cancelar", style: "cancel" },
-          { text: "Abrir configurações", onPress: () => Linking.openSettings() },
-        ],
-      );
-      return;
+    try {
+      const image = await ImagePicker.openPicker({
+        mediaType: "photo",
+        cropping: true,
+        width: 600,
+        height: 600,
+        compressImageQuality: 0.8,
+        cropperToolbarTitle: "Editar foto",
+        cropperToolbarColor: CORES.PROFILE_BLUE,
+        cropperToolbarWidgetColor: CORES.WHITE,
+        cropperActiveWidgetColor: CORES.PROFILE_BLUE,
+        cropperStatusBarLight: false,
+      });
+      setNovaFotoLocal({ uri: image.path, mimeType: image.mime });
+    } catch (error) {
+      if (error.code === "E_PICKER_CANCELLED") return;
+      if (error.code === "E_NO_LIBRARY_PERMISSION") {
+        Alert.alert(
+          "Permissão necessária",
+          "Ative o acesso às fotos nas configurações do sistema para trocar a foto de perfil.",
+          [
+            { text: "Cancelar", style: "cancel" },
+            { text: "Abrir configurações", onPress: () => Linking.openSettings() },
+          ],
+        );
+        return;
+      }
+      Alert.alert("Erro", "Não foi possível abrir a galeria de fotos.");
     }
-
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ["images"],
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 0.8,
-    });
-    if (result.canceled) return;
-
-    const asset = result.assets[0];
-    setNovaFotoLocal({ uri: asset.uri, mimeType: asset.mimeType });
   };
 
   const handleSave = async () => {

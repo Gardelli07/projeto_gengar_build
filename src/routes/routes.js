@@ -14,6 +14,10 @@ import Login from "../pages/Login";
 import PlacementFlow from "../pages/PlacementFlow";
 import MeusErros from "../pages/MeusErros";
 import PaywallScreen from "../pages/PaywallScreen";
+import PerfilVisitado from "../pages/PerfilVisitado";
+import Amigos from "../pages/Amigos";
+import Notificacoes from "../pages/Notificacoes";
+import Desafios from "../pages/Desafios";
 import InglesCompletoHome, { lessonScreens as inglesCompletoA0A1LessonScreens } from "../pages/aulas/completo/A0-A1";
 import InglesCompletoA2Home, { lessonScreens as inglesCompletoA2LessonScreens } from "../pages/aulas/completo/A2";
 import InglesCompletoB1Home, { lessonScreens as inglesCompletoB1LessonScreens } from "../pages/aulas/completo/B1";
@@ -237,6 +241,28 @@ export default function Routes() {
         <Stack.Screen
           name="MeusErros"
           component={MeusErros}
+          options={{ headerShown: false }}
+        />
+
+        {/* ===== COMUNIDADE SOCIAL ===== */}
+        <Stack.Screen
+          name="PerfilVisitado"
+          component={PerfilVisitado}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Amigos"
+          component={Amigos}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Notificacoes"
+          component={Notificacoes}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Desafios"
+          component={Desafios}
           options={{ headerShown: false }}
         />
 

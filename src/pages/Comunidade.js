@@ -119,98 +119,6 @@ function mapComment(raw) {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Posts placeholder — SOMENTE PARA APRESENTAÇÃO                     */
-/*  Não persistem no backend (curtir/comentar ficam só na tela).      */
-/*  Para remover depois: apague este bloco + os trechos marcados com  */
-/*  "// demo:" nos handlers mais abaixo.                              */
-/* ------------------------------------------------------------------ */
-const SHOW_DEMO_POSTS = true;
-
-function demoPost({ id, name, time, course, prompt, type, text, duration, likes, commentsTotal }) {
-  return {
-    id,
-    name,
-    initial: name.charAt(0).toUpperCase(),
-    color: colorFromId(name),
-    avatarUrl: null,
-    time,
-    course: course || null,
-    prompt: prompt || null,
-    type,
-    text: text || "",
-    duration: type === "audio" ? duration : null,
-    audioUrl: null,
-    likes,
-    liked: false,
-    commentsTotal,
-    ownerId: null,
-  };
-}
-
-const PLACEHOLDER_POSTS = [
-  demoPost({ id: "demo-1", name: "Mariana Silva", time: "há 4 min", course: "Conversação", prompt: "Describe your morning routine in English.", type: "text", text: "I wake up at 6am, drink coffee and practice English for 15 minutes before work. Small habits, big results! ☕📚", likes: 18, commentsTotal: 3 }),
-  demoPost({ id: "demo-2", name: "Carlos Eduardo", time: "há 12 min", course: "Inglês Básico", prompt: "Introduce yourself: say your name and where you're from.", type: "audio", duration: "0:42", likes: 9, commentsTotal: 0 }),
-  demoPost({ id: "demo-3", name: "Beatriz Costa", time: "há 25 min", course: "Vocabulário do Dia a Dia", prompt: "Complete: I ___ to the gym every morning.", type: "text", text: "I go to the gym every morning before work. Feeling proud of my progress! 💪", likes: 27, commentsTotal: 2 }),
-  demoPost({ id: "demo-4", name: "João Pedro", time: "há 38 min", type: "text", text: "Just finished my first full conversation lesson. It's amazing how much I understood!", likes: 14, commentsTotal: 0 }),
-  demoPost({ id: "demo-5", name: "Fernanda Lima", time: "há 51 min", course: "Gramática Avançada", prompt: "Talk about your plans for the weekend.", type: "audio", duration: "1:05", likes: 6, commentsTotal: 0 }),
-  demoPost({ id: "demo-6", name: "Rafael Santos", time: "há 1 h", prompt: "Translate: 'Eu adoraria viajar para os Estados Unidos.'", type: "text", text: "I would love to travel to the United States someday. Can someone check if this sounds natural?", likes: 22, commentsTotal: 1 }),
-  demoPost({ id: "demo-7", name: "Camila Rocha", time: "há 2 h", course: "Inglês para Viagem", type: "text", text: "Learned how to order food at a restaurant today! 'Could I get the check, please?' 🍽️", likes: 31, commentsTotal: 1 }),
-  demoPost({ id: "demo-8", name: "Lucas Oliveira", time: "há 2 h", prompt: "Describe your favorite hobby in English.", type: "audio", duration: "0:29", likes: 11, commentsTotal: 0 }),
-  demoPost({ id: "demo-9", name: "Juliana Alves", time: "há 3 h", course: "Conversação", prompt: "What did you do last weekend?", type: "text", text: "Last weekend I watched a movie in English without subtitles for the first time. So proud of myself!", likes: 40, commentsTotal: 2 }),
-  demoPost({ id: "demo-10", name: "Pedro Henrique", time: "há 4 h", type: "text", text: "Does anyone have tips for improving listening skills? Struggling with fast native speakers.", likes: 8, commentsTotal: 0 }),
-  demoPost({ id: "demo-11", name: "Larissa Souza", time: "há 5 h", course: "Vocabulário do Dia a Dia", prompt: "Order a coffee at a café using polite English phrases.", type: "audio", duration: "0:51", likes: 15, commentsTotal: 0 }),
-  demoPost({ id: "demo-12", name: "Bruno Martins", time: "há 7 h", type: "text", text: "Finished the whole beginner course today! On to intermediate level now 🚀", likes: 35, commentsTotal: 2 }),
-  demoPost({ id: "demo-13", name: "Amanda Ferreira", time: "há 9 h", course: "Gramática Avançada", prompt: "Explain the difference between 'much' and 'many'.", type: "text", text: "'Much' is for uncountable nouns and 'many' is for countable nouns, right? Please correct me if I'm wrong!", likes: 12, commentsTotal: 0 }),
-  demoPost({ id: "demo-14", name: "Gabriel Nunes", time: "há 1 d", prompt: "Explain how to get to the nearest train station.", type: "audio", duration: "1:18", likes: 19, commentsTotal: 0 }),
-  demoPost({ id: "demo-15", name: "Isabela Cardoso", time: "há 1 d", course: "Inglês Básico", type: "text", text: "Two months studying every day and I can finally hold a full conversation in English. Don't give up! ✨", likes: 47, commentsTotal: 3 }),
-];
-
-function demoComment({ postId, n, name, time, text }) {
-  return { id: `${postId}-c${n}`, name, initial: name.charAt(0).toUpperCase(), color: colorFromId(name), avatarUrl: null, time, text, ownerId: null };
-}
-
-const PLACEHOLDER_COMMENTS = {
-  "demo-1": [
-    demoComment({ postId: "demo-1", n: 1, name: "Beatriz Costa", time: "há 3 min", text: "That's such a great habit! I should do the same." }),
-    demoComment({ postId: "demo-1", n: 2, name: "João Pedro", time: "há 2 min", text: "15 minutes a day really adds up over time 👏" }),
-    demoComment({ postId: "demo-1", n: 3, name: "Rafael Santos", time: "há 1 min", text: "Consistency is key! Keep it up." }),
-  ],
-  "demo-3": [
-    demoComment({ postId: "demo-3", n: 1, name: "Camila Rocha", time: "há 20 min", text: "Correct! 'I go' is right for a daily routine." }),
-    demoComment({ postId: "demo-3", n: 2, name: "Lucas Oliveira", time: "há 18 min", text: "Nice, that sounds very natural!" }),
-  ],
-  "demo-6": [
-    demoComment({ postId: "demo-6", n: 1, name: "Juliana Alves", time: "há 40 min", text: "Sounds perfect! Maybe add 'to visit New York' for more detail." }),
-  ],
-  "demo-7": [
-    demoComment({ postId: "demo-7", n: 1, name: "Pedro Henrique", time: "há 1 h", text: "Great phrase to know before traveling!" }),
-  ],
-  "demo-9": [
-    demoComment({ postId: "demo-9", n: 1, name: "Larissa Souza", time: "há 2 h", text: "That's a huge milestone, congrats!" }),
-    demoComment({ postId: "demo-9", n: 2, name: "Bruno Martins", time: "há 2 h", text: "Which movie was it? I want to try too." }),
-  ],
-  "demo-12": [
-    demoComment({ postId: "demo-12", n: 1, name: "Amanda Ferreira", time: "há 6 h", text: "Congratulations! Intermediate is a great next step." }),
-    demoComment({ postId: "demo-12", n: 2, name: "Gabriel Nunes", time: "há 6 h", text: "Amazing progress, well done!" }),
-  ],
-  "demo-15": [
-    demoComment({ postId: "demo-15", n: 1, name: "Mariana Silva", time: "há 20 h", text: "This is so inspiring, thank you for sharing!" }),
-    demoComment({ postId: "demo-15", n: 2, name: "Carlos Eduardo", time: "há 19 h", text: "Two months and full conversations, wow!" }),
-    demoComment({ postId: "demo-15", n: 3, name: "Fernanda Lima", time: "há 18 h", text: "Needed to hear this today. Thank you!" }),
-  ],
-};
-
-function interleavePosts(realPosts, demoPosts) {
-  const result = [];
-  const max = Math.max(realPosts.length, demoPosts.length);
-  for (let i = 0; i < max; i += 1) {
-    if (demoPosts[i]) result.push(demoPosts[i]);
-    if (realPosts[i]) result.push(realPosts[i]);
-  }
-  return result;
-}
-
-/* ------------------------------------------------------------------ */
 /*  Componentes menores                                               */
 /* ------------------------------------------------------------------ */
 function Avatar({ initial, color, size = 44, uri }) {
@@ -253,6 +161,7 @@ function AudioBody({ audioUrl, duration }) {
   const [playing, setPlaying] = useState(false);
   const playerRef = useRef(null);
   const subscriptionRef = useRef(null);
+  const finishedRef = useRef(false);
 
   useEffect(() => {
     return () => {
@@ -266,14 +175,18 @@ function AudioBody({ audioUrl, duration }) {
 
     try {
       if (!playerRef.current) {
-        const player = createAudioPlayer({ uri: audioUrl });
+        const player = createAudioPlayer({ uri: audioUrl }, { updateInterval: 100 });
         subscriptionRef.current = player.addListener(
           "playbackStatusUpdate",
           (status) => {
             if (status.didJustFinish) {
+              finishedRef.current = true;
+              player.pause();
               player.seekTo(0);
               setPlaying(false);
+              return;
             }
+            setPlaying(Boolean(status.playing));
           }
         );
         playerRef.current = player;
@@ -283,6 +196,10 @@ function AudioBody({ audioUrl, duration }) {
         playerRef.current.pause();
         setPlaying(false);
       } else {
+        if (finishedRef.current) {
+          await playerRef.current.seekTo(0);
+          finishedRef.current = false;
+        }
         playerRef.current.play();
         setPlaying(true);
       }
@@ -309,7 +226,7 @@ function AudioBody({ audioUrl, duration }) {
 /* ------------------------------------------------------------------ */
 /*  Card do post                                                      */
 /* ------------------------------------------------------------------ */
-function PostCard({ post, isMine, onToggleLike, onOpenComments, onDeletePost }) {
+function PostCard({ post, isMine, onToggleLike, onOpenComments, onDeletePost, onOpenProfile }) {
   const commentCount = post.commentsTotal;
   const commentLabel =
     commentCount === 0 ? "Comentar" : commentCount === 1 ? "Ver comentário" : "Ver comentários";
@@ -318,14 +235,20 @@ function PostCard({ post, isMine, onToggleLike, onOpenComments, onDeletePost }) 
     <View style={styles.card}>
       {/* header */}
       <View style={styles.cardHeader}>
-        <Avatar initial={post.initial} color={post.color} uri={post.avatarUrl} />
-        <View style={{ flex: 1, marginLeft: 11 }}>
-          <Text style={styles.name}>{post.name}</Text>
-          <Text style={styles.metaText}>
-            {post.time}
-            {post.course ? ` · ${post.course}` : ""}
-          </Text>
-        </View>
+        <Pressable
+          style={styles.cardHeaderTouchable}
+          disabled={isMine}
+          onPress={() => onOpenProfile(post.ownerId)}
+        >
+          <Avatar initial={post.initial} color={post.color} uri={post.avatarUrl} />
+          <View style={{ flex: 1, marginLeft: 11 }}>
+            <Text style={styles.name}>{post.name}</Text>
+            <Text style={styles.metaText}>
+              {post.time}
+              {post.course ? ` · ${post.course}` : ""}
+            </Text>
+          </View>
+        </Pressable>
         {isMine && (
           <TouchableOpacity
             onPress={() => onDeletePost(post.id)}
@@ -394,7 +317,7 @@ function PostCard({ post, isMine, onToggleLike, onOpenComments, onDeletePost }) 
 /* ------------------------------------------------------------------ */
 /*  Bottom-sheet de comentários                                       */
 /* ------------------------------------------------------------------ */
-function CommentsSheet({ post, comments, loading, error, sending, currentUserId, onClose, onSend, onRetry, onDeleteComment }) {
+function CommentsSheet({ post, comments, loading, error, sending, currentUserId, onClose, onSend, onRetry, onDeleteComment, onOpenProfile }) {
   const [draft, setDraft] = useState("");
   const visible = !!post;
 
@@ -435,7 +358,11 @@ function CommentsSheet({ post, comments, loading, error, sending, currentUserId,
 
           {/* contexto */}
           {post && (
-            <View style={styles.context}>
+            <Pressable
+              style={styles.context}
+              disabled={post.ownerId != null && String(post.ownerId) === String(currentUserId)}
+              onPress={() => onOpenProfile(post.ownerId)}
+            >
               <Avatar initial={post.initial} color={post.color} size={32} uri={post.avatarUrl} />
               <View style={{ marginLeft: 10, flex: 1 }}>
                 <Text style={styles.contextName}>{post.name}</Text>
@@ -443,7 +370,7 @@ function CommentsSheet({ post, comments, loading, error, sending, currentUserId,
                   {post.type === "audio" ? `🎧 Mensagem de áudio · ${post.duration}` : post.text}
                 </Text>
               </View>
-            </View>
+            </Pressable>
           )}
 
           {/* lista */}
@@ -469,14 +396,20 @@ function CommentsSheet({ post, comments, loading, error, sending, currentUserId,
               const isMine = item.ownerId != null && String(item.ownerId) === String(currentUserId);
               return (
                 <View style={styles.commentRow}>
-                  <Avatar initial={item.initial} color={item.color} size={36} uri={item.avatarUrl} />
-                  <View style={{ flex: 1, marginLeft: 11 }}>
-                    <View style={styles.commentHead}>
-                      <Text style={styles.commentName}>{item.name}</Text>
-                      <Text style={styles.commentTime}>{item.time}</Text>
+                  <Pressable
+                    style={styles.commentTouchable}
+                    disabled={isMine}
+                    onPress={() => onOpenProfile(item.ownerId)}
+                  >
+                    <Avatar initial={item.initial} color={item.color} size={36} uri={item.avatarUrl} />
+                    <View style={{ flex: 1, marginLeft: 11 }}>
+                      <View style={styles.commentHead}>
+                        <Text style={styles.commentName}>{item.name}</Text>
+                        <Text style={styles.commentTime}>{item.time}</Text>
+                      </View>
+                      <Text style={styles.commentText}>{item.text}</Text>
                     </View>
-                    <Text style={styles.commentText}>{item.text}</Text>
-                  </View>
+                  </Pressable>
                   {isMine && (
                     <TouchableOpacity
                       onPress={() => onDeleteComment(post.id, item.id)}
@@ -571,10 +504,18 @@ function NewPostSheet({ visible, text, sending, onChangeText, onClose, onSubmit 
 /* ------------------------------------------------------------------ */
 /*  Tela principal                                                    */
 /* ------------------------------------------------------------------ */
-export default function CommunityScreen() {
+export default function CommunityScreen({ navigation }) {
   const { user } = useAuth();
   const currentUserId = extractUserId(user);
   const ownAvatarUrl = resolveMediaUrl(user?.foto_url);
+
+  const openProfile = useCallback(
+    (ownerId) => {
+      if (ownerId == null || String(ownerId) === String(currentUserId)) return;
+      navigation.navigate("PerfilVisitado", { usuarioId: ownerId });
+    },
+    [navigation, currentUserId],
+  );
 
   // A listagem de posts/comentários pode não trazer a foto do próprio usuário
   // (o backend às vezes só inclui id/nome do autor). Como já temos a foto do
@@ -611,11 +552,7 @@ export default function CommunityScreen() {
     try {
       const { posts: novos, temMais: proximaTemMais } = await fetchPosts({ pagina: paginaAlvo });
       const mapeados = novos.map(mapPost).map(withOwnAvatar);
-      setPosts((prev) => {
-        if (modo === "append") return [...prev, ...mapeados];
-        // demo: mistura os placeholders de apresentação com os posts reais
-        return SHOW_DEMO_POSTS ? interleavePosts(mapeados, PLACEHOLDER_POSTS) : mapeados;
-      });
+      setPosts((prev) => (modo === "append" ? [...prev, ...mapeados] : mapeados));
       setTemMais(proximaTemMais);
       setPagina(paginaAlvo);
       setErroInicial(null);
@@ -663,8 +600,6 @@ export default function CommunityScreen() {
       )
     );
 
-    if (String(post.id).startsWith("demo-")) return; // demo: não persiste no backend
-
     const acao = wasLiked ? descurtirPost(post.id) : curtirPost(post.id);
     acao.catch((error) => {
       console.error("[comunidade] falha ao curtir/descurtir:", error?.status, error?.message, error);
@@ -707,41 +642,12 @@ export default function CommunityScreen() {
   const openComments = useCallback(
     (postId) => {
       setOpenId(postId);
-      if (String(postId).startsWith("demo-")) {
-        // demo: comentários pré-definidos, sem chamada ao backend
-        setCommentsState((prev) => ({
-          ...prev,
-          [postId]: { items: PLACEHOLDER_COMMENTS[postId] || [], loading: false, error: null },
-        }));
-        return;
-      }
       loadComments(postId);
     },
     [loadComments]
   );
 
   const sendComment = useCallback(async (postId, texto) => {
-    if (String(postId).startsWith("demo-")) {
-      // demo: adiciona só na tela, sem persistir
-      const novo = {
-        id: `${postId}-c${Date.now()}`,
-        name: user?.nome || "Você",
-        initial: (user?.nome || "V").charAt(0).toUpperCase(),
-        color: colorFromId(currentUserId ?? "voce"),
-        avatarUrl: ownAvatarUrl,
-        time: "agora",
-        text: texto,
-        ownerId: currentUserId,
-      };
-      setCommentsState((prev) => {
-        const atual = prev[postId] || { items: [], loading: false, error: null };
-        return { ...prev, [postId]: { ...atual, items: [...atual.items, novo] } };
-      });
-      setPosts((prev) =>
-        prev.map((p) => (p.id === postId ? { ...p, commentsTotal: p.commentsTotal + 1 } : p))
-      );
-      return;
-    }
     setSendingComment(true);
     try {
       const novo = await enviarComentario(postId, texto);
@@ -765,7 +671,7 @@ export default function CommunityScreen() {
     (postId) => {
       Alert.alert(
         "Excluir post",
-        "Tem certeza que deseja excluir este post? Essa ação não pode ser desfeita.",
+        "Tem certeza de que deseja excluir este post? Essa ação não pode ser desfeita.",
         [
           { text: "Cancelar", style: "cancel" },
           {
@@ -792,7 +698,7 @@ export default function CommunityScreen() {
 
   const deleteComment = useCallback(
     (postId, commentId) => {
-      Alert.alert("Excluir comentário", "Tem certeza que deseja excluir este comentário?", [
+      Alert.alert("Excluir comentário", "Tem certeza de que deseja excluir este comentário?", [
         { text: "Cancelar", style: "cancel" },
         {
           text: "Excluir",
@@ -807,7 +713,6 @@ export default function CommunityScreen() {
             setPosts((prev) =>
               prev.map((p) => (p.id === postId ? { ...p, commentsTotal: Math.max(0, p.commentsTotal - 1) } : p))
             );
-            if (String(postId).startsWith("demo-")) return; // demo: não persiste no backend
             deletarComentario(postId, commentId).catch((error) => {
               console.error("[comunidade] falha ao excluir comentário:", error?.status, error?.message, error);
               if (estadoAnterior) {
@@ -896,6 +801,7 @@ export default function CommunityScreen() {
               onToggleLike={toggleLike}
               onOpenComments={openComments}
               onDeletePost={deletePost}
+              onOpenProfile={openProfile}
             />
           )}
           ListEmptyComponent={
@@ -930,6 +836,7 @@ export default function CommunityScreen() {
         onSend={sendComment}
         onRetry={() => openId && loadComments(openId, { force: true })}
         onDeleteComment={deleteComment}
+        onOpenProfile={openProfile}
       />
 
       <NewPostSheet
@@ -1002,6 +909,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   cardHeader: { flexDirection: "row", alignItems: "center" },
+  cardHeaderTouchable: { flex: 1, flexDirection: "row", alignItems: "center" },
   avatar: { alignItems: "center", justifyContent: "center" },
   avatarText: { color: "#fff", fontWeight: "800" },
   name: { fontSize: 15.5, fontWeight: "800", color: CORES.COMUNIDADE_TEXT },
@@ -1096,6 +1004,7 @@ const styles = StyleSheet.create({
   retryBtn: { marginTop: 12, paddingVertical: 10, paddingHorizontal: 20, borderRadius: 999, backgroundColor: CORES.COMUNIDADE_ACCENT_SOFT },
   retryText: { color: CORES.COMUNIDADE_ACCENT, fontWeight: "800", fontSize: 13.5 },
   commentRow: { flexDirection: "row", alignItems: "flex-start", paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: "#F4F6FA" },
+  commentTouchable: { flex: 1, flexDirection: "row", alignItems: "flex-start" },
   commentDeleteBtn: { padding: 4, marginLeft: 6 },
   commentHead: { flexDirection: "row", alignItems: "baseline", gap: 8 },
   commentName: { fontSize: 13.5, fontWeight: "800", color: CORES.COMUNIDADE_TEXT },

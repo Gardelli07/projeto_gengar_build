@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Provider as PaperProvider } from "react-native-paper";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { KeyboardProvider } from "react-native-keyboard-controller";
 import { useFonts, Poppins_700Bold, Poppins_800ExtraBold } from "@expo-google-fonts/poppins";
 import {
   Inter_400Regular,
@@ -24,12 +25,14 @@ export default function App() {
   if (!fontsLoaded) return null;
 
   return (
-    <SafeAreaProvider>
-      <AuthProvider>
-        <PaperProvider>
-          <Routes />
-        </PaperProvider>
-      </AuthProvider>
-    </SafeAreaProvider>
+    <KeyboardProvider>
+      <SafeAreaProvider>
+        <AuthProvider>
+          <PaperProvider>
+            <Routes />
+          </PaperProvider>
+        </AuthProvider>
+      </SafeAreaProvider>
+    </KeyboardProvider>
   );
 }

@@ -84,6 +84,16 @@ def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
 android {
     ndkVersion rootProject.ext.ndkVersion
 
+    // Pin to a newer CMake (bundles Ninja >=1.11, which supports Windows long paths).
+    // The default 3.22.1 bundled with the Android SDK ships an old Ninja that hard-fails
+    // on object file paths over 260 chars, which the react-native-keyboard-controller
+    // codegen output regularly exceeds.
+    externalNativeBuild {
+        cmake {
+            version "4.1.2"
+        }
+    }
+
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 

@@ -89,7 +89,6 @@ function WaveBars() {
 
 export default function AulasPlusHome({ navigation }) {
   const goToLesson = (lesson) => navigation.navigate(lesson.screen, { lesson });
-  const goToSeries = (s) => navigation.navigate("AulasPlusSeriesDetail", { seriesId: s.id });
   const goToPaywall = () => navigation.navigate("Paywall");
   const goHome = () => navigation.navigate("Tabs", { screen: "Home" });
 
@@ -146,7 +145,7 @@ export default function AulasPlusHome({ navigation }) {
         end={{ x: 0.9, y: 1 }}
         style={StyleSheet.absoluteFill}
       />
-      <SafeAreaView style={{ flex: 1 }} edges={["top", "left", "right"]}>
+      <SafeAreaView style={{ flex: 1 }} edges={["top", "left", "right", "bottom"]}>
         <StatusBar barStyle="light-content" />
 
         <ScrollView contentContainerStyle={{ paddingBottom: 24 }} showsVerticalScrollIndicator={false}>
@@ -338,21 +337,26 @@ export default function AulasPlusHome({ navigation }) {
           />
 
           {/* Learning Series */}
-          <View style={{ paddingHorizontal: 20, marginBottom: 12 }}>
-            <Text style={styles.sectionTitle}>Séries de aprendizado</Text>
-            <Text style={styles.sectionSubtitle}>Organizadas em temporadas e episódios</Text>
+          <View style={styles.seriesHeaderRow}>
+            <View>
+              <Text style={styles.sectionTitle}>Séries de aprendizado</Text>
+              <Text style={styles.sectionSubtitle}>Organizadas em temporadas e episódios</Text>
+            </View>
+            <View style={styles.comingSoonBadge}>
+              <Text style={styles.comingSoonText}>EM BREVE</Text>
+            </View>
           </View>
           {series.length > 0 ? (
             <View style={{ paddingHorizontal: 20, gap: 12 }}>
               {series.map((s) => (
-                <TouchableOpacity key={s.id} style={styles.seriesRow} onPress={() => goToSeries(s)} activeOpacity={0.85}>
+                <View key={s.id} style={styles.seriesRow}>
                   <LinearGradient colors={s.colors} style={styles.seriesThumb} />
                   <View style={{ flex: 1 }}>
-                    <Text style={styles.cardTitle}>{s.title}</Text>
+                    <Text style={[styles.cardTitle, styles.textMutedTitle]}>{s.title}</Text>
                     <Text style={styles.cardSub}>Temporada 1 · {s.episodes} episódios</Text>
                   </View>
-                  <MaterialCommunityIcons name="chevron-right" size={18} color={COLORS.textFaint} />
-                </TouchableOpacity>
+                  <MaterialCommunityIcons name="lock-outline" size={16} color={COLORS.textFaint} />
+                </View>
               ))}
             </View>
           ) : (
@@ -526,6 +530,13 @@ const styles = StyleSheet.create({
   tagChip: { position: "absolute", top: 10, left: 10, backgroundColor: COLORS.gold, paddingHorizontal: 9, paddingVertical: 3, borderRadius: 100 },
   tagChipText: { color: "#241a00", fontFamily: FONTS.bodyBold, fontSize: 10.5 },
 
+  seriesHeaderRow: {
+    paddingHorizontal: 20,
+    marginBottom: 12,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+  },
   seriesRow: {
     flexDirection: "row",
     alignItems: "center",
