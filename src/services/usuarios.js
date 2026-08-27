@@ -4,3 +4,7 @@ export async function fetchPerfilPublico(usuarioId) {
   const resposta = await api.get(`/usuarios/${usuarioId}`);
   return resposta?.usuario || null;
 }
+
+export function excluirConta() {
+  return api.delete("/usuarios/conta");
+}

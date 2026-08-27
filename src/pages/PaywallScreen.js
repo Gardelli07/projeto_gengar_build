@@ -29,42 +29,34 @@ const RAW_PLANS = {
     key: 'free',
     name: 'Free',
     tagline: 'Comece com o básico',
-    now: 0,
-    was: null,
+    monthly: { now: 0, was: null },
+    yearly: { now: 0, was: null },
     features: [
-      { label: 'Aulas com anúncios', ok: false },
+      { label: 'Acesso limitado às aulas', ok: false },
       { label: 'Sem testes de nível', ok: false },
       { label: 'Sem descontos em aulas premium', ok: false },
     ],
   },
-  study: {
-    key: 'study',
-    name: 'Sem anúncios',
-    tagline: 'Foco, sem interrupções',
-    now: 5.78,
-    was: 15.89,
-    features: [
-      { label: 'Sem anúncios', ok: true },
-      { label: 'Sem testes de nível', ok: false },
-      { label: 'Sem descontos em aulas premium', ok: false },
-    ],
-  },
-  gold: {
-    key: 'gold',
-    name: 'Gold',
+  premium: {
+    key: 'premium',
+    name: 'Premium',
     tagline: 'Tudo para se certificar',
-    now: 8.79,
-    was: 20.97,
+    monthly: { now: 14.9, was: null },
+    yearly: { now: 89.9, was: 200 },
     recommended: true,
     features: [
-      { label: 'Sem anúncios', ok: true },
+      { label: 'Acesso completo a todas as aulas', ok: true },
       { label: 'Teste de nível + certificado ao final do curso', ok: true },
       { label: 'Descontos em aulas premium', ok: true },
     ],
   },
 };
 
-const PLAN_ORDER = ['free', 'study', 'gold'];
+const PLAN_ORDER = ['free', 'premium'];
+
+const YEARLY_DISCOUNT_PCT = Math.round(
+  (1 - RAW_PLANS.premium.yearly.now / RAW_PLANS.premium.yearly.was) * 100
+);
 
 function fmt(n) {
   return 'R$ ' + n.toFixed(2).replace('.', ',');
@@ -73,32 +65,33 @@ function fmt(n) {
 export default function PaywallScreen({ navigation }) {
   const { upgradeToFullAccessPlan } = useAuth();
   const [billing, setBilling] = useState('monthly'); // 'monthly' | 'yearly'
-  const [selected, setSelected] = useState('gold');
+  const [selected, setSelected] = useState('premium');
   const [submitting, setSubmitting] = useState(false);
 
   const plans = useMemo(() => {
     const isYearly = billing === 'yearly';
     return PLAN_ORDER.map((key) => {
       const p = RAW_PLANS[key];
+      const price = isYearly ? p.yearly : p.monthly;
       let priceNow, priceWas, priceSubnote;
 
-      if (p.now === 0) {
+      if (price.now === 0) {
         priceNow = 'R$ 0';
         priceWas = '';
         priceSubnote = 'para sempre';
       } else if (!isYearly) {
-        priceNow = fmt(p.now) + '/mês';
-        priceWas = fmt(p.was) + '/mês';
+        priceNow = fmt(price.now) + '/mês';
+        priceWas = '';
         priceSubnote = 'cobrado mensalmente';
       } else {
-        const yearlyMonthly = p.now * 0.9;
-        const yearlyTotal = yearlyMonthly * 12;
-        priceNow = fmt(yearlyMonthly) + '/mês';
-        priceWas = fmt(p.was) + '/mês';
-        priceSubnote = fmt(yearlyTotal) + ' cobrado anualmente';
+        priceNow = fmt(price.now);
+        priceWas = price.was ? fmt(price.was) : '';
+        priceSubnote = price.was
+          ? `no 1º ano · depois ${fmt(price.was)}/ano`
+          : 'cobrado anualmente';
       }
 
-      const discountPct = p.was ? Math.round((1 - p.now / p.was) * 100) : null;
+      const discountPct = price.was ? Math.round((1 - price.now / price.was) * 100) : null;
 
       return { ...p, priceNow, priceWas, priceSubnote, discountPct };
     });
@@ -153,8 +146,8 @@ export default function PaywallScreen({ navigation }) {
         <View style={styles.header}>
           <Text style={styles.title}>Desbloqueie sua fluência</Text>
           <Text style={styles.subtitle}>
-            Vá mais longe no inglês — sem anúncios, testes de verdade e descontos em aulas
-            premium.
+            Vá mais longe no inglês — acesso completo às aulas, testes de verdade e descontos em
+            aulas premium.
           </Text>
           <View style={styles.trustRow}>
             <Text style={[styles.trustText, { color: COLORS.blue }]}>★ 4,8</Text>
@@ -179,7 +172,7 @@ export default function PaywallScreen({ navigation }) {
               Anual
             </Text>
             <View style={styles.yearlyBadge}>
-              <Text style={styles.yearlyBadgeText}>-10%</Text>
+              <Text style={styles.yearlyBadgeText}>-{YEARLY_DISCOUNT_PCT}%</Text>
             </View>
           </TouchableOpacity>
         </View>

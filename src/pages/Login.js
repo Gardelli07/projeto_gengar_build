@@ -157,9 +157,16 @@ export default function LoginScreen({ navigation }) {
           AppleAuthentication.AppleAuthenticationScope.EMAIL,
         ],
       });
+      // A Apple só manda o nome no primeiro login desse usuário; nos próximos
+      // credential.fullName vem nulo. O backend só usa isso ao criar a conta.
+      const nomeCompleto = [credential.fullName?.givenName, credential.fullName?.familyName]
+        .filter(Boolean)
+        .join(" ")
+        .trim();
       await handleSocialLogin("apple", {
         identityToken: credential.identityToken,
         plataforma: Platform.OS,
+        ...(nomeCompleto ? { nome: nomeCompleto } : {}),
       });
     } catch (error) {
       setSocialLoading(false);

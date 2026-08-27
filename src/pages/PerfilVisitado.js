@@ -15,8 +15,10 @@ import Svg, { Path } from "react-native-svg";
 import { API_URL } from "../services/api";
 import { fetchPerfilPublico } from "../services/usuarios";
 import { enviarPedidoAmizade, aceitarPedidoAmizade, desfazerAmizade } from "../services/amizades";
+import { denunciarUsuario } from "../services/denuncias";
 import { getLevelProgress } from "../util/xp";
 import CORES from "../util/cores";
+import ReportSheet from "../components/ReportSheet";
 
 const IconArrowLeft = ({ size = 20, color = CORES.PROFILE_NAVY }) => (
   <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round">
@@ -39,6 +41,13 @@ const IconCheck = ({ size = 17, color = "#fff" }) => (
   </Svg>
 );
 
+const IconFlag = ({ size = 18, color = CORES.PROFILE_NAVY }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
+    <Path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+    <Path d="M4 22V15" />
+  </Svg>
+);
+
 const IconSwords = ({ size = 17, color = CORES.PROFILE_NAVY }) => (
   <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
     <Path d="M14.5 17.5L3 6V3h3l11.5 11.5" />
@@ -55,6 +64,8 @@ export default function PerfilVisitado({ route, navigation }) {
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState(false);
   const [processandoAcao, setProcessandoAcao] = useState(false);
+  const [reportVisible, setReportVisible] = useState(false);
+  const [reportSending, setReportSending] = useState(false);
 
   const carregar = useCallback(async () => {
     setCarregando(true);
@@ -92,6 +103,24 @@ export default function PerfilVisitado({ route, navigation }) {
     }
   };
 
+  const handleSubmitReport = async (motivo, descricao) => {
+    if (!perfil) return;
+    setReportSending(true);
+    try {
+      await denunciarUsuario(perfil.id, motivo, descricao);
+      setReportVisible(false);
+      Alert.alert("Denúncia enviada", "Nossa equipe vai analisar em breve.");
+    } catch (error) {
+      if (error?.status === 409) {
+        Alert.alert("Já denunciado", "Você já denunciou esse usuário.");
+      } else {
+        Alert.alert("Erro", error.message || "Não foi possível enviar sua denúncia. Tente novamente.");
+      }
+    } finally {
+      setReportSending(false);
+    }
+  };
+
   const displayName = perfil?.nome_exibicao?.trim() || "Usuário";
   const avatarUri = perfil?.foto_url ? `${API_URL}${perfil.foto_url}` : null;
   const levelProgress = getLevelProgress(perfil?.xp_total || 0);
@@ -105,7 +134,13 @@ export default function PerfilVisitado({ route, navigation }) {
           <IconArrowLeft />
         </Pressable>
         <Text style={styles.headerTitle}>Perfil</Text>
-        <View style={styles.backBtn} />
+        {perfil ? (
+          <Pressable onPress={() => setReportVisible(true)} hitSlop={10} style={styles.backBtn}>
+            <IconFlag />
+          </Pressable>
+        ) : (
+          <View style={styles.backBtn} />
+        )}
       </View>
 
       {carregando ? (
@@ -217,6 +252,13 @@ export default function PerfilVisitado({ route, navigation }) {
           </View>
         </ScrollView>
       )}
+
+      <ReportSheet
+        visible={reportVisible}
+        sending={reportSending}
+        onClose={() => !reportSending && setReportVisible(false)}
+        onSubmit={handleSubmitReport}
+      />
     </SafeAreaView>
   );
 }

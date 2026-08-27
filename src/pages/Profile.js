@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import {
+  ActivityIndicator,
   Alert,
   Image,
   Linking,
@@ -15,6 +16,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Svg, { Path, Circle } from "react-native-svg";
 import { useAuth } from "../context/AuthContext";
 import { API_URL } from "../services/api";
+import { excluirConta } from "../services/usuarios";
 import { getLevelProgress } from "../util/xp";
 import { clearAllLocalProgress } from "../util/courseCatalog";
 import { clearAllAulasPlusProgress } from "./aulas/aulasplus/progress";
@@ -115,6 +117,16 @@ const IconRefresh = ({ size = 19, color = CORES.PROFILE_DANGER }) => (
   </Svg>
 );
 
+const IconTrash = ({ size = 19, color = CORES.PROFILE_DANGER }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <Path d="M3 6h18" />
+    <Path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+    <Path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+    <Path d="M10 11v6" />
+    <Path d="M14 11v6" />
+  </Svg>
+);
+
 /* ---------- linha da seção Conta ---------- */
 function Row({ icon, label, right, isLast, onPress }) {
   return (
@@ -151,6 +163,7 @@ export default function ProfileScreen({ navigation }) {
   const [reminderMinute, setReminderMinute] = useState(DEFAULT_REMINDER_MINUTE);
   const [timeModalVisible, setTimeModalVisible] = useState(false);
   const [editProfileVisible, setEditProfileVisible] = useState(false);
+  const [excluindoConta, setExcluindoConta] = useState(false);
 
   useFocusRefresh(
     useCallback(async () => {
@@ -275,6 +288,33 @@ export default function ProfileScreen({ navigation }) {
               updateUser({ teste_nivelamento_concluido: false });
             } catch {
               Alert.alert("Erro", "Não foi possível apagar a tentativa. Tente novamente.");
+            }
+          },
+        },
+      ],
+    );
+  };
+
+  const handleDeleteAccount = () => {
+    Alert.alert(
+      "Excluir conta",
+      "Isso vai apagar sua conta e a maior parte dos dados vinculados a ela — perfil, progresso, XP, sequência, posts e comentários na comunidade, amizades, desafios e assinaturas. Essa ação não pode ser desfeita. Deseja continuar?",
+      [
+        { text: "Cancelar", style: "cancel" },
+        {
+          text: "Excluir conta",
+          style: "destructive",
+          onPress: async () => {
+            setExcluindoConta(true);
+            try {
+              await excluirConta();
+              signOut();
+              const rootNavigation = navigation.getParent() ?? navigation;
+              rootNavigation.reset({ index: 0, routes: [{ name: "Login" }] });
+            } catch (error) {
+              Alert.alert("Erro", error.message || "Não foi possível excluir a conta. Tente novamente.");
+            } finally {
+              setExcluindoConta(false);
             }
           },
         },
@@ -457,8 +497,14 @@ export default function ProfileScreen({ navigation }) {
             icon={<IconRefresh />}
             label="Refazer teste de nivelamento"
             right={<IconChevron />}
-            isLast
             onPress={handleResetNivelamento}
+          />
+          <Row
+            icon={<IconTrash />}
+            label="Excluir conta"
+            right={excluindoConta ? <ActivityIndicator color={CORES.PROFILE_DANGER} /> : <IconChevron />}
+            isLast
+            onPress={excluindoConta ? undefined : handleDeleteAccount}
           />
         </View>
 

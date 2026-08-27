@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { ScrollView, View, Text, Image, Pressable, StyleSheet, Alert, AppState } from 'react-native';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { ScrollView, View, Text, Image, Pressable, StyleSheet, Alert, AppState, Animated } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Speech from 'expo-speech';
 import * as ImagePicker from 'expo-image-picker';
@@ -9,11 +9,17 @@ import {
   RecordingPresets,
   requestRecordingPermissionsAsync,
   useAudioRecorder,
+  useAudioRecorderState,
 } from 'expo-audio';
 import { useVideoPlayer, VideoView } from 'expo-video';
+import { useSharedValue, useFrameCallback } from 'react-native-reanimated';
+import { runOnJS } from 'react-native-worklets';
 import { File } from 'expo-file-system';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { scopedKey } from '../../../util/userScope';
+import { enviarArquivo } from '../../../services/arquivos';
+import { criarPostAudio } from '../../../services/comunidade';
+import { getSlidePostId, markSlidePosted } from '../../../util/exercisePosts';
 import { aulasPlusLessons } from './lessons';
 import {
   loadAulasPlusLessonState,
@@ -363,35 +369,134 @@ function FeedbackModal({ feedback, onDismiss }) {
 }
 
 const MAX_RECORDING_MS = 60000;
+const WAVE_BARS = 24;
 
-// record button + live stopwatch, self-contained: the 200ms tick lives here
-// (not in the lesson's own state) so re-renders while recording stay local
-// to this widget instead of re-rendering the whole lesson (header, menu
-// grid, etc.) five times a second.
-function RecordControl({ recording, recordedOk, recordedUri, onToggle, onPlay }) {
-  const [elapsedMs, setElapsedMs] = useState(0);
-  const startRef = useRef(0);
-  // always call the latest onToggle - avoids a stale closure without having
-  // to restart (and visually reset) the interval when the parent re-renders
+// rolls incoming metering readings into a fixed-length trailing history so
+// the bars show a real waveform of the last couple seconds (like a voice
+// message) instead of every bar reacting to the same instantaneous volume
+function useLevelHistory(metering) {
+  const [levels, setLevels] = useState(() => new Array(WAVE_BARS).fill(0.06));
+  useEffect(() => {
+    const hasMetering = typeof metering === 'number' && isFinite(metering);
+    const level = hasMetering
+      ? Math.max(0.06, Math.min(1, (metering + 50) / 50))
+      : 0.06 + Math.random() * 0.4; // gentle wiggle if metering isn't supported
+    setLevels((prev) => [...prev.slice(1), level]);
+  }, [metering]);
+  return levels;
+}
+
+function Waveform({ levels }) {
+  return (
+    <View style={styles.waveRow}>
+      {levels.map((lvl, i) => (
+        <View
+          key={i}
+          style={[
+            styles.waveBar,
+            { height: Math.max(3, lvl * 26), opacity: 0.35 + (i / levels.length) * 0.65 },
+          ]}
+        />
+      ))}
+    </View>
+  );
+}
+
+// polls the native recorder for metering (100ms) purely to drive the live
+// waveform - isolated into its own leaf so it only exists (and only pays for
+// the bridge poll) while actually recording, not for the whole idle state
+function RecordWaveformLive({ recorder }) {
+  const recorderState = useAudioRecorderState(recorder, 100);
+  const levels = useLevelHistory(recorderState.metering);
+  return <Waveform levels={levels} />;
+}
+
+// expanding "sonar ping" ring behind the record circle while active - the
+// classic recording affordance
+function PulseRing({ active, size }) {
+  const a = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    if (!active) return;
+    a.setValue(0);
+    const loop = Animated.loop(
+      Animated.timing(a, { toValue: 1, duration: 1400, useNativeDriver: true }),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [active]);
+  if (!active) return null;
+  const scale = a.interpolate({ inputRange: [0, 1], outputRange: [1, 1.9] });
+  const opacity = a.interpolate({ inputRange: [0, 1], outputRange: [0.35, 0] });
+  return (
+    <Animated.View
+      pointerEvents="none"
+      style={[styles.recRing, { width: size, height: size, opacity, transform: [{ scale }] }]}
+    />
+  );
+}
+
+// record circle + elapsed-time stopwatch, driven by Reanimated's UI thread
+// (useFrameCallback) instead of a JS setInterval. During this lesson the JS
+// thread gets busy enough (menu re-renders, autosave, stage transitions)
+// that a JS timer could lag; the UI thread keeps its own clock regardless of
+// JS thread load, and only calls back into JS once per second - exactly
+// when the displayed number needs to change - via runOnJS.
+function RecordControl({ recorder, recording, recordedOk, recordedUri, onToggle, onPlay }) {
+  const startTime = useSharedValue(0);
+  const lastSecond = useSharedValue(-1);
+  const [displaySeconds, setDisplaySeconds] = useState(0);
+  // always call the latest onToggle - avoids a stale closure
   const onToggleRef = useRef(onToggle);
   onToggleRef.current = onToggle;
+
+  const handleTick = useCallback((sec) => {
+    setDisplaySeconds(sec);
+    if (sec * 1000 >= MAX_RECORDING_MS) onToggleRef.current();
+  }, []);
+
+  const frameCallback = useFrameCallback(() => {
+    'worklet';
+    const elapsedSec = Math.floor((Date.now() - startTime.value) / 1000);
+    if (elapsedSec !== lastSecond.value) {
+      lastSecond.value = elapsedSec;
+      runOnJS(handleTick)(elapsedSec);
+    }
+  }, false);
+
   useEffect(() => {
-    if (!recording) return undefined;
-    startRef.current = Date.now();
-    setElapsedMs(0);
-    const id = setInterval(() => {
-      const ms = Date.now() - startRef.current;
-      setElapsedMs(ms);
-      if (ms >= MAX_RECORDING_MS) onToggleRef.current();
-    }, 200);
-    return () => clearInterval(id);
+    if (recording) {
+      startTime.value = Date.now();
+      lastSecond.value = -1;
+      setDisplaySeconds(0);
+      frameCallback.setActive(true);
+    } else {
+      frameCallback.setActive(false);
+    }
   }, [recording]);
-  const liveSeconds = Math.floor(elapsedMs / 1000);
+
   return (
     <>
-      <Pressable onPress={onToggle} style={[styles.recordButton, recordedOk && styles.recordButtonDone]}>
-        <Text style={styles.recordButtonText}>{recording ? `⏺ Recording...  ${formatDuration(liveSeconds)}` : recordedOk ? '✓ Recorded' : '🎙️ Record'}</Text>
-      </Pressable>
+      <View style={styles.recWrap}>
+        <View style={{ width: 64, height: 64 }}>
+          <PulseRing active={recording} size={64} />
+          <Pressable
+            onPress={onToggle}
+            style={[styles.recCircle, { backgroundColor: recording ? COLORS.red : recordedOk ? COLORS.green : COLORS.primary }]}
+          >
+            <Text style={styles.recCircleIcon}>{recording ? '⏹' : recordedOk ? '✓' : '🎙️'}</Text>
+          </Pressable>
+        </View>
+        <View style={styles.recInfo}>
+          {recording ? (
+            <>
+              <Text style={styles.recTimer}>{formatDuration(displaySeconds)}</Text>
+              <RecordWaveformLive recorder={recorder} />
+            </>
+          ) : (
+            <Text style={styles.recIdleLabel}>{recordedOk ? 'Recorded' : 'Record'}</Text>
+          )}
+        </View>
+      </View>
       {recordedOk && !!recordedUri && (
         <Pressable onPress={onPlay} style={styles.playbackButton}>
           <Text style={styles.playbackButtonText}>▶ Play my recording</Text>
@@ -426,6 +531,9 @@ export default function CoffeeShopLesson({ navigation, route }) {
   // guards toggleRecord against overlapping calls (e.g. a fast double-tap on
   // the record button firing a start and a stop before either one settles)
   const isTogglingRecordRef = useRef(false);
+  // marks when the current recording started, to compute its duration for
+  // the community upload (durationMillis resets once recorder.stop() resolves)
+  const recordStartRef = useRef(0);
   const [stage, setStage] = useState('welcome');
   const [stageHistory, setStageHistory] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -696,6 +804,52 @@ export default function CoffeeShopLesson({ navigation, route }) {
 
   function chooseOrderPhrase(key, label) { setOrderPhrase(key); goToStage('speakOrder'); logTurn('learner', label); addXp(10); }
 
+  // the sentence the learner was asked to say at a given recording stage -
+  // used only as the community post's caption, not shown in the lesson UI
+  function recordingPromptForStage(stageKey) {
+    if (stageKey === 'speakOrder') {
+      const phraseMap = { canihave: 'Can I have', illhave: "I'll have", idlike: "I'd like" };
+      const parts = selectedItems.map(itemPhrasePart);
+      let joined = '';
+      if (parts.length === 1) joined = parts[0];
+      else if (parts.length > 1) joined = parts.slice(0, -1).join(', ') + ' and ' + parts[parts.length - 1];
+      return orderPhrase ? phraseMap[orderPhrase] + (joined ? ' ' + joined : '') + '.' : '';
+    }
+    if (stageKey === 'anythingElseFinal') return "No, that's all.";
+    if (stageKey === 'totalCheck') return priceSaying ? priceSentenceFor(priceSaying) : '';
+    if (stageKey === 'cashPaid') return `Here's your change, ${fmt(change)}.`;
+    return '';
+  }
+
+  // mirrors Exercise16's audio-to-community flow (enviarArquivo ->
+  // criarPostAudio), gated by exercisePosts so re-recording or revisiting a
+  // stage never posts the same clip to the community twice
+  async function postAudioToCommunity(stageKey, uri, seconds) {
+    if (!lesson || !uri) return;
+    const slideKey = `aulasplus:${lesson.id}:${stageKey}`;
+    try {
+      const jaPostado = await getSlidePostId(slideKey);
+      if (jaPostado) return;
+      const arquivo = await enviarArquivo(uri, {
+        tipo: 'audio',
+        mimeType: 'audio/m4a',
+        duracaoSegundos: seconds,
+      });
+      if (!arquivo?.id) throw new Error('Upload de audio nao retornou um id.');
+      // posts_comunidade.origem is a DB ENUM whose CHECK constraint requires
+      // tipo='audio' posts to use exactly 'exercicio16' - there's no distinct
+      // value for aulas plus yet, so this reuses it (see
+      // banco/BANCO_API_SCHEMA_MYSQL_PT_v2.sql)
+      const novo = await criarPostAudio(arquivo.id, {
+        origem: 'exercicio16',
+        aulaPrompt: recordingPromptForStage(stageKey),
+      });
+      if (novo?.id != null) await markSlidePosted(slideKey, novo.id);
+    } catch (error) {
+      console.error('[CoffeeShopLesson] falha ao publicar audio na comunidade:', error?.status, error?.message, error);
+    }
+  }
+
   // real microphone recording for the "Record" practice prompts.
   // isTogglingRecordRef makes start/stop atomic against a fast double-tap
   // (which would otherwise fire overlapping native start/stop calls).
@@ -713,10 +867,12 @@ export default function CoffeeShopLesson({ navigation, route }) {
         await setAudioModeAsync({ allowsRecording: false, playsInSilentMode: true }).catch(() => {});
         setRecording(false);
         if (uri) {
+          const seconds = Math.max(1, Math.round((Date.now() - recordStartRef.current) / 1000));
           setRecordedUri(uri);
           setRecordedOk(true);
           setRecordSuccesses(n => { const next = n + 1; if (next >= 2) unlockBadge('speakingStar'); return next; });
           addXp(20);
+          postAudioToCommunity(stage, uri, seconds);
         } else {
           // nothing was actually captured - don't reward it, let the learner retry
           setRecordedUri(null);
@@ -748,6 +904,7 @@ export default function CoffeeShopLesson({ navigation, route }) {
         audioModeSet = true;
         await recorder.prepareToRecordAsync();
         recorder.record();
+        recordStartRef.current = Date.now();
       } catch (e) {
         setRecording(false);
         // don't leave the audio session stuck in recording mode if setup failed midway
@@ -1046,7 +1203,7 @@ export default function CoffeeShopLesson({ navigation, route }) {
           <View style={[styles.section, { alignItems: 'center' }]}>
             <View style={styles.sentenceBox}><Text style={styles.sentenceText}>{sentence}</Text></View>
             <ListenButton text={sentence} size={52} />
-            <RecordControl recording={recording} recordedOk={recordedOk} recordedUri={recordedUri} onToggle={toggleRecord} onPlay={playMyRecording} />
+            <RecordControl recorder={recorder} recording={recording} recordedOk={recordedOk} recordedUri={recordedUri} onToggle={toggleRecord} onPlay={playMyRecording} />
             <PrimaryButton label="Make Your Order" onPress={makeYourOrder} disabled={!recordedOk} />
           </View>
         );
@@ -1072,7 +1229,7 @@ export default function CoffeeShopLesson({ navigation, route }) {
             <View style={{ flexDirection: 'row', gap: 12, alignItems: 'center' }}>
               <ListenButton text="No, that's all." />
             </View>
-            <RecordControl recording={recording} recordedOk={recordedOk} recordedUri={recordedUri} onToggle={toggleRecord} onPlay={playMyRecording} />
+            <RecordControl recorder={recorder} recording={recording} recordedOk={recordedOk} recordedUri={recordedUri} onToggle={toggleRecord} onPlay={playMyRecording} />
             <PrimaryButton label="Continue" onPress={continueToDining} />
           </View>
         );
@@ -1120,7 +1277,7 @@ export default function CoffeeShopLesson({ navigation, route }) {
               <View style={{ alignItems: 'center', gap: 12, width: '100%' }}>
                 <View style={styles.sentenceBox}><Text style={styles.sentenceText}>{sentence}</Text></View>
                 <ListenButton text={sentence} size={52} />
-                <RecordControl recording={recording} recordedOk={recordedOk} recordedUri={recordedUri} onToggle={toggleRecord} onPlay={playMyRecording} />
+                <RecordControl recorder={recorder} recording={recording} recordedOk={recordedOk} recordedUri={recordedUri} onToggle={toggleRecord} onPlay={playMyRecording} />
                 <PrimaryButton label="Continue" onPress={continueAfterPrice} disabled={!recordedOk} />
               </View>
             )}
@@ -1236,7 +1393,7 @@ export default function CoffeeShopLesson({ navigation, route }) {
               </View>
               {showChangePt && <Text style={styles.hintTextPt}>"Aqui está seu troco, {fmt(change)}."</Text>}
             </View>
-            <RecordControl recording={recording} recordedOk={recordedOk} recordedUri={recordedUri} onToggle={toggleRecord} onPlay={playMyRecording} />
+            <RecordControl recorder={recorder} recording={recording} recordedOk={recordedOk} recordedUri={recordedUri} onToggle={toggleRecord} onPlay={playMyRecording} />
             <PrimaryButton label="Continue" onPress={cashContinue} />
           </View>
         );
@@ -1349,9 +1506,22 @@ const styles = StyleSheet.create({
   sentenceTextSmall: { fontWeight: '700', fontSize: 18 },
   hintText: { fontSize: 13, color: COLORS.textMuted, flex: 1 },
   hintTextPt: { fontSize: 13, color: COLORS.textMuted, fontStyle: 'italic', marginTop: 4 },
-  recordButton: { paddingHorizontal: 20, height: 56, borderRadius: 99, backgroundColor: COLORS.red, alignItems: 'center', justifyContent: 'center' },
-  recordButtonDone: { backgroundColor: COLORS.green },
-  recordButtonText: { color: '#fff', fontWeight: '700', fontSize: 15 },
+  recWrap: {
+    flexDirection: 'row', alignItems: 'center', gap: 14, backgroundColor: COLORS.card,
+    borderRadius: 999, borderWidth: 1, borderColor: COLORS.border, paddingVertical: 10,
+    paddingHorizontal: 14, alignSelf: 'center', minWidth: 250,
+  },
+  recCircle: {
+    borderRadius: 999, width: 64, height: 64, alignItems: 'center', justifyContent: 'center',
+    shadowColor: '#000', shadowOpacity: 0.18, shadowRadius: 6, shadowOffset: { width: 0, height: 3 }, elevation: 4,
+  },
+  recCircleIcon: { fontSize: 24, color: '#fff' },
+  recRing: { position: 'absolute', borderRadius: 999, borderWidth: 2, borderColor: COLORS.red },
+  recInfo: { flex: 1, gap: 4 },
+  recIdleLabel: { color: COLORS.textDark, fontSize: 15, fontWeight: '600' },
+  recTimer: { color: COLORS.textDark, fontSize: 16, fontWeight: '700', fontVariant: ['tabular-nums'] },
+  waveRow: { flexDirection: 'row', alignItems: 'center', gap: 3, height: 26 },
+  waveBar: { width: 3, borderRadius: 2, backgroundColor: COLORS.red },
   playbackButton: { height: 40, paddingHorizontal: 18, borderRadius: 99, borderWidth: 1, borderColor: COLORS.border, backgroundColor: COLORS.card, alignItems: 'center', justifyContent: 'center' },
   playbackButtonText: { fontWeight: '700', fontSize: 13, color: COLORS.primary },
   choiceCard: { flex: 1, borderWidth: 2, borderColor: COLORS.border, borderRadius: 18, padding: 14, gap: 10, alignItems: 'center' },

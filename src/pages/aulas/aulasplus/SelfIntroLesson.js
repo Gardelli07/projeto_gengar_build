@@ -30,6 +30,9 @@ import { KeyboardAvoidingView } from "react-native-keyboard-controller";
 import { useSharedValue, useFrameCallback } from "react-native-reanimated";
 import { runOnJS } from "react-native-worklets";
 import { Images } from "../../../util/images";
+import { enviarArquivo } from "../../../services/arquivos";
+import { criarPostAudio } from "../../../services/comunidade";
+import { getSlidePostId, markSlidePosted } from "../../../util/exercisePosts";
 import { aulasPlusLessons } from "./lessons";
 import {
   loadAulasPlusLessonState,
@@ -819,6 +822,59 @@ export default function SelfIntroLesson({ navigation, route }) {
       after(DELAY, () => up({ s2_speak: true }));
     }
   };
+  // the sentence the learner was asked to say for a given recording point -
+  // used only as the community post's caption, not shown in the lesson UI
+  const recordingPromptFor = (key) => {
+    if (key === "s2") {
+      const choiceEn =
+        st.s2_choice === "great"
+          ? "I'm great"
+          : st.s2_choice === "ok"
+            ? "I'm ok, thanks"
+            : "I'm fine";
+      return `${choiceEn}, and you?`;
+    }
+    if (key === "s5") return st.country ? `I'm from ${st.country.from}` : "";
+    if (key === "s6") return st.nationality ? `I'm ${st.nationality.nat}` : "";
+    if (key === "s8")
+      return `Hi! My name's ${st.name}. My surname is ${st.surname}. I'm ${st.age} years old and I'm from ${st.country ? st.country.from : ""}.`;
+    return "";
+  };
+
+  // mirrors Exercise16's audio-to-community flow (enviarArquivo ->
+  // criarPostAudio), gated by exercisePosts so re-recording or replaying a
+  // scene never posts the same clip to the community twice
+  const postAudioToCommunity = async (key, uri, seconds) => {
+    if (!lesson || !uri) return;
+    const slideKey = `aulasplus:${lesson.id}:${key}`;
+    try {
+      const jaPostado = await getSlidePostId(slideKey);
+      if (jaPostado) return;
+      const arquivo = await enviarArquivo(uri, {
+        tipo: "audio",
+        mimeType: "audio/m4a",
+        duracaoSegundos: seconds,
+      });
+      if (!arquivo?.id) throw new Error("Upload de audio nao retornou um id.");
+      // posts_comunidade.origem is a DB ENUM whose CHECK constraint requires
+      // tipo='audio' posts to use exactly 'exercicio16' - there's no distinct
+      // value for aulas plus yet, so this reuses it (see
+      // banco/BANCO_API_SCHEMA_MYSQL_PT_v2.sql)
+      const novo = await criarPostAudio(arquivo.id, {
+        origem: "exercicio16",
+        aulaPrompt: recordingPromptFor(key),
+      });
+      if (novo?.id != null) await markSlidePosted(slideKey, novo.id);
+    } catch (error) {
+      console.error(
+        "[SelfIntroLesson] falha ao publicar audio na comunidade:",
+        error?.status,
+        error?.message,
+        error,
+      );
+    }
+  };
+
   const record2 = () => {
     if (recKey === "s2") {
       stopRecording((uri, seconds) => {
@@ -828,6 +884,7 @@ export default function SelfIntroLesson({ navigation, route }) {
           s2_audioUri: uri,
           s2_audioSec: seconds,
         });
+        postAudioToCommunity("s2", uri, seconds);
       });
     } else {
       startRecording("s2");
@@ -916,6 +973,7 @@ export default function SelfIntroLesson({ navigation, route }) {
           s5_audioUri: uri,
           s5_audioSec: seconds,
         });
+        postAudioToCommunity("s5", uri, seconds);
       });
     } else {
       startRecording("s5");
@@ -939,6 +997,7 @@ export default function SelfIntroLesson({ navigation, route }) {
           s6_audioUri: uri,
           s6_audioSec: seconds,
         });
+        postAudioToCommunity("s6", uri, seconds);
       });
     } else {
       startRecording("s6");
@@ -962,6 +1021,7 @@ export default function SelfIntroLesson({ navigation, route }) {
           s8_audioUri: uri,
           s8_audioSec: seconds,
         });
+        postAudioToCommunity("s8", uri, seconds);
       });
     } else {
       startRecording("s8");

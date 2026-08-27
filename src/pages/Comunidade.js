@@ -38,6 +38,8 @@ import {
 } from "../services/comunidade";
 import { unmarkSlideByPostId } from "../util/exercisePosts";
 import { isOffensive } from "../util/profanityFilter";
+import { denunciarPost, denunciarComentario } from "../services/denuncias";
+import ReportSheet from "../components/ReportSheet";
 
 const WAVE = [8, 16, 10, 22, 14, 26, 12, 18, 9, 20, 15, 24, 11, 17, 13, 21, 10, 19, 14, 23, 12, 16, 8, 18, 15, 22, 11, 20, 13, 25, 10, 17, 14, 19];
 
@@ -226,7 +228,7 @@ function AudioBody({ audioUrl, duration }) {
 /* ------------------------------------------------------------------ */
 /*  Card do post                                                      */
 /* ------------------------------------------------------------------ */
-function PostCard({ post, isMine, onToggleLike, onOpenComments, onDeletePost, onOpenProfile }) {
+function PostCard({ post, isMine, onToggleLike, onOpenComments, onDeletePost, onReportPost, onOpenProfile }) {
   const commentCount = post.commentsTotal;
   const commentLabel =
     commentCount === 0 ? "Comentar" : commentCount === 1 ? "Ver comentário" : "Ver comentários";
@@ -249,13 +251,21 @@ function PostCard({ post, isMine, onToggleLike, onOpenComments, onDeletePost, on
             </Text>
           </View>
         </Pressable>
-        {isMine && (
+        {isMine ? (
           <TouchableOpacity
             onPress={() => onDeletePost(post.id)}
             style={styles.deleteBtn}
             hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
           >
             <Feather name="trash-2" size={17} color={CORES.COMUNIDADE_MUTED_2} />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            onPress={() => onReportPost(post.id)}
+            style={styles.deleteBtn}
+            hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+          >
+            <Feather name="flag" size={17} color={CORES.COMUNIDADE_MUTED_2} />
           </TouchableOpacity>
         )}
       </View>
@@ -317,7 +327,7 @@ function PostCard({ post, isMine, onToggleLike, onOpenComments, onDeletePost, on
 /* ------------------------------------------------------------------ */
 /*  Bottom-sheet de comentários                                       */
 /* ------------------------------------------------------------------ */
-function CommentsSheet({ post, comments, loading, error, sending, currentUserId, onClose, onSend, onRetry, onDeleteComment, onOpenProfile }) {
+function CommentsSheet({ post, comments, loading, error, sending, currentUserId, onClose, onSend, onRetry, onDeleteComment, onReportComment, onOpenProfile }) {
   const [draft, setDraft] = useState("");
   const visible = !!post;
 
@@ -410,13 +420,21 @@ function CommentsSheet({ post, comments, loading, error, sending, currentUserId,
                       <Text style={styles.commentText}>{item.text}</Text>
                     </View>
                   </Pressable>
-                  {isMine && (
+                  {isMine ? (
                     <TouchableOpacity
                       onPress={() => onDeleteComment(post.id, item.id)}
                       style={styles.commentDeleteBtn}
                       hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
                     >
                       <Feather name="trash-2" size={15} color={CORES.COMUNIDADE_MUTED_2} />
+                    </TouchableOpacity>
+                  ) : (
+                    <TouchableOpacity
+                      onPress={() => onReportComment(post.id, item.id)}
+                      style={styles.commentDeleteBtn}
+                      hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                    >
+                      <Feather name="flag" size={15} color={CORES.COMUNIDADE_MUTED_2} />
                     </TouchableOpacity>
                   )}
                 </View>
@@ -547,6 +565,9 @@ export default function CommunityScreen({ navigation }) {
   const [composerVisible, setComposerVisible] = useState(false);
   const [composerText, setComposerText] = useState("");
   const [composerSending, setComposerSending] = useState(false);
+
+  const [reportTarget, setReportTarget] = useState(null);
+  const [reportSending, setReportSending] = useState(false);
 
   const carregarPosts = useCallback(async (paginaAlvo, { modo } = {}) => {
     try {
@@ -754,6 +775,42 @@ export default function CommunityScreen({ navigation }) {
     }
   }, [composerText, withOwnAvatar]);
 
+  const openReportPost = useCallback((postId) => {
+    setReportTarget({ tipo: "post", postId });
+  }, []);
+
+  const openReportComment = useCallback((postId, comentarioId) => {
+    setReportTarget({ tipo: "comentario", postId, comentarioId });
+  }, []);
+
+  const closeReport = useCallback(() => {
+    if (reportSending) return;
+    setReportTarget(null);
+  }, [reportSending]);
+
+  const submitReport = useCallback(async (motivo, descricao) => {
+    if (!reportTarget) return;
+    setReportSending(true);
+    try {
+      if (reportTarget.tipo === "post") {
+        await denunciarPost(reportTarget.postId, motivo, descricao);
+      } else {
+        await denunciarComentario(reportTarget.comentarioId, motivo, descricao);
+      }
+      setReportTarget(null);
+      Alert.alert("Denúncia enviada", "Nossa equipe vai analisar em breve.");
+    } catch (error) {
+      console.error("[comunidade] falha ao denunciar:", error?.status, error?.message, error);
+      if (error?.status === 409) {
+        Alert.alert("Já denunciado", "Você já denunciou isso.");
+      } else {
+        Alert.alert("Erro", error?.message || "Não foi possível enviar sua denúncia. Tente novamente.");
+      }
+    } finally {
+      setReportSending(false);
+    }
+  }, [reportTarget]);
+
   const openPost = posts.find((p) => p.id === openId) || null;
   const openPostComments = openId ? commentsState[openId] : null;
 
@@ -801,6 +858,7 @@ export default function CommunityScreen({ navigation }) {
               onToggleLike={toggleLike}
               onOpenComments={openComments}
               onDeletePost={deletePost}
+              onReportPost={openReportPost}
               onOpenProfile={openProfile}
             />
           )}
@@ -836,7 +894,15 @@ export default function CommunityScreen({ navigation }) {
         onSend={sendComment}
         onRetry={() => openId && loadComments(openId, { force: true })}
         onDeleteComment={deleteComment}
+        onReportComment={openReportComment}
         onOpenProfile={openProfile}
+      />
+
+      <ReportSheet
+        visible={!!reportTarget}
+        sending={reportSending}
+        onClose={closeReport}
+        onSubmit={submitReport}
       />
 
       <NewPostSheet
