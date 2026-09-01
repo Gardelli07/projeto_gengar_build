@@ -514,7 +514,7 @@ export default function ProfileScreen({ navigation }) {
           <Text style={styles.logoutText}>Sair da conta</Text>
         </Pressable>
 
-        <Text style={styles.version}>Lingueto · versão 1.0.4</Text>
+        <Text style={styles.version}>Lingueto · versão 1.0.0</Text>
       </ScrollView>
 
       <StudyTimeModal

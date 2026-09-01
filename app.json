@@ -20,7 +20,9 @@
       "bundleIdentifier": "com.shironora.lingueto",
       "usesAppleSignIn": true,
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSMicrophoneUsageDescription": "O Lingueto usa o microfone para gravar sua voz nos exercícios de fala e pronúncia.",
+        "NSPhotoLibraryUsageDescription": "O Lingueto acessa suas fotos para você escolher uma foto de perfil e enviar imagens nos exercícios da comunidade."
       }
     },
     "android": {

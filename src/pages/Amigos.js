@@ -20,6 +20,7 @@ import {
   recusarPedidoAmizade,
   desfazerAmizade,
 } from "../services/amizades";
+import { fetchBloqueios, desbloquearUsuario } from "../services/bloqueios";
 import CORES from "../util/cores";
 
 const IconArrowLeft = ({ size = 20, color = CORES.PROFILE_NAVY }) => (
@@ -33,6 +34,7 @@ const TABS = [
   { id: "amigos", label: "Amigos" },
   { id: "recebidos", label: "Recebidos" },
   { id: "enviados", label: "Enviados" },
+  { id: "bloqueados", label: "Bloqueados" },
 ];
 
 function Avatar({ uri, nome }) {
@@ -52,20 +54,23 @@ export default function Amigos({ navigation }) {
   const [amigos, setAmigos] = useState([]);
   const [recebidos, setRecebidos] = useState([]);
   const [enviados, setEnviados] = useState([]);
+  const [bloqueados, setBloqueados] = useState([]);
   const [carregando, setCarregando] = useState(true);
   const [processandoId, setProcessandoId] = useState(null);
 
   const carregar = useCallback(async () => {
     setCarregando(true);
     try {
-      const [listaAmigos, listaRecebidos, listaEnviados] = await Promise.all([
+      const [listaAmigos, listaRecebidos, listaEnviados, listaBloqueados] = await Promise.all([
         fetchAmigos(),
         fetchPedidos("recebidos"),
         fetchPedidos("enviados"),
+        fetchBloqueios(),
       ]);
       setAmigos(listaAmigos);
       setRecebidos(listaRecebidos);
       setEnviados(listaEnviados);
+      setBloqueados(listaBloqueados);
     } catch {
       // mantem a ultima lista boa na tela, so nao atualiza
     } finally {
@@ -114,13 +119,28 @@ export default function Amigos({ navigation }) {
     }
   };
 
-  const listaAtual = tab === "amigos" ? amigos : tab === "recebidos" ? recebidos : enviados;
+  const handleDesbloquear = async (bloqueado) => {
+    setProcessandoId(bloqueado.id);
+    try {
+      await desbloquearUsuario(bloqueado.id);
+      await carregar();
+    } catch (error) {
+      Alert.alert("Erro", error.message || "Não foi possível desbloquear.");
+    } finally {
+      setProcessandoId(null);
+    }
+  };
+
+  const listaAtual =
+    tab === "amigos" ? amigos : tab === "recebidos" ? recebidos : tab === "enviados" ? enviados : bloqueados;
   const vazioTexto =
     tab === "amigos"
       ? "Você ainda não tem amigos. Visite o perfil de alguém na comunidade e adicione."
       : tab === "recebidos"
       ? "Nenhum pedido de amizade recebido."
-      : "Nenhum pedido de amizade enviado.";
+      : tab === "enviados"
+      ? "Nenhum pedido de amizade enviado."
+      : "Você não bloqueou ninguém.";
 
   return (
     <SafeAreaView style={styles.safe} edges={["top", "left", "right"]}>
@@ -137,7 +157,14 @@ export default function Amigos({ navigation }) {
       <View style={styles.tabsRow}>
         {TABS.map((item) => {
           const active = item.id === tab;
-          const count = item.id === "amigos" ? amigos.length : item.id === "recebidos" ? recebidos.length : enviados.length;
+          const count =
+            item.id === "amigos"
+              ? amigos.length
+              : item.id === "recebidos"
+              ? recebidos.length
+              : item.id === "enviados"
+              ? enviados.length
+              : bloqueados.length;
           return (
             <Pressable
               key={item.id}
@@ -217,6 +244,24 @@ export default function Amigos({ navigation }) {
                 )}
               </View>
             ))}
+
+          {tab === "bloqueados" &&
+            bloqueados.map((bloqueado) => (
+              <View key={bloqueado.id} style={styles.card}>
+                <Avatar uri={bloqueado.foto_url ? `${API_URL}${bloqueado.foto_url}` : null} nome={bloqueado.nome} />
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.nome}>{bloqueado.nome}</Text>
+                  <Text style={styles.meta}>Bloqueado</Text>
+                </View>
+                {processandoId === bloqueado.id ? (
+                  <ActivityIndicator color={CORES.PROFILE_BLUE} />
+                ) : (
+                  <Pressable style={styles.declineBtn} onPress={() => handleDesbloquear(bloqueado)}>
+                    <Text style={styles.unblockText}>Desbloquear</Text>
+                  </Pressable>
+                )}
+              </View>
+            ))}
         </ScrollView>
       )}
     </SafeAreaView>
@@ -271,4 +316,5 @@ const styles = StyleSheet.create({
   acceptBtnText: { color: "#fff", fontSize: 12.5, fontWeight: "800" },
   declineBtn: { backgroundColor: CORES.PROFILE_CHIP_BG, borderRadius: 10, paddingVertical: 8, paddingHorizontal: 12 },
   declineBtnText: { color: CORES.PROFILE_MUTED, fontSize: 12.5, fontWeight: "800" },
+  unblockText: { color: CORES.PROFILE_DANGER, fontSize: 12.5, fontWeight: "800" },
 });

@@ -15,6 +15,7 @@ import Svg, { Path } from "react-native-svg";
 import { API_URL } from "../services/api";
 import { fetchPerfilPublico } from "../services/usuarios";
 import { enviarPedidoAmizade, aceitarPedidoAmizade, desfazerAmizade } from "../services/amizades";
+import { bloquearUsuario, desbloquearUsuario } from "../services/bloqueios";
 import { denunciarUsuario } from "../services/denuncias";
 import { getLevelProgress } from "../util/xp";
 import CORES from "../util/cores";
@@ -58,6 +59,14 @@ const IconSwords = ({ size = 17, color = CORES.PROFILE_NAVY }) => (
   </Svg>
 );
 
+const IconUserX = ({ size = 17, color = "#fff" }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
+    <Path d="M13 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+    <Path d="M8 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
+    <Path d="M17 8.5l5 5M22 8.5l-5 5" />
+  </Svg>
+);
+
 export default function PerfilVisitado({ route, navigation }) {
   const usuarioId = route?.params?.usuarioId;
   const [perfil, setPerfil] = useState(null);
@@ -98,6 +107,45 @@ export default function PerfilVisitado({ route, navigation }) {
       await carregar();
     } catch (error) {
       Alert.alert("Erro", error.message || "Não foi possível completar a ação. Tente novamente.");
+    } finally {
+      setProcessandoAcao(false);
+    }
+  };
+
+  const handleBloquear = () => {
+    if (!perfil) return;
+    Alert.alert(
+      "Bloquear usuário",
+      `Bloquear ${displayName} desfaz a amizade (se houver) e cancela desafios em andamento entre vocês. Vocês não vão mais se ver na comunidade. Deseja continuar?`,
+      [
+        { text: "Cancelar", style: "cancel" },
+        {
+          text: "Bloquear",
+          style: "destructive",
+          onPress: async () => {
+            setProcessandoAcao(true);
+            try {
+              await bloquearUsuario(perfil.id);
+              await carregar();
+            } catch (error) {
+              Alert.alert("Erro", error.message || "Não foi possível bloquear. Tente novamente.");
+            } finally {
+              setProcessandoAcao(false);
+            }
+          },
+        },
+      ]
+    );
+  };
+
+  const handleDesbloquear = async () => {
+    if (!perfil || processandoAcao) return;
+    setProcessandoAcao(true);
+    try {
+      await desbloquearUsuario(perfil.id);
+      await carregar();
+    } catch (error) {
+      Alert.alert("Erro", error.message || "Não foi possível desbloquear. Tente novamente.");
     } finally {
       setProcessandoAcao(false);
     }
@@ -175,47 +223,72 @@ export default function PerfilVisitado({ route, navigation }) {
 
             {perfil.relacao !== "voce_mesmo" && (
               <View style={styles.actionsRow}>
-                {perfil.relacao === "nenhuma" && (
-                  <Pressable style={[styles.actionBtn, styles.primaryBtn]} onPress={handleAcaoAmizade} disabled={processandoAcao}>
+                {perfil.bloqueado_por_mim ? (
+                  <Pressable style={[styles.actionBtn, styles.unblockBtn]} onPress={handleDesbloquear} disabled={processandoAcao}>
                     {processandoAcao ? <ActivityIndicator color="#fff" /> : (
                       <>
-                        <IconUserPlus />
-                        <Text style={styles.primaryBtnText}>Adicionar amigo</Text>
+                        <IconUserX />
+                        <Text style={styles.unblockBtnText}>Desbloquear</Text>
                       </>
                     )}
                   </Pressable>
-                )}
-                {perfil.relacao === "pendente_enviado" && (
-                  <Pressable style={[styles.actionBtn, styles.mutedBtn]} onPress={handleAcaoAmizade} disabled={processandoAcao}>
-                    {processandoAcao ? <ActivityIndicator color={CORES.PROFILE_MUTED} /> : (
-                      <Text style={styles.mutedBtnText}>Pedido enviado · cancelar</Text>
-                    )}
-                  </Pressable>
-                )}
-                {perfil.relacao === "pendente_recebido" && (
-                  <Pressable style={[styles.actionBtn, styles.primaryBtn]} onPress={handleAcaoAmizade} disabled={processandoAcao}>
-                    {processandoAcao ? <ActivityIndicator color="#fff" /> : (
+                ) : (
+                  <>
+                    {!perfil.bloqueou_voce && (
                       <>
-                        <IconCheck />
-                        <Text style={styles.primaryBtnText}>Aceitar pedido</Text>
+                        {perfil.relacao === "nenhuma" && (
+                          <Pressable style={[styles.actionBtn, styles.primaryBtn]} onPress={handleAcaoAmizade} disabled={processandoAcao}>
+                            {processandoAcao ? <ActivityIndicator color="#fff" /> : (
+                              <>
+                                <IconUserPlus />
+                                <Text style={styles.primaryBtnText}>Adicionar amigo</Text>
+                              </>
+                            )}
+                          </Pressable>
+                        )}
+                        {perfil.relacao === "pendente_enviado" && (
+                          <Pressable style={[styles.actionBtn, styles.mutedBtn]} onPress={handleAcaoAmizade} disabled={processandoAcao}>
+                            {processandoAcao ? <ActivityIndicator color={CORES.PROFILE_MUTED} /> : (
+                              <Text style={styles.mutedBtnText}>Pedido enviado · cancelar</Text>
+                            )}
+                          </Pressable>
+                        )}
+                        {perfil.relacao === "pendente_recebido" && (
+                          <Pressable style={[styles.actionBtn, styles.primaryBtn]} onPress={handleAcaoAmizade} disabled={processandoAcao}>
+                            {processandoAcao ? <ActivityIndicator color="#fff" /> : (
+                              <>
+                                <IconCheck />
+                                <Text style={styles.primaryBtnText}>Aceitar pedido</Text>
+                              </>
+                            )}
+                          </Pressable>
+                        )}
+                        {perfil.relacao === "amigos" && (
+                          <View style={[styles.actionBtn, styles.friendsChip]}>
+                            <IconCheck color={CORES.PROFILE_GREEN} />
+                            <Text style={styles.friendsChipText}>Amigos</Text>
+                          </View>
+                        )}
+                        {perfil.relacao === "amigos" && !perfil.tem_desafio_com_usuario && (
+                          <Pressable
+                            style={[styles.actionBtn, styles.challengeBtn]}
+                            onPress={() => navigation.navigate("Desafios", { amigoId: perfil.id })}
+                          >
+                            <IconSwords />
+                            <Text style={styles.challengeBtnText}>Desafiar</Text>
+                          </Pressable>
+                        )}
                       </>
                     )}
-                  </Pressable>
-                )}
-                {perfil.relacao === "amigos" && (
-                  <View style={[styles.actionBtn, styles.friendsChip]}>
-                    <IconCheck color={CORES.PROFILE_GREEN} />
-                    <Text style={styles.friendsChipText}>Amigos</Text>
-                  </View>
-                )}
-                {perfil.relacao === "amigos" && !perfil.tem_desafio_com_usuario && (
-                  <Pressable
-                    style={[styles.actionBtn, styles.challengeBtn]}
-                    onPress={() => navigation.navigate("Desafios", { amigoId: perfil.id })}
-                  >
-                    <IconSwords />
-                    <Text style={styles.challengeBtnText}>Desafiar</Text>
-                  </Pressable>
+                    <Pressable style={[styles.actionBtn, styles.blockBtn]} onPress={handleBloquear} disabled={processandoAcao}>
+                      {processandoAcao ? <ActivityIndicator color={CORES.PROFILE_DANGER} /> : (
+                        <>
+                          <IconUserX size={17} color={CORES.PROFILE_DANGER} />
+                          <Text style={styles.blockBtnText}>Bloquear</Text>
+                        </>
+                      )}
+                    </Pressable>
+                  </>
                 )}
               </View>
             )}
@@ -318,6 +391,10 @@ const styles = StyleSheet.create({
   friendsChipText: { color: CORES.PROFILE_GREEN, fontSize: 14.5, fontWeight: "800" },
   challengeBtn: { backgroundColor: CORES.PROFILE_GOLD, flex: 1 },
   challengeBtnText: { color: CORES.PROFILE_NAVY, fontSize: 14.5, fontWeight: "800" },
+  unblockBtn: { backgroundColor: CORES.PROFILE_DANGER, flex: 1 },
+  unblockBtnText: { color: "#fff", fontSize: 14.5, fontWeight: "800" },
+  blockBtn: { backgroundColor: CORES.WHITE, borderWidth: 1.5, borderColor: CORES.PROFILE_DANGER, flex: 1 },
+  blockBtnText: { color: CORES.PROFILE_DANGER, fontSize: 14.5, fontWeight: "800" },
 
   statsRow: { flexDirection: "row", gap: 10, marginTop: 14 },
   statCard: {
